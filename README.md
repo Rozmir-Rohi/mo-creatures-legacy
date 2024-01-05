@@ -80,7 +80,7 @@
  - Corosus for pointing some optimization changes in the code
  - charle88 for shark's model inspiration
  - cdrumer11 for his help with the pink and white dolphin skins
-===========================================================================
+========================================================================
 </details>
 
 ## Use of anatawa12's Fork of ForgeGradle 1.2 within Project:
