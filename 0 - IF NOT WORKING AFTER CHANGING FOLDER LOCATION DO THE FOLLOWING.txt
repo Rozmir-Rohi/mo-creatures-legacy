@@ -1,0 +1,3 @@
+delete the "eclipse" folder and run "gradlew eclipse" again
+
+The problem occurs because eclipse doesn't automatically update the folder location if the modding template was moved.

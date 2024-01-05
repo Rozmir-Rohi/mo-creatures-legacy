@@ -1,0 +1,28 @@
+CUSTOM LICENSE: GNU General Public License v3.0  +  Recommended Measure
+
+
+
+GNU GENERAL PUBLIC LICENSE v3.0: https://choosealicense.com/licenses/gpl-3.0/
+
+
+
+The recomended measure only applies for modified versions of this project and distribution of modified versions where the 16x MoCreatures textures are included. The measure also applies for redistribution of the 16x MoCreatures textures by themselves (both modified and unmodified).
+The recomended measure does not apply for modpack use of this project or any other use, for such uses, the GNU General Public License v3.0 by itself is applied.
+
+
+The recomended measure is not part of the GNU Public License v3.0, so you are not required by the license to follow it. However, if you choose not to follow the measure, I will not be held liable for any legal action you recieve from the original owner of the asset.
+
+
+Regardless of whether the recomended measure is followed, modified versions of this project and redistribution of the 16x MoCreatures textures by themselves (both modified and unmodified) are required by the GNU Public License 3.0 license to apply the GNU Public License 3.0 license by itself without the recomended measure as an additional restriction in their license document.
+
+
+
+
+RECOMMENDED MEASURE:
+ - Give credit to crazyspacekid and provide a link to their original project "Mo' Creatures 16x" (https://www.curseforge.com/minecraft/texture-packs/mo-creatures-16x).
+
+
+
+
+The recommended measure is permitted under section 7 of the GNU General Public License v3.0:
+"If a license document contains a further restriction but permits relicensing or conveying under this License, you may add to a covered work material governed by the terms of that license document, provided that the further restriction does not survive such relicensing or conveying....If you add terms to a covered work in accord with this section, you must place, in the relevant source files, a statement of the additional terms that apply to those files, or a notice indicating where to find the applicable terms."

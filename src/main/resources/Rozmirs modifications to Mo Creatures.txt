@@ -1,0 +1,427 @@
+Fixed Kitty Bed texture render bug.
+ 
+
+Weapons:
+	Fixed weapons not dealing any damage.
+	Fixed game crash on blocking with weapons. This was fixed by using the last update of the Mo' Creatures source code on GitHub.
+ 
+
+
+Readded ability to feed Pet Snakes with live Mice . Shift and right-click on a Pet Snake with a Mouse in your hand, it may be a bit hard to get the aiming right.
+
+ 
+
+Big Golem:
+
+	Fixed Big Golem being invincible even in full form. This was fixed by using the last update of the Mo' Creatures source code on GitHub.
+	Fixed Big Golem trying to pick up Bedrock.
+ 
+
+
+Fixed Werewolf taking too much damage when hit for the first time.  This was fixed by using the last update of the Mo' Creatures source code on GitHub.
+
+
+Renamed some Items and Entities in language file:
+	WWolf --> Dire Wolf
+
+	WildHorse --> Horse
+
+	Pet Food --> Pet Food
+
+	Komodo Egg --> Komodo Dragon Egg
+
+
+
+Removed everything related to custom mob spawner
+
+
+Replaced entity textures with a backport of the textures from crazyspacekid's 16x Mo Creatures Resource pack with further modifications.
+
+
+Removed Ent entity.
+
+
+Fixed Fox, Bear, BigCat, Kitty, Shark, and Pirrana not hunting the Mobs they are supposed to. They also now hunt the specific mobs regardless of whether huntingmobs config is disabled or not.
+
+
+Sharks no longer attack dolphins, this makes it more realistic as in real life sharks are afraid of dolphins.
+
+
+Boars no longer hunt any animal, and only attack in self defence.
+
+
+Kitties, Foxes, and Bears no longer goes out into the ocean to hunt fish.
+
+
+Increased shark hunting cooldown between each prey.
+
+
+Foxes, Bears and Komododragons no longer try to attack creatures larger than themselves.
+
+
+Removed enablehunters config option. All predator creatures will now hunt prey.
+
+
+Crocodile and Komododragons now only hunt creatures they are supposed to.
+
+
+Fixed Shark attacking other Sharks.
+
+
+Pet Shark can now be healed with raw fish or clownfish.
+
+
+Readjusted Kitty Bed fleece colors to better match minecraft wool colours. Also fixed fleece for black Kitty Bed being fully black without any texture.
+
+
+Readjusted code for predators hunting mobs to call functions from parent file MoCAnimal to make code more efficient.
+
+
+Increased attack damage for adult crocodile. The adult crocodile bite is now one of the strongest attacks out of Mo' Creatures animals. Also fixed Crocodile not dealing damage rapidly enough when creatures are stuck inside it's mouth.
+
+
+Fixed Shark not targeting land mobs that are floating in water.
+
+
+Fixed kittybed item of different types being stacked together.
+
+
+Replaced depreciated biome methods "Frozen" and "Desert" with updated biome methods "Snowy" and "Sandy".
+
+
+Sharks now don't attack back if the attacking creature is a monster. This also stops sharks from fighting Gaurdians from the Village Names mod.
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Readjusted entity biome spawns to make creatures spawn in similair biomes as they do in real life. Also Tweaked spawns wieghts of most creatures. Main change for spawn weights is lowering the spawn wieght for predator creatures, lowering spawns for insects to a minimum, and making spawn wieghts closer to spawns for vanilla mobs.
+
+
+Big Cats types now spawn in their proper biomes (lions & cheetahs - savanna | tigers & panthers - jungle | leopard - snow biomes).
+
+Snake types now spawn in their proper biomes (rattle snakes & dark brown snakes - deserts | bright green snake & blackish snake - Forests | ornage snake, bright green snake & cobras - jungle | python, bright green snake & blackish snake - swamps)
+
+
+Readded Roach spawns
+
+Following Creatures Now only spawn in:
+	Lions & Cheetahs - savanna | Tigers and Panthers: jungle | Leopards: snow biomes
+
+	Scorpians: deserts, snow biomes, and in the nether. Cave scorpians will now only be able to be found underground in desert or snow biomes.
+
+	Werewolves and Dire Wolves: taiga biomes
+
+	Ducks now only spawn near: rivers
+
+	Bunnies: forest biomes
+
+	Water Creatures:
+		Piranhas: jungle biomes
+
+		Jellyfish, Sharks, Medium Fish, & Fishies: oceans
+
+
+		Small Fish: rivers and swamp biomes
+
+
+		Dolphins and Rays: oceans and swamps.
+
+	African Elephants: savanna biomes | Asian Elephants: jungle biomes | Mammoths: snow biomes.
+
+	Horse Mobs: plains biomes, savanna biomes, and in the nether.
+
+	Wild Horses: tier 2 horses: plains biomes only | zebra: savanna biomes only
+
+	
+	Black & Brown Bear: Forests, Hills, Extreme Hills | Pandas: Jungle Biomes | Polar Bear: Snow Biomes  
+
+
+	Kitty: Forest biomes
+
+
+	Ostriches: savanna biomes
+
+	Crabs: beach biomes
+
+	Racoons: forest biomes
+
+	Snakes: desert, forest, jungle, and swamp biomes
+
+	Turtles: swamp biomes
+
+	Mouse: forest, hills, and plains biomes
+
+	Goats: mountain biomes
+
+
+	Insects:
+		Bee and Butterfly: Forests and Jungles
+		Ants: Forests, Jungles, Plains, and Swamps
+		Cricket: Forests, Hills, and Plains
+		Dragonfly: Swamps, and near Rivers
+		Firefly: Forests and swamps
+
+		Flies, Maggots, Snails, and Roaches: Forests, Jungles, and Swamps
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Removed config option for zebra spawning wieght within horses as zebras will now spawn in savanna biomes with the same wieght as all other horses.
+
+
+Fixed flying horse speed glitch when players have a creature on their head or in their hand. Now players cannot ride a horse with another creature in their hand or on their head.
+
+
+Fixed glitch where mice and pet baby scorpians will get tilted into their picked up state even if they were failed to get picked up by the player.
+
+
+Fixed naming gui popping up when feeding a tamed Bear.
+
+
+Pandas can now be tamed and healed with Biomes O' Plenty Bamboo.
+
+
+Fixed bug where Crocodile is always sitting and won't move even to attack the player
+
+
+Fixed Crocodile being invisible when doing spin attack.
+
+
+Fixed player model being stuck in death state in f5 mode when dismounting a spinning crocodile without killing it.
+
+
+Renamed fur, hide, reptile, and scorpian armour items' prefixes.
+
+
+Kitty bed, Kitty Litter boxes and Fishbowls now drop themselves on death. Kitty litter boxes will only drop themselves on death if they are clean. Kitty bed and Kitty Litter boxes now have 5 HP.
+
+
+Fixed Whip not working.
+
+
+Fixed Horses not having the health that their teir is supposed to have.
+
+
+Fixed Fire Horse and Dark Pegasus not being immune to Fire.
+
+
+Found Bug: Pet Zebras will not dance to Zebra Shuffle. I don't know how to fix this.
+
+
+Removed all previous APIs, Mo'Creatures is now a standalone mod.
+
+
+Fixed horse dying and horse mad sounds not playing.
+
+
+Added 78 achievements for the Mo' Creatures mod.
+
+
+Increased fairy horse hp from 20 to 35.
+
+
+Every horse that is made from essences or ghost horses now defend themselves against attacking mobs when not mounted.
+
+
+Increased Elephant default attack damage. Adults attack damage is 8, child atttack damage is 4. Both of these increase with the type of tusks they are wearing.
+
+
+Fixed Nightmare horse sitting when using a whip while mounted.
+
+
+Fixed whip sounds not playing when making a horse sit.
+
+
+Change protection values of fur and hide armor to be the same as leather armor.
+
+
+Fixed Dark Pegasus being slower than Teir 1 horse.
+
+
+Simplified and improved efficiency of horse code for interact with player, selecting horse type, and applying attributes.
+
+
+Renamed some variables and funcitons in the code for Golem and Mini Golem to improve the meaningfulness of their identifiers.
+
+
+Readjusted Fire Horse and Fire werewolf animation speed to fit the new 16x texture.
+
+
+Snails, Maggots, and Jellyfish now no longer drop slime balls. 
+
+
+Fixed Snail Hp: reduced from 20hp to 2hp.
+
+
+Made all essence recipies shapeless. Aslo, you now get two empty bottles back from crafting an essence of light.
+
+
+Horses now handle horse armor protection and their damage reduction in almost the same way as vanilla minecraft horses.
+
+
+Modified moclogo image to differentiate from the original mod.
+
+
+Fixed kitty bed items not having thier color as a prefix in thier names.
+
+
+Added built-in Thaumcraft aspects.
+
+
+Added option in config to control wether special horses fight back if attacked.
+
+
+
+
+
+Mo'Creatures now no longer tries to change entity despawning. Despawning of Mo' Creature entities are now handled by default Minecraft. Tamed creatures and item entities (eg: kitty bed) will not despawn. Also removed config option to force despawns.
+
+
+Bunnys now need to be fed a carrot or golden carrot to be tamed. You can heal them using the same items as well. Also fixed players being able to put untamed bunnys on their head.
+
+
+Added death messages for pets. These will only be visable to the owner of the entity.
+
+
+Pandas now eat bamboo item if it is on the ground or dropped near them.
+
+
+Adding petfood to kittybeds and adding sand to used kitty litter boxes can now be automated using dispensers. Or you can drop the item on them yourself if you want to.
+
+
+Added sound effect for kitty using litter box.
+
+
+Added new sounds for Pandas.
+
+
+Bunnies can now be tamed and healed using Biomes O Plenty Wild Carrots, Biomes O Plenty Turnips, and Et Futurum Requiem Beetroot in addition to the previous items (carrot, and golden carrot)
+
+
+Birds can now be tamed and healed using any minecraft seeds, beetroot seeds from et futurum requiem and turnip seeds from Biomes O' Plenty
+
+
+Improved code for interact with birds. Pet birds can now be feed any seeds by hand to feed them or you can drop them near them and they will eat them.
+
+
+Ostriches can now only be healed with seeds. Ostriches now also accept Biomes O Plenty Turnip Seeds, and Et Futurum Requiem Beetroot Seeds
+
+
+Improved code for picking up and dropping birds, bunnies, snakes, mice, pet scorpian, fish bowl, kitty bed, and kitty litter box. You now need to use an empty hand to pickup them up on your head and drop them from your head.
+
+
+Fixed plop sound not playing in many instances.
+
+
+Removed all small fish except for anchovies, gold fish, and angel fish as they were the only freshwater fish. This was done to make small fish only be fresh water fish. 
+
+
+Fixed rattle snake rattle sounds. Also replaced old rattle sounds and added new ones.
+
+
+Added new food items for Big Cats. Big Cats can now be tamed and healed using raw porkchop, raw beef, raw chicken, raw fish, raw ostrich, raw turkey, and et futurum requiem raw rabbit.
+
+
+Baby elephants can now only be tamed using sugar lumps. Tamed elephants can still be healed using sugar lumps and wheat.
+
+
+Simplified elephant code for interact with player that is holding tusks.
+
+
+Renamed pet food to cat food.
+
+
+Rattle snakes now rattle as a warning to the player. If the player ignores the rattle and still approaches the untamed rattle snake it will attack the player.
+
+
+Added proper damaging and drops to kitty litter box, kitty bed, and fish bowl.
+
+
+Added more comments in config file, and removed old config options that were for custom mob spawner.
+
+
+Kitties will now sleep in kitty beds at night if they find one. If they don't find one they will sleep on the spot.
+
+
+By default Creepers are now afraid of Kitties. This was achieved by replacing vanilla MC creepers with own extension of creeper code. Also added a config option to turn this off.
+
+
+THe following wild adult creatures now defend their young from attackers: Bears, Big Cats, and Elephants .
+
+
+Health bars for pets now only show if they are hurt. Health bars can still be disabled all together through config.
+
+
+Using Whip now only interacts with the closest entity to the player, and no longer tries to interact with multiple entities around the player. Also decreased range at which this interactions happens to make the entity sit, you now need to be slighly closer to the entity that you want to sit down.
+
+
+Wraiths and Flame Wraiths can now go through walls.
+
+
+Fixed bug where flying monsters would not fly up to players if they were above them.
+
+
+Removed spawn slimes on death of zombie horse mob.
+
+
+FOUND BUG: Bat Horse monster stops chasing player in the x and z direction if the player manages to get higher than it. I don't know how to fix this.
+
+
+Fixed crocodile hurt sounds not playing.
+
+
+Fixed crocodile walk animation not playing.
+
+
+Improved picked up behavior for mouse, pet scorpian, snake, bird, and bunny. Mouse and Pet Scorpian will now get dropped from the player's hand if the player does not have an empty hand selected. All the previous creeatures will also no longer take damage if you try to punch them while they have been picked up by you.
+
+
+Fixed pet scorpian being too far away from the player when picked up.
+
+
+Elephant bulldozer can now only destroy logs and leaves (anything from a tree). This was done to make elephants similar to real life where they can knock down trees.
+
+
+Removed unused imports and organised imports for all source code.
+
+
+Fixed Pet amulet and Horse amulets displaying old name for horses.
+
+
+Pet Wyverns can now be healed with et futurum raw rabbit.
+
+
+Added new animations for horse and ostrich ramming.
+
+
+All ridable creatures can now only be mounted with an empty hand.
+
+
+Tamed Komododragons can now be healed using et futurum raw rabbit.
+
+
+Elephant:
+	Fixed bug where it gets confused when player tries to ride it.
+
+	Tusks can now only be taken off by using shears on the elephant.
+
+
+Fixed Flying mounts not being as fast as they are supposed to be.
+
+
+Fixed Unicorns not gliding when ridden by player.
+
+
+Fixed dying sounds not playing for following creatures:
+	- Deer
+	- Elephant
+	- Bear
+
+
+Improved name for mount chest containers. Also made mount containers dependent on language file.
+
+
+Fixed deer being frozen. Also fixed deer not running away from players and scary creatures.
+
+
+Big Cats and Bears now hunt deer.

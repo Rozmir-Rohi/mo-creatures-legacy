@@ -1,0 +1,17 @@
+[
+{
+  "modid": "MoCreatures",
+  "name": "Mo' Creatures Legacy",
+  "description": "Restoration of the 1.7.10 Mo' Creatures mod.",
+  "version": "1.0",
+  "mcversion": "1.7.10",
+  "url": "https://www.curseforge.com/minecraft/mc-mods/mo-creatures-legacy",
+  "updateUrl": "",
+  "authorList": ["DrZhark, BloodShot, & BlockDaddy"],
+  "credits": "Rozmir_Rohi for the restoration, + see credits file inside.",
+  "logoFile": "/moclogo.png",
+  "screenshots": [],
+  
+  "dependencies": []
+}
+]

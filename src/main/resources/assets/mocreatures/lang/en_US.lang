@@ -1,0 +1,523 @@
+itemGroup.MoCreaturesTab=MoCreatures
+
+tile.MoCGrass.WyvernLair.name=Wyvern Lair Grass
+tile.MoCGrass.OgreLair.name=Ogre Lair Grass
+tile.MoCStone.WyvernLair.name=Wyvern Lair Stone
+tile.MoCStone.OgreLair.name=Ogre Lair Stone
+tile.MoCDirt.WyvernLair.name=Wyvern Lair Dirt
+tile.MoCDirt.OgreLair.name=Ogre Lair Dirt
+tile.MoCLeaves.WyvernLair.name=Wyvern Lair Leaves
+tile.MoCLeaves.OgreLair.name=Ogre Lair Leaves
+tile.MoCLog.WyvernLair.name=Wyvern Lair Log
+tile.MoCLog.OgreLair.name=Ogre Lair Log
+tile.MoCTallGrass.WyvernLair.name=Wyvern Lair Tall Grass
+tile.MoCTallGrass.OgreLair.name=Ogre Lair Tall Grass
+tile.MoCWoodPlank.WyvernLair.name=Wyvern Lair Wood Plank
+tile.MoCWoodPlank.OgreLair.name=Ogre Lair Wood Plank
+
+item.amuletbone.name=Bone Amulet
+item.amuletbonefull.name=Bone Amulet
+item.amuletfairy.name=Fairy Amulet
+item.amuletfairyfull.name=Fairy Amulet
+item.amuletghost.name=Ghost Amulet
+item.amuletghostfull.name=Ghost Amulet
+item.amuletpegasus.name=Sky Amulet
+item.amuletpegasusfull.name=Sky Amulet
+item.bigcatclaw.name=Big Cat Claw
+item.bo.name=Bo
+item.bowlempty.name=Empty Fish Bowl
+item.bowlfish1.name=Fish Bowl
+item.bowlfish2.name=Fish Bowl
+item.bowlfish3.name=Fish Bowl
+item.bowlfish4.name=Fish Bowl
+item.bowlfish5.name=Fish Bowl
+item.bowlfish6.name=Fish Bowl
+item.bowlfish7.name=Fish Bowl
+item.bowlfish8.name=Fish Bowl
+item.bowlfish9.name=Fish Bowl
+item.bowlfish10.name=Fish Bowl
+item.bowlwater.name=Full Fish Bowl
+item.builderhammer.name=Builder Hammer
+item.chitin.name=Chitin
+item.chitinblack.name=Chitin Black
+item.chitinfrost.name=Chitin Frost
+item.chitinnether.name=Chitin Nether
+item.crabraw.name=Raw Crab
+item.crabcooked.name=Cooked Crab
+item.elephantchest.name=Elephant Chest
+item.elephantgarment.name=Elephant Garment
+item.elephantharness.name=Elephant Harness
+item.elephanthowdah.name=Elephant Howdah
+item.essencedarkness.name=Essence of Darkness
+item.essencefire.name=Essence of Fire
+item.essencelight.name=Essence of Light
+item.essenceundead.name=Essence of Undead
+item.fishnet.name=Fish Net
+item.fur.name=Fur
+item.furboots.name=Fur Boots
+item.furhelmet.name=Fur Hood
+item.furlegs.name=Fur Pants
+item.furchest.name=Fur Tunic
+item.haystack.name=Hay Stack
+item.heartdarkness.name=Heart of Darkness
+item.heartfire.name=Heart of Fire
+item.heartundead.name=Heart of Undead
+item.hide.name=Hide
+item.hideboots.name=Hide Shoes
+item.hidehelmet.name=Hide Cap
+item.hidelegs.name=Hide Pants
+item.hidechest.name=Hide Shawl
+item.horsearmorcrystal.name=Crystal Mount Armor
+item.horsesaddle.name=Crafted Saddle
+item.katana.name=Katana
+item.key.name=Key
+item.kittybed.name=Kitty Bed
+item.kittylitter.name=Litter Box
+item.mammothplatform.name=Mammoth Platform
+item.medallion.name=Medallion
+item.mocegg.name=Spoiled Egg
+item.mocegg.0.name=Blue Fish Egg
+item.mocegg.1.name=Orange Fish Egg
+item.mocegg.2.name=Cyan Fish Egg
+item.mocegg.3.name=Greeny Fish Egg
+item.mocegg.4.name=Green Fish Egg
+item.mocegg.5.name=Purple Fish Egg
+item.mocegg.6.name=Yellow Fish Egg
+item.mocegg.7.name=Striped Fish Egg
+item.mocegg.8.name=Yellowy Fish Egg
+item.mocegg.9.name=Blacky Fish Egg
+item.mocegg.10.name=Red Fish Egg
+item.mocegg.11.name=Shark Egg
+item.mocegg.21.name=Dark Snake Egg
+item.mocegg.22.name=Spotted Snake Egg
+item.mocegg.23.name=Orage Snake Egg
+item.mocegg.24.name=Green Snake Egg
+item.mocegg.25.name=Coral Snake Egg
+item.mocegg.26.name=Cobra Snake Egg
+item.mocegg.27.name=Rattle Snake Egg
+item.mocegg.28.name=Python Snake Egg
+item.mocegg.30.name=Ostrich Egg
+item.mocegg.31.name=Ostrich Egg
+item.mocegg.33.name=Komodo Dragon Egg
+item.mocegg.41.name=Dirt Scorpion Egg
+item.mocegg.42.name=Cave Scorpion Egg
+item.mocegg.43.name=Nether Scorpion Egg
+item.mocegg.44.name=Frost Scorpion Egg
+item.mocegg.45.name=Undead Scorpion Egg
+item.mocegg.50.name=Jungle Wyvern Egg
+item.mocegg.51.name=Swamp Wyvern Egg
+item.mocegg.52.name=Savanna Wyvern Egg
+item.mocegg.53.name=Sand Wyvern Egg
+item.mocegg.54.name=Mother Wyvern Egg
+item.mocegg.55.name=Undead Wyvern Egg
+item.mocegg.56.name=Light Wyvern Egg
+item.mocegg.57.name=Dark Wyvern Egg
+item.mocegg.58.name=Arctic Wyvern Egg
+item.mocegg.59.name=Cave Wyvern Egg
+item.mocegg.60.name=Mountain Wyvern Egg
+item.mocegg.61.name=Sea Wyvern Egg
+item.mocegg.70.name=Salmon Egg
+item.mocegg.71.name=Cod Egg
+item.mocegg.72.name=Bass Egg
+item.mocegg.80.name=Anchovy Egg
+item.mocegg.81.name=Angelfish Egg
+item.mocegg.82.name=Goldfish Egg
+item.mocegg.90.name=Piranha Egg
+item.nunchaku.name=Nunchaku
+item.omelet.name=Omelet
+item.ostrichcooked.name=Cooked Ostrich
+item.ostrichraw.name=Raw Ostrich
+item.petamulet.name=Pet Amulet
+item.petamuletfull.name=Pet Amulet
+item.petfood.name=Cat Food
+item.ratburger.name=Rat Burger
+item.ratcooked.name=Cooked Rat
+item.ratraw.name=Raw Rat
+item.recordshuffle.name=Zebra Record
+item.record.recordshuffle.desc=Shuffling
+item.reptilehide.name=Reptile Hide
+item.reptileboots.name=Reptile Boots
+item.reptilelegs.name=Reptile Leggings
+item.reptileplate.name=Reptile Chestplate
+item.reptilehelmet.name=Reptile Helmet
+item.sai.name=Sai
+item.scorpbootsdirt.name=Dirt Scorpion Boots
+item.scorpbootscave.name=Cave Scorpion Boots
+item.scorpbootsfrost.name=Frost Scorpion Boots
+item.scorpbootsnether.name=Nether Scorpion Boots
+item.scorphelmetdirt.name=Dirt Scorpion Helmet
+item.scorphelmetcave.name=Cave Scorpion Helmet
+item.scorphelmetfrost.name=Frost Scorpion Helmet
+item.scorphelmetnether.name=Nether Scorpion Helmet
+item.scorplegsdirt.name=Dirt Scorpion Leggings
+item.scorplegscave.name=Cave Scorpion Leggings
+item.scorplegsfrost.name=Frost Scorpion Leggings
+item.scorplegsnether.name=Nether Scorpion Leggings
+item.scorpplatedirt.name=Dirt Scorpion Chestplate
+item.scorpplatecave.name=Cave Scorpion Chestplate
+item.scorpplatefrost.name=Frost Scorpion Chestplate
+item.scorpplatenether.name=Nether Scorpion Chestplate
+item.scorpstingdirt.name=Dirt Scorpion Sting
+item.scorpstingcave.name=Cave Scorpion Sting
+item.scorpstingfrost.name=Frost Scorpion Sting
+item.scorpstingnether.name=Nether Scorpion Sting
+item.scorpsworddirt.name=Dirt Scorpion Sword
+item.scorpswordcave.name=Cave Scorpion Sword
+item.scorpswordfrost.name=Frost Scorpion Sword
+item.scrolloffreedom.name=Scroll of Freedom
+item.scrollofowner.name=Scroll of Reset Owner
+item.scrollofsale.name=Scroll of Sale
+item.sharksword.name=Shark Sword
+item.sharkteeth.name=Shark Teeth
+item.staffportal.name=Wyvern Portal Staff
+item.staffteleport.name=Staff Teleport
+item.sugarlump.name=Sugar Lump
+item.scorpswordnether.name=Nether Scorpion Sword
+item.silversword.name=Silver Sword
+item.turkeycooked.name=Cooked Turkey
+item.turkeyraw.name=Raw Turkey
+item.turtleraw.name=Raw Turtle
+item.turtlesoup.name=Turtle Soup
+item.tusksdiamond.name=Diamond Tusks
+item.tusksiron.name=Iron Tusks
+item.tuskswood.name=Wood Tusks
+item.unicornhorn.name=Unicorn Horn
+item.whip.name=Whip
+item.woolball.name=Wool Ball
+
+entity.MoCreatures.CreeperExtension.name=Creeper
+entity.MoCreatures.Ant.name=Ant
+entity.MoCreatures.Bear.name=Bear
+entity.MoCreatures.Bee.name=Bee
+entity.MoCreatures.BigCat.name=Big Cat
+entity.MoCreatures.BigGolem.name=Big Golem
+entity.MoCreatures.Bird.name=Bird
+entity.MoCreatures.Boar.name=Boar
+entity.MoCreatures.Bunny.name=Bunny
+entity.MoCreatures.ButterFly.name=Butterfly
+entity.MoCreatures.Crab.name=Crab
+entity.MoCreatures.Cricket.name=Cricket
+entity.MoCreatures.Crocodile.name=Crocodile
+entity.MoCreatures.Deer.name=Deer
+entity.MoCreatures.Dolphin.name=Dolphin
+entity.MoCreatures.DragonFly.name=Dragonfly
+entity.MoCreatures.Duck.name=Duck
+entity.MoCreatures.Egg.name=Egg
+entity.MoCreatures.Elephant.name=Elephant
+entity.MoCreatures.Firefly.name=Firefly
+entity.MoCreatures.FishBowl.name=Fish Bowl
+entity.MoCreatures.Fishy.name=Fishy
+entity.MoCreatures.FlameWraith.name=Flame Wraith
+entity.MoCreatures.Fly.name=Fly
+entity.MoCreatures.Fox.name=Fox
+entity.MoCreatures.Goat.name=Goat
+entity.MoCreatures.HellRat.name=Hell Rat
+entity.MoCreatures.HorseMob.name=Horse Mob
+entity.MoCreatures.JellyFish.name=Jellyfish
+entity.MoCreatures.Kitty.name=Kitty
+entity.MoCreatures.KittyBed.name=Kitty Bed
+entity.MoCreatures.LitterBox.name=Kitty Litter Box
+entity.MoCreatures.KomodoDragon.name=Komodo Dragon
+entity.MoCreatures.Maggot.name=Maggot
+entity.MoCreatures.MediumFish.name=Medium Fish
+entity.MoCreatures.MiniGolem.name=Mini Golem
+entity.MoCreatures.Mole.name=Mole
+entity.MoCreatures.Mouse.name=Mouse
+entity.MoCreatures.Ogre.name=Ogre
+entity.MoCreatures.Ostrich.name=Ostrich
+entity.MoCreatures.PetScorpion.name=Pet Scorpion
+entity.MoCreatures.Piranha.name=Piranha
+entity.MoCreatures.Raccoon.name=Raccoon
+entity.MoCreatures.Rat.name=Rat
+entity.MoCreatures.Ray.name=Ray
+entity.MoCreatures.Roach.name=Roach
+entity.MoCreatures.Scorpion.name=Scorpion
+entity.MoCreatures.Shark.name=Shark
+entity.MoCreatures.SilverSkeleton.name=Silver Skeleton
+entity.MoCreatures.SmallFish.name=Small Fish
+entity.MoCreatures.Snail.name=Snail
+entity.MoCreatures.Snake.name=Snake
+entity.MoCreatures.Turkey.name=Turkey
+entity.MoCreatures.Turtle.name=Turtle
+entity.MoCreatures.Werewolf.name=Werewolf
+entity.MoCreatures.WildHorse.name=Horse
+entity.MoCreatures.Wraith.name=Wraith
+entity.MoCreatures.WWolf.name=Dire Wolf
+entity.MoCreatures.Wyvern.name=Wyvern
+
+
+
+
+
+container.MoCreatures.HorseChest=Horse Chest
+container.MoCreatures.ElephantChest=Elephant Chest
+container.MoCreatures.OstrichChest=Ostrich Chest
+container.MoCreatures.WyvernChest=Wyvern Chest
+
+
+
+
+
+achievement.craft_saddle=Saddle Maker
+achievement.craft_saddle.desc=Make a crafted saddle. Equip this on ridable pets to ride them. You can also use a shear on any pet that's wearing a saddle or other equipment to take them off
+
+achievement.tier2_horse=Tier 2 Horse
+achievement.tier2_horse.desc=Tame any normal Mo' Creatures horse using an apple
+
+achievement.tier3_horse=Tier 3 Horse
+achievement.tier3_horse.desc=Breed the correct tier 2 horse with the correct vanilla minecraft horse using pumpkins, cake or mushroom stew
+
+achievement.tier4_horse=Tier 4 Horse
+achievement.tier4_horse.desc=Breed the correct tier 3 horse with the correct vanilla minecraft horse using pumpkins, cake or mushroom stew
+
+achievement.zebra=Zebra Tamer
+achievement.zebra.desc=Tame a zebra by approaching it with a tier 4 horse and then feeding it with an apple. Zebras are found in savannah type biomes
+
+achievement.zorse=Zorse
+achievement.zorse.desc=Breed a tamed zebra with any other horse using pumpkins, cake or mushroom stew
+
+
+
+
+achievement.heart_undead=Heart of Undead
+achievement.heart_undead.desc=Obtain a heart of undead from an undead horse mob
+
+achievement.essence_undead=Essence of Undead
+achievement.essence_undead.desc=Craft an essence of undead.
+
+achievement.undead_horse=Undead Horse
+achievement.undead_horse.desc=Obtain an undead horse by feeding a pet zorse or special horse with an essence of undead. This horse can only be healed using essences of undead
+
+achievement.amulet_bone=Skeleton Horse Storage
+achievement.amulet_bone.desc=Craft a bone amulet
+
+
+achievement.ghost_horse=Ghost Horse
+achievement.ghost_horse.desc=Obtain a pet ghost horse. Sometimes when a tier 3+ horse dies, it might become a ghost horse. This horse can only be healed using essences of undead
+
+achievement.amulet_ghost=Ghost Horse Storage
+achievement.amulet_ghost.desc=Craft a ghost amulet
+
+
+
+
+
+achievement.heart_fire=Heart of Fire
+achievement.heart_fire.desc=Obtain a heart of fire from a nightmare horse mob
+
+achievement.essence_fire=Essence of Fire
+achievement.essence_fire.desc=Craft an essence of fire.
+
+achievement.nightmare_horse=Nightmare Horse
+achievement.nightmare_horse.desc=Obtain a nightmare horse by feeding a pet zorse with an essence of fire. This horse is fire-proof. This horse can only be healed using essences of fire
+
+
+
+achievement.heart_darkness=Heart of Darkness
+achievement.heart_darkness.desc=Obtain a heart of darkness from a bat horse mob.
+
+achievement.essence_darkness=Essence of Darkness
+achievement.essence_darkness.desc=Craft an essence of darkness
+
+achievement.bat_horse=Bat Horse
+achievement.bat_horse.desc=Obtain a bat horse by feeding a pet zorse with an essence of darkness. This horse can fly. This horse can only be healed using essences of darkness
+
+achievement.crystal_horse_armor=Crystal Horse Armor
+achievement.crystal_horse_armor.desc=Craft crystal horse armor. This is the strongest horse armor, and it can only be worn by special horses
+
+
+
+
+
+
+achievement.essence_light=Essence of Light
+achievement.essence_light.desc=Craft an essence of light by combining the three base essences.
+
+achievement.pegasus=Pegasus
+achievement.pegasus.desc=Obtain a pegasus by feeding a pet bat horse with an essence of light while it is above y level 150. This horse can fly and can carry a chest. This horse can only be healed using essences of light
+
+achievement.unicorn=Unicorn
+achievement.unicorn.desc=Obtain a unicorn by feeding a pet nightmare horse with an essence of light. This horse can ram, and glide. This horse can only be healed using essences of light
+
+
+achievement.amulet_sky=Pegasus Storage
+achievement.amulet_sky.desc=Craft a sky amulet. The fire for the amulet's crafting recipie can be obtained from hell rats
+
+achievement.dark_pegasus=Dark Pegasus
+achievement.dark_pegasus.desc=Obtain a dark pegasus by feeding a pet pegasus with an essence of darkness. This is the strongest horse, it also fire-proof, can fly, and can carry a chest. This horse can only be healed using essences of light
+
+
+achievement.fairy_horse=Fairy Horse!
+achievement.fairy_horse.desc=Obtain a fairy horse by breeding a pegasus with a unicorn using essences of light. This is the fastest flying horse, it can also carry a chest, and it can ram when on the ground . Feed this horse a dye to permanently change it's fairy type. This horse can only be healed using essences of light
+
+
+achievement.amulet_fairy=Fairy Horse Storage
+achievement.amulet_fairy.desc=Craft a fairy amulet. The fire for the amulet's crafting recipie can be obtained from hell rats
+
+
+
+achievement.wyvern_portal_staff=Where the Wyverns live
+achievement.wyvern_portal_staff.desc=Craft a wyvern portal staff and travel to the wyvern lair
+
+achievement.wyvern_egg=The Fastest of Them All
+achievement.wyvern_egg.desc=Obtain a wyvern egg from a mother wyvern. After hatching, pet wyverns like to eat raw rat and raw rabbit
+
+achievement.tame_elephant=Elephant Tamer
+achievement.tame_elephant.desc=Tame a baby elephant or mammoth using many sugar lumps
+
+achievement.mount_elephant=Elephant Rider
+achievement.mount_elephant.desc=Ride a tamed adult elephant using an elephant harness. You need to make it sit first to climb on. You can make an elephant sit by sneaking near it
+
+achievement.mammoth_platform=A Platform for Two
+achievement.mammoth_platform.desc=Put a mammoth platform on a mammoth that is wearing an elephant harness. Two players can ride a mammoth when it has a mammoth platform. The second player has to sneak and right-click to get on
+
+achievement.elephant_garment=Asian Elephant Fashion
+achievement.elephant_garment.desc=Put an elephant garment on an asian elephant
+
+achievement.elephant_tusks=Battle Ready
+achievement.elephant_tusks.desc=Equip an elephant with any tusks. Elephants equipped with tusks can ram when whipped and can destroy trees. The effectiveness tree breaking depends on the type of elephant and the tusks it's wearing.
+
+achievement.elephant_chest=Elephant Storage
+achievement.elephant_chest.desc=Put an elephant chest on an elephant that is wearing an elephant harness. Elephants can hold up to two elephant chests. You can open the chests using a key
+
+
+achievement.elephant_howdah=Your Highness
+achievement.elephant_howdah.desc=Put an elephant howdah on an asian elephant that is wearing an elephant garment
+
+achievement.craft_medallion=Universal Re-Naming
+achievement.craft_medallion.desc=Craft a medallion. You can use this to rename tamed creatures
+
+achievement.tame_kitty=Kitty Tamer
+achievement.tame_kitty.desc=Tame a kitty by dropping some cooked fish near it and putting a medallion on it after it eats some of the fish
+
+achievement.kitty_litter_box=Kitty Litter Box
+achievement.kitty_litter_box.desc=Craft a kitty litter box
+
+achievement.kitty_litter=Kitty Business
+achievement.kitty_litter.desc=Clean a used kitty litter box by yourself using sand. You can automate this process later using a dispenser
+
+achievement.kitty_bed=Kitty Bed
+achievement.kitty_bed.desc=Craft any kitty bed
+
+achievement.pet_food=Feeding the Cat
+achievement.pet_food.desc=Fill a kitty bed by yourself with some milk or cat food. You can automate this process later using a dispenser
+
+achievement.wool_ball=Kitty Play Time
+achievement.wool_ball.desc=Craft a wool ball
+
+achievement.tame_big_cat=Big Cat Tamer
+achievement.tame_big_cat.desc=Tame a baby big cat by dropping some raw meat near it and putting a medallion on it after it eats a good amount of the meat
+
+achievement.big_cat_claw=Big Cat Hunter
+achievement.big_cat_claw.desc=Obtain a big cat claw
+
+achievement.craft_whip=Time to crack the Whip!
+achievement.craft_whip.desc=Craft a whip. Use this to make any tamed creature sit. Use this while riding any creature to make it sprint. Use for special effects while riding a nightmare horse, unicorn, unicorn ostrich, or elephant
+
+achievement.indiana=Just like Indiana Jones
+achievement.indiana.desc=Use a whip on a tamed Big Cat more than 6 times 
+
+achievement.shark_tooth=Shark Boxer
+achievement.shark_tooth.desc=Obtain a shark tooth
+
+achievement.fish_net=Time to catch more Fish
+achievement.fish_net.desc=Craft a fish net. Use this to catch and tame aquatic creatures. You can also use it to store any aquatic pet.
+
+achievement.shark_sword=A very Toothy Sword
+achievement.shark_sword.desc=Craft a shark sword
+
+achievement.catch_fish_in_fish_bowl=Fishy in a Bowl
+achievement.catch_fish_in_fish_bowl.desc=Catch a fishy in a fish bowl.
+
+achievement.tame_bird=Bird Tamer
+achievement.tame_bird.desc=Tame a bird by dropping any seeds near it and feed it seeds by yourself after it eats some of the seeds on the ground. With a pet bird on your head you can glide down from tall places
+
+achievement.feed_snake_with_live_mouse=Live Feeding
+achievement.feed_snake_with_live_mouse.desc=Feed a live mouse to a pet snake. Shift and right clik a pet snake with a live mouse in your hand, it may be a bit hard to get the aiming right though
+
+achievement.tame_panda=Panda Tamer
+achievement.tame_panda.desc=Tame a baby panda using sugar cane or bamboo
+
+achievement.tame_scorpian=Scorpian Tamer
+achievement.tame_scorpian.desc=Tame a baby scorpian by petting it with an empty hand. Once fully grown, you can ride it up walls.
+
+achievement.ostrich_egg=Egg Thief
+achievement.ostrich_egg.desc=Breed a wild ostrich couple using melon seeds and steal their egg. Pet adult ostriches can be ridden, can carry a chest, and can wear a helmet. Tamed ostriches can also be transformed with essences. Ostriches carrying chests can also be given a wool block to carry a flag.
+
+achievement.pet_amulet=Pet Storage
+achievement.pet_amulet.desc=Craft a pet amulet. Use this to store almost any tamed creature
+
+achievement.cook_omelette=Sunny Side Up
+achievement.cook_omelette.desc=Cook any egg
+
+achievement.cook_turkey=More filling than Chicken
+achievement.cook_turkey.desc=Cook raw turkey
+
+achievement.cook_ostrich=Tastes more like Beef
+achievement.cook_ostrich.desc=Cook raw ostrich
+
+achievement.cook_rat=Tastes like Chicken
+achievement.cook_rat.desc=Cook raw rat
+
+achievement.rat_burger=With Flame Grilled Rat
+achievement.rat_burger.desc=Make a rat burger
+
+achievement.cook_crab=Seafood Classic
+achievement.cook_crab.desc=Cook raw crab
+
+achievement.cook_turtle=Questionable Delicacy
+achievement.cook_turtle.desc=Make turtle soup
+
+achievement.kill_wraith=Ghost Buster
+achievement.kill_wraith.desc=Kill a wraith
+
+achievement.kill_ogre=Ogre Slayer
+achievement.kill_ogre.desc=Kill an ogre
+
+achievement.kill_werewolf=Werewolf Slayer
+achievement.kill_werewolf.desc=Kill a werewolf in it's wolf form
+
+achievement.kill_big_golem=Golem Slayer
+achievement.kill_big_golem.desc=Kill a big golem and get it's centre block
+
+achievement.leonardo=Leonardo
+achievement.leonardo.desc=Obtain a katana from a leonardo turtle
+
+achievement.raphael=Raphael
+achievement.raphael.desc=Obtain a sai from a raphael turtle
+
+achievement.donatello=Donatello
+achievement.donatello.desc=Obtain a bo from a donatello turtle
+
+achievement.michelangelo=Michelangelo
+achievement.michelangelo.desc=Obtain a nunchaku from a michelangelo turtle
+
+achievement.silver_sword=Werewolves' Bane
+achievement.silver_sword.desc=Obtain a silver sword from a silver skeleton
+
+achievement.get_fur=Critter Killer
+achievement.get_fur.desc=Obtain fur
+
+achievement.fur_armor=Eskimo Clothing
+achievement.fur_armor.desc=Craft any piece of fur armor
+
+achievement.get_hide=Game Hunter
+achievement.get_hide.desc=Obtain hide
+
+achievement.hide_armor=Huntsman's Choice
+achievement.hide_armor.desc=Craft any piece of hide armor
+
+achievement.get_reptile_hide=Reptile Hunter
+achievement.get_reptile_hide.desc=Obtain reptile hide
+
+achievement.reptile_armor=Strong as Iron
+achievement.reptile_armor.desc=Craft any piece of reptile armor
+
+achievement.get_scorpian_material=Scorpian Hunter
+achievement.get_scorpian_material.desc=Obtain any scorpian chitin or scorpian sting
+
+achievement.scorpian_sword=Scorpian Bladesman
+achievement.scorpian_sword.desc=Craft any scorpian sword
+
+achievement.scorpian_armor=Scorpian Warrior
+achievement.scorpian_armor.desc=Craft any piece of scorpian armor. Wear a full set of the same type for a set bonus.

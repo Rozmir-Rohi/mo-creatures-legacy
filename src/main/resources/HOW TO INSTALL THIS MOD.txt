@@ -1,0 +1,30 @@
+Mo Creatures Legacy Redux REQUIRES Java 8 and a SpongeMixins mixin loader mod. 
+
+For the mixin loader mod, download either the "SpongeMixins" mod or the "Unimixins" mod and put them in the mod folder before you start Minecraft with Mo Creatures Legacy Redux.
+
+
+=============================================
+-----------INSTALL INSTRUCTIONS--------------
+
+Ensure you have Java 8 installed on your
+computer first. Then:
+
+1. Install Minecraft Forge for 1.7.10
+
+2. Locate your .minecraft folder
+
+3. Download either the "SpongeMixins" mod or the "UniMixins" mod and move them to \.minecraft\mods folder
+
+4. Copy the MoCreatures.jar file to \.minecraft\mods folder
+
+5. Start Minecraft
+
+6. Play - profit
+
+7. Beware of the Ogre! (you've been warned)
+
+8. Punch the sharks in the nose!
+
+9. If a crocodile looks asleep, don't poke it.
+
+=============================================

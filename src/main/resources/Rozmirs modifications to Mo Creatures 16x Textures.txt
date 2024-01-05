@@ -1,0 +1,41 @@
+Resized canvas to fit 1.7.10 format: bear
+
+Fixed eyes and/or mouth and/or nose: bear, all horses, wwolf, werewolf, boar, medium fish, crocodile, wyvern, all deer, raccoon, all ostriches
+
+Fixed ears: all big cats
+
+Fixed body texture: lion, cheetah, tiger
+
+Removed 16x texture because it didn't fit with the model: ant, cricket, kitty, jelly fish    <---- They look much better this way and they don't look too out of place because they are not very detailed x32 textures. Also, some of these texture lose vital details with the 16x version.
+
+Improved face, sheild and blade textures: silver skeleton
+
+Combined 16x shading with 32x details: roach     <--- This was due to the full 16x textures not fitting with the model (legs and antenna)
+
+Fixed fangs: snakes
+
+Fixed saddle texture inconsistency: all horses
+
+Reworked textures from original 32x textures due to changes in 1.7.10 format: all big cats except panther
+
+Fixed tail: turkey
+
+Fixed & improved larva texture, also improved eye texture of fire scorpian: scorpian, scorpian saddle
+
+Improved texture: particle effect for undead horse transformation
+
+Improved eyes: Dolphin, Crocodile
+
+Fixed ears being connected: Fox and Fox Cub
+
+Added 16x Kitty Emoticons
+
+Fixed Fishy textures in Fish bowl and Fishy Tails.
+
+Removed 16x texture for small fish.
+
+Fixed Head, Helmets, & Wings : Ostrich
+
+Fixed some textures being fake PNGs.
+
+Fixed wings: pegasus and dark pegasus.
