@@ -1,7 +1,7 @@
 # Mo Creatures Legacy
 
 <details>
- <summary><span style="font-size: 18px;">Credits & Assets Used:</summary>
+ <summary><h2>Credits & Assets Used:</h2></summary>
  DrZhark, Bloodshot, BlockDaddy and remaining Original Mo' Creatures contributers - This project is a modified version of DrZhark's Mo' Creatures Mod v6.3.1 for Minecraft 1.7.10 and is licensed through the GNU Genral Public License Version 3 as per the conditions of the original project's license. DrZhark's Mo' Creatures Mod Original Forum Post:  http://www.minecraftforum.net/viewtopic.php?f=25&t=86929
  
   
