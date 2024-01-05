@@ -1,4 +1,4 @@
-# Example Project
+# Mo Creatures Legacy
 
 
 
