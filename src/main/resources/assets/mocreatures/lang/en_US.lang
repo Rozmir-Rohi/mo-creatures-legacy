@@ -259,6 +259,9 @@ container.MoCreatures.OstrichChest=Ostrich Chest
 container.MoCreatures.WyvernChest=Wyvern Chest
 
 
+death.MoCreatures.attack.dehydration=%1$s died from dehydration
+
+
 
 
 

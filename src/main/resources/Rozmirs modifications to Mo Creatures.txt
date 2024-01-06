@@ -133,7 +133,7 @@ Following Creatures Now only spawn in:
 	Wild Horses: tier 2 horses: plains biomes only | zebra: savanna biomes only
 
 	
-	Black & Brown Bear: Forests, Hills, Extreme Hills | Pandas: Jungle Biomes | Polar Bear: Snow Biomes  
+	Black & Brown Bear: Forests, Hills, Extreme Hills | Pandas: Jungle Biomes (and Bamboo Forest if you use a mod that adds it in) | Polar Bear: Snow Biomes  
 
 
 	Kitty: Forest biomes
@@ -178,7 +178,7 @@ Fixed glitch where mice and pet baby scorpions will get tilted into their picked
 Fixed naming gui popping up when feeding a tamed Bear.
 
 
-Pandas can now be tamed and healed with Biomes O' Plenty Bamboo.
+Pandas can now be tamed and healed with Biomes O' Plenty, Et Futurum Requiem, and Tropicraft Bamboo.
 
 
 Fixed bug where Crocodile is always sitting and won't move even to attack the player
@@ -428,3 +428,5 @@ Big Cats and Bears now hunt deer.
 
 
 Made the remaining gui related text dependent on language files.
+
+Fixed pet fish drowned death message. Also added new death message for aquatic pets dying out of water.

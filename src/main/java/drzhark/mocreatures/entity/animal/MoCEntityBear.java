@@ -432,7 +432,8 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             	if (item == Items.reeds
             		|| item == Items.sugar
             		|| (((item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:bamboo")))
-            		|| (((item.itemRegistry).getNameForObject(item).equals("etfuturum:bamboo"))))
+            		|| (((item.itemRegistry).getNameForObject(item).equals("etfuturum:bamboo")))
+            		|| (((item.itemRegistry).getNameForObject(item).equals("tropicraft:bambooChute"))))
             	{
 
             		float f = entityitem.getDistanceToEntity(this);
@@ -462,7 +463,9 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         		(itemstack.getItem() == MoCreatures.sugarlump) 
         		|| (itemstack.getItem() == Items.reeds 
         		|| (((itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem())).equals("BiomesOPlenty:bamboo")))
-        		|| (((itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem())).equals("etfuturum:bamboo"))))
+        		|| (((itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem())).equals("etfuturum:bamboo"))
+        		|| (((itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem())).equals("tropicraft:bambooChute"))
+        	))
         {
         	
             if (--itemstack.stackSize == 0)
@@ -590,13 +593,23 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     @Override
     public boolean isMyFavoriteFood(ItemStack par1ItemStack)
     {
-    	return this.getType() == 3 && par1ItemStack != null && (par1ItemStack.getItem() == Items.reeds || (par1ItemStack.getItem() == Items.reeds || ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("BiomesOPlenty:bamboo") || ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("etfuturum:bamboo"))); //can eat Et Futurum bamboo item and Biomes O' Plenty bamboo item and sugar cane 
+    	return this.getType() == 3 && par1ItemStack != null && (
+    			par1ItemStack.getItem() == Items.reeds
+    			|| ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("BiomesOPlenty:bamboo")
+    			|| ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("etfuturum:bamboo")
+    			|| ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("tropicraft:bambooChute")
+    			); 
     }
 
     @Override
     public boolean isMyHealFood(ItemStack par1ItemStack)
     {
-        return this.getType() == 3 && par1ItemStack != null && (par1ItemStack.getItem() == Items.reeds || (par1ItemStack.getItem() == Items.reeds || ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("BiomesOPlenty:bamboo") || ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("etfuturum:bamboo"))); //can eat Et Futurum bamboo item and Biomes O' Plenty bamboo item and sugar cane
+        return this.getType() == 3 && par1ItemStack != null && (
+        		par1ItemStack.getItem() == Items.reeds
+        		|| ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("BiomesOPlenty:bamboo")
+        		|| ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("etfuturum:bamboo")
+        		|| ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("tropicraft:bambooChute")
+        		); 
     }
 
     @Override

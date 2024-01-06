@@ -2,6 +2,7 @@ package drzhark.mocreatures;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import drzhark.mocreatures.entity.IMoCTameable;
+import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.vanilla_mc_extension.EntityCreeperExtension;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
@@ -115,7 +116,12 @@ public class MoCEventHooks {
 	                    	
 	                    		else if (last_damage_before_death == DamageSource.inWall) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.inWall", new Object[] {mocEntity.getName()}));}
 	                    	
-	                    		else if (last_damage_before_death == DamageSource.drown) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.drown", new Object[] {mocEntity.getName()}));}
+	                    		else if (last_damage_before_death == DamageSource.drown)
+	                    		{
+	                    			if (mocEntity instanceof MoCEntityAquatic) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.MoCreatures.attack.dehydration", new Object[] {mocEntity.getName()}));}
+	                    			
+	                    			else {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.drown", new Object[] {mocEntity.getName()}));}
+	                    		}
 	                    	
 	                    		else if (last_damage_before_death == DamageSource.cactus) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.cactus", new Object[] {mocEntity.getName()}));}
 	                    	
