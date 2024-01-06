@@ -23,13 +23,14 @@
   
  
 <strong> TheAetherTeam </strong> - The AchievementsAether.class and Aether.class code from the 1.7.10 Aether Mod helped me understand how to add an achievements class that is separate to the main mod class file. This asset was used under the GNU Lesser General Public License v3.0 through the custom license condition of The Aether mod "The source code of The Aether mod for Minecraft 1.7+ is under the LGPL v3.0 license".TheAetherTeam - The AchievementsAether.class and Aether.class code from the 1.7.10 Aether Mod helped me understand how to add an achievements class that is separate to the main mod class file. This asset was used under the GNU Lesser General Public License v3.0 through the custom license condition of The Aether mod "The source code of The Aether mod for Minecraft 1.7+ is under the LGPL v3.0 license".The different custom license of this project is permitted under the GNU Lesser General Public License v3.0 from the following sections:
+
 	GNU Lesser General Public License v3.0 - Section 0:
 		   "..."The Library" refers to a covered work governed by this License",
 		   "A “Combined Work” is a work produced by combining or linking an Application with the Library"
 
 	GNU Lesser General Public License v3.0 - Section 4:
-     "You may convey a Combined Work under terms of your choice" provided that:
- 			     - Private modifications are allowed.
+     		"You may convey a Combined Work under terms of your choice" provided that:
+			- Private modifications are allowed.
  		     	- Notice is given that the Library is used
 		      	- A copy of the GNU Lesser Public License is provided along with a copy of the GNU General Public License.
  		     	- Access is provided to the source code of the Library.
