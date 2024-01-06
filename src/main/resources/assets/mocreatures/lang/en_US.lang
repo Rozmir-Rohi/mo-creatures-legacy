@@ -247,7 +247,11 @@ entity.MoCreatures.Wyvern.name=Wyvern
 
 
 
+amulet_desc.MoCreatures.ownedBy=Owned by
 
+
+gui_namer.MoCreatures.chooseName=Choose your Pet's name:
+gui_namer.MoCreatures.done=Done
 
 container.MoCreatures.HorseChest=Horse Chest
 container.MoCreatures.ElephantChest=Elephant Chest

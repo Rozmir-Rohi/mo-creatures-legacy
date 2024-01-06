@@ -18,6 +18,7 @@ import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageAppear;
 import drzhark.mocreatures.utils.MoCLog;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -89,7 +90,7 @@ public class MoCItemPetAmulet extends MoCItem
                 {
                     if (spawnClass.equalsIgnoreCase("MoCHorse"))
                     {
-                        spawnClass = "Horse";
+                        spawnClass = "WildHorse";
                     }
 
                     EntityLiving tempLiving = MoCTools.spawnListByNameClass(spawnClass, worldObj);
@@ -243,9 +244,9 @@ public class MoCItemPetAmulet extends MoCItem
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
         initAndReadNBT(par1ItemStack);
-        if (spawnClass != "") par3List.add(EnumChatFormatting.AQUA + this.spawnClass);
+        if (spawnClass != "") par3List.add(EnumChatFormatting.AQUA + I18n.format("entity.MoCreatures." + this.spawnClass + ".name"));
         if (name != "")    par3List.add(EnumChatFormatting.BLUE + this.name);
-        if (ownerName != "") par3List.add(EnumChatFormatting.DARK_BLUE + "Owned by " + this.ownerName);
+        if (ownerName != "") par3List.add(EnumChatFormatting.DARK_BLUE + I18n.format("amulet_desc.MoCreatures.ownedBy") + " " + this.ownerName);
     }
     
     private void initAndReadNBT(ItemStack itemstack)

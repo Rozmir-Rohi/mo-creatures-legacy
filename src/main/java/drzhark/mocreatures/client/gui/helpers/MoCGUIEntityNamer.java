@@ -14,6 +14,7 @@ import drzhark.mocreatures.network.message.MoCMessageUpdatePetName;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.ResourceLocation;
@@ -33,7 +34,7 @@ public class MoCGUIEntityNamer extends GuiScreen {
     {
         xSize = 256;
         ySize = 181;
-        screenTitle = "Choose your Pet's name:";
+        screenTitle = I18n.format("gui_namer.MoCreatures.chooseName");
         NamedEntity = mocanimal;
         NameToSet = s;
     }
@@ -43,7 +44,7 @@ public class MoCGUIEntityNamer extends GuiScreen {
     {
         buttonList.clear();
         Keyboard.enableRepeatEvents(true);
-        buttonList.add(new GuiButton(0, (width / 2) - 100, (height / 4) + 120, "Done")); //1.5
+        buttonList.add(new GuiButton(0, (width / 2) - 100, (height / 4) + 120, I18n.format("gui_namer.MoCreatures.done"))); //1.5
     }
 
     public void updateName()

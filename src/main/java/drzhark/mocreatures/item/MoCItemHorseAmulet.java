@@ -13,6 +13,7 @@ import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageAppear;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -216,9 +217,9 @@ public class MoCItemHorseAmulet extends MoCItem {
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
         initAndReadNBT(par1ItemStack);
-        if (name != "") par3List.add(EnumChatFormatting.AQUA + "Horse");
+        if (name != "") par3List.add(EnumChatFormatting.AQUA + I18n.format("entity.MoCreatures.WildHorse.name"));
         if (name != "") par3List.add(EnumChatFormatting.BLUE + this.name);
-        if (ownerName != "") par3List.add(EnumChatFormatting.DARK_BLUE + "Owned by " + this.ownerName);
+        if (ownerName != "") par3List.add(EnumChatFormatting.DARK_BLUE + I18n.format("amulet_desc.MoCreatures.ownedBy") + " " + this.ownerName);
     }
     
     private void initAndReadNBT(ItemStack itemstack)

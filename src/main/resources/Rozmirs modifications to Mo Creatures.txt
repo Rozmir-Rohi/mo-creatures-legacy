@@ -56,13 +56,13 @@ Kitties, Foxes, and Bears no longer goes out into the ocean to hunt fish.
 Increased shark hunting cooldown between each prey.
 
 
-Foxes, Bears and Komododragons no longer try to attack creatures larger than themselves.
+Foxes, Bears and Komodo Dragons no longer try to attack creatures larger than themselves.
 
 
 Removed enablehunters config option. All predator creatures will now hunt prey.
 
 
-Crocodile and Komododragons now only hunt creatures they are supposed to.
+Crocodile and Komodo Dragons now only hunt creatures they are supposed to.
 
 
 Fixed Shark attacking other Sharks.
@@ -214,7 +214,7 @@ Removed all previous APIs, Mo'Creatures is now a standalone mod.
 Fixed horse dying and horse mad sounds not playing.
 
 
-Added 78 achievements for the Mo' Creatures mod.
+Added 81 achievements for the Mo' Creatures mod.
 
 
 Increased fairy horse hp from 20 to 35.
@@ -397,7 +397,7 @@ Added new animations for horse and ostrich ramming.
 All ridable creatures can now only be mounted with an empty hand.
 
 
-Tamed Komododragons can now be healed using et futurum raw rabbit.
+Tamed Komodo Dragons can now be healed using et futurum raw rabbit.
 
 
 Elephant:
@@ -425,3 +425,6 @@ Fixed deer being frozen. Also fixed deer not running away from players and scary
 
 
 Big Cats and Bears now hunt deer.
+
+
+Made the remaining gui related text dependent on language files.
