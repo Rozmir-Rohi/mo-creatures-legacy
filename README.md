@@ -29,7 +29,7 @@
 		   "A “Combined Work” is a work produced by combining or linking an Application with the Library"
 
 	GNU Lesser General Public License v3.0 - Section 4:
-     		"You may convey a Combined Work under terms of your choice" provided that:
+	"You may convey a Combined Work under terms of your choice" provided that:
 			- Private modifications are allowed.
  		     	- Notice is given that the Library is used
 		      	- A copy of the GNU Lesser Public License is provided along with a copy of the GNU General Public License.
