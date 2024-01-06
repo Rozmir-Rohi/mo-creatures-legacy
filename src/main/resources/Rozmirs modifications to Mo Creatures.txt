@@ -107,7 +107,7 @@ Readded Roach spawns
 Following Creatures Now only spawn in:
 	Lions & Cheetahs - savanna | Tigers and Panthers: jungle | Leopards: snow biomes
 
-	Scorpians: deserts, snow biomes, and in the nether. Cave scorpians will now only be able to be found underground in desert or snow biomes.
+	scorpions: deserts, snow biomes, and in the nether. Cave scorpions will now only be able to be found underground in desert or snow biomes.
 
 	Werewolves and Dire Wolves: taiga biomes
 
@@ -172,7 +172,7 @@ Removed config option for zebra spawning wieght within horses as zebras will now
 Fixed flying horse speed glitch when players have a creature on their head or in their hand. Now players cannot ride a horse with another creature in their hand or on their head.
 
 
-Fixed glitch where mice and pet baby scorpians will get tilted into their picked up state even if they were failed to get picked up by the player.
+Fixed glitch where mice and pet baby scorpions will get tilted into their picked up state even if they were failed to get picked up by the player.
 
 
 Fixed naming gui popping up when feeding a tamed Bear.
@@ -190,7 +190,7 @@ Fixed Crocodile being invisible when doing spin attack.
 Fixed player model being stuck in death state in f5 mode when dismounting a spinning crocodile without killing it.
 
 
-Renamed fur, hide, reptile, and scorpian armour items' prefixes.
+Renamed fur, hide, reptile, and scorpion armour items' prefixes.
 
 
 Kitty bed, Kitty Litter boxes and Fishbowls now drop themselves on death. Kitty litter boxes will only drop themselves on death if they are clean. Kitty bed and Kitty Litter boxes now have 5 HP.
@@ -307,7 +307,7 @@ Improved code for interact with birds. Pet birds can now be feed any seeds by ha
 Ostriches can now only be healed with seeds. Ostriches now also accept Biomes O Plenty Turnip Seeds, and Et Futurum Requiem Beetroot Seeds
 
 
-Improved code for picking up and dropping birds, bunnies, snakes, mice, pet scorpian, fish bowl, kitty bed, and kitty litter box. You now need to use an empty hand to pickup them up on your head and drop them from your head.
+Improved code for picking up and dropping birds, bunnies, snakes, mice, pet scorpion, fish bowl, kitty bed, and kitty litter box. You now need to use an empty hand to pickup them up on your head and drop them from your head.
 
 
 Fixed plop sound not playing in many instances.
@@ -373,10 +373,10 @@ Fixed crocodile hurt sounds not playing.
 Fixed crocodile walk animation not playing.
 
 
-Improved picked up behavior for mouse, pet scorpian, snake, bird, and bunny. Mouse and Pet Scorpian will now get dropped from the player's hand if the player does not have an empty hand selected. All the previous creeatures will also no longer take damage if you try to punch them while they have been picked up by you.
+Improved picked up behavior for mouse, pet scorpion, snake, bird, and bunny. Mouse and Pet scorpion will now get dropped from the player's hand if the player does not have an empty hand selected. All the previous creeatures will also no longer take damage if you try to punch them while they have been picked up by you.
 
 
-Fixed pet scorpian being too far away from the player when picked up.
+Fixed pet scorpion being too far away from the player when picked up.
 
 
 Elephant bulldozer can now only destroy logs and leaves (anything from a tree). This was done to make elephants similar to real life where they can knock down trees.

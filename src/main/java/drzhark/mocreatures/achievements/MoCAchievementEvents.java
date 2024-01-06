@@ -59,7 +59,7 @@ public class MoCAchievementEvents {
 				|| event.pickedUp.getEntityItem().getItem() == MoCreatures.scorpStingCave
 				|| event.pickedUp.getEntityItem().getItem() == MoCreatures.scorpStingFrost
 				|| event.pickedUp.getEntityItem().getItem() == MoCreatures.scorpStingNether
-			) {event.player.addStat(MoCAchievements.get_scorpian_material, 1);}
+			) {event.player.addStat(MoCAchievements.get_scorpion_material, 1);}
 	
 	}
 	
@@ -146,7 +146,7 @@ public class MoCAchievementEvents {
 				|| event.crafting.getItem() == MoCreatures.scorpSwordCave
 				|| event.crafting.getItem() == MoCreatures.scorpSwordFrost
 				|| event.crafting.getItem() == MoCreatures.scorpSwordNether
-			) {event.player.addStat(MoCAchievements.scorpian_sword, 1);}
+			) {event.player.addStat(MoCAchievements.scorpion_sword, 1);}
 		
 		if (
 				event.crafting.getItem() == MoCreatures.scorpHelmetDirt
@@ -165,7 +165,7 @@ public class MoCAchievementEvents {
 				|| event.crafting.getItem() == MoCreatures.scorpPlateNether
 				|| event.crafting.getItem() == MoCreatures.scorpLegsNether
 				|| event.crafting.getItem() == MoCreatures.scorpBootsNether
-			) {event.player.addStat(MoCAchievements.scorpian_armor, 1);}
+			) {event.player.addStat(MoCAchievements.scorpion_armor, 1);}
 		
 	}
 	

@@ -20,7 +20,7 @@ Reworked textures from original 32x textures due to changes in 1.7.10 format: al
 
 Fixed tail: turkey
 
-Fixed & improved larva texture, also improved eye texture of fire scorpian: scorpian, scorpian saddle
+Fixed & improved larva texture, also improved eye texture of fire scorpion: scorpion, scorpion saddle
 
 Improved texture: particle effect for undead horse transformation
 

@@ -367,7 +367,7 @@ public class MoCreatures {
     public static Item achievement_icon_tame_bird;
     public static Item achievement_icon_feed_snake_with_live_mouse;
     public static Item achievement_icon_tame_panda;
-    public static Item achievement_icon_tame_scorpian;
+    public static Item achievement_icon_tame_scorpion;
     
 
     public static MoCPlayerTracker tracker;
@@ -839,7 +839,7 @@ public class MoCreatures {
         achievement_icon_tame_bird = new MoCItem("achievement_icon_tame_bird");
         achievement_icon_feed_snake_with_live_mouse = new MoCItem("achievement_icon_feed_snake_with_live_mouse");
         achievement_icon_tame_panda = new MoCItem("achievement_icon_tame_panda");
-        achievement_icon_tame_scorpian = new MoCItem("achievement_icon_tame_scorpian");
+        achievement_icon_tame_scorpion = new MoCItem("achievement_icon_tame_scorpion");
         
 
         //new blocks

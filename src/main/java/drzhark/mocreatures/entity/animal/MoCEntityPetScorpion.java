@@ -515,7 +515,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             if (MoCreatures.isServer() && !getIsTamed())
             {
                 MoCTools.tameWithName(entityplayer, this);
-                entityplayer.addStat(MoCAchievements.tame_scorpian, 1);
+                entityplayer.addStat(MoCAchievements.tame_scorpion, 1);
             }
         }
         else if (itemstack == null && this.ridingEntity != null && getIsPicked())

@@ -442,8 +442,8 @@ achievement.feed_snake_with_live_mouse.desc=Feed a live mouse to a pet snake. Sh
 achievement.tame_panda=Panda Tamer
 achievement.tame_panda.desc=Tame a baby panda using sugar cane or bamboo
 
-achievement.tame_scorpian=Scorpian Tamer
-achievement.tame_scorpian.desc=Tame a baby scorpian by petting it with an empty hand. Once fully grown, you can ride it up walls.
+achievement.tame_scorpion=Scorpion Tamer
+achievement.tame_scorpion.desc=Tame a baby scorpion by petting it with an empty hand. Once fully grown, you can ride it up walls.
 
 achievement.ostrich_egg=Egg Thief
 achievement.ostrich_egg.desc=Breed a wild ostrich couple using melon seeds and steal their egg. Pet adult ostriches can be ridden, can carry a chest, and can wear a helmet. Tamed ostriches can also be transformed with essences. Ostriches carrying chests can also be given a wool block to carry a flag.
@@ -517,11 +517,11 @@ achievement.get_reptile_hide.desc=Obtain reptile hide
 achievement.reptile_armor=Strong as Iron
 achievement.reptile_armor.desc=Craft any piece of reptile armor
 
-achievement.get_scorpian_material=Scorpian Hunter
-achievement.get_scorpian_material.desc=Obtain any scorpian chitin or scorpian sting
+achievement.get_scorpion_material=Scorpion Hunter
+achievement.get_scorpion_material.desc=Obtain any scorpion chitin or scorpion sting
 
-achievement.scorpian_sword=Scorpian Bladesman
-achievement.scorpian_sword.desc=Craft any scorpian sword
+achievement.scorpion_sword=Scorpion Bladesman
+achievement.scorpion_sword.desc=Craft any scorpion sword
 
-achievement.scorpian_armor=Scorpian Warrior
-achievement.scorpian_armor.desc=Craft any piece of scorpian armor. Wear a full set of the same type for a set bonus.
+achievement.scorpion_armor=Scorpion Warrior
+achievement.scorpion_armor.desc=Craft any piece of scorpion armor. Wear a full set of the same type for a set bonus.

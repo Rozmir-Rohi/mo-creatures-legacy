@@ -81,7 +81,7 @@ public static Achievement catch_fish_in_fish_bowl;
 public static Achievement tame_bird;
 public static Achievement feed_snake_with_live_mouse;
 public static Achievement tame_panda;
-public static Achievement tame_scorpian;
+public static Achievement tame_scorpion;
 public static Achievement ostrich_egg;
 
 public static Achievement pet_amulet;
@@ -107,9 +107,9 @@ public static Achievement get_hide;
 public static Achievement hide_armor;
 public static Achievement get_reptile_hide;
 public static Achievement reptile_armor;
-public static Achievement get_scorpian_material;
-public static Achievement scorpian_sword;
-public static Achievement scorpian_armor;
+public static Achievement get_scorpion_material;
+public static Achievement scorpion_sword;
+public static Achievement scorpion_armor;
 
 
 
@@ -217,7 +217,7 @@ public static void initilization()
 	
 	tame_panda = new Achievement("achievement.tame_panda", "tame_panda", -11, 2,  new ItemStack(MoCreatures.achievement_icon_tame_panda), (Achievement)null).initIndependentStat().registerStat();
 	
-	tame_scorpian = new Achievement("achievement.tame_scorpian", "tame_scorpian", -13, 2,  new ItemStack(MoCreatures.achievement_icon_tame_scorpian), (Achievement)null).initIndependentStat().registerStat();
+	tame_scorpion = new Achievement("achievement.tame_scorpion", "tame_scorpion", -13, 2,  new ItemStack(MoCreatures.achievement_icon_tame_scorpion), (Achievement)null).initIndependentStat().registerStat();
 	
 	ostrich_egg = new Achievement("achievement.ostrich_egg", "ostrich_egg", -15, 2, new ItemStack(MoCreatures.mocegg), (Achievement)null).initIndependentStat().registerStat();
 	
@@ -257,9 +257,9 @@ public static void initilization()
 	reptile_armor = new Achievement("achievement.reptile_armor", "reptile_armor", -1, -7, new ItemStack(MoCreatures.helmetCroc), get_reptile_hide).registerStat(); 
 	
 	
-	get_scorpian_material = new Achievement("achievement.get_scorpian_material", "get_scorpian_material", -3, -5, new ItemStack(MoCreatures.chitin), AchievementList.buildSword).registerStat();
-	scorpian_sword = new Achievement("achievement.scorpian_sword", "scorpian_sword", -4, -6, new ItemStack(MoCreatures.scorpSwordDirt), get_scorpian_material).registerStat();
-	scorpian_armor = new Achievement("achievement.scorpian_armor", "scorpian_armor", -3, -7, new ItemStack(MoCreatures.scorpHelmetDirt), get_scorpian_material).registerStat();
+	get_scorpion_material = new Achievement("achievement.get_scorpion_material", "get_scorpion_material", -3, -5, new ItemStack(MoCreatures.chitin), AchievementList.buildSword).registerStat();
+	scorpion_sword = new Achievement("achievement.scorpion_sword", "scorpion_sword", -4, -6, new ItemStack(MoCreatures.scorpSwordDirt), get_scorpion_material).registerStat();
+	scorpion_armor = new Achievement("achievement.scorpion_armor", "scorpion_armor", -3, -7, new ItemStack(MoCreatures.scorpHelmetDirt), get_scorpion_material).registerStat();
 	
 	
 	AchievementPage.registerAchievementPage(new AchievementPage("Mo' Creatures", new Achievement[]{
@@ -332,7 +332,7 @@ public static void initilization()
 					tame_bird,
 					feed_snake_with_live_mouse,
 					tame_panda,
-					tame_scorpian,
+					tame_scorpion,
 					ostrich_egg,
 					
 					pet_amulet,
@@ -365,9 +365,9 @@ public static void initilization()
 					get_reptile_hide,
 					reptile_armor,
 					
-					get_scorpian_material,
-					scorpian_sword,
-					scorpian_armor
+					get_scorpion_material,
+					scorpion_sword,
+					scorpion_armor
 	}));
 }
 
