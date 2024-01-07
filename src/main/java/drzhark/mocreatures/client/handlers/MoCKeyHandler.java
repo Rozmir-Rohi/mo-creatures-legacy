@@ -10,24 +10,19 @@ import drzhark.mocreatures.entity.IMoCEntity;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageEntityDive;
 import drzhark.mocreatures.network.message.MoCMessageEntityJump;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class MoCKeyHandler {
     int keyCount;
-    //static KeyBinding jumpBinding = new KeyBinding("jumpBind", Keyboard.KEY_F);
-    //static KeyBinding jumpBinding = new KeyBinding("MoCreatures Jump", MoCClientProxy.mc.gameSettings.keyBindJump.getKeyCode(), "key.categories.movement");
-    static KeyBinding diveBinding = new KeyBinding("MoCreatures Dive", Keyboard.KEY_F, "key.categories.movement");
-    static KeyBinding guiBinding = new KeyBinding("MoCreatures GUI", Keyboard.KEY_F6, "key.categories.misc");
-    //static KeyBinding dismountBinding = new KeyBinding("MoCreatures Dismount", Keyboard.KEY_F);
+    static KeyBinding diveBinding = new KeyBinding(I18n.format("keyBind.MoCreatures.dive"), Keyboard.KEY_F, "key.categories.movement");
 
     public MoCKeyHandler()
     {
         //the first value is an array of KeyBindings, the second is whether or not the call
         //keyDown should repeat as long as the key is down
-        //cpw.mods.fml.client.registry.ClientRegistry.registerKeyBinding(jumpBinding);
         cpw.mods.fml.client.registry.ClientRegistry.registerKeyBinding(diveBinding);
-        cpw.mods.fml.client.registry.ClientRegistry.registerKeyBinding(guiBinding);
     }
 
     
@@ -40,7 +35,6 @@ public class MoCKeyHandler {
         if (FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().getChatOpen()) return; // if chatting return
         boolean kbJump = Keyboard.isKeyDown(MoCClientProxy.mc.gameSettings.keyBindJump.getKeyCode());
         boolean kbDive = Keyboard.isKeyDown(diveBinding.getKeyCode());
-        boolean kbGui = Keyboard.isKeyDown(guiBinding.getKeyCode());
         boolean isJumpKeyDown = Keyboard.isKeyDown(MoCClientProxy.mc.gameSettings.keyBindJump.getKeyCode());
         //boolean kbDismount = kb.keyDescription.equals("MoCreatures Dismount");
 

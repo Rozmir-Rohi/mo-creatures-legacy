@@ -1,5 +1,6 @@
 itemGroup.MoCreaturesTab=MoCreatures
 
+
 tile.MoCGrass.WyvernLair.name=Wyvern Lair Grass
 tile.MoCGrass.OgreLair.name=Ogre Lair Grass
 tile.MoCStone.WyvernLair.name=Wyvern Lair Stone
@@ -14,6 +15,7 @@ tile.MoCTallGrass.WyvernLair.name=Wyvern Lair Tall Grass
 tile.MoCTallGrass.OgreLair.name=Ogre Lair Tall Grass
 tile.MoCWoodPlank.WyvernLair.name=Wyvern Lair Wood Plank
 tile.MoCWoodPlank.OgreLair.name=Ogre Lair Wood Plank
+
 
 item.amuletbone.name=Bone Amulet
 item.amuletbonefull.name=Bone Amulet
@@ -185,6 +187,7 @@ item.unicornhorn.name=Unicorn Horn
 item.whip.name=Whip
 item.woolball.name=Wool Ball
 
+
 entity.MoCreatures.CreeperExtension.name=Creeper
 entity.MoCreatures.Ant.name=Ant
 entity.MoCreatures.Bear.name=Bear
@@ -247,11 +250,16 @@ entity.MoCreatures.Wyvern.name=Wyvern
 
 
 
-amulet_desc.MoCreatures.ownedBy=Owned by
+
+keyBind.MoCreatures.dive=MoCreatures Dive/Fly Down
+
+
+amulet_and_fishnet_desc.MoCreatures.ownedBy=Owned by %1$s
 
 
 gui_namer.MoCreatures.chooseName=Choose your Pet's name:
 gui_namer.MoCreatures.done=Done
+
 
 container.MoCreatures.HorseChest=Horse Chest
 container.MoCreatures.ElephantChest=Elephant Chest
@@ -264,6 +272,7 @@ death.MoCreatures.attack.dehydration=%1$s died from dehydration
 
 
 
+achievements.MoCreaturesTab=Mo' Creatures
 
 achievement.craft_saddle=Saddle Maker
 achievement.craft_saddle.desc=Make a crafted saddle. Equip this on ridable pets to ride them. You can also use a shear on any pet that's wearing a saddle or other equipment to take them off
@@ -282,9 +291,6 @@ achievement.zebra.desc=Tame a zebra by approaching it with a tier 4 horse and th
 
 achievement.zorse=Zorse
 achievement.zorse.desc=Breed a tamed zebra with any other horse using pumpkins, cake or mushroom stew
-
-
-
 
 achievement.heart_undead=Heart of Undead
 achievement.heart_undead.desc=Obtain a heart of undead from an undead horse mob
@@ -305,10 +311,6 @@ achievement.ghost_horse.desc=Obtain a pet ghost horse. Sometimes when a tier 3+ 
 achievement.amulet_ghost=Ghost Horse Storage
 achievement.amulet_ghost.desc=Craft a ghost amulet
 
-
-
-
-
 achievement.heart_fire=Heart of Fire
 achievement.heart_fire.desc=Obtain a heart of fire from a nightmare horse mob
 
@@ -317,8 +319,6 @@ achievement.essence_fire.desc=Craft an essence of fire.
 
 achievement.nightmare_horse=Nightmare Horse
 achievement.nightmare_horse.desc=Obtain a nightmare horse by feeding a pet zorse with an essence of fire. This horse is fire-proof. This horse can only be healed using essences of fire
-
-
 
 achievement.heart_darkness=Heart of Darkness
 achievement.heart_darkness.desc=Obtain a heart of darkness from a bat horse mob.
@@ -332,11 +332,6 @@ achievement.bat_horse.desc=Obtain a bat horse by feeding a pet zorse with an ess
 achievement.crystal_horse_armor=Crystal Horse Armor
 achievement.crystal_horse_armor.desc=Craft crystal horse armor. This is the strongest horse armor, and it can only be worn by special horses
 
-
-
-
-
-
 achievement.essence_light=Essence of Light
 achievement.essence_light.desc=Craft an essence of light by combining the three base essences.
 
@@ -346,22 +341,17 @@ achievement.pegasus.desc=Obtain a pegasus by feeding a pet bat horse with an ess
 achievement.unicorn=Unicorn
 achievement.unicorn.desc=Obtain a unicorn by feeding a pet nightmare horse with an essence of light. This horse can ram, and glide. This horse can only be healed using essences of light
 
-
 achievement.amulet_sky=Pegasus Storage
 achievement.amulet_sky.desc=Craft a sky amulet. The fire for the amulet's crafting recipie can be obtained from hell rats
 
 achievement.dark_pegasus=Dark Pegasus
 achievement.dark_pegasus.desc=Obtain a dark pegasus by feeding a pet pegasus with an essence of darkness. This is the strongest horse, it also fire-proof, can fly, and can carry a chest. This horse can only be healed using essences of light
 
-
 achievement.fairy_horse=Fairy Horse!
 achievement.fairy_horse.desc=Obtain a fairy horse by breeding a pegasus with a unicorn using essences of light. This is the fastest flying horse, it can also carry a chest, and it can ram when on the ground . Feed this horse a dye to permanently change it's fairy type. This horse can only be healed using essences of light
 
-
 achievement.amulet_fairy=Fairy Horse Storage
 achievement.amulet_fairy.desc=Craft a fairy amulet. The fire for the amulet's crafting recipie can be obtained from hell rats
-
-
 
 achievement.wyvern_portal_staff=Where the Wyverns live
 achievement.wyvern_portal_staff.desc=Craft a wyvern portal staff and travel to the wyvern lair
@@ -386,7 +376,6 @@ achievement.elephant_tusks.desc=Equip an elephant with any tusks. Elephants equi
 
 achievement.elephant_chest=Elephant Storage
 achievement.elephant_chest.desc=Put an elephant chest on an elephant that is wearing an elephant harness. Elephants can hold up to two elephant chests. You can open the chests using a key
-
 
 achievement.elephant_howdah=Your Highness
 achievement.elephant_howdah.desc=Put an elephant howdah on an asian elephant that is wearing an elephant garment
