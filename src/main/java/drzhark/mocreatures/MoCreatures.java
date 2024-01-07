@@ -364,10 +364,15 @@ public class MoCreatures {
     public static Item achievement_icon_indiana;
     public static Item achievement_icon_tame_big_cat;
     public static Item achievement_icon_tame_kitty;
+    
+    
     public static Item achievement_icon_tame_bird;
     public static Item achievement_icon_feed_snake_with_live_mouse;
     public static Item achievement_icon_tame_panda;
     public static Item achievement_icon_tame_scorpion;
+    public static Item achievement_icon_ostrich_helmet;
+    public static Item achievement_icon_ostrich_chest;
+    public static Item achievement_icon_ostrich_flag;
     
 
     public static MoCPlayerTracker tracker;
@@ -840,7 +845,9 @@ public class MoCreatures {
         achievement_icon_feed_snake_with_live_mouse = new MoCItem("achievement_icon_feed_snake_with_live_mouse");
         achievement_icon_tame_panda = new MoCItem("achievement_icon_tame_panda");
         achievement_icon_tame_scorpion = new MoCItem("achievement_icon_tame_scorpion");
-        
+        achievement_icon_ostrich_helmet = new MoCItem("achievement_icon_ostrich_helmet");
+        achievement_icon_ostrich_chest = new MoCItem("achievement_icon_ostrich_chest");
+        achievement_icon_ostrich_flag = new MoCItem("achievement_icon_ostrich_flag");
 
         //new blocks
         mocStone = new MoCBlockRock("MoCStone").setHardness(1.5F).setResistance(10.0F).setStepSound(Block.soundTypeStone);

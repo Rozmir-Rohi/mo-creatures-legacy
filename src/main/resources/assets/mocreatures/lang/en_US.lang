@@ -275,7 +275,7 @@ death.MoCreatures.attack.dehydration=%1$s died from dehydration
 achievements.MoCreaturesTab=Mo' Creatures
 
 achievement.craft_saddle=Saddle Maker
-achievement.craft_saddle.desc=Make a crafted saddle. Equip this on ridable pets to ride them. You can also use a shear on any pet that's wearing a saddle or other equipment to take them off
+achievement.craft_saddle.desc=Make a crafted saddle. Equip this on ridable pets to ride them. You can also use shears on any pet that's wearing a saddle or other equipment to take them off
 
 achievement.tier2_horse=Tier 2 Horse
 achievement.tier2_horse.desc=Tame any normal Mo' Creatures horse using an apple
@@ -296,7 +296,7 @@ achievement.heart_undead=Heart of Undead
 achievement.heart_undead.desc=Obtain a heart of undead from an undead horse mob
 
 achievement.essence_undead=Essence of Undead
-achievement.essence_undead.desc=Craft an essence of undead.
+achievement.essence_undead.desc=Craft an essence of undead
 
 achievement.undead_horse=Undead Horse
 achievement.undead_horse.desc=Obtain an undead horse by feeding a pet zorse or special horse with an essence of undead. This horse can only be healed using essences of undead
@@ -315,13 +315,13 @@ achievement.heart_fire=Heart of Fire
 achievement.heart_fire.desc=Obtain a heart of fire from a nightmare horse mob
 
 achievement.essence_fire=Essence of Fire
-achievement.essence_fire.desc=Craft an essence of fire.
+achievement.essence_fire.desc=Craft an essence of fire
 
 achievement.nightmare_horse=Nightmare Horse
 achievement.nightmare_horse.desc=Obtain a nightmare horse by feeding a pet zorse with an essence of fire. This horse is fire-proof. This horse can only be healed using essences of fire
 
 achievement.heart_darkness=Heart of Darkness
-achievement.heart_darkness.desc=Obtain a heart of darkness from a bat horse mob.
+achievement.heart_darkness.desc=Obtain a heart of darkness from a bat horse mob
 
 achievement.essence_darkness=Essence of Darkness
 achievement.essence_darkness.desc=Craft an essence of darkness
@@ -333,7 +333,7 @@ achievement.crystal_horse_armor=Crystal Horse Armor
 achievement.crystal_horse_armor.desc=Craft crystal horse armor. This is the strongest horse armor, and it can only be worn by special horses
 
 achievement.essence_light=Essence of Light
-achievement.essence_light.desc=Craft an essence of light by combining the three base essences.
+achievement.essence_light.desc=Craft an essence of light by combining the three base essences
 
 achievement.pegasus=Pegasus
 achievement.pegasus.desc=Obtain a pegasus by feeding a pet bat horse with an essence of light while it is above y level 150. This horse can fly and can carry a chest. This horse can only be healed using essences of light
@@ -348,7 +348,7 @@ achievement.dark_pegasus=Dark Pegasus
 achievement.dark_pegasus.desc=Obtain a dark pegasus by feeding a pet pegasus with an essence of darkness. This is the strongest horse, it also fire-proof, can fly, and can carry a chest. This horse can only be healed using essences of light
 
 achievement.fairy_horse=Fairy Horse!
-achievement.fairy_horse.desc=Obtain a fairy horse by breeding a pegasus with a unicorn using essences of light. This is the fastest flying horse, it can also carry a chest, and it can ram when on the ground . Feed this horse a dye to permanently change it's fairy type. This horse can only be healed using essences of light
+achievement.fairy_horse.desc=Obtain a fairy horse by breeding a pegasus with a unicorn using essences of light. This is the fastest flying horse, it can also carry a chest, and it can ram when on the ground. Feed this horse a dye to permanently change it's fairy type. This horse can only be healed using essences of light
 
 achievement.amulet_fairy=Fairy Horse Storage
 achievement.amulet_fairy.desc=Craft a fairy amulet. The fire for the amulet's crafting recipie can be obtained from hell rats
@@ -372,9 +372,9 @@ achievement.elephant_garment=Asian Elephant Fashion
 achievement.elephant_garment.desc=Put an elephant garment on an asian elephant
 
 achievement.elephant_tusks=Battle Ready
-achievement.elephant_tusks.desc=Equip an elephant with any tusks. Elephants equipped with tusks can ram when whipped and can destroy trees. The effectiveness tree breaking depends on the type of elephant and the tusks it's wearing.
+achievement.elephant_tusks.desc=Equip an elephant with any tusks. Elephants equipped with tusks can ram when whipped and can destroy trees. The effectiveness tree breaking depends on the type of elephant and the tusks it's wearing
 
-achievement.elephant_chest=Elephant Storage
+achievement.elephant_chest=Elephant Luggage
 achievement.elephant_chest.desc=Put an elephant chest on an elephant that is wearing an elephant harness. Elephants can hold up to two elephant chests. You can open the chests using a key
 
 achievement.elephant_howdah=Your Highness
@@ -411,34 +411,43 @@ achievement.craft_whip=Time to crack the Whip!
 achievement.craft_whip.desc=Craft a whip. Use this to make any tamed creature sit. Use this while riding any creature to make it sprint. Use for special effects while riding a nightmare horse, unicorn, unicorn ostrich, or elephant
 
 achievement.indiana=Just like Indiana Jones
-achievement.indiana.desc=Use a whip on a tamed Big Cat more than 6 times 
+achievement.indiana.desc=Use a whip on a tamed Big Cat more than six times 
 
 achievement.shark_tooth=Shark Boxer
 achievement.shark_tooth.desc=Obtain a shark tooth
 
 achievement.fish_net=Time to catch more Fish
-achievement.fish_net.desc=Craft a fish net. Use this to catch and tame aquatic creatures. You can also use it to store any aquatic pet.
+achievement.fish_net.desc=Craft a fish net. Use this to catch and tame most aquatic creatures. You can also use it to store any aquatic pet
 
 achievement.shark_sword=A very Toothy Sword
 achievement.shark_sword.desc=Craft a shark sword
 
 achievement.catch_fish_in_fish_bowl=Fishy in a Bowl
-achievement.catch_fish_in_fish_bowl.desc=Catch a fishy in a fish bowl.
+achievement.catch_fish_in_fish_bowl.desc=Catch a fishy in a fish bowl
 
 achievement.tame_bird=Bird Tamer
-achievement.tame_bird.desc=Tame a bird by dropping any seeds near it and feed it seeds by yourself after it eats some of the seeds on the ground. With a pet bird on your head you can glide down from tall places
+achievement.tame_bird.desc=Tame a bird by dropping any seeds near it and feed it seeds by yourself after it eats some of the seeds on the ground. If you place a pet bird on your head they will slow down your fall from tall places
 
 achievement.feed_snake_with_live_mouse=Live Feeding
-achievement.feed_snake_with_live_mouse.desc=Feed a live mouse to a pet snake. Shift and right clik a pet snake with a live mouse in your hand, it may be a bit hard to get the aiming right though
+achievement.feed_snake_with_live_mouse.desc=Feed a live mouse to an adult pet snake. Shift and right click an adult pet snake with a live mouse in your hand
 
 achievement.tame_panda=Panda Tamer
 achievement.tame_panda.desc=Tame a baby panda using sugar cane or bamboo
 
 achievement.tame_scorpion=Scorpion Tamer
-achievement.tame_scorpion.desc=Tame a baby scorpion by petting it with an empty hand. Once fully grown, you can ride it up walls.
+achievement.tame_scorpion.desc=Tame a baby scorpion by petting it with an empty hand. Once fully grown, you can ride it up walls. Adult pet scorpions will lay an egg if given an essence of darkness
 
 achievement.ostrich_egg=Egg Thief
-achievement.ostrich_egg.desc=Breed a wild ostrich couple using melon seeds and steal their egg. Pet adult ostriches can be ridden, can carry a chest, and can wear a helmet. Tamed ostriches can also be transformed with essences. Ostriches carrying chests can also be given a wool block to carry a flag.
+achievement.ostrich_egg.desc=Breed a wild ostrich couple using melon seeds and steal their egg. Pet ostriches can be ridden when they become adults. Pet ostriches can also be transformed with essences
+
+achievement.ostrich_helmet=Protective Gear
+achievement.ostrich_helmet.desc=Put any vanilla or mo creatures helmet on a pet adult ostrich
+
+achievement.ostrich_chest=Ostrich Luggage
+achievement.ostrich_chest.desc=Put a chest on a pet adult ostrich. You can access the contents of the chest using a key
+
+achievement.ostrich_flag=Flag Bearer
+achievement.ostrich_flag.desc=Put any wool block on an ostrich that is carrying a chest
 
 achievement.pet_amulet=Pet Storage
 achievement.pet_amulet.desc=Craft a pet amulet. Use this to store almost any tamed creature
@@ -455,7 +464,7 @@ achievement.cook_ostrich.desc=Cook raw ostrich
 achievement.cook_rat=Tastes like Chicken
 achievement.cook_rat.desc=Cook raw rat
 
-achievement.rat_burger=With Flame Grilled Rat
+achievement.rat_burger=Gourmet Rat
 achievement.rat_burger.desc=Make a rat burger
 
 achievement.cook_crab=Seafood Classic
@@ -494,10 +503,10 @@ achievement.silver_sword.desc=Obtain a silver sword from a silver skeleton
 achievement.get_fur=Critter Killer
 achievement.get_fur.desc=Obtain fur
 
-achievement.fur_armor=Eskimo Clothing
+achievement.fur_armor=Eskimo Clothes
 achievement.fur_armor.desc=Craft any piece of fur armor
 
-achievement.get_hide=Game Hunter
+achievement.get_hide=Hunter
 achievement.get_hide.desc=Obtain hide
 
 achievement.hide_armor=Huntsman's Choice
@@ -513,7 +522,7 @@ achievement.get_scorpion_material=Scorpion Hunter
 achievement.get_scorpion_material.desc=Obtain any scorpion chitin or scorpion sting
 
 achievement.scorpion_sword=Scorpion Bladesman
-achievement.scorpion_sword.desc=Craft any scorpion sword
+achievement.scorpion_sword.desc=Craft any scorpion sword. Scorpion swords can be repaired at an anvil using their same type of scorpion sting
 
 achievement.scorpion_armor=Scorpion Warrior
-achievement.scorpion_armor.desc=Craft any piece of scorpion armor. Wear a full set of the same type for a set bonus.
+achievement.scorpion_armor.desc=Craft any piece of scorpion armor. Wear a full set of the same type for a set bonus. Scorpion armor can be repaired at an anvil using the same type of scorpion chitin

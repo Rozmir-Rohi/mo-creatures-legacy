@@ -5,6 +5,7 @@ import java.util.List;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
 import drzhark.mocreatures.entity.item.MoCEntityEgg;
 import drzhark.mocreatures.inventory.MoCAnimalChest;
@@ -740,6 +741,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             }
             dropFlag();
             setFlagColor((byte)colorInt);
+            entityplayer.addStat(MoCAchievements.ostrich_flag, 1);
             return true;
         }
         
@@ -752,6 +754,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 
             entityplayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.key));
             setIsChested(true);
+            entityplayer.addStat(MoCAchievements.ostrich_chest, 1);
             return true;
         }
         
@@ -832,6 +835,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
                     dropArmor();
                     MoCTools.playCustomSound(this, "armoroff", worldObj);
                     setHelmet(helmetType);
+                    entityplayer.addStat(MoCAchievements.ostrich_helmet, 1);
                     return true;
                 }
                

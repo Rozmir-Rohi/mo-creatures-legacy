@@ -1,6 +1,6 @@
 Resized canvas to fit 1.7.10 format: bear
 
-Fixed eyes and/or mouth and/or nose: bear, all horses, wwolf, werewolf, boar, medium fish, crocodile, wyvern, all deer, raccoon, all ostriches
+Fixed eyes and/or mouth and/or nose: bear, all horses, wwolf, werewolf, boar, medium fish, crocodile, wyvern, all deer, raccoon, all ostriches, all elephants and mammoths
 
 Fixed ears: all big cats
 

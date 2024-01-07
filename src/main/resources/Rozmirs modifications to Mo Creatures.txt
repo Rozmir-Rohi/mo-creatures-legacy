@@ -214,7 +214,7 @@ Removed all previous APIs, Mo'Creatures is now a standalone mod.
 Fixed horse dying and horse mad sounds not playing.
 
 
-Added 81 achievements for the Mo' Creatures mod.
+Added 84 achievements for the Mo' Creatures mod.
 
 
 Increased fairy horse hp from 20 to 35.

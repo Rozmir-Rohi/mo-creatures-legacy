@@ -84,8 +84,12 @@ public static Achievement feed_snake_with_live_mouse;
 public static Achievement tame_panda;
 public static Achievement tame_scorpion;
 public static Achievement ostrich_egg;
+public static Achievement ostrich_helmet;
+public static Achievement ostrich_chest;
+public static Achievement ostrich_flag;
 
 public static Achievement pet_amulet;
+
 public static Achievement cook_omelette;
 public static Achievement cook_turkey;
 public static Achievement cook_ostrich;
@@ -93,6 +97,7 @@ public static Achievement cook_rat;
 public static Achievement rat_burger;
 public static Achievement cook_crab;
 public static Achievement cook_turtle;
+
 public static Achievement kill_wraith;
 public static Achievement kill_ogre;
 public static Achievement kill_werewolf;
@@ -221,15 +226,16 @@ public static void initilization()
 	tame_scorpion = new Achievement("achievement.tame_scorpion", "tame_scorpion", -13, 2,  new ItemStack(MoCreatures.achievement_icon_tame_scorpion), (Achievement)null).initIndependentStat().registerStat();
 	
 	ostrich_egg = new Achievement("achievement.ostrich_egg", "ostrich_egg", -15, 2, new ItemStack(MoCreatures.mocegg), (Achievement)null).initIndependentStat().registerStat();
+	ostrich_helmet = new Achievement("achievement.ostrich_helmet", "ostrich_helmet", -15, 5, new ItemStack(MoCreatures.achievement_icon_ostrich_helmet), ostrich_egg).registerStat();
+	ostrich_chest = new Achievement("achievement.ostrich_chest", "ostrich_chest", -14, 4, new ItemStack(MoCreatures.achievement_icon_ostrich_chest), ostrich_egg).registerStat();
+	ostrich_flag = new Achievement("achievement.ostrich_flag", "ostrich_flag", -12, 4, new ItemStack(MoCreatures.achievement_icon_ostrich_flag), ostrich_chest).registerStat();
 	
-	
-	
-	cook_omelette = new Achievement("achievement.cook_omelette", "cook_omelette", -7, -1, new ItemStack(MoCreatures.omelet), AchievementList.buildSword).registerStat();
-	cook_turkey = new Achievement("achievement.cook_turkey", "cook_turkey", -7, 0, new ItemStack(MoCreatures.cookedTurkey), AchievementList.buildSword).registerStat();
-	cook_ostrich = new Achievement("achievement.cook_ostrich", "cook_ostrich", -8, -1, new ItemStack(MoCreatures.ostrichcooked), AchievementList.buildSword).registerStat();
-	cook_rat = new Achievement("achievement.cook_rat", "cook_rat", -9, -1, new ItemStack(MoCreatures.ratCooked), AchievementList.buildSword).registerStat();
+	cook_omelette = new Achievement("achievement.cook_omelette", "cook_omelette", -7, -1, new ItemStack(MoCreatures.omelet), AchievementList.buildFurnace).registerStat();
+	cook_turkey = new Achievement("achievement.cook_turkey", "cook_turkey", -7, 0, new ItemStack(MoCreatures.cookedTurkey), AchievementList.buildFurnace).registerStat();
+	cook_ostrich = new Achievement("achievement.cook_ostrich", "cook_ostrich", -8, -1, new ItemStack(MoCreatures.ostrichcooked), AchievementList.buildFurnace).registerStat();
+	cook_rat = new Achievement("achievement.cook_rat", "cook_rat", -9, -1, new ItemStack(MoCreatures.ratCooked), AchievementList.buildFurnace).registerStat();
 	rat_burger = new Achievement("achievement.rat_burger", "rat_burger", -11, -1, new ItemStack(MoCreatures.ratBurger), cook_rat).registerStat();
-	cook_crab = new Achievement("achievement.cook_crab", "cook_crab", -8, 0, new ItemStack(MoCreatures.crabcooked), AchievementList.buildSword).registerStat();
+	cook_crab = new Achievement("achievement.cook_crab", "cook_crab", -8, 0, new ItemStack(MoCreatures.crabcooked), AchievementList.buildFurnace).registerStat();
 	cook_turtle = new Achievement("achievement.cook_turtle", "cook_turtle", -9, 0, new ItemStack(MoCreatures.turtlesoup), AchievementList.buildSword).registerStat();
 	
 	
@@ -335,6 +341,9 @@ public static void initilization()
 					tame_panda,
 					tame_scorpion,
 					ostrich_egg,
+					ostrich_helmet,
+					ostrich_chest,
+					ostrich_flag,
 					
 					pet_amulet,
 					

@@ -255,15 +255,13 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         
         if (getIsRideable() && getIsTamed() && getEdad() > 90 && (riddenByEntity == null))
         {
-            entityplayer.rotationYaw = rotationYaw;
-            entityplayer.rotationPitch = rotationPitch;
-            
             if (MoCreatures.isServer() && (itemstack == null) && (this.riddenByEntity == null))
             {
+            	entityplayer.rotationYaw = rotationYaw;
+                entityplayer.rotationPitch = rotationPitch;
                 entityplayer.mountEntity(this);
+                return true;
             }
-
-            return true;
         }
         return false;
     }
