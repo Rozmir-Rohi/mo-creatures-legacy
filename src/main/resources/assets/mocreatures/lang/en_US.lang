@@ -363,7 +363,7 @@ achievement.tame_elephant=Elephant Tamer
 achievement.tame_elephant.desc=Tame a baby elephant or mammoth using many sugar lumps
 
 achievement.mount_elephant=Elephant Rider
-achievement.mount_elephant.desc=Ride a tamed adult elephant using an elephant harness. You need to make it sit first to climb on. You can make an elephant sit by sneaking near it
+achievement.mount_elephant.desc=Ride a tamed adult elephant or mammoth using an elephant harness. You need to make it sit first to climb on. You can make an elephant sit by sneaking near it
 
 achievement.mammoth_platform=A Platform for Two
 achievement.mammoth_platform.desc=Put a mammoth platform on a mammoth that is wearing an elephant harness. Two players can ride a mammoth when it has a mammoth platform. The second player has to sneak and right-click to get on
@@ -372,10 +372,10 @@ achievement.elephant_garment=Asian Elephant Fashion
 achievement.elephant_garment.desc=Put an elephant garment on an asian elephant
 
 achievement.elephant_tusks=Battle Ready
-achievement.elephant_tusks.desc=Equip an elephant with any tusks. Elephants equipped with tusks can ram when whipped and can destroy trees. The effectiveness tree breaking depends on the type of elephant and the tusks it's wearing
+achievement.elephant_tusks.desc=Equip an elephant or mammoth with any tusks. When equipped with tusks they can ram when whipped and can destroy trees. The effectiveness tree breaking depends on the type of elephant and the tusks it's wearing
 
 achievement.elephant_chest=Elephant Luggage
-achievement.elephant_chest.desc=Put an elephant chest on an elephant that is wearing an elephant harness. Elephants can hold up to two elephant chests. You can open the chests using a key
+achievement.elephant_chest.desc=Put an elephant chest on an elephant or mammoth that is wearing an elephant harness. Elephants and mammoths can hold up to two elephant chests. You can open the chests using a key
 
 achievement.elephant_howdah=Your Highness
 achievement.elephant_howdah.desc=Put an elephant howdah on an asian elephant that is wearing an elephant garment
@@ -444,7 +444,7 @@ achievement.ostrich_helmet=Protective Gear
 achievement.ostrich_helmet.desc=Put any vanilla or mo creatures helmet on a pet adult ostrich
 
 achievement.ostrich_chest=Ostrich Luggage
-achievement.ostrich_chest.desc=Put a chest on a pet adult ostrich. You can access the contents of the chest using a key
+achievement.ostrich_chest.desc=Put a chest on a pet adult ostrich. You can open the chest using a key
 
 achievement.ostrich_flag=Flag Bearer
 achievement.ostrich_flag.desc=Put any wool block on an ostrich that is carrying a chest
