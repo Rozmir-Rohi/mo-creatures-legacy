@@ -25,7 +25,7 @@ SECTION 2 - FURTHER CONDITIONS:
 
    - If Using Source Code and/or 16x Textures: give credit to me (Rozmir_Rohi) and provide a link to my project (https://modrinth.com/project/mo-creatures-legacy/).
 
-   - If Using 16x Textures: Give credit to crazyspacekid and provide a link to their original project "Mo' Creatures 16x" (https://www.curseforge.com/minecraft/texture-packs/mo-creatures-16x).
+   - If Using 16x Textures: give credit to crazyspacekid and provide a link to their original project "Mo' Creatures 16x" (https://www.curseforge.com/minecraft/texture-packs/mo-creatures-16x).
 
 
    If these further conditions apply to your use of this project, you must do each of the following:
