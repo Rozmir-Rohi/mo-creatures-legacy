@@ -1,4 +1,24 @@
 # Mo Creatures Legacy
+The final version of Mo' Creatures for 1.7.10 was unfinished and was riddled with bugs. This project fixes that.
+
+The main aim of Mo' Creatures Legacy is to provide a fully working legacy version of Mo' Creatures for 1.7.10.
+
+
+## DISCLAIMER:
+
+This project is not endorsed by Dr Zhark or anyone from the original Mo' Creatures team.
+This project does not backport features from newer versions of Mo' Creatures.
+ 
+
+ 
+## How to Install:
+Mo' Creatures Legacy is a stand-alone mod and does NOT require any other mods as dependencies.
+Assuming you have Java 8 installed on your computer and Forge installed for 1.7.10, just download the mod and put it into the mods folder. 
+
+Do NOT try to use this mod with the Custom Mob Spawner mod, if you need to adjust entity spawns use the Just Another Mob Spawner instead.
+
+ 
+
 
 <details>
 <summary><h2>Credits & Assets Used:</h2></summary>
