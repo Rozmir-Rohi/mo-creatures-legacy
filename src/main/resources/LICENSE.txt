@@ -1,28 +1,42 @@
-CUSTOM LICENSE: GNU General Public License v3.0  +  Recommended Measure
+CUSTOM LICENSE: GNU General Public License v3.0 and Further Conditions
 
-
-
-GNU GENERAL PUBLIC LICENSE v3.0: https://choosealicense.com/licenses/gpl-3.0/
-
-
-
-The recomended measure only applies for modified versions of this project and distribution of modified versions where the 16x MoCreatures textures are included. The measure also applies for redistribution of the 16x MoCreatures textures by themselves (both modified and unmodified).
-The recomended measure does not apply for modpack use of this project or any other use, for such uses, the GNU General Public License v3.0 by itself is applied.
-
-
-The recomended measure is not part of the GNU Public License v3.0, so you are not required by the license to follow it. However, if you choose not to follow the measure, I will not be held liable for any legal action you recieve from the original owner of the asset.
-
-
-Regardless of whether the recomended measure is followed, modified versions of this project and redistribution of the 16x MoCreatures textures by themselves (both modified and unmodified) are required by the GNU Public License 3.0 license to apply the GNU Public License 3.0 license by itself without the recomended measure as an additional restriction in their license document.
+	GNU General Public License v3.0: https://choosealicense.com/licenses/gpl-3.0/
 
 
 
 
-RECOMMENDED MEASURE:
- - Give credit to crazyspacekid and provide a link to their original project "Mo' Creatures 16x" (https://www.curseforge.com/minecraft/texture-packs/mo-creatures-16x).
+SECTION 1 - SCOPE OF THE FURTHER CONDITIONS:
+The further conditions only apply to the use and redistribution of the source code from this project (both modified and unmodified), and the use and redistribution of the 16x MoCreatures textures from this project (both modified and unmodified).
+
+
+The further conditions do not apply for the following:
+   - Modpack use of this project.
+
+   - Redistribution of unedited versions of the mod jar file.
+
+   - Any other use that is not specified within this section.
+
+   For the uses listed above, the GNU General Public License v3.0 by itself is applied. 
 
 
 
+SECTION 2 - FURTHER CONDITIONS:
+   - Give credit to Dr Zhark, BloodShot, and BlockDaddy for being the developers of the original Mo' Creatures mod.
 
-The recommended measure is permitted under section 7 of the GNU General Public License v3.0:
-"If a license document contains a further restriction but permits relicensing or conveying under this License, you may add to a covered work material governed by the terms of that license document, provided that the further restriction does not survive such relicensing or conveying....If you add terms to a covered work in accord with this section, you must place, in the relevant source files, a statement of the additional terms that apply to those files, or a notice indicating where to find the applicable terms."
+   - If Using Source Code and/or 16x Textures: give credit to me (Rozmir_Rohi) and provide a link to my project (https://modrinth.com/project/mo-creatures-legacy/).
+
+   - If Using 16x Textures: Give credit to crazyspacekid and provide a link to their original project "Mo' Creatures 16x" (https://www.curseforge.com/minecraft/texture-packs/mo-creatures-16x).
+
+
+   If these further conditions apply to your use of this project, you must do each of the following:
+		1. Satisfy the further conditions.
+
+		2. License your work with the GNU General Public License v3.0.
+		
+		3. Exclude the further conditions from the license document for your work. The further conditions must only be applied and not be carried over in the relicensing.
+
+
+
+SECTION 3 - HOW THIS CUSTOM LICENSE COMPLIES WITH THE GNU GENERAL PUBLIC LICENCE v3.0:
+The further conditions are permitted under section 7 of the GNU General Public License v3.0,
+"If a license document contains a further restriction but permits relicensing or conveying under this License, you may add to a covered work material governed by the terms of that license document, provided that the further restriction does not survive such relicensing or conveying...If you add terms to a covered work in accord with this section, you must place, in the relevant source files, a statement of the additional terms that apply to those files, or a notice indicating where to find the applicable terms."
