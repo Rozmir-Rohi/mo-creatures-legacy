@@ -19,7 +19,7 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
     public MoCEntityDeer(World world)
     {
         super(world);
-        setEdad(75);
+        setMoCAge(75);
         setSize(0.9F, 1.3F);
         //health = 10;
         setAdult(true);
@@ -129,8 +129,8 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
         {
             if ((getType() == 3) && !getIsAdult() && (rand.nextInt(250) == 0))
             {
-                setEdad(getEdad() + 1);
-                if (getEdad() >= 130)
+                setMoCAge(getMoCAge() + 1);
+                if (getMoCAge() >= 130)
                 {
                     setAdult(true);
                     int i = rand.nextInt(1);

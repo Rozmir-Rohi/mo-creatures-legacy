@@ -17,7 +17,7 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     {
         super(world);
         setSize(0.3F, 0.5F);
-        setEdad(50 + (rand.nextInt(50)));
+        setMoCAge(50 + (rand.nextInt(50)));
     }
 
     protected void applyEntityAttributes()
@@ -144,8 +144,8 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
             
             if (!getIsAdult() && (rand.nextInt(200) == 0))
             {
-                setEdad(getEdad() + 1);
-                if (getEdad() >= 100)
+                setMoCAge(getMoCAge() + 1);
+                if (getMoCAge() >= 100)
                 {
                     setAdult(true);
                 }
@@ -204,7 +204,7 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     
     @Override
     public int nameYOffset()
-    {     int yOff = (int) (getEdad() * -1 /2.3);
+    {     int yOff = (int) (getMoCAge() * -1 /2.3);
          return yOff;
     }
       
@@ -241,7 +241,7 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
             }
         }
         
-        return (float)getEdad() * 0.01F + (pulseSize/4);
+        return (float)getMoCAge() * 0.01F + (pulseSize/4);
     }
     
     @Override

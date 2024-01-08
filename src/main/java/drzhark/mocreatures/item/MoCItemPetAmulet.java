@@ -34,7 +34,7 @@ public class MoCItemPetAmulet extends MoCItem
     private int ageCounter;
     private String name;
     private float health;
-    private int edad;
+    private int age;
     private int creatureType;
     private String spawnClass;
     private String ownerName;
@@ -105,7 +105,7 @@ public class MoCItemPetAmulet extends MoCItem
                         storedCreature.setOwnerPetId(PetId);
                         storedCreature.setOwner(entityplayer.getCommandSenderName());
                         ((EntityLiving)storedCreature).setHealth(health);
-                        storedCreature.setEdad(edad);
+                        storedCreature.setMoCAge(age);
                         storedCreature.setAdult(adult);
                         // special case for kitty
                         if (spawnClass.equalsIgnoreCase("Kitty"))
@@ -186,7 +186,7 @@ public class MoCItemPetAmulet extends MoCItem
         this.PetId = nbt.getInteger("PetId");
         this.creatureType = nbt.getInteger("CreatureType");
         this.health = nbt.getFloat("Health");
-        this.edad = nbt.getInteger("Edad");
+        this.age = nbt.getInteger("Age");
         this.name = nbt.getString("Name");
         this.spawnClass = nbt.getString("SpawnClass");
         this.adult = nbt.getBoolean("Adult");
@@ -198,7 +198,7 @@ public class MoCItemPetAmulet extends MoCItem
         nbt.setInteger("PetID", this.PetId);
         nbt.setInteger("CreatureType", this.creatureType);
         nbt.setFloat("Health", this.health);
-        nbt.setInteger("Edad", this.edad);
+        nbt.setInteger("Age", this.age);
         nbt.setString("Name", this.name);
         nbt.setString("SpawnClass", this.spawnClass);
         nbt.setBoolean("Adult", this.adult);

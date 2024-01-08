@@ -30,7 +30,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
         super(world);
         texture = "shark.png";
         setSize(1.5F, 0.8F);
-        setEdad(100 + rand.nextInt(100));
+        setMoCAge(100 + rand.nextInt(100));
         this.tasks.addTask(4, new EntityAIAvoidEntity(this, MoCEntityDolphin.class, 8.0F, 0.6D, 0.6D)); // run away from dolphins, not sure if this is working though
     }
 
@@ -55,7 +55,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     @Override
     protected void attackEntity(Entity entity, float f)
     {
-        if ((f < 3.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY) && (getEdad() >= 100))
+        if ((f < 3.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY) && (getMoCAge() >= 100))
         {
             if (entity instanceof EntityPlayer && ((EntityPlayer)entity).ridingEntity != null)
             {
@@ -111,7 +111,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
                 entityDropItem(new ItemStack(MoCreatures.sharkteeth, 1, 0), 0.0F);
             }
         }
-        else if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getEdad() > 150))
+        else if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getMoCAge() > 150))
         {
             int k = rand.nextInt(3);
             for (int i1 = 0; i1 < k; i1++)
@@ -124,7 +124,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     @Override
     protected Entity findPlayerToAttack()
     {
-        if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getEdad() >= 100))
+        if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getMoCAge() >= 100))
         {
             EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
             if ((entityplayer != null) && entityplayer.isInWater() && !getIsTamed()) { return entityplayer; }
@@ -180,8 +180,8 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
         {
             if (!getIsAdult() && (rand.nextInt(50) == 0))
             {
-                setEdad(getEdad() + 1);
-                if (getEdad() >= 200)
+                setMoCAge(getMoCAge() + 1);
+                if (getMoCAge() >= 200)
                 {
                     setAdult(true);
                 }

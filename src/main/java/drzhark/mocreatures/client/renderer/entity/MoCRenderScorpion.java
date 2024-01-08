@@ -84,7 +84,7 @@ public class MoCRenderScorpion extends MoCRenderMoC {
         float f = 1.1F;
         if (!entityscorpion.getIsAdult())
         {
-            f = entityscorpion.getEdad() * 0.01F;
+            f = entityscorpion.getMoCAge() * 0.01F;
         }
         GL11.glScalef(f, f, f);
     }

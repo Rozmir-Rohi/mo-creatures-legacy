@@ -45,7 +45,7 @@ public class MoCRenderOstrich extends MoCRenderMoC {
     protected void stretch(MoCEntityOstrich entityostrich)
     {
 
-        float f = entityostrich.getEdad() * 0.01F;
+        float f = entityostrich.getMoCAge() * 0.01F;
         GL11.glScalef(f, f, f);
     }
 

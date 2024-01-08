@@ -46,11 +46,11 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
 
         if(rand.nextInt(6) == 0)
         {
-            setEdad(50 + rand.nextInt(50));
+            setMoCAge(50 + rand.nextInt(50));
         }
         else
         {
-            setEdad(80 + rand.nextInt(20));
+            setMoCAge(80 + rand.nextInt(20));
         }
     }
 
@@ -261,8 +261,8 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         {
             if (!getIsAdult() && (rand.nextInt(500) == 0))
             {
-                setEdad(getEdad() + 1);
-                if (getEdad() >= getMaxAge())
+                setMoCAge(getMoCAge() + 1);
+                if (getMoCAge() >= getMaxAge())
                 {
                     setAdult(true);
                 }
@@ -319,7 +319,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     @Override
     public float getSizeFactor() 
     {   
-        return (float)getEdad() * 0.01F;
+        return (float)getMoCAge() * 0.01F;
     }
 
     @Override
@@ -346,7 +346,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && !getIsRideable() && getEdad() > 90 && this.getIsTamed() && (itemstack.getItem() == Items.saddle || itemstack.getItem() == MoCreatures.horsesaddle) )
+        if ((itemstack != null) && !getIsRideable() && getMoCAge() > 90 && this.getIsTamed() && (itemstack.getItem() == Items.saddle || itemstack.getItem() == MoCreatures.horsesaddle) )
         {
             if (--itemstack.stackSize == 0)
             {
@@ -356,7 +356,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && this.getIsTamed() && getEdad() > 90 && itemstack.getItem() == Items.iron_horse_armor)
+        if ((itemstack != null) && this.getIsTamed() && getMoCAge() > 90 && itemstack.getItem() == Items.iron_horse_armor)
         {
             if (getArmorType() == 0)
             {
@@ -372,7 +372,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && this.getIsTamed() && getEdad() > 90 && itemstack.getItem() == Items.golden_horse_armor)
+        if ((itemstack != null) && this.getIsTamed() && getMoCAge() > 90 && itemstack.getItem() == Items.golden_horse_armor)
         {
             if (getArmorType() == 0)
             {
@@ -387,7 +387,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && this.getIsTamed() && getEdad() > 90 && itemstack.getItem() == Items.diamond_horse_armor)
+        if ((itemstack != null) && this.getIsTamed() && getMoCAge() > 90 && itemstack.getItem() == Items.diamond_horse_armor)
         {
             if (getArmorType() == 0)
             {
@@ -402,7 +402,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && getIsTamed() && getEdad() > 90 && !getIsChested() && (itemstack.getItem() == Item.getItemFromBlock(Blocks.chest)))
+        if ((itemstack != null) && getIsTamed() && getMoCAge() > 90 && !getIsChested() && (itemstack.getItem() == Item.getItemFromBlock(Blocks.chest)))
         {
             if (--itemstack.stackSize == 0)
             {
@@ -430,7 +430,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && (itemstack.getItem() == MoCreatures.essencelight) && getIsTamed() && getEdad() > 90 && getType() < 5)
+        if ((itemstack != null) && (itemstack.getItem() == MoCreatures.essencelight) && getIsTamed() && getMoCAge() > 90 && getType() < 5)
         {
             if (--itemstack.stackSize == 0)
             {
@@ -508,7 +508,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if (getIsRideable() && getEdad() > 90 && (riddenByEntity == null))
+        if (getIsRideable() && getMoCAge() > 90 && (riddenByEntity == null))
         {
             entityplayer.rotationYaw = rotationYaw;
             entityplayer.rotationPitch = rotationPitch;
@@ -755,14 +755,14 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         }
         else
         {
-            return (130 - getEdad()) * 0.01D;
+            return (130 - getMoCAge()) * 0.01D;
         }
     }
 
     @Override
     public int nameYOffset()
     {
-        int yOff = getEdad() * -1;
+        int yOff = getMoCAge() * -1;
         if (yOff < -120) yOff = -120;
         return yOff;
     }

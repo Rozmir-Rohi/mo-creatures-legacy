@@ -66,7 +66,7 @@ public class MoCRenderDeer extends RenderLiving {
 
     protected void stretch(MoCEntityDeer entitydeer)
     {
-        float f = entitydeer.getEdad() * 0.01F;
+        float f = entitydeer.getMoCAge() * 0.01F;
         float f1 = 0.0F;
         if (entitydeer.getType() == 1)
         {

@@ -24,7 +24,7 @@ public class MoCEntityBoar extends MoCEntityAnimal {
         //health = 10;
         force = 1;
         attackRange = 1.0D;
-        setEdad(50);
+        setMoCAge(50);
         if (rand.nextInt(4) == 0)
         {
             setAdult(false);
@@ -119,8 +119,8 @@ public class MoCEntityBoar extends MoCEntityAnimal {
 
         if ((MoCreatures.isServer()) && !getIsAdult() && (rand.nextInt(250) == 0))
         {
-            setEdad(getEdad() + 1);
-            if (getEdad() >= 100)
+            setMoCAge(getMoCAge() + 1);
+            if (getMoCAge() >= 100)
             {
                 setAdult(true);
             }

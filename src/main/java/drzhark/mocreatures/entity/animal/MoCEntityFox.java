@@ -127,9 +127,9 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
             }
             this.setHealth(getMaxHealth());
 
-            if (MoCreatures.isServer() && !getIsAdult() && (getEdad() < 100))
+            if (MoCreatures.isServer() && !getIsAdult() && (getMoCAge() < 100))
             {
-                setEdad(getEdad() + 1);
+                setMoCAge(getMoCAge() + 1);
             }
 
             return true;

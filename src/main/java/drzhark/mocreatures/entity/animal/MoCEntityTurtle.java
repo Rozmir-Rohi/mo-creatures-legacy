@@ -29,7 +29,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
         super(world);
         setSize(0.6F, 0.4F);
         setAdult(false);
-        setEdad(110);
+        setMoCAge(110);
     }
 
     protected void applyEntityAttributes()
@@ -109,7 +109,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     public double getYOffset()
     {
         // If we are in SMP, do not alter offset on any client other than the player being mounted on
-        if (ridingEntity instanceof EntityPlayer && ridingEntity == MoCreatures.proxy.getPlayer() && !MoCreatures.isServer()) { return (yOffset - (1F + (getEdad() * 0.01F / 6))); }
+        if (ridingEntity instanceof EntityPlayer && ridingEntity == MoCreatures.proxy.getPlayer() && !MoCreatures.isServer()) { return (yOffset - (1F + (getMoCAge() * 0.01F / 6))); }
         if ((ridingEntity instanceof EntityPlayer) && !MoCreatures.isServer()) { return (yOffset + 0.3F); }
         return yOffset;
     }
@@ -316,9 +316,9 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     {
         super.onUpdate();
 
-        if (getIsTamed() && getEdad() < 300 && rand.nextInt(800) == 0)
+        if (getIsTamed() && getMoCAge() < 300 && rand.nextInt(800) == 0)
         {
-            setEdad(getEdad() + 1);
+            setMoCAge(getMoCAge() + 1);
         }
         if (getIsUpsideDown() && (ridingEntity == null) && rand.nextInt(20) == 0)
         {

@@ -50,7 +50,7 @@ public class MoCRenderFishy extends RenderLiving {
 
     protected void stretch(MoCEntityFishy entityfishy)
     {
-        GL11.glScalef(entityfishy.getEdad() * 0.01F, entityfishy.getEdad() * 0.01F, entityfishy.getEdad() * 0.01F);
+        GL11.glScalef(entityfishy.getMoCAge() * 0.01F, entityfishy.getMoCAge() * 0.01F, entityfishy.getMoCAge() * 0.01F);
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {

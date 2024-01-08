@@ -52,7 +52,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         super(world);
         setAdult(true);
         setTamed(false);
-        setEdad(50);
+        setMoCAge(50);
         setSize(1.1F, 3F);
         //health = 40;
         this.stepHeight = 1.0F;
@@ -246,8 +246,8 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         {
             if (!getIsAdult() && (rand.nextInt(1000) == 0))
             {
-                setEdad(getEdad() + 1);
-                if (getEdad() >= 100)
+                setMoCAge(getMoCAge() + 1);
+                if (getMoCAge() >= 100)
                 {
                     setAdult(true);
                 }
@@ -766,7 +766,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 
         if (!getIsAdult())
         {
-            sizeF = sizeF * (getEdad() * 0.01F);
+            sizeF = sizeF * (getMoCAge() * 0.01F);
         }
         return sizeF;
     }
@@ -1088,7 +1088,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
     @Override
     protected String getLivingSound()
     {
-        if (!getIsAdult() && getEdad() < 80)
+        if (!getIsAdult() && getMoCAge() < 80)
         {
             return "mocreatures:elephantcalf";
         }
@@ -1177,7 +1177,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         {
             return (int) (getSizeFactor() * -110);
         }
-        return (int) ((100/getEdad()) * (getSizeFactor() * -110));
+        return (int) ((100/getMoCAge()) * (getSizeFactor() * -110));
     }
 
     @Override
@@ -1187,7 +1187,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         {
             return getSizeFactor() * -0.5D;
         }
-        return (double) ((100/getEdad()) * (getSizeFactor() * -0.5D));
+        return (double) ((100/getMoCAge()) * (getSizeFactor() * -0.5D));
     }
 
     @Override

@@ -39,7 +39,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         setSize(1.4F, 0.9F);
         poisontimer = 0;
         setAdult(false);
-        setEdad(20);
+        setMoCAge(20);
         roper = null;
         setHasBabies(false);
         this.stepHeight = 20.0F;
@@ -220,8 +220,8 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
 
         if (MoCreatures.isServer() && !getIsAdult() && (rand.nextInt(200) == 0))
         {
-            setEdad(getEdad() + 1);
-            if (getEdad() >= 120)
+            setMoCAge(getMoCAge() + 1);
+            if (getMoCAge() >= 120)
             {
                 setAdult(true);
             }
@@ -503,7 +503,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             }
             return true;
         }
-        if (itemstack == null && this.ridingEntity == null && getEdad() < 60)
+        if (itemstack == null && this.ridingEntity == null && getMoCAge() < 60)
         {
             rotationYaw = entityplayer.rotationYaw;
             if (MoCreatures.isServer() && (entityplayer.ridingEntity == null))
@@ -592,7 +592,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     @Override
     public int nameYOffset()
     {
-        int n = (int) (1 - (getEdad() * 0.8));
+        int n = (int) (1 - (getMoCAge() * 0.8));
         if (n < -70)
         {
             n = -70;
@@ -604,7 +604,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     @Override
     public double roperYOffset()
     {
-        double r = (double) ((150 - getEdad()) * 0.012D);
+        double r = (double) ((150 - getMoCAge()) * 0.012D);
         if (r < 0.55D)
         {
             r = 0.55D;

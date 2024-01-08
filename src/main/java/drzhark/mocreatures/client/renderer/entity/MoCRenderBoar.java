@@ -33,7 +33,7 @@ public class MoCRenderBoar extends MoCRenderMoC {
 
     protected void stretch(MoCEntityBoar entityboar)
     {
-        float sizeFactor = entityboar.getEdad() * 0.01F;
+        float sizeFactor = entityboar.getMoCAge() * 0.01F;
         if (entityboar.getIsAdult())
         {
             sizeFactor = 1.0F;

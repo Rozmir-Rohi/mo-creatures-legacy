@@ -97,7 +97,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         dataWatcher.addObject(15, Byte.valueOf((byte) 0)); // isAdult - 0 false 1 true
         dataWatcher.addObject(16, Byte.valueOf((byte) 0)); // isTamed - 0 false 1 true
         dataWatcher.addObject(17, String.valueOf("")); // displayName empty string by default
-        dataWatcher.addObject(18, Integer.valueOf(0)); // int ageTicks / "edad"
+        dataWatcher.addObject(18, Integer.valueOf(0)); // int ageTicks
         dataWatcher.addObject(19, Integer.valueOf(0)); // int type
         dataWatcher.addObject(20, String.valueOf("")); //owners name
         
@@ -139,14 +139,14 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
 
     /**
      * @return networked Entity "Age" in integer value, typical values are
-     *         0-100. Old float eDad was typically 0F-1.0F
+     *         0-100.
      */
-    public int getEdad()
+    public int getMoCAge()
     {
         return dataWatcher.getWatchableObjectInt(18);
     }
 
-    public void setEdad(int i)
+    public void setMoCAge(int i)
     {
         dataWatcher.updateObject(18, Integer.valueOf(i));
     }
@@ -544,7 +544,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         super.writeEntityToNBT(nbttagcompound);
         nbttagcompound.setBoolean("Tamed", getIsTamed());
         nbttagcompound.setBoolean("Adult", getIsAdult());
-        nbttagcompound.setInteger("Edad", getEdad());
+        nbttagcompound.setInteger("Age", getMoCAge());
         nbttagcompound.setString("Name", getName());
         nbttagcompound.setInteger("TypeInt", getType());
         nbttagcompound.setString("Owner", getOwnerName());
@@ -556,7 +556,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         super.readEntityFromNBT(nbttagcompound);
         setTamed(nbttagcompound.getBoolean("Tamed"));
         setAdult(nbttagcompound.getBoolean("Adult"));
-        setEdad(nbttagcompound.getInteger("Edad"));
+        setMoCAge(nbttagcompound.getInteger("Age"));
         setName(nbttagcompound.getString("Name"));
         setType(nbttagcompound.getInteger("TypeInt"));
         setOwner(nbttagcompound.getString("Owner"));

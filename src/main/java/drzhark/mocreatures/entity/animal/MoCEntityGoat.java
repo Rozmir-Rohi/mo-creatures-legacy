@@ -38,7 +38,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
     {
         super(world);
         setSize(1.4F, 0.9F);
-        setEdad(70);
+        setMoCAge(70);
     }
 
     protected void applyEntityAttributes()
@@ -92,37 +92,37 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
             if (i <= 15)
             {
                 setType(1);
-                setEdad(50);
+                setMoCAge(50);
             }
             else if (i <= 30)
             {
                 setType(2);
-                setEdad(70);
+                setMoCAge(70);
             }
             else if (i <= 45)
             {
                 setType(3);
-                setEdad(70);
+                setMoCAge(70);
             }
             else if (i <= 60)
             {
                 setType(4);
-                setEdad(70);
+                setMoCAge(70);
             }
             else if (i <= 75)
             {
                 setType(5);
-                setEdad(90);
+                setMoCAge(90);
             }
             else if (i <= 90)
             {
                 setType(6);
-                setEdad(90);
+                setMoCAge(90);
             }
             else
             {
                 setType(7);
-                setEdad(90);
+                setMoCAge(90);
             }
         }
 
@@ -226,10 +226,10 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
             }
 
         }
-        if (MoCreatures.isServer() && (getEdad() < 90 || getType() > 4 && getEdad() < 100) && rand.nextInt(500) == 0)
+        if (MoCreatures.isServer() && (getMoCAge() < 90 || getType() > 4 && getMoCAge() < 100) && rand.nextInt(500) == 0)
         {
-            setEdad(getEdad() + 1);
-            if (getType() == 1 && getEdad() > 70)
+            setMoCAge(getMoCAge() + 1);
+            if (getType() == 1 && getMoCAge() > 70)
             {
                 int i = rand.nextInt(6) + 2;
                 setType(i);

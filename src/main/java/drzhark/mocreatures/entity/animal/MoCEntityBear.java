@@ -15,6 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -41,7 +42,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         setSize(1.2F, 1.5F);
         roper = null;
         //health = 25;
-        setEdad(55);
+        setMoCAge(55);
         //force = 5;
         //attackRange = 16D;
         if (rand.nextInt(4) == 0)
@@ -319,7 +320,8 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     {
         return (super.entitiesToIgnore(entity) //including the mobs specified in parent file
             	|| (entity instanceof MoCEntityBear) 
-            	|| ((entity.width > 0.9D || entity.height > 0.9D) && !(entity instanceof MoCEntityDeer)) //don't try to hunt creatures larger than itself unless it is a deer   
+            	|| (getIsAdult() && (entity.width > 1.3D && entity.height > 1.3D)) // don't try to hunt creature larger than a deer when adult
+                || (!getIsAdult() && (entity.width > 0.5D && entity.height > 0.5D)) // don't try to hunt creature larger than a chicken when child
             	|| (entity instanceof MoCEntityBigCat)
             	|| (entity instanceof MoCEntityShark)
             	|| (entity instanceof MoCEntityJellyFish || entity instanceof MoCEntityRay || entity instanceof EntitySquid)
@@ -380,8 +382,8 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
 
         if ((MoCreatures.isServer()) && !getIsAdult() && (rand.nextInt(250) == 0))
         {
-            setEdad(getEdad() + 1);
-            if (getEdad() >= 100)
+            setMoCAge(getMoCAge() + 1);
+            if (getMoCAge() >= 100)
             {
                 setAdult(true);
             }
@@ -389,7 +391,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         /**
          * panda bears and cubs will sit down every now and then
          */
-        if ((MoCreatures.isServer()) && (getType() == 3 || (!getIsAdult() && getEdad() < 60)) && (rand.nextInt(300) == 0))
+        if ((MoCreatures.isServer()) && (getType() == 3 || (!getIsAdult() && getMoCAge() < 60)) && (rand.nextInt(300) == 0))
         {
             setBearState(2);
         }
@@ -481,9 +483,9 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
 
             this.setHealth(getMaxHealth());
             eatingAnimal();
-            if (MoCreatures.isServer() && !getIsAdult() && (getEdad() < 100))
+            if (MoCreatures.isServer() && !getIsAdult() && (getMoCAge() < 100))
             {
-                setEdad(getEdad() + 1);
+                setMoCAge(getMoCAge() + 1);
             }
 
             return true;
@@ -585,7 +587,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         }
         else
         {
-            return (double) ((130 - getEdad()) * 0.01D);
+            return (double) ((130 - getMoCAge()) * 0.01D);
         }
 
     }
@@ -619,7 +621,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         {
             return (-55);
         }
-        return (int) ((100/getEdad()) * (-40));
+        return (int) ((100/getMoCAge()) * (-40));
 
     }
     

@@ -424,7 +424,7 @@ Improved name for mount chest containers. Also made mount containers dependent o
 Fixed deer being frozen. Also fixed deer not running away from players and scary creatures.
 
 
-Big Cats and Bears now hunt deer.
+Big Cats, Bears and Crocodile now hunt every animal that is as big as or smaller than a deer. The baby versions of these predator creatures will hunt every animal that is big as or smaller than a cicken.
 
 
 Made the remaining gui related text dependent on language files.

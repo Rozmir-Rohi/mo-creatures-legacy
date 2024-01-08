@@ -158,13 +158,7 @@ public class MoCRenderCrocodile extends RenderLiving {
 
     protected void stretch(MoCEntityCrocodile entitycrocodile)
     {
-
-        //        float f = 1.3F;
-        float f = entitycrocodile.getEdad() * 0.01F;
-        /*if(!entitycrocodile.getIsAdult())
-        {
-            f = entitycrocodile.edad;
-        }*/
+        float f = entitycrocodile.getMoCAge() * 0.01F;
         GL11.glScalef(f, f, f);
     }
 

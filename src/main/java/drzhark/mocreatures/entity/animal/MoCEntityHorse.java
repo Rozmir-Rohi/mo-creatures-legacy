@@ -80,7 +80,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         eatenpumpkin = false;
         nightmareInt = 0;
         
-        setEdad(50);
+        setMoCAge(50);
         setChestedHorse(false);
         roper = null;
         this.stepHeight = 1.0F;
@@ -611,7 +611,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     @Override
     public boolean getDisplayName()
     {
-        if (isGhost() && getEdad() < 10) { return false; }
+        if (isGhost() && getMoCAge() < 10) { return false; }
 
         return (getName() != null && !getName().equals(""));
     }
@@ -1019,7 +1019,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                 iteratorTex = iteratorTex.substring(0, 1);
             }
            
-            String decayTex = "" + (getEdad() / 100);
+            String decayTex = "" + (getMoCAge() / 100);
             decayTex = decayTex.substring(0, 1);
             return MoCreatures.proxy.getTexture(baseTex + decayTex + iteratorTex + ".png");
         }
@@ -1559,7 +1559,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		            // to return undead horses to pristine conditions
 		            if (this.isUndead() && this.getIsAdult() && MoCreatures.isServer())
 		            {
-		                setEdad(10);
+		                setMoCAge(10);
 		                if (horse_type > 26)
 		                {
 		                    setType(horse_type - 3);
@@ -1746,9 +1746,9 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	        	eatingHorse(); //play eating sound
 	
 	
-	            if (!getIsAdult() && (getEdad() < 100))
+	            if (!getIsAdult() && (getMoCAge() < 100))
 	            {
-	            	setEdad(getEdad() + ageIncrease);
+	            	setMoCAge(getMoCAge() + ageIncrease);
 	            }
 	
 	
@@ -2005,7 +2005,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         }
         else
         {
-            return (-5 - getEdad());
+            return (-5 - getMoCAge());
         }
     }
 
@@ -2096,7 +2096,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                 
 
                 new_ghost_horse.setAdult(false);
-                new_ghost_horse.setEdad(1);
+                new_ghost_horse.setMoCAge(1);
                 
                 int ghost_horse_type = 22;
                 
@@ -2160,9 +2160,9 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
             {
                 if (rand.nextInt(16) == 0)
                 {
-                    setEdad(getEdad() + 1);
+                    setMoCAge(getMoCAge() + 1);
                 }
-                if (getEdad() >= 399)
+                if (getMoCAge() >= 399)
                 {
                     setType(this.getType() + 3);
                 }
@@ -2226,8 +2226,8 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
              */
             if (!getIsAdult() && (rand.nextInt(200) == 0))
             {
-                setEdad(getEdad() + 1);
-                if (getEdad() >= 100)
+                setMoCAge(getMoCAge() + 1);
+                if (getMoCAge() >= 100)
                 {
                     setAdult(true);
                     setBred(false);
@@ -2541,14 +2541,14 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
             }
         }
 
-        if (isGhost() && getEdad() < 10 && rand.nextInt(7) == 0)
+        if (isGhost() && getMoCAge() < 10 && rand.nextInt(7) == 0)
         {
-            setEdad(getEdad() + 1);
+            setMoCAge(getMoCAge() + 1);
         }
 
-        if (isGhost() && getEdad() == 9)
+        if (isGhost() && getMoCAge() == 9)
         {
-            setEdad(100);
+            setMoCAge(100);
             setAdult(true);
         }
     }
@@ -2585,7 +2585,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         }
         else
         {
-            return (130 - getEdad()) * 0.01D;
+            return (130 - getMoCAge()) * 0.01D;
         }
     }
 
@@ -2738,7 +2738,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
             this.transparencyFloat = (rand.nextFloat() * (0.6F - 0.3F) + 0.3F);
         }
 
-        if (isGhost() && getEdad() < 10)
+        if (isGhost() && getMoCAge() < 10)
         {
             transparencyFloat = 0;
         }

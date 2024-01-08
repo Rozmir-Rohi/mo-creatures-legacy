@@ -33,7 +33,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     {
         super(world);
         setSize(0.3F, 0.3F);
-        setEdad(50 + rand.nextInt(50));
+        setMoCAge(50 + rand.nextInt(50));
     }
 
     protected void applyEntityAttributes()
@@ -157,8 +157,8 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
         {
             if (!getIsAdult() && (rand.nextInt(100) == 0))
             {
-                setEdad(getEdad() + 2);
-                if (getEdad() >= 100)
+                setMoCAge(getMoCAge() + 2);
+                if (getMoCAge() >= 100)
                 {
                     setAdult(true);
                 }
@@ -234,7 +234,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
                         MoCTools.tameWithName(entityplayer, entityfishy1);
                     }
 
-                    entityfishy1.setEdad(20);
+                    entityfishy1.setMoCAge(20);
                     entityfishy1.setAdult(false);
                     entityfishy1.setTypeInt(getType());
                 }

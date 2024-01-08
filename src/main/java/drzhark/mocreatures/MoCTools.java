@@ -1392,7 +1392,7 @@ public class MoCTools {
             {
                 nbtt.setInteger("SpawnClass", 21); 
                 nbtt.setFloat("Health", entity.getHealth());
-                nbtt.setInteger("Edad", entity.getEdad());
+                nbtt.setInteger("Age", entity.getMoCAge());
                 nbtt.setString("Name", entity.getName());
                 nbtt.setBoolean("Rideable", entity.getIsRideable());
                 nbtt.setByte("Armor", entity.getArmorType());
@@ -1452,7 +1452,7 @@ public class MoCTools {
                 }
                 nbtt.setString("SpawnClass", petClass);
                 nbtt.setFloat("Health", ((EntityLiving)entity).getHealth());
-                nbtt.setInteger("Edad", entity.getEdad());
+                nbtt.setInteger("Age", entity.getMoCAge());
                 nbtt.setString("Name", entity.getName());
                 nbtt.setInteger("CreatureType", entity.getType());
                 nbtt.setString("OwnerName", entity.getOwnerName());

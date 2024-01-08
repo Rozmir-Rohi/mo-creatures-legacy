@@ -150,9 +150,9 @@ public class MoCRenderBigCat extends RenderLiving {
             Tessellator tessellator = Tessellator.instance;
             if (entitybigcat.getIsAdult())
             {
-                entitybigcat.setEdad(100);
+                entitybigcat.setMoCAge(100);
             }
-            d1 -= 0.4D / entitybigcat.getEdad() * 0.01F;
+            d1 -= 0.4D / entitybigcat.getMoCAge() * 0.01F;
             float f4 = ((entitybigcat.roper.prevRotationYaw + ((entitybigcat.roper.rotationYaw - entitybigcat.roper.prevRotationYaw) * f1 * 0.5F)) * 3.141593F) / 180F;
             float f6 = ((entitybigcat.roper.prevRotationPitch + ((entitybigcat.roper.rotationPitch - entitybigcat.roper.prevRotationPitch) * f1 * 0.5F)) * 3.141593F) / 180F;
             double d3 = MathHelper.sin(f4);
@@ -207,7 +207,7 @@ public class MoCRenderBigCat extends RenderLiving {
 
     protected void stretch(MoCEntityBigCat entitybigcat)
     {
-        float f = entitybigcat.getEdad() * 0.01F;
+        float f = entitybigcat.getMoCAge() * 0.01F;
         if (entitybigcat.getIsAdult())
         {
             f = 1.0F;

@@ -48,11 +48,11 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
 
         if(rand.nextInt(6) == 0)
         {
-            setEdad(30 + rand.nextInt(40));
+            setMoCAge(30 + rand.nextInt(40));
         }
         else
         {
-            setEdad(90 + rand.nextInt(30));
+            setMoCAge(90 + rand.nextInt(30));
         }
     }
 
@@ -165,8 +165,8 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         }
         if ((MoCreatures.isServer()) && !getIsAdult() && (rand.nextInt(500) == 0))
         {
-            setEdad(getEdad() + 1);
-            if (getEdad() >= 120)
+            setMoCAge(getMoCAge() + 1);
+            if (getMoCAge() >= 120)
             {
                 setAdult(true);
             }
@@ -201,7 +201,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     @Override
     protected void dropFewItems(boolean flag, int x)
     {
-        boolean flag2 = (getEdad() > 90 && rand.nextInt(5) == 0);
+        boolean flag2 = (getMoCAge() > 90 && rand.nextInt(5) == 0);
         
        if (flag2)
         {
@@ -223,7 +223,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     {   
         if (!getIsAdult())
         {
-            return (float)getEdad() * 0.01F;
+            return (float)getMoCAge() * 0.01F;
         }
         return 1.2F;
     }
@@ -241,7 +241,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
 
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
         
-        if ((itemstack != null) && getIsTamed() && !getIsRideable() && getEdad() > 90 &&
+        if ((itemstack != null) && getIsTamed() && !getIsRideable() && getMoCAge() > 90 &&
                 (itemstack.getItem() == Items.saddle || itemstack.getItem() == MoCreatures.horsesaddle))
         {
             if (--itemstack.stackSize == 0)
@@ -253,7 +253,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
             return true;
         }
         
-        if (getIsRideable() && getIsTamed() && getEdad() > 90 && (riddenByEntity == null))
+        if (getIsRideable() && getIsTamed() && getMoCAge() > 90 && (riddenByEntity == null))
         {
             if (MoCreatures.isServer() && (itemstack == null) && (this.riddenByEntity == null))
             {
@@ -285,13 +285,13 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         {
             return (-55);
         }
-        return (int) ((60/getEdad()) * (-50));
+        return (int) ((60/getMoCAge()) * (-50));
     }
 
     @Override
     public double roperYOffset()
     {
-        double r = (double) ((150 - getEdad()) * 0.012D);
+        double r = (double) ((150 - getMoCAge()) * 0.012D);
         if (r < 0.55D)
         {
             r = 0.55D;
@@ -342,7 +342,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         {
             return (double) (yOff + (this.height) );
         }
-        return (double) (this.height * (120/getEdad()) );
+        return (double) (this.height * (120/getMoCAge()) );
     }
 
     @Override
@@ -395,7 +395,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         if (worldObj.difficultySetting.getDifficultyId() > 0)
         {
             EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 6D);
-            if (!getIsTamed() && (entityplayer != null) && getEdad()>70)
+            if (!getIsTamed() && (entityplayer != null) && getMoCAge()>70)
             {
                     return entityplayer;
             }

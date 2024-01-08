@@ -23,7 +23,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
     {
         super(world);
         setSize(0.6F, 0.3F);
-        setEdad(30 + rand.nextInt(70));
+        setMoCAge(30 + rand.nextInt(70));
     }
 
     protected void applyEntityAttributes()
@@ -83,8 +83,8 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
 
         if ((MoCreatures.isServer()) && !getIsAdult() && (rand.nextInt(500) == 0))
         {
-            setEdad(getEdad() + 1);
-            if (getEdad() >= 110)
+            setMoCAge(getMoCAge() + 1);
+            if (getMoCAge() >= 110)
             {
                 setAdult(true);
             }
@@ -113,7 +113,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
     @Override
     public float getSizeFactor() 
     {   
-        return (float)getEdad() * 0.01F;
+        return (float)getMoCAge() * 0.01F;
     }
 
     @Override

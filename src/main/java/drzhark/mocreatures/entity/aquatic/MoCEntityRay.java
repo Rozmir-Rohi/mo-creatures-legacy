@@ -25,7 +25,7 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
     {
         super(world);
         setSize(1.8F, 0.5F);
-        setEdad(50 + (rand.nextInt(50)));
+        setMoCAge(50 + (rand.nextInt(50)));
     }
 
     protected void applyEntityAttributes()
@@ -45,12 +45,12 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
             if (i <= 35)
             {
                 setType(1);
-                setEdad(80 + (rand.nextInt(100)));
+                setMoCAge(80 + (rand.nextInt(100)));
             }
             else
             {
                 setType(1);
-                setEdad(70);
+                setMoCAge(70);
             }
             getMaxHealth();
         }
@@ -109,8 +109,8 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
         {
             if (!getIsAdult() && (rand.nextInt(50) == 0))
             {
-                setEdad(getEdad() + 1);
-                if ((getType() == 1 && getEdad() >= 180) || (getType() > 1 && getEdad() >= 90))
+                setMoCAge(getMoCAge() + 1);
+                if ((getType() == 1 && getMoCAge() >= 180) || (getType() > 1 && getMoCAge() >= 90))
                 {
                     setAdult(true);
                 }
@@ -220,7 +220,7 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
     @Override
     public float getSizeFactor()
     {
-        float f = (float)getEdad() * 0.01F;
+        float f = (float)getMoCAge() * 0.01F;
         if (f > 1.5F) f = 1.5F;
         return f;
     }

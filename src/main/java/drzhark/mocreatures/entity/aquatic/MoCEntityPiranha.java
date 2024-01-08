@@ -31,7 +31,7 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
     {
         super(world);
         setSize(0.3F, 0.3F);
-        setEdad(30 + rand.nextInt(70));
+        setMoCAge(30 + rand.nextInt(70));
     }
 
     protected void applyEntityAttributes()

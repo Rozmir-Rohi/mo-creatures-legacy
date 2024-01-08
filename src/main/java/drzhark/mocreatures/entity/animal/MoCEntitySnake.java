@@ -46,7 +46,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         //health = 10;
         bodyswing = 2F;
         movInt = rand.nextInt(10);
-        setEdad(50 + rand.nextInt(50));
+        setMoCAge(50 + rand.nextInt(50));
     }
 
     protected void applyEntityAttributes()
@@ -189,7 +189,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     public boolean isNotScared()
     {
         // TODO depending on size!
-        if ((getType() > 2 && getEdad() > 50) || this.getType()== 7) { return true; }
+        if ((getType() > 2 && getMoCAge() > 50) || this.getType()== 7) { return true; }
         else {return false;}
     }
 
@@ -290,7 +290,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             factor = 1.5F;
         }
 
-        return this.getEdad() * 0.01F * factor;// */
+        return this.getMoCAge() * 0.01F * factor;// */
     }
 
     @Override
@@ -298,9 +298,9 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     {
         super.onUpdate();
 
-        if (getEdad() < 100 && rand.nextInt(500) == 0)
+        if (getMoCAge() < 100 && rand.nextInt(500) == 0)
         {
-            setEdad(getEdad() + 1);
+            setMoCAge(getMoCAge() + 1);
         }
 
         if (pickedUp())
@@ -659,7 +659,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     @Override
     protected void dropFewItems(boolean flag, int x)
     {
-        if (getEdad() > 60)
+        if (getMoCAge() > 60)
         {
             int j = rand.nextInt(3);
             for (int l = 0; l < j; l++)

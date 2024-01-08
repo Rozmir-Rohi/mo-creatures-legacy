@@ -39,7 +39,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
         setSize(1.4F, 0.9F);
         poisontimer = 0;
         setAdult(true);
-        setEdad(20);
+        setMoCAge(20);
 
         if (MoCreatures.isServer())
         {
@@ -248,8 +248,8 @@ public class MoCEntityScorpion extends MoCEntityMob {
 
         if (MoCreatures.isServer() && !getIsAdult() && (rand.nextInt(200) == 0))
         {
-            setEdad(getEdad() + 1);
-            if (getEdad() >= 120)
+            setMoCAge(getMoCAge() + 1);
+            if (getMoCAge() >= 120)
             {
                 setAdult(true);
             }

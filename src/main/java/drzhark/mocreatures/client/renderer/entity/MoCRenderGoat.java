@@ -38,42 +38,12 @@ public class MoCRenderGoat extends RenderLiving {
 
     }
 
-    /*@Override
-    public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
-    {
-        MoCEntityGoat entitygoat = (MoCEntityGoat) entityliving;
-        tempGoat.typeInt = entitygoat.type;
-        tempGoat.edad = entitygoat.getEdad();
-        tempGoat.bleat = entitygoat.getBleating();
-        tempGoat.attacking = entitygoat.getAttacking();
-        tempGoat.legMov    = entitygoat.legMovement();
-        
-        if(!entitygoat.isSwimming())
-        {
-            depth = 0.09F;
-        }else
-        if (tempGoat.typeInt == 1)
-        {
-            depth = 0.15F;
-        }else
-        {
-            depth = 0.25F;
-        }
-        
-        tempGoat.attacking = entitygoat.attacking;
-
-
-        super.doRender(entityliving, d, d1, d2, f, f1);
-        
-        
-    }*/
-
     @Override
     public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
     {
         MoCEntityGoat entitygoat = (MoCEntityGoat) entityliving;
         tempGoat.typeInt = entitygoat.getType();
-        tempGoat.edad = entitygoat.getEdad() * 0.01F;
+        tempGoat.entity_age = entitygoat.getMoCAge() * 0.01F;
         tempGoat.bleat = entitygoat.getBleating();
         tempGoat.attacking = entitygoat.getAttacking();
         tempGoat.legMov = entitygoat.legMovement();
@@ -103,7 +73,7 @@ public class MoCRenderGoat extends RenderLiving {
                 GL11.glScalef(-f3, -f3, f3);
                 GL11.glDisable(2896 /* GL_LIGHTING */);
                 Tessellator tessellator = Tessellator.instance;
-                byte byte0 = (byte) (-15 + (-40 * entitygoat.getEdad() * 0.01F));
+                byte byte0 = (byte) (-15 + (-40 * entitygoat.getMoCAge() * 0.01F));
                 if (flag1)
                 {
                     GL11.glDisable(3553 /* GL_TEXTURE_2D */);
@@ -160,7 +130,7 @@ public class MoCRenderGoat extends RenderLiving {
         }
         if (entitygoat.roper != null)
         {
-            d1 -= 0.5D / entitygoat.getEdad() * 0.01F;
+            d1 -= 0.5D / entitygoat.getMoCAge() * 0.01F;
             Tessellator tessellator = Tessellator.instance;
             float f4 = ((entitygoat.roper.prevRotationYaw + ((entitygoat.roper.rotationYaw - entitygoat.roper.prevRotationYaw) * f1 * 0.5F)) * 3.141593F) / 180F;
             float f6 = ((entitygoat.roper.prevRotationPitch + ((entitygoat.roper.rotationPitch - entitygoat.roper.prevRotationPitch) * f1 * 0.5F)) * 3.141593F) / 180F;
@@ -200,7 +170,7 @@ public class MoCRenderGoat extends RenderLiving {
 
     protected void stretch(MoCEntityGoat entitygoat)
     {
-        GL11.glScalef(entitygoat.getEdad() * 0.01F, entitygoat.getEdad() * 0.01F, entitygoat.getEdad() * 0.01F);
+        GL11.glScalef(entitygoat.getMoCAge() * 0.01F, entitygoat.getMoCAge() * 0.01F, entitygoat.getMoCAge() * 0.01F);
     }
 
     private final MoCModelGoat tempGoat;

@@ -17,6 +17,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -38,7 +39,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     public MoCEntityBigCat(World world)
     {
         super(world);
-        setEdad(35);
+        setMoCAge(35);
         setSize(0.9F, 1.3F);
         //health = 25;
         if (rand.nextInt(4) == 0)
@@ -544,7 +545,8 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     {
         return (super.entitiesToIgnore(entity) //including the mobs specified in parent file
                     || (entity instanceof MoCEntityBigCat)
-                    ||(!getIsAdult() && ((entity.width > 0.9D || entity.height > 0.9D) && !(entity instanceof MoCEntityDeer))) // don't try to hunt creature larger than it unless it is a deer
+                    || (getIsAdult() && (entity.width > 1.3D && entity.height > 1.3D)) // don't try to hunt creature larger than a deer when adult
+                    || (!getIsAdult() && (entity.width > 0.5D && entity.height > 0.5D)) // don't try to hunt creature larger than a chicken when child
                     || (entity == entity.riddenByEntity) 
                     || (entity == entity.ridingEntity) 
                     || (entity instanceof MoCEntityAmbient)
@@ -693,8 +695,8 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         }
         if (!getIsAdult() && (rand.nextInt(250) == 0))
         {
-            setEdad(getEdad() + 1);
-            if (getEdad() >= 100)
+            setMoCAge(getMoCAge() + 1);
+            if (getMoCAge() >= 100)
             {
                 setAdult(true);
                 // unused_flag = false;
@@ -745,7 +747,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
             		{
             			entityitem.setDead();
             			this.setHealth(getMaxHealth());
-            			if (!getIsAdult() && (getEdad() < 80))
+            			if (!getIsAdult() && (getMoCAge() < 80))
             			{
             				setEaten(true);
             			}

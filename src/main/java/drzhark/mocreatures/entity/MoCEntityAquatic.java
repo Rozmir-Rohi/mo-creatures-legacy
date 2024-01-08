@@ -89,7 +89,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         dataWatcher.addObject(16, Byte.valueOf((byte) 0)); // byte IsTamed, 0 = false 1 = true
         dataWatcher.addObject(17, String.valueOf("")); // Name empty string by default
         dataWatcher.addObject(18, Byte.valueOf((byte) 0)); // byte IsAdult, 0 = false 1 = true
-        dataWatcher.addObject(19, Integer.valueOf(0)); // int ageTicks / "edad"
+        dataWatcher.addObject(19, Integer.valueOf(0)); // int ageTicks
         dataWatcher.addObject(20, Integer.valueOf(0)); // integer type - will be automatically checked and networked in onUpdate-EntityLiving
         dataWatcher.addObject(21, String.valueOf("")); //owners name
     }
@@ -119,9 +119,9 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 
     /**
      * @return networked Entity "Age" in integer value, typical values are
-     *         0-100. Old float eDad was typically 0F-1.0F
+     *         0-100.
      */
-    public int getEdad()
+    public int getMoCAge()
     {
         return dataWatcher.getWatchableObjectInt(19);
     }
@@ -157,7 +157,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         dataWatcher.updateObject(18, Byte.valueOf(input));
     }
 
-    public void setEdad(int i)
+    public void setMoCAge(int i)
     {
         dataWatcher.updateObject(19, Integer.valueOf(i));
     }
@@ -747,7 +747,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         super.writeEntityToNBT(nbttagcompound);
         nbttagcompound.setBoolean("Tamed", getIsTamed());
         nbttagcompound.setBoolean("Adult", getIsAdult());
-        nbttagcompound.setInteger("Edad", getEdad());
+        nbttagcompound.setInteger("Age", getMoCAge());
         nbttagcompound.setString("Name", getName());
         nbttagcompound.setInteger("TypeInt", getType());
         nbttagcompound.setString("Owner", getOwnerName());
@@ -759,7 +759,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         super.readEntityFromNBT(nbttagcompound);
         setTamed(nbttagcompound.getBoolean("Tamed"));
         setAdult(nbttagcompound.getBoolean("Adult"));
-        setEdad(nbttagcompound.getInteger("Edad"));
+        setMoCAge(nbttagcompound.getInteger("Age"));
         setName(nbttagcompound.getString("Name"));
         setType(nbttagcompound.getInteger("TypeInt"));
         setOwner(nbttagcompound.getString("Owner"));

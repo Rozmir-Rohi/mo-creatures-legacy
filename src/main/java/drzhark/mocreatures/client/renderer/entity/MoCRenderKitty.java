@@ -214,7 +214,7 @@ public class MoCRenderKitty extends RenderBiped {
 
     protected void stretch(MoCEntityKitty entitykitty)
     {
-        GL11.glScalef(entitykitty.getEdad() * 0.01F, entitykitty.getEdad() * 0.01F, entitykitty.getEdad() * 0.01F);
+        GL11.glScalef(entitykitty.getMoCAge() * 0.01F, entitykitty.getMoCAge() * 0.01F, entitykitty.getMoCAge() * 0.01F);
     }
 
     protected void upsideDown(EntityLivingBase entityliving)

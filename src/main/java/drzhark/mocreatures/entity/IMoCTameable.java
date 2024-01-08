@@ -24,7 +24,7 @@ public interface IMoCTameable {
 
     void readEntityFromNBT(NBTTagCompound nbttagcompound);
 
-    int getEdad();
+    int getMoCAge();
 
     int getOwnerPetId();
 
@@ -34,7 +34,7 @@ public interface IMoCTameable {
 
     void setOwner(String username);
 
-    void setEdad(int edad);
+    void setMoCAge(int age);
 
     public void setAdult(boolean adult);
 

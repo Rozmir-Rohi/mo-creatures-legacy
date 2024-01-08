@@ -32,7 +32,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         super(world);
         setAdult(true);
         setTamed(false);
-        setEdad(50);
+        setMoCAge(50);
         setSize(0.4F, 0.4F);
         //health = 4;
         bunnyReproduceTickerA = rand.nextInt(64);
@@ -236,8 +236,8 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
 
         if (MoCreatures.isServer() && !getIsAdult() && (rand.nextInt(200) == 0))
         {
-            setEdad(getEdad() + 1);
-            if (getEdad() >= 100)
+            setMoCAge(getMoCAge() + 1);
+            if (getMoCAge() >= 100)
             {
                 setAdult(true);
             }

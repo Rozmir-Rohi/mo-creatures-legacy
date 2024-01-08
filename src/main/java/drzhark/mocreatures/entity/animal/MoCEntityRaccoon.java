@@ -19,7 +19,7 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
         super(world);
         setSize(0.8F, 0.8F);
         texture = "raccoon.png";
-        setEdad(70 + rand.nextInt(30));
+        setMoCAge(70 + rand.nextInt(30));
     }
 
     protected void applyEntityAttributes()
@@ -85,9 +85,9 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
             }
             this.setHealth(getMaxHealth());
 
-            if (MoCreatures.isServer() && !getIsAdult() && (getEdad() < 100))
+            if (MoCreatures.isServer() && !getIsAdult() && (getMoCAge() < 100))
             {
-                setEdad(getEdad() + 1);
+                setMoCAge(getMoCAge() + 1);
             }
 
             return true;
@@ -159,7 +159,7 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     @Override
     public float getSizeFactor() 
     {   
-        return 0.8F * (float)getEdad() * 0.01F;
+        return 0.8F * (float)getMoCAge() * 0.01F;
     }
 
     @Override
@@ -171,8 +171,8 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
         {
             if (!getIsAdult() && rand.nextInt(300) == 0)
             {
-                setEdad(getEdad() + 1);
-                if (getEdad() >= 100)
+                setMoCAge(getMoCAge() + 1);
+                if (getMoCAge() >= 100)
                 {
                     setAdult(true);
                 }

@@ -87,7 +87,7 @@ public class MoCRenderJellyFish extends RenderLiving {
 
     protected void stretch(MoCEntityJellyFish entityjellyfish)
     {
-        GL11.glScalef(entityjellyfish.getEdad() * 0.01F, entityjellyfish.getEdad() * 0.01F, entityjellyfish.getEdad() * 0.01F);
+        GL11.glScalef(entityjellyfish.getMoCAge() * 0.01F, entityjellyfish.getMoCAge() * 0.01F, entityjellyfish.getMoCAge() * 0.01F);
     }
 
     protected void pulse(MoCEntityJellyFish entityjellyfish)
@@ -98,8 +98,8 @@ public class MoCRenderJellyFish extends RenderLiving {
         {
             pulseSize = 0.2F - (pulseSize - 0.2F);
         }
-        float scale = entityjellyfish.getEdad() * 0.01F + (pulseSize/4);
-        float scale2 = entityjellyfish.getEdad() * 0.01F + (pulseSize / 4);
+        float scale = entityjellyfish.getMoCAge() * 0.01F + (pulseSize/4);
+        float scale2 = entityjellyfish.getMoCAge() * 0.01F + (pulseSize / 4);
         GL11.glScalef(scale, scale2, scale);
     }
 

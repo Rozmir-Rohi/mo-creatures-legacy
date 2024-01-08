@@ -183,7 +183,7 @@ public class MoCEntityEgg extends EntityLiving {
 
                         entityspawn.setPosition(posX, posY, posZ);
                         entityspawn.setType(getEggType());
-                        entityspawn.setEdad(30);
+                        entityspawn.setMoCAge(30);
                         worldObj.spawnEntityInWorld(entityspawn);
                         EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 24D);
                         if (entityplayer != null)
@@ -197,7 +197,7 @@ public class MoCEntityEgg extends EntityLiving {
                         MoCEntityShark entityspawn = new MoCEntityShark(worldObj);
 
                         entityspawn.setPosition(posX, posY, posZ);
-                        entityspawn.setEdad(30);
+                        entityspawn.setMoCAge(30);
                         worldObj.spawnEntityInWorld(entityspawn);
                         EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 24D);
                         if (entityplayer != null)
@@ -212,7 +212,7 @@ public class MoCEntityEgg extends EntityLiving {
 
                         entityspawn.setPosition(posX, posY, posZ);
                         worldObj.spawnEntityInWorld(entityspawn);
-                        entityspawn.setEdad(30);
+                        entityspawn.setMoCAge(30);
                         EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 24D);
                         if (entityplayer != null)
                         {
@@ -227,7 +227,7 @@ public class MoCEntityEgg extends EntityLiving {
                         entityspawn.setPosition(posX, posY, posZ);
                         entityspawn.setType(getEggType() - 79);
                         worldObj.spawnEntityInWorld(entityspawn);
-                        entityspawn.setEdad(30);
+                        entityspawn.setMoCAge(30);
                         EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 24D);
                         if (entityplayer != null)
                         {
@@ -242,7 +242,7 @@ public class MoCEntityEgg extends EntityLiving {
                         entityspawn.setPosition(posX, posY, posZ);
                         entityspawn.setType(getEggType() - 69);
                         worldObj.spawnEntityInWorld(entityspawn);
-                        entityspawn.setEdad(30);
+                        entityspawn.setMoCAge(30);
                         EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 24D);
                         if (entityplayer != null)
                         {
@@ -277,7 +277,7 @@ public class MoCEntityEgg extends EntityLiving {
 
                         entityspawn.setPosition(posX, posY, posZ);
                         entityspawn.setType(getEggType() - 20);
-                        entityspawn.setEdad(50);
+                        entityspawn.setMoCAge(50);
                         worldObj.spawnEntityInWorld(entityspawn);
                         EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 24D);
                         if (entityplayer != null)
@@ -296,7 +296,7 @@ public class MoCEntityEgg extends EntityLiving {
                         }
                         entityspawn.setPosition(posX, posY, posZ);
                         entityspawn.setType(typeInt);
-                        entityspawn.setEdad(35);
+                        entityspawn.setMoCAge(35);
                         worldObj.spawnEntityInWorld(entityspawn);
                         entityspawn.setHealth(entityspawn.getMaxHealth());
 
@@ -315,7 +315,7 @@ public class MoCEntityEgg extends EntityLiving {
                         MoCEntityKomodo entityspawn = new MoCEntityKomodo(worldObj);
 
                         entityspawn.setPosition(posX, posY, posZ);
-                        entityspawn.setEdad(30);
+                        entityspawn.setMoCAge(30);
                         worldObj.spawnEntityInWorld(entityspawn);
                         EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 24D);
                         if (entityplayer != null)
@@ -347,7 +347,7 @@ public class MoCEntityEgg extends EntityLiving {
                         entityspawn.setPosition(posX, posY, posZ);
                         entityspawn.setType(typeInt);
                         entityspawn.setAdult(false);
-                        entityspawn.setEdad(30);
+                        entityspawn.setMoCAge(30);
                         worldObj.spawnEntityInWorld(entityspawn);
                         entityspawn.setHealth(entityspawn.getMaxHealth());
                         EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 24D);

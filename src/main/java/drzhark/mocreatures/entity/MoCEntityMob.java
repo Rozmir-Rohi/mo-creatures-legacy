@@ -91,7 +91,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         dataWatcher.addObject(15, Byte.valueOf((byte) 0)); // isAdult - 0 false 1 true
         dataWatcher.addObject(16, Byte.valueOf((byte) 0)); // isTamed - 0 false 1 true
         dataWatcher.addObject(17, String.valueOf("")); // displayName empty string by default
-        dataWatcher.addObject(18, Integer.valueOf(0)); // int ageTicks / "edad"
+        dataWatcher.addObject(18, Integer.valueOf(0)); // int ageTicks
         dataWatcher.addObject(19, Integer.valueOf(0)); // int type
     }
 
@@ -129,12 +129,12 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         return this.dataWatcher.getWatchableObjectString(17);
     }
 
-    public int getEdad()
+    public int getMoCAge()
     {
         return dataWatcher.getWatchableObjectInt(18);
     }
 
-    public void setEdad(int i)
+    public void setMoCAge(int i)
     {
         dataWatcher.updateObject(18, Integer.valueOf(i));
     }
@@ -282,7 +282,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         super.writeEntityToNBT(nbttagcompound);
         nbttagcompound.setBoolean("Tamed", getIsTamed());
         nbttagcompound.setBoolean("Adult", getIsAdult());
-        nbttagcompound.setInteger("Edad", getEdad());
+        nbttagcompound.setInteger("Age", getMoCAge());
         nbttagcompound.setString("Name", getName());
         nbttagcompound.setInteger("TypeInt", getType());
 
@@ -294,7 +294,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         super.readEntityFromNBT(nbttagcompound);
         setTamed(nbttagcompound.getBoolean("Tamed"));
         setAdult(nbttagcompound.getBoolean("Adult"));
-        setEdad(nbttagcompound.getInteger("Edad"));
+        setMoCAge(nbttagcompound.getInteger("Age"));
         setName(nbttagcompound.getString("Name"));
         setType(nbttagcompound.getInteger("TypeInt"));
 

@@ -20,7 +20,7 @@ public class MoCEntityCrab extends MoCEntityTameableAmbient
         super(world);
         setSize(0.3F, 0.3F);
         //health = 6;
-        setEdad(50 + rand.nextInt(50));
+        setMoCAge(50 + rand.nextInt(50));
     }
 
     protected void applyEntityAttributes()
@@ -115,7 +115,7 @@ public class MoCEntityCrab extends MoCEntityTameableAmbient
     @Override
     public float getSizeFactor() 
     {   
-        return 0.7F * (float)getEdad() * 0.01F;
+        return 0.7F * (float)getMoCAge() * 0.01F;
     }
     
     @Override

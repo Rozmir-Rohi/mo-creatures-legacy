@@ -29,7 +29,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     {
         super(world);
         setSize(1.5F, 0.8F);
-        setEdad(80 + rand.nextInt(100));
+        setMoCAge(80 + rand.nextInt(100));
         //health = 30;
     }
 
@@ -196,7 +196,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     @Override
     protected void attackEntity(Entity entity, float f)
     {
-        if (attackTime <= 0 && (f < 3.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY) && (getEdad() >= 100))
+        if (attackTime <= 0 && (f < 3.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY) && (getMoCAge() >= 100))
         {
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 5);
@@ -231,7 +231,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     @Override
     protected Entity findPlayerToAttack()
     {
-        if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getEdad() >= 100) && MoCreatures.proxy.attackDolphins && (rand.nextInt(50) == 0))
+        if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getMoCAge() >= 100) && MoCreatures.proxy.attackDolphins && (rand.nextInt(50) == 0))
         {
             EntityLivingBase entityliving = FindTarget(this, 12D);
             if ((entityliving != null) && entityliving.isInWater()) { return entityliving; }
@@ -343,7 +343,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
 
                 if (!getIsAdult())
                 {
-                    setEdad(getEdad() + 1);
+                    setMoCAge(getMoCAge() + 1);
                 }
             }
 
@@ -391,8 +391,8 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         {
             if (!getIsAdult() && (rand.nextInt(50) == 0))
             {
-                setEdad(getEdad() + 1);
-                if (getEdad() >= 150)
+                setMoCAge(getMoCAge() + 1);
+                if (getMoCAge() >= 150)
                 {
                     setAdult(true);
                 }
@@ -469,7 +469,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
                     gestationtime = 0;
                     entitydolphin.gestationtime = 0;
                     int l = Genetics(this, entitydolphin);
-                    babydolphin.setEdad(35);
+                    babydolphin.setMoCAge(35);
                     babydolphin.setAdult(false);
                     babydolphin.setOwner(this.getOwnerName());
                     babydolphin.setTamed(true);

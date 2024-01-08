@@ -82,9 +82,9 @@ public interface IMoCEntity {
 
     public int pitchRotationOffset();
 
-    public void setEdad(int i);
+    public void setMoCAge(int i);
 
-    public int getEdad();
+    public int getMoCAge();
 
     public int yawRotationOffset();
 

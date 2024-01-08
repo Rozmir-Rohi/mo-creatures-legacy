@@ -179,7 +179,7 @@ public class MoCRenderShark extends RenderLiving {
 
     protected void stretch(MoCEntityShark entityshark)
     {
-        GL11.glScalef(entityshark.getEdad() * 0.01F, entityshark.getEdad() * 0.01F, entityshark.getEdad() * 0.01F);
+        GL11.glScalef(entityshark.getMoCAge() * 0.01F, entityshark.getMoCAge() * 0.01F, entityshark.getMoCAge() * 0.01F);
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {

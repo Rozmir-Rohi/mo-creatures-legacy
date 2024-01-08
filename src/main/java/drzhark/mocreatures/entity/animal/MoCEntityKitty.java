@@ -56,7 +56,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         super(world);
         setSize(0.7F, 0.5F);
         setAdult(true);
-        setEdad(40);
+        setMoCAge(40);
         setKittyState(1);
         kittytimer = 0;
         //health = 15;
@@ -713,8 +713,8 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             }
             if (!getIsAdult() && (rand.nextInt(200) == 0))
             {
-                setEdad(getEdad() + 1);
-                if (getEdad() >= 100)
+                setMoCAge(getMoCAge() + 1);
+                if (getMoCAge() >= 100)
                 {
                     setAdult(true);
                 }

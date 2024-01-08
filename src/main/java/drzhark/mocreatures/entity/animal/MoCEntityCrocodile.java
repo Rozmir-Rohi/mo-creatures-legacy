@@ -20,6 +20,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
@@ -56,7 +57,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
         setSize(2F, 0.6F);
         myMoveSpeed = 0.5F;
         //health = 25;
-        setEdad(50 + rand.nextInt(50));
+        setMoCAge(50 + rand.nextInt(50));
         setTamed(false);
     }
 
@@ -236,10 +237,10 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
             MoCTools.MoveToWater(this);
         }
 
-        if (MoCreatures.isServer() && getEdad() < 150 && (rand.nextInt(200) == 0))
+        if (MoCreatures.isServer() && getMoCAge() < 150 && (rand.nextInt(200) == 0))
         {
-            setEdad(getEdad() + 1);
-            if (getEdad() >= 90)
+            setMoCAge(getMoCAge() + 1);
+            if (getMoCAge() >= 90)
             {
                 setAdult(true);
             }
@@ -274,7 +275,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
                         ((EntityLivingBase) riddenByEntity).deathTime = 0;
                     }
                     
-                    if (getEdad() < 90) //if is child (higher number for attack speed means the slower it is)
+                    if (getMoCAge() < 90) //if is child (higher number for attack speed means the slower it is)
                     {catch_prey_in_mouth_attack_speed = 15;}
                     else
                     {catch_prey_in_mouth_attack_speed = 5;}
@@ -300,7 +301,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
 
             if (isSpinning())
             {
-            	if (getEdad() < 90) {spin_attack_strength = 2;} //child spin attack strength
+            	if (getMoCAge() < 90) {spin_attack_strength = 2;} //child spin attack strength
             	else {spin_attack_strength = 7;} //adult spin attack strength
             	
                 spinInt += 3;
@@ -375,7 +376,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
         if (attackTime <= 0 && (f < 2.5F) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
         	float attack_strength;
-        	if (getEdad() < 90) {attack_strength = 2;} // if child attack strength is 2
+        	if (getMoCAge() < 90) {attack_strength = 2;} // if child attack strength is 2
         	else {attack_strength = 10;} // else it is an adult and attack strength is 10
         	
             attackTime = 20;
@@ -493,7 +494,8 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
                 || (entity instanceof MoCEntityHorse && !(MoCreatures.proxy.attackHorses)) 
                 || (entity instanceof MoCEntityEgg)
             	|| (entity instanceof MoCEntityCrocodile) 
-            	|| ((entity.width > 0.9D) && (entity.height > 0.9D)) //don't try to hunt creatures larger than itself   
+            	|| (getMoCAge() > 90 && (entity.width > 1.3D && entity.height > 1.3D)) // don't try to hunt creature larger than a deer when adult
+                || (getMoCAge() < 90 && (entity.width > 0.5D && entity.height > 0.5D)) // don't try to hunt creature larger than a chicken when child 
             	|| (entity instanceof MoCEntityBigCat)
             	|| (entity instanceof MoCEntityAmbient) //don't hunt insects
             	|| (entity instanceof MoCEntityShark)
@@ -507,7 +509,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
         if (riddenByEntity == null) { return; }
         int direction = 1;
 
-        double dist = getEdad() * 0.01F + riddenByEntity.width - 0.4D;
+        double dist = getMoCAge() * 0.01F + riddenByEntity.width - 0.4D;
         double newPosX = posX - (dist * Math.cos((MoCTools.realAngle(rotationYaw - 90F)) / 57.29578F));
         double newPosZ = posZ - (dist * Math.sin((MoCTools.realAngle(rotationYaw - 90F)) / 57.29578F));
         riddenByEntity.setPosition(newPosX, posY + getMountedYOffset() + riddenByEntity.getYOffset(), newPosZ);

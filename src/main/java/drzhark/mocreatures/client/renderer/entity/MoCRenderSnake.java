@@ -59,17 +59,6 @@ public class MoCRenderSnake extends MoCRenderMoC {
                 GL11.glTranslatef(xOff, 0F, 0.0F);
                 //-0.5 puts it in the right shoulder
             }
-            /*//if(small) //works for small snakes
-            GL11.glRotatef(20F, 1F, 0F, 0F); 
-            if(mod_mocreatures.mc.isMultiplayerWorld())
-            {
-                GL11.glTranslatef(-0.5F, 1.4F, 0F);
-
-            }
-            else
-            {
-                GL11.glTranslatef(0.7F, 0F, 1.2F);
-            }*/
         }
 
         if (entitysnake.isInsideOfMaterial(Material.water))
@@ -83,52 +72,7 @@ public class MoCRenderSnake extends MoCRenderMoC {
 
     protected void stretch(MoCEntitySnake entitysnake)
     {
-        /*        float factor = 1.0F;
-                int type = entitysnake.type;
-                if (type == 1 || type == 2)//small shy snakes
-                {
-                    factor = 0.6F;
-                }else
-                if (type == 5)//coral
-                {
-                    factor = 0.4F;
-                }
-                if (type == 6)//cobra 1.1
-                {
-                    factor = 1.2F;
-                }
-                if (type == 7)//rattlesnake
-                {
-                    factor = 0.9F;
-                }
-                if (type == 8)//python
-                {
-                    factor = 1.5F;
-                }
-                //float f = 1.0F*factor;
-                float f = entitysnake.getEdad()*factor;*/
-
         float f = entitysnake.getSizeF();
         GL11.glScalef(f, f, f);
     }
-
-    /*@Override
-    protected void preRenderCallback(EntityLiving entityliving, float f)
-    {
-        MoCEntitySnake entitysnake = (MoCEntitySnake) entityliving;
-        //tempSnake.textPos = entitysnake.type - 1;
-        if (entitysnake.type <4)
-        {
-            tempSnake.textPos = 0;
-        }else
-        {
-            tempSnake.textPos = 1;
-        }
-        super.preRenderCallback(entityliving, f);
-        
-    }
-    
-    
-    
-    private MoCModelSnake tempSnake;*/
 }

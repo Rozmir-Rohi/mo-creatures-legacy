@@ -180,7 +180,7 @@ public class MoCRenderDolphin extends RenderLiving {
 
     protected void stretch(MoCEntityDolphin entitydolphin)
     {
-        GL11.glScalef(entitydolphin.getEdad() * 0.01F, entitydolphin.getEdad() * 0.01F, entitydolphin.getEdad() * 0.01F);
+        GL11.glScalef(entitydolphin.getMoCAge() * 0.01F, entitydolphin.getMoCAge() * 0.01F, entitydolphin.getMoCAge() * 0.01F);
     }
 
 

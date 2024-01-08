@@ -602,12 +602,12 @@ public class MoCModelElephant extends ModelBase {
         {
             LeftTuskB.render(f5);
             RightTuskB.render(f5);
-            if (elephant.getIsAdult() || elephant.getEdad() > 70)
+            if (elephant.getIsAdult() || elephant.getMoCAge() > 70)
             {
                 LeftTuskC.render(f5);
                 RightTuskC.render(f5);
             }
-            if (elephant.getIsAdult() || elephant.getEdad() > 90)
+            if (elephant.getIsAdult() || elephant.getMoCAge() > 90)
             {
                 LeftTuskD.render(f5);
                 RightTuskD.render(f5);
