@@ -429,4 +429,8 @@ Big Cats, Bears and Crocodile now hunt every animal that is as big as or smaller
 
 Made the remaining gui related text dependent on language files.
 
+
 Fixed pet fish drowned death message. Also added new death message for aquatic pets dying out of water.
+
+
+Fixed name height for pet wyverns.

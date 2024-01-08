@@ -645,7 +645,6 @@ public class MoCModelNewHorse extends ModelBase {
           
         }*/
         
-        
 
         if (shuffle)
         {

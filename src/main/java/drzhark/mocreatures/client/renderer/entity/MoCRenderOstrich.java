@@ -17,7 +17,6 @@ public class MoCRenderOstrich extends MoCRenderMoC {
     public MoCRenderOstrich(ModelBase modelbase, float f)
     {
         super(modelbase, 0.5F);
-        //tempSnake = (MoCModelSnake) modelbase;
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {

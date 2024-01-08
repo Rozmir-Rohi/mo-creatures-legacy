@@ -2432,7 +2432,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
         if (shuffleCounter > 0)
         {
-            ++shuffleCounter; //TODO: Fix Zebras not shuffling. For some reason whenever shuffleCounter is called outside MoCEntityHorse.java it is always 0.
+            ++shuffleCounter; //TODO: Fix Zebras not shuffling. For some reason whenever shuffleCounter is called outside MoCEntityHorse.java it is always 0. It may have something to do with the nearMusicBox() function
             if (!MoCreatures.isServer() && this.shuffleCounter % 20 == 0)
             {
                 double var2 = this.rand.nextGaussian() * 0.5D;

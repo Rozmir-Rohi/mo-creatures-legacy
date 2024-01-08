@@ -759,13 +759,13 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         }
     }
 
-    @Override
-    public int nameYOffset()
-    {
-        int yOff = getMoCAge() * -1;
-        if (yOff < -120) yOff = -120;
-        return yOff;
-    }
+    //@Override
+    //public int nameYOffset()
+    //{
+    //    int yOff = getMoCAge() * -1;
+    //     if (yOff < -120) yOff = -120;
+    //    return yOff;
+    //}
 
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
