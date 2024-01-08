@@ -4,7 +4,7 @@ The final version of Mo' Creatures for 1.7.10 was unfinished and was riddled wit
 The main aim of Mo' Creatures Legacy is to provide a fully working legacy version of Mo' Creatures for 1.7.10.
 
 
-## DISCLAIMER:
+<strong> DISCLAIMER: </strong>
 
 This project is not endorsed by Dr Zhark or anyone from the original Mo' Creatures team.
 This project does not backport features from newer versions of Mo' Creatures.
