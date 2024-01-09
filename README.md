@@ -17,6 +17,8 @@ Assuming you have Java 8 installed on your computer and Forge installed for 1.7.
 
 Do NOT try to use this mod with the Custom Mob Spawner mod, if you need to adjust entity spawns use the Just Another Mob Spawner instead.
 
+Do NOT try to load this mod into a world that previously had the original Mo' Creatures mod.
+
  
 
 
