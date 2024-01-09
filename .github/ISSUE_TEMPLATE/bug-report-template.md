@@ -1,6 +1,6 @@
 ---
 name: Bug Report Template
-about: Create a report to help improve Mo' Creatures Legacy
+about: Create a report to help solve bugs for Mo' Creatures Legacy
 title: ''
 labels: bug
 assignees: Rozmir-Rohi
