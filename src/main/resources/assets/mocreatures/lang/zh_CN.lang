@@ -24,7 +24,7 @@ item.amuletghost.name=幽灵护符
 item.amuletghostfull.name=幽灵护符
 item.amuletpegasus.name=天空护符
 item.amuletpegasusfull.name=天空护符
-item.bigcatclaw.name=豹子爪
+item.bigcatclaw.name=大型猫科动物爪
 item.bo.name=弓
 item.bowlempty.name=空的鱼缸
 item.bowlfish1.name=鱼缸
@@ -190,7 +190,7 @@ entity.MoCreatures.CreeperExtension.name=苦力怕
 entity.MoCreatures.Ant.name=蚂蚁
 entity.MoCreatures.Bear.name=熊
 entity.MoCreatures.Bee.name=蜜蜂
-entity.MoCreatures.BigCat.name=豹子
+entity.MoCreatures.BigCat.name=大型猫科动物
 entity.MoCreatures.BigGolem.name=大傀儡
 entity.MoCreatures.Bird.name=鸟
 entity.MoCreatures.Boar.name=野猪
@@ -396,17 +396,17 @@ achievement.pet_food.desc=使用牛奶或猫粮亲自填充猫窝。以后你可
 achievement.wool_ball=猫咪玩耍时间
 achievement.wool_ball.desc=制作一个绒毛球。
 
-achievement.tame_big_cat=豹子驯服师
-achievement.tame_big_cat.desc=通过在豹子附近放置一些生肉，在豹子吃了一些肉后给它戴上勋章来驯服小豹子。
+achievement.tame_big_cat=大型猫科动物驯服师
+achievement.tame_big_cat.desc=通过在大型猫科动物附近放置一些生肉，在大型猫科动物吃了一些肉后给它戴上勋章来驯服小大型猫科动物。
 
-achievement.big_cat_claw=豹子猎手
-achievement.big_cat_claw.desc=获得一只豹子的爪子。
+achievement.big_cat_claw=大型猫科动物猎手
+achievement.big_cat_claw.desc=获得一只大型猫科动物的爪子。
 
 achievement.craft_whip=抽打鞭子的时候到了！
 achievement.craft_whip.desc=制作一根鞭子。用它让已驯服的生物坐下。在骑乘生物时使用鞭子可以让它冲刺。在骑乘噩梦马、独角兽、独角兽鸵鸟或大象时使用鞭子可以产生特殊效果。
 
 achievement.indiana=就像印第安纳·琼斯一样
-achievement.indiana.desc=对已驯服的豹子使用鞭子超过六次。
+achievement.indiana.desc=对已驯服的大型猫科动物使用鞭子超过六次。
 
 achievement.shark_tooth=鲨鱼拳击手
 achievement.shark_tooth.desc=获得一颗鲨鱼的牙齿。
