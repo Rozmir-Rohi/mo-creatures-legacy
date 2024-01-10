@@ -434,3 +434,38 @@ Fixed pet fish drowned death message. Also added new death message for aquatic p
 
 
 Fixed name height for pet wyverns.
+
+
+Added Chinese (Manderin) language file created by Omgise.
+
+
+Changes Medium Fish Spawns:
+	Salmon: Rivers and Ocean
+	Bass: Rivers and Swamp
+	Cod: Ocean
+
+
+Reduced weakness damage to werewolf from golden sword to be 9. Silver swords alone are now the most powerful items against werewolves.
+
+
+Added more weakness items for Werewolf:
+	Witchery: Silver Sword
+
+	Biomes O' Plenty: Golden Scythe
+
+	Battle Gear 2:
+		Golden Dagger
+		Golden Battle Axe
+		Golden Mace
+		Golden Spear
+
+
+Fixed turning player view to match wyvern view even if player failed to mount the wyvern.
+
+
+Fixed egg hatching chat notification not being dependent on the language files.
+
+
+Radded Mandarin and Anglerfish, they now only spawn in the ocean. Also added emissive textures for Anglerfish.
+
+

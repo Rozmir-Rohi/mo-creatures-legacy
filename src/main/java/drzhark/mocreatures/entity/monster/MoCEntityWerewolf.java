@@ -174,7 +174,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damagesource, float damage_dealt_to_werewolf)
     {
         Entity entity = damagesource.getEntity();
         if (!getIsHumanForm() && (entity != null) && (entity instanceof EntityPlayer))
@@ -183,34 +183,41 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             ItemStack itemstack = entityplayer.getCurrentEquippedItem();
             if (itemstack != null)
             {
-                i = 1;
-                if (itemstack.getItem() == Items.golden_hoe)
+                damage_dealt_to_werewolf = 1;
+                
+                Item item = itemstack.getItem();
+                
+                if (item == Items.golden_hoe
+                		|| (((item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:scytheGold")))
+                		|| (((item.itemRegistry).getNameForObject(item).equals("battlegear2:dagger.gold")))
+                		|| (((item.itemRegistry).getNameForObject(item).equals("battlegear2:waraxe.gold"))) // 8 is the actual damage dealt to werewolf using golden war axe in-game because of the item's armor penetration ability 
+                		)
                 {
-                    i = 6;
+                    damage_dealt_to_werewolf = 6;
                 }
-                if (itemstack.getItem() == Items.golden_sword)
+                
+                if (item == Items.golden_pickaxe) {damage_dealt_to_werewolf = 7;}
+                
+                if (item == Items.golden_axe
+                		|| (((item.itemRegistry).getNameForObject(item).equals("battlegear2:mace.gold")))
+                		|| (((item.itemRegistry).getNameForObject(item).equals("battlegear2:spear.gold")))
+                		)
                 {
-                    i = 7;
+                    damage_dealt_to_werewolf = 8;
                 }
-                if (itemstack.getItem() == Items.golden_pickaxe)
+                
+                if (item == Items.golden_sword) {damage_dealt_to_werewolf = 9;}
+                
+                if (item == MoCreatures.silversword
+                		|| (((item.itemRegistry).getNameForObject(item).equals("witchery:silversword")))
+                		)
                 {
-                    i = 8;
+                    damage_dealt_to_werewolf = 10;
                 }
-                if (itemstack.getItem() == Items.golden_axe)
-                {
-                    i = 9;
-                }
-                if (itemstack.getItem() == Items.golden_sword)
-                {
-                    i = 10;
-                }
-                if (itemstack.getItem() == MoCreatures.silversword)
-                {
-                    i = 10;
-                }
+                
             }
         }
-        return super.attackEntityFrom(damagesource, i);
+        return super.attackEntityFrom(damagesource, damage_dealt_to_werewolf);
     }
 
     @Override

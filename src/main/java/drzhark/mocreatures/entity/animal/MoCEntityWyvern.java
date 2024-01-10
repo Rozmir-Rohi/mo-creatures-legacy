@@ -510,11 +510,11 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
 
         if (getIsRideable() && getMoCAge() > 90 && (riddenByEntity == null))
         {
-            entityplayer.rotationYaw = rotationYaw;
-            entityplayer.rotationPitch = rotationPitch;
-            
             if (MoCreatures.isServer() && (itemstack == null))
             {
+            	entityplayer.rotationYaw = rotationYaw;
+                entityplayer.rotationPitch = rotationPitch;
+            	
                 entityplayer.mountEntity(this);
                 setSitting(false);
             }
@@ -759,13 +759,15 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         }
     }
 
-    //@Override
-    //public int nameYOffset()
-    //{
-    //    int yOff = getMoCAge() * -1;
-    //     if (yOff < -120) yOff = -120;
-    //    return yOff;
-    //}
+    @Override
+    public int nameYOffset()
+    {
+        if (getIsAdult())
+        {
+            return (int) -120;
+        }
+        return (int) -80;
+    }
 
     @Override
     public boolean isMyHealFood(ItemStack itemstack)

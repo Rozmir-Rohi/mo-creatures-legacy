@@ -10,12 +10,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
 
-    public static final String fishNames[] = { "Anchovy", "Angelfish", "Goldfish"};
+    public static final String fishNames[] = { "Anchovy", "Angelfish", "Goldfish", "Anglerfish", "Mandarin"};
 
     private int latMovCounter;
     
@@ -36,11 +40,37 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
     @Override
     public void selectType()
     {
-        if (getType() == 0)
+    	checkSpawningBiome(); //try to apply the type based on the biome that it spawns in
+    	
+        if (getType() == 0) //if type is still 0 apply random type from fresh water fish
         {
             setType(rand.nextInt(3)+1); 
         }
         
+    }
+    
+    @Override
+    public boolean checkSpawningBiome()
+    {
+        int i = MathHelper.floor_double(posX);
+        int j = MathHelper.floor_double(boundingBox.minY);
+        int k = MathHelper.floor_double(posZ);
+
+        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, i, j, k);
+
+        int type_chance = rand.nextInt(100);
+        
+        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.OCEAN))
+        {
+        	if (type_chance <= 30)
+			{setType(4);} //Angler
+        
+        	else {setType(5);} //mandarin
+        
+        	return true;
+        }
+        
+        return true;
     }
 
     @Override
@@ -55,6 +85,10 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
             return MoCreatures.proxy.getTexture("smallfish_angelfish.png");
         case 3:
             return MoCreatures.proxy.getTexture("smallfish_goldfish.png");
+        case 4:
+            return MoCreatures.proxy.getTexture("smallfish_anglerfish.png");
+        case 5:
+            return MoCreatures.proxy.getTexture("smallfish_mandarin.png");
         default:
         	return MoCreatures.proxy.getTexture("smallfish_anchovy.png");
         }

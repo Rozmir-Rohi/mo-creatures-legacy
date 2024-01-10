@@ -6,7 +6,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.IMoCEntity;
-import drzhark.mocreatures.entity.animal.MoCEntityWyvern;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.Tessellator;
@@ -60,14 +59,7 @@ public class MoCRenderMoC extends RenderLiving {
                 GL11.glDisable(2896 /* GL_LIGHTING */);
                 Tessellator tessellator1 = Tessellator.instance;
                 int yOff = entityMoC.nameYOffset(); //the default offset for pet name tags is -80
-                
-                if (entityMoC instanceof MoCEntityWyvern) //only for wyverns: fixes wyvern name tag y offset
-                {
-                	MoCEntityWyvern entityWyvern = (MoCEntityWyvern) entityMoC;
-                	
-                	if (entityWyvern.getIsAdult()) {yOff = -120;}
-                	else {yOff= -80;}
-                }
+               
                 
                 if (flag1)
                 {

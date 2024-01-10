@@ -124,6 +124,8 @@ item.mocegg.72.name=Bass Egg
 item.mocegg.80.name=Anchovy Egg
 item.mocegg.81.name=Angelfish Egg
 item.mocegg.82.name=Goldfish Egg
+item.mocegg.83.name=Anglerfish Egg
+item.mocegg.84.name=Mandarinfish Egg
 item.mocegg.90.name=Piranha Egg
 item.nunchaku.name=Nunchaku
 item.omelet.name=Omelet
@@ -266,6 +268,7 @@ container.MoCreatures.ElephantChest=Elephant Chest
 container.MoCreatures.OstrichChest=Ostrich Chest
 container.MoCreatures.WyvernChest=Wyvern Chest
 
+notify.MoCreatures.egg_hatching=Egg hatching soon! KEEP WATCH! The hatched creature located @ %1$s, %2$s, %3$s will be lost if you leave area
 
 death.MoCreatures.attack.dehydration=%1$s died from dehydration
 
@@ -357,7 +360,7 @@ achievement.wyvern_portal_staff=Where the Wyverns live
 achievement.wyvern_portal_staff.desc=Craft a wyvern portal staff and travel to the wyvern lair
 
 achievement.wyvern_egg=The Fastest of Them All
-achievement.wyvern_egg.desc=Obtain a wyvern egg from a mother wyvern. After hatching, pet wyverns like to eat raw rat and raw rabbit
+achievement.wyvern_egg.desc=Obtain a wyvern egg from a mother wyvern. After hatching, pet wyverns like to eat raw rat and raw rabbit. Adult pet wyverns can be ridden, equipped with vanilla minecraft horse armor, and can carry a chest
 
 achievement.tame_elephant=Elephant Tamer
 achievement.tame_elephant.desc=Tame a baby elephant or mammoth using many sugar lumps

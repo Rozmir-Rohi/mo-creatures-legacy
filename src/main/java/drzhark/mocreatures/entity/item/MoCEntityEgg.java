@@ -365,10 +365,10 @@ public class MoCEntityEgg extends EntityLiving {
 
     private void NotifyEggHatching()
     {
-        EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 24D);
-        if (entityplayer != null)
+        EntityPlayer closest_player = worldObj.getClosestPlayerToEntity(this, 24D);
+        if (closest_player != null)
         {
-            entityplayer.addChatMessage(new ChatComponentTranslation("Egg hatching soon! KEEP WATCH! The hatched creature located @ " + (int)this.posX + ", " + (int)this.posY + ", " + (int)this.posZ + " will be lost if you leave area"));
+            closest_player.addChatMessage(new ChatComponentTranslation("notify.MoCreatures.egg_hatching", new Object[] {(int)this.posX, (int)this.posY, (int)this.posZ}));
         }
     }
     public int getSize()

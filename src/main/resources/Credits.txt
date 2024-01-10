@@ -68,6 +68,11 @@ Sounds Only:
 
 		Panda Adult Hurt and Death: https://www.youtube.com/watch?v=i5Y_8s6qDdk&ab_channel=FreeSoundEffect
 
+
+
+
+Language File Translations:
+	Omgise - Chinese Simplified (Mandarin) (zh_CN.lang)
 	
 
 

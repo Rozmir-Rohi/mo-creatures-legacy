@@ -10,8 +10,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
 
@@ -35,10 +39,52 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
     @Override
     public void selectType()
     {
-        if (getType() == 0)
+    	checkSpawningBiome(); //try to apply the type based on the biome that it spawns in
+    	
+        if (getType() == 0) //if the type is still 0, make it a random type
         {
             setType(rand.nextInt(3) + 1);
         }
+    }
+    
+    @Override
+    public boolean checkSpawningBiome()
+    {
+        int i = MathHelper.floor_double(posX);
+        int j = MathHelper.floor_double(boundingBox.minY);
+        int k = MathHelper.floor_double(posZ);
+
+        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, i, j, k);
+        
+        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SWAMP))
+        {
+            setType(3); //bass
+            return true;
+        }
+
+        int type_chance = rand.nextInt(100);
+        
+        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.OCEAN))
+        {
+        	if (type_chance <= 50)
+			{setType(1);} //salmon
+        
+        	else {setType(2);} //cod
+        
+        	return true;
+        }
+
+        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.RIVER))
+        {
+            if (type_chance <= 40)
+    			{setType(1);} //salmon (more rare than bass because salmon only go to freshwater to breed)
+            
+            else {setType(3);} //bass
+            
+            return true;
+        }
+        
+        return true;
     }
 
     @Override
