@@ -1,6 +1,6 @@
 Resized canvas to fit 1.7.10 format: bear
 
-Fixed eyes and/or mouth and/or nose: bear, all horses, wwolf, werewolf, boar, medium fish, crocodile, wyvern, all deer, raccoon, all ostriches, all elephants and mammoths
+Fixed eyes and/or mouth and/or nose: bear, all horses, wwolf, werewolf, boar, medium fish, crocodile, wyvern, all deer, raccoon, all ostriches, all elephants and mammoths, mole, komodo dragon
 
 Fixed ears: all big cats
 
@@ -20,7 +20,7 @@ Reworked textures from original 32x textures due to changes in 1.7.10 format: al
 
 Fixed tail: turkey
 
-Fixed & improved larva texture, also improved eye texture of fire scorpion: scorpion, scorpion saddle
+Fixed & improved larva texture: scorpion, scorpion saddle
 
 Improved texture: particle effect for undead horse transformation
 

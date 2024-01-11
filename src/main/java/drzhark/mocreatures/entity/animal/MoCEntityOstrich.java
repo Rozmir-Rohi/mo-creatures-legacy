@@ -158,39 +158,42 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damagesource, float damage_taken)
     {
         //dmg reduction
         if (getIsTamed() && getHelmet() != 0)
         {
-            int j = 0;
+            int armor_protection = 0;
             switch (getHelmet())
             {
-            case 1:
-                j = 1;
-                break;
-            case 5:
-            case 6:
-            case 2:
-                j = 2;
-                break;
-            case 7:
-            case 3:
-                j =3;
-                break;
-            case 4:
-            case 9:
-            case 10:
-            case 11:
-            case 12:
-                j = 4;
-                break;
+	            case 5: // hide helmet
+	            case 6: // fur helmet
+	            case 1:
+	                armor_protection = 1; // leather helmet
+	                break;
+	                
+	            case 7: //croc helmet
+	            case 2: // iron helmet
+	                armor_protection = 2;
+	                break;
+	                
+	            case 3: //gold helmet
+	                armor_protection = 3;
+	                break;
+	                
+	            case 4: //diamond helmet
+	            case 9: //dirt scorpion helmet
+	            case 10: //frost scorpion helmet
+	            case 11: //cave scorpion helmet
+	            case 12: // nether scorpion helmet
+	                armor_protection = 4;
+	                break;
             }
-            i -= j;
-            if (i <= 0) i = 1;
+            damage_taken -= armor_protection;
+            if (damage_taken <= 0) damage_taken = 1;
         }
 
-        if (super.attackEntityFrom(damagesource, i))
+        if (super.attackEntityFrom(damagesource, damage_taken))
         {
             Entity entity = damagesource.getEntity();
 

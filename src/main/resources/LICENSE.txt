@@ -6,7 +6,7 @@ CUSTOM LICENSE: GNU General Public License v3.0 and Further Conditions
 
 
 SECTION 1 - SCOPE OF THE FURTHER CONDITIONS:
-The further conditions only apply to the use and redistribution of the source code from this project (both modified and unmodified), and the use and redistribution of the 16x MoCreatures textures from this project (both modified and unmodified).
+The further conditions only apply to the use and redistribution of the source code from this project (both modified and unmodified), and the use and redistribution of the 16x MoCreatures textures from this project (both modified and unmodified). The full list of 16x MoCreatures textures can be found as a text file in the assets folder of the mod jar.
 
 
 The further conditions do not apply for the following:
@@ -16,22 +16,24 @@ The further conditions do not apply for the following:
 
    - Private modifications of this project (modified versions of this project that are not uploaded to the internet).
 
-   - Any other use that is not specified within this section.
+   - Language files that are created for this project.
 
-   For the uses listed above, the GNU General Public License v3.0 by itself is applied. 
+   - Any other use that is not specified within Section 1.
+
+   For the uses listed in bullet points above, the GNU General Public License v3.0 by itself is applied. 
 
 
 
 SECTION 2 - FURTHER CONDITIONS:
    - Give credit to Dr Zhark, BloodShot, and BlockDaddy for being the developers of the original Mo' Creatures mod.
 
-   - If Using Source Code and/or 16x Textures: give credit to me (Rozmir_Rohi) and provide a link to my project (https://modrinth.com/project/mo-creatures-legacy/).
+   - If Using the Source Code and/or 16x Textures: give credit to me (Rozmir_Rohi) for restoring the 1.7.10 Mo' Creatures mod and backporting the "Mo' Creatures 16x" textures for 1.7.10 with further improvements. Also, provide a link to my project (https://modrinth.com/project/mo-creatures-legacy/).
 
-   - If Using 16x Textures: give credit to crazyspacekid and provide a link to their original project "Mo' Creatures 16x" (https://www.curseforge.com/minecraft/texture-packs/mo-creatures-16x).
+   - If Using the 16x Textures: give credit to crazyspacekid for being the original creator of "Mo' Creatures 16x". Also, provide a link to their original project  (https://www.curseforge.com/minecraft/texture-packs/mo-creatures-16x).
 
 
    If these further conditions apply to your use of this project, you must do each of the following:
-		1. Satisfy the further conditions.
+		1. Satisfy all the further conditions that apply to your use of this project.
 
 		2. License your work with the GNU General Public License v3.0.
 		

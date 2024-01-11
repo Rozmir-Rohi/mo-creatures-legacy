@@ -206,14 +206,14 @@ public class MoCEntityWerewolf extends MoCEntityMob {
                     damage_dealt_to_werewolf = 8;
                 }
                 
-                if (item == Items.golden_sword) {damage_dealt_to_werewolf = 9;}
-                
-                if (item == MoCreatures.silversword
+                if (item == Items.golden_sword
                 		|| (((item.itemRegistry).getNameForObject(item).equals("witchery:silversword")))
                 		)
                 {
-                    damage_dealt_to_werewolf = 10;
+                	damage_dealt_to_werewolf = 9;
                 }
+                
+                if (item == MoCreatures.silversword) {damage_dealt_to_werewolf = 10;}
                 
             }
         }

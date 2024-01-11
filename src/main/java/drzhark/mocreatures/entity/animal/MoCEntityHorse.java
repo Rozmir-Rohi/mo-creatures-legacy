@@ -118,6 +118,13 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
        Entity entity = damagesource.getEntity();
         if ((riddenByEntity != null) && (entity == riddenByEntity)) { return false; }
         
+        float vanilla_mc_armor_value = 3.7F * getArmorType(); 
+        
+        damage_taken = damage_taken *(1-(vanilla_mc_armor_value * 0.04F)); //final damage taken after applying armor values. The function uses same damage reduction value as vanilla minecraft.
+        
+        if (damage_taken < 0F) {damage_taken = 0F;}
+        
+        
         if (super.attackEntityFrom(damagesource, damage_taken)
         	&& (entity != null)
         	&& (MoCreatures.proxy.specialHorsesFightBack)
@@ -136,15 +143,6 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         	Entity entity1 = damagesource.getEntity();
             entityToAttack = entity1;
             return true;
-        }
-        
-        float vanilla_mc_armor_value = 3.7F * getArmorType(); 
-        
-        damage_taken = damage_taken *(1-(vanilla_mc_armor_value * 0.04F)); //final damage taken after applying armor values. The function uses same damage reduction value as vanilla minecraft.
-        
-        if (damage_taken < 0F)
-        {
-        	damage_taken = 0F;
         }
         
         return super.attackEntityFrom(damagesource, damage_taken);

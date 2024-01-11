@@ -642,33 +642,40 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
                 ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 200, 0));
                 MoCTools.playCustomSound(this, "wyvernpoisoning", worldObj);
             }
-            int dmg = 5;
-            if (getType() >= 5) dmg = 10;
-            entity.attackEntityFrom(DamageSource.causeMobDamage(this), dmg);
+            int wyvern_attack_damage = 5;
+            if (getType() >= 5) wyvern_attack_damage = 10;
+            entity.attackEntityFrom(DamageSource.causeMobDamage(this), wyvern_attack_damage);
             openMouth();
         }
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damagesource, float damage_taken)
     {
-        if (super.attackEntityFrom(damagesource, i))
+    	float vanilla_mc_armor_value = 3.7F * getArmorType(); 
+        
+        damage_taken = damage_taken *(1-(vanilla_mc_armor_value * 0.04F)); //final damage taken after applying armor values. The function uses same damage reduction value as vanilla minecraft.
+        
+        if (damage_taken < 0F) {damage_taken = 0F;}
+    	
+        if (super.attackEntityFrom(damagesource, damage_taken))
         {
             Entity entity = damagesource.getEntity();
          
             
-            if (entity != null && getIsTamed() && entity instanceof EntityPlayer) { return false; }
+            if (entity != null && getIsTamed() && entity instanceof EntityPlayer) {return false;}
             
 
-            if ((riddenByEntity != null) && (entity == riddenByEntity)) { return false; }
+            if ((riddenByEntity != null) && (entity == riddenByEntity)) {return false;}
             
             if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
             {
                 entityToAttack = entity;
             }
+            
             return true;
         }
-        return false;
+        return super.attackEntityFrom(damagesource, damage_taken);
     }
 
     @Override

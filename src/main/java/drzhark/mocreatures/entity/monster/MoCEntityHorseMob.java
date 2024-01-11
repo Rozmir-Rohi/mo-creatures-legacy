@@ -2,9 +2,12 @@ package drzhark.mocreatures.entity.monster;
 
 import java.util.List;
 
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityMob;
+import drzhark.mocreatures.network.MoCMessageHandler;
+import drzhark.mocreatures.network.message.MoCMessageHealth;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -14,6 +17,7 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -409,6 +413,21 @@ public class MoCEntityHorseMob extends MoCEntityMob
             MoCTools.playCustomSound(this, "horsemad", worldObj);
             this.attackEntityAsMob(par1Entity);
         }
+    }
+    
+    @Override
+    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    {
+        if (MoCreatures.isServer())
+        {
+        	Entity entity = damagesource.getEntity();
+        	
+        	if (getIsTamed()) {MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHealth(this.getEntityId(), this.getHealth()), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));}
+            
+            if ((riddenByEntity != null) && (entity == riddenByEntity)) { return false; }
+        }
+        
+        return super.attackEntityFrom(damagesource, i);
     }
 
     @Override

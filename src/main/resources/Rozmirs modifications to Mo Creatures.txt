@@ -469,3 +469,15 @@ Fixed egg hatching chat notification not being dependent on the language files.
 Radded Mandarin and Anglerfish, they now only spawn in the ocean. Also added emissive textures for Anglerfish.
 
 
+Fixed armor protection not working for wyverns. Also fixed minor bug with armor protection for magic horses
+
+
+Reduced Witchery Silver Sword damage for werewolves to 9 (same as gold sword). Because of this, the Mo'Creatures Silver Sword is now the most powerful weapon against Mo' Creatures werewolves.
+
+
+Tweaked ostich helmet protection values to follow a similar order to horse armor protection.
+
+
+
+
+
