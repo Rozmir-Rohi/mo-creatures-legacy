@@ -349,8 +349,8 @@ achievement.dark_pegasus.desc=通过用黑暗精华喂养宠物飞马来获得�
 achievement.fairy_horse=仙马！
 achievement.fairy_horse.desc=通过使用光明精华将飞马和独角兽培育而成一匹仙马。这是最快的飞行马匹，也可以携带一个箱子，并且在地面上可以冲撞。喂给这匹马一种染料可以永久改变它的仙族类型。这匹马只能通过光明精华进行治疗。
 
-achievement.amulet_fairy=仙马储物
-achievement.amulet_fairy.desc=制作一枚仙马护符。护符的制作配方中的火焰可以从下界鼠获取。
+achievement.amulet_fairy=仙女储物
+achievement.amulet_fairy.desc=制作一枚仙女护符。护符的制作配方中的火焰可以从下界大鼠获取。
 
 achievement.wyvern_portal_staff=飞龙巢穴传送杖
 achievement.wyvern_portal_staff.desc=制作一把飞龙巢穴传送杖并前往飞龙巢穴。
@@ -481,8 +481,8 @@ achievement.kill_ogre.desc=击败一个食人魔。
 achievement.kill_werewolf=狼人屠戮者
 achievement.kill_werewolf.desc=在狼形态下击败一个狼人。
 
-achievement.kill_big_golem=魔像屠戮者
-achievement.kill_big_golem.desc=杀死一只大型魔像并获得它的中心方块。
+achievement.kill_big_golem=傀儡屠戮者
+achievement.kill_big_golem.desc=杀死一只大傀儡并获得它的中心方块。
 
 achievement.leonardo=莱昂纳多
 achievement.leonardo.desc=从莱昂纳多海龟处获得一把武士刀。
