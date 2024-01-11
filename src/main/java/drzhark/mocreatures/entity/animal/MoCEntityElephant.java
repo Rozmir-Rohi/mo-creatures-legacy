@@ -400,247 +400,253 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         if (super.interact(entityplayer)) { return false; }
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
         
-        if ((itemstack != null) && (
-        		itemstack.getItem() == MoCreatures.sugarlump // general food
-        		|| itemstack.getItem() == Items.wheat))
+        if (itemstack != null) 
         {
-            
-        	if (--itemstack.stackSize == 0)
+        	Item item = itemstack.getItem();
+        	
+        	if (item == MoCreatures.sugarlump // general food
+            		|| item == Items.wheat)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                
+            	if (--itemstack.stackSize == 0)
+                {
+                    entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                }
+                
+                MoCTools.playCustomSound(this, "eating", worldObj);
+                this.setHealth(getMaxHealth());
+                
+                if (!getIsTamed() && !getIsAdult() && (item == MoCreatures.sugarlump)) //taming food
+                {
+                	++temper;
+                
+    	            if (MoCreatures.isServer() && !getIsAdult() && !getIsTamed() && temper >= 10)
+    	            {
+    	                setTamed(true);
+    	                MoCTools.tameWithName((EntityPlayerMP) entityplayer, this);
+    	                entityplayer.addStat(MoCAchievements.tame_elephant, 1);
+    	            }
+            	}
+                return true;
             }
-            
-            MoCTools.playCustomSound(this, "eating", worldObj);
-            this.setHealth(getMaxHealth());
-            
-            if (!getIsTamed() && !getIsAdult() && (itemstack.getItem() == MoCreatures.sugarlump)) //taming food
-            {
-            	++temper;
-            
-	            if (MoCreatures.isServer() && !getIsAdult() && !getIsTamed() && temper >= 10)
-	            {
-	                setTamed(true);
-	                MoCTools.tameWithName((EntityPlayerMP) entityplayer, this);
-	                entityplayer.addStat(MoCAchievements.tame_elephant, 1);
-	            }
+        	
+        	if (getIsTamed() && getIsAdult())
+        	{
+        		if (getArmorType() == 0 && item == MoCreatures.elephantHarness)
+                {
+                    if (--itemstack.stackSize == 0)
+                    {
+                        entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                    }
+                    MoCTools.playCustomSound(this, "roping", worldObj);
+                    setArmorType((byte) 1);
+                    return true;
+                }
+
+                if (getArmorType() >= 1 && item == MoCreatures.elephantChest)
+                {
+                    if (--itemstack.stackSize == 0)
+                    {
+                        entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                    }
+                    
+                    MoCTools.playCustomSound(this, "roping", worldObj);
+                    
+                    
+                    if (getStorage() == 0 )
+                    {
+                    	setStorage((byte) 1);
+                    	entityplayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.key));
+                    	entityplayer.addStat(MoCAchievements.elephant_chest, 1);
+                    }
+                    
+                    else if (getStorage() == 1) {setStorage((byte) 2);}
+                    
+                    return true;
+                }
+                // third storage unit for small mammoths
+                if ((getType() == 3) && getArmorType() >= 1 && getStorage() == 2 && item == Item.getItemFromBlock(Blocks.chest))
+                {
+                    if (--itemstack.stackSize == 0)
+                    {
+                        entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                    }
+                    MoCTools.playCustomSound(this, "roping", worldObj);
+                    setStorage((byte) 3);
+                    return true;
+                }
+                // fourth storage unit for small mammoths
+                if ((getType() == 3) && getArmorType() >= 1 && getStorage() == 3 && item == Item.getItemFromBlock(Blocks.chest))
+                {
+                    if (--itemstack.stackSize == 0)
+                    {
+                        entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                    }
+                    MoCTools.playCustomSound(this, "roping", worldObj);
+                    setStorage((byte) 4);
+                    return true;
+                }
+
+                //giving a garment to an indian elephant with an harness will make it pretty
+                if (getArmorType() == 1 && getType() == 2 && item == MoCreatures.elephantGarment)
+                {
+                    if (--itemstack.stackSize == 0)
+                    {
+                        entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                    }
+                    MoCTools.playCustomSound(this, "roping", worldObj);
+                    setArmorType((byte) 2);
+                    setType(5);
+                    entityplayer.addStat(MoCAchievements.elephant_garment, 1);
+                    return true;
+                }
+
+                //giving a howdah to a pretty indian elephant with a garment will attach the howdah
+                if (getArmorType() == 2 && getType() == 5 && item == MoCreatures.elephantHowdah)
+                {
+                    if (--itemstack.stackSize == 0)
+                    {
+                        entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                    }
+                    MoCTools.playCustomSound(this, "roping", worldObj);
+                    setArmorType((byte) 3);
+                    entityplayer.addStat(MoCAchievements.elephant_howdah, 1);
+                    return true;
+                }
+
+                //giving a platform to a ? mammoth with harness will attach the platform
+                if (getArmorType() == 1 && getType() == 4 && item == MoCreatures.mammothPlatform)
+                {
+                    if (--itemstack.stackSize == 0)
+                    {
+                        entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                    }
+                    MoCTools.playCustomSound(this, "armoroff", worldObj);
+                    setArmorType((byte) 3);
+                    entityplayer.addStat(MoCAchievements.mammoth_platform, 1);
+                    return true;
+                }
+
+                if (item == MoCreatures.tusksWood
+                		|| item == MoCreatures.tusksIron
+                		|| item == MoCreatures.tusksDiamond)
+                {
+                		
+                		byte tusk_type = 0;
+                		
+                		if (item == MoCreatures.tusksWood) {tusk_type = 1;}
+                		if (item == MoCreatures.tusksIron) {tusk_type = 2;}
+                		if (item == MoCreatures.tusksDiamond) {tusk_type = 3;}
+                		
+                		if (--itemstack.stackSize == 0)
+                	    {
+                			entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                	    }
+                		
+                		MoCTools.playCustomSound(this, "armoroff", worldObj);
+                	    dropTusks();
+                	    tuskUses = (byte) itemstack.getItemDamage();
+                	    this.setTusks(tusk_type);
+                	    entityplayer.addStat(MoCAchievements.elephant_tusks, 1);
+                	    return true;
+                }
         	}
-            return true;
+            
+            
+
+            if ((item == MoCreatures.key) && getStorage() > 0)
+            {
+                if (localelephantchest == null)
+                {
+                    localelephantchest = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 18);
+                }
+
+                if (getStorage() == 1)
+                {
+                    // only open this chest on server side
+                    if (MoCreatures.isServer())
+                    {
+                        entityplayer.displayGUIChest(localelephantchest);
+                    }
+                    return true;
+                }
+
+                if (getStorage() == 2)
+                {
+                               
+                    if (localelephantchest2 == null)
+                    {
+                        localelephantchest2 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 18);
+                    }
+                    // only open this chest on server side
+                    InventoryLargeChest doubleChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
+                    if (MoCreatures.isServer())
+                    {
+                        entityplayer.displayGUIChest(doubleChest);
+                    }
+                    return true;
+                }
+                
+                if (getStorage() == 3)
+                {
+                    if (localelephantchest2 == null)
+                    {
+                        localelephantchest2 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 18);
+                    }
+                            
+                    if (localelephantchest3 == null)
+                    {
+                        localelephantchest3 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 9);
+                    }
+                    // only open this chest on server side
+                    InventoryLargeChest doubleChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
+                    InventoryLargeChest tripleChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), doubleChest, localelephantchest3);
+                    
+                    if (MoCreatures.isServer())
+                    {
+                        entityplayer.displayGUIChest(tripleChest);
+                    }
+                    return true;
+                }
+                
+                if (getStorage() == 4)
+                {
+                    if (localelephantchest2 == null)
+                    {
+                        localelephantchest2 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 18);
+                    }
+                            
+                    if (localelephantchest3 == null)
+                    {
+                        localelephantchest3 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 9);
+                    }
+                    
+                    if (localelephantchest4 == null)
+                    {
+                        localelephantchest4 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 9);
+                    }
+                    // only open this chest on server side
+                    InventoryLargeChest doubleChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
+                    InventoryLargeChest doubleChestb = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), localelephantchest3, localelephantchest4);
+                    InventoryLargeChest fourChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), doubleChest, doubleChestb);
+                    
+                    if (MoCreatures.isServer())
+                    {
+                        entityplayer.displayGUIChest(fourChest);
+                    }
+                    return true;
+                }
+
+            }
+            if (getTusks() > 0 && (item == Items.shears)) 
+            { 
+                MoCTools.playCustomSound(this, "armoroff", worldObj);
+                dropTusks();
+                return true; 
+            }
         }
         
-        if ((itemstack != null) && getIsTamed() && getIsAdult() && getArmorType() == 0 && itemstack.getItem() == MoCreatures.elephantHarness)
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-            }
-            MoCTools.playCustomSound(this, "roping", worldObj);
-            setArmorType((byte) 1);
-            return true;
-        }
-
-        if ((itemstack != null) && getIsTamed() && getIsAdult() && getArmorType() >= 1 && itemstack.getItem() == MoCreatures.elephantChest)
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-            }
-            
-            MoCTools.playCustomSound(this, "roping", worldObj);
-            
-            
-            if (getStorage() == 0 )
-            {
-            	setStorage((byte) 1);
-            	entityplayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.key));
-            	entityplayer.addStat(MoCAchievements.elephant_chest, 1);
-            }
-            
-            else if (getStorage() == 1) {setStorage((byte) 2);}
-            
-            return true;
-        }
-        // third storage unit for small mammoths
-        if ((itemstack != null) && getIsTamed() && getIsAdult() && (getType() == 3) && getArmorType() >= 1 && getStorage() == 2 && itemstack.getItem() == Item.getItemFromBlock(Blocks.chest))
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-            }
-            MoCTools.playCustomSound(this, "roping", worldObj);
-            setStorage((byte) 3);
-            return true;
-        }
-        // fourth storage unit for small mammoths
-        if ((itemstack != null) && getIsTamed() && getIsAdult() && (getType() == 3) && getArmorType() >= 1 && getStorage() == 3 && itemstack.getItem() == Item.getItemFromBlock(Blocks.chest))
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-            }
-            MoCTools.playCustomSound(this, "roping", worldObj);
-            setStorage((byte) 4);
-            return true;
-        }
-
-        //giving a garment to an indian elephant with an harness will make it pretty
-        if ((itemstack != null) && getIsTamed() && getIsAdult() && getArmorType() == 1 && getType() == 2 && itemstack.getItem() == MoCreatures.elephantGarment)
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-            }
-            MoCTools.playCustomSound(this, "roping", worldObj);
-            setArmorType((byte) 2);
-            setType(5);
-            entityplayer.addStat(MoCAchievements.elephant_garment, 1);
-            return true;
-        }
-
-        //giving a howdah to a pretty indian elephant with a garment will attach the howdah
-        if ((itemstack != null) && getIsTamed() && getIsAdult() && getArmorType() == 2 && getType() == 5 && itemstack.getItem() == MoCreatures.elephantHowdah)
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-            }
-            MoCTools.playCustomSound(this, "roping", worldObj);
-            setArmorType((byte) 3);
-            entityplayer.addStat(MoCAchievements.elephant_howdah, 1);
-            return true;
-        }
-
-        //giving a platform to a ? mammoth with harness will attach the platform
-        if ((itemstack != null) && getIsTamed() && getIsAdult() && getArmorType() == 1 && getType() == 4 && itemstack.getItem() == MoCreatures.mammothPlatform)
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-            }
-            MoCTools.playCustomSound(this, "armoroff", worldObj);
-            setArmorType((byte) 3);
-            entityplayer.addStat(MoCAchievements.mammoth_platform, 1);
-            return true;
-        }
-
-        if ((itemstack != null) && getIsTamed() && getIsAdult() && (
-        		(itemstack.getItem() == MoCreatures.tusksWood
-        		|| itemstack.getItem() == MoCreatures.tusksIron
-        		|| itemstack.getItem() == MoCreatures.tusksDiamond)))
-        {
-        		
-        		Item tusks = itemstack.getItem();
-        		
-        		byte tusk_type = 0;
-        		
-        		if (tusks == MoCreatures.tusksWood) {tusk_type = 1;}
-        		if (tusks == MoCreatures.tusksIron) {tusk_type = 2;}
-        		if (tusks == MoCreatures.tusksDiamond) {tusk_type = 3;}
-        		
-        		if (--itemstack.stackSize == 0)
-        	    {
-        			entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-        	    }
-        		
-        		MoCTools.playCustomSound(this, "armoroff", worldObj);
-        	    dropTusks();
-        	    tuskUses = (byte) itemstack.getItemDamage();
-        	    this.setTusks(tusk_type);
-        	    entityplayer.addStat(MoCAchievements.elephant_tusks, 1);
-        	    return true;
-        }
-
-        if ((itemstack != null) && (itemstack.getItem() == MoCreatures.key) && getStorage() > 0)
-        {
-            if (localelephantchest == null)
-            {
-                localelephantchest = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 18);
-            }
-
-            if (getStorage() == 1)
-            {
-                // only open this chest on server side
-                if (MoCreatures.isServer())
-                {
-                    entityplayer.displayGUIChest(localelephantchest);
-                }
-                return true;
-            }
-
-            if (getStorage() == 2)
-            {
-                           
-                if (localelephantchest2 == null)
-                {
-                    localelephantchest2 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 18);
-                }
-                // only open this chest on server side
-                InventoryLargeChest doubleChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
-                if (MoCreatures.isServer())
-                {
-                    entityplayer.displayGUIChest(doubleChest);
-                }
-                return true;
-            }
-            
-            if (getStorage() == 3)
-            {
-                if (localelephantchest2 == null)
-                {
-                    localelephantchest2 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 18);
-                }
-                        
-                if (localelephantchest3 == null)
-                {
-                    localelephantchest3 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 9);
-                }
-                // only open this chest on server side
-                InventoryLargeChest doubleChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
-                InventoryLargeChest tripleChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), doubleChest, localelephantchest3);
-                
-                if (MoCreatures.isServer())
-                {
-                    entityplayer.displayGUIChest(tripleChest);
-                }
-                return true;
-            }
-            
-            if (getStorage() == 4)
-            {
-                if (localelephantchest2 == null)
-                {
-                    localelephantchest2 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 18);
-                }
-                        
-                if (localelephantchest3 == null)
-                {
-                    localelephantchest3 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 9);
-                }
-                
-                if (localelephantchest4 == null)
-                {
-                    localelephantchest4 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 9);
-                }
-                // only open this chest on server side
-                InventoryLargeChest doubleChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
-                InventoryLargeChest doubleChestb = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), localelephantchest3, localelephantchest4);
-                InventoryLargeChest fourChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), doubleChest, doubleChestb);
-                
-                if (MoCreatures.isServer())
-                {
-                    entityplayer.displayGUIChest(fourChest);
-                }
-                return true;
-            }
-
-        }
-        if ((itemstack != null)  && getTusks() > 0 && (itemstack.getItem() == Items.shears)) 
-        { 
-            MoCTools.playCustomSound(this, "armoroff", worldObj);
-            dropTusks();
-            return true; 
-        }
-        
-        if ((itemstack == null) && getIsTamed() && getIsAdult() && getArmorType() >= 1 && sitCounter != 0)
+        if (itemstack == null && getIsTamed() && getIsAdult() && getArmorType() >= 1 && sitCounter != 0)
         {
             entityplayer.rotationYaw = rotationYaw;
             entityplayer.rotationPitch = rotationPitch;
@@ -650,6 +656,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
             
             return true;
         }
+        
         return false;
     }
 
@@ -671,27 +678,23 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
      */
     private void dropTusks()
     {
-        if (!MoCreatures.isServer()) { return; }
-        int i = getTusks();
+        if (!MoCreatures.isServer()) {return;}
+        
+        int tusk_index = getTusks();
+        Item tusk_item_to_drop = MoCreatures.tusksWood; //default one as place holder
+        
+        if (tusk_index == 1) {tusk_item_to_drop = MoCreatures.tusksWood;}
+        else if (tusk_index == 2) {tusk_item_to_drop = MoCreatures.tusksIron;}
+        else if (tusk_index == 3) {tusk_item_to_drop = MoCreatures.tusksDiamond;}
+        else {tusk_item_to_drop = null;}
 
-        if (i == 1)
+        if (tusk_item_to_drop != null)
         {
-            EntityItem entityitem = new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(MoCreatures.tusksWood, 1, tuskUses));
-            entityitem.delayBeforeCanPickup = 10;
-            worldObj.spawnEntityInWorld(entityitem);
+	        EntityItem entityitem = new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(tusk_item_to_drop, 1, tuskUses));
+	        entityitem.delayBeforeCanPickup = 10;
+	        worldObj.spawnEntityInWorld(entityitem);
         }
-        if (i == 2)
-        {
-            EntityItem entityitem = new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(MoCreatures.tusksIron, 1, tuskUses));
-            entityitem.delayBeforeCanPickup = 10;
-            worldObj.spawnEntityInWorld(entityitem);
-        }
-        if (i == 3)
-        {
-            EntityItem entityitem = new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(MoCreatures.tusksDiamond, 1, tuskUses));
-            entityitem.delayBeforeCanPickup = 10;
-            worldObj.spawnEntityInWorld(entityitem);
-        }
+        
         setTusks((byte) 0);
         tuskUses = 0;
     }
@@ -722,8 +725,6 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         int k = MathHelper.floor_double(posZ);
 
         BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, i, j, k);
-        
-        String s = MoCTools.BiomeName(worldObj, i, j, k);
 
         if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SNOWY))
         {
@@ -758,6 +759,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         case 4:
             sizeF *= 1.2F;
             break;
+            
         case 2:
         case 5:
             sizeF *= 0.80F;

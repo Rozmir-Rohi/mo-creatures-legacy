@@ -44,6 +44,12 @@ public class MoCEntityHorseMob extends MoCEntityMob
       super.applyEntityAttributes();
       getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
     }
+    
+    @Override
+    public boolean canBeCollidedWith() //stops arrows from mounted skeleton hitting the horse mob
+    {
+        return !(this.riddenByEntity instanceof EntitySkeleton);
+    }
 
     @Override
     public void selectType()

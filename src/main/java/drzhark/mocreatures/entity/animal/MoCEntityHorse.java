@@ -342,37 +342,25 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     {
         if (MoCreatures.isServer())
         {
-            int i = getArmorType();
-            if (i != 0)
+            int armor_index = getArmorType();
+            
+            Item horse_armor_to_drop = Items.iron_horse_armor; //default item as placeholder
+            
+            if (getArmorType() == 1) {horse_armor_to_drop = Items.iron_horse_armor;}
+            if (getArmorType() == 2) {horse_armor_to_drop = Items.golden_horse_armor;}
+            if (getArmorType() == 3) {horse_armor_to_drop = Items.diamond_horse_armor;}
+            if (getArmorType() == 4) {horse_armor_to_drop = MoCreatures.horsearmorcrystal;}
+            
+            if (armor_index != 0)
             {
                 MoCTools.playCustomSound(this, "armoroff", worldObj);
-            }
-
-            if (i == 1)
-            {
-                EntityItem entityitem = new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(Items.iron_horse_armor, 1));
+                
+                EntityItem entityitem = new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(horse_armor_to_drop, 1));
                 entityitem.delayBeforeCanPickup = 10;
                 worldObj.spawnEntityInWorld(entityitem);
+                
+                setArmorType((byte) 0);
             }
-            if (i == 2)
-            {
-                EntityItem entityitem = new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(Items.golden_horse_armor, 1));
-                entityitem.delayBeforeCanPickup = 10;
-                worldObj.spawnEntityInWorld(entityitem);
-            }
-            if (i == 3)
-            {
-                EntityItem entityitem = new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(Items.diamond_horse_armor, 1));
-                entityitem.delayBeforeCanPickup = 10;
-                worldObj.spawnEntityInWorld(entityitem);
-            }
-            if (i == 4)
-            {
-                EntityItem entityitem = new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(MoCreatures.horsearmorcrystal, 1));
-                entityitem.delayBeforeCanPickup = 10;
-                worldObj.spawnEntityInWorld(entityitem);
-            }
-            setArmorType((byte) 0);
         }
     }
 
@@ -1357,9 +1345,11 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	        {
 	       
 		
-		        if (canWearRegularArmor() && (item == Items.iron_horse_armor)
-		        		|| (item == Items.golden_horse_armor)
-		        		|| (item == Items.diamond_horse_armor))
+		        if (canWearRegularArmor() && (
+		        		item == Items.iron_horse_armor
+		        		|| item == Items.golden_horse_armor
+		        		|| item == Items.diamond_horse_armor
+		        	))
 		        {
 		            if (getArmorType() == 0) {MoCTools.playCustomSound(this, "armorput", worldObj);}
 		            

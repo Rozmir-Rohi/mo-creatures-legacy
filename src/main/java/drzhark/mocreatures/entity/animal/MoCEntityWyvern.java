@@ -337,180 +337,160 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     @Override
     public boolean interact(EntityPlayer entityplayer)
     {
-        if (super.interact(entityplayer)) { return false; }
+        if (super.interact(entityplayer)) {return false;}
+        
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
-
-        if ((itemstack != null) && (itemstack.getItem() == MoCreatures.whip) && getIsTamed() && (riddenByEntity == null))
+        
+        if (getIsTamed() && itemstack != null)
         {
-            setSitting(!getIsSitting());
-            return true;
+        	Item item = itemstack.getItem();
+        	
+        	if (!getIsRideable() && getMoCAge() > 90 && (item == Items.saddle || item == MoCreatures.horsesaddle) )
+            {
+                if (--itemstack.stackSize == 0)
+                {
+                    entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                }
+                setRideable(true);
+                return true;
+            }
+        	
+        	if (getMoCAge() > 90 && (
+        			item == Items.iron_horse_armor
+        			|| item == Items.golden_horse_armor
+        			|| item == Items.diamond_horse_armor
+        			))
+            {
+                if (getArmorType() == 0) {MoCTools.playCustomSound(this, "armorput", worldObj);}
+                
+                byte armor_type = 0;
+                
+                if (item == Items.iron_horse_armor) {armor_type = 1;}
+                if (item == Items.golden_horse_armor) {armor_type = 2;}
+                if (item == Items.diamond_horse_armor) {armor_type = 3;}
+                
+                dropArmor();
+                
+
+                setArmorType(armor_type);
+                if (--itemstack.stackSize == 0)
+                {
+                    entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                }
+
+                return true;
+            }
+
+            if (getMoCAge() > 90 && !getIsChested() && (item == Item.getItemFromBlock(Blocks.chest)))
+            {
+                if (--itemstack.stackSize == 0)
+                {
+                    entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                }
+
+                entityplayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.key));
+                setIsChested(true);
+                worldObj.playSoundAtEntity(this, "mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
+                return true;
+            }
+
+            if ((item == MoCreatures.key) && getIsChested())
+            {
+                // if first time opening horse chest, we must initialize it
+                if (localchest == null)
+                {
+                    localchest = new MoCAnimalChest(I18n.format("container.MoCreatures.WyvernChest"), 14);// 
+                }
+                // only open this chest on server side
+                if (MoCreatures.isServer())
+                {
+                    entityplayer.displayGUIChest(localchest);
+                }
+                return true;
+            }
+
+            if ((item == MoCreatures.essencelight) && getMoCAge() > 90 && getType() < 5)
+            {
+                if (--itemstack.stackSize == 0)
+                {
+                    entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+                }
+                else
+                {
+                    entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+                }
+
+                if (MoCreatures.isServer())
+                {
+                    int i = getType() + 49;
+                    MoCEntityEgg entityegg = new MoCEntityEgg(worldObj, i);
+                    entityegg.setPosition(entityplayer.posX, entityplayer.posY, entityplayer.posZ);
+                    entityplayer.worldObj.spawnEntityInWorld(entityegg);
+                    entityegg.motionY += worldObj.rand.nextFloat() * 0.05F;
+                    entityegg.motionX += (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.3F;
+                    entityegg.motionZ += (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.3F;
+                }
+                return true;
+            }
+
+            if (getType() == 5 && (item == MoCreatures.essenceundead))
+            {
+                if (--itemstack.stackSize == 0)
+                {
+                    entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+                }
+                else
+                {
+                    entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+                }
+                
+                if (MoCreatures.isServer())
+                {
+                    setType(6);
+                }
+                return true;
+            }
+
+            if (getType() == 5 && (item == MoCreatures.essencelight))
+            {
+                if (--itemstack.stackSize == 0)
+                {
+                    entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+                }
+                else
+                {
+                    entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+                }
+                
+                if (MoCreatures.isServer())
+                {
+                    setType(7);
+                }
+                return true;
+            }
+
+            if (getType() == 5 && (item == MoCreatures.essencedarkness))
+            {
+                if (--itemstack.stackSize == 0)
+                {
+                    entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+                }
+                else
+                {
+                    entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+                }
+                
+                if (MoCreatures.isServer())
+                {
+                    setType(8);
+                }
+                return true;
+            }
         }
 
-        if ((itemstack != null) && !getIsRideable() && getMoCAge() > 90 && this.getIsTamed() && (itemstack.getItem() == Items.saddle || itemstack.getItem() == MoCreatures.horsesaddle) )
+        if ((itemstack == null) && getIsRideable() && getMoCAge() > 90 && (riddenByEntity == null))
         {
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-            }
-            setRideable(true);
-            return true;
-        }
-
-        if ((itemstack != null) && this.getIsTamed() && getMoCAge() > 90 && itemstack.getItem() == Items.iron_horse_armor)
-        {
-            if (getArmorType() == 0)
-            {
-                MoCTools.playCustomSound(this, "armorput", worldObj);
-            }
-            dropArmor();
-            setArmorType((byte) 1);
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-            }
-
-            return true;
-        }
-
-        if ((itemstack != null) && this.getIsTamed() && getMoCAge() > 90 && itemstack.getItem() == Items.golden_horse_armor)
-        {
-            if (getArmorType() == 0)
-            {
-                MoCTools.playCustomSound(this, "armorput", worldObj);
-            }
-            dropArmor();
-            setArmorType((byte) 2);
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-            }
-            return true;
-        }
-
-        if ((itemstack != null) && this.getIsTamed() && getMoCAge() > 90 && itemstack.getItem() == Items.diamond_horse_armor)
-        {
-            if (getArmorType() == 0)
-            {
-                MoCTools.playCustomSound(this, "armorput", worldObj);
-            }
-            dropArmor();
-            setArmorType((byte) 3);
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-            }
-            return true;
-        }
-
-        if ((itemstack != null) && getIsTamed() && getMoCAge() > 90 && !getIsChested() && (itemstack.getItem() == Item.getItemFromBlock(Blocks.chest)))
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-            }
-
-            entityplayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.key));
-            setIsChested(true);
-            worldObj.playSoundAtEntity(this, "mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
-            return true;
-        }
-
-        if ((itemstack != null) && (itemstack.getItem() == MoCreatures.key) && getIsChested())
-        {
-            // if first time opening horse chest, we must initialize it
-            if (localchest == null)
-            {
-                localchest = new MoCAnimalChest(I18n.format("container.MoCreatures.WyvernChest"), 14);// 
-            }
-            // only open this chest on server side
             if (MoCreatures.isServer())
-            {
-                entityplayer.displayGUIChest(localchest);
-            }
-            return true;
-        }
-
-        if ((itemstack != null) && (itemstack.getItem() == MoCreatures.essencelight) && getIsTamed() && getMoCAge() > 90 && getType() < 5)
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-            }
-            else
-            {
-                entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-            }
-
-            if (MoCreatures.isServer())
-            {
-                int i = getType() + 49;
-                MoCEntityEgg entityegg = new MoCEntityEgg(worldObj, i);
-                entityegg.setPosition(entityplayer.posX, entityplayer.posY, entityplayer.posZ);
-                entityplayer.worldObj.spawnEntityInWorld(entityegg);
-                entityegg.motionY += worldObj.rand.nextFloat() * 0.05F;
-                entityegg.motionX += (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.3F;
-                entityegg.motionZ += (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.3F;
-            }
-            return true;
-        }
-
-        if ((itemstack != null) && getType() == 5 && (itemstack.getItem() == MoCreatures.essenceundead) && getIsTamed())
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-            }
-            else
-            {
-                entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-            }
-            
-            if (MoCreatures.isServer())
-            {
-                setType(6);
-            }
-            return true;
-        }
-
-        if ((itemstack != null) && getType() == 5 && (itemstack.getItem() == MoCreatures.essencelight) && getIsTamed())
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-            }
-            else
-            {
-                entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-            }
-            
-            if (MoCreatures.isServer())
-            {
-                setType(7);
-            }
-            return true;
-        }
-
-        if ((itemstack != null) && getType() == 5 && (itemstack.getItem() == MoCreatures.essencedarkness) && getIsTamed())
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-            }
-            else
-            {
-                entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-            }
-            
-            if (MoCreatures.isServer())
-            {
-                setType(8);
-            }
-            return true;
-        }
-
-        if (getIsRideable() && getMoCAge() > 90 && (riddenByEntity == null))
-        {
-            if (MoCreatures.isServer() && (itemstack == null))
             {
             	entityplayer.rotationYaw = rotationYaw;
                 entityplayer.rotationPitch = rotationPitch;
@@ -521,6 +501,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             
             return true;
         }
+        
         else
         {
             return false;
