@@ -68,7 +68,7 @@ item.hideboots.name=兽皮靴子
 item.hidehelmet.name=兽皮头盔
 item.hidelegs.name=兽皮裤子
 item.hidechest.name=兽皮外套
-item.horsearmorcrystal.name=水晶坐骑盔甲
+item.horsearmorcrystal.name=水晶马铠
 item.horsesaddle.name=手工马鞍
 item.katana.name=武士刀
 item.key.name=钥匙
@@ -105,18 +105,18 @@ item.mocegg.42.name=洞穴蝎子蛋
 item.mocegg.43.name=下界蝎子蛋
 item.mocegg.44.name=冰霜蝎子蛋
 item.mocegg.45.name=亡灵蝎子蛋
-item.mocegg.50.name=丛林飞龙蛋
-item.mocegg.51.name=沼泽飞龙蛋
-item.mocegg.52.name=热带草原飞龙蛋
-item.mocegg.53.name=沙漠飞龙蛋
-item.mocegg.54.name=母飞龙蛋
-item.mocegg.55.name=亡灵飞龙蛋
-item.mocegg.56.name=光明飞龙蛋
-item.mocegg.57.name=黑暗飞龙蛋
-item.mocegg.58.name=北极飞龙蛋
-item.mocegg.59.name=洞穴飞龙蛋
-item.mocegg.60.name=山地飞龙蛋
-item.mocegg.61.name=海洋飞龙蛋
+item.mocegg.50.name=丛林翼龙蛋
+item.mocegg.51.name=沼泽翼龙蛋
+item.mocegg.52.name=热带草原翼龙蛋
+item.mocegg.53.name=沙漠翼龙蛋
+item.mocegg.54.name=母翼龙蛋
+item.mocegg.55.name=亡灵翼龙蛋
+item.mocegg.56.name=光明翼龙蛋
+item.mocegg.57.name=黑暗翼龙蛋
+item.mocegg.58.name=北极翼龙蛋
+item.mocegg.59.name=洞穴翼龙蛋
+item.mocegg.60.name=山地翼龙蛋
+item.mocegg.61.name=海洋翼龙蛋
 item.mocegg.70.name=鲑鱼蛋
 item.mocegg.71.name=鳕鱼蛋
 item.mocegg.72.name=鲈鱼蛋
@@ -245,8 +245,8 @@ entity.MoCreatures.Turtle.name=海龟
 entity.MoCreatures.Werewolf.name=狼人
 entity.MoCreatures.WildHorse.name=马
 entity.MoCreatures.Wraith.name=幽灵
-entity.MoCreatures.WWolf.name=野狼
-entity.MoCreatures.Wyvern.name=飞龙
+entity.MoCreatures.WWolf.name=惧狼
+entity.MoCreatures.Wyvern.name=翼龙
 
 
 
@@ -262,7 +262,7 @@ gui_namer.MoCreatures.done=完成
 container.MoCreatures.HorseChest=马储物箱
 container.MoCreatures.ElephantChest=大象储物箱
 container.MoCreatures.OstrichChest=鸵鸟储物箱
-container.MoCreatures.WyvernChest=双足飞龙储物箱
+container.MoCreatures.WyvernChest=翼龙储物箱
 
 notify.MoCreatures.egg_hatching=蛋快孵出来了!继续看!如果您离开该区域，位于%1$s， %2$s， %3$s的孵化生物将会丢失
 
@@ -352,11 +352,11 @@ achievement.fairy_horse.desc=通过使用光明精华将飞马和独角兽培育
 achievement.amulet_fairy=仙女储物
 achievement.amulet_fairy.desc=制作一枚仙女护符。护符的制作配方中的火焰可以从下界大鼠获取。
 
-achievement.wyvern_portal_staff=飞龙巢穴传送杖
-achievement.wyvern_portal_staff.desc=制作一把飞龙巢穴传送杖并前往飞龙巢穴。
+achievement.wyvern_portal_staff=翼龙巢穴传送杖
+achievement.wyvern_portal_staff.desc=制作一把翼龙巢穴传送杖并前往翼龙巢穴。
 
 achievement.wyvern_egg=最快的伙伴
-achievement.wyvern_egg.desc=从一只母飞龙处获得一枚飞龙蛋。孵化后，宠物飞龙喜欢吃生老鼠和生兔子。成年的宠物飞龙可以骑乘，装备原版的马铠，并且可以携带箱子。
+achievement.wyvern_egg.desc=从一只母翼龙处获得一枚翼龙蛋。孵化后，宠物翼龙喜欢吃生老鼠和生兔子。成年的宠物翼龙可以骑乘，装备原版的马铠，并且可以携带箱子。
 
 achievement.tame_elephant=驯服大象者
 achievement.tame_elephant.desc=使用许多糖块来驯服一只幼年大象或猛犸象。
@@ -520,8 +520,8 @@ achievement.reptile_armor.desc=制作任意一件爬行动物护甲。
 achievement.get_scorpion_material=蝎子猎人
 achievement.get_scorpion_material.desc=获得任意蝎子的外壳或蝎尾毒液。
 
-achievement.scorpion_sword=蝎子刀使
-achievement.scorpion_sword.desc=制作任意一把蝎子刀。可以使用相同类型的蝎尾毒液在铁砧上修复蝎子刀。
+achievement.scorpion_sword=蝎子剑使
+achievement.scorpion_sword.desc=制作任意一把蝎子剑。可以使用相同类型的蝎尾毒液在铁砧上修复蝎子剑。
 
 achievement.scorpion_armor=蝎子勇士
 achievement.scorpion_armor.desc=制作任意一件蝎子护甲。全套装备同种类的护甲将获得套装加成。可以使用相同类型的蝎子外壳在铁砧上修复蝎子护甲。
