@@ -13,7 +13,6 @@ import drzhark.mocreatures.inventory.MoCAnimalChest;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageAnimation;
 import drzhark.mocreatures.network.message.MoCMessageHeart;
-import drzhark.mocreatures.network.message.MoCMessageShuffle;
 import drzhark.mocreatures.network.message.MoCMessageVanish;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
@@ -75,7 +74,6 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     {
         super(world);
         setSize(1.4F, 1.6F);
-        //health = 20;
         gestationtime = 0;
         eatenpumpkin = false;
         nightmareInt = 0;
@@ -1997,34 +1995,35 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         }
     }
 
-    private boolean nearMusicBox()
+    private boolean nearPlayingJukebox()
     {
-        // only works server side
-        if (!MoCreatures.isServer()) { return false; }
+        /**The old method of this function used to use func_145856_a() from TileEntityJukebox.java to specifically detect
+        * if a Zebra Shuffle disc is playing but the func_145856_a() is not included in this version of the function 
+        * as it caused shuffleCounter to only be callable from inside MoCEntityHorse.java, calling the field outside
+        * MoCEntityHorse.java used to always return 0 even when it was greater than 0 in MoCEntityHorse.java.
+        * This stopped the Zebra shuffling animations to stop working.
+        * To fix the issue above, func_145856_a() was removed from this function.
+    	*/
 
-        boolean flag = false;
-        TileEntityJukebox jukebox = MoCTools.nearJukeBoxRecord(this, 6D);
-        if (jukebox != null && jukebox.func_145856_a() != null)
-        {
-            Item record = jukebox.func_145856_a().getItem();
-
-            if (record == MoCreatures.recordshuffle)
+        TileEntityJukebox jukebox_nearby = MoCTools.nearJukeBoxRecord(this, 6D);
+        if (jukebox_nearby != null)
+        {	
+        	boolean does_jukebox_nearby_have_music_disc = worldObj.getBlockMetadata(jukebox_nearby.xCoord, jukebox_nearby.yCoord, jukebox_nearby.zCoord) != 0;
+        	
+            if (shuffleCounter > 1000)
             {
-                flag = true;
-                if (shuffleCounter > 1000)
-                {
-                    shuffleCounter = 0;
-                    MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageShuffle(this.getEntityId(), false), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
-                    BlockJukebox blockjukebox = (BlockJukebox) worldObj.getBlock(jukebox.xCoord, jukebox.yCoord, jukebox.zCoord);
-                    if (blockjukebox != null)
-                    {
-                        blockjukebox.func_149925_e(worldObj, jukebox.xCoord, jukebox.yCoord, jukebox.zCoord);
-                    }
-                    flag = false;
+                shuffleCounter = 0;
+               	BlockJukebox blockjukebox = (BlockJukebox) worldObj.getBlock(jukebox_nearby.xCoord, jukebox_nearby.yCoord, jukebox_nearby.zCoord);
+                if (blockjukebox != null)
+                {//take out the music disc from the jukebox
+                    blockjukebox.func_149925_e(worldObj, jukebox_nearby.xCoord, jukebox_nearby.yCoord, jukebox_nearby.zCoord);
                 }
+                return false;
             }
+
+        	return does_jukebox_nearby_have_music_disc;
         }
-        return flag;
+        return false;
     }
 
     // changed to public since we need to send this info to server
@@ -2138,8 +2137,15 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         {
             wingFlapCounter = 1;
         }
-        
-        
+
+        if ((rand.nextInt(300) == 0) && (deathTime == 0))
+        {
+            this.setHealth(getHealth() + 1);
+            if (getHealth() > getMaxHealth())
+            {
+                this.setHealth(getMaxHealth());
+            }
+        }
         
 
         if (isUndead() && (this.getType() < 26) && getIsAdult() && (rand.nextInt(20) == 0))
@@ -2161,29 +2167,23 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
             }
 
         }
+        
+        /**
+         * Shuffling from "Party Rock Anthem" by LMFAO!
+         */
+        if (rand.nextInt(50) == 0 && nearPlayingJukebox() && shuffleCounter == 0)
+        {
+        	if (this.getType() == 60 && getIsTamed())
+            {
+            	shuffle();
+            }
+        }
 
         super.onLivingUpdate();
 
         if (MoCreatures.isServer())
         {
-            /**
-             * Shuffling from "Party Rock Anthem" by LMFAO!
-             */
-            if (this.getType() == 60 && getIsTamed() && rand.nextInt(50) == 0 && nearMusicBox())
-            {
-                shuffle();
-                MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageShuffle(this.getEntityId(), true), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
-            }
-
-            if ((rand.nextInt(300) == 0) && (deathTime == 0))
-            {
-                this.setHealth(getHealth() + 1);
-                if (getHealth() > getMaxHealth())
-                {
-                    this.setHealth(getMaxHealth());
-                }
-            }
-
+        	
             if (!getEating() && !getIsTamed() && rand.nextInt(300) == 0)
             {
                 setEating(true);
@@ -2420,7 +2420,8 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
         if (shuffleCounter > 0)
         {
-            ++shuffleCounter; //TODO: Fix Zebras not shuffling. For some reason whenever shuffleCounter is called outside MoCEntityHorse.java it is always 0. It may have something to do with the nearMusicBox() function
+            ++shuffleCounter;
+            
             if (!MoCreatures.isServer() && this.shuffleCounter % 20 == 0)
             {
                 double var2 = this.rand.nextGaussian() * 0.5D;
@@ -2429,10 +2430,9 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                 this.worldObj.spawnParticle("note", this.posX + this.rand.nextFloat() * this.width * 2.0F - this.width, this.posY + 0.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0F - this.width, var2, var4, var6);
             }
 
-            if ((MoCreatures.isServer() && !nearMusicBox()))
+            if (!nearPlayingJukebox() && shuffleCounter > 0)
             {
                 shuffleCounter = 0;
-                MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageShuffle(this.getEntityId(), false), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
             }
             
         }

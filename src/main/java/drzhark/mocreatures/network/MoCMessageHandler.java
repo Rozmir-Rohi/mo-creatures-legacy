@@ -12,7 +12,6 @@ import drzhark.mocreatures.network.message.MoCMessageExplode;
 import drzhark.mocreatures.network.message.MoCMessageHealth;
 import drzhark.mocreatures.network.message.MoCMessageHeart;
 import drzhark.mocreatures.network.message.MoCMessageNameGUI;
-import drzhark.mocreatures.network.message.MoCMessageShuffle;
 import drzhark.mocreatures.network.message.MoCMessageTwoBytes;
 import drzhark.mocreatures.network.message.MoCMessageUpdatePetName;
 import drzhark.mocreatures.network.message.MoCMessageVanish;
@@ -33,7 +32,6 @@ public class MoCMessageHandler
         INSTANCE.registerMessage(MoCMessageHeart.class, MoCMessageHeart.class, 7, Side.CLIENT);
         INSTANCE.registerMessage(MoCMessageNameGUI.class, MoCMessageNameGUI.class, 9, Side.CLIENT);
         INSTANCE.registerMessage(MoCMessageUpdatePetName.class, MoCMessageUpdatePetName.class, 10, Side.SERVER);
-        INSTANCE.registerMessage(MoCMessageShuffle.class, MoCMessageShuffle.class, 11, Side.CLIENT);
         INSTANCE.registerMessage(MoCMessageTwoBytes.class, MoCMessageTwoBytes.class, 12, Side.CLIENT);
         INSTANCE.registerMessage(MoCMessageVanish.class, MoCMessageVanish.class, 13, Side.CLIENT);
     }
