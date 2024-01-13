@@ -436,7 +436,7 @@ Fixed pet fish drowned death message. Also added new death message for aquatic p
 Fixed name height for pet wyverns.
 
 
-Added Chinese (Mandarin) language file. Thanks to Omgise for the translation.
+Added Chinese (Simplified) language file. Thanks to Omgise for the translation.
 
 
 Changes Medium Fish Spawns:

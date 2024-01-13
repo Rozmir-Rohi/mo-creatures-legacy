@@ -72,7 +72,7 @@ Sounds Only:
 
 
 Language File Translations:
-	Omgise - Chinese Simplified (Mandarin) (zh_CN.lang)
+	Omgise - Chinese (Simplified) (zh_CN.lang)
 	
 
 
