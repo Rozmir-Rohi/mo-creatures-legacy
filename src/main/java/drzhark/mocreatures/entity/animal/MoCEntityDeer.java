@@ -1,6 +1,5 @@
 package drzhark.mocreatures.entity.animal;
 
-import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
 import net.minecraft.entity.Entity;
