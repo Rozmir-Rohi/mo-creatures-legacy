@@ -76,22 +76,6 @@ public class MoCEntityFlameWraith extends MoCEntityWraith implements IMob {
         super.onLivingUpdate();
     }
     
-    @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
-    {
-        if (MoCreatures.isServer())
-        {
-        	if (DamageSource.magic.equals(damagesource) //only take damage if damage source is one of the following
-        			|| damagesource.getEntity() != null
-        			|| DamageSource.outOfWorld.equals(damagesource)) 
-            {
-         	   return super.attackEntityFrom(damagesource, i);
-            }
-        }
-        
-        return false;
-    }
-    
     public void onDeath(DamageSource source_of_damage) {
         if (source_of_damage.getEntity() != null && source_of_damage.getEntity() instanceof EntityPlayer) {
           EntityPlayer player = (EntityPlayer)source_of_damage.getEntity();

@@ -60,6 +60,8 @@ public class MoCAchievementEvents {
 				|| event.pickedUp.getEntityItem().getItem() == MoCreatures.scorpStingFrost
 				|| event.pickedUp.getEntityItem().getItem() == MoCreatures.scorpStingNether
 			) {event.player.addStat(MoCAchievements.get_scorpion_material, 1);}
+		
+		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.recordshuffle)) {event.player.addStat(MoCAchievements.zebra_record, 1);}
 	
 	}
 	

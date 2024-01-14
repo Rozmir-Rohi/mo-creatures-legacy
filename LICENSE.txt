@@ -6,7 +6,7 @@ CUSTOM LICENSE: GNU General Public License v3.0 and Further Conditions
 
 
 SECTION 1 - SCOPE OF THE FURTHER CONDITIONS:
-The further conditions only apply to the use and redistribution of the source code from this project (both modified and unmodified), and the use and redistribution of the 16x MoCreatures textures from this project (both modified and unmodified). The full list of 16x MoCreatures textures can be found as a text file in the assets folder of the mod jar.
+The further conditions only apply to the use and redistribution of the source code from this project (both modified and unmodified), and the use and redistribution of the 16x MoCreatures textures from this project (both modified and unmodified). The full list of 16x MoCreatures textures can be found as a text file inside the mod jar.
 
 
 The further conditions do not apply for the following:

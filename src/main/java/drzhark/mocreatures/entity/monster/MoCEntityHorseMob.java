@@ -17,6 +17,7 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -284,12 +285,31 @@ public class MoCEntityHorseMob extends MoCEntityMob
         
         if (!worldObj.isRemote)
         {
-	        if (this.isFlyer() && this.getEntityToAttack() != null //fly up to attack player if it is above it
-	        		&& this.getEntityToAttack().posY + (double)this.getEntityToAttack().getEyeHeight() > this.posY + (double)this.getEyeHeight())
-	        {
-	            this.motionY += (0.30000001192092896D - this.motionY) * 0.30000001192092896D;
-	        }
+	        if (this.isFlyer() && this.getEntityToAttack() != null)
+            {
+	        	
+	        	double x_distance = this.getEntityToAttack().posX - this.posX;
+	            double y_distance = this.getEntityToAttack().posY - this.posY;
+	            double z_distance = this.getEntityToAttack().posZ - this.posZ;
+	            double overall_distance_sq = x_distance * x_distance + y_distance * y_distance + z_distance * z_distance;
+	        	
+	            double fly_speed = getMoveSpeed();
+	            
+	        	if (y_distance > 0) //fly up to player
+	        	{
+	        		 this.motionY += (y_distance / overall_distance_sq) * 0.3D;
+	        	}
+	        	
+	        	if (this.isOnAir() && overall_distance_sq > 3) //continue chasing player through air in x and z directions
+	        	{
+			        this.faceEntity(this.getEntityToAttack(), 10F, 10F);
+
+            		this.motionX = x_distance / overall_distance_sq * fly_speed;
+                    this.motionZ = z_distance / overall_distance_sq * fly_speed;
+	        	}
+            }
     	}
+        
 
         if (MoCreatures.isServer())
         {

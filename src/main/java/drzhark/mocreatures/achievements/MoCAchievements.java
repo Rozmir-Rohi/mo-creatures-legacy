@@ -17,6 +17,7 @@ public static Achievement tier2_horse;
 public static Achievement tier3_horse;
 public static Achievement tier4_horse;
 public static Achievement zebra;
+public static Achievement zebra_record;
 public static Achievement zorse;
 
 public static Achievement heart_undead;
@@ -133,6 +134,7 @@ public static void initilization()
 	tier3_horse = new Achievement("achievement.tier3_horse", "tier3_horse", 9, 0, MoCreatures.achievement_icon_tier3_horse, tier2_horse).registerStat();
 	tier4_horse = new Achievement("achievement.tier4_horse", "tier4_horse", 11, 0, MoCreatures.achievement_icon_tier4_horse, tier3_horse).registerStat();
 	zebra = new Achievement("achievement.zebra", "zebra", 13, 0, MoCreatures.achievement_icon_zebra, tier4_horse).registerStat();
+	zebra_record = new Achievement("achievement.zebra_record", "zebra_record", 13, -2, new ItemStack(MoCreatures.recordshuffle), zebra).registerStat();
 	zorse = new Achievement("achievement.zorse", "zorse", 15, 0, MoCreatures.achievement_icon_zorse, zebra).registerStat();
 	
 	heart_undead = new Achievement("achievement.heart_undead", "heart_undead", 15, 6, new ItemStack(MoCreatures.heartundead), AchievementList.buildSword).registerStat();
@@ -276,6 +278,7 @@ public static void initilization()
 					tier3_horse,
 					tier4_horse,
 					zebra,
+					zebra_record,
 					zorse,
 					
 					heart_undead,

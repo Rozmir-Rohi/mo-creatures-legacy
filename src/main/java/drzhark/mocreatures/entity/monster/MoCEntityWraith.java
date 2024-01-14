@@ -20,7 +20,6 @@ public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
         texture = "wraith.png";
         setSize(1.5F, 1.5F);
         isImmuneToFire = false;
-        noClip = true;
         //health = 10;
     }
 
@@ -75,41 +74,47 @@ public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
                 }
             }
             
-            if (this.getEntityToAttack() != null //fly up to attack player if it is above it
-            		&& this.getEntityToAttack().posY + (double)this.getEntityToAttack().getEyeHeight() > this.posY + (double)this.getEyeHeight())
+            if (this.getEntityToAttack() != null)
             {
-                this.motionY += (0.30000001192092896D - this.motionY) * 0.30000001192092896D;
+	        	
+	        	double x_distance = this.getEntityToAttack().posX - this.posX;
+	            double y_distance = this.getEntityToAttack().posY - this.posY;
+	            double z_distance = this.getEntityToAttack().posZ - this.posZ;
+	            double overall_distance_sq = x_distance * x_distance + y_distance * y_distance + z_distance * z_distance;
+	        	
+	            double fly_speed = getMoveSpeed() *0.01;
+	            
+	            
+	            if (overall_distance_sq <= 16)
+	            {
+		            if (y_distance > 0) //fly up to player
+		        	{
+		        		 this.motionY += (y_distance / overall_distance_sq) * 0.3D;
+		        	}
+		            
+		        	if (overall_distance_sq < 4) //chase player through air
+		        	{
+				        this.faceEntity(this.getEntityToAttack(), 10F, 10F);
+	
+	            		this.motionX = x_distance / overall_distance_sq * fly_speed;
+	            		
+	                    this.motionZ = z_distance / overall_distance_sq * fly_speed;
+		        	}
+	            }
             }
         }
         super.onLivingUpdate();
     }
     
-    @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public void onDeath(DamageSource source_of_damage)
     {
-        if (MoCreatures.isServer())
-        {
-        	if (DamageSource.onFire.equals(damagesource) //only take damage if damage source is one of the following
-        			|| DamageSource.lava.equals(damagesource)
-        			|| DamageSource.magic.equals(damagesource)
-        			|| damagesource.getEntity() != null
-        			|| DamageSource.outOfWorld.equals(damagesource)) 
-            {
-         	   return super.attackEntityFrom(damagesource, i);
-            }
-        }
-        
-        return false;
-    }
-    
-    public void onDeath(DamageSource source_of_damage) {
         if (source_of_damage.getEntity() != null && source_of_damage.getEntity() instanceof EntityPlayer)
         {
           EntityPlayer player = (EntityPlayer)source_of_damage.getEntity();
           if (player != null) {player.addStat(MoCAchievements.kill_wraith, 1);} 
         } 
         super.onDeath(source_of_damage);
-      }
+    }
 
     @Override
     public boolean isFlyer()
@@ -120,6 +125,6 @@ public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
     @Override
     public float getMoveSpeed()
     {
-        return 1.3F;
+        return 1F;
     }
 }

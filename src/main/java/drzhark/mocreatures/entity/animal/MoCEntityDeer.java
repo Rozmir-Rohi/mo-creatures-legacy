@@ -1,5 +1,6 @@
 package drzhark.mocreatures.entity.animal;
 
+import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
 import net.minecraft.entity.Entity;
@@ -156,7 +157,9 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
                 {
                     is_running = true;
 
-                    this.fleeingTick = 200;
+                    
+                    this.fleeingTick = 200; //run away
+                    //MoCTools.runLikeHell(this, scary_entity_nearby);
 
                 }
                 else if ((scary_entity_nearby == null) && (is_running == true || fleeingTick > 0))
@@ -166,16 +169,17 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
                 }
             }
             
-            if ((is_running)) // run away fast
+            if ((is_running) && !this.isInWater()) // increase running speed
             {
-            	if (motionX > 0) {motionX = getMoveSpeed() * 0.08;}
+            	if (motionX != 0) {motionX = getMoveSpeed() * 0.08 * Math.signum(motionX);}
             	
-            	if (motionZ > 0) {motionZ = getMoveSpeed() * 0.08;}
+            	if (motionZ != 0) {motionZ = getMoveSpeed() * 0.08 * Math.signum(motionZ);}
+            	
             	
             	if (onGround && (rand.nextInt(30) == 0) &&
             			((motionX > 0.1D) || (motionZ > 0.1D) || (motionX < -0.1D) || (motionZ < -0.1D)))
             	{
-            		motionY = 0.5D;
+            		motionY = 0.5D; //hop in between
             	}
             }
         }

@@ -292,6 +292,9 @@ achievement.tier4_horse.desc=Breed the correct tier 3 horse with the correct van
 achievement.zebra=Zebra Tamer
 achievement.zebra.desc=Tame a zebra by approaching it with a tier 4 horse and then feeding it with an apple. Zebras are found in savannah type biomes
 
+achievement.zebra_record=Shuffling
+achievement.zebra_record.desc=Obtain a zebra record by feeding a tamed zebra with any vanilla minecraft music disc. This is the favourite song of zebras
+
 achievement.zorse=Zorse
 achievement.zorse.desc=Breed a tamed zebra with any other horse using pumpkins, cake or mushroom stew
 

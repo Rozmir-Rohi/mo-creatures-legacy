@@ -205,16 +205,13 @@ Fixed Horses not having the health that their is supposed to have.
 Fixed Fire Horse and Dark Pegasus not being immune to Fire.
 
 
-Found Bug: Pet Zebras will not dance to Zebra Shuffle. I don't know how to fix this.
-
-
 Removed all previous APIs, Mo'Creatures is now a standalone mod.
 
 
 Fixed horse dying and horse mad sounds not playing.
 
 
-Added 84 achievements for the Mo' Creatures mod.
+Added 85 achievements for the Mo' Creatures mod.
 
 
 Increased fairy horse hp from 20 to 35.
@@ -355,16 +352,10 @@ Health bars for pets now only show if they are hurt. Health bars can still be di
 Using Whip now only interacts with the closest entity to the player, and no longer tries to interact with multiple entities around the player. Also, decreased range at which this interaction happens to make the entity sit, you now need to be slightly closer to the entity that you want to sit down.
 
 
-Wraiths and Flame Wraiths can now go through walls.
-
-
 Fixed bug where flying monsters would not fly up to players if they were above them.
 
 
 Removed spawn slimes on death of zombie horse mob.
-
-
-FOUND BUG: The Bat Horse mob stops chasing the player in the x and z direction if the player manages to get higher than it. I don't know how to fix this.
 
 
 Fixed crocodile hurt sounds not playing.
@@ -491,5 +482,14 @@ Renamed "Crystal Mount Armor" to "Crystal Horse Armor".
 
 
 Simplified code for horse dropping armor when sheared or stored in an amulet.
+
+
+Readded dancing zebras. They now dance when any music disc is put in a jukebox nearby. This was the only way I could bring back dancing zebras as I couldn't make them detect when a jukebox nearby was specifically playing the zebra record.
+
+
+Fixed skeleton and undead horse skull textures.
+
+
+Fixed horse mob and wraith not chasing player if the player manages to get above them.
 
 
