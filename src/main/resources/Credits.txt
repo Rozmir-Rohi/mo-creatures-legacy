@@ -84,6 +84,8 @@ Code for Multilingual Pet Naming:
 
 	Tino Didriksen - Their answer in StackOverflow taught how many bytes a character requires depending on the language that it is from (https://stackoverflow.com/questions/14485589/utf-8-how-many-bytes-are-used-by-languages-to-represent-a-visible-character).
 
+	Joshua Engel - Their post taught me how to encode a string of non-ASCII characters to UTF-8 so that they can be properly processed in the code (https://www.quora.com/How-do-I-convert-a-string-to-UTF-8-in-Java).
+
 
 
 

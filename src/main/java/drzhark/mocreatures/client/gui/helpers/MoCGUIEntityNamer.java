@@ -56,8 +56,7 @@ public class MoCGUIEntityNamer extends GuiScreen {
         NamedEntity.setName(NameToSet);
         
         
-        //TODO: re-enable here when safe
-        //MoCMessageHandler.INSTANCE.sendToServer(new MoCMessageUpdatePetName(((EntityLiving) NamedEntity).getEntityId(), NameToSet));
+        MoCMessageHandler.INSTANCE.sendToServer(new MoCMessageUpdatePetName(((EntityLiving) NamedEntity).getEntityId(), NameToSet));
         mc.displayGuiScreen(null);
     }
 
@@ -116,7 +115,7 @@ public class MoCGUIEntityNamer extends GuiScreen {
         {
         	String character_string = "";
         			
-        	if (character == 22) //crtl V
+        	if (character == 22) //22 is the crtl + V  (paste function)
             {
             	character_string = getClipboardString();
             }
@@ -124,9 +123,6 @@ public class MoCGUIEntityNamer extends GuiScreen {
         	
             StringBuilder name = new StringBuilder(NameToSet);
             
-            
-            //TODO: Remove out here when complete
-            System.out.println(character_string);
             
             name.append(character_string);
             NameToSet = name.toString();

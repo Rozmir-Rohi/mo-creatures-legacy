@@ -53,7 +53,8 @@ public class MoCMessageUpdatePetName implements IMessage, IMessageHandler<MoCMes
     	char[] character_array = this.name.toCharArray();
     	
     	for (char character : character_array) //this loop goes through each character in the string and assigns them the amount of bytes they need
-    	{
+    	{	
+    		
     		UnicodeScript script_that_character_is_written_in = Character.UnicodeScript.of(character);
     		
     		if (script_that_character_is_written_in == Character.UnicodeScript.LATIN)
@@ -105,7 +106,7 @@ public class MoCMessageUpdatePetName implements IMessage, IMessageHandler<MoCMes
         buffer.writeInt(byte_length);
         
         
-        buffer.writeBytes(this.name.getBytes());
+        buffer.writeBytes(StandardCharsets.UTF_8.encode(this.name)); //encodes to UTF-8 before writeBytes to properly process special characters
 
         
         buffer.writeInt(this.entityId);
@@ -116,7 +117,8 @@ public class MoCMessageUpdatePetName implements IMessage, IMessageHandler<MoCMes
     {
         int nameLength = buffer.readInt();
         
-        this.name = new String(buffer.readBytes(nameLength).array(), StandardCharsets.UTF_8);
+        this.name = new String(buffer.readBytes(nameLength).array(), StandardCharsets.UTF_8); //set the encoding to UTF-8 within the string to properly output special characters
+        
         this.entityId = buffer.readInt();
     }
 
