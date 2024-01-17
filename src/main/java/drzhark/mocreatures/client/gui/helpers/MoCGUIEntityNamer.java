@@ -3,9 +3,13 @@ package drzhark.mocreatures.client.gui.helpers;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.ResourceLocation;
+
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -34,7 +38,7 @@ public class MoCGUIEntityNamer extends GuiScreen {
     {
         xSize = 256;
         ySize = 181;
-        screenTitle = "Choose your Pet's name:";
+        screenTitle = I18n.format("gui_namer.MoCreatures.chooseName", new Object[0]);
         NamedEntity = mocanimal;
         NameToSet = s;
     }
@@ -44,13 +48,16 @@ public class MoCGUIEntityNamer extends GuiScreen {
     {
         buttonList.clear();
         Keyboard.enableRepeatEvents(true);
-        buttonList.add(new GuiButton(0, (width / 2) - 100, (height / 4) + 120, "Done")); //1.5
+        buttonList.add(new GuiButton(0, (width / 2) - 100, (height / 4) + 120, I18n.format("gui_namer.MoCreatures.done", new Object[0]))); //1.5
     }
 
     public void updateName()
     {
         NamedEntity.setName(NameToSet);
-        MoCMessageHandler.INSTANCE.sendToServer(new MoCMessageUpdatePetName(((EntityLiving) NamedEntity).getEntityId(), NameToSet));
+        
+        
+        //TODO: re-enable here when safe
+        //MoCMessageHandler.INSTANCE.sendToServer(new MoCMessageUpdatePetName(((EntityLiving) NamedEntity).getEntityId(), NameToSet));
         mc.displayGuiScreen(null);
     }
 
@@ -116,6 +123,11 @@ public class MoCGUIEntityNamer extends GuiScreen {
         	else {character_string = Character.toString(character);}
         	
             StringBuilder name = new StringBuilder(NameToSet);
+            
+            
+            //TODO: Remove out here when complete
+            System.out.println(character_string);
+            
             name.append(character_string);
             NameToSet = name.toString();
         }
