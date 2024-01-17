@@ -4,9 +4,13 @@ import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityInsect;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class MoCEntityCricket extends MoCEntityInsect
 
@@ -37,7 +41,9 @@ public class MoCEntityCricket extends MoCEntityInsect
     @Override
     public void selectType()
     {
-        if (getType() == 0)
+    	checkSpawningBiome(); //apply type from the biome it spawns in
+    	
+        if (getType() == 0) // if the type is still 0, make it a random type
         {
             int i = rand.nextInt(100);
             if (i <= 50)
@@ -48,6 +54,31 @@ public class MoCEntityCricket extends MoCEntityInsect
             {
                 setType(2);
             }
+        }
+    }
+    
+    @Override
+    public boolean checkSpawningBiome()
+    {
+        int i = MathHelper.floor_double(posX);
+        int j = MathHelper.floor_double(boundingBox.minY);
+        int k = MathHelper.floor_double(posZ);
+
+        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, i, j, k);
+      
+        //sets the cricket to have a more yellow shade to fit in with the grass
+        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SAVANNA)
+        		|| BiomeDictionary.isBiomeOfType(currentbiome, Type.SANDY)
+        	) 
+        {
+        	setType(2); //yellow shade cricket
+            return true;
+        }
+        
+        else
+        {
+        	setType(1); //green shade cricket
+        	return true;
         }
     }
 

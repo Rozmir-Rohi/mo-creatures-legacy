@@ -81,7 +81,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
     {
         checkSpawningBiome(); //apply type from the biome it spawns in
         
-        if (getType() == 0) // if the type is still 0 make it an African or Asian elephant
+        if ((getType() == 0) && checkSpawningBiome()) // if the type is still 0 and elephant can still spawn in the biome, make it an African or Asian elephant
         {
             int i = rand.nextInt(100);
             if (i <= 50)
@@ -734,8 +734,16 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         }
         if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SAVANNA))
         {
-            setType(1);
-            this.setHealth(getMaxHealth());
+        	if (!(currentbiome.biomeName.toLowerCase().contains("outback")))
+        	{
+	            setType(1);
+	            this.setHealth(getMaxHealth());
+        	}
+        	else
+        	{
+        		return false; //don't spawn elephants in the outback biome from the Biomes O' Plenty mod. The code for this is continued in MoCEventHooks.java
+        	}
+            
             return true;
         }
 

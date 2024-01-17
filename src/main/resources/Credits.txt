@@ -77,6 +77,12 @@ Language File Translations:
 
 
 
+Code for Multilingual Pet Naming:
+	Andy Turner - Their answer in StackOverflow helped me understand that Chinese, Japanese, and Korean characters each require three bytes instead of one (https://stackoverflow.com/questions/59039660/how-many-bytes-of-english-and-chinese-characters-take-in-java).
+
+	Joop Eggen - Their answer in StackOverflow taught me how to categorize characters from a string in Java 8 based on which language they are from (https://stackoverflow.com/questions/26357938/detect-chinese-character-in-java).
+
+	Tino Didriksen - Their answer in StackOverflow taught how many bytes a character requires depending on the language that it is from (https://stackoverflow.com/questions/14485589/utf-8-how-many-bytes-are-used-by-languages-to-represent-a-visible-character).
 
 
 

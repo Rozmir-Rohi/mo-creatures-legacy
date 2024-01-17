@@ -1,5 +1,12 @@
 package drzhark.mocreatures.client.gui.helpers;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.util.ChatAllowedCharacters;
+import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -11,13 +18,6 @@ import drzhark.mocreatures.entity.IMoCEntity;
 import drzhark.mocreatures.entity.IMoCTameable;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageUpdatePetName;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.util.ChatAllowedCharacters;
-import net.minecraft.util.ResourceLocation;
 
 @SideOnly(Side.CLIENT)
 public class MoCGUIEntityNamer extends GuiScreen {
@@ -34,7 +34,7 @@ public class MoCGUIEntityNamer extends GuiScreen {
     {
         xSize = 256;
         ySize = 181;
-        screenTitle = I18n.format("gui_namer.MoCreatures.chooseName");
+        screenTitle = "Choose your Pet's name:";
         NamedEntity = mocanimal;
         NameToSet = s;
     }
@@ -44,7 +44,7 @@ public class MoCGUIEntityNamer extends GuiScreen {
     {
         buttonList.clear();
         Keyboard.enableRepeatEvents(true);
-        buttonList.add(new GuiButton(0, (width / 2) - 100, (height / 4) + 120, I18n.format("gui_namer.MoCreatures.done"))); //1.5
+        buttonList.add(new GuiButton(0, (width / 2) - 100, (height / 4) + 120, "Done")); //1.5
     }
 
     public void updateName()
@@ -92,19 +92,31 @@ public class MoCGUIEntityNamer extends GuiScreen {
     }
 
     @Override
-    protected void keyTyped(char c, int i)
+    protected void keyTyped(char character, int key_code)
     {
-        if ((i == 14) && (NameToSet.length() > 0))
+        if ((key_code == 14) && (NameToSet.length() > 0))
         {
             NameToSet = NameToSet.substring(0, NameToSet.length() - 1);
         }
-        if (!ChatAllowedCharacters.isAllowedCharacter(c) || (NameToSet.length() >= 15))
+        
+        
+        if ( ((character != 22) && (!ChatAllowedCharacters.isAllowedCharacter(character))) || (NameToSet.length() >= 15))
         {
         }
+        
+        
         else
         {
+        	String character_string = "";
+        			
+        	if (character == 22) //crtl V
+            {
+            	character_string = getClipboardString();
+            }
+        	else {character_string = Character.toString(character);}
+        	
             StringBuilder name = new StringBuilder(NameToSet);
-            name.append(c);
+            name.append(character_string);
             NameToSet = name.toString();
         }
     }

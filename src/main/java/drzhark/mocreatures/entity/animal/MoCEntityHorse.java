@@ -196,16 +196,11 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, i, j, k);
         String biome_name = MoCTools.BiomeName(worldObj, i, j, k);
 
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SAVANNA))
+        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SAVANNA) && !(currentbiome.biomeName.toLowerCase().contains("outback")))
         {
         	setType(60);// zebra
         }
         
-        
-        if (biome_name.toLowerCase().contains("prairie"))//prairies spawn only regular horses, no zebras there
-        {
-        	setType(rand.nextInt(5) + 1);
-        }
         return true;
     }
 
@@ -2620,10 +2615,10 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         {
             if (rand.nextInt(5) == 0) {setAdult(false);}
             
-            int j = rand.nextInt(100);
+            int type_chance = rand.nextInt(100);
             
-            if (j <= 56) {setType(7);}
-            else if (j <= 89) {setType(8);}
+            if (type_chance <= 56) {setType(7);}
+            else if (type_chance <= 89) {setType(8);}
             else {setType(6);}
         }
         

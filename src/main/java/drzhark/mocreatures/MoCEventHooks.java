@@ -3,6 +3,8 @@ package drzhark.mocreatures;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import drzhark.mocreatures.entity.IMoCTameable;
 import drzhark.mocreatures.entity.MoCEntityAquatic;
+import drzhark.mocreatures.entity.animal.MoCEntityBigCat;
+import drzhark.mocreatures.entity.animal.MoCEntityElephant;
 import drzhark.mocreatures.entity.vanilla_mc_extension.EntityCreeperExtension;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
@@ -50,13 +52,41 @@ public class MoCEventHooks {
     @SubscribeEvent
     public void livingUpdate(final LivingEvent.LivingUpdateEvent event)
 	{
-        if (!event.entityLiving.worldObj.isRemote && event.entityLiving.getClass() == EntityCreeper.class)
-		{
-            final EntityCreeperExtension creeper = new EntityCreeperExtension(event.entityLiving.worldObj);
-            creeper.copyLocationAndAnglesFrom((Entity)event.entityLiving);
-            creeper.onSpawnWithEgg((IEntityLivingData)null);
-            creeper.worldObj.spawnEntityInWorld((Entity)creeper);
-            event.entityLiving.setDead();
+        if (!event.entityLiving.worldObj.isRemote)
+        { 
+        	if (MoCreatures.proxy.replaceVanillaCreepers) //replace vanilla creepers with creeper extension if it is enabled in the MoC config files
+			{
+        		if (event.entityLiving.getClass() == EntityCreeper.class)
+        		{
+		            EntityCreeperExtension creeper = new EntityCreeperExtension(event.entityLiving.worldObj);
+		            creeper.copyLocationAndAnglesFrom((Entity) event.entityLiving);
+		            creeper.onSpawnWithEgg((IEntityLivingData) null);
+		            event.entityLiving.setDead();
+		            creeper.worldObj.spawnEntityInWorld((Entity) creeper);   
+        		}
+	        }
+        	if (MoCreatures.isBiomesOPlentyLoaded)
+        	{
+	        	if (event.entityLiving instanceof MoCEntityBigCat) //remove newly spawned Big Cats from biomes that they are not supposed to spawn in
+	        	{
+	        		MoCEntityBigCat big_cat = (MoCEntityBigCat) event.entityLiving;
+	        		
+	        		if ((big_cat.getType() == 0) && !big_cat.checkSpawningBiome() && !big_cat.getIsTamed())
+	        		{
+	        			event.entityLiving.setDead();
+	        		}
+	        	}
+	        	
+	        	if (event.entityLiving instanceof MoCEntityElephant) //remove newly spawned Elephants from biomes that they are not supposed to spawn in
+	        	{
+	        		MoCEntityElephant elephant = (MoCEntityElephant) event.entityLiving;
+	        		
+	        		if ((elephant.getType() == 0) && !elephant.checkSpawningBiome() && !elephant.getIsTamed())
+	        		{
+	        			event.entityLiving.setDead();
+	        		}
+	        	}
+        	}
         }
     }
 

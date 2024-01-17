@@ -75,7 +75,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         checkSpawningBiome();  //apply big cat type based on the biome it spawns in
         
         
-        if (getType() == 0)  //if big cat is still type 0 make it a lion
+        if ((getType() == 0) && checkSpawningBiome())  //if big cat is still type 0 and it can spawn in the biome, make it a lion
         {
         	setType(1);
             this.setHealth(getMaxHealth());
@@ -452,18 +452,26 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         int k = MathHelper.floor_double(posZ);
 
         BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, i, j, k);
+        String biome_name = MoCTools.BiomeName(worldObj, i, j, k);
 
         int type_chance = rand.nextInt(100);
 
         if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SAVANNA))
         {
-            if (type_chance <= 30)
-    			{setType(4);} //cheetah
-            
-            else if (type_chance <= 40)
-    			{setType(2);} //lion type 1 - male
-            
-            else {setType(1);} //lion type 2 - female
+        	if (!(currentbiome.biomeName.toLowerCase().contains("outback")))
+        	{
+	            if (type_chance <= 30)
+	    			{setType(4);} //cheetah
+	            
+	            else if (type_chance <= 40)
+	    			{setType(2);} //lion type 1 - male
+	            
+	            else {setType(1);} //lion type 2 - female
+        	}
+        	else
+        	{
+        		return false; //don't spawn big cats in the outback biome from the Biomes O' Plenty mod. The code for this is continued in MoCEventHooks.java
+        	}
             
             return true;
         }
