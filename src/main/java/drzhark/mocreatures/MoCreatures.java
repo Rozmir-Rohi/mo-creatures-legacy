@@ -518,7 +518,7 @@ public class MoCreatures {
         registerEntity(MoCEntityCricket.class, "Cricket", 65407, 16622);//, 0x2600, 0x052500);
         registerEntity(MoCEntitySnail.class, "Snail", 65407, 14772545);//, 0x2600, 0x052500);
         registerEntity(MoCEntityButterfly.class, "ButterFly", 65407, 7434694);//, 0x22600, 0x012500);
-        registerEntity(MoCEntityThrowableBlockForGolem.class, "TRock");
+        registerEntity(MoCEntityThrowableBlockForGolem.class, "ThrowableBlockForGolem");
         registerEntity(MoCEntityGolem.class, "BigGolem", 16711680, 16622);
         registerEntity(MoCEntityPetScorpion.class, "PetScorpion");
         registerEntity(MoCEntityPlatform.class, "MoCPlatform");

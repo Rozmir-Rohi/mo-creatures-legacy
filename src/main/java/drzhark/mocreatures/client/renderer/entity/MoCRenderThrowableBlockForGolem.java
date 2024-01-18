@@ -12,23 +12,23 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
 @SideOnly(Side.CLIENT)
-public class MoCRenderTRock extends Render {
+public class MoCRenderThrowableBlockForGolem extends Render {
 
     private final RenderBlocks blockRenderer = new RenderBlocks();
     private static final ResourceLocation TEXTURE_TERRAIN = new ResourceLocation("terrain.png");
 
-    public MoCRenderTRock()
+    public MoCRenderThrowableBlockForGolem()
     {
         this.shadowSize = 0.5F;
     }
 
-    public void renderMyRock(MoCEntityThrowableBlockForGolem entitytrock, double par2, double par4, double par6, float par8, float par9)
+    public void renderMyRock(MoCEntityThrowableBlockForGolem entity_throwable_block, double par2, double par4, double par6, float par8, float par9)
     {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) par2, (float) par4, (float) par6);
-        GL11.glRotatef((float) (((100 - entitytrock.acceleration) / 10F) * 36F), 0F, -1F, 0.0F);
-        this.bindEntityTexture(entitytrock);
-        this.blockRenderer.renderBlockAsItem(entitytrock.getMyBlock(), entitytrock.getMetadata(), entitytrock.getBrightness(par9));
+        GL11.glRotatef((float) (((100 - entity_throwable_block.acceleration) / 10F) * 36F), 0F, -1F, 0.0F);
+        this.bindEntityTexture(entity_throwable_block);
+        this.blockRenderer.renderBlockAsItem(entity_throwable_block.getMyBlock(), entity_throwable_block.getMetadata(), entity_throwable_block.getBrightness(par9));
         GL11.glPopMatrix();
     }
 
@@ -38,7 +38,7 @@ public class MoCRenderTRock extends Render {
         this.renderMyRock((MoCEntityThrowableBlockForGolem) par1Entity, par2, par4, par6, par8, par9);
     }
 
-    protected ResourceLocation func_110808_a(MoCEntityThrowableBlockForGolem trock)
+    protected ResourceLocation func_110808_a(MoCEntityThrowableBlockForGolem throwable_block)
     {
         return TextureMap.locationBlocksTexture;
     }

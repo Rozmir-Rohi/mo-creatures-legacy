@@ -242,6 +242,7 @@ entity.MoCreatures.SilverSkeleton.name=Silver Skeleton
 entity.MoCreatures.SmallFish.name=Small Fish
 entity.MoCreatures.Snail.name=Snail
 entity.MoCreatures.Snake.name=Snake
+entity.MoCreatures.ThrowableBlockForGolem.name=Golem Block
 entity.MoCreatures.Turkey.name=Turkey
 entity.MoCreatures.Turtle.name=Turtle
 entity.MoCreatures.Werewolf.name=Werewolf

@@ -130,7 +130,7 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
             transformToItem();
         }
 
-        //held Trocks don't need to adjust its position
+        //held ThrowableBlocks don't need to adjust its position
         if (getBehavior() == 1)
         {
             return;
