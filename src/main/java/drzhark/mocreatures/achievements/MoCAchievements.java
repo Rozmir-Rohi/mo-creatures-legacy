@@ -2,11 +2,11 @@ package drzhark.mocreatures.achievements;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import drzhark.mocreatures.MoCreatures;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.stats.AchievementList;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.AchievementPage;
 
 public class MoCAchievements {
@@ -271,7 +271,7 @@ public static void initilization()
 	scorpion_armor = new Achievement("achievement.scorpion_armor", "scorpion_armor", -3, -7, new ItemStack(MoCreatures.scorpHelmetDirt), get_scorpion_material).registerStat();
 	
 	
-	AchievementPage.registerAchievementPage(new AchievementPage(I18n.format("achievements.MoCreaturesTab"), new Achievement[]{
+	AchievementPage.registerAchievementPage(new AchievementPage(StatCollector.translateToLocal("achievements.MoCreaturesTab"), new Achievement[]{
 					craft_saddle,
 					
 					tier2_horse,

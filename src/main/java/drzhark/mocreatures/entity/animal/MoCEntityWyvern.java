@@ -8,7 +8,6 @@ import drzhark.mocreatures.entity.item.MoCEntityEgg;
 import drzhark.mocreatures.inventory.MoCAnimalChest;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageAnimation;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -26,6 +25,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class MoCEntityWyvern extends MoCEntityTameableAnimal {
@@ -399,7 +399,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
                 // if first time opening horse chest, we must initialize it
                 if (localchest == null)
                 {
-                    localchest = new MoCAnimalChest(I18n.format("container.MoCreatures.WyvernChest"), 14);// 
+                    localchest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.WyvernChest"), 14);// 
                 }
                 // only open this chest on server side
                 if (MoCreatures.isServer())
@@ -721,7 +721,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         if (getIsChested())
         {
             NBTTagList nbttaglist = nbttagcompound.getTagList("Items", 10);
-            localchest = new MoCAnimalChest(I18n.format("container.MoCreatures.WyvernChest"), 14);
+            localchest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.WyvernChest"), 14);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
                 NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);

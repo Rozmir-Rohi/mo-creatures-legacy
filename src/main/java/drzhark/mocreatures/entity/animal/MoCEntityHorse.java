@@ -19,7 +19,6 @@ import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockJukebox;
 import net.minecraft.block.BlockJukebox.TileEntityJukebox;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -36,6 +35,7 @@ import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
@@ -1757,7 +1757,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	            // if first time opening horse chest, we must initialize it
 	            if (localhorsechest == null)
 	            {
-	                localhorsechest = new MoCAnimalChest(I18n.format("container.MoCreatures.HorseChest"), getInventorySize());// , new
+	                localhorsechest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.HorseChest"), getInventorySize());// , new
 	            }
 	            // only open this chest on server side
 	            if (!worldObj.isRemote)
@@ -2844,7 +2844,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         if (getChestedHorse())
         {
             NBTTagList nbttaglist = nbttagcompound.getTagList("Items", 10);
-            localhorsechest = new MoCAnimalChest(I18n.format("container.MoCreatures.HorseChest"), getInventorySize());
+            localhorsechest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.HorseChest"), getInventorySize());
 
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {

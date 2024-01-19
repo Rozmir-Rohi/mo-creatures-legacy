@@ -10,13 +10,13 @@ import drzhark.mocreatures.entity.IMoCEntity;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageEntityDive;
 import drzhark.mocreatures.network.message.MoCMessageEntityJump;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.StatCollector;
 
 public class MoCKeyHandler {
     int keyCount;
-    static KeyBinding diveBinding = new KeyBinding(I18n.format("keyBind.MoCreatures.dive"), Keyboard.KEY_F, "key.categories.movement");
+    static KeyBinding diveBinding = new KeyBinding(StatCollector.translateToLocal("keyBind.MoCreatures.dive"), Keyboard.KEY_F, "key.categories.movement");
 
     public MoCKeyHandler()
     {

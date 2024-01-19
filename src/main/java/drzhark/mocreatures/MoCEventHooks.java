@@ -11,8 +11,10 @@ import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -111,7 +113,7 @@ public class MoCEventHooks {
                     if (MoCreatures.proxy.enableMoCPetDeathMessages)
                     {
                     
-	                    //write pet death message only to owner of the entity
+	                    //ONLY WORKS IN SINGLEPLAYER - get the owner of the entity by their username 
 	                    EntityPlayer owner_of_moc_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(mocEntity.getOwnerName());
 	                    
 	                    Entity attacker = event.source.getEntity();
@@ -125,10 +127,8 @@ public class MoCEventHooks {
 	                    	if (attacker != null)
 	                    	{
 	                    		if (attacker instanceof IMoCTameable && ((IMoCTameable) attacker).getIsTamed()) {attacker_string_name = ((IMoCTameable) attacker).getName();}
-	                    		
 	                    		else {attacker_string_name = attacker.getCommandSenderName();}
 	                    		
-	                    		//owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentText(mocEntity.getName() + " was slain by " +  attacker_string_name));
 	                    		if (last_damage_before_death.isProjectile()) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.arrow", new Object[] {mocEntity.getName(), attacker_string_name}));}
 	                    			
 	                    		else if (last_damage_before_death.isMagicDamage()) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.indirectMagic", new Object[] {mocEntity.getName(), attacker_string_name}));}

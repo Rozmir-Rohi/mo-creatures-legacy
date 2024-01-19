@@ -12,7 +12,6 @@ import drzhark.mocreatures.inventory.MoCAnimalChest;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageAnimation;
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
@@ -28,6 +27,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
@@ -558,7 +558,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
             {
                 if (localelephantchest == null)
                 {
-                    localelephantchest = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 18);
+                    localelephantchest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
                 }
 
                 if (getStorage() == 1)
@@ -576,10 +576,10 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                                
                     if (localelephantchest2 == null)
                     {
-                        localelephantchest2 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 18);
+                        localelephantchest2 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
                     }
                     // only open this chest on server side
-                    InventoryLargeChest doubleChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
+                    InventoryLargeChest doubleChest = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
                     if (MoCreatures.isServer())
                     {
                         entityplayer.displayGUIChest(doubleChest);
@@ -591,16 +591,16 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 {
                     if (localelephantchest2 == null)
                     {
-                        localelephantchest2 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 18);
+                        localelephantchest2 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
                     }
                             
                     if (localelephantchest3 == null)
                     {
-                        localelephantchest3 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 9);
+                        localelephantchest3 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
                     }
                     // only open this chest on server side
-                    InventoryLargeChest doubleChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
-                    InventoryLargeChest tripleChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), doubleChest, localelephantchest3);
+                    InventoryLargeChest doubleChest = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
+                    InventoryLargeChest tripleChest = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), doubleChest, localelephantchest3);
                     
                     if (MoCreatures.isServer())
                     {
@@ -613,22 +613,22 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 {
                     if (localelephantchest2 == null)
                     {
-                        localelephantchest2 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 18);
+                        localelephantchest2 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
                     }
                             
                     if (localelephantchest3 == null)
                     {
-                        localelephantchest3 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 9);
+                        localelephantchest3 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
                     }
                     
                     if (localelephantchest4 == null)
                     {
-                        localelephantchest4 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 9);
+                        localelephantchest4 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
                     }
                     // only open this chest on server side
-                    InventoryLargeChest doubleChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
-                    InventoryLargeChest doubleChestb = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), localelephantchest3, localelephantchest4);
-                    InventoryLargeChest fourChest = new InventoryLargeChest(I18n.format("container.MoCreatures.ElephantChest"), doubleChest, doubleChestb);
+                    InventoryLargeChest doubleChest = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
+                    InventoryLargeChest doubleChestb = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), localelephantchest3, localelephantchest4);
+                    InventoryLargeChest fourChest = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), doubleChest, doubleChestb);
                     
                     if (MoCreatures.isServer())
                     {
@@ -794,7 +794,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         if (getStorage() > 0)
         {
             NBTTagList nbttaglist = nbttagcompound.getTagList("Items", 10);
-            localelephantchest = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 18);
+            localelephantchest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
                 NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
@@ -808,7 +808,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         if (getStorage() >= 2)
         {
             NBTTagList nbttaglist = nbttagcompound.getTagList("Items2", 10);
-            localelephantchest2 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 18);
+            localelephantchest2 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
                 NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
@@ -823,7 +823,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         if (getStorage() >= 3)
         {
             NBTTagList nbttaglist = nbttagcompound.getTagList("Items3", 10);
-            localelephantchest3 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 9);
+            localelephantchest3 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
                 NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
@@ -838,7 +838,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         if (getStorage() >= 4)
         {
             NBTTagList nbttaglist = nbttagcompound.getTagList("Items4", 10);
-            localelephantchest4 = new MoCAnimalChest(I18n.format("container.MoCreatures.ElephantChest"), 9);
+            localelephantchest4 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
                 NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
