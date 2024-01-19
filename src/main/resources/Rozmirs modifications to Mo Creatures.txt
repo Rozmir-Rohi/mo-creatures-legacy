@@ -493,13 +493,25 @@ Fixed skeleton and undead horse skull textures.
 Fixed horse mob and wraith not chasing player if the player manages to get above them.
 
 
-Crickets will now only use their yellow varient when spawning in savannahs or deserts. Also changed changed Cricket spawning, they now only spawn in forests, plains, and savannahs.
+Crickets will now only use their yellow varient when spawning in savannahs or deserts. Also changed Cricket spawning, they now only spawn in forests, plains, and savannahs.
 
 
 Big Cats, Zebras, and Elephants will no longer spawn in the Outback biome from Biomes O'Plenty. Normal Mo'Creatures horses will spawn in the Outback instead of Zebras to resemble Brumbies in real life.
+
+
+Flies now spawn in Savannah type biomes.
 
 
 Fixed the replace creepers event not being dependent on the config files.
 
 
 Fixed pet naming GUI not accepting non-english characters.
+
+
+Fixed crash when starting up a server with Mo' Creatures Legacy.
+
+
+Improved descriptions for some configuration options in the config files
+
+
+Turkeys now no longer spawn in savannah biomes. Deers now only spawn in forests and jungles.

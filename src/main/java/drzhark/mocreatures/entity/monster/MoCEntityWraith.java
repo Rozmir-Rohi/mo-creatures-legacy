@@ -73,7 +73,7 @@ public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
                 }
             }
             
-            if (this.getEntityToAttack() != null)
+            if (this.getEntityToAttack() != null)  //this is a path finding helper to attack other entities when flying
             {
 	        	
 	        	double x_distance = this.getEntityToAttack().posX - this.posX;
@@ -81,28 +81,30 @@ public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
 	            double z_distance = this.getEntityToAttack().posZ - this.posZ;
 	            double overall_distance_sq = x_distance * x_distance + y_distance * y_distance + z_distance * z_distance;
 	        	
-	            double fly_speed = getMoveSpeed() *0.01;
+	            double fly_speed = getMoveSpeed();
 	            
 	            
-	            if (overall_distance_sq <= 16)
-	            {
-		            if (y_distance > 0) //fly up to player
-		        	{
-		        		 this.motionY += (y_distance / overall_distance_sq) * 0.3D;
-		        	}
+	            if (y_distance > 0) //fly up to player
+	        	{
+	        		 this.motionY += (y_distance / overall_distance_sq) * 0.3D;
+	        	}
 		            
-		        	if (overall_distance_sq < 4) //chase player through air
-		        	{
-				        this.faceEntity(this.getEntityToAttack(), 10F, 10F);
-	
-	            		this.motionX = x_distance / overall_distance_sq * fly_speed;
-	            		
-	                    this.motionZ = z_distance / overall_distance_sq * fly_speed;
-		        	}
-	            }
+	        	if (this.isOnAir() && overall_distance_sq > 8) //chase player through air
+	        	{
+			        this.faceEntity(this.getEntityToAttack(), 10F, 10F);
+
+            		this.motionX = x_distance / overall_distance_sq * fly_speed;
+            		
+                    this.motionZ = z_distance / overall_distance_sq * fly_speed;
+	        	}
             }
         }
         super.onLivingUpdate();
+    }
+    
+    public boolean isOnAir()
+    {
+        return worldObj.isAirBlock(MathHelper.floor_double(posX), MathHelper.floor_double(posY - 0.2D), MathHelper.floor_double(posZ));
     }
     
     public void onDeath(DamageSource source_of_damage)
@@ -124,6 +126,6 @@ public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
     @Override
     public float getMoveSpeed()
     {
-        return 1F;
+        return 1.3F;
     }
 }

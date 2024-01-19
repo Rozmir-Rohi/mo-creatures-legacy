@@ -284,7 +284,7 @@ public class MoCEntityHorseMob extends MoCEntityMob
         
         if (!worldObj.isRemote)
         {
-	        if (this.isFlyer() && this.getEntityToAttack() != null)
+	        if (this.isFlyer() && this.getEntityToAttack() != null) //this is a path finding helper to attack other entities when flying
             {
 	        	
 	        	double x_distance = this.getEntityToAttack().posX - this.posX;

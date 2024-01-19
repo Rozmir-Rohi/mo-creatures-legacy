@@ -8,7 +8,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class MoCEntityTurkey extends MoCEntityTameableAnimal {
 
@@ -17,12 +21,32 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
         super(world);
         setSize(0.8F, 1.0F);
         texture = "turkey.png";
+        checkSpawningBiome();
     }
 
     protected void applyEntityAttributes()
     {
       super.applyEntityAttributes();
       getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(6.0D);
+    }
+    
+    @Override
+    public boolean checkSpawningBiome()
+    {
+        int i = MathHelper.floor_double(posX);
+        int j = MathHelper.floor_double(boundingBox.minY);
+        int k = MathHelper.floor_double(posZ);
+
+        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, i, j, k);
+        String biome_name = MoCTools.BiomeName(worldObj, i, j, k);
+
+        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SAVANNA)
+        		|| BiomeDictionary.isBiomeOfType(currentbiome, Type.SANDY))
+        {
+        	return false; //do not spawn in savannah or desert biomes (this is mainly fix spawns when Biomes O' Plenty is used). The code for this continues is MoCEventHooks.java
+        }
+        
+        return true;
     }
 
     @Override
