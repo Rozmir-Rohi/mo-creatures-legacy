@@ -141,6 +141,7 @@ import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraftforge.common.BiomeDictionary;
@@ -1062,8 +1063,7 @@ public class MoCreatures {
 
             GameRegistry.addRecipe(new ItemStack(kittybed, 1, i), new Object[] { "###", "#X#", "Z  ", Character.valueOf('#'), Blocks.planks, Character.valueOf('X'), new ItemStack(Blocks.wool, 1, MoCTools.colorize(i)), Character.valueOf('Z'), Items.iron_ingot, });
             String kittyBedTypeName = ItemDye.field_150923_a[i];
-            kittyBedTypeName = kittyBedTypeName.substring(0, 1).toUpperCase() + kittyBedTypeName.substring(1);
-            LanguageRegistry.addName(new ItemStack(kittybed, 1, i), (kittyBedTypeName + " Kitty Bed"));
+            LanguageRegistry.addName(new ItemStack(kittybed, 1, i), (StatCollector.translateToLocal("item.kittybed." + kittyBedTypeName + ".name")));
         }
         
         for (int i = 0; i < multiBlockNames.size(); i++) 
