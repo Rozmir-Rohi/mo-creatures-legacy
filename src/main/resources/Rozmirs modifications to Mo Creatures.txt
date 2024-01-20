@@ -515,3 +515,9 @@ Improved descriptions for some configuration options in the config files
 
 
 Turkeys now no longer spawn in savannah biomes. Deers now only spawn in forests and jungles.
+
+
+Fixed EnderIO tooltips not showing for MoC weapons. Also fixed MoC weapons not able to be enchanted through an enchanting table.
+
+
+Fixed silver sword texture.
