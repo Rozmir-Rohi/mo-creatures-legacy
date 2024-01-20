@@ -162,6 +162,9 @@ public class MoCreatures {
     public MoCPetMapData mapData;
     private static boolean isThaumcraftLoaded;
     public static boolean isBiomesOPlentyLoaded;
+    public static boolean isGregTech6Loaded;
+    public static boolean isFoodExpansionLoaded;
+    public static boolean isImprovingMinecraftLoaded;
     public static GameProfile MOCFAKEPLAYER = new GameProfile(UUID.fromString("6E379B45-1111-2222-3333-2FE1A88BCD66"), "[MoCreatures]");
 
     /**
@@ -421,6 +424,12 @@ public class MoCreatures {
         this.isThaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
         
         this.isBiomesOPlentyLoaded = Loader.isModLoaded("BiomesOPlenty");
+        
+        this.isGregTech6Loaded = Loader.isModLoaded("gregtech");
+        
+        this.isFoodExpansionLoaded = GameRegistry.findItem("FoodExpansion", "ItemHorseMeat") != null; //have to use this method over the normal way to detect the Food Expansion mod since it's mod ID is not properly registered
+        
+        this.isImprovingMinecraftLoaded = Loader.isModLoaded("imc");
         
         if (isThaumcraftLoaded) {MoCThaumcraftAspects.addThaumcraftAspects();};
     }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
@@ -596,30 +597,68 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     }
 
     @Override
-    protected Item getDropItem()
+    protected void dropFewItems(boolean has_entity_been_hit_by_player, int level_of_looting_enchantment_used_to_kill_entity)
     {
-        boolean flag = (rand.nextInt(100) < MoCreatures.proxy.rareItemDropChance);
+        boolean can_drop_rare_item = (rand.nextInt(100) < MoCreatures.proxy.rareItemDropChance);
+        
+        int random_amount = rand.nextInt(3);
 
-        if (flag && (this.getType() == 36 || (this.getType() >= 50 && this.getType() < 60))) // unicorn
-        { return MoCreatures.unicornhorn; }
-        if (this.getType() == 39) // pegasus
-        { return Items.feather; }
-        if (this.getType() == 40) // dark pegasus
-        { return Items.feather; }
-        if (this.getType() == 38 && flag && worldObj.provider.isHellWorld) // nightmare
-        { return MoCreatures.heartfire; }
-        if (this.getType() == 32 && flag) // bat horse
-        { return MoCreatures.heartdarkness; }
+        if (can_drop_rare_item && (this.getType() == 36 || (this.getType() >= 50 && this.getType() < 60))) // unicorn
+        { dropItem(MoCreatures.unicornhorn, 1); }
+        
+        if (this.getType() == 39 || (this.getType() == 40))// pegasus and dark pegasus
+        { dropItem(Items.feather, random_amount); }
+        
+        if (this.getType() == 38 && can_drop_rare_item && worldObj.provider.isHellWorld) // nightmare
+        { dropItem(MoCreatures.heartfire, 1); }
+        
+        if (this.getType() == 32 && can_drop_rare_item) // bat horse
+        { dropItem(MoCreatures.heartdarkness, 1); }
+        
         if (this.getType() == 26)// skeleton
-        { return Items.bone; }
-        if ((this.getType() == 23 || this.getType() == 24 || this.getType() == 25))
+        { dropItem(Items.bone, random_amount); }
+        
+        if ((this.getType() == 23 || this.getType() == 24 || this.getType() == 25)) //undead horse
         {
-            if (flag) { return MoCreatures.heartundead; }
-            return Items.rotten_flesh;
+            if (can_drop_rare_item) { dropItem(MoCreatures.heartundead, 1); }
+            
+            else {dropItem(Items.rotten_flesh, random_amount);}
         }
-        if (this.getType() == 21 || this.getType() == 22) { return Items.ghast_tear; }
-
-        return Items.leather;
+        
+        if (this.getType() == 21 || this.getType() == 22) //ghost horse
+        { dropItem(Items.ghast_tear, random_amount);}
+        
+        if(!isMagicHorse()
+        		&& !isUnicorned() //not a unicorn or fairy horse
+        		&& !(
+        				(this.getType() == 23 || this.getType() == 24 || this.getType() == 25) //not an undead horse
+        				|| (this.getType() == 26)// not a skeleton horse
+        				|| (this.getType() == 21 || this.getType() == 22) //not a ghost horse
+        		))
+        {
+        	if (!MoCreatures.isGregTech6Loaded)
+        	{
+        		if (MoCreatures.isFoodExpansionLoaded)
+        		{
+        			if (this.isBurning())
+        			{
+        				dropItem(GameRegistry.findItem("FoodExpansion", "ItemCookedHorseMeat"), random_amount);
+        			}
+        			else {dropItem(GameRegistry.findItem("FoodExpansion", "ItemHorseMeat"), random_amount);}
+        		}
+        	
+        		else if (MoCreatures.isImprovingMinecraftLoaded)
+        		{
+        			if (this.isBurning())
+        			{
+        				dropItem(GameRegistry.findItem("imc", "item_cooked_horse"), random_amount);
+        			}
+        			else {dropItem(GameRegistry.findItem("imc", "item_raw_horse"), random_amount);}
+        		}
+        	}
+        	
+        	dropItem(Items.leather, random_amount);
+        }
     }
 
     public boolean getEating()

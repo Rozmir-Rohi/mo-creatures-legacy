@@ -65,7 +65,8 @@ public class MoCEntityScorpion extends MoCEntityMob {
     {
         checkSpawningBiome();
 
-        if (getType() == 0)
+        if (checkSpawningBiome() //even if checkSpawningBiome didn't apply the type, it still checks if it can spawn in the biome
+        		&& getType() == 0)
         {
             setType(1);
         }
@@ -486,6 +487,10 @@ public class MoCEntityScorpion extends MoCEntityMob {
         if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SNOWY))
         {
             setType(4);
+        }
+        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.BEACH)) //do not spawn in beaches, the code for this is continued in MoCEventHooks.java
+        {
+        	return false;
         }
         else if (!worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && (posY < 50D))
         {

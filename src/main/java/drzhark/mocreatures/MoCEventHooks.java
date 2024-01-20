@@ -6,6 +6,7 @@ import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.animal.MoCEntityBigCat;
 import drzhark.mocreatures.entity.animal.MoCEntityElephant;
 import drzhark.mocreatures.entity.animal.MoCEntityTurkey;
+import drzhark.mocreatures.entity.monster.MoCEntityScorpion;
 import drzhark.mocreatures.entity.vanilla_mc_extension.EntityCreeperExtension;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
@@ -74,6 +75,16 @@ public class MoCEventHooks {
         		MoCEntityTurkey turkey = (MoCEntityTurkey) event.entityLiving;
         		
         		if (!turkey.checkSpawningBiome() && !turkey.getIsTamed())
+        		{
+        			event.entityLiving.setDead();
+        		}
+        	}
+        	
+        	if (event.entityLiving instanceof MoCEntityScorpion) //remove newly spawned Scorpions from biomes that they are not supposed to spawn in
+        	{
+        		MoCEntityScorpion scorpion = (MoCEntityScorpion) event.entityLiving;
+        		
+        		if (!scorpion.checkSpawningBiome() && scorpion.getType() == 0)
         		{
         			event.entityLiving.setDead();
         		}

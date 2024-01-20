@@ -521,3 +521,6 @@ Fixed EnderIO tooltips not showing for MoC weapons. Also fixed MoC weapons not a
 
 
 Fixed silver sword texture.
+
+
+Added horse meat drop integration with the Food Expansion mod and Improving Minecraft mod. If GregTech6 is not installed and any of these mods are loaded, normal Mo' Creatures horses will drop horse meat from those mods. The priority for horse meat drops are 1 - Food Expansion. 2 - Improving Minecraft.
