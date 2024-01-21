@@ -40,10 +40,10 @@ item.bowlfish9.name=Fish Bowl
 item.bowlfish10.name=Fish Bowl
 item.bowlwater.name=Full Fish Bowl
 item.builderhammer.name=Builder Hammer
-item.chitin.name=Chitin
-item.chitinblack.name=Chitin Black
-item.chitinfrost.name=Chitin Frost
-item.chitinnether.name=Chitin Nether
+item.chitin.name=Dirt Scorpion Chitin
+item.chitinblack.name=Cave Scorpion Chitin
+item.chitinfrost.name=Frost Scorpion Chitin
+item.chitinnether.name=Nether Scorpion Chitin
 item.crabraw.name=Raw Crab
 item.crabcooked.name=Cooked Crab
 item.elephantchest.name=Elephant Chest
@@ -442,7 +442,7 @@ achievement.fish_net=Time to catch more Fish
 achievement.fish_net.desc=Craft a fish net. Use this to catch and tame most aquatic creatures. You can also use it to store any aquatic pet
 
 achievement.shark_sword=A very Toothy Sword
-achievement.shark_sword.desc=Craft a shark sword
+achievement.shark_sword.desc=Craft a shark sword. Shark swords can be repaired at an anvil using shark teeth
 
 achievement.catch_fish_in_fish_bowl=Fishy in a Bowl
 achievement.catch_fish_in_fish_bowl.desc=Catch a fishy in a fish bowl
@@ -508,16 +508,16 @@ achievement.kill_big_golem=Golem Slayer
 achievement.kill_big_golem.desc=Kill a big golem and get it's centre block
 
 achievement.leonardo=Leonardo
-achievement.leonardo.desc=Obtain a katana from a leonardo turtle
+achievement.leonardo.desc=Obtain a katana from a leonardo turtle. Katanas can be repaired at an anvil using iron ingots
 
 achievement.raphael=Raphael
-achievement.raphael.desc=Obtain a sai from a raphael turtle
+achievement.raphael.desc=Obtain a sai from a raphael turtle. Sai can be repaired at an anvil using iron ingots
 
 achievement.donatello=Donatello
 achievement.donatello.desc=Obtain a bo from a donatello turtle
 
 achievement.michelangelo=Michelangelo
-achievement.michelangelo.desc=Obtain a nunchaku from a michelangelo turtle
+achievement.michelangelo.desc=Obtain a nunchaku from a michelangelo turtle. Nunchakus can be repaired at an anvil using iron ingots
 
 achievement.silver_sword=Werewolves' Bane
 achievement.silver_sword.desc=Obtain a silver sword from a silver skeleton
@@ -526,25 +526,25 @@ achievement.get_fur=Critter Killer
 achievement.get_fur.desc=Obtain fur
 
 achievement.fur_armor=Eskimo Clothes
-achievement.fur_armor.desc=Craft any piece of fur armor
+achievement.fur_armor.desc=Craft any piece of fur armor. Fur armor can be repaired at an anvil using fur
 
 achievement.get_hide=Hunter
 achievement.get_hide.desc=Obtain hide
 
 achievement.hide_armor=Huntsman's Choice
-achievement.hide_armor.desc=Craft any piece of hide armor
+achievement.hide_armor.desc=Craft any piece of hide armor. Hide armor can be repaired at an anvil using hide
 
 achievement.get_reptile_hide=Reptile Hunter
 achievement.get_reptile_hide.desc=Obtain reptile hide
 
 achievement.reptile_armor=Strong as Iron
-achievement.reptile_armor.desc=Craft any piece of reptile armor
+achievement.reptile_armor.desc=Craft any piece of reptile armor. Reptile armor can be repaired at an anvil using reptile hide
 
 achievement.get_scorpion_material=Scorpion Hunter
 achievement.get_scorpion_material.desc=Obtain any scorpion chitin or scorpion sting
 
 achievement.scorpion_sword=Scorpion Bladesman
-achievement.scorpion_sword.desc=Craft any scorpion sword. Scorpion swords can be repaired at an anvil using their same type of scorpion sting
+achievement.scorpion_sword.desc=Craft any scorpion sword. Scorpion swords can be repaired at an anvil using diamonds
 
 achievement.scorpion_armor=Scorpion Warrior
 achievement.scorpion_armor.desc=Craft any piece of scorpion armor. Wear a full set of the same type for a set bonus. Scorpion armor can be repaired at an anvil using the same type of scorpion chitin

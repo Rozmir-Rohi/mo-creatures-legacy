@@ -56,8 +56,7 @@ public class MoCItemWeapon extends ItemSword {
         if (name.contains("shark"))
         {
         	toolMaterial.customCraftingMaterial = MoCreatures.sharkteeth;
-        }
-      
+        }  
     }
     
     @SideOnly(Side.CLIENT)
@@ -74,9 +73,10 @@ public class MoCItemWeapon extends ItemSword {
     	
         if (repair_material != null && OreDictionary.itemMatches(repair_material, itemstack_in_anvil, false))
         {
-        	Item item_weapon = itemstack_weapon.getItem();
+    	
+        	String weapon_id = itemstack_weapon.getItem().itemRegistry.getNameForObject(itemstack_weapon.getItem());
         	
-        	if((item_weapon.itemRegistry).getNameForObject(item_weapon).contains("sting")) //stingers can't be repaired
+        	if( weapon_id.contains("sting") || weapon_id.contains("MoCreatures:bo")) //stingers and bo staff can't be repaired
             {
             	return false;
             }
