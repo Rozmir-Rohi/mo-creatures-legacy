@@ -15,12 +15,15 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCItemWeapon extends ItemSword {
     private float attackDamage;
@@ -36,13 +39,24 @@ public class MoCItemWeapon extends ItemSword {
         this.setCreativeTab(MoCreatures.tabMoC);
         this.setUnlocalizedName(name);
         GameRegistry.registerItem(this, name);
-    	
+        
         this.toolMaterial = toolMaterial;
         this.maxStackSize = 1;
         this.setMaxDamage(toolMaterial.getMaxUses());
         this.attackDamage = 4 + toolMaterial.getDamageVsEntity();
         
         this.maxStackSize = 1;
+        
+      //the operations below set the repair item for the tool material
+        
+        if (name.contains("scorp")) //scorpion sword
+        {
+        	toolMaterial.customCraftingMaterial = Items.diamond;
+        }
+        if (name.contains("shark"))
+        {
+        	toolMaterial.customCraftingMaterial = MoCreatures.sharkteeth;
+        }
       
     }
     
@@ -51,6 +65,26 @@ public class MoCItemWeapon extends ItemSword {
     public void registerIcons(IIconRegister par1IconRegister)
     {
         this.itemIcon = par1IconRegister.registerIcon("mocreatures"+ this.getUnlocalizedName().replaceFirst("item.", ":"));
+    }
+    
+    @Override
+    public boolean getIsRepairable(ItemStack itemstack_weapon, ItemStack itemstack_in_anvil)
+    {    	
+    	ItemStack repair_material = this.toolMaterial.getRepairItemStack();
+    	
+        if (repair_material != null && OreDictionary.itemMatches(repair_material, itemstack_in_anvil, false))
+        {
+        	Item item_weapon = itemstack_weapon.getItem();
+        	
+        	if((item_weapon.itemRegistry).getNameForObject(item_weapon).contains("sting")) //stingers can't be repaired
+            {
+            	return false;
+            }
+            
+            return true;
+        }
+        
+        return false;
     }
 
     /**

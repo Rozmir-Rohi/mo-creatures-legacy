@@ -17,9 +17,51 @@ public class MoCItemArmor extends ItemArmor
     public MoCItemArmor(String name, ArmorMaterial enumarmormaterial, int j, int k)
     {
         super(enumarmormaterial, j, k);
+        
         this.setCreativeTab(MoCreatures.tabMoC);
         this.setUnlocalizedName(name);
         GameRegistry.registerItem(this, name);
+        
+        
+        if (name.contains("helmet")) //detects the helmet for an armor set and applies the repair item for all the armor pieces in that set
+        {
+	        if (name.contains("reptile"))
+	        {
+	        	enumarmormaterial.customCraftingMaterial = MoCreatures.hideCroc;
+	        }
+	        
+	        if (name.contains("fur"))
+	        {
+	        	enumarmormaterial.customCraftingMaterial = MoCreatures.fur;
+	        }
+	        
+	        if (name.contains("hide"))
+	        {
+	        	enumarmormaterial.customCraftingMaterial = MoCreatures.animalHide;
+	        }
+	        if (name.contains("scorp")) //scorpion armor
+	        {
+	        	if (name.contains("dirt"))
+	            {
+	        		enumarmormaterial.customCraftingMaterial = MoCreatures.chitin;
+	            }
+	        	
+	        	if (name.contains("frost"))
+	            {
+	        		enumarmormaterial.customCraftingMaterial = MoCreatures.chitinFrost;
+	            }
+	        	
+	        	if (name.contains("nether"))
+	            {
+	        		enumarmormaterial.customCraftingMaterial = MoCreatures.chitinNether;
+	            }
+	        	
+	        	if (name.contains("cave"))
+	            {
+	        		enumarmormaterial.customCraftingMaterial = MoCreatures.chitinCave;
+	            }
+	        }
+        }
     }
 
     @Override
