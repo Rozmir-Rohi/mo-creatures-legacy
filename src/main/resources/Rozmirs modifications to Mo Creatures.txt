@@ -527,3 +527,6 @@ Added horse meat drop integration with the Food Expansion mod and Improving Mine
 
 
 Fixed MoC weapons and armor not repairable with their materials in an anvil. Note: scorpion swords are repaired using diamonds.
+
+
+Fixed bear spawning in desert.

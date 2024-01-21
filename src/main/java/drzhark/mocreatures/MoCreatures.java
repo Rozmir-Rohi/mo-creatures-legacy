@@ -578,7 +578,7 @@ public class MoCreatures {
         mocEntityMap.put("Snail", new MoCEntityData("Snail", 2, EnumCreatureType.ambient, new SpawnListEntry(MoCEntitySnail.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.JUNGLE, Type.SWAMP))));
         mocEntityMap.put("Roach", new MoCEntityData("Roach", 2, EnumCreatureType.ambient, new SpawnListEntry(MoCEntityRoach.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.JUNGLE, Type.SWAMP))));
         // creatures
-        mocEntityMap.put("Bear", new MoCEntityData("Bear", 4, EnumCreatureType.creature, new SpawnListEntry(MoCEntityBear.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.HILLS, Type.MOUNTAIN, Type.JUNGLE, Type.SNOWY))));
+        mocEntityMap.put("Bear", new MoCEntityData("Bear", 4, EnumCreatureType.creature, new SpawnListEntry(MoCEntityBear.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.MOUNTAIN, Type.JUNGLE, Type.SNOWY))));
         mocEntityMap.put("BigCat", new MoCEntityData("BigCat", 4, EnumCreatureType.creature, new SpawnListEntry(MoCEntityBigCat.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.SAVANNA, Type.JUNGLE, Type.SNOWY))));
         mocEntityMap.put("Bird", new MoCEntityData("Bird", 4, EnumCreatureType.creature, new SpawnListEntry(MoCEntityBird.class, 12, 2, 3), new ArrayList(Arrays.asList(Type.FOREST, Type.HILLS, Type.JUNGLE, Type.MOUNTAIN, Type.PLAINS))));
         mocEntityMap.put("Boar", new MoCEntityData("Boar", 3, EnumCreatureType.creature, new SpawnListEntry(MoCEntityBoar.class, 8, 2, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.JUNGLE, Type.PLAINS))));
