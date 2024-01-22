@@ -134,7 +134,7 @@ public class MoCEventHooks {
                     if (MoCreatures.proxy.enableMoCPetDeathMessages)
                     {
                     
-	                    //ONLY WORKS IN SINGLEPLAYER - get the owner of the entity by their username 
+	                    //get the owner of the entity by their username 
 	                    EntityPlayer owner_of_moc_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(mocEntity.getOwnerName());
 	                    
 	                    Entity attacker = event.source.getEntity();
