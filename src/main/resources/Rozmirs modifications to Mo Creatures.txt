@@ -530,3 +530,6 @@ Fixed MoC weapons and armor not repairable with their materials in an anvil. Not
 
 
 Fixed bear spawning in desert.
+
+
+Fixed naming GUI positioning with different GUI scales.

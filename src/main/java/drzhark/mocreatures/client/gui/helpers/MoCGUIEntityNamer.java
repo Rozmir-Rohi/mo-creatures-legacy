@@ -44,7 +44,7 @@ public class MoCGUIEntityNamer extends GuiScreen {
     {
         buttonList.clear();
         Keyboard.enableRepeatEvents(true);
-        buttonList.add(new GuiButton(0, (width / 2) - 100, (height / 4) + 120, StatCollector.translateToLocal("gui_namer.MoCreatures.done"))); //1.5
+        buttonList.add(new GuiButton(0, (width / 2) - 100, (height/ 2) + 55, StatCollector.translateToLocal("gui_namer.MoCreatures.done"))); //1.5
     }
 
     public void updateName()
@@ -74,9 +74,10 @@ public class MoCGUIEntityNamer extends GuiScreen {
         textureManager.bindTexture(TEXTURE_MOCNAME);
         int l = (width - xSize) / 2;
         int i1 = (height - (ySize + 16)) / 2;
+        
         drawTexturedModalRect(l, i1, 0, 0, xSize, ySize);
-        drawCenteredString(fontRendererObj, screenTitle, width / 2, 100, 0xffffff);
-        drawCenteredString(fontRendererObj, NameToSet, width / 2, 120, 0xffffff);
+        drawCenteredString(fontRendererObj, screenTitle, width / 2, (int) (height / 2) - 20 , 0xffffff);
+        drawCenteredString(fontRendererObj, NameToSet, width / 2, (int) (height / 2) , 0xffffff);
         super.drawScreen(i, j, f);
     }
 
