@@ -39,10 +39,10 @@ item.bowlfish9.name=鱼缸
 item.bowlfish10.name=鱼缸
 item.bowlwater.name=满的鱼缸
 item.builderhammer.name=建筑锤
-item.chitin.name=甲壳
-item.chitinblack.name=黑色甲壳
-item.chitinfrost.name=冰霜甲壳
-item.chitinnether.name=下界甲壳
+item.chitin.name=泥土蝎子甲壳
+item.chitinblack.name=洞穴蝎子甲壳
+item.chitinfrost.name=冰霜蝎子甲壳
+item.chitinnether.name=下界蝎子甲壳
 item.crabraw.name=生螃蟹
 item.crabcooked.name=煮熟的螃蟹
 item.elephantchest.name=大象储物箱
@@ -161,27 +161,27 @@ item.reptilehelmet.name=爬行动物头盔
 item.sai.name=三叉戟
 item.scorpbootsdirt.name=泥土蝎子靴
 item.scorpbootscave.name=洞穴蝎子靴
-item.scorpbootsfrost.name=霜冻蝎子靴
+item.scorpbootsfrost.name=冰霜蝎子靴
 item.scorpbootsnether.name=下界蝎子靴
 item.scorphelmetdirt.name=泥土蝎子头盔
 item.scorphelmetcave.name=洞穴蝎子头盔
-item.scorphelmetfrost.name=霜冻蝎子头盔
+item.scorphelmetfrost.name=冰霜蝎子头盔
 item.scorphelmetnether.name=下界蝎子头盔
 item.scorplegsdirt.name=泥土蝎子护腿
 item.scorplegscave.name=洞穴蝎子护腿
-item.scorplegsfrost.name=霜冻蝎子护腿
+item.scorplegsfrost.name=冰霜蝎子护腿
 item.scorplegsnether.name=下界蝎子护腿
 item.scorpplatedirt.name=泥土蝎子胸甲
 item.scorpplatecave.name=洞穴蝎子胸甲
-item.scorpplatefrost.name=霜冻蝎子胸甲
+item.scorpplatefrost.name=冰霜蝎子胸甲
 item.scorpplatenether.name=下界蝎子胸甲
 item.scorpstingdirt.name=泥土蝎子毒刺
 item.scorpstingcave.name=洞穴蝎子毒刺
-item.scorpstingfrost.name=霜冻蝎子毒刺
+item.scorpstingfrost.name=冰霜蝎子毒刺
 item.scorpstingnether.name=下界蝎子毒刺
 item.scorpsworddirt.name=泥土蝎子剑
 item.scorpswordcave.name=洞穴蝎子剑
-item.scorpswordfrost.name=霜冻蝎子剑
+item.scorpswordfrost.name=冰霜蝎子剑
 item.scrolloffreedom.name=自由卷轴
 item.scrollofowner.name=重置所有者卷轴
 item.scrollofsale.name=出售卷轴
@@ -437,8 +437,8 @@ achievement.shark_tooth.desc=获得一颗鲨鱼的牙齿。
 achievement.fish_net=捕鱼的时候到了
 achievement.fish_net.desc=制作一个渔网。用它来捕捉和驯服大多数水生生物。你还可以用它来存放任何水生宠物。
 
-achievement.shark_sword=非常锋利的剑
-achievement.shark_sword.desc=制作一把鲨鱼剑。
+achievement.shark_sword=锋利的鲨鱼剑
+achievement.shark_sword.desc=制作一把鲨鱼剑。鲨鱼剑可以使用鲨鱼牙在铁砧上修复。
 
 achievement.catch_fish_in_fish_bowl=鱼缸里的小鱼儿
 achievement.catch_fish_in_fish_bowl.desc=将一条小鱼捕捉到鱼缸中。
@@ -504,16 +504,16 @@ achievement.kill_big_golem=傀儡屠戮者
 achievement.kill_big_golem.desc=杀死一只大傀儡并获得它的中心方块。
 
 achievement.leonardo=莱昂纳多
-achievement.leonardo.desc=从莱昂纳多海龟处获得一把武士刀。
+achievement.leonardo.desc=从一只莱昂纳多龟获得一把武士刀。武士刀可以使用铁锭在铁砧上修复。
 
 achievement.raphael=拉斐尔
-achievement.raphael.desc=从拉斐尔海龟处获得一把三叉戟。
+achievement.raphael.desc=从一只拉斐尔龟获得一对三叉戟。三叉戟可以使用铁锭在铁砧上修复。
 
-achievement.donatello=唐尼
-achievement.donatello.desc=从唐尼海龟处获得一根长棍。
+achievement.donatello=多尼
+achievement.donatello.desc=从多尼海龟处获得一根长棍。
 
-achievement.michelangelo=米开朗基罗
-achievement.michelangelo.desc=从米开朗基罗海龟处获得一对双节棍。
+achievement.michelangelo=米开朗琪罗
+achievement.michelangelo.desc=从一只米开朗琪罗龟获得一对双节棍。双节棍可以使用铁锭在铁砧上修复。
 
 achievement.silver_sword=狼人的克星
 achievement.silver_sword.desc=从银骷髅处获得一把银剑。
@@ -522,25 +522,25 @@ achievement.get_fur=小动物屠夫
 achievement.get_fur.desc=获得毛皮。
 
 achievement.fur_armor=爱斯基摩服饰
-achievement.fur_armor.desc=制作任意一件毛皮护甲。
+achievement.fur_armor.desc=制作任何一件毛皮盔甲。毛皮盔甲可以使用毛皮在铁砧上修复。
 
 achievement.get_hide=猎人
 achievement.get_hide.desc=获得兽皮。
 
-achievement.hide_armor=猎户选择
-achievement.hide_armor.desc=制作任意一件兽皮护甲。
+achievement.hide_armor=猎人之选
+achievement.hide_armor.desc=制作任何一件兽皮盔甲。兽皮盔甲可以使用兽皮在铁砧上修复。
 
 achievement.get_reptile_hide=爬行动物猎人
-achievement.get_reptile_hide.desc=获得爬行动物的皮革。
+achievement.get_reptile_hide.desc=获得爬行动物皮革。
 
-achievement.reptile_armor=铁之坚强
-achievement.reptile_armor.desc=制作任意一件爬行动物护甲。
+achievement.reptile_armor=坚如铁石
+achievement.reptile_armor.desc=制作任何一件爬行动物盔甲。爬行动物盔甲可以使用爬行动物皮革在铁砧上修复。
 
 achievement.get_scorpion_material=蝎子猎人
 achievement.get_scorpion_material.desc=获得任意蝎子的外壳或蝎尾毒液。
 
-achievement.scorpion_sword=蝎子剑使
-achievement.scorpion_sword.desc=制作任意一把蝎子剑。可以使用相同类型的蝎尾毒液在铁砧上修复蝎子剑。
+achievement.scorpion_sword=蝎子剑士
+achievement.scorpion_sword.desc=制作任何一把蝎子剑。蝎子剑可以使用钻石在铁砧上修复。
 
 achievement.scorpion_armor=蝎子勇士
 achievement.scorpion_armor.desc=制作任意一件蝎子护甲。全套装备同种类的护甲将获得套装加成。可以使用相同类型的蝎子外壳在铁砧上修复蝎子护甲。
