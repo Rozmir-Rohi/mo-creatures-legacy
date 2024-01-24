@@ -29,6 +29,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 
@@ -606,9 +607,15 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     
     public boolean isItemEdible(Item item) //healing foods
     {
-        return ((item instanceof ItemSeeds)
-        		|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
-    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds"));
+        return (
+        			item instanceof ItemSeeds
+        			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
+        			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
+        			|| MoCreatures.isGregTech6Loaded &&
+    					(
+    						OreDictionary.getOreName(OreDictionary.getOreID(new ItemStack(item))) == "foodRaisins"
+    					)
+    			);
     }
 
     @Override

@@ -533,3 +533,22 @@ Fixed bear spawning in desert.
 
 
 Fixed naming GUI positioning with different GUI scales.
+
+
+Improved food item detection code for creatures that eat dropped items.
+
+
+Fixed naming GUI displaying when feeding a tamed fox or raccoon
+
+
+Added GregTech6 Item Integration for Taming and Feeding using OreDictionaries:
+	- Big Cat: listAllmeatraw, foodScrapmeat
+	- Bunny: listAllveg
+	- Bird: foodRaisins
+	- Ostrich: foodRaisins (feeding only)
+	- Horse: listAllwheats (feeding only), itemGrass (feeding only), itemGrassDry (feeding only)
+	- Elephant: listAllfruit (feeding only), listAllwheats (feeding only), itemGrass (feeding only), itemGrassDry (feeding only)
+	- Fox: foodScrapmeat (feeding only)
+	- Komodo Dragon: listAllmeatraw (feeding only), foodScrapmeat (feeding only)
+	- Wyvern: foodScrapmeat (feeding only)
+	- Snake: foodScrapmeat (feeding only) 

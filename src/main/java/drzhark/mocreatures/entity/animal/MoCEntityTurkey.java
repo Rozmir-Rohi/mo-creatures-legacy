@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityTurkey extends MoCEntityTameableAnimal {
 
@@ -82,7 +83,7 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
 
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
 
-        if (MoCreatures.isServer() && !getIsTamed() && (itemstack != null) && (itemstack.getItem() == Items.melon_seeds))
+        if (MoCreatures.isServer() && !getIsTamed() && (itemstack != null) && (isItemstackFoodItem(itemstack)))
         {
             MoCTools.tameWithName(entityplayer, this);
         }
@@ -91,9 +92,31 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack par1ItemStack)
+    public boolean isMyHealFood(ItemStack itemstack)
     {
-        return par1ItemStack != null && par1ItemStack.getItem() == Items.pumpkin_seeds;
+        return itemstack != null && isItemstackFoodItem(itemstack);
+    }
+    
+    private boolean isItemstackFoodItem(ItemStack itemstack)
+    {
+    	Item item = itemstack.getItem();
+    	
+    	if (
+    			item == Items.wheat_seeds
+    			|| item == Items.pumpkin_seeds
+    			|| item == Items.melon_seeds
+    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
+    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
+    			|| MoCreatures.isGregTech6Loaded &&
+        			(
+        				OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins"
+        			)
+    		)
+    	{
+    		return true;
+    	}
+    	
+    	return false;
     }
 
     @Override

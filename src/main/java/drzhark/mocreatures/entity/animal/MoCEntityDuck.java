@@ -20,7 +20,6 @@ public class MoCEntityDuck extends MoCEntityAnimal//EntityChicken
         super(world);
         texture = "duck.png";
         setSize(0.3F, 0.4F);
-        //health = 4;
     }
 
     protected void applyEntityAttributes()

@@ -32,6 +32,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 
@@ -649,14 +650,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 
             return false;
         }
-        if ((itemstack != null) && getIsTamed() && 
-        		(itemstack.getItem() == Items.porkchop
-        		|| itemstack.getItem() == Items.beef 
-        		|| itemstack.getItem() == Items.chicken
-        		|| itemstack.getItem() == Items.fish
-        		|| itemstack.getItem() == MoCreatures.ostrichraw
-        		|| itemstack.getItem() == MoCreatures.rawTurkey
-        		|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")))
+        if ((itemstack != null) && getIsTamed() && isItemstackFoodItem(itemstack))
         {
             this.setHealth(getMaxHealth());
             worldObj.playSoundAtEntity(this, "mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
@@ -730,19 +724,11 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
             EntityItem entityitem = getClosestEntityItem(this, 12D);
             
             
-            
-            
             if (entityitem != null)
             {
-            	Item item = entityitem.getEntityItem().getItem();
+            	ItemStack itemstack = entityitem.getEntityItem();
             	
-            	if (item == Items.porkchop
-                		|| item == Items.beef 
-                		|| item == Items.chicken
-                		|| item == Items.fish
-                		|| item == MoCreatures.ostrichraw
-                		|| item== MoCreatures.rawTurkey
-                        || (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw"))
+            	if (isItemstackFoodItem(itemstack))
             	{
             	
             		float f = entityitem.getDistanceToEntity(this);
@@ -764,6 +750,31 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
             	}
             }
         }
+    }
+    
+    private boolean isItemstackFoodItem(ItemStack itemstack)
+    {
+    	Item item = itemstack.getItem();
+    	
+    	if (
+    			item == Items.porkchop
+    			|| item == Items.beef 
+    			|| item == Items.chicken
+    			|| item == Items.fish
+    			|| item == MoCreatures.ostrichraw
+    			|| item == MoCreatures.rawTurkey
+    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
+    			|| MoCreatures.isGregTech6Loaded &&
+    				(
+    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllmeatraw"
+    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+    				)
+    		)
+    	{
+    		return true;
+    	}
+    	
+    	return false;
     }
 
     @Override

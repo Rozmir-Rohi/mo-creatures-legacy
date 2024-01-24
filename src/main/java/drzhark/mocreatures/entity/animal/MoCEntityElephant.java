@@ -32,6 +32,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityElephant extends MoCEntityTameableAnimal {
 
@@ -405,7 +406,16 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         	Item item = itemstack.getItem();
         	
         	if (item == MoCreatures.sugarlump // general food
-            		|| item == Items.wheat)
+            		|| item == Items.wheat
+            		|| MoCreatures.isGregTech6Loaded &&
+    				(
+    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllfruit"
+    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllwheats"
+    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrass"
+    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrassDry"
+    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "cropGrain"
+    				)
+    			)
             {
                 
             	if (--itemstack.stackSize == 0)

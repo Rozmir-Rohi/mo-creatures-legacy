@@ -19,6 +19,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityBird extends MoCEntityTameableAnimal {
     private boolean fleeing;
@@ -306,14 +307,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         
         if (itemstack != null)
         {		
-        	Item item = itemstack.getItem();//
-
-        	if (itemstack != null &&
-        			(item == Items.wheat_seeds
-        			|| item == Items.pumpkin_seeds
-        			|| item == Items.melon_seeds
-        			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
-        			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")))
+        	if (isItemstackFoodItem(itemstack))
         	{
         		if (--itemstack.stackSize == 0)
         		{
@@ -439,13 +433,9 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
                 EntityItem entityitem = getClosestEntityItem(this, 12D);
                 if (entityitem != null)
                 {
-                	Item item = entityitem.getEntityItem().getItem();
+                	ItemStack itemstack = entityitem.getEntityItem();
                 	
-                	if (item == Items.wheat_seeds
-                			|| item == Items.pumpkin_seeds
-                			|| item == Items.melon_seeds
-                			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
-                			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds"))
+                	if (isItemstackFoodItem(itemstack))
                 	{
                 		FlyToNextEntity(entityitem);
                 		
@@ -453,14 +443,9 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
                 		
                 		if (entityitem_closest != null)
                 		{
+                			ItemStack itemstack_closest = entityitem_closest.getEntityItem();
                 		
-                			Item item_closest = entityitem_closest.getEntityItem().getItem();
-                		
-                			if (item_closest == Items.wheat_seeds
-                					|| item_closest == Items.pumpkin_seeds
-                					|| item_closest == Items.melon_seeds
-                					|| (item_closest.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
-                					|| (item_closest.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds"))
+                			if (isItemstackFoodItem(itemstack_closest))
                 			{
                 		
                 				if ((rand.nextInt(50) == 0) && (entityitem_closest != null))
@@ -590,6 +575,28 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         {
             motionZ -= 0.2D;
         }
+    }
+    
+    private boolean isItemstackFoodItem(ItemStack itemstack)
+    {
+    	Item item = itemstack.getItem();
+    	
+    	if (
+    			item == Items.wheat_seeds
+    			|| item == Items.pumpkin_seeds
+    			|| item == Items.melon_seeds
+    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
+    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
+    			|| MoCreatures.isGregTech6Loaded &&
+        			(
+        				OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins"
+        			)
+    		)
+    	{
+    		return true;
+    	}
+    	
+    	return false;
     }
 
     @Override

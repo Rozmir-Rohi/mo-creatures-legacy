@@ -44,6 +44,7 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityHorse extends MoCEntityTameableAnimal {
     private int gestationtime;
@@ -1729,13 +1730,28 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	        		|| item == Items.bread
 	        		|| item == Items.apple
 	        		|| item == Items.golden_apple
-	        		|| item == MoCreatures.haystack))
+	        		|| item == MoCreatures.haystack)
+	        		|| MoCreatures.isGregTech6Loaded &&
+    				(
+    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllwheats"
+    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrass"
+    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrassDry"
+    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "cropGrain"
+    				)
+    			)
 	        {
 	        	int temperIncrease = 0;
 	        	int healthIncrease = 0;
 	        	int ageIncrease = 0;
 	
-	        	if (item == Items.wheat) {temperIncrease = 25; healthIncrease = 5; ageIncrease = 1;}
+	        	if (
+	        			item == Items.wheat 
+	        			|| MoCreatures.isGregTech6Loaded &&(OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllwheats")
+	        			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrass"
+	        			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrassDry"
+	        			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "cropGrain"
+	        		) {temperIncrease = 25; healthIncrease = 5; ageIncrease = 1;}
+	        	
 	        	if (item == MoCreatures.sugarlump) {temperIncrease = 25; healthIncrease = 10; ageIncrease = 2;}
 	        	if (item == Items.bread) {temperIncrease = 100; healthIncrease = 20; ageIncrease = 3;}
 	        	if (item == Items.apple || item == Items.golden_apple) {temperIncrease = 0; healthIncrease = 25; ageIncrease = 1;}

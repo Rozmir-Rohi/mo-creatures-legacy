@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.oredict.OreDictionary;
 
 
 public class MoCEntitySnake extends MoCEntityTameableAnimal {
@@ -797,9 +798,15 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack par1ItemStack)
+    public boolean isMyHealFood(ItemStack itemstack)
     {
-        return par1ItemStack != null && (par1ItemStack.getItem() == MoCreatures.ratRaw);
+        return itemstack != null && (
+        		itemstack.getItem() == MoCreatures.ratRaw
+        		|| MoCreatures.isGregTech6Loaded &&
+                	(	
+                		OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+                	)
+        		);
     }
 
     @Override

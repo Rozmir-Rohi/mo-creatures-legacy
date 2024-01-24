@@ -72,17 +72,18 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     {
         if (super.interact(entityplayer)) { return false; }
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
-        if ((itemstack != null) && (isItemEdible(itemstack.getItem()))) //((itemstack.getItem() == MoCreatures.rawTurkey.itemID)))
+        if ((itemstack != null) && isItemEdible(itemstack.getItem()))
         {
             if (--itemstack.stackSize == 0)
             {
                 entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
             }
 
-            if (MoCreatures.isServer())
+            if (MoCreatures.isServer() && !getIsTamed())
             {
                 MoCTools.tameWithName(entityplayer, this);
             }
+            
             this.setHealth(getMaxHealth());
 
             if (MoCreatures.isServer() && !getIsAdult() && (getMoCAge() < 100))
@@ -100,8 +101,8 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     {
         return (super.entitiesToIgnore(entity) //including the mobs specified in parent file
                     || (entity instanceof MoCEntityRaccoon)
-                    ||(!getIsAdult() && ((entity.width > 0.5D) || (entity.height > 0.5D)))
                     || (entity instanceof MoCEntityFox)
+                    ||(!getIsAdult() || ((entity.width > 0.5D) || (entity.height > 0.5D)))
                     );
     }
     

@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityBunny extends MoCEntityTameableAnimal {
     public boolean pickedUp;
@@ -172,7 +173,12 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         			|| item == Items.golden_carrot
         			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot")
         			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:food") && itemstack.getItemDamage() == 2 //BoP Wild Carrots
-        			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:food") && itemstack.getItemDamage() == 11)) //BoP Turnip
+        			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:food") && itemstack.getItemDamage() == 11) //BoP Turnip
+        			|| MoCreatures.isGregTech6Loaded &&
+        				(
+        					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllveggie"
+        				)
+        		) 
         	{
             	if (--itemstack.stackSize == 0)
             	{

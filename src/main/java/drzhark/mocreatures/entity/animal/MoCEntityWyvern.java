@@ -27,6 +27,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityWyvern extends MoCEntityTameableAnimal {
 
@@ -763,7 +764,12 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         return itemstack != null && (
         		itemstack.getItem() == MoCreatures.ratRaw
         		|| itemstack.getItem() == MoCreatures.rawTurkey
-        		| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw"));
+        		|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
+        		|| MoCreatures.isGregTech6Loaded &&
+            		(	
+            			OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+            		)
+        		);
     }
 
     private void openMouth()

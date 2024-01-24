@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityFox extends MoCEntityTameableAnimal {
     protected double attackRange;
@@ -114,17 +115,26 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     {
         if (super.interact(entityplayer)) { return false; }
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
-        if ((itemstack != null) && ((itemstack.getItem() == MoCreatures.rawTurkey)))
+        
+        if ((itemstack != null) && (
+        		itemstack.getItem() == MoCreatures.rawTurkey
+        		|| MoCreatures.isGregTech6Loaded &&
+                	(
+                		OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+                	)
+        		)
+        	)
         {
             if (--itemstack.stackSize == 0)
             {
                 entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
             }
 
-            if (MoCreatures.isServer())
+            if (MoCreatures.isServer() && !getIsTamed())
             {
                 MoCTools.tameWithName(entityplayer, this);
             }
+            
             this.setHealth(getMaxHealth());
 
             if (MoCreatures.isServer() && !getIsAdult() && (getMoCAge() < 100))
@@ -228,9 +238,17 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack par1ItemStack)
+    public boolean isMyHealFood(ItemStack itemstack)
     {
-        return par1ItemStack != null && par1ItemStack.getItem() == MoCreatures.ratRaw;
+        return itemstack != null && (
+        			itemstack.getItem() == MoCreatures.ratRaw
+        			|| itemstack.getItem() == MoCreatures.rawTurkey
+        			|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
+                	|| MoCreatures.isGregTech6Loaded &&
+                		(
+                			OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+                		)
+        			);
     }
 
     @Override

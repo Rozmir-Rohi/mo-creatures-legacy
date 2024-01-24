@@ -28,6 +28,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityKomodo extends MoCEntityTameableAnimal
 {
@@ -412,9 +413,22 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     public boolean isMyHealFood(ItemStack itemstack)
     {
         return itemstack != null && (
-        		itemstack.getItem() == MoCreatures.ratRaw
+        		itemstack.getItem() == Items.porkchop
+    			|| itemstack.getItem() == Items.beef 
+    			|| itemstack.getItem() == Items.chicken
+    			|| itemstack.getItem() == Items.fish
+        		|| itemstack.getItem() == MoCreatures.ratRaw
         		|| itemstack.getItem() == MoCreatures.rawTurkey
-        		|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw"));
+        		|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
+    			|| itemstack.getItem() == MoCreatures.ostrichraw
+    			|| itemstack.getItem() == MoCreatures.rawTurkey
+    			|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
+    			|| MoCreatures.isGregTech6Loaded &&
+    				(
+    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllmeatraw"
+    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+    				)
+        	);
     }
 
     @Override

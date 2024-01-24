@@ -64,7 +64,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
             tempText = "turtlel.png";
         }
 
-        if (getName().equals("Rafael") || getName().equals("rafael") || getName().equals("raphael") || getName().equals("Raphael"))
+        if (getName().equals("Raphael") || getName().equals("raphael") || getName().equals("Rafael") || getName().equals("rafael"))
         {
             tempText = "turtler.png";
         }
@@ -118,12 +118,13 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     public boolean interact(EntityPlayer entityplayer)
     {
         if (super.interact(entityplayer)) { return false; }
+        
         if (getIsTamed())
         {
             ItemStack itemstack = entityplayer.inventory.getCurrentItem();
             if (getIsUpsideDown())
             {
-                flipflop(false);
+                flipFlop(false);
                 return true;
             }
 
@@ -147,7 +148,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
             }
             return true;
         }
-        flipflop(!getIsUpsideDown());
+        flipFlop(!getIsUpsideDown());
 
         return true;
     }
@@ -210,6 +211,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
                     if (!hasPath() && rand.nextInt(50) == 0)
                     {
                         EntityItem entityitem = getClosestItem(this, 10D, Items.melon, Items.reeds);
+                        
                         if (entityitem != null)
                         {
                             float f = entityitem.getDistanceToEntity(this);
@@ -220,7 +222,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
                             if ((f < 2.0F) && (entityitem != null) && (deathTime == 0))
                             {
                                 entityitem.setDead();
-                                worldObj.playSoundAtEntity(this, "mocreatures:turtleeating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                                MoCTools.playCustomSound(this, "eating", worldObj);
 
                                 EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 24D);
                                 if (entityplayer != null)
@@ -265,7 +267,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
         {
             if (rand.nextInt(10) == 0)
             {
-                flipflop(true);
+                flipFlop(true);
             }
             return false;
         }
@@ -274,13 +276,13 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
             boolean flag = super.attackEntityFrom(damagesource, i);
             if (rand.nextInt(3) == 0)
             {
-                flipflop(true);
+                flipFlop(true);
             }
             return flag;
         }
     }
 
-    public void flipflop(boolean flip)
+    public void flipFlop(boolean flip)
     {
         fleeingTick = 0;
         setIsUpsideDown(flip);
@@ -419,13 +421,22 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     @Override
     protected Item getDropItem()
     {
-        if (getName().equals("Donatello") || getName().equals("donatello")) { return MoCreatures.bo; }
+        if (getName().equals("Donatello") || getName().equals("donatello"))
+        { return MoCreatures.bo; }
 
-        if (getName().equals("Leonardo") || getName().equals("leonardo")) { return MoCreatures.katana; }
+        
+        if (getName().equals("Leonardo") || getName().equals("leonardo"))
+        { return MoCreatures.katana; }
 
-        if (getName().equals("Rafael") || getName().equals("rafael") || getName().equals("raphael") || getName().equals("Raphael")) { return MoCreatures.sai; }
+        
+        if (getName().equals("Rafael") || getName().equals("rafael") || getName().equals("raphael") || getName().equals("Raphael"))
+        { return MoCreatures.sai; }
 
-        if (getName().equals("Michelangelo") || getName().equals("michelangelo") || getName().equals("Michaelangelo") || getName().equals("michaelangelo")) { return MoCreatures.nunchaku; }
+        
+        if (getName().equals("Michelangelo") || getName().equals("michelangelo") || getName().equals("Michaelangelo") || getName().equals("michaelangelo"))
+        { return MoCreatures.nunchaku; }
+        
+        
         return MoCreatures.turtleraw;
     }
 
@@ -454,9 +465,9 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack par1ItemStack)
+    public boolean isMyHealFood(ItemStack itemstack)
     {
-        return par1ItemStack != null && (par1ItemStack.getItem() == Items.reeds || par1ItemStack.getItem() == Items.melon);
+        return itemstack != null && (itemstack.getItem() == Items.reeds || itemstack.getItem() == Items.melon);
     }
 
     @Override

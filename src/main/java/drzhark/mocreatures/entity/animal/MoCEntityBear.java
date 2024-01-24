@@ -428,13 +428,9 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             EntityItem entityitem = getClosestEntityItem(this, 8D);
             if (entityitem != null)
             {
-            	Item item = entityitem.getEntityItem().getItem();
+            	ItemStack itemstack = entityitem.getEntityItem();
             	
-            	if (item == Items.reeds
-            		|| item == Items.sugar
-            		|| (((item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:bamboo")))
-            		|| (((item.itemRegistry).getNameForObject(item).equals("etfuturum:bamboo")))
-            		|| (((item.itemRegistry).getNameForObject(item).equals("tropicraft:bambooChute"))))
+            	if (isItemstackFoodItem(itemstack))
             	{
 
             		float f = entityitem.getDistanceToEntity(this);
@@ -455,18 +451,12 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         }
     }
 
-    @Override
+	@Override
     public boolean interact(EntityPlayer entityplayer)
     {
         if (super.interact(entityplayer)) { return false; }
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
-        if ((itemstack != null) && (getType() == 3) && (
-        		(itemstack.getItem() == MoCreatures.sugarlump) 
-        		|| (itemstack.getItem() == Items.reeds 
-        		|| (((itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem())).equals("BiomesOPlenty:bamboo")))
-        		|| (((itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem())).equals("etfuturum:bamboo"))
-        		|| (((itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem())).equals("tropicraft:bambooChute"))
-        	))
+        if ((itemstack != null) && (getType() == 3) && (isItemstackFoodItem(itemstack)))
         {
         	
             if (--itemstack.stackSize == 0)
@@ -491,6 +481,24 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         }
         return false;
     }
+	
+	private boolean isItemstackFoodItem(ItemStack itemstack) {
+    	
+    	Item item = itemstack.getItem();
+    	
+		if (
+				item == Items.reeds
+				|| item == Items.sugar
+            	|| (((item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:bamboo")))
+            	|| (((item.itemRegistry).getNameForObject(item).equals("etfuturum:bamboo")))
+            	|| (((item.itemRegistry).getNameForObject(item).equals("tropicraft:bambooChute")))
+            )
+		{
+			return true;
+		}
+		
+		return false;
+	}
 
     @Override
     protected Item getDropItem()
@@ -592,25 +600,15 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyFavoriteFood(ItemStack par1ItemStack)
+    public boolean isMyFavoriteFood(ItemStack itemstack)
     {
-    	return this.getType() == 3 && par1ItemStack != null && (
-    			par1ItemStack.getItem() == Items.reeds
-    			|| ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("BiomesOPlenty:bamboo")
-    			|| ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("etfuturum:bamboo")
-    			|| ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("tropicraft:bambooChute")
-    			); 
+    	return this.getType() == 3 && itemstack != null && (isItemstackFoodItem(itemstack)); 
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack par1ItemStack)
+    public boolean isMyHealFood(ItemStack itemstack)
     {
-        return this.getType() == 3 && par1ItemStack != null && (
-        		par1ItemStack.getItem() == Items.reeds
-        		|| ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("BiomesOPlenty:bamboo")
-        		|| ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("etfuturum:bamboo")
-        		|| ((par1ItemStack.getItem().itemRegistry).getNameForObject(par1ItemStack.getItem())).contains("tropicraft:bambooChute")
-        		); 
+        return this.getType() == 3 && itemstack != null && (isItemstackFoodItem(itemstack)); 
     }
 
     @Override
