@@ -423,10 +423,10 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
             	|| itemstack.getItem() == MoCreatures.ostrichraw
         		|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
     			|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
+    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllmeatraw"
     			|| MoCreatures.isGregTech6Loaded &&
     				(
-    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllmeatraw"
-    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
     				)
         	);
     }

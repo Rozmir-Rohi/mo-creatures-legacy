@@ -1,5 +1,6 @@
 package drzhark.mocreatures.entity.animal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
@@ -405,14 +406,33 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         {
         	Item item = itemstack.getItem();
         	
+        	int[] ore_dictionary_id_list = OreDictionary.getOreIDs(itemstack);
+        	
+        	List<String> ore_dictionary_name_array = new ArrayList<String>();
+        	
+        	if (ore_dictionary_id_list.length > 0)
+        	{
+	        	for (int element : ore_dictionary_id_list)
+	        	{
+	        		ore_dictionary_name_array.add(OreDictionary.getOreName(element));
+	        	}
+        	}
+        	
         	if (//general food
         			item == MoCreatures.sugarlump
             		|| item == Items.wheat
+            		|| (item.itemRegistry).getNameForObject(item).equals("tropicraft:coconutChunk")
+            		|| (item.itemRegistry).getNameForObject(item).equals("tropicraft:pineappleCubes")
+            		|| (item.itemRegistry).getNameForObject(item).equals("harvestcraft:coconutItem")
+            		|| ore_dictionary_name_array.size() > 0 &&
+            			(
+            					ore_dictionary_name_array.contains("listAllfruit") //BOP fruit or GregTech6 fruit or Palm's Harvest fruit
+            					|| ore_dictionary_name_array.contains("listAllwheats") //GregTech6 wheat items
+            					|| ore_dictionary_name_array.contains("listAllgrain") //Palm's Harvest wheat items
+            			)
             		|| MoCreatures.isGregTech6Loaded &&
     					(
-    						OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllfruit"
-    						|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllwheats"
-    						|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrass"
+    						OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrass"
     						|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrassDry"
     						|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "cropGrain"
     					)

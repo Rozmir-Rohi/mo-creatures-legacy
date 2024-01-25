@@ -1,5 +1,6 @@
 package drzhark.mocreatures.entity.animal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -1724,23 +1725,43 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         	}
 	        
 	        
+	        
+	        
+			int[] ore_dictionary_id_list = OreDictionary.getOreIDs(itemstack);
+			        	
+			List<String> ore_dictionary_name_array = new ArrayList<String>();
+			        	
+			if (ore_dictionary_id_list.length > 0)
+			{
+				for (int element : ore_dictionary_id_list)
+				{
+					ore_dictionary_name_array.add(OreDictionary.getOreName(element));
+				}
+			}
+	        
 	        if (!isUndead() && !isMagicHorse() && 
-	        		( //food items for normal horses
+	        		( 
+	        			//food items for normal horses
 	        			item == Items.wheat
 	        			|| item == MoCreatures.sugarlump
 	        			|| item == Items.bread
 	        			|| item == Items.apple
 	        			|| item == Items.golden_apple
 	        			|| item == MoCreatures.haystack
-	        			|| MoCreatures.isGregTech6Loaded &&
-    						(
-    							OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllwheats"
-    							|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrass"
-    							|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrassDry"
-    							|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "cropGrain"
-    						)
-    				)
-    			)
+	        			|| ore_dictionary_name_array.size() > 0 && 
+	        				(
+	        					ore_dictionary_name_array.contains("listAllwheats") //GregTech6 wheat items
+	        					|| ore_dictionary_name_array.contains("listAllgrain") //Palm's Harvest wheat items
+	        					
+	        					|| MoCreatures.isGregTech6Loaded &&
+	        						(
+	        							ore_dictionary_name_array.contains("itemGrass")
+	        							|| ore_dictionary_name_array.contains("itemGrassDry")
+	        							|| ore_dictionary_name_array.contains("cropGrain")
+	        						)
+	        				)
+	        		)
+	        	)
 	        {
 	        	int temperIncrease = 0;
 	        	int healthIncrease = 0;
@@ -1748,10 +1769,12 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	
 	        	if (
 	        			item == Items.wheat 
-	        			|| MoCreatures.isGregTech6Loaded &&(OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllwheats")
-	        			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrass"
-	        			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrassDry"
-	        			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "cropGrain"
+	        			|| ore_dictionary_name_array.contains("listAllwheats")
+	        			|| ore_dictionary_name_array.contains("itemGrass")
+	        			|| ore_dictionary_name_array.contains("itemGrassDry")
+	        			|| ore_dictionary_name_array.contains("cropGrain")
+	        			|| ore_dictionary_name_array.contains("listAllgrain")
+	        			
 	        		) {temperIncrease = 25; healthIncrease = 5; ageIncrease = 1;}
 	        	
 	        	if (item == MoCreatures.sugarlump) {temperIncrease = 25; healthIncrease = 10; ageIncrease = 2;}

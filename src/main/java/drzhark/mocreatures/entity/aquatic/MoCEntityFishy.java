@@ -18,6 +18,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -250,14 +251,14 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     @Override
     protected boolean isMyHealFood(ItemStack itemstack)
     {
+    	Item item = itemstack.getItem();
+    	
     	if (
-    			itemstack.getItem() instanceof ItemSeeds
-    			|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:beetroot_seeds")
-    			|| MoCreatures.isBiomesOPlentyLoaded && 
-    				(
-    					(itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("BiomesOPlenty:turnipSeeds")
-    					|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("BiomesOPlenty:coral1") && itemstack.getItemDamage() == 11 //BOP kelp
-    				)
+    			item instanceof ItemSeeds
+    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
+    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
+    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemstack.getItemDamage() == 11 //BOP kelp
+    			|| (item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
     			|| MoCreatures.isGregTech6Loaded &&
     				(
     					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins"

@@ -541,17 +541,30 @@ Improved food item detection code for creatures that eat dropped items.
 Fixed naming GUI displaying when feeding a tamed fox or raccoon.
 
 
-Added GregTech6 Item Integration for Taming and Feeding using OreDictionaries:
+Added GregTech6, Palm's Harvest, and more Biomes O' Plenty Item Integration for Taming and Feeding items using Ore Dictionaries:
+
+	Ore Dictionaries with the "listAll" prefix apply to GregTech6, Biomes O' Plenty and Palms Harvest. They may also work with other mods as well.
+	All other Ore Dictionaries here are from GregTech 6.
+
 	- Big Cat: listAllmeatraw, foodScrapmeat
-	- Bunny: listAllveg
-	- Bird: foodRaisins
-	- Ostrich: foodRaisins (feeding only)
-	- Horse: listAllwheats (feeding only), itemGrass (feeding only), itemGrassDry (feeding only)
-	- Elephant: listAllfruit (feeding only), listAllwheats (feeding only), itemGrass (feeding only), itemGrassDry (feeding only)
-	- Fox: foodScrapmeat (feeding only)
-	- Komodo Dragon: listAllmeatraw (feeding only), foodScrapmeat (feeding only)
-	- Wyvern: foodScrapmeat (feeding only)
-	- Snake: foodScrapmeat (feeding only) 
+
+	- Bunny: listAllveggie
+
+	- Bird: foodRaisins, listAllseed
+
+	- Ostrich (feeding only): foodRaisins, listAllseed 
+
+	- Horse (feeding only): listAllwheats, listAllgrain, itemGrass , itemGrassDry
+
+	- Elephant (feeding only): listAllfruit, listAllwheats, listAllgrain, itemGrass, itemGrassDry
+
+	- Fox (feeding only): foodScrapmeat 
+
+	- Komodo Dragon (feeding only): listAllmeatraw, foodScrapmeat
+
+	- Wyvern (feeding only): foodScrapmeat 
+
+	- Snake (feeding only) : foodScrapmeat 
 
 
 Deers now drop hide instead of fur. Also added Twilight Forest venison drops for deer.
@@ -559,6 +572,17 @@ Deers now drop hide instead of fur. Also added Twilight Forest venison drops for
 
 Added new feeding items for fishy and small fish:
  - Any vanilla MC seeds
- - Et Futurum Requiem beetroot seeds
- - Biomes O' Plenty kelp
- - Any item in GregTech 6 oredictionary "foodRaisins"
+ - Et Futurum Requiem: Beetroot seeds
+ - Biomes O' Plenty: Kelp
+ - Palms Harvest: Seaweed
+ - Any item in GregTech 6 oredictionary: "foodRaisins"
+
+
+
+Added more Tropicraft feeding item integration:
+	- Elephant: Coconut chunks, Pineapple chunks. OreDictionary: listAllFruit
+
+
+Added more Palms Harvest item integration:
+ - Elephant (feeding only): Coconut
+ - Panda: Bamboo Shute

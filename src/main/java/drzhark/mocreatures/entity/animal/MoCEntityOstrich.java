@@ -611,10 +611,8 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         			item instanceof ItemSeeds
         			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
         			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
-        			|| MoCreatures.isGregTech6Loaded &&
-    					(
-    						OreDictionary.getOreName(OreDictionary.getOreID(new ItemStack(item))) == "foodRaisins"
-    					)
+        			|| OreDictionary.getOreName(OreDictionary.getOreID(new ItemStack(item))) == "listAllseed" //BOP seeds or Palm's Harvest Seeds
+        			|| OreDictionary.getOreName(OreDictionary.getOreID(new ItemStack(item))) == "foodRaisins" //GregTech6 seeds/raisins or Palm's Harvest raisins
     			);
     }
 

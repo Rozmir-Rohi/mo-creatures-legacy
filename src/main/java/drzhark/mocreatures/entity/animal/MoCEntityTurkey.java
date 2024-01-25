@@ -106,10 +106,8 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
     			item instanceof ItemSeeds
     			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
     			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
-    			|| MoCreatures.isGregTech6Loaded &&
-        			(
-        				OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins"
-        			)
+    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllseed" //BOP seeds or GregTech6 seeds or Palms Harvest seeds
+    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins" //GregTech6 raisins or Palm's Harvest raisins
     		) {return true;}
     	
     	return false;

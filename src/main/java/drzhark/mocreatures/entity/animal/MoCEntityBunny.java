@@ -1,5 +1,6 @@
 package drzhark.mocreatures.entity.animal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
@@ -167,6 +168,18 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         if (itemstack != null)
         {	
         	Item item = itemstack.getItem();
+        	
+        	int[] ore_dictionary_id_list = OreDictionary.getOreIDs(itemstack);
+        	
+        	List<String> ore_dictionary_name_array = new ArrayList<String>();
+        	
+        	if (ore_dictionary_id_list.length > 0)
+        	{
+	        	for (int element : ore_dictionary_id_list)
+	        	{
+	        		ore_dictionary_name_array.add(OreDictionary.getOreName(element));
+	        	}
+        	}
 
         	if (    	
         			item == Items.carrot
@@ -174,10 +187,8 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot")
         			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:food") && itemstack.getItemDamage() == 2 //BoP Wild Carrots
         			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:food") && itemstack.getItemDamage() == 11 //BoP Turnip
-        			|| MoCreatures.isGregTech6Loaded &&
-        				(
-        					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllveggie"
-        				)
+        			|| ore_dictionary_name_array.size() > 0 && ore_dictionary_name_array.contains("listAllveggie") //BOP veg or GregTech6 veg or Palm's Harvest veg
+
         		)
         		
         	{

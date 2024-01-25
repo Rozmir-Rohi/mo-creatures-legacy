@@ -764,10 +764,10 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     			|| item == MoCreatures.ostrichraw
     			|| item == MoCreatures.rawTurkey
     			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
+    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllmeatraw"
     			|| MoCreatures.isGregTech6Loaded &&
     				(
-    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllmeatraw"
-    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
     				)
     		)
     	{
