@@ -299,8 +299,8 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     }
 
     //TODO
-    //change this so MoCAnimal getBoogey is used instead to decrease duplication of code
-    public EntityLivingBase getBoogey(double d, boolean flag)
+    //change this so MoCAnimal getScaryEntity is used instead to decrease duplication of code
+    public EntityLivingBase getScaryEntity(double d, boolean flag)
     {
         double d1 = -1D;
         EntityLivingBase entityliving = null;
@@ -765,7 +765,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             case 1: // '\001'
                 if (rand.nextInt(10) == 0)
                 {
-                    EntityLivingBase entityliving = getBoogey(6D, true);
+                    EntityLivingBase entityliving = getScaryEntity(6D, true);
                     if (entityliving != null)
                     {
                         MoCTools.runLikeHell(this, entityliving);
@@ -796,7 +796,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                 break;
 
             case 2: // '\002'
-                EntityLivingBase entityliving1 = getBoogey(6D, false);
+                EntityLivingBase entityliving1 = getScaryEntity(6D, false);
                 if (entityliving1 != null)
                 {
                     MoCTools.runLikeHell(this, entityliving1);

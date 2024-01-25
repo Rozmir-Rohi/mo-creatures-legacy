@@ -1,11 +1,13 @@
 package drzhark.mocreatures.entity.animal;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -79,7 +81,7 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean entitiesToInclude(Entity entity)
+    public boolean entitiesThatAreScary(Entity entity)
     {
         return !(entity instanceof MoCEntityDeer) && (
         		entity instanceof EntityPlayer
@@ -95,11 +97,28 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
     {
         return "mocreatures:deerdying";
     }
-
+    
     @Override
-    protected Item getDropItem()
-    {
-        return MoCreatures.fur;
+    protected void dropFewItems(boolean has_entity_been_hit_by_player, int level_of_looting_enchantment_used_to_kill_entity)
+    {   
+        int random_amount = rand.nextInt(3);
+
+        dropItem(MoCreatures.animalHide, random_amount);
+        
+        if (!MoCreatures.isGregTech6Loaded)
+        {
+        	if (MoCreatures.isTwilightForestLoaded)
+        	{
+        		if (this.isBurning())
+        		{
+        			dropItem(GameRegistry.findItem("TwilightForest", "item.venisonCooked"), random_amount);
+        		}
+        		else 
+        		{
+        			dropItem(GameRegistry.findItem("TwilightForest", "item.venisonRaw"), random_amount);
+        		}
+        	}
+        }
     }
 
     @Override

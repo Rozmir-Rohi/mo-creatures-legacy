@@ -163,6 +163,7 @@ public class MoCreatures {
     private static boolean isThaumcraftLoaded;
     public static boolean isBiomesOPlentyLoaded;
     public static boolean isGregTech6Loaded;
+    public static boolean isTwilightForestLoaded;
     public static boolean isFoodExpansionLoaded;
     public static boolean isImprovingMinecraftLoaded;
     public static GameProfile MOCFAKEPLAYER = new GameProfile(UUID.fromString("6E379B45-1111-2222-3333-2FE1A88BCD66"), "[MoCreatures]");
@@ -191,19 +192,16 @@ public class MoCreatures {
     static ArmorMaterial crocARMOR = EnumHelper.addArmorMaterial("crocARMOR", 15, new int[] { 2, 6, 5, 2 }, 12);
     static ArmorMaterial furARMOR = EnumHelper.addArmorMaterial("furARMOR", 15, new int[] { 1, 3, 2, 1 }, 12);
     static ArmorMaterial hideARMOR = EnumHelper.addArmorMaterial("hideARMOR", 15, new int[] { 1, 3, 2, 1 }, 12);
-    static ArmorMaterial scorpdARMOR = EnumHelper.addArmorMaterial("scorpdARMOR", 15, new int[] { 2, 6, 5, 2 }, 12);
-    static ArmorMaterial scorpfARMOR = EnumHelper.addArmorMaterial("scorpfARMOR", 18, new int[] { 2, 7, 6, 2 }, 12);
-    static ArmorMaterial scorpnARMOR = EnumHelper.addArmorMaterial("scorpnARMOR", 20, new int[] { 3, 7, 6, 3 }, 15);
-    static ArmorMaterial scorpcARMOR = EnumHelper.addArmorMaterial("scorpcARMOR", 15, new int[] { 2, 6, 5, 2 }, 12);
+    static ArmorMaterial scorpDirtARMOR = EnumHelper.addArmorMaterial("scorpDirtARMOR", 15, new int[] { 2, 6, 5, 2 }, 12);
+    static ArmorMaterial scorpFrostARMOR = EnumHelper.addArmorMaterial("scorpFrostARMOR", 18, new int[] { 2, 7, 6, 2 }, 12);
+    static ArmorMaterial scorpNetherARMOR = EnumHelper.addArmorMaterial("scorpNetherARMOR", 20, new int[] { 3, 7, 6, 3 }, 15);
+    static ArmorMaterial scorpCaveARMOR = EnumHelper.addArmorMaterial("scorpCaveARMOR", 15, new int[] { 2, 6, 5, 2 }, 12);
     static ArmorMaterial silverARMOR = EnumHelper.addArmorMaterial("silverARMOR", 15, new int[] { 2, 6, 5, 2 }, 15);
     static ToolMaterial SILVER = EnumHelper.addToolMaterial("SILVER", 0, 250, 6.0F, 4, 15);
     
-    static ToolMaterial SCORP_DIRT_WEAPON = EnumHelper.addToolMaterial("SCORP_DIRT_WEAPON", 0, 250, 6.0F, 2.0F, 14);
-    static ToolMaterial SCORP_FROST_WEAPON = EnumHelper.addToolMaterial("SCORP_FROST_WEAPON", 0, 250, 6.0F, 2.0F, 14);
-    static ToolMaterial SCORP_NETHER_WEAPON = EnumHelper.addToolMaterial("SCORP_NETHER_WEAPON", 0, 250, 6.0F, 2.0F, 14);
-    static ToolMaterial SCORP_CAVE_WEAPON = EnumHelper.addToolMaterial("SCORP_CAVE_WEAPON", 0, 250, 6.0F, 2.0F, 14);
+    static ToolMaterial scorpWEAPON = EnumHelper.addToolMaterial("scorpWeapon", 0, 250, 6.0F, 2.0F, 14);
     
-    static ToolMaterial SHARK_WEAPON = EnumHelper.addToolMaterial("SHARK_WEAPON", 0, 250, 6.0F, 2.0F, 14);
+    static ToolMaterial sharkWEAPON = EnumHelper.addToolMaterial("sharkWeapon", 0, 250, 6.0F, 2.0F, 14);
     
     public static Item mocegg;
     
@@ -433,6 +431,8 @@ public class MoCreatures {
         this.isBiomesOPlentyLoaded = Loader.isModLoaded("BiomesOPlenty");
         
         this.isGregTech6Loaded = Loader.isModLoaded("gregtech");
+        
+        this.isTwilightForestLoaded = Loader.isModLoaded("TwilightForest");
         
         this.isFoodExpansionLoaded = GameRegistry.findItem("FoodExpansion", "ItemHorseMeat") != null; //have to use this method over the normal way to detect the Food Expansion mod since it's mod ID is not properly registered
         
@@ -734,7 +734,7 @@ public class MoCreatures {
         sai = new MoCItemWeapon("sai", ToolMaterial.IRON);
         bo = new MoCItemWeapon("bo", ToolMaterial.IRON);
         katana = new MoCItemWeapon("katana", ToolMaterial.IRON);
-        sharksword = new MoCItemWeapon("sharksword", SHARK_WEAPON);
+        sharksword = new MoCItemWeapon("sharksword", sharkWEAPON);
 
         key = new MoCItem("key");
         essencedarkness = new MoCItem("essencedarkness");
@@ -781,37 +781,36 @@ public class MoCreatures {
         chitinCave = new MoCItem("chitinblack");
         chitinFrost = new MoCItem("chitinfrost");
         chitinNether = new MoCItem("chitinnether");
+
+        scorpSwordDirt = new MoCItemWeapon("scorpsworddirt", scorpWEAPON, 1, false);
+        scorpSwordFrost = new MoCItemWeapon("scorpswordfrost", scorpWEAPON, 2, false);
+        scorpSwordNether = new MoCItemWeapon("scorpswordnether", scorpWEAPON, 3, false);
+        scorpSwordCave = new MoCItemWeapon("scorpswordcave", scorpWEAPON, 4, false);
+
+        scorpHelmetDirt = new MoCItemArmor("scorphelmetdirt", scorpDirtARMOR, 4, 0);
+        scorpPlateDirt = new MoCItemArmor("scorpplatedirt", scorpDirtARMOR, 4, 1);
+        scorpLegsDirt = new MoCItemArmor("scorplegsdirt", scorpDirtARMOR, 4, 2);
+        scorpBootsDirt = new MoCItemArmor("scorpbootsdirt", scorpDirtARMOR, 4, 3);
+
+        scorpHelmetFrost = new MoCItemArmor("scorphelmetfrost", scorpFrostARMOR, 4, 0);
+        scorpPlateFrost = new MoCItemArmor("scorpplatefrost", scorpFrostARMOR, 4, 1);
+        scorpLegsFrost = new MoCItemArmor("scorplegsfrost", scorpFrostARMOR, 4, 2);
+        scorpBootsFrost = new MoCItemArmor("scorpbootsfrost", scorpFrostARMOR, 4, 3);
+
+        scorpHelmetNether = new MoCItemArmor("scorphelmetnether", scorpNetherARMOR, 4, 0);
+        scorpPlateNether = new MoCItemArmor("scorpplatenether", scorpNetherARMOR, 4, 1);
+        scorpLegsNether = new MoCItemArmor("scorplegsnether", scorpNetherARMOR, 4, 2);
+        scorpBootsNether = new MoCItemArmor("scorpbootsnether", scorpNetherARMOR, 4, 3);
         
-
-        scorpSwordDirt = new MoCItemWeapon("scorpsworddirt", SCORP_DIRT_WEAPON, 1, false);
-        scorpSwordCave = new MoCItemWeapon("scorpswordcave", SCORP_CAVE_WEAPON, 4, false);
-        scorpSwordFrost = new MoCItemWeapon("scorpswordfrost", SCORP_FROST_WEAPON, 2, false);
-        scorpSwordNether = new MoCItemWeapon("scorpswordnether", SCORP_NETHER_WEAPON, 3, false);
-
-        scorpHelmetDirt = new MoCItemArmor("scorphelmetdirt", scorpdARMOR, 4, 0);
-        scorpPlateDirt = new MoCItemArmor("scorpplatedirt", scorpdARMOR, 4, 1);
-        scorpLegsDirt = new MoCItemArmor("scorplegsdirt", scorpdARMOR, 4, 2);
-        scorpBootsDirt = new MoCItemArmor("scorpbootsdirt", scorpdARMOR, 4, 3);
-
-        scorpHelmetFrost = new MoCItemArmor("scorphelmetfrost", scorpfARMOR, 4, 0);
-        scorpPlateFrost = new MoCItemArmor("scorpplatefrost", scorpfARMOR, 4, 1);
-        scorpLegsFrost = new MoCItemArmor("scorplegsfrost", scorpfARMOR, 4, 2);
-        scorpBootsFrost = new MoCItemArmor("scorpbootsfrost", scorpfARMOR, 4, 3);
-
-        scorpHelmetCave = new MoCItemArmor("scorphelmetcave", scorpcARMOR, 4, 0);
-        scorpPlateCave = new MoCItemArmor("scorpplatecave", scorpcARMOR, 4, 1);
-        scorpLegsCave = new MoCItemArmor("scorplegscave", scorpcARMOR, 4, 2);
-        scorpBootsCave = new MoCItemArmor("scorpbootscave", scorpcARMOR, 4, 3);
-
-        scorpHelmetNether = new MoCItemArmor("scorphelmetnether", scorpnARMOR, 4, 0);
-        scorpPlateNether = new MoCItemArmor("scorpplatenether", scorpnARMOR, 4, 1);
-        scorpLegsNether = new MoCItemArmor("scorplegsnether", scorpnARMOR, 4, 2);
-        scorpBootsNether = new MoCItemArmor("scorpbootsnether", scorpnARMOR, 4, 3);
+        scorpHelmetCave = new MoCItemArmor("scorphelmetcave", scorpCaveARMOR, 4, 0);
+        scorpPlateCave = new MoCItemArmor("scorpplatecave", scorpCaveARMOR, 4, 1);
+        scorpLegsCave = new MoCItemArmor("scorplegscave", scorpCaveARMOR, 4, 2);
+        scorpBootsCave = new MoCItemArmor("scorpbootscave", scorpCaveARMOR, 4, 3);
 
         scorpStingDirt = new MoCItemWeapon("scorpstingdirt", ToolMaterial.GOLD, 1, true);
-        scorpStingCave = new MoCItemWeapon("scorpstingcave", ToolMaterial.GOLD, 4, true);
         scorpStingFrost = new MoCItemWeapon("scorpstingfrost", ToolMaterial.GOLD, 2, true);
         scorpStingNether = new MoCItemWeapon("scorpstingnether", ToolMaterial.GOLD, 3, true);
+        scorpStingCave = new MoCItemWeapon("scorpstingcave", ToolMaterial.GOLD, 4, true);
         
 
         scrollFreedom = new MoCItem("scrolloffreedom");

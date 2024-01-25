@@ -117,10 +117,10 @@ public class MoCEntityMouse extends MoCEntityAnimal
         return !onGround && isOnLadder();
     }
 
-    public boolean entitiesToInclude(Entity entity)
+    public boolean entitiesThatAreScary(Entity entity)
     {
         return !(entity instanceof MoCEntityMouse)
-        && super.entitiesToInclude(entity);
+        && super.entitiesThatAreScary(entity);
     }
 
     @Override

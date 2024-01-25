@@ -168,17 +168,18 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         {	
         	Item item = itemstack.getItem();
 
-        	if ((itemstack != null) && (
+        	if (    	
         			item == Items.carrot
         			|| item == Items.golden_carrot
         			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot")
         			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:food") && itemstack.getItemDamage() == 2 //BoP Wild Carrots
-        			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:food") && itemstack.getItemDamage() == 11) //BoP Turnip
+        			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:food") && itemstack.getItemDamage() == 11 //BoP Turnip
         			|| MoCreatures.isGregTech6Loaded &&
         				(
         					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllveggie"
         				)
-        		) 
+        		)
+        		
         	{
             	if (--itemstack.stackSize == 0)
             	{

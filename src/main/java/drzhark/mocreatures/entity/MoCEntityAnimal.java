@@ -296,7 +296,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     }
 
     /**
-     * Finds and entity described in entitiesToInclude at d distance
+     * Finds and entity described in entitiesThatAreScary at d distance
      * 
      * @param d
      * @return
@@ -309,7 +309,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         for (int i = 0; i < list.size(); i++)
         {
             Entity entity = (Entity) list.get(i);
-            if (entitiesToInclude(entity))
+            if (entitiesThatAreScary(entity))
             {
                 entityliving = (EntityLivingBase) entity;
             }
@@ -318,12 +318,12 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     }
 
     /**
-     * Used in getBoogey to specify what kind of entity to look for
+     * Used in getScaryEntity to specify what kind of entity to look for
      * 
      * @param entity
      * @return
      */
-    public boolean entitiesToInclude(Entity entity)
+    public boolean entitiesThatAreScary(Entity entity)
     {
         return ( (entity.getClass() != this.getClass()) && (entity instanceof EntityLivingBase) && ((entity.width >= 0.5D) || (entity.height >= 0.5D)));
     }

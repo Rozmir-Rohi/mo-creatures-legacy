@@ -800,13 +800,14 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-        return itemstack != null && (
+        return itemstack != null && 
+        	(
         		itemstack.getItem() == MoCreatures.ratRaw
         		|| MoCreatures.isGregTech6Loaded &&
                 	(	
                 		OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
                 	)
-        		);
+        	);
     }
 
     @Override

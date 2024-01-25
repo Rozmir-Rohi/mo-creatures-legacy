@@ -761,15 +761,16 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-        return itemstack != null && (
+        return itemstack != null && 
+        	(
         		itemstack.getItem() == MoCreatures.ratRaw
         		|| itemstack.getItem() == MoCreatures.rawTurkey
         		|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
         		|| MoCreatures.isGregTech6Loaded &&
-            		(	
-            			OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
-            		)
-        		);
+        			(	
+        				OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+        			)
+        	);
     }
 
     private void openMouth()

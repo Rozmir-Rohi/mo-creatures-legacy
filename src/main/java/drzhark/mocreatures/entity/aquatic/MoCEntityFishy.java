@@ -18,9 +18,11 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityFishy extends MoCEntityTameableAquatic {
 
@@ -166,7 +168,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
 
             if (rand.nextInt(5) == 0 && !getIsTamed())
             {
-                EntityLivingBase entityliving = getBoogey(8D);
+                EntityLivingBase entityliving = getScaryEntity(8D);
                 if (entityliving != null && entityliving.isInsideOfMaterial(Material.water))
                 {
                    MoCTools.runLikeHell(this, entityliving);
@@ -175,7 +177,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
 
             if (getIsTamed() && rand.nextInt(100) == 0 && getHealth() < getMaxHealth())
             {
-                this.setHealth(getMaxHealth());
+                heal(1);
             }
 
             if (!ReadyforParenting(this)) { return; }
@@ -244,10 +246,30 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
         }
 
     }
+    
+    @Override
+    protected boolean isMyHealFood(ItemStack itemstack)
+    {
+    	if (
+    			itemstack.getItem() instanceof ItemSeeds
+    			|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:beetroot_seeds")
+    			|| MoCreatures.isBiomesOPlentyLoaded && 
+    				(
+    					(itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("BiomesOPlenty:turnipSeeds")
+    					|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("BiomesOPlenty:coral1") && itemstack.getItemDamage() == 11 //BOP kelp
+    				)
+    			|| MoCreatures.isGregTech6Loaded &&
+    				(
+    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins"
+    				)
+    		) {return true;}
+    	
+        return false;
+    }
 
     public boolean ReadyforParenting(MoCEntityFishy entityfishy)
     {
-        return false; //TOOD pending overhaul of breeding
+        return false; //TODO: pending overhaul of breeding
     }
     
     @Override

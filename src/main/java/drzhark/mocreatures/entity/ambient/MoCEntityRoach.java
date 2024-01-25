@@ -32,7 +32,7 @@ public class MoCEntityRoach extends MoCEntityInsect
 
             if (!getIsFlying() && rand.nextInt(10) == 0)
             {
-                EntityLivingBase entityliving = getBoogey(3D);
+                EntityLivingBase entityliving = getScaryEntity(3D);
                 if (entityliving != null)
                 {
                     runLikeHell(entityliving);
@@ -42,9 +42,9 @@ public class MoCEntityRoach extends MoCEntityInsect
     }
 
     @Override
-    public boolean entitiesToInclude(Entity entity)
+    public boolean entitiesThatAreScary(Entity entity)
     {
-        return !(entity instanceof MoCEntityInsect) && super.entitiesToInclude(entity);
+        return !(entity instanceof MoCEntityInsect) && super.entitiesThatAreScary(entity);
     }
 
     @Override

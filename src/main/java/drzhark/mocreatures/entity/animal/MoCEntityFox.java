@@ -116,12 +116,13 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
         if (super.interact(entityplayer)) { return false; }
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
         
-        if ((itemstack != null) && (
-        		itemstack.getItem() == MoCreatures.rawTurkey
-        		|| MoCreatures.isGregTech6Loaded &&
-                	(
-                		OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
-                	)
+        if ((itemstack != null) && 
+        		(//taming items
+        			itemstack.getItem() == MoCreatures.rawTurkey
+        			|| MoCreatures.isGregTech6Loaded &&
+        				(
+        					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+        				)
         		)
         	)
         {
@@ -240,7 +241,8 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-        return itemstack != null && (
+        return itemstack != null && 
+        		(
         			itemstack.getItem() == MoCreatures.ratRaw
         			|| itemstack.getItem() == MoCreatures.rawTurkey
         			|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
@@ -248,7 +250,7 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
                 		(
                 			OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
                 		)
-        			);
+        		);
     }
 
     @Override

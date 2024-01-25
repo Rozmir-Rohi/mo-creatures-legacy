@@ -412,16 +412,16 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-        return itemstack != null && (
+        return itemstack != null && 
+        	(
         		itemstack.getItem() == Items.porkchop
     			|| itemstack.getItem() == Items.beef 
     			|| itemstack.getItem() == Items.chicken
     			|| itemstack.getItem() == Items.fish
         		|| itemstack.getItem() == MoCreatures.ratRaw
         		|| itemstack.getItem() == MoCreatures.rawTurkey
+            	|| itemstack.getItem() == MoCreatures.ostrichraw
         		|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
-    			|| itemstack.getItem() == MoCreatures.ostrichraw
-    			|| itemstack.getItem() == MoCreatures.rawTurkey
     			|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
     			|| MoCreatures.isGregTech6Loaded &&
     				(

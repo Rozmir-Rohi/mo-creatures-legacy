@@ -1724,19 +1724,21 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         	}
 	        
 	        
-	        if (!isUndead() && !isMagicHorse() && ( //food items for normal horses
-	        		item == Items.wheat
-	        		|| item == MoCreatures.sugarlump
-	        		|| item == Items.bread
-	        		|| item == Items.apple
-	        		|| item == Items.golden_apple
-	        		|| item == MoCreatures.haystack)
-	        		|| MoCreatures.isGregTech6Loaded &&
-    				(
-    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllwheats"
-    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrass"
-    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrassDry"
-    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "cropGrain"
+	        if (!isUndead() && !isMagicHorse() && 
+	        		( //food items for normal horses
+	        			item == Items.wheat
+	        			|| item == MoCreatures.sugarlump
+	        			|| item == Items.bread
+	        			|| item == Items.apple
+	        			|| item == Items.golden_apple
+	        			|| item == MoCreatures.haystack
+	        			|| MoCreatures.isGregTech6Loaded &&
+    						(
+    							OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllwheats"
+    							|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrass"
+    							|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrassDry"
+    							|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "cropGrain"
+    						)
     				)
     			)
 	        {

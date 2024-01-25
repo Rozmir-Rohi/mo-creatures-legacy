@@ -405,16 +405,17 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         {
         	Item item = itemstack.getItem();
         	
-        	if (item == MoCreatures.sugarlump // general food
+        	if (//general food
+        			item == MoCreatures.sugarlump
             		|| item == Items.wheat
             		|| MoCreatures.isGregTech6Loaded &&
-    				(
-    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllfruit"
-    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllwheats"
-    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrass"
-    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrassDry"
-    					|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "cropGrain"
-    				)
+    					(
+    						OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllfruit"
+    						|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllwheats"
+    						|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrass"
+    						|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrassDry"
+    						|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "cropGrain"
+    					)
     			)
             {
                 

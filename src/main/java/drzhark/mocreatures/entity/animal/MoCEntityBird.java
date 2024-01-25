@@ -13,6 +13,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
@@ -582,19 +583,14 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     	Item item = itemstack.getItem();
     	
     	if (
-    			item == Items.wheat_seeds
-    			|| item == Items.pumpkin_seeds
-    			|| item == Items.melon_seeds
+    			item instanceof ItemSeeds
     			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
     			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
     			|| MoCreatures.isGregTech6Loaded &&
         			(
         				OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins"
         			)
-    		)
-    	{
-    		return true;
-    	}
+    		) {return true;}
     	
     	return false;
     }

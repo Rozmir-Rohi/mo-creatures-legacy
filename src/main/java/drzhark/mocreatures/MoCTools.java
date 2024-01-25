@@ -1040,35 +1040,55 @@ public class MoCTools {
 
     public static void updatePlayerArmorEffects(EntityPlayer player)
     {
-        ItemStack mystack[] = new ItemStack[4];
-        mystack[0] = player.inventory.armorItemInSlot(0); //boots
-        mystack[1] = player.inventory.armorItemInSlot(1); //legs
-        mystack[2] = player.inventory.armorItemInSlot(2); //plate
-        mystack[3] = player.inventory.armorItemInSlot(3); //helmet
+        ItemStack itemstack_in_armor_slot[] = new ItemStack[4];
+        itemstack_in_armor_slot[0] = player.inventory.armorItemInSlot(0); //boots
+        itemstack_in_armor_slot[1] = player.inventory.armorItemInSlot(1); //legs
+        itemstack_in_armor_slot[2] = player.inventory.armorItemInSlot(2); //plate
+        itemstack_in_armor_slot[3] = player.inventory.armorItemInSlot(3); //helmet
 
         //full scorpion cave armor set, enable night vision
-        if (mystack[0] != null && mystack[0].getItem() == MoCreatures.scorpBootsCave && mystack[1] != null && mystack[1].getItem() == MoCreatures.scorpLegsCave && mystack[2] != null && mystack[2].getItem() == MoCreatures.scorpPlateCave && mystack[3] != null && mystack[3].getItem() == MoCreatures.scorpHelmetCave)
+        if (
+        		itemstack_in_armor_slot[0] != null && itemstack_in_armor_slot[0].getItem() == MoCreatures.scorpBootsCave 
+        		&& itemstack_in_armor_slot[1] != null && itemstack_in_armor_slot[1].getItem() == MoCreatures.scorpLegsCave
+        		&& itemstack_in_armor_slot[2] != null && itemstack_in_armor_slot[2].getItem() == MoCreatures.scorpPlateCave
+        		&& itemstack_in_armor_slot[3] != null && itemstack_in_armor_slot[3].getItem() == MoCreatures.scorpHelmetCave
+        	)
         {
             player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 300, 0));
             return;
         }
 
         //full scorpion nether armor set, enable fire resistance
-        if (mystack[0] != null && mystack[0].getItem() == MoCreatures.scorpBootsNether && mystack[1] != null && mystack[1].getItem() == MoCreatures.scorpLegsNether && mystack[2] != null && mystack[2].getItem() == MoCreatures.scorpPlateNether && mystack[3] != null && mystack[3].getItem() == MoCreatures.scorpHelmetNether)
+        if (
+        		itemstack_in_armor_slot[0] != null && itemstack_in_armor_slot[0].getItem() == MoCreatures.scorpBootsNether
+        		&& itemstack_in_armor_slot[1] != null && itemstack_in_armor_slot[1].getItem() == MoCreatures.scorpLegsNether
+        		&& itemstack_in_armor_slot[2] != null && itemstack_in_armor_slot[2].getItem() == MoCreatures.scorpPlateNether
+        		&& itemstack_in_armor_slot[3] != null && itemstack_in_armor_slot[3].getItem() == MoCreatures.scorpHelmetNether
+        	)
         {
             player.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 300, 0));
             return;
         }
 
         //full scorpion frost armor set, enable water breathing
-        if (mystack[0] != null && mystack[0].getItem() == MoCreatures.scorpBootsFrost && mystack[1] != null && mystack[1].getItem() == MoCreatures.scorpLegsFrost && mystack[2] != null && mystack[2].getItem() == MoCreatures.scorpPlateFrost && mystack[3] != null && mystack[3].getItem() == MoCreatures.scorpHelmetFrost)
+        if (
+        		itemstack_in_armor_slot[0] != null && itemstack_in_armor_slot[0].getItem() == MoCreatures.scorpBootsFrost
+        		&& itemstack_in_armor_slot[1] != null && itemstack_in_armor_slot[1].getItem() == MoCreatures.scorpLegsFrost
+        		&& itemstack_in_armor_slot[2] != null && itemstack_in_armor_slot[2].getItem() == MoCreatures.scorpPlateFrost
+        		&& itemstack_in_armor_slot[3] != null && itemstack_in_armor_slot[3].getItem() == MoCreatures.scorpHelmetFrost
+        	)
         {
             player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 300, 0));
             return;
         }
 
         //full scorpion armor set, regeneration effect
-        if (mystack[0] != null && mystack[0].getItem() == MoCreatures.scorpBootsDirt && mystack[1] != null && mystack[1].getItem() == MoCreatures.scorpLegsDirt && mystack[2] != null && mystack[2].getItem() == MoCreatures.scorpPlateDirt && mystack[3] != null && mystack[3].getItem() == MoCreatures.scorpHelmetDirt)
+        if (
+        		itemstack_in_armor_slot[0] != null && itemstack_in_armor_slot[0].getItem() == MoCreatures.scorpBootsDirt
+        		&& itemstack_in_armor_slot[1] != null && itemstack_in_armor_slot[1].getItem() == MoCreatures.scorpLegsDirt
+        		&& itemstack_in_armor_slot[2] != null && itemstack_in_armor_slot[2].getItem() == MoCreatures.scorpPlateDirt
+        		&& itemstack_in_armor_slot[3] != null && itemstack_in_armor_slot[3].getItem() == MoCreatures.scorpHelmetDirt
+        	)
         {
             player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 70, 0));
             return;

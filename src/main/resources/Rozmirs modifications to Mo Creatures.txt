@@ -538,7 +538,7 @@ Fixed naming GUI positioning with different GUI scales.
 Improved food item detection code for creatures that eat dropped items.
 
 
-Fixed naming GUI displaying when feeding a tamed fox or raccoon
+Fixed naming GUI displaying when feeding a tamed fox or raccoon.
 
 
 Added GregTech6 Item Integration for Taming and Feeding using OreDictionaries:
@@ -552,3 +552,13 @@ Added GregTech6 Item Integration for Taming and Feeding using OreDictionaries:
 	- Komodo Dragon: listAllmeatraw (feeding only), foodScrapmeat (feeding only)
 	- Wyvern: foodScrapmeat (feeding only)
 	- Snake: foodScrapmeat (feeding only) 
+
+
+Deers now drop hide instead of fur. Also added Twilight Forest venison drops for deer.
+
+
+Added new feeding items for fishy and small fish:
+ - Any vanilla MC seeds
+ - Et Futurum Requiem beetroot seeds
+ - Biomes O' Plenty kelp
+ - Any item in GregTech 6 oredictionary "foodRaisins"

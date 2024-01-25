@@ -492,10 +492,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             	|| (((item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:bamboo")))
             	|| (((item.itemRegistry).getNameForObject(item).equals("etfuturum:bamboo")))
             	|| (((item.itemRegistry).getNameForObject(item).equals("tropicraft:bambooChute")))
-            )
-		{
-			return true;
-		}
+            ) {return true;}
 		
 		return false;
 	}

@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -16,6 +17,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
 
@@ -133,7 +135,7 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
 
             if (!isNotScared() && rand.nextInt(5) == 0 && !getIsTamed())
             {
-                EntityLivingBase entityliving = getBoogey(8D);
+                EntityLivingBase entityliving = getScaryEntity(8D);
                 if (entityliving != null && entityliving.isInsideOfMaterial(Material.water))
                 {
                    MoCTools.runLikeHell(this, entityliving);
@@ -141,7 +143,7 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
             }
             if (getIsTamed() && rand.nextInt(100) == 0 && getHealth() < getMaxHealth())
             {
-                this.setHealth(getMaxHealth());
+               heal(1);
             }
         }
         if (!this.isInsideOfMaterial(Material.water))
@@ -149,6 +151,26 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
             prevRenderYawOffset = renderYawOffset = rotationYaw = prevRotationYaw;
             rotationPitch = prevRotationPitch;
         }
+    }
+    
+    @Override
+    protected boolean isMyHealFood(ItemStack itemstack)
+    {
+    	if (
+    			itemstack.getItem() instanceof ItemSeeds
+    			|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:beetroot_seeds")
+    			|| MoCreatures.isBiomesOPlentyLoaded && 
+    				(
+    					(itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("BiomesOPlenty:turnipSeeds")
+    					|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("BiomesOPlenty:coral1") && itemstack.getItemDamage() == 11 //BOP kelp
+    				)
+    			|| MoCreatures.isGregTech6Loaded &&
+    				(
+    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins"
+    				)
+    		) {return true;}
+    	
+        return false;
     }
 
     @Override

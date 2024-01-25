@@ -598,7 +598,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean entitiesToInclude(Entity entity)
+    public boolean entitiesThatAreScary(Entity entity)
     {
         return ((entity instanceof MoCEntityEgg) && (((MoCEntityEgg) entity).eggType == 30)
 
