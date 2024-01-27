@@ -26,6 +26,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
@@ -353,8 +354,8 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         if (attackTime <= 0 && (f < 3.0D))
         {
             attackTime = 20;
-            boolean flag = (entity instanceof EntityPlayer);
-            if (flag)
+            boolean entity_to_attack_is_a_player = (entity instanceof EntityPlayer);
+            if (entity_to_attack_is_a_player)
             {
                 MoCreatures.poisonPlayer((EntityPlayer) entity);
             }
@@ -406,6 +407,25 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
                 return entityliving;
             }
         }
+        
+        if (MoCreatures.proxy.specialPetsDefendOwner)
+        {
+	        if (this.getIsTamed() && this.riddenByEntity == null) //defend owner if they are attacked by an entity
+	    	{
+	    		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		
+	    		if (owner_of_entity_that_is_online != null)
+	    		{
+	    			EntityLivingBase entity_that_attacked_owner = owner_of_entity_that_is_online.getAITarget();
+	    			
+	    			if (entity_that_attacked_owner != null)
+	    			{
+	    				return entity_that_attacked_owner;
+	    			}
+	    		}
+	    	}
+        }
+        
         return null;
     }
 

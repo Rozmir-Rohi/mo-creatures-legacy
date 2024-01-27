@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
@@ -135,6 +136,24 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
                 if ((entityliving != null) && !(entityliving instanceof EntityPlayer))
                 	{ return entityliving; }
             }
+        }
+        
+        if (MoCreatures.proxy.specialPetsDefendOwner)
+        {
+	        if (this.getIsTamed()) //defend owner if they are attacked by an entity
+	    	{
+	    		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		
+	    		if (owner_of_entity_that_is_online != null)
+	    		{
+	    			EntityLivingBase entity_that_attacked_owner = owner_of_entity_that_is_online.getAITarget();
+	    			
+	    			if (entity_that_attacked_owner != null)
+	    			{
+	    				return entity_that_attacked_owner;
+	    			}
+	    		}
+	    	}
         }
         return null;
     }

@@ -22,6 +22,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -614,8 +615,8 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         if (attackTime <= 0 && (f < 3.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
-            boolean flag = (rand.nextInt(3) == 0);
-            if (flag)
+            boolean poison_chance = (rand.nextInt(3) == 0);
+            if (poison_chance)
             {
                 if (entity instanceof EntityPlayer) 
                 {
@@ -675,6 +676,24 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
                 EntityLivingBase entityliving = getClosestEntityLiving(this, 8D);
                 return entityliving;
             }
+        }
+        
+        if (MoCreatures.proxy.specialPetsDefendOwner)
+        {
+	        if (this.getIsTamed() && this.riddenByEntity == null) //defend owner if they are attacked by an entity
+	    	{
+	    		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		
+	    		if (owner_of_entity_that_is_online != null)
+	    		{
+	    			EntityLivingBase entity_that_attacked_owner = owner_of_entity_that_is_online.getAITarget();
+	    			
+	    			if (entity_that_attacked_owner != null)
+	    			{
+	    				return entity_that_attacked_owner;
+	    			}
+	    		}
+	    	}
         }
         return null;
     }

@@ -40,6 +40,7 @@ public class MoCProxy implements IGuiHandler {
     public boolean attackWolves;
     public boolean attackHorses;
     public boolean specialHorsesFightBack;
+    public boolean specialPetsDefendOwner;
     public boolean enableMoCPetDeathMessages;
     public boolean staticBed;
     public boolean staticLitter;
@@ -292,6 +293,7 @@ public class MoCProxy implements IGuiHandler {
         attackDolphins = mocSettingsConfig.get(CATEGORY_MOC_WATER_CREATURE_GENERAL_SETTINGS, "AttackDolphins", false, "Allows aquatic predator creatures to hunt dolphins.").getBoolean(false);
         attackHorses = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "AttackHorses", true, "Allows predator creatures to hunt horses.").getBoolean(true);
         specialHorsesFightBack = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "specialHorsesFightBack", true, "If true: tamed horses made from essences will fight back if attacked (except if attacked by players) when not mounted.").getBoolean(true);
+        specialPetsDefendOwner = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "specialPetsDefendOwner", true, "If true: tamed elephants and tamed predator creatures like big cats will defend their owner if their owner is attacked by an entity.").getBoolean(true);
         enableMoCPetDeathMessages =  mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "enableMoCPetDeathMessages", true, "If true: the owner of a pet will recieve a message in chat when their pet dies, the message will also include how the pet died. No other players than the owner will get the message.").getBoolean(true); 
         attackWolves = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "AttackWolves", false, "Allows predator creatures to hunt wolves.").getBoolean(false);
         destroyDrops = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "DestroyDrops", false, "If true: predator creatures will destroy the drops of their prey when they hunt them.").getBoolean(false);

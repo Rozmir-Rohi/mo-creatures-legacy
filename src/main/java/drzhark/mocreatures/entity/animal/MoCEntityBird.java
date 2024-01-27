@@ -376,7 +376,11 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
 
         winge = wingb;
         wingd = wingc;
-        wingc = (float) (wingc + ((onGround ? -1 : 4) * 0.29999999999999999D));
+        
+        //wingc controls whether the bird flaps it's wings or not
+        wingc = (float) (wingc + ((onGround || (this.ridingEntity != null && this.ridingEntity.motionY >= -0.08) ? -1 : 4) * 0.29999999999999999D));
+       
+        
         if (wingc < 0.0F)
         {
             wingc = 0.0F;

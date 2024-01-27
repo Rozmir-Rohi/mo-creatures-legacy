@@ -24,6 +24,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
@@ -58,7 +59,9 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
+        
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
     }
     
     @Override
@@ -82,7 +85,10 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
             this.setHealth(getMaxHealth());
         }
 
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
         
+        this.setHealth(this.getMaxHealth());
     }
 
     @Override
@@ -90,19 +96,25 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     {
         switch (getType())
         {
-        case 1:
+        case 1: //female lion
             return 1.4F;
-        case 2:
+            
+        case 2: //male lion
             return 1.4F;
-        case 3:
+            
+        case 3: //panther
             return 1.6F;
-        case 4:
+            
+        case 4: //cheetah
             return 1.9F;
-        case 5:
+            
+        case 5: //normal tiger
             return 1.6F;
-        case 6:
+            
+        case 6: //snow leopard
             return 1.7F;
-        case 7:
+            
+        case 7: //white tiger
             return 1.7F;
 
         default:
@@ -114,19 +126,25 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     {
         switch (getType())
         {
-        case 1:
+        case 1: //female lion
             return 25;
-        case 2:
+            
+        case 2: //male lion
             return 30;
-        case 3:
+            
+        case 3: //panther
             return 20;
-        case 4:
+            
+        case 4: //cheetah
             return 20;
-        case 5:
+            
+        case 5: //normal tiger
             return 35;
-        case 6:
+            
+        case 6: //snow leopard
             return 25;
-        case 7:
+            
+        case 7: //white tiger
             return 40;
 
         default:
@@ -207,23 +225,29 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         }
     }
 
-    public int getForce()
+    public int getAttackStrength()
     {
         switch (getType())
         {
-        case 1:
+        case 1: //female lion
             return 5;
-        case 2:
+            
+        case 2: //male lion
             return 5;
-        case 3:
+            
+        case 3: //panther
             return 4;
-        case 4:
+            
+        case 4: //cheetah
             return 3;
-        case 5:
+            
+        case 5: //normal tiger
             return 6;
-        case 6:
+            
+        case 6: //snow leopard
             return 3;
-        case 7:
+            
+        case 7: //white tiger
             return 8;
 
         default:
@@ -346,7 +370,8 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         if (this.attackTime <= 0 && (f < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
-            entity.attackEntityFrom(DamageSource.causeMobDamage(this), getForce());
+            entity.attackEntityFrom(DamageSource.causeMobDamage(this), getAttackStrength());
+            
             if (!(entity instanceof EntityPlayer))
             {
                 MoCTools.destroyDrops(this, 3D);
@@ -442,6 +467,25 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
                 return entityliving;
             }
         }
+        
+        if (MoCreatures.proxy.specialPetsDefendOwner)
+        {
+        	if (this.getIsTamed()) //defend owner if they are attacked by an entity
+        	{
+        		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+        		
+        		if (owner_of_entity_that_is_online != null)
+        		{
+        			EntityLivingBase entity_that_attacked_owner = owner_of_entity_that_is_online.getAITarget();
+        			
+        			if (entity_that_attacked_owner != null)
+        			{
+        				return entity_that_attacked_owner;
+        			}
+        		}
+        	}
+        }
+        
         return null;
     }
 

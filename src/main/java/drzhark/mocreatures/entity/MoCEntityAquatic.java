@@ -342,8 +342,8 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         {
             super.moveEntityWithHeading(f, f1);
         }
-        float par1 = f;
-        float par2 = f1;
+        float movement_sideways = f;
+        float movement_forward = f1;
 
         if ((riddenByEntity != null) && !getIsTamed() && !isSwimming())
         {
@@ -398,10 +398,10 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         }
         else if ((riddenByEntity != null) && getIsTamed())// && isSwimming())
         {
-            motionX += riddenByEntity.motionX * (getCustomSpeed() / 5D);
-            motionZ += riddenByEntity.motionZ * (getCustomSpeed() / 5D);
-            par1 = ((EntityLivingBase)this.riddenByEntity).moveStrafing * 0.5F;
-            par2 = ((EntityLivingBase)this.riddenByEntity).moveForward;
+            motionX += riddenByEntity.motionX * (getCustomSpeed() / 5.0D);
+            motionZ += riddenByEntity.motionZ * (getCustomSpeed() / 5.0D);
+            movement_sideways = ((EntityLivingBase)this.riddenByEntity).moveStrafing * 0.5F;
+            movement_forward = ((EntityLivingBase)this.riddenByEntity).moveForward;
 
             if (jumpPending)
             {
@@ -426,11 +426,8 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             if (MoCreatures.isServer())
             {
                 //moveEntity(motionX, motionY, motionZ);
-                super.moveEntityWithHeading(par1, par2);
+                super.moveEntityWithHeading(movement_sideways, movement_forward);
             }
-
-            motionX *= 0.95D;
-            motionZ *= 0.95D;
         }
 
         this.prevLimbSwingAmount = this.limbSwingAmount;

@@ -14,6 +14,7 @@ import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageAnimation;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,6 +26,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -210,7 +212,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         {
             speed *= 1.5D;
         }
-        if (sprintCounter > 150)
+        if (sprintCounter > 150 && this.riddenByEntity != null)
         {
             speed *= 0.5D;
         }
@@ -253,6 +255,24 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 {
                     setAdult(true);
                 }
+            }
+            
+            if (MoCreatures.proxy.specialPetsDefendOwner)
+            {
+	            if (this.getIsTamed() && this.riddenByEntity == null) //defend owner if they are attacked by an entity
+	        	{
+	        		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	        		
+	        		if (owner_of_entity_that_is_online != null)
+	        		{
+	        			EntityLivingBase entity_that_attacked_owner = owner_of_entity_that_is_online.getAITarget();
+	        			
+	        			if (entity_that_attacked_owner != null)
+	        			{
+	        				entityToAttack = entity_that_attacked_owner;
+	        			}
+	        		}
+	        	}
             }
             
             if (entityToAttack != null && getIsAdult() && (riddenByEntity == null) && (sprintCounter == 0)) //make elephant sprint to attack entity when not ridden

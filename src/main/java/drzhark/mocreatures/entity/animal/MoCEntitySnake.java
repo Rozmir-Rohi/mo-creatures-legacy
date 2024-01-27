@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -551,7 +552,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         }
 
         // attack only after hissing/rattling!
-        if (!isPissed()) { return; }
+        if (!isPissed() && !getIsTamed()) { return; }
 
         if (attackTime <= 0 && (f < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
@@ -654,6 +655,24 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
                 return entityliving;
             }
         }
+        
+        if (MoCreatures.proxy.specialPetsDefendOwner)
+        {
+	        if (this.getIsTamed() && this.ridingEntity == null) //defend owner if they are attacked by an entity
+	    	{
+	    		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		
+	    		if (owner_of_entity_that_is_online != null)
+	    		{
+	    			EntityLivingBase entity_that_attacked_owner = owner_of_entity_that_is_online.getAITarget();
+	    			
+	    			if (entity_that_attacked_owner != null)
+	    			{
+	    				return entity_that_attacked_owner;
+	    			}
+	    		}
+	    	}
+        }    
         return null;
     }
 

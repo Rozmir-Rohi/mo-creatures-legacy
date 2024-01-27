@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -288,7 +289,25 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
 
             }
         }
-        return null;
+        
+        if (MoCreatures.proxy.specialPetsDefendOwner)
+        {
+	        if (this.getIsTamed() && this.riddenByEntity == null && this.ridingEntity == null) //defend owner if they are attacked by an entity
+	    	{
+	    		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		
+	    		if (owner_of_entity_that_is_online != null)
+	    		{
+	    			EntityLivingBase entity_that_attacked_owner = owner_of_entity_that_is_online.getAITarget();
+	    			
+	    			if (entity_that_attacked_owner != null)
+	    			{
+	    				return entity_that_attacked_owner;
+	    			}
+	    		}
+	    	}
+        }
+	    return null;
     }
 
     @Override
@@ -315,30 +334,30 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         else if (attackTime <= 0 && (f < 3.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
-            boolean flag = (entity instanceof EntityPlayer);
+            boolean entity_to_attack_is_a_player = (entity instanceof EntityPlayer);
             if (!getIsPoisoning() && rand.nextInt(5) == 0)
             {
                 setPoisoning(true);
                 if (getType() <= 2)// regular scorpions
                 {
-                    if (flag)
+                    if (entity_to_attack_is_a_player)
                     {
                         MoCreatures.poisonPlayer((EntityPlayer) entity);
                     }
                     ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 70, 0));
                 }
-                else if (getType() == 4)// blue scorpions
+                else if (getType() == 4)// frost scorpions
                 {
-                    if (flag)
+                    if (entity_to_attack_is_a_player)
                     {
                         MoCreatures.freezePlayer((EntityPlayer) entity);
                     }
                     ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 70, 0));
 
                 }
-                else if (getType() == 3)// red scorpions
+                else if (getType() == 3)// nether scorpions
                 {
-                    if (flag && MoCreatures.isServer() && !worldObj.provider.isHellWorld)
+                    if (entity_to_attack_is_a_player && MoCreatures.isServer() && !worldObj.provider.isHellWorld)
                     {
                         MoCreatures.burnPlayer((EntityPlayer) entity);
                         ((EntityLivingBase) entity).setFire(15);

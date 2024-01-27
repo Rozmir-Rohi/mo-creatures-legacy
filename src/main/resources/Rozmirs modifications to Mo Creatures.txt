@@ -586,3 +586,25 @@ Added more Tropicraft feeding item integration:
 Added more Palms Harvest item integration:
  - Elephant (feeding only): Coconut
  - Panda: Bamboo Shute
+
+
+Fixed pet bird always flapping wings when on player's head. Pet birds now only flap their wings when they are making the player glide.
+
+
+Fixed Dolphin speed.
+
+
+The following creatures now defend their owner if their owner is attacked by an entity:
+ - Big Cats
+ - Pet Scorpions
+ - Snakes
+ - Wyverns
+ - Komodo Dragons
+ - Sharks
+ - Elephants
+
+
+Added config option to control whether special pets defend their owners.
+
+
+Fixed big cat speed and health.
