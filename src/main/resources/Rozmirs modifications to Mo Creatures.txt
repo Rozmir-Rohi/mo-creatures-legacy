@@ -608,3 +608,18 @@ Added config option to control whether special pets defend their owners.
 
 
 Fixed big cat speed and health.
+
+
+Tweaked rider position on dolphins.
+
+
+Fixed dolphins sinking when ridden even if they are not diving down.
+
+
+Fixed texture bug at the bottom of big cat mouths.
+
+
+Tamed baby lions now have a chance to grow up into either tamed male lions or tamed female lions.
+
+
+Fixed EnderCore durability tooltip for whip.

@@ -94,6 +94,7 @@ public class MoCModelBigCat2 extends ModelBase {
         ears.rotateAngleX = head.rotateAngleX;
         Collar.rotateAngleY = head.rotateAngleY;
         Collar.rotateAngleX = head.rotateAngleX;
+        
         if (!sitting)
         {
             body.rotationPointX = 0.0F;

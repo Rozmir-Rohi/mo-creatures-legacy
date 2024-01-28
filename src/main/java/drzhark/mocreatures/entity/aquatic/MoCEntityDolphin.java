@@ -192,6 +192,22 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         byte input = (byte) (flag ? 1 : 0);
         dataWatcher.updateObject(23, Byte.valueOf(input));
     }
+    
+    @Override
+    public void updateRiderPosition()
+    {
+        if (riddenByEntity == null) { return; }
+
+        float size_factor = getMoCAge() * 0.01F;
+        
+        double distance = size_factor / 4.0D;
+        
+        double newPosX = posX - (distance * Math.cos((MoCTools.realAngle(renderYawOffset - 90F)) / 57.29578F));
+        double newPosZ = posZ - (distance * Math.sin((MoCTools.realAngle(renderYawOffset - 90F)) / 57.29578F));
+        
+        riddenByEntity.setPosition(newPosX, posY + getMountedYOffset() + riddenByEntity.getYOffset(), newPosZ);
+
+    }
 
     @Override
     protected void attackEntity(Entity entity, float f)

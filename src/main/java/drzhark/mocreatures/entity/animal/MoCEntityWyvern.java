@@ -680,7 +680,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         
         if (MoCreatures.proxy.specialPetsDefendOwner)
         {
-	        if (this.getIsTamed() && this.riddenByEntity == null) //defend owner if they are attacked by an entity
+	        if (this.getIsTamed() && this.riddenByEntity == null && !getIsSitting()) //defend owner if they are attacked by an entity
 	    	{
 	    		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
 	    		
@@ -772,9 +772,9 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     {
         if (getIsAdult())
         {
-            return (int) -120;
+            return -120;
         }
-        return (int) -80;
+        return -80;
     }
 
     @Override

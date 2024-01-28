@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
+import com.google.common.collect.Sets;
 import com.mojang.authlib.GameProfile;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -696,7 +697,7 @@ public class MoCreatures {
         sugarlump = new MoCItemSugarLump("sugarlump");
         mocegg = new MoCItemEgg("mocegg");
         bigcatclaw = new MoCItem("bigcatclaw");
-        whip = new MoCItemWhip("whip");
+        whip = new MoCItemWhip("whip", 0, ToolMaterial.WOOD, Sets.newHashSet(new Block[] {}));
 
         medallion = new MoCItem("medallion");
         kittybed = new MoCItemKittyBed("kittybed");

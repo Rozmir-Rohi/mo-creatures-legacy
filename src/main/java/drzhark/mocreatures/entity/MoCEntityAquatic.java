@@ -535,9 +535,13 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             {
                 motionY += 0.09D;
             }
+            else if (divePending)
+            {
+            	motionY = -0.008D;
+            }
             else
             {
-                motionY = -0.008D;
+                motionY = 0.0D;
             }
             return;
         }

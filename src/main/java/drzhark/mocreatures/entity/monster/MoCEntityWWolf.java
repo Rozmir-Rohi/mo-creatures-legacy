@@ -42,10 +42,30 @@ public class MoCEntityWWolf extends MoCEntityMob {
     @Override
     public void selectType()
     {
-        if (getType() == 0)
+    	checkSpawningBiome(); //try to apply type from the biome it spawns in
+    	
+        if (getType() == 0) //if type is still zero, make it a random wolf
         {
             setType(rand.nextInt(4)+1);
         }
+    }
+    
+    @Override
+    public boolean checkSpawningBiome()
+    {
+        int i = MathHelper.floor_double(posX);
+        int j = MathHelper.floor_double(boundingBox.minY);
+        int k = MathHelper.floor_double(posZ);
+
+        BiomeGenBase biome = MoCTools.Biomekind(worldObj, i, j, k);
+        int l = rand.nextInt(10);
+
+        if (BiomeDictionary.isBiomeOfType(biome, Type.SNOWY))
+        {
+            setType(3); //snow wolf
+        }
+        selectType();
+        return true;
     }
 
     @Override
@@ -113,24 +133,6 @@ public class MoCEntityWWolf extends MoCEntityMob {
         {
             tailCounter = 0;
         }
-    }
-
-    @Override
-    public boolean checkSpawningBiome()
-    {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
-
-        BiomeGenBase biome = MoCTools.Biomekind(worldObj, i, j, k);
-        int l = rand.nextInt(10);
-
-        if (BiomeDictionary.isBiomeOfType(biome, Type.SNOWY))
-        {
-            setType(3);
-        }
-        selectType();
-        return true;
     }
 
     @Override

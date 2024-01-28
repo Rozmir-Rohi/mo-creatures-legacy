@@ -470,7 +470,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         
         if (MoCreatures.proxy.specialPetsDefendOwner)
         {
-        	if (this.getIsTamed()) //defend owner if they are attacked by an entity
+        	if (this.getIsTamed() && !getIsSitting()) //defend owner if they are attacked by an entity
         	{
         		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
         		
@@ -712,6 +712,16 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     {
         return getIsSitting();
     }
+    
+    @Override
+    public int nameYOffset()
+    {
+        if (getIsAdult() && this.getType() == 2) //tamed male lions need a slightly higher name y offset because of their manes
+        {
+            return -80;
+        }
+        return -60;
+    }
 
     //drops medallion on death
     @Override
@@ -744,7 +754,22 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
             if (getMoCAge() >= 100)
             {
                 setAdult(true);
-                // unused_flag = false;
+                
+                if (getType() == 1) //used to make baby lions have a chance to grow into male lions
+                {
+                	int type_that_baby_lion_grows_up_to_be  = rand.nextInt(2)+1;
+                	
+                	if(type_that_baby_lion_grows_up_to_be != 1)
+                	{
+                		setType(type_that_baby_lion_grows_up_to_be);
+                		
+                		
+                		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
+                        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
+                        
+                        this.setHealth(this.getMaxHealth());
+                	}
+                }
             }
         }
         if (!getIsHungry() && !getIsSitting() && (rand.nextInt(200) == 0))

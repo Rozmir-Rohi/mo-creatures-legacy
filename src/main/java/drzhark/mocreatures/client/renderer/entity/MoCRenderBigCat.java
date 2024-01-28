@@ -80,13 +80,13 @@ public class MoCRenderBigCat extends RenderLiving {
                 GL11.glScalef(-f3, -f3, f3);
                 GL11.glDisable(2896 /* GL_LIGHTING */);
                 Tessellator tessellator1 = Tessellator.instance;
-                byte byte0 = -60;
+                int yOffset = entitybigcat.nameYOffset();
                 if (flag1)
                 {
                     GL11.glDisable(3553 /* GL_TEXTURE_2D */);
                     if (!flag)
                     {
-                        byte0 += 8;
+                        yOffset += 8;
                     }
                     tessellator1.startDrawingQuads();
                     // may break SSP, need to test
@@ -106,15 +106,15 @@ public class MoCRenderBigCat extends RenderLiving {
                     float f10 = f8 / f9;
                     float f11 = 40F * f10;
                     tessellator1.setColorRGBA_F(0.7F, 0.0F, 0.0F, 1.0F);
-                    tessellator1.addVertex(-20F + f11, -10 + byte0, 0.0D);
-                    tessellator1.addVertex(-20F + f11, -6 + byte0, 0.0D);
-                    tessellator1.addVertex(20D, -6 + byte0, 0.0D);
-                    tessellator1.addVertex(20D, -10 + byte0, 0.0D);
+                    tessellator1.addVertex(-20F + f11, -10 + yOffset, 0.0D);
+                    tessellator1.addVertex(-20F + f11, -6 + yOffset, 0.0D);
+                    tessellator1.addVertex(20D, -6 + yOffset, 0.0D);
+                    tessellator1.addVertex(20D, -10 + yOffset, 0.0D);
                     tessellator1.setColorRGBA_F(0.0F, 0.7F, 0.0F, 1.0F);
-                    tessellator1.addVertex(-20D, -10 + byte0, 0.0D);
-                    tessellator1.addVertex(-20D, -6 + byte0, 0.0D);
-                    tessellator1.addVertex(f11 - 20F, -6 + byte0, 0.0D);
-                    tessellator1.addVertex(f11 - 20F, -10 + byte0, 0.0D);
+                    tessellator1.addVertex(-20D, -10 + yOffset, 0.0D);
+                    tessellator1.addVertex(-20D, -6 + yOffset, 0.0D);
+                    tessellator1.addVertex(f11 - 20F, -6 + yOffset, 0.0D);
+                    tessellator1.addVertex(f11 - 20F, -10 + yOffset, 0.0D);
                     tessellator1.draw();
                     GL11.glEnable(3553 /* GL_TEXTURE_2D */);
                 }
@@ -128,16 +128,16 @@ public class MoCRenderBigCat extends RenderLiving {
                     tessellator1.startDrawingQuads();
                     int i = fontrenderer.getStringWidth(s) / 2;
                     tessellator1.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
-                    tessellator1.addVertex(-i - 1, -1 + byte0, 0.0D);
-                    tessellator1.addVertex(-i - 1, 8 + byte0, 0.0D);
-                    tessellator1.addVertex(i + 1, 8 + byte0, 0.0D);
-                    tessellator1.addVertex(i + 1, -1 + byte0, 0.0D);
+                    tessellator1.addVertex(-i - 1, -1 + yOffset, 0.0D);
+                    tessellator1.addVertex(-i - 1, 8 + yOffset, 0.0D);
+                    tessellator1.addVertex(i + 1, 8 + yOffset, 0.0D);
+                    tessellator1.addVertex(i + 1, -1 + yOffset, 0.0D);
                     tessellator1.draw();
                     GL11.glEnable(3553 /* GL_TEXTURE_2D */);
-                    fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, byte0, 0x20ffffff);
+                    fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, yOffset, 0x20ffffff);
                     GL11.glEnable(2929 /* GL_DEPTH_TEST */);
                     GL11.glDepthMask(true);
-                    fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, byte0, -1);
+                    fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, yOffset, -1);
                     GL11.glDisable(3042 /* GL_BLEND */);
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 }

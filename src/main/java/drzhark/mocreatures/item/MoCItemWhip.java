@@ -3,7 +3,11 @@ package drzhark.mocreatures.item;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
@@ -15,44 +19,109 @@ import drzhark.mocreatures.entity.animal.MoCEntityKitty;
 import drzhark.mocreatures.entity.animal.MoCEntityOstrich;
 import drzhark.mocreatures.entity.animal.MoCEntityWyvern;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.item.ItemTool;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.World;;
 
-public class MoCItemWhip extends MoCItem {
+public class MoCItemWhip extends ItemTool {
 	
 	int bigCatWhipCounter;
 	
-    public MoCItemWhip(String name)
+    public MoCItemWhip(String name, float attack_damage, Item.ToolMaterial tool_material, Set set)
     {
-        super(name);
+        super(attack_damage, tool_material, set);
         maxStackSize = 1;
         setMaxDamage(24);
+        
+        
+        this.setCreativeTab(MoCreatures.tabMoC);
+        this.setUnlocalizedName(name);
+        GameRegistry.registerItem(this, name);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerIcons(IIconRegister par1IconRegister)
+    {
+        this.itemIcon = par1IconRegister.registerIcon("mocreatures"+ this.getUnlocalizedName().replaceFirst("item.", ":"));
+    }
+    
+    
+    
+    public boolean getIsRepairable(ItemStack p_82789_1_, ItemStack p_82789_2_)
+    {
+        return false;
+    }
+    
+    @Override
+    public int getItemEnchantability()
+    {
+        return 0;
+    }
+    
+    @Override
+    public boolean isBookEnchantable(ItemStack stack, ItemStack book) //only the unbreaking enchantment can be applied to whips
+    {	
+    	NBTTagList book_enchantment_NBT_tag_list = (NBTTagList) book.getTagCompound().getTag("StoredEnchantments");
+    	
+    	if (book_enchantment_NBT_tag_list != null)
+        {
+            for (int i = 0; i < book_enchantment_NBT_tag_list.tagCount(); ++i)
+            {
+                short book_enchantment_id = book_enchantment_NBT_tag_list.getCompoundTagAt(i).getShort("id");
+                
+                if (book_enchantment_id == (short) 34) //34 is the id for the unbreaking enchantment
+                {
+                	return true;
+                }
+                
+            }
+        }
+    	
+        return false;
+    }
+    
+    public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1)
+    {
+        return false;
     }
 
-    @Override
-    public boolean isFull3D()
+    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase entityliving)
     {
-        return true;
+        return false;
     }
 
     public ItemStack onItemRightClick2(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
         return itemstack;
     }
+    
+    
 
     @Override
-    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l, float f1, float f2, float f3)
+    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int l, float f1, float f2, float f3)
     {
-        Block block = world.getBlock(i, j, k);
-        Block block1 = world.getBlock(i, j + 1, k);
+        Block block = world.getBlock(x, y, z);
+        Block block1 = world.getBlock(x, y + 1, z);
+        
         if ((l != 0) && (block != null) && (block1 == Blocks.air) && (block != Blocks.air)&& (block != Blocks.standing_sign))
         {
-            this.whipFX(world, i, j, k);
+            this.whipFX(world, x, y, z);
+            
             world.playSoundAtEntity(entityplayer, "mocreatures:whip", 0.5F, 0.4F / ((itemRand.nextFloat() * 0.4F) + 0.8F));
+            
             itemstack.damageItem(1, entityplayer);
+            
             List list_of_entities_near_player = world.getEntitiesWithinAABBExcludingEntity(entityplayer, entityplayer.boundingBox.expand(5D, 5D, 5D));
             
             
@@ -64,144 +133,169 @@ public class MoCItemWhip extends MoCItem {
 	            
 	            int iteration_length = list_of_entities_near_player.size();
 	            
-	            for (int index = 0; index < iteration_length; index++)
-	            {
-	                Entity entity_near_player = (Entity) list_of_entities_near_player.get(index);
-	                
-	                if (entity_near_player instanceof MoCEntityAnimal)
-	                {
-	                    MoCEntityAnimal animal = (MoCEntityAnimal) entity_near_player;
-	                    if (MoCreatures.proxy.enableStrictOwnership && animal.getOwnerName() != null && !animal.getOwnerName().equals("") && !entityplayer.getCommandSenderName().equals(animal.getOwnerName()) && !MoCTools.isThisPlayerAnOP(entityplayer)) 
-	                    { 
-	                       continue;
-	                    }
-	                    
-	                    else if ((entity_near_player instanceof MoCEntityBigCat)
-	                    		|| (entity_near_player instanceof MoCEntityHorse)
-	                    		|| (entity_near_player instanceof MoCEntityKitty)
-	                    		|| (entity_near_player instanceof MoCEntityWyvern)
-	                    		|| (entity_near_player instanceof MoCEntityOstrich)
-	                    		|| (entity_near_player instanceof MoCEntityElephant))
-	                    {
-	                    	whippable_entity_list.add(entity_near_player);
-	                    	whippable_entity_distance_to_player_list.add(entityplayer.getDistanceSq(entity_near_player.posX, entity_near_player.posY, entity_near_player.posZ));
-	                    }
-	                }
-	                else {continue;}
-	            }
+	            findWhippableEntitiesNearPlayer(entityplayer, list_of_entities_near_player, whippable_entity_list, whippable_entity_distance_to_player_list, iteration_length);
+	            
+	            
 	            if (!(whippable_entity_distance_to_player_list.isEmpty()) && !(whippable_entity_list.isEmpty())) 
 	            {
-	            	int entity_index_in_list = whippable_entity_distance_to_player_list.indexOf(Collections.min(whippable_entity_distance_to_player_list));
+	            	int index_of_closest_whippable_entity_in_list = whippable_entity_distance_to_player_list.indexOf(Collections.min(whippable_entity_distance_to_player_list));
 	            	
 	            	
-		            if ((entity_index_in_list >= 0))
+		            if ((index_of_closest_whippable_entity_in_list >= 0))
 		            {
 		            
-			            Entity closest_whippable_entity_to_player = whippable_entity_list.get(entity_index_in_list);    
+			            Entity closest_whippable_entity_to_player = whippable_entity_list.get(index_of_closest_whippable_entity_in_list);    
 			                
-			            if (closest_whippable_entity_to_player != null)
-			            {
-			                
-			                if (closest_whippable_entity_to_player instanceof MoCEntityBigCat)
-			                {
-			                    MoCEntityBigCat entitybigcat = (MoCEntityBigCat) closest_whippable_entity_to_player;
-			                    if (entitybigcat.getIsTamed())
-			                    {
-			                        entitybigcat.setSitting(!entitybigcat.getIsSitting());
-			                        bigCatWhipCounter++;
-			                    }
-			                    else if ((world.difficultySetting.getDifficultyId() > 0) && entitybigcat.getIsAdult())
-			                    {
-			                        entitybigcat.setTarget(entityplayer);
-			                    }
-			                }
-			                if (bigCatWhipCounter > 6)
-			                {
-			                	entityplayer.addStat(MoCAchievements.indiana, 1);
-			                	bigCatWhipCounter = 0;
-			                }
-			                if (closest_whippable_entity_to_player instanceof MoCEntityHorse)
-			                {
-			                    MoCEntityHorse entityhorse = (MoCEntityHorse) closest_whippable_entity_to_player;
-			                    if (entityhorse.getIsTamed())
-			                    {
-			                        if (entityhorse.riddenByEntity == null)
-			                        {
-			                            entityhorse.setEating(!entityhorse.getEating());
-			                        }
-			                        else if (entityhorse.isNightmare())
-			                        {
-			                            entityhorse.setNightmareInt(250);
-			                        }
-			                        else if (entityhorse.sprintCounter == 0)
-			                        {
-			                            entityhorse.sprintCounter = 1;
-			                            
-			                            if (entityhorse.isUndead()) {world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:horsemadundead", 1.0F, 1.0F + 0.2F);}
-			                            
-			                            else if (entityhorse.isGhost()) {world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:horsemadghost", 1.0F, 1.0F + 0.2F);}
-			                            
-			                            else {world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:horsemad", 1.0F, 1.0F + 0.2F);}
-			                            
-			                        }
-			                        //TODO reactivate the right one prior to release
-			                    }
-			                }
-			                
-			                if ((closest_whippable_entity_to_player instanceof MoCEntityKitty))
-			                {
-			                    MoCEntityKitty entitykitty = (MoCEntityKitty) closest_whippable_entity_to_player;
-			                    if ((entitykitty.getKittyState() > 2) && entitykitty.whipeable())
-			                    {
-			                        entitykitty.setSitting(!entitykitty.getIsSitting());
-			                    }
-			                }
-			                
-			                if ((closest_whippable_entity_to_player instanceof MoCEntityWyvern))
-			                {
-			                    MoCEntityWyvern entitywyvern = (MoCEntityWyvern) closest_whippable_entity_to_player;
-			                    if (entitywyvern.getIsTamed() && !entitywyvern.isOnAir())
-			                    {
-			                        entitywyvern.setSitting(!entitywyvern.getIsSitting());
-			                    }
-			                }
-			                
-			                if (closest_whippable_entity_to_player instanceof MoCEntityOstrich)
-			                {
-			                    MoCEntityOstrich entityostrich = (MoCEntityOstrich) closest_whippable_entity_to_player;
-			
-			                    //makes ridden ostrich sprint
-			                    if (entityostrich.riddenByEntity != null && entityostrich.sprintCounter == 0)
-			                    {
-			                        entityostrich.sprintCounter = 1;
-			                        world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:ostrichhurt", 1.0F, 1.0F + 0.2F);
-			                    }
-			
-			                    //toggles hiding of tamed ostriches
-			                    if (entityostrich.getIsTamed() && entityostrich.riddenByEntity == null)
-			                    {
-			                        entityostrich.setHiding(!entityostrich.getHiding());
-			                    }
-			                }
-			                if (closest_whippable_entity_to_player instanceof MoCEntityElephant)
-			                {
-			                    MoCEntityElephant entityelephant = (MoCEntityElephant) closest_whippable_entity_to_player;
-			
-			                    //makes ridden elephants charge
-			                    if (entityelephant.riddenByEntity != null && entityelephant.sprintCounter == 0)
-			                    {
-			                        entityelephant.sprintCounter = 1;
-			                        world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:elephantgrunt", 1.0F, 1.0F + 0.2F);
-			                    }
-			                }
-			            }  
+			            performWhipActionOnWhippableEntity(entityplayer, closest_whippable_entity_to_player, world);  
 			        }
 	            }
             }
         }
         return true; //always true to play the item swing on use animation
     }
+    
+    
 
+	private void findWhippableEntitiesNearPlayer(EntityPlayer entityplayer, List list_of_entities_near_player, List<Entity> whippable_entity_list, List<Double> whippable_entity_distance_to_player_list, int iteration_length)
+	{
+		for (int index = 0; index < iteration_length; index++)
+		{
+		    Entity entity_near_player = (Entity) list_of_entities_near_player.get(index);
+		    
+		    if (entity_near_player instanceof MoCEntityAnimal)
+		    {
+		        MoCEntityAnimal animal = (MoCEntityAnimal) entity_near_player;
+		        if (MoCreatures.proxy.enableStrictOwnership && animal.getOwnerName() != null && !animal.getOwnerName().equals("") && !entityplayer.getCommandSenderName().equals(animal.getOwnerName()) && !MoCTools.isThisPlayerAnOP(entityplayer)) 
+		        { 
+		           continue;
+		        }
+		        
+		        else if (
+		            		entity_near_player instanceof MoCEntityBigCat
+		            		|| entity_near_player instanceof MoCEntityHorse
+		            		|| entity_near_player instanceof MoCEntityKitty
+		            		|| entity_near_player instanceof MoCEntityWyvern
+		            		|| entity_near_player instanceof MoCEntityOstrich
+		            		|| entity_near_player instanceof MoCEntityElephant
+		        		)
+		        {
+		        	whippable_entity_list.add(entity_near_player);
+		        	whippable_entity_distance_to_player_list.add(entityplayer.getDistanceSq(entity_near_player.posX, entity_near_player.posY, entity_near_player.posZ));
+		        }
+		    }
+		    else {continue;}
+		}
+	}
+
+	
+    
+	private void performWhipActionOnWhippableEntity(EntityPlayer entityplayer, Entity closest_whippable_entity_to_player, World world)
+	{
+		if (closest_whippable_entity_to_player != null)
+		{
+		    
+		    if (closest_whippable_entity_to_player instanceof MoCEntityBigCat)
+		    {
+		        MoCEntityBigCat entitybigcat = (MoCEntityBigCat) closest_whippable_entity_to_player;
+		        if (entitybigcat.getIsTamed())
+		        {
+		            entitybigcat.setSitting(!entitybigcat.getIsSitting());
+		            bigCatWhipCounter++;
+		        }
+		        else if ((world.difficultySetting.getDifficultyId() > 0) && entitybigcat.getIsAdult())
+		        {
+		            entitybigcat.setTarget(entityplayer);
+		        }
+		    }
+		    if (bigCatWhipCounter > 6)
+		    {
+		    	entityplayer.addStat(MoCAchievements.indiana, 1);
+		    	bigCatWhipCounter = 0;
+		    }
+		    
+		    
+		    if (closest_whippable_entity_to_player instanceof MoCEntityHorse)
+		    {
+		        MoCEntityHorse entityhorse = (MoCEntityHorse) closest_whippable_entity_to_player;
+		        if (entityhorse.getIsTamed())
+		        {
+		            if (entityhorse.riddenByEntity == null)
+		            {
+		                entityhorse.setEating(!entityhorse.getEating());
+		            }
+		            else if (entityhorse.isNightmare())
+		            {
+		                entityhorse.setNightmareInt(250);
+		            }
+		            else if (entityhorse.sprintCounter == 0)
+		            {
+		                entityhorse.sprintCounter = 1;
+		                
+		                if (entityhorse.isUndead()) {world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:horsemadundead", 1.0F, 1.0F + 0.2F);}
+		                
+		                else if (entityhorse.isGhost()) {world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:horsemadghost", 1.0F, 1.0F + 0.2F);}
+		                
+		                else {world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:horsemad", 1.0F, 1.0F + 0.2F);}
+		                
+		            }
+		        }
+		    }
+		    
+		    
+		    if ((closest_whippable_entity_to_player instanceof MoCEntityKitty))
+		    {
+		        MoCEntityKitty entitykitty = (MoCEntityKitty) closest_whippable_entity_to_player;
+		        if ((entitykitty.getKittyState() > 2) && entitykitty.whipeable())
+		        {
+		            entitykitty.setSitting(!entitykitty.getIsSitting());
+		        }
+		    }
+		    
+		    
+		    if ((closest_whippable_entity_to_player instanceof MoCEntityWyvern))
+		    {
+		        MoCEntityWyvern entitywyvern = (MoCEntityWyvern) closest_whippable_entity_to_player;
+		        if (entitywyvern.getIsTamed() && !entitywyvern.isOnAir())
+		        {
+		            entitywyvern.setSitting(!entitywyvern.getIsSitting());
+		        }
+		    }
+		    
+		    
+		    if (closest_whippable_entity_to_player instanceof MoCEntityOstrich)
+		    {
+		        MoCEntityOstrich entityostrich = (MoCEntityOstrich) closest_whippable_entity_to_player;
+
+		        //makes ridden ostrich sprint
+		        if (entityostrich.riddenByEntity != null && entityostrich.sprintCounter == 0)
+		        {
+		            entityostrich.sprintCounter = 1;
+		            world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:ostrichhurt", 1.0F, 1.0F + 0.2F);
+		        }
+
+		        //toggles hiding of tamed ostriches
+		        if (entityostrich.getIsTamed() && entityostrich.riddenByEntity == null)
+		        {
+		            entityostrich.setHiding(!entityostrich.getHiding());
+		        }
+		    }
+		    
+		    
+		    if (closest_whippable_entity_to_player instanceof MoCEntityElephant)
+		    {
+		        MoCEntityElephant entityelephant = (MoCEntityElephant) closest_whippable_entity_to_player;
+
+		        //makes ridden elephants charge
+		        if (entityelephant.riddenByEntity != null && entityelephant.sprintCounter == 0)
+		        {
+		            entityelephant.sprintCounter = 1;
+		            world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:elephantgrunt", 1.0F, 1.0F + 0.2F);
+		        }
+		    }
+		}
+	}
+
+	
     public void whipFX(World world, int i, int j, int k)
     {
         double d = i + 0.5F;
