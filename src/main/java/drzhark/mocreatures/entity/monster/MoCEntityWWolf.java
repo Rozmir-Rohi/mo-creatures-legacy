@@ -64,7 +64,7 @@ public class MoCEntityWWolf extends MoCEntityMob {
         {
             setType(3); //snow wolf
         }
-        selectType();
+        
         return true;
     }
 
@@ -138,17 +138,19 @@ public class MoCEntityWWolf extends MoCEntityMob {
     @Override
     protected Entity findPlayerToAttack()
     {
-        float f = getBrightness(1.0F);
-        if (f < 0.5F)
+        EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
+        
+        if (entityplayer != null)
         {
-            double d = 16D;
-            return worldObj.getClosestVulnerablePlayerToEntity(this, d);
+        	return entityplayer;
         }
-        if (rand.nextInt(80) == 0)
+        
+        else if (rand.nextInt(80) == 0)
         {
             EntityLivingBase entityliving = getClosestTarget(this, 10D);
             return entityliving;
         }
+        
         else
         {
             return null;
@@ -170,8 +172,24 @@ public class MoCEntityWWolf extends MoCEntityMob {
         for (int i = 0; i < list.size(); i++)
         {
             Entity entity1 = (Entity) list.get(i);
-            if (!(entity1 instanceof EntityLivingBase) || (entity1 == entity) || (entity1 == entity.riddenByEntity) || (entity1 == entity.ridingEntity) || (entity1 instanceof EntityPlayer) || (entity1 instanceof EntityMob) || (entity1 instanceof MoCEntityBigCat) || (entity1 instanceof MoCEntityBear) || (entity1 instanceof EntityCow) || ((entity1 instanceof EntityWolf) && !(MoCreatures.proxy
-                    .attackWolves)) || ((entity1 instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)))
+            
+            if (//don't hunt the following entities below
+            		!(entity1 instanceof EntityLivingBase)
+            		|| entity1 == entity
+            		|| entity1 == entity.riddenByEntity
+            		|| entity1 == entity.ridingEntity
+            		|| entity1 instanceof EntityPlayer
+            		|| entity1 instanceof EntityMob
+            		|| entity1 instanceof MoCEntityBigCat
+            		|| entity1 instanceof MoCEntityBear
+            		|| entity1 instanceof EntityCow
+            		|| (
+            				(entity1 instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)
+            			)
+            		|| (
+            				(entity1 instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)
+            			)
+            	)
             {
                 continue;
             }

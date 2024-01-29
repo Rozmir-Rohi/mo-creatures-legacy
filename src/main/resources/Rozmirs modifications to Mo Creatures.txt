@@ -622,4 +622,19 @@ Fixed texture bug at the bottom of big cat mouths.
 Tamed baby lions now have a chance to grow up into either tamed male lions or tamed female lions.
 
 
-Fixed EnderCore durability tooltip for whip.
+Fixed non-tool MoC items applying enchantments when combined with an enchantment book in an anvil.
+
+
+Werewolves now hunt villagers.
+
+
+Fixed werewolves taking damage from snowball and egg projectiles.
+
+
+Dire Wolves now attack players regardless of whether it is night or day.
+
+
+Fixed Werewolf health not changing when in human form and wolf form. Also fixed werewolf taking real damage when transforming.
+
+
+Fixed kitty looking at player when kitty is sleeping.

@@ -719,27 +719,27 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                     setAdult(true);
                 }
             }
-            if (this.getIsTamed() && isNight() && (this.ridingEntity == null) && !getIsSitting())
+            if (this.getIsTamed() && isNight() && (this.ridingEntity == null) && !getIsSitting()) //find kittybed to sleep in else sleep on the spot
             {
             	MoCEntityKittyBed entitykittybed = (MoCEntityKittyBed) getKittyStuff(this, 18D, false);
             	
                 if ((entitykittybed != null) && (entitykittybed.riddenByEntity == null))
                 {
-                	float f5 = entitykittybed.getDistanceToEntity(this);
-                    if (f5 > 2.0F)
+                	float distance_to_kittybed = entitykittybed.getDistanceToEntity(this);
+                    if (distance_to_kittybed > 2.0F)
                     {
-                        getMyOwnPath(entitykittybed, f5);
+                        getMyOwnPath(entitykittybed, distance_to_kittybed);
                     }
-                    if (f5 < 2.0F)
+                    if (distance_to_kittybed < 2.0F) //sleep in kittybed
                     {
                         mountEntity(entitykittybed);
                         setKittyState(12);
                     }
                 }
                 if (entitykittybed == null)
-                {	if ((rand.nextInt(500) == 0))
+                {	if ((rand.nextInt(500) == 0)) //sleep on the spot
                     {
-                		setKittyState(12);
+                		setKittyState(12); 
                     }
                 }
             }

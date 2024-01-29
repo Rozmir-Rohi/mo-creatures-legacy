@@ -6,6 +6,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import drzhark.mocreatures.MoCreatures;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
 
 public class MoCItem extends Item
 {
@@ -18,6 +20,12 @@ public class MoCItem extends Item
     	{
         	this.setCreativeTab(MoCreatures.tabMoC);	
     	}
+    }
+    
+    @Override
+    public boolean isBookEnchantable(ItemStack stack, ItemStack book) //only the unbreaking enchantment can be applied to whips
+    {	
+    	return false;
     }
 
     @SideOnly(Side.CLIENT)

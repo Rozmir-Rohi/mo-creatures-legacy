@@ -183,6 +183,7 @@ public class MoCRenderKitty extends RenderBiped {
     {
         MoCEntityKitty entitykitty = (MoCEntityKitty) entityliving;
         pussy1.isSitting = entitykitty.getIsSitting();
+        pussy1.isSleeping = entitykitty.getKittyState() == 12; //TODO
         pussy1.isSwinging = entitykitty.getIsSwinging();
         pussy1.swingProgress = entitykitty.swingProgress;
         pussy1.kittystate = entitykitty.getKittyState();

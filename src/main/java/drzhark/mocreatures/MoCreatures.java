@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
-import com.google.common.collect.Sets;
 import com.mojang.authlib.GameProfile;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -422,7 +421,7 @@ public class MoCreatures {
         if (MoCreatures.proxy.replaceVanillaCreepers)
         {
         	int ModEntityID = EntityRegistry.findGlobalUniqueEntityId();
-            EntityRegistry.registerModEntity((Class)EntityCreeperExtension.class, "CreeperExtension", ModEntityID++, (Object)this, 50, 2, true);
+            EntityRegistry.registerModEntity(EntityCreeperExtension.class, "CreeperExtension", ModEntityID++, (Object)this, 50, 2, true);
         }
         
         MoCAchievements.initilization();
@@ -697,7 +696,7 @@ public class MoCreatures {
         sugarlump = new MoCItemSugarLump("sugarlump");
         mocegg = new MoCItemEgg("mocegg");
         bigcatclaw = new MoCItem("bigcatclaw");
-        whip = new MoCItemWhip("whip", 0, ToolMaterial.WOOD, Sets.newHashSet(new Block[] {}));
+        whip = new MoCItemWhip("whip");
 
         medallion = new MoCItem("medallion");
         kittybed = new MoCItemKittyBed("kittybed");

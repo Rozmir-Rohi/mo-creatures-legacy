@@ -1,14 +1,18 @@
 package drzhark.mocreatures.entity.monster;
 
+import java.util.List;
+
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.MoCEntityMob;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
@@ -19,7 +23,7 @@ import net.minecraft.world.World;
 public class MoCEntityWerewolf extends MoCEntityMob {
     private boolean transforming;
     private boolean hunched;
-    private int tcounter;
+    private int transform_counter;
     private int textureCounter;
 
     public MoCEntityWerewolf(World world)
@@ -28,14 +32,14 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         //texture = MoCreatures.proxy.MODEL_TEXTURE + "werehuman.png";
         setSize(0.9F, 1.6F);
         transforming = false;
-        tcounter = 0;
+        transform_counter = 0;
         setHumanForm(true);
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16.0D);
     }
 
     @Override
@@ -44,16 +48,6 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         super.entityInit();
         dataWatcher.addObject(22, Byte.valueOf((byte) 0)); // isHumanForm - 0 false 1 true
         dataWatcher.addObject(23, Byte.valueOf((byte) 0)); //hunched
-    }
-
-    @Override
-    public void setHealth(float par1)
-    {
-        if (this.getIsHumanForm() && par1>15F)
-        {
-            par1 = 15F;
-        }
-        super.setHealth(par1);
     }
     
     @Override
@@ -151,11 +145,11 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             if (onGround)
             {
                 setHunched(true);
-                double d = entity.posX - posX;
-                double d1 = entity.posZ - posZ;
-                float f1 = MathHelper.sqrt_double((d * d) + (d1 * d1));
-                motionX = ((d / f1) * 0.5D * 0.80000001192092896D) + (motionX * 0.20000000298023221D);
-                motionZ = ((d1 / f1) * 0.5D * 0.80000001192092896D) + (motionZ * 0.20000000298023221D);
+                double x_distance = entity.posX - posX;
+                double z_distance = entity.posZ - posZ;
+                float xz_distance_squared = MathHelper.sqrt_double((x_distance * x_distance) + (z_distance * z_distance));
+                motionX = ((x_distance / xz_distance_squared) * 0.5D * 0.80000001192092896D) + (motionX * 0.20000000298023221D);
+                motionZ = ((z_distance / xz_distance_squared) * 0.5D * 0.80000001192092896D) + (motionZ * 0.20000000298023221D);
                 motionY = 0.40000000596046448D;
             }
         }
@@ -185,35 +179,43 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             {
                 damage_dealt_to_werewolf = 1;
                 
-                Item item = itemstack.getItem();
+                Item item_held_by_player = itemstack.getItem();
                 
-                if (item == Items.golden_hoe
-                		|| (((item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:scytheGold")))
-                		|| (((item.itemRegistry).getNameForObject(item).equals("battlegear2:dagger.gold")))
-                		|| (((item.itemRegistry).getNameForObject(item).equals("battlegear2:waraxe.gold"))) // 8 is the actual damage dealt to werewolf using golden war axe in-game because of the item's armor penetration ability 
+                if (damagesource.isProjectile())
+                {
+                	if (!(item_held_by_player instanceof ItemBow))
+                	{
+                		damage_dealt_to_werewolf = 0;
+                	}
+                }
+                
+                if (item_held_by_player == Items.golden_hoe
+                		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("BiomesOPlenty:scytheGold")))
+                		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("battlegear2:dagger.gold")))
+                		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("battlegear2:waraxe.gold"))) // 8 is the actual damage dealt to werewolf using golden war axe in-game because of the item's armor penetration ability 
                 		)
                 {
                     damage_dealt_to_werewolf = 6;
                 }
                 
-                if (item == Items.golden_pickaxe) {damage_dealt_to_werewolf = 7;}
+                if (item_held_by_player == Items.golden_pickaxe) {damage_dealt_to_werewolf = 7;}
                 
-                if (item == Items.golden_axe
-                		|| (((item.itemRegistry).getNameForObject(item).equals("battlegear2:mace.gold")))
-                		|| (((item.itemRegistry).getNameForObject(item).equals("battlegear2:spear.gold")))
+                if (item_held_by_player == Items.golden_axe
+                		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("battlegear2:mace.gold")))
+                		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("battlegear2:spear.gold")))
                 		)
                 {
                     damage_dealt_to_werewolf = 8;
                 }
                 
-                if (item == Items.golden_sword
-                		|| (((item.itemRegistry).getNameForObject(item).equals("witchery:silversword")))
+                if (item_held_by_player == Items.golden_sword
+                		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("witchery:silversword")))
                 		)
                 {
                 	damage_dealt_to_werewolf = 9;
                 }
                 
-                if (item == MoCreatures.silversword) {damage_dealt_to_werewolf = 10;}
+                if (item_held_by_player == MoCreatures.silversword) {damage_dealt_to_werewolf = 10;}
                 
             }
         }
@@ -224,15 +226,54 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     protected Entity findPlayerToAttack()
     {
         if (getIsHumanForm()) { return null; }
+        
         EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
+        
+        EntityLivingBase entityliving = getClosestTarget(this, 16D);
+        
         if ((entityplayer != null) && canEntityBeSeen(entityplayer))
         {
             return entityplayer;
         }
+        
+        else if ((entityliving != null) && canEntityBeSeen(entityliving))
+        {
+        	return entityliving;
+        }
+        
         else
         {
             return null;
         }
+    }
+    
+    public EntityLivingBase getClosestTarget(Entity entity, double d)
+    {
+        double d1 = -1D;
+        
+        EntityLivingBase entityliving = null;
+        
+        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
+        
+        
+        for (int i = 0; i < list.size(); i++)
+        {
+            Entity entity1 = (Entity) list.get(i);
+            
+           
+            if (entity1 instanceof EntityVillager)
+            {
+	            double d2 = entity1.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+	            
+	            if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLivingBase) entity1).canEntityBeSeen(entity))
+	            {
+	                d1 = d2;
+	                entityliving = (EntityLivingBase) entity1;
+	            }
+            }
+        }
+
+        return entityliving;
     }
 
     @Override
@@ -388,7 +429,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 
         }
     }
-
+    
     @Override
     public void onLivingUpdate()
     {
@@ -413,25 +454,25 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             }
             if (transforming && (rand.nextInt(3) == 0))
             {
-                tcounter++;
-                if ((tcounter % 2) == 0)
+                transform_counter++;
+                if ((transform_counter % 2) == 0)
                 {
                     posX += 0.29999999999999999D;
-                    posY += tcounter / 30;
-                    attackEntityFrom(DamageSource.causeMobDamage(this), 1);
+                    posY += transform_counter / 30;
+                    attackEntityFrom(DamageSource.causeMobDamage(this), 0);
                 }
-                if ((tcounter % 2) != 0)
+                if ((transform_counter % 2) != 0)
                 {
                     posX -= 0.29999999999999999D;
                 }
-                if (tcounter == 10)
+                if (transform_counter == 10)
                 {
                     worldObj.playSoundAtEntity(this, "mocreatures:weretransform", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
                 }
-                if (tcounter > 30)
+                if (transform_counter > 30)
                 {
                     Transform();
-                    tcounter = 0;
+                    transform_counter = 0;
                     transforming = false;
                 }
             }
@@ -476,13 +517,28 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         if (getIsHumanForm())
         {
             setHumanForm(false);
-            this.setHealth(40);
+            
+            if (getMaxHealth() != 40F)
+            {
+            	this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D);
+            }
+            
+            this.setHealth(getMaxHealth());
             transforming = false;
         }
         else
         {
             setHumanForm(true);
-            this.setHealth(15);
+            
+            float health_for_human_form = Math.round((getHealth() / getMaxHealth()) * 16.0D);
+            
+            if (getMaxHealth() != 16F)
+            {
+            	this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16.0D);
+            }
+            
+            
+            this.setHealth(health_for_human_form);
             transforming = false;
         }
     }

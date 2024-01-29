@@ -132,8 +132,14 @@ public class MoCModelKitty extends ModelBiped {
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
     {
-        bipedHead.rotateAngleY = f3 / 57.29578F;
-        bipedHead.rotateAngleX = f4 / 57.29578F;
+    	
+    	if (!isSleeping)
+        {
+    		bipedHead.rotateAngleY = f3 / 57.29578F;
+    		bipedHead.rotateAngleX = f4 / 57.29578F;
+        }
+        
+        
         for (int i = 0; i < 9; i++)
         {
             bipedHeadParts[i].rotateAngleY = bipedHead.rotateAngleY;
@@ -173,6 +179,7 @@ public class MoCModelKitty extends ModelBiped {
     }
 
     public boolean isSitting;
+    public boolean isSleeping;
     public boolean isSwinging;
     public float swingProgress;
     public ModelRenderer bipedHeadParts[];

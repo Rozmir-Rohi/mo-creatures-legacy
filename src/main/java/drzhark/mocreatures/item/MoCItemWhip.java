@@ -3,11 +3,7 @@ package drzhark.mocreatures.item;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
@@ -19,54 +15,28 @@ import drzhark.mocreatures.entity.animal.MoCEntityKitty;
 import drzhark.mocreatures.entity.animal.MoCEntityOstrich;
 import drzhark.mocreatures.entity.animal.MoCEntityWyvern;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;;
 
-public class MoCItemWhip extends ItemTool {
+public class MoCItemWhip extends MoCItem {
 	
 	int bigCatWhipCounter;
 	
-    public MoCItemWhip(String name, float attack_damage, Item.ToolMaterial tool_material, Set set)
+    public MoCItemWhip(String name)
     {
-        super(attack_damage, tool_material, set);
+        super(name);
         maxStackSize = 1;
         setMaxDamage(24);
-        
-        
-        this.setCreativeTab(MoCreatures.tabMoC);
-        this.setUnlocalizedName(name);
-        GameRegistry.registerItem(this, name);
-    }
-    
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerIcons(IIconRegister par1IconRegister)
-    {
-        this.itemIcon = par1IconRegister.registerIcon("mocreatures"+ this.getUnlocalizedName().replaceFirst("item.", ":"));
-    }
-    
-    
-    
-    public boolean getIsRepairable(ItemStack p_82789_1_, ItemStack p_82789_2_)
-    {
-        return false;
     }
     
     @Override
-    public int getItemEnchantability()
+    public boolean isFull3D()
     {
-        return 0;
+        return true;
     }
     
     @Override
@@ -74,33 +44,31 @@ public class MoCItemWhip extends ItemTool {
     {	
     	NBTTagList book_enchantment_NBT_tag_list = (NBTTagList) book.getTagCompound().getTag("StoredEnchantments");
     	
+    	List<Short> book_enchantment_id_list = new ArrayList<>();
+    	
     	if (book_enchantment_NBT_tag_list != null)
         {
             for (int i = 0; i < book_enchantment_NBT_tag_list.tagCount(); ++i)
             {
-                short book_enchantment_id = book_enchantment_NBT_tag_list.getCompoundTagAt(i).getShort("id");
+            	
+            	short enchantment_id = book_enchantment_NBT_tag_list.getCompoundTagAt(i).getShort("id");
+            	
+                book_enchantment_id_list.add(enchantment_id);
                 
-                if (book_enchantment_id == (short) 34) //34 is the id for the unbreaking enchantment
-                {
-                	return true;
-                }
-                
+            }
+            
+            
+            if (book_enchantment_id_list.size() == 1 && book_enchantment_id_list.get(0) == (short) 34) //34 is the id for the unbreaking enchantment
+            {
+            	return true;
             }
         }
     	
         return false;
     }
+
     
-    public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1)
-    {
-        return false;
-    }
-
-    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase entityliving)
-    {
-        return false;
-    }
-
+    
     public ItemStack onItemRightClick2(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
         return itemstack;
