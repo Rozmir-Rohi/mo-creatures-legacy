@@ -145,18 +145,21 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
             return true;
         }
         
-      //heals
+      //heals the animal
         if ((itemstack != null) && getIsTamed() && (this.getHealth() != this.getMaxHealth()) && isMyHealFood(itemstack))
         {
             if (--itemstack.stackSize == 0)
             {
                 entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
             }
+            
             worldObj.playSoundAtEntity(this, "mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+            
             if (MoCreatures.isServer())
             {
-                this.setHealth(getMaxHealth());
+                heal(5);
             }
+            
             return true;
         }
         

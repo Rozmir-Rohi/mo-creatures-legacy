@@ -578,7 +578,6 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             if (getIsTamed())
             {
                 changeKittyStateTo(3);
-                this.setHealth(getMaxHealth());
                 return true;
             }
             return false;
@@ -590,7 +589,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                 entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
             }
             worldObj.playSoundAtEntity(this, "mocreatures:kittyeatingf", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
-            this.setHealth(getMaxHealth());
+            heal(8);
             changeKittyStateTo(9);
             return true;
         }
@@ -618,7 +617,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                 entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
             }
             worldObj.playSoundAtEntity(this, "mocreatures:kittyeatingf", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
-            this.setHealth(getMaxHealth());
+            heal(5);
             changeKittyStateTo(7);
             return true;
         }
@@ -719,6 +718,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                     setAdult(true);
                 }
             }
+            
             if (this.getIsTamed() && isNight() && (this.ridingEntity == null) && !getIsSitting()) //find kittybed to sleep in else sleep on the spot
             {
             	MoCEntityKittyBed entitykittybed = (MoCEntityKittyBed) getKittyStuff(this, 18D, false);
@@ -847,18 +847,18 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                     MoCEntityKittyBed entitykittybed1 = (MoCEntityKittyBed) ridingEntity;
                     if ((entitykittybed1 != null) && !entitykittybed1.getHasMilk() && !entitykittybed1.getHasFood())
                     {
-                        this.setHealth(getMaxHealth());
+                        heal(5);
                         changeKittyStateTo(5);
                     }
                 }
                 else
                 {
-                    this.setHealth(getMaxHealth());
+                    heal(5);
                     changeKittyStateTo(5);
                 }
                 if (rand.nextInt(2500) == 0)
                 {
-                    this.setHealth(getMaxHealth());
+                    heal(5);
                     changeKittyStateTo(7);
                 }
                 break;

@@ -1725,19 +1725,8 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         	}
 	        
 	        
+	        List<String> ore_dictionary_name_array = MoCTools.getOreDictionaryEntries(itemstack);
 	        
-	        
-			int[] ore_dictionary_id_list = OreDictionary.getOreIDs(itemstack);
-			        	
-			List<String> ore_dictionary_name_array = new ArrayList<String>();
-			        	
-			if (ore_dictionary_id_list.length > 0)
-			{
-				for (int element : ore_dictionary_id_list)
-				{
-					ore_dictionary_name_array.add(OreDictionary.getOreName(element));
-				}
-			}
 	        
 	        if (!isUndead() && !isMagicHorse() && 
 	        		( 
@@ -1764,7 +1753,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	        	)
 	        {
 	        	int temperIncrease = 0;
-	        	int healthIncrease = 0;
+	        	int healAmount = 0;
 	        	int ageIncrease = 0;
 	
 	        	if (
@@ -1775,12 +1764,12 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	        			|| ore_dictionary_name_array.contains("cropGrain")
 	        			|| ore_dictionary_name_array.contains("listAllgrain")
 	        			
-	        		) {temperIncrease = 25; healthIncrease = 5; ageIncrease = 1;}
+	        		) {temperIncrease = 25; healAmount = 5; ageIncrease = 1;}
 	        	
-	        	if (item == MoCreatures.sugarlump) {temperIncrease = 25; healthIncrease = 10; ageIncrease = 2;}
-	        	if (item == Items.bread) {temperIncrease = 100; healthIncrease = 20; ageIncrease = 3;}
-	        	if (item == Items.apple || item == Items.golden_apple) {temperIncrease = 0; healthIncrease = 25; ageIncrease = 1;}
-	        	if (item == MoCreatures.haystack) {temperIncrease = 0; healthIncrease = 25; ageIncrease = 1;}
+	        	if (item == MoCreatures.sugarlump) {temperIncrease = 25; healAmount = 10; ageIncrease = 2;}
+	        	if (item == Items.bread) {temperIncrease = 100; healAmount = 20; ageIncrease = 3;}
+	        	if (item == Items.apple || item == Items.golden_apple) {temperIncrease = 0; healAmount = 25; ageIncrease = 1;}
+	        	if (item == MoCreatures.haystack) {temperIncrease = 0; healAmount = 25; ageIncrease = 1;}
 	
 	
 	        	if (--itemstack.stackSize == 0)
@@ -1800,8 +1789,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	        	
 	        	if ((item == MoCreatures.haystack) && !isMagicHorse() && !isUndead()) {setEating(true);} //eating haystack
 	
-	        	if ((getHealth() + healthIncrease) > getMaxHealth())  {this.setHealth(getMaxHealth());}
-	        	else {this.setHealth(getHealth() + healthIncrease);}
+	        	heal(healAmount);
 	        		
 	
 	        	eatingHorse(); //play eating sound
@@ -1869,7 +1857,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
 	            }
 	            eatenpumpkin = true;
-	            this.setHealth(getMaxHealth());
+	            heal(25);
 	            eatingHorse();
 	            return true;
 	        }
@@ -2215,11 +2203,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
         if ((rand.nextInt(300) == 0) && (deathTime == 0))
         {
-            this.setHealth(getHealth() + 1);
-            if (getHealth() > getMaxHealth())
-            {
-                this.setHealth(getMaxHealth());
-            }
+            heal(1);
         }
         
 

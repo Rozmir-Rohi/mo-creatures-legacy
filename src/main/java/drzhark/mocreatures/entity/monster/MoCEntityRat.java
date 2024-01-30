@@ -52,7 +52,7 @@ public class MoCEntityRat extends MoCEntityMob {
     }
 
     @Override
-    protected double getAttackStrenght() 
+    protected double getAttackStrength() 
     {
         return 1D;
     }

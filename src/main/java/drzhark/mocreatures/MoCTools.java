@@ -59,6 +59,7 @@ import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCTools {
     /**
@@ -94,6 +95,27 @@ public class MoCTools {
         entityitem.motionZ = (float) worldObj.rand.nextGaussian() * f3;
         worldObj.spawnEntityInWorld(entityitem);
     }
+    
+    /**
+     * Returns all the ore dictionary entries for the itemstack as a string array
+     * 
+     * @param itemstack
+     * @return
+     */
+    public static List<String> getOreDictionaryEntries(ItemStack itemstack) {
+		int[] ore_dictionary_id_list = OreDictionary.getOreIDs(itemstack);
+		
+		List<String> ore_dictionary_name_array = new ArrayList<String>();
+		        	
+		if (ore_dictionary_id_list.length > 0)
+		{
+			for (int element : ore_dictionary_id_list)
+			{
+				ore_dictionary_name_array.add(OreDictionary.getOreName(element));
+			}
+		}
+		return ore_dictionary_name_array;
+	}
 
     public static void bigsmack(Entity entity, Entity entity1, float force)
     {
@@ -687,45 +709,6 @@ public class MoCTools {
         else
         {
             return biomegenbase;
-        }
-    }
-    
-    public static void destroyDrops(Entity entity, double d)
-    {
-
-        if (!MoCreatures.proxy.destroyDrops) { return; }
-
-        List list = entity.worldObj.getEntitiesWithinAABBExcludingEntity(entity, entity.boundingBox.expand(d, d, d));
-
-        for (int i = 0; i < list.size(); i++)
-        {
-            Entity entity1 = (Entity) list.get(i);
-            if (!(entity1 instanceof EntityItem))
-            {
-                continue;
-            }
-            EntityItem entityitem = (EntityItem) entity1;
-            if ((entityitem != null) && (entityitem.age < 50))
-            {
-                entityitem.setDead();
-            }
-        }
-    }
-
-    public static void repelMobs(Entity entity1, Double dist, World worldObj)
-    {
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(entity1, entity1.boundingBox.expand(dist, 4D, dist));
-        for (int i = 0; i < list.size(); i++)
-        {
-            Entity entity = (Entity) list.get(i);
-            if (!(entity instanceof EntityMob))
-            {
-                continue;
-            }
-            EntityMob entitymob = (EntityMob) entity;
-            entitymob.setAttackTarget(null);
-            //entitymob.entityToAttack = null;
-            entitymob.setPathToEntity(null);
         }
     }
 

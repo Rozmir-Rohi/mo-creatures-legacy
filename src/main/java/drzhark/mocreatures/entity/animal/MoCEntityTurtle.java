@@ -1,5 +1,8 @@
 package drzhark.mocreatures.entity.animal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
@@ -18,6 +21,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     private boolean isSwinging;
@@ -467,7 +471,14 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-        return itemstack != null && (itemstack.getItem() == Items.reeds || itemstack.getItem() == Items.melon);
+    	List<String> ore_dictionary_name_array = MoCTools.getOreDictionaryEntries(itemstack);
+    	
+        return (
+        			itemstack.getItem() == Items.reeds
+        			|| itemstack.getItem() == Items.melon
+        			|| ore_dictionary_name_array.size() > 0 && ore_dictionary_name_array.contains("listAllveggie") //BOP veg or GregTech6 veg or Palm's Harvest veg
+        			|| ore_dictionary_name_array.contains("listAllfruit") //BOP fruit or GregTech6 fruit or Palm's Harvest fruit
+        		);
     }
 
     @Override

@@ -352,10 +352,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
                     setTemper(getMaxTemper() - 1);
                 }
 
-                if ((getHealth() + 15) > getMaxHealth())
-                {
-                    this.setHealth(getMaxHealth());
-                }
+                heal(5);
 
                 if (!getIsAdult())
                 {
@@ -373,10 +370,9 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
             {
                 entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
             }
-            if ((getHealth() + 25) > getMaxHealth())
-            {
-                this.setHealth(getMaxHealth());
-            }
+            
+            heal(5);
+            
             setHasEaten(true);
             worldObj.playSoundAtEntity(this, "mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             return true;
@@ -434,7 +430,8 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
                         {
                             setTemper(getMaxTemper() - 1);
                         }
-                        this.setHealth(getMaxHealth());
+                        
+                        heal(5);
                     }
                 }
             }

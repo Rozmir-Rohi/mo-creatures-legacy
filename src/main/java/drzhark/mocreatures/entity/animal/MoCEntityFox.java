@@ -44,6 +44,18 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     }
     
     @Override
+    public boolean isPredator()
+    {
+    	return true;
+    }
+    
+    @Override
+    public boolean isScavenger()
+    {
+    	return true;
+    }
+    
+    @Override
     protected boolean canDespawn()
     {
         return !getIsTamed() && this.ticksExisted > 2400;
@@ -57,10 +69,6 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
             attackTime = 20;
             
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), force);
-            if (!(entity instanceof EntityPlayer))
-            {
-                MoCTools.destroyDrops(this, 3D);
-            }
         }
     }
 
@@ -136,7 +144,7 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
                 MoCTools.tameWithName(entityplayer, this);
             }
             
-            this.setHealth(getMaxHealth());
+            heal(5);
 
             if (MoCreatures.isServer() && !getIsAdult() && (getMoCAge() < 100))
             {
@@ -241,16 +249,7 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-        return itemstack != null && 
-        		(
-        			itemstack.getItem() == MoCreatures.ratRaw
-        			|| itemstack.getItem() == MoCreatures.rawTurkey
-        			|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
-                	|| MoCreatures.isGregTech6Loaded &&
-                		(
-                			OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
-                		)
-        		);
+    	return isItemEdible(itemstack.getItem());
     }
 
     @Override

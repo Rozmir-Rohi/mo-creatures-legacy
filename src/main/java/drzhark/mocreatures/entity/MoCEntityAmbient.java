@@ -924,22 +924,6 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         return null;
     }
 
-    public void repelMobs(Entity entity1, Double dist, World worldObj)
-    {
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(entity1, entity1.boundingBox.expand(dist, 4D, dist));
-        for (int i = 0; i < list.size(); i++)
-        {
-            Entity entity = (Entity) list.get(i);
-            if (!(entity instanceof EntityMob))
-            {
-                continue;
-            }
-            EntityMob entitymob = (EntityMob) entity;
-            entitymob.setAttackTarget(null);
-            entitymob.setPathToEntity(null);
-        }
-    }
-
     public void faceItem(int i, int j, int k, float f)
     {
         double d = i - posX;

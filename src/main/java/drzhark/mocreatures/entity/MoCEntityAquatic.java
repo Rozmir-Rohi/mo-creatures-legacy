@@ -41,6 +41,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     protected boolean riderIsDisconnecting;
     protected float moveSpeed;
     protected String texture;
+    private boolean has_killed_prey = false;
 
     public MoCEntityAquatic(World world)
     {
@@ -257,6 +258,22 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         }
 
         return entityitem;
+    }
+    
+    public boolean isPredator()
+    {
+    	return false;
+    }
+    
+    public void onKillEntity(EntityLivingBase entityliving)
+    {
+    	if (isPredator() && MoCreatures.proxy.destroyDrops)
+    	{
+    		if (!(entityliving instanceof EntityPlayer))
+    		{
+	    		has_killed_prey = true;
+    		}
+    	}
     }
 
     @Override
@@ -641,10 +658,39 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
                 }
             }
             
-            /*if (getIsTamed() && rand.nextInt(100) == 0)
+            if (isPredator() && has_killed_prey) 
             {
-                MoCServerPacketHandler.sendHealth(this.getEntityId(), this.worldObj.provider.dimensionId, this.getHealth());
-            }*/
+            	if (MoCreatures.proxy.destroyDrops) //destroy the drops of the prey
+            	{
+	            	List entities_nearby_list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(3, 3, 3));
+	
+	            	int iteration_length = entities_nearby_list.size();
+	            	
+	            	if (iteration_length > 0)
+	            	{
+		                for (int index = 0; index < iteration_length; index++)
+		                {
+		                    Entity entity_in_list = (Entity) entities_nearby_list.get(index);
+		                    if (!(entity_in_list instanceof EntityItem))
+		                    {
+		                        continue;
+		                    }
+		                    
+		                    EntityItem entityitem = (EntityItem) entity_in_list;
+		                    
+		                    if ((entityitem != null) && (entityitem.age < 5)) //targeting entityitem with age below 5 makes sure that the predator only eats the items that are dropped from the prey
+		                    {
+		                        entityitem.setDead();
+		                    }
+		                }
+	            	}
+            	}
+                
+            	heal(5);
+	    		MoCTools.playCustomSound(this, "eating", worldObj);
+	    		
+                has_killed_prey = false;
+            }
 
             if (forceUpdates() && rand.nextInt(500) == 0)
             {

@@ -56,6 +56,12 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
     }
+    
+    @Override
+    public boolean isPredator()
+    {
+    	return true;
+    }
 
     @Override
     public void selectType()
@@ -150,7 +156,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         	
         	MoCTools.playCustomSound(this, "eating", worldObj);
         	
-        	this.setHealth(getMaxHealth());
+        	heal(5);
         	
         	entityplayer.addStat(MoCAchievements.feed_snake_with_live_mouse, 1);
         	
@@ -567,11 +573,6 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             }
 
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
-
-            if (!(entity instanceof EntityPlayer))
-            {
-                MoCTools.destroyDrops(this, 3D);
-            }
         }
     }
 

@@ -457,7 +457,7 @@ achievement.tame_panda=Panda Tamer
 achievement.tame_panda.desc=Tame a baby panda using sugar cane or bamboo
 
 achievement.tame_scorpion=Scorpion Tamer
-achievement.tame_scorpion.desc=Tame a baby scorpion by petting it with an empty hand. Once fully grown, you can ride it up walls. Adult pet scorpions will lay an egg if given an essence of darkness
+achievement.tame_scorpion.desc=Tame a baby scorpion by petting it with an empty hand. Pet scorpions can be healed using rotten flesh or rat meat. Once fully grown, you can ride them up walls. Adult pet scorpions will lay an egg if given an essence of darkness
 
 achievement.ostrich_egg=Egg Thief
 achievement.ostrich_egg.desc=Breed a wild ostrich couple using melon seeds and steal their egg. Pet ostriches can be ridden when they become adults. Pet ostriches can also be transformed with essences
@@ -508,16 +508,16 @@ achievement.kill_big_golem=Golem Slayer
 achievement.kill_big_golem.desc=Kill a big golem and get it's centre block
 
 achievement.leonardo=Leonardo
-achievement.leonardo.desc=Obtain a katana from a leonardo turtle. Katanas can be repaired at an anvil using iron ingots
+achievement.leonardo.desc=Obtain a katana from a leonardo turtle. Turtles can be tamed by dropping sugar cane or melon slices near them. Katanas can be repaired at an anvil using iron ingots
 
 achievement.raphael=Raphael
-achievement.raphael.desc=Obtain a sai from a raphael turtle. Sai can be repaired at an anvil using iron ingots
+achievement.raphael.desc=Obtain a sai from a raphael turtle. Turtles can be tamed by dropping sugar cane or melon slices near them. Sai can be repaired at an anvil using iron ingots
 
 achievement.donatello=Donatello
-achievement.donatello.desc=Obtain a bo from a donatello turtle
+achievement.donatello.desc=Obtain a bo from a donatello turtle. Turtles can be tamed by dropping sugar cane or melon slices near them.
 
 achievement.michelangelo=Michelangelo
-achievement.michelangelo.desc=Obtain a nunchaku from a michelangelo turtle. Nunchakus can be repaired at an anvil using iron ingots
+achievement.michelangelo.desc=Obtain a nunchaku from a michelangelo turtle. Turtles can be tamed by dropping sugar cane or melon slices near them. Nunchakus can be repaired at an anvil using iron ingots
 
 achievement.silver_sword=Werewolves' Bane
 achievement.silver_sword.desc=Obtain a silver sword from a silver skeleton

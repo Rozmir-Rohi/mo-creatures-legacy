@@ -96,8 +96,10 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
             {
                 setType(2);
             }
-            this.setHealth(getMaxHealth());
         }
+        
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
+        this.setHealth(getMaxHealth());
     }
 
     @Override
@@ -426,17 +428,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         {
         	Item item = itemstack.getItem();
         	
-        	int[] ore_dictionary_id_list = OreDictionary.getOreIDs(itemstack);
-        	
-        	List<String> ore_dictionary_name_array = new ArrayList<String>();
-        	
-        	if (ore_dictionary_id_list.length > 0)
-        	{
-	        	for (int element : ore_dictionary_id_list)
-	        	{
-	        		ore_dictionary_name_array.add(OreDictionary.getOreName(element));
-	        	}
-        	}
+        	List<String> ore_dictionary_name_array = MoCTools.getOreDictionaryEntries(itemstack);
         	
         	if (//general food
         			item == MoCreatures.sugarlump
@@ -465,7 +457,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 }
                 
                 MoCTools.playCustomSound(this, "eating", worldObj);
-                this.setHealth(getMaxHealth());
+                heal(5);
                 
                 if (!getIsTamed() && !getIsAdult() && (item == MoCreatures.sugarlump)) //taming food
                 {
@@ -780,7 +772,6 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SNOWY))
         {
             setType(3 + rand.nextInt(2));
-            this.setHealth(getMaxHealth());
             return true;
         }
         if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SAVANNA))
@@ -788,20 +779,17 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         	if (!(currentbiome.biomeName.toLowerCase().contains("outback")))
         	{
 	            setType(1);
-	            this.setHealth(getMaxHealth());
+	            return true;
         	}
         	else
         	{
         		return false; //don't spawn elephants in the outback biome from the Biomes O' Plenty mod. The code for this is continued in MoCEventHooks.java
         	}
-            
-            return true;
         }
 
         if (BiomeDictionary.isBiomeOfType(currentbiome, Type.JUNGLE))
         {
             setType(2);
-            this.setHealth(getMaxHealth());
             return true;
         }
 

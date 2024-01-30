@@ -2,7 +2,6 @@ package drzhark.mocreatures.entity.aquatic;
 
 import java.util.List;
 
-import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.IMoCEntity;
 import drzhark.mocreatures.entity.MoCEntityAmbient;
@@ -38,6 +37,12 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(6.0D);
+    }
+    
+    @Override
+    public boolean isPredator()
+    {
+    	return true;
     }
 
     @Override
@@ -144,10 +149,6 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
             }
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
-            if (!(entity instanceof EntityPlayer))
-            {
-                MoCTools.destroyDrops(this, 3D);
-            }
         }
     }
 

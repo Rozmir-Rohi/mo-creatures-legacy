@@ -41,6 +41,12 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16.0D);
     }
+    
+    @Override
+    public boolean isPredator()
+    {
+    	return true;
+    }
 
     @Override
     protected void entityInit()

@@ -65,6 +65,12 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(25.0D);
     }
+    
+    @Override
+    public boolean isPredator()
+    {
+    	return true;
+    }
 
     @Override
     protected void entityInit()
@@ -283,10 +289,6 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
                     if (MoCreatures.isServer() && rand.nextInt(catch_prey_in_mouth_attack_speed) == 0)  //cause damage to creature in mouth
                     {
                         riddenByEntity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
-                        if (!(riddenByEntity instanceof EntityPlayer))
-                        {
-                            MoCTools.destroyDrops(this, 3D);
-                        }
                     }
                 }
             }
@@ -312,10 +314,6 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
                 {
                     spinInt = 0;
                     riddenByEntity.attackEntityFrom(DamageSource.causeMobDamage(this), spin_attack_strength);
-                    if (!(riddenByEntity instanceof EntityPlayer))
-                    {
-                        MoCTools.destroyDrops(this, 3D);
-                    }
                 }
             }
         }
@@ -387,10 +385,6 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
             else
             {
                 entity.attackEntityFrom(DamageSource.causeMobDamage(this), attack_strength);
-                if (!(entity instanceof EntityPlayer))
-                {
-                    MoCTools.destroyDrops(this, 3D);
-                }
                 crocBite();
                 setHasCaughtPrey(false);
             }

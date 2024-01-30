@@ -25,6 +25,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     public static final String scorpionNames[] = { "Dirt", "Cave", "Nether", "Frost", "Undead" };
@@ -50,6 +51,12 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
+    }
+    
+    @Override
+    public boolean isPredator()
+    {
+    	return true;
     }
 
     @Override
@@ -638,7 +645,16 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     @Override
     protected boolean isMyHealFood(ItemStack itemstack)
     {
-        return (itemstack.getItem() == MoCreatures.ratRaw || itemstack.getItem() == MoCreatures.ratCooked);
+        return
+        		(
+        			itemstack.getItem() == Items.rotten_flesh
+        			|| itemstack.getItem() == MoCreatures.ratRaw
+        			|| itemstack.getItem() == MoCreatures.ratCooked
+        			|| MoCreatures.isGregTech6Loaded &&
+            			(
+            				OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+            			)
+        		);
     }
 
     @Override

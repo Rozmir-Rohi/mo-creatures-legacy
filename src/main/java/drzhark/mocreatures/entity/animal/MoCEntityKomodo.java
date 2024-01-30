@@ -63,6 +63,18 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
     }
+    
+    @Override
+    public boolean isPredator()
+    {
+    	return true;
+    }
+    
+    @Override
+    public boolean isScavenger()
+    {
+    	return true;
+    }
 
     @Override
     protected void entityInit()

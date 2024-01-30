@@ -32,9 +32,15 @@ public class MoCEntityWWolf extends MoCEntityMob {
         super(world);
         setSize(0.9F, 1.3F);
     }
+    
+    @Override
+    public boolean isPredator()
+    {
+    	return true;
+    }
 
     @Override
-    protected double getAttackStrenght() 
+    protected double getAttackStrength() 
     {
         return 3D;
     }
@@ -97,10 +103,6 @@ public class MoCEntityWWolf extends MoCEntityMob {
             openMouth();
             attackTime = 20;
             this.attackEntityAsMob(entity);
-            if (!(entity instanceof EntityPlayer))
-            {
-                MoCTools.destroyDrops(this, 3D);
-            }
         }
     }
 

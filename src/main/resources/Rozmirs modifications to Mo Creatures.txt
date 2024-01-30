@@ -638,3 +638,26 @@ Fixed Werewolf health not changing when in human form and wolf form. Also fixed 
 
 
 Fixed kitty looking at player when kitty is sleeping.
+
+
+The following pets can now be healed using the following items in addition to their previous items:
+ - Turtles: "listAllveggie" (ore dictionary), "listAllfruit" (oredictionary)
+ - Pet Scorpion: rotten flesh, scrap meat (GregTech 6)
+
+
+Feeding a pet with one of it's normal food items now no longer instantly heals them to full health. However, feeding essences to a pet scorpion, or the same type of essence to an essence created horse or ostrich will still heal them to full health.
+
+
+Fixed bear and elephant health.
+
+
+Fixed bear eyes.
+
+
+Fixed predator creatures not destroying drops when destroy drops is enabled. Also, now all predators heal themselves slightly if they kill prey and destroy it's drops.
+
+
+Dire Wolves and Werewolves now heal themselves slightly when they kill prey.
+
+
+Black and Brown bears, Raccoons, Foxes, and Komodo Dragons now eat food items that are on the ground if they are below max health.

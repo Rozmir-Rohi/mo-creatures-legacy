@@ -2,7 +2,6 @@ package drzhark.mocreatures.entity.aquatic;
 
 import java.util.List;
 
-import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.IMoCEntity;
 import drzhark.mocreatures.entity.MoCEntityAquatic;
@@ -26,19 +25,25 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 public class MoCEntityShark extends MoCEntityTameableAquatic {
+	
     public MoCEntityShark(World world)
     {
         super(world);
         texture = "shark.png";
         setSize(1.5F, 0.8F);
         setMoCAge(100 + rand.nextInt(100));
-        this.tasks.addTask(4, new EntityAIAvoidEntity(this, MoCEntityDolphin.class, 8.0F, 0.6D, 0.6D)); // run away from dolphins, not sure if this is working though
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(25.0D);
+    }
+    
+    @Override
+    public boolean isPredator()
+    {
+    	return true;
     }
 
     @Override
@@ -68,11 +73,6 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
             }
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 5);
-            
-            if (!(entity instanceof EntityPlayer))
-            {
-                MoCTools.destroyDrops(this, 3D);
-            }
         }
     }
 

@@ -602,7 +602,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
                 {
                     entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
                 }
-                this.setHealth(getMaxHealth());
+                heal(5);
                 worldObj.playSoundAtEntity(this, "mocreatures:goateating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
                 return true;
             }

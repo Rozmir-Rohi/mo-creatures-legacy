@@ -18,6 +18,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,6 +41,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     private boolean riderIsDisconnecting;
     protected float moveSpeed;
     protected String texture;
+    private boolean has_killed_prey = false;
 
     public MoCEntityMob(World world)
     {
@@ -53,7 +55,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
-        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(getAttackStrenght());
+        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(getAttackStrength());
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
     }
 
@@ -69,7 +71,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         return MoCreatures.proxy.getTexture(texture);
     }
 
-    protected double getAttackStrenght() 
+    protected double getAttackStrength() 
     {
         return 2D;
     }
@@ -223,7 +225,9 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
 
     public boolean entitiesToIgnore(Entity entity)
     {
-        return ((!(entity instanceof EntityLiving)) 
+        return 
+        	(
+        		(!(entity instanceof EntityLiving)) 
                 || (entity instanceof EntityMob)
                 || (entity instanceof MoCEntityEgg)
                 || (entity instanceof EntityPlayer && this.getIsTamed()) 
@@ -231,7 +235,25 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
                 || (this.getIsTamed() && (entity instanceof MoCEntityAnimal && ((MoCEntityAnimal) entity).getIsTamed())) 
                 || ((entity instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)) 
                 || ((entity instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses))
-                || (entity instanceof MoCEntityAnimal || entity instanceof MoCEntityAmbient));
+                || (entity instanceof MoCEntityAnimal || entity instanceof MoCEntityAmbient)
+        	);
+    }
+    
+
+    public boolean isPredator()
+    {
+    	return false;
+    }
+    
+    public void onKillEntity(EntityLivingBase entityliving)
+    {
+    	if (isPredator() && MoCreatures.proxy.destroyDrops)
+    	{
+    		if (!(entityliving instanceof EntityPlayer))
+    		{
+	    		has_killed_prey = true;
+    		}
+    	}
     }
 
     @Override
@@ -252,6 +274,40 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         {
             MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHealth(this.getEntityId(), this.getHealth()), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
         }
+        
+        if (isPredator() && has_killed_prey) 
+        {
+        	if (MoCreatures.proxy.destroyDrops) //destroy the drops of the prey
+        	{
+            	List entities_nearby_list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(3, 3, 3));
+
+            	int iteration_length = entities_nearby_list.size();
+            	
+            	if (iteration_length > 0)
+            	{
+	                for (int index = 0; index < iteration_length; index++)
+	                {
+	                    Entity entity_in_list = (Entity) entities_nearby_list.get(index);
+	                    if (!(entity_in_list instanceof EntityItem))
+	                    {
+	                        continue;
+	                    }
+	                    
+	                    EntityItem entityitem = (EntityItem) entity_in_list;
+	                    
+	                    if ((entityitem != null) && (entityitem.age < 5)) //targeting entityitem with age below 5 makes sure that the predator only eats the items that are dropped from the prey
+	                    {
+	                        entityitem.setDead();
+	                    }
+	                }
+            	}
+        	}
+            
+        	heal(5);
+    		
+            has_killed_prey = false;
+        }
+        
         moveSpeed = getMoveSpeed();
         super.onLivingUpdate();
     }

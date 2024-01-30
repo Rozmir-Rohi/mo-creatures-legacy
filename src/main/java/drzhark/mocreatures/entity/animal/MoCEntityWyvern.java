@@ -61,6 +61,12 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(getType() >= 5 ? 80.0D : 40.0D);
     }
+    
+    @Override
+    public boolean isPredator()
+    {
+    	return true;
+    }
 
     @Override
     protected void entityInit()

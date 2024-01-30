@@ -1,6 +1,5 @@
 package drzhark.mocreatures.entity.animal;
 
-import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityAnimal;
 import net.minecraft.entity.Entity;
@@ -49,10 +48,6 @@ public class MoCEntityBoar extends MoCEntityAnimal {
         {
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), force);
-            if (!(entity instanceof EntityPlayer))
-            {
-                MoCTools.destroyDrops(this, 3D);
-            }
         }
     }
 

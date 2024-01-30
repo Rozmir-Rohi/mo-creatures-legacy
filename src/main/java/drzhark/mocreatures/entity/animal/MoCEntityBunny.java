@@ -169,17 +169,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         {	
         	Item item = itemstack.getItem();
         	
-        	int[] ore_dictionary_id_list = OreDictionary.getOreIDs(itemstack);
-        	
-        	List<String> ore_dictionary_name_array = new ArrayList<String>();
-        	
-        	if (ore_dictionary_id_list.length > 0)
-        	{
-	        	for (int element : ore_dictionary_id_list)
-	        	{
-	        		ore_dictionary_name_array.add(OreDictionary.getOreName(element));
-	        	}
-        	}
+        	List<String> ore_dictionary_name_array = MoCTools.getOreDictionaryEntries(itemstack);
 
         	if (    	
         			item == Items.carrot
@@ -208,7 +198,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
             	}
             
             	MoCTools.playCustomSound(this, "eating", worldObj);
-            	this.setHealth(getMaxHealth());
+            	heal(5);
             
             	return true;
         	}

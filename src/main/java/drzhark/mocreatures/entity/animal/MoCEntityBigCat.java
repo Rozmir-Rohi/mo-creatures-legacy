@@ -1,5 +1,6 @@
 package drzhark.mocreatures.entity.animal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
@@ -36,8 +37,8 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityBigCat extends MoCEntityTameableAnimal {
-
-    public MoCEntityBigCat(World world)
+	
+	public MoCEntityBigCat(World world)
     {
         super(world);
         setMoCAge(35);
@@ -65,6 +66,12 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     }
     
     @Override
+    public boolean isPredator()
+    {
+    	return true;
+    }
+    
+    @Override
     protected boolean canDespawn()
     {
         return !getIsTamed() && this.ticksExisted > 2400;
@@ -82,7 +89,6 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         if ((getType() == 0) && checkSpawningBiome())  //if big cat is still type 0 and it can spawn in the biome, make it a lion
         {
         	setType(1);
-            this.setHealth(getMaxHealth());
         }
 
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
@@ -348,6 +354,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         byte input = (byte) (flag ? 1 : 0);
         dataWatcher.updateObject(24, Byte.valueOf(input));
     }
+    
 
     @Override
     protected void attackEntity(Entity entity, float f)
@@ -371,11 +378,6 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         {
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), getAttackStrength());
-            
-            if (!(entity instanceof EntityPlayer))
-            {
-                MoCTools.destroyDrops(this, 3D);
-            }
         }
     }
 
@@ -696,7 +698,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         }
         if ((itemstack != null) && getIsTamed() && isItemstackFoodItem(itemstack))
         {
-            this.setHealth(getMaxHealth());
+            heal(5);
             worldObj.playSoundAtEntity(this, "mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             setHungry(false);
         }
@@ -808,12 +810,16 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
             		if ((f < 2.0F) && (entityitem != null) && (deathTime == 0))
             		{
             			entityitem.setDead();
-            			this.setHealth(getMaxHealth());
+            			
+            			this.heal(5);
+            			
             			if (!getIsAdult() && (getMoCAge() < 80))
             			{
             				setEaten(true);
             			}
+            			
             			worldObj.playSoundAtEntity(this, "mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+            			
             			setHungry(false);
             		}
             	}
@@ -825,6 +831,8 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     {
     	Item item = itemstack.getItem();
     	
+    	List<String> ore_dictionary_name_array = MoCTools.getOreDictionaryEntries(itemstack);
+    	
     	if (
     			item == Items.porkchop
     			|| item == Items.beef 
@@ -833,7 +841,8 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     			|| item == MoCreatures.ostrichraw
     			|| item == MoCreatures.rawTurkey
     			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
-    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllmeatraw"
+    			|| ore_dictionary_name_array.contains("listAllmeatraw")
+    			|| ore_dictionary_name_array.contains("listAllfishraw")
     			|| MoCreatures.isGregTech6Loaded &&
     				(
     					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"

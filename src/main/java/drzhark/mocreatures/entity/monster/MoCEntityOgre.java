@@ -42,7 +42,7 @@ public class MoCEntityOgre extends MoCEntityMob{
     }
 
     @Override
-    protected double getAttackStrenght() 
+    protected double getAttackStrength() 
     {
         return 3D;
     }

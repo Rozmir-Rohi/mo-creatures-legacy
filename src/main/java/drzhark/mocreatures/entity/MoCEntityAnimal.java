@@ -4,6 +4,7 @@ import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.entity.animal.MoCEntityBigCat;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
 import drzhark.mocreatures.entity.animal.MoCEntityWyvern;
 import drzhark.mocreatures.entity.item.MoCEntityEgg;
@@ -51,6 +52,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     private int petDataId = -1;
     public float moveSpeed;
     protected String texture;
+    private boolean has_killed_prey = false;
 
     public MoCEntityAnimal(World world)
     {
@@ -281,8 +283,11 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
 
         return entityliving;
     }
-
-    public boolean entitiesToIgnore(Entity entity) //don't hunt the following mobs below
+    
+    /**
+    * Tells the creature not to hunt any of the entities that are returned with this function
+    */
+    public boolean entitiesToIgnore(Entity entity)
     {
         return ((!(entity instanceof EntityLiving)) 
                 || (entity instanceof IMob || entity instanceof MoCEntityMob) //don't hunt the creature if it is a mob 
@@ -325,7 +330,34 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
      */
     public boolean entitiesThatAreScary(Entity entity)
     {
-        return ( (entity.getClass() != this.getClass()) && (entity instanceof EntityLivingBase) && ((entity.width >= 0.5D) || (entity.height >= 0.5D)));
+        return 
+        		(
+        			entity.getClass() != this.getClass()
+        			&& entity instanceof EntityLivingBase
+        			&& ((entity.width >= 0.5D) || (entity.height >= 0.5D))
+        		);
+    }
+    
+    
+    public boolean isPredator()
+    {
+    	return false;
+    }
+    
+    public boolean isScavenger()
+    {
+    	return false;
+    }
+    
+    public void onKillEntity(EntityLivingBase entityliving)
+    {
+    	if (isPredator() && MoCreatures.proxy.destroyDrops)
+    	{
+    		if (!(entityliving instanceof EntityPlayer))
+    		{
+	    		has_killed_prey = true;
+    		}
+    	}
     }
 
     @Override
@@ -343,10 +375,76 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
                 MoCTools.forceDataSync(this);
             }
             
-            /*if (getIsTamed() && rand.nextInt(100) == 0)
+            if (isPredator() && has_killed_prey) 
             {
-                MoCServerPacketHandler.sendHealth(this.getEntityId(), this.worldObj.provider.dimensionId, this.getHealth());
-            }*/
+            	if (MoCreatures.proxy.destroyDrops) //destroy the drops of the prey
+            	{
+	            	List entities_nearby_list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(3, 3, 3));
+	
+	            	int iteration_length = entities_nearby_list.size();
+	            	
+	            	if (iteration_length > 0)
+	            	{
+		                for (int index = 0; index < iteration_length; index++)
+		                {
+		                    Entity entity_in_list = (Entity) entities_nearby_list.get(index);
+		                    if (!(entity_in_list instanceof EntityItem))
+		                    {
+		                        continue;
+		                    }
+		                    
+		                    EntityItem entityitem = (EntityItem) entity_in_list;
+		                    
+		                    if ((entityitem != null) && (entityitem.age < 5)) //targeting entityitem with age below 5 makes sure that the predator only eats the items that are dropped from the prey
+		                    {
+		                        entityitem.setDead();
+		                    }
+		                }
+	            	}
+            	}
+                
+            	heal(5);
+	    		MoCTools.playCustomSound(this, "eating", worldObj);
+	    		
+                has_killed_prey = false;
+                
+                if (this instanceof MoCEntityBigCat)
+                {
+                	((MoCEntityBigCat) this).setHungry(false);
+                }
+            }
+            
+            if (isScavenger() && !isMovementCeased() && (getHealth() < getMaxHealth() || !isPredator()))
+            {
+            	EntityItem closest_entityitem = getClosestEntityItem(this, 12D);
+                
+                if (closest_entityitem != null)
+                {
+                	ItemStack itemstack = closest_entityitem.getEntityItem();
+                	
+                	if (isMyHealFood(itemstack))
+                	{
+                	
+                		float distance_to_entity_item = closest_entityitem.getDistanceToEntity(this);
+                		
+                		if (distance_to_entity_item > 2.0F)
+                		{
+                			getMyOwnPath(closest_entityitem, distance_to_entity_item);
+                		}
+                		
+                		if ((distance_to_entity_item < 2.0F) && (closest_entityitem != null))
+                		{
+                			closest_entityitem.setDead();
+                			
+                			heal(5);
+                			
+                			MoCTools.playCustomSound(this, "eating", worldObj);
+                		}
+                	}
+                }
+            }
+            
+            
         }
 
         if (isNotScared() && fleeingTick > 0)
@@ -1395,22 +1493,6 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     protected Entity findPlayerToAttack()
     {
         return null;
-    }
-
-    public void repelMobs(Entity entity1, Double dist, World worldObj)
-    {
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(entity1, entity1.boundingBox.expand(dist, 4D, dist));
-        for (int i = 0; i < list.size(); i++)
-        {
-            Entity entity = (Entity) list.get(i);
-            if (!(entity instanceof EntityMob))
-            {
-                continue;
-            }
-            EntityMob entitymob = (EntityMob) entity;
-            entitymob.setAttackTarget(null);
-            entitymob.setPathToEntity(null);
-        }
     }
 
     public void faceItem(int i, int j, int k, float f)

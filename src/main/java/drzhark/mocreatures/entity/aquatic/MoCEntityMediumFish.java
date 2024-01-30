@@ -146,7 +146,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
 
             if (getIsTamed() && rand.nextInt(100) == 0 && getHealth() < getMaxHealth())
             {
-                this.setHealth(getMaxHealth());
+                heal(1);
             }
         }
         if (!this.isInsideOfMaterial(Material.water))

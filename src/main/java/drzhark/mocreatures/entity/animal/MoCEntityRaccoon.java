@@ -29,6 +29,18 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     }
     
     @Override
+    public boolean isPredator()
+    {
+    	return true;
+    }
+    
+    @Override
+    public boolean isScavenger()
+    {
+    	return true;
+    }
+    
+    @Override
     protected boolean canDespawn()
     {
         return !getIsTamed() && this.ticksExisted > 2400;
@@ -41,10 +53,6 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
         {
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
-            if (!(entity instanceof EntityPlayer))
-            {
-                MoCTools.destroyDrops(this, 3D);
-            }
         }
     }
 
@@ -84,7 +92,7 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
                 MoCTools.tameWithName(entityplayer, this);
             }
             
-            this.setHealth(getMaxHealth());
+            heal(5);
 
             if (MoCreatures.isServer() && !getIsAdult() && (getMoCAge() < 100))
             {
@@ -99,11 +107,14 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     @Override
     public boolean entitiesToIgnore(Entity entity) //don't hunt the following mobs below
     {
-        return (super.entitiesToIgnore(entity) //including the mobs specified in parent file
-                    || (entity instanceof MoCEntityRaccoon)
-                    || (entity instanceof MoCEntityFox)
-                    ||(!getIsAdult() || ((entity.width > 0.5D) || (entity.height > 0.5D)))
-                    );
+        return 
+        		(
+        			super.entitiesToIgnore(entity) //including the mobs specified in parent file
+                    || entity instanceof MoCEntityRaccoon
+                    || entity instanceof MoCEntityFox
+                    || !getIsAdult() 
+                    || ((entity.width > 0.5D) || (entity.height > 0.5D))
+        		);
     }
     
 
@@ -119,6 +130,12 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
         {
             return null;
         }
+    }
+    
+    @Override
+    public boolean isMyHealFood(ItemStack itemstack)
+    {
+		return isItemEdible(itemstack.getItem());
     }
 
     @Override

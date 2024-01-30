@@ -1,5 +1,6 @@
 package drzhark.mocreatures.entity.animal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
@@ -27,6 +28,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityBear extends MoCEntityTameableAnimal {
 
@@ -60,6 +62,12 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
     }
+    
+    @Override
+    public boolean isScavenger()
+    {
+    	return true; //all bear types will eat items from the ground if the item is their food item
+    }
 
     /**
      * Initializes datawatchers for entity. Each datawatcher is used to sync
@@ -78,7 +86,6 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         return !getIsTamed() && this.ticksExisted > 2400;
     }
 
-    
     /**
      * 0 - bear is on fours 1 - standing 2 - sitting
      * 
@@ -111,9 +118,16 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             {
                 setType(2);
             }
-
-            this.setHealth(getMaxHealth());
         }
+        
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
+        this.setHealth(getMaxHealth());
+    }
+    
+    @Override
+    public boolean isPredator()
+    {
+    	return this.getType() != 3; //not a panda
     }
 
     @Override
@@ -164,17 +178,17 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     {
         switch (getType())
         {
-        case 1:
-            return 20;
-        case 2:
-            return 15;
-        case 3:
-            return 15;
-        case 4:
-            return 25;
-
-        default:
-            return 20;
+	        case 1:
+	            return 20;
+	        case 2:
+	            return 15;
+	        case 3:
+	            return 15;
+	        case 4:
+	            return 25;
+	
+	        default:
+	            return 20;
         }
     }
 
@@ -240,10 +254,6 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             startAttack();
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), getAttackStrength());
-            if (!(entity instanceof EntityPlayer))
-            {
-                MoCTools.destroyDrops(this, 3D);
-            }
         }
     }
 
@@ -422,33 +432,6 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             standingCounter = 0;
             setBearState(0);
         }
-
-        if (MoCreatures.isServer() && getType() == 3 && (deathTime == 0) && getBearState() != 2)
-        {
-            EntityItem entityitem = getClosestEntityItem(this, 8D);
-            if (entityitem != null)
-            {
-            	ItemStack itemstack = entityitem.getEntityItem();
-            	
-            	if (isItemstackFoodItem(itemstack))
-            	{
-
-            		float f = entityitem.getDistanceToEntity(this);
-            		if (f > 2.0F)
-            		{
-            			getMyOwnPath(entityitem, f);
-            		}
-            		
-            		if ((f < 2.0F) && (entityitem != null) && (deathTime == 0))
-            		{
-            			entityitem.setDead();
-            			worldObj.playSoundAtEntity(this, "mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
-            			this.setHealth(getMaxHealth());
-            		}
-            	}
-
-            }
-        }
     }
 
 	@Override
@@ -456,7 +439,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     {
         if (super.interact(entityplayer)) { return false; }
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
-        if ((itemstack != null) && (getType() == 3) && (isItemstackFoodItem(itemstack)))
+        if ((itemstack != null) && (getType() == 3) && (isItemstackPandaFoodItem(itemstack)))
         {
         	
             if (--itemstack.stackSize == 0)
@@ -470,7 +453,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
                 entityplayer.addStat(MoCAchievements.tame_panda, 1);
             }
 
-            this.setHealth(getMaxHealth());
+            heal(5);
             eatingAnimal();
             if (MoCreatures.isServer() && !getIsAdult() && (getMoCAge() < 100))
             {
@@ -482,7 +465,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         return false;
     }
 	
-	private boolean isItemstackFoodItem(ItemStack itemstack) {
+	private boolean isItemstackPandaFoodItem(ItemStack itemstack) {
     	
     	Item item = itemstack.getItem();
     	
@@ -600,13 +583,24 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     @Override
     public boolean isMyFavoriteFood(ItemStack itemstack)
     {
-    	return this.getType() == 3 && itemstack != null && (isItemstackFoodItem(itemstack)); 
+    	return this.getType() == 3 && itemstack != null && (isItemstackPandaFoodItem(itemstack)); 
     }
 
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-        return this.getType() == 3 && itemstack != null && (isItemstackFoodItem(itemstack)); 
+        if (itemstack != null) 
+        {
+        	if (this.getType() == 3) //panda
+        	{
+        		return (isItemstackPandaFoodItem(itemstack));
+        	}
+        	else
+        	{
+        		return isItemEdible(itemstack.getItem());
+        	}
+        }
+        return false;
     }
 
     @Override

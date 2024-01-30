@@ -319,7 +319,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         			MoCTools.tameWithName(entityplayer, this);
         			entityplayer.addStat(MoCAchievements.tame_bird, 1);
         		}
-        		this.setHealth(getMaxHealth());
+        		heal(5);
         		return true;
         	}
         }
@@ -456,7 +456,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
                 				if ((rand.nextInt(50) == 0) && (entityitem_closest != null))
                 				{
                 					entityitem_closest.setDead();
-                					this.setHealth(getMaxHealth());
+                					heal(5);
                 					setPreTamed(true);
                 				}
                 			}
