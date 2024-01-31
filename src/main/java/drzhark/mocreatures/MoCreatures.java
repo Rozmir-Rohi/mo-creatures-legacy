@@ -163,6 +163,7 @@ public class MoCreatures {
     private static boolean isThaumcraftLoaded;
     public static boolean isBiomesOPlentyLoaded;
     public static boolean isGregTech6Loaded;
+    public static boolean isPalmsHarvestLoaded;
     public static boolean isTwilightForestLoaded;
     public static boolean isFoodExpansionLoaded;
     public static boolean isImprovingMinecraftLoaded;
@@ -431,6 +432,8 @@ public class MoCreatures {
         this.isBiomesOPlentyLoaded = Loader.isModLoaded("BiomesOPlenty");
         
         this.isGregTech6Loaded = Loader.isModLoaded("gregtech");
+        
+        this.isPalmsHarvestLoaded = Loader.isModLoaded("harvestcraft");
         
         this.isTwilightForestLoaded = Loader.isModLoaded("TwilightForest");
         

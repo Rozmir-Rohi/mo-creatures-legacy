@@ -661,3 +661,6 @@ Dire Wolves and Werewolves now heal themselves slightly when they kill prey.
 
 
 Black and Brown bears, Raccoons, Foxes, and Komodo Dragons now eat food items that are on the ground if they are below max health.
+
+
+Angry bees will now spawn if a player breaks a hive from the Palm's Harvest Mod.

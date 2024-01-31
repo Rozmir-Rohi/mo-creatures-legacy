@@ -3,11 +3,13 @@ package drzhark.mocreatures;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import drzhark.mocreatures.entity.IMoCTameable;
 import drzhark.mocreatures.entity.MoCEntityAquatic;
+import drzhark.mocreatures.entity.ambient.MoCEntityBee;
 import drzhark.mocreatures.entity.animal.MoCEntityBigCat;
 import drzhark.mocreatures.entity.animal.MoCEntityElephant;
 import drzhark.mocreatures.entity.animal.MoCEntityTurkey;
 import drzhark.mocreatures.entity.monster.MoCEntityScorpion;
 import drzhark.mocreatures.entity.vanilla_mc_extension.EntityCreeperExtension;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -15,10 +17,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
+import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.BlockEvent.BreakEvent;;
 
 
 public class MoCEventHooks {
@@ -52,7 +57,7 @@ public class MoCEventHooks {
     }
     
     @SubscribeEvent
-    public void livingUpdate(final LivingEvent.LivingUpdateEvent event)
+    public void livingUpdate(LivingEvent.LivingUpdateEvent event)
 	{
         if (!event.entityLiving.worldObj.isRemote)
         { 
@@ -110,6 +115,35 @@ public class MoCEventHooks {
 	        		}
 	        	}
         	}
+        }
+    }
+    
+    @SubscribeEvent
+    public void BreakEvent(BlockEvent.BreakEvent event) 
+    {
+    	if (!event.world.isRemote)
+        { 
+	    	if (MoCreatures.isPalmsHarvestLoaded)
+	    	{	//spawn bees when a player breaks a hive from the Palm's Harvest mod
+	    		if ((event.block.blockRegistry).getNameForObject(event.block).equals("harvestcraft:beehive"))
+	    		{   
+		            byte amount_of_bees_to_spawn = 4;
+		            
+		            for (byte index = 0; index < amount_of_bees_to_spawn; index++)
+		            {
+		            	MoCEntityBee bee = new MoCEntityBee(event.world);
+			            bee.setPosition(event.x, event.y, event.z);
+			            bee.onSpawnWithEgg((IEntityLivingData) null);
+			            
+			            bee.setTarget(event.getPlayer());
+			            
+			            bee.motionY += 0.3D;
+			            bee.setIsFlying(true);
+			            
+		            	bee.worldObj.spawnEntityInWorld((Entity) bee); 	
+		            }
+	    		}
+	    	}
         }
     }
 

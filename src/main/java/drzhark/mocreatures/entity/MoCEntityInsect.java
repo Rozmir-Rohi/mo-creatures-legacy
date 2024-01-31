@@ -83,7 +83,7 @@ public class MoCEntityInsect extends MoCEntityAmbient {
                 MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 1), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
             }
             
-            if (!getIsFlying() && rand.nextInt(getFlyingFreq()) == 0)
+            if (!getIsFlying() && entityToAttack == null && rand.nextInt(getFlyingFreq()) == 0)
             {
                 List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4D, 4D, 4D));
                 for (int i = 0; i < list.size(); i++)

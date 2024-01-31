@@ -83,8 +83,13 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
     public void selectType()
     {
         /*
-         * type 1 = baby type 2 = female type 3 = female 2 type 4 = female 3
-         * type 5 = male 1 type 6 = male 2 type 7 = male 3
+         * type 1 = baby
+         * type 2 = female
+         * type 3 = female 2
+         * type 4 = female 3
+         * type 5 = male 1
+         * type 6 = male 2
+         * type 7 = male 3
          */
         if (getType() == 0)
         {
@@ -338,7 +343,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyFavoriteFood(ItemStack par1ItemStack)
+    public boolean isMyFollowFood(ItemStack par1ItemStack)
     {
         Item item1 = null;
         if (par1ItemStack != null)

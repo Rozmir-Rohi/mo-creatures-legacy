@@ -982,7 +982,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
      * @param par1ItemStack
      * @return
      */
-    public boolean isMyFavoriteFood(ItemStack par1ItemStack)
+    public boolean isMyFollowFood(ItemStack par1ItemStack)
     {
         return false;
     }
@@ -993,7 +993,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         if (entityplayer1 == null) { return; }
 
         ItemStack itemstack1 = entityplayer1.inventory.getCurrentItem();
-        if (itemstack1 != null && isMyFavoriteFood(itemstack1))
+        if (itemstack1 != null && isMyFollowFood(itemstack1))
         {
             PathEntity pathentity = worldObj.getPathEntityToEntity(this, entityplayer1, 16F, true, false, false, true);
             setPathToEntity(pathentity);

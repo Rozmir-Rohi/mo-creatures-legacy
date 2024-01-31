@@ -43,7 +43,6 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         super(world);
         setMoCAge(35);
         setSize(0.9F, 1.3F);
-        //health = 25;
         if (rand.nextInt(4) == 0)
         {
             setAdult(false);
@@ -67,6 +66,12 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     
     @Override
     public boolean isPredator()
+    {
+    	return true;
+    }
+    
+    @Override
+    public boolean doesForageForFood()
     {
     	return true;
     }
@@ -443,7 +448,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 
     @Override
     protected Entity findPlayerToAttack()
-    {
+    {	
         if (roper != null && roper instanceof EntityPlayer) { return getMastersEnemy((EntityPlayer) roper, 12D); }
 
         if (worldObj.difficultySetting != worldObj.difficultySetting.PEACEFUL)
@@ -471,21 +476,21 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         }
         
         if (MoCreatures.proxy.specialPetsDefendOwner)
-        {
-        	if (this.getIsTamed() && !getIsSitting()) //defend owner if they are attacked by an entity
-        	{
-        		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
-        		
-        		if (owner_of_entity_that_is_online != null)
-        		{
-        			EntityLivingBase entity_that_attacked_owner = owner_of_entity_that_is_online.getAITarget();
-        			
-        			if (entity_that_attacked_owner != null)
-        			{
-        				return entity_that_attacked_owner;
-        			}
-        		}
-        	}
+    	{
+	        if (this.getIsTamed()) //defend owner if they are attacked by an entity
+	    	{
+	    		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		
+	    		if (owner_of_entity_that_is_online != null)
+	    		{
+	    			EntityLivingBase entity_that_attacked_owner = owner_of_entity_that_is_online.getAITarget();
+	    			
+	    			if (entity_that_attacked_owner != null)
+	    			{
+	    				return entity_that_attacked_owner;
+	    			}
+	    		}
+	    	}
         }
         
         return null;
@@ -680,7 +685,9 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     {
 
         if (super.interact(entityplayer)) { return false; }
+        
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        
         if ((itemstack != null) && !getIsTamed() && getHasEaten() && (itemstack.getItem() == MoCreatures.medallion))
         {
             if (MoCreatures.isServer())
@@ -688,6 +695,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
                 MoCTools.tameWithName(entityplayer, this);
                 entityplayer.addStat(MoCAchievements.tame_big_cat, 1);
             }
+            
             if (getIsTamed() && --itemstack.stackSize == 0)
             {
                 entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
@@ -696,7 +704,8 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 
             return false;
         }
-        if ((itemstack != null) && getIsTamed() && isItemstackFoodItem(itemstack))
+        
+        if ((itemstack != null) && getIsTamed() && isMyHealFood(itemstack))
         {
             heal(5);
             worldObj.playSoundAtEntity(this, "mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
@@ -790,50 +799,17 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
                 roper = null;
             }
         }
-        if ((deathTime == 0) && getIsHungry() && !getIsSitting())
-        {
-            EntityItem entityitem = getClosestEntityItem(this, 12D);
-            
-            
-            if (entityitem != null)
-            {
-            	ItemStack itemstack = entityitem.getEntityItem();
-            	
-            	if (isItemstackFoodItem(itemstack))
-            	{
-            	
-            		float f = entityitem.getDistanceToEntity(this);
-            		if (f > 2.0F)
-            		{
-            			getMyOwnPath(entityitem, f);
-            		}
-            		if ((f < 2.0F) && (entityitem != null) && (deathTime == 0))
-            		{
-            			entityitem.setDead();
-            			
-            			this.heal(5);
-            			
-            			if (!getIsAdult() && (getMoCAge() < 80))
-            			{
-            				setEaten(true);
-            			}
-            			
-            			worldObj.playSoundAtEntity(this, "mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
-            			
-            			setHungry(false);
-            		}
-            	}
-            }
-        }
     }
     
-    private boolean isItemstackFoodItem(ItemStack itemstack)
+    @Override
+    public boolean isMyHealFood(ItemStack itemstack)
     {
     	Item item = itemstack.getItem();
     	
     	List<String> ore_dictionary_name_array = MoCTools.getOreDictionaryEntries(itemstack);
     	
-    	if (
+    	return 
+    		(
     			item == Items.porkchop
     			|| item == Items.beef 
     			|| item == Items.chicken
@@ -847,12 +823,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     				(
     					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
     				)
-    		)
-    	{
-    		return true;
-    	}
-    	
-    	return false;
+    		);
     }
 
     @Override

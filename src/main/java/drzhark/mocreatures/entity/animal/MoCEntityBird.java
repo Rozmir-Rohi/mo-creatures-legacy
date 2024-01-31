@@ -308,7 +308,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         
         if (itemstack != null)
         {		
-        	if (isItemstackFoodItem(itemstack))
+        	if (isMyHealFood(itemstack))
         	{
         		if (--itemstack.stackSize == 0)
         		{
@@ -440,7 +440,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
                 {
                 	ItemStack itemstack = entityitem.getEntityItem();
                 	
-                	if (isItemstackFoodItem(itemstack))
+                	if (isMyHealFood(itemstack))
                 	{
                 		FlyToNextEntity(entityitem);
                 		
@@ -450,7 +450,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
                 		{
                 			ItemStack itemstack_closest = entityitem_closest.getEntityItem();
                 		
-                			if (isItemstackFoodItem(itemstack_closest))
+                			if (isMyHealFood(itemstack_closest))
                 			{
                 		
                 				if ((rand.nextInt(50) == 0) && (entityitem_closest != null))
@@ -582,19 +582,19 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         }
     }
     
-    private boolean isItemstackFoodItem(ItemStack itemstack)
+    @Override
+    public boolean isMyHealFood(ItemStack itemstack)
     {
     	Item item = itemstack.getItem();
     	
-    	if (
+    	return
+    		(
     			item instanceof ItemSeeds
     			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
     			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
     			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllseed"  //BOP seeds or Palm's Harvest Seeds
     			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins" //GregTech6 seeds/raisins or Palm's Harvest raisins
-    		) {return true;}
-    	
-    	return false;
+    		);
     }
 
     @Override

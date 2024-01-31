@@ -35,7 +35,7 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     }
     
     @Override
-    public boolean isScavenger()
+    public boolean doesForageForFood()
     {
     	return true;
     }

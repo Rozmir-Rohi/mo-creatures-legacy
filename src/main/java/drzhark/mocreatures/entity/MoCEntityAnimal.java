@@ -344,7 +344,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     	return false;
     }
     
-    public boolean isScavenger()
+    public boolean doesForageForFood()
     {
     	return false;
     }
@@ -414,7 +414,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
                 }
             }
             
-            if (isScavenger() && !isMovementCeased() && (getHealth() < getMaxHealth() || !isPredator()))
+            if (doesForageForFood() && !isMovementCeased() && (getHealth() < getMaxHealth() || !isPredator() || !getIsAdult()))
             {
             	EntityItem closest_entityitem = getClosestEntityItem(this, 12D);
                 
@@ -440,11 +440,16 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
                 			
                 			MoCTools.playCustomSound(this, "eating", worldObj);
                 		}
+                		if ((this instanceof MoCEntityBigCat) && !getIsAdult() && (getMoCAge() < 80))
+            			{
+                			if (rand.nextInt(10) == 0) //1 out of 10 chance
+                			{
+                				((MoCEntityBigCat) this).setEaten(true); //sets the baby big cat as pre-tamed - ready for taming with a medallion
+                			}
+            			}
                 	}
                 }
             }
-            
-            
         }
 
         if (isNotScared() && fleeingTick > 0)
@@ -1566,7 +1571,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
      * @param par1ItemStack
      * @return
      */
-    public boolean isMyFavoriteFood(ItemStack par1ItemStack)
+    public boolean isMyFollowFood(ItemStack par1ItemStack)
     {
         return false;
     }
@@ -1577,7 +1582,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         if (entityplayer1 == null) { return; }
 
         ItemStack itemstack1 = entityplayer1.inventory.getCurrentItem();
-        if (itemstack1 != null && isMyFavoriteFood(itemstack1))
+        if (itemstack1 != null && isMyFollowFood(itemstack1))
         {
             PathEntity pathentity = worldObj.getPathEntityToEntity(this, entityplayer1, 16F, true, false, false, true);
             setPathToEntity(pathentity);

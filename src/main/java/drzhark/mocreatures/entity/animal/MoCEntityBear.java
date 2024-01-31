@@ -64,7 +64,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     }
     
     @Override
-    public boolean isScavenger()
+    public boolean doesForageForFood()
     {
     	return true; //all bear types will eat items from the ground if the item is their food item
     }
@@ -581,7 +581,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyFavoriteFood(ItemStack itemstack)
+    public boolean isMyFollowFood(ItemStack itemstack)
     {
     	return this.getType() == 3 && itemstack != null && (isItemstackPandaFoodItem(itemstack)); 
     }

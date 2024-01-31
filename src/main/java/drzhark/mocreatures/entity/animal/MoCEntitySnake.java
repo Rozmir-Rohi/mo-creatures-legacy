@@ -62,6 +62,12 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     {
     	return true;
     }
+    
+    @Override
+    public boolean doesForageForFood()
+    {
+    	return true;
+    }
 
     @Override
     public void selectType()

@@ -43,16 +43,24 @@ public class MoCEntityBee extends MoCEntityInsect
         if (MoCreatures.isServer())
         {
             EntityPlayer ep = worldObj.getClosestPlayerToEntity(this, 5D);
+            
             if (ep != null && getIsFlying() && --soundCount == -1)
             {
                 MoCTools.playCustomSound(this, getMySound(), this.worldObj);
                 soundCount = 20;
             }
 
-            if (getIsFlying() && rand.nextInt(500) == 0)
+            if (entityToAttack == null && getIsFlying() && rand.nextInt(500) == 0)
             {
                 setIsFlying(false);
             }
+            
+            if (entityToAttack != null && !getIsFlying())
+            {
+            	motionY += 0.3D;
+            	setIsFlying(true);
+            }
+            
         }
     }
 
@@ -65,7 +73,7 @@ public class MoCEntityBee extends MoCEntityInsect
     @Override
     protected float getFlyingSpeed()
     {
-        return 0.5F;
+    	return 0.5F;
     }
 
     @Override
@@ -134,8 +142,12 @@ public class MoCEntityBee extends MoCEntityInsect
     }
 
     @Override
-    public boolean isMyFavoriteFood(ItemStack par1ItemStack)
+    public boolean isMyFollowFood(ItemStack itemstack)
     {
-        return par1ItemStack != null && (par1ItemStack.getItem() == Item.getItemFromBlock(Blocks.red_flower) || par1ItemStack.getItem() == Item.getItemFromBlock(Blocks.yellow_flower));
+        return itemstack != null && 
+        		(
+        			itemstack.getItem() == Item.getItemFromBlock(Blocks.red_flower) 
+        			|| itemstack.getItem() == Item.getItemFromBlock(Blocks.yellow_flower)
+        		);
     }
 }

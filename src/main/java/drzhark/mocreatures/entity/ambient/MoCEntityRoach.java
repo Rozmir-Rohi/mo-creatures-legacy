@@ -60,7 +60,7 @@ public class MoCEntityRoach extends MoCEntityInsect
     }
 
     @Override
-    public boolean isMyFavoriteFood(ItemStack par1ItemStack)
+    public boolean isMyFollowFood(ItemStack par1ItemStack)
     {
         return par1ItemStack != null && par1ItemStack.getItem() == Items.rotten_flesh;
     }
