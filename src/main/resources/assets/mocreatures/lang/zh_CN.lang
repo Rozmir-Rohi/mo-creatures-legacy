@@ -453,7 +453,7 @@ achievement.tame_panda=熊猫驯服师
 achievement.tame_panda.desc=使用甘蔗或竹子驯服一只幼小的熊猫。
 
 achievement.tame_scorpion=蝎子驯服师
-achievement.tame_scorpion.desc=用空手抚摸一只幼小的蝎子来驯服它。一旦长大，你可以骑着它爬上墙壁。给成年宠物蝎子暗黑精华，它将下蛋。
+achievement.tame_scorpion.desc=通过用空手抚摸它来驯服一只幼年蝎子。可以使用腐肉或老鼠肉治愈宠物蝎子。一旦成长到完全体，你可以骑着它们爬墙。成年宠物蝎子如果被给予黑暗精华，会下蛋。
 
 achievement.ostrich_egg=偷蛋贼
 achievement.ostrich_egg.desc=使用西瓜籽繁殖野生鸵鸟夫妇并偷走它们的蛋。宠物鸵鸟成年后可以骑行。宠物鸵鸟也可以用精华转化。
@@ -504,16 +504,16 @@ achievement.kill_big_golem=傀儡屠戮者
 achievement.kill_big_golem.desc=杀死一只大傀儡并获得它的中心方块。
 
 achievement.leonardo=莱昂纳多
-achievement.leonardo.desc=从一只莱昂纳多龟获得一把武士刀。武士刀可以使用铁锭在铁砧上修复。
+achievement.leonardo.desc=从一个莱昂纳多龟中获得一把武士刀。可以通过在它们附近放置甘蔗或西瓜片，可以驯服龟。武士刀可以使用铁锭在铁砧上修复。
 
 achievement.raphael=拉斐尔
-achievement.raphael.desc=从一只拉斐尔龟获得一对三叉戟。三叉戟可以使用铁锭在铁砧上修复。
+achievement.raphael.desc=从一个拉斐尔龟中获得一把三叉戟。可以通过在它们附近放置甘蔗或西瓜片，可以驯服龟。三叉戟以使用铁锭在铁砧上修复。
 
 achievement.donatello=多尼
-achievement.donatello.desc=从多尼海龟处获得一根长棍。
+achievement.donatello.desc=从多尼龟那里获得一根长棍。可以通过在它们附近放置甘蔗或西瓜片来驯服乌龟。
 
 achievement.michelangelo=米开朗琪罗
-achievement.michelangelo.desc=从一只米开朗琪罗龟获得一对双节棍。双节棍可以使用铁锭在铁砧上修复。
+achievement.michelangelo.desc=从米开朗琪罗龟那里获得一对双节棍。可以通过在它们附近放置甘蔗或西瓜片来驯服龟。双节棍可以使用铁锭在铁砧上修复。
 
 achievement.silver_sword=狼人的克星
 achievement.silver_sword.desc=从银骷髅处获得一把银剑。
