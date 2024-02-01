@@ -45,7 +45,6 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     {
         super(world);
         setSize(1.4F, 0.5F);
-        //health = 10;
         bodyswing = 2F;
         movInt = rand.nextInt(10);
         setMoCAge(50 + rand.nextInt(50));
@@ -628,6 +627,11 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         	else if (super.attackEntityFrom(damagesource, i))
             {
                 Entity entity = damagesource.getEntity();
+                
+                if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName()))))
+                { 
+                	return false; 
+                }
 
                 if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
                 if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0))

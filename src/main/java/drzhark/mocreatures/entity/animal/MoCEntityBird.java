@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityBird extends MoCEntityTameableAnimal {
-    private boolean fleeing;
+    public boolean fleeing;
     public float wingb;
     public float wingc;
     public float wingd;
@@ -51,6 +51,12 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     {
       super.applyEntityAttributes();
       getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0D);
+    }
+    
+    @Override
+    public boolean doesForageForFood()
+    {
+    	return true;
     }
 
     @Override
@@ -144,7 +150,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         return (new int[] { 0, 0, 0 });
     }
 
-    private boolean FlyToNextEntity(Entity entity)
+    public boolean FlyToNextEntity(Entity entity)
     {
         if (entity != null)
         {
@@ -378,7 +384,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         wingd = wingc;
         
         //wingc controls whether the bird flaps it's wings or not
-        wingc = (float) (wingc + ((onGround || (this.ridingEntity != null && this.ridingEntity.motionY >= -0.08) ? -1 : 4) * 0.29999999999999999D));
+        wingc = (float) (wingc + (((onGround && !fleeing) || (this.ridingEntity != null && this.ridingEntity.motionY >= -0.08) ? -1 : 4) * 0.29999999999999999D));
        
         
         if (wingc < 0.0F)
@@ -433,37 +439,6 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
                     fleeing = false;
                 }
             }
-            if ((!fleeing) && this.ridingEntity == null)
-            {
-                EntityItem entityitem = getClosestEntityItem(this, 12D);
-                if (entityitem != null)
-                {
-                	ItemStack itemstack = entityitem.getEntityItem();
-                	
-                	if (isMyHealFood(itemstack))
-                	{
-                		FlyToNextEntity(entityitem);
-                		
-                		EntityItem entityitem_closest = getClosestEntityItem(this, 1.0D);
-                		
-                		if (entityitem_closest != null)
-                		{
-                			ItemStack itemstack_closest = entityitem_closest.getEntityItem();
-                		
-                			if (isMyHealFood(itemstack_closest))
-                			{
-                		
-                				if ((rand.nextInt(50) == 0) && (entityitem_closest != null))
-                				{
-                					entityitem_closest.setDead();
-                					heal(5);
-                					setPreTamed(true);
-                				}
-                			}
-                    	}
-                	}
-                }
-            }
             if (rand.nextInt(10) == 0 && isInsideOfMaterial(Material.water))
             {
                 WingFlap();
@@ -481,6 +456,8 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
             {
          	   return false;
             }
+        	
+        	if (!fleeing) {fleeing = true;}
         }
         
         return super.attackEntityFrom(damagesource, i);

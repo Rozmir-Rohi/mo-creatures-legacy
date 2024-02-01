@@ -55,14 +55,6 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         setHungry(true);
         setTamed(false);
     }
-
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
-    }
     
     @Override
     public boolean isPredator()
@@ -323,7 +315,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     {
         super.entityInit();
         dataWatcher.addObject(22, Byte.valueOf((byte) 0)); // isHungry - 0 false 1 true
-        dataWatcher.addObject(23, Byte.valueOf((byte) 0)); // hasEaten - 0 false 1 true
+        dataWatcher.addObject(23, Byte.valueOf((byte) 0)); // isPreTamed - 0 false 1 true
         dataWatcher.addObject(24, Byte.valueOf((byte) 0)); // isSitting - 0 false 1 true
     }
 
@@ -332,7 +324,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         return (dataWatcher.getWatchableObjectByte(22) == 1);
     }
 
-    public boolean getHasEaten()
+    public boolean getPreTamed()
     {
         return (dataWatcher.getWatchableObjectByte(23) == 1);
     }
@@ -348,7 +340,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         dataWatcher.updateObject(22, Byte.valueOf(input));
     }
 
-    public void setEaten(boolean flag)
+    public void setPreTamed(boolean flag)
     {
         byte input = (byte) (flag ? 1 : 0);
         dataWatcher.updateObject(23, Byte.valueOf(input));
@@ -393,7 +385,10 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         if (super.attackEntityFrom(damagesource, i))
         {
             Entity entity = damagesource.getEntity();
-            if (entity != null && getIsTamed() && entity instanceof EntityPlayer) { return false; }
+            if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName()))))
+            { 
+            	return false; 
+            }
             if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
             if ((entity != this) && (worldObj.difficultySetting != worldObj.difficultySetting.PEACEFUL))
             {
@@ -429,17 +424,17 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         return false;
     }
 
-    public int checkNearBigKitties(double d)
+    public int checkForOtherBigCatsNearby(double d)
     {
         boolean flag = false;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
-        for (int j = 0; j < list.size(); j++)
+        List entities_nearby_list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
+        for (int index = 0; index < entities_nearby_list.size(); index++)
         {
-            Entity entity = (Entity) list.get(j);
-            if ((entity != this) && (entity instanceof MoCEntityBigCat))
+            Entity entity_nearby = (Entity) entities_nearby_list.get(index);
+            if ((entity_nearby != this) && (entity_nearby instanceof MoCEntityBigCat))
             {
-                MoCEntityBigCat entitybigcat = (MoCEntityBigCat) entity;
-                return entitybigcat.getType();
+                MoCEntityBigCat entitybigcat_nearby = (MoCEntityBigCat) entity_nearby;
+                return entitybigcat_nearby.getType();
             }
         }
 
@@ -550,25 +545,26 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         
         
 
-        int l = 0;
+        int type_other = 0;
         {
-            l = checkNearBigKitties(12D);
+            type_other = checkForOtherBigCatsNearby(12D);
 
            
-            if (l == 2)
+            if (type_other == 2)
             {
-                l = 1;
+                type_other = 1;
             }
-            else if (l == 1 && rand.nextInt(3) == 0)
+            else if (type_other == 1 && rand.nextInt(3) == 0)
             {
-                l = 2;
+                type_other = 2;
             }
-            else if (l == 7)
+            else if (type_other == 7)
             {
-                l = 5;
+                type_other = 5;
             }
         }
-        setType(l);
+        
+        setType(type_other);
         return true;
     }
 
@@ -688,7 +684,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
         
-        if ((itemstack != null) && !getIsTamed() && getHasEaten() && (itemstack.getItem() == MoCreatures.medallion))
+        if ((itemstack != null) && !getIsTamed() && getPreTamed() && (itemstack.getItem() == MoCreatures.medallion))
         {
             if (MoCreatures.isServer())
             {

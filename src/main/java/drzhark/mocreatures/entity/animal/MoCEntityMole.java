@@ -227,7 +227,6 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
     @Override
     public void onDeath(DamageSource damagesource)
     {
-        //System.out.println(this + " is dying with health of " + this.func_110143_aJ() + " and State of " + getState());
         super.onDeath(damagesource);
     }
     

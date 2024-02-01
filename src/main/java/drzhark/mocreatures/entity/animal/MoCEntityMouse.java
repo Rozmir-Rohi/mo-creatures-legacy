@@ -26,7 +26,6 @@ public class MoCEntityMouse extends MoCEntityAnimal
     {
         super(world);
         setSize(0.3F, 0.3F);
-        //health = 4;
     }
 
     protected void applyEntityAttributes()

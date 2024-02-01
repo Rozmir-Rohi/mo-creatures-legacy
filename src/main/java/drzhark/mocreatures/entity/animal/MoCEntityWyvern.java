@@ -55,12 +55,6 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             setMoCAge(80 + rand.nextInt(20));
         }
     }
-
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(getType() >= 5 ? 80.0D : 40.0D);
-    }
     
     @Override
     public boolean isPredator()
@@ -177,6 +171,9 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             {
                 setType(5);
             }
+            
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(getType() >= 5 ? 80.0D : 40.0D);
+            this.setHealth(getMaxHealth());
         }
     }
 
@@ -651,10 +648,11 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         {
             Entity entity = damagesource.getEntity();
          
+            if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName()))))
+            { 
+            	return false; 
+            }
             
-            if (entity != null && getIsTamed() && entity instanceof EntityPlayer) {return false;}
-            
-
             if ((riddenByEntity != null) && (entity == riddenByEntity)) {return false;}
             
             if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0))

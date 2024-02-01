@@ -67,7 +67,7 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
         }
 
         //changes name
-        if (MoCreatures.isServer() && itemstack != null && getIsTamed() && (itemstack.getItem() == MoCreatures.medallion|| itemstack.getItem() == Items.book|| itemstack.getItem() == Items.name_tag))
+        if (MoCreatures.isServer() && itemstack != null && getIsTamed() && (itemstack.getItem() == MoCreatures.medallion || itemstack.getItem() == Items.name_tag))
         {
             if (MoCTools.tameWithName(entityplayer, this))
             {
@@ -135,6 +135,12 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
         //stores in fishnet
         if (itemstack != null && itemstack.getItem() == MoCreatures.fishnet && itemstack.getItemDamage() == 0 && this.canBeTrappedInNet()) 
         {
+        	//if the player using the amulet is not the owner
+	        if (getOwnerName().length() > 0 && !(getOwnerName().equals(entityplayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
+	        {
+	        	return false;
+	        }
+        	
             if (MoCreatures.isServer())
             {
                 MoCPetData petData = MoCreatures.instance.mapData.getPetData(this.getOwnerName());

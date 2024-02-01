@@ -30,7 +30,6 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         super(world);
         setSize(1.5F, 0.8F);
         setMoCAge(80 + rand.nextInt(100));
-        //health = 30;
     }
 
     protected void applyEntityAttributes()
@@ -44,24 +43,24 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     {
         if (getType() == 0)
         {
-            int i = rand.nextInt(100);
-            if (i <= 35)
+            int type_chance = rand.nextInt(100);
+            if (type_chance <= 35)
             {
                 setType(1);
             }
-            else if (i <= 60)
+            else if (type_chance <= 60)
             {
                 setType(2);
             }
-            else if (i <= 85)
+            else if (type_chance <= 85)
             {
                 setType(3);
             }
-            else if (i <= 96)
+            else if (type_chance <= 96)
             {
                 setType(4);
             }
-            else if (i <= 98)
+            else if (type_chance <= 98)
             {
                 setType(5);
             }

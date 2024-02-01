@@ -131,7 +131,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         	&& (MoCreatures.proxy.specialHorsesFightBack)
         	&& getIsAdult()
         	&& (riddenByEntity == null)
-        	&& !(entity instanceof EntityPlayer)
+        	&& !(entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName())))
         	&& !(entity instanceof MoCEntityHorse)
         	&& (
         			(getType() > 20 && getType() < 26) // ghost or undead
@@ -170,13 +170,13 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     	if ((horse_type > 20 && horse_type < 26) || (horse_type > 25 && horse_type < 30)) // ghost, undead, and skeleton
     	{return 2;}
     
-        if (horse_type >= 30 && horse_type < 40 && horse_type != 36 && horse_type != 39) // magics except pegasus and unicorn
+        if (horse_type >= 30 && horse_type < 40 && horse_type != 36 && horse_type != 39) // magic horses except pegasus and unicorn
         {return 2;} 
         
         if (horse_type == 36 || horse_type == 39) //pure pegasus or pure unicorn
         {return 4;}
         
-        if (horse_type >= 40 && horse_type < 60) // dark pegasus and fairies
+        if (horse_type >= 40 && horse_type < 60) // dark pegasus and fairy horses
         {return 6;}
         
         else {return 2;}

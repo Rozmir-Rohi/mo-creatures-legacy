@@ -95,7 +95,7 @@ public class MoCItemWhip extends MoCItem {
             
             if (!(list_of_entities_near_player.isEmpty()))
             {
-	            List<Entity> whippable_entity_list = new ArrayList<>();
+	            List<MoCEntityAnimal> whippable_entity_list = new ArrayList<>();
 	            
 	            List<Double> whippable_entity_distance_to_player_list = new ArrayList<>();
 	            
@@ -112,9 +112,25 @@ public class MoCItemWhip extends MoCItem {
 		            if ((index_of_closest_whippable_entity_in_list >= 0))
 		            {
 		            
-			            Entity closest_whippable_entity_to_player = whippable_entity_list.get(index_of_closest_whippable_entity_in_list);    
-			                
-			            performWhipActionOnWhippableEntity(entityplayer, closest_whippable_entity_to_player, world);  
+		            	MoCEntityAnimal closest_whippable_entity_to_player = whippable_entity_list.get(index_of_closest_whippable_entity_in_list);    
+			            
+		            	//if the player using the whip is not the owner
+				        if (
+				        		closest_whippable_entity_to_player.getOwnerName() != null 
+				        		&& !closest_whippable_entity_to_player.getOwnerName().equals("") 
+				        		&& !(entityplayer.getCommandSenderName().equals(closest_whippable_entity_to_player.getOwnerName())) 
+				        	) 
+				        { 
+				        	if (closest_whippable_entity_to_player.isPredator() && closest_whippable_entity_to_player.riddenByEntity == null)
+				        	{
+				        		closest_whippable_entity_to_player.setTarget(entityplayer); 
+				        	}
+				        }
+		            	
+				        else
+				        {
+				        	performWhipActionOnWhippableEntity(entityplayer, closest_whippable_entity_to_player, world); 
+				        }	
 			        }
 	            }
             }
@@ -124,7 +140,7 @@ public class MoCItemWhip extends MoCItem {
     
     
 
-	private void findWhippableEntitiesNearPlayer(EntityPlayer entityplayer, List list_of_entities_near_player, List<Entity> whippable_entity_list, List<Double> whippable_entity_distance_to_player_list, int iteration_length)
+	private void findWhippableEntitiesNearPlayer(EntityPlayer entityplayer, List list_of_entities_near_player, List<MoCEntityAnimal> whippable_entity_list, List<Double> whippable_entity_distance_to_player_list, int iteration_length)
 	{
 		for (int index = 0; index < iteration_length; index++)
 		{
@@ -132,23 +148,19 @@ public class MoCItemWhip extends MoCItem {
 		    
 		    if (entity_near_player instanceof MoCEntityAnimal)
 		    {
-		        MoCEntityAnimal animal = (MoCEntityAnimal) entity_near_player;
-		        if (MoCreatures.proxy.enableStrictOwnership && animal.getOwnerName() != null && !animal.getOwnerName().equals("") && !entityplayer.getCommandSenderName().equals(animal.getOwnerName()) && !MoCTools.isThisPlayerAnOP(entityplayer)) 
-		        { 
-		           continue;
-		        }
+		        MoCEntityAnimal animal_near_player = (MoCEntityAnimal) entity_near_player;
 		        
-		        else if (
-		            		entity_near_player instanceof MoCEntityBigCat
-		            		|| entity_near_player instanceof MoCEntityHorse
-		            		|| entity_near_player instanceof MoCEntityKitty
-		            		|| entity_near_player instanceof MoCEntityWyvern
-		            		|| entity_near_player instanceof MoCEntityOstrich
-		            		|| entity_near_player instanceof MoCEntityElephant
-		        		)
+		        if (
+		        		animal_near_player instanceof MoCEntityBigCat
+		            	|| animal_near_player instanceof MoCEntityHorse
+		            	|| animal_near_player instanceof MoCEntityKitty
+		            	|| animal_near_player instanceof MoCEntityWyvern
+		            	|| animal_near_player instanceof MoCEntityOstrich
+		            	|| animal_near_player instanceof MoCEntityElephant
+		        	)
 		        {
-		        	whippable_entity_list.add(entity_near_player);
-		        	whippable_entity_distance_to_player_list.add(entityplayer.getDistanceSq(entity_near_player.posX, entity_near_player.posY, entity_near_player.posZ));
+		        	whippable_entity_list.add(animal_near_player);
+		        	whippable_entity_distance_to_player_list.add(entityplayer.getDistanceSq(animal_near_player.posX, animal_near_player.posY, animal_near_player.posZ));
 		        }
 		    }
 		    else {continue;}
@@ -157,11 +169,10 @@ public class MoCItemWhip extends MoCItem {
 
 	
     
-	private void performWhipActionOnWhippableEntity(EntityPlayer entityplayer, Entity closest_whippable_entity_to_player, World world)
+	private void performWhipActionOnWhippableEntity(EntityPlayer entityplayer, MoCEntityAnimal closest_whippable_entity_to_player, World world)
 	{
 		if (closest_whippable_entity_to_player != null)
-		{
-		    
+		{		
 		    if (closest_whippable_entity_to_player instanceof MoCEntityBigCat)
 		    {
 		        MoCEntityBigCat entitybigcat = (MoCEntityBigCat) closest_whippable_entity_to_player;

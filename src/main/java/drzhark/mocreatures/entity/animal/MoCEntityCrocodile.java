@@ -47,7 +47,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     private boolean waterbound;
     private int hunting;
     private float spin_attack_strength;
-    private int catch_prey_in_mouth_attack_speed;
+    private int attack_speed_when_caught_prey_in_mouth;
 
     public MoCEntityCrocodile(World world)
     {
@@ -55,7 +55,6 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
         texture = "crocodile.png";
         setSize(2F, 0.6F);
         myMoveSpeed = 0.5F;
-        //health = 25;
         setMoCAge(50 + rand.nextInt(50));
         setTamed(false);
     }
@@ -281,12 +280,12 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
                     }
                     
                     if (getMoCAge() < 90) //if is child (higher number for attack speed means the slower it is)
-                    {catch_prey_in_mouth_attack_speed = 15;}
+                    {attack_speed_when_caught_prey_in_mouth = 15;}
                     else
-                    {catch_prey_in_mouth_attack_speed = 5;}
+                    {attack_speed_when_caught_prey_in_mouth = 5;}
                     
 
-                    if (MoCreatures.isServer() && rand.nextInt(catch_prey_in_mouth_attack_speed) == 0)  //cause damage to creature in mouth
+                    if (MoCreatures.isServer() && rand.nextInt(attack_speed_when_caught_prey_in_mouth) == 0)  //cause damage to creature in mouth
                     {
                         riddenByEntity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
                     }

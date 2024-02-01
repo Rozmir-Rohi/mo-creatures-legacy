@@ -269,7 +269,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     {
     	if (isPredator() && MoCreatures.proxy.destroyDrops)
     	{
-    		if (!(entityliving instanceof EntityPlayer))
+    		if (!(entityliving instanceof EntityPlayer) && !(entityliving instanceof EntityMob))
     		{
 	    		has_killed_prey = true;
     		}

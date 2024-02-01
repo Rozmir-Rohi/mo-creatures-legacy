@@ -57,15 +57,16 @@ public class MoCItemPetAmulet extends MoCItem
     
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World worldObj, EntityPlayer entityplayer)
-    {
-        int i = itemstack.getItemDamage();
+    {	
+    	
+    	int amulet_durability = itemstack.getItemDamage();
        
-        if (i == 0) //empty fishnet
+        if (amulet_durability == 0) //empty fishnet
         {
             return itemstack;
         }
 
-        if (i != 0)
+        if (amulet_durability != 0)
         {
 
             double dist = 1D;
@@ -93,17 +94,28 @@ public class MoCItemPetAmulet extends MoCItem
                     {
                         spawnClass = "WildHorse";
                     }
+                    
 
                     EntityLiving tempLiving = MoCTools.spawnListByNameClass(spawnClass, worldObj);
+                    
                     if (tempLiving != null && tempLiving instanceof IMoCEntity)
                     {
                         IMoCTameable storedCreature = (IMoCTameable) tempLiving;
+                        
+                        //if the player using the amulet is not the owner
+            	        if (ownerName.length() > 0 && !(ownerName.equals(entityplayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
+            	        {
+            	        	return itemstack;
+            	        }
+                        
+                        
                         ((EntityLiving)storedCreature).setPosition(newPosX, newPosY, newPosZ);
                         storedCreature.setType(creatureType);
                         storedCreature.setTamed(true);
                         storedCreature.setName(name);
                         storedCreature.setOwnerPetId(PetId);
                         storedCreature.setOwner(entityplayer.getCommandSenderName());
+                        
                         ((EntityLiving)storedCreature).setHealth(health);
                         storedCreature.setMoCAge(age);
                         storedCreature.setAdult(adult);
@@ -113,51 +125,8 @@ public class MoCItemPetAmulet extends MoCItem
                             ((MoCEntityKitty)storedCreature).setKittyState(2); // allows name to render
                         }
 
-                        //if the player using the amulet is different than the original owner
-                        if (ownerName != "" && !(ownerName.equals(entityplayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
-                        {
-                            MoCPetData oldOwner = MoCreatures.instance.mapData.getPetData(ownerName);
-                            MoCPetData newOwner = MoCreatures.instance.mapData.getPetData(entityplayer.getCommandSenderName());
-                            EntityPlayer epOwner = worldObj.getPlayerEntityByName(entityplayer.getCommandSenderName());
-                            int maxCount = MoCreatures.proxy.maxTamed;
-                            if (MoCTools.isThisPlayerAnOP(epOwner))
-                            {
-                                maxCount = MoCreatures.proxy.maxOPTamed;
-                            }
-                            if ((newOwner != null && newOwner.getTamedList().tagCount() < maxCount) || (newOwner == null && maxCount > 0) || !MoCreatures.proxy.enableStrictOwnership)
-                            {
-                                NBTTagCompound petNBT = new NBTTagCompound();
-                                if (tempLiving instanceof MoCEntityTameableAnimal)
-                                {
-                                    ((MoCEntityTameableAnimal)storedCreature).writeEntityToNBT(petNBT);
-                                }
-                                else if (tempLiving instanceof MoCEntityTameableAquatic)
-                                {
-                                    ((MoCEntityTameableAquatic)storedCreature).writeEntityToNBT(petNBT);
-                                }
-                                else if (tempLiving instanceof MoCEntityTameableAmbient)
-                                {
-                                    ((MoCEntityTameableAmbient)storedCreature).writeEntityToNBT(petNBT);
-                                }
-                                MoCreatures.instance.mapData.updateOwnerPet((IMoCTameable)storedCreature, petNBT);
-                            }
-                            // remove pet entry from old owner
-                            if (oldOwner != null)
-                            {
-                                for (int j = 0; j < oldOwner.getTamedList().tagCount(); j++)
-                                {
-                                    NBTTagCompound petEntry = (NBTTagCompound)oldOwner.getTamedList().getCompoundTagAt(j);
-                                    if (petEntry.getInteger("PetId") == PetId)
-                                    {
-                                        // found match, remove
-                                        oldOwner.getTamedList().removeTag(j);
-                                    }
-                                }
-                            }
-                        }
-
                         if (entityplayer.worldObj.spawnEntityInWorld((EntityLiving)storedCreature))
-                        {
+                        { 	
                             MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAppear(((EntityLiving)storedCreature).getEntityId()), new TargetPoint(entityplayer.worldObj.provider.dimensionId, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 64));
                             if ((MoCreatures.proxy.enableStrictOwnership && ownerName.isEmpty()) || name.isEmpty()) 
                             {

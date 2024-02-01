@@ -664,3 +664,16 @@ Black and Brown bears, Raccoons, Foxes, and Komodo Dragons now eat food items th
 
 
 Angry bees will now spawn if a player breaks a hive from the Palm's Harvest Mod.
+
+
+Fixed elephant speed. Fixed ostrich health and speed. Fixed Wyvern health.
+
+
+Ownership of tamed pets can no longer be stolen by other players using amulets or medallions. Players will now need to use scrolls to transfer or remove their ownership.
+Also, pets can now only be whipped or renamed by their owners. If a player tries to whip a tamed predator creature and they are not the owner of the creature, that creature will attack that player.
+
+
+If a tamed special creature (mostly predators) is attacked by a player and that player is not the owner of that creature, that creature will now attack that player.
+
+
+Pet can no longer be renamed using a book. Renaming items for pets are now: medallion, name tag.

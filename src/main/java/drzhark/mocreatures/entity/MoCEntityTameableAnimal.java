@@ -65,7 +65,7 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
         }
 
         //changes name
-        if (MoCreatures.isServer() && itemstack != null && getIsTamed() && (itemstack.getItem() == MoCreatures.medallion || itemstack.getItem() == Items.book || itemstack.getItem() == Items.name_tag))
+        if (MoCreatures.isServer() && itemstack != null && getIsTamed() && (itemstack.getItem() == MoCreatures.medallion || itemstack.getItem() == Items.name_tag))
         {
             if (MoCTools.tameWithName(entityplayer, this))
             {
@@ -75,8 +75,7 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
         }
         
         //sets it free, untamed
-        if ((itemstack != null) && getIsTamed() 
-                && ((itemstack.getItem() == MoCreatures.scrollFreedom)))
+        if ((itemstack != null) && getIsTamed() && ((itemstack.getItem() == MoCreatures.scrollFreedom)))
         {
             if (--itemstack.stackSize == 0)
             {
@@ -119,6 +118,12 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
         //stores in petAmulet
         if (itemstack != null && itemstack.getItem() == MoCreatures.petamulet && itemstack.getItemDamage() == 0 && this.canBeTrappedInNet()) 
         {
+        	//if the player using the amulet is not the owner
+	        if (getOwnerName().length() > 0 && !(getOwnerName().equals(entityplayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
+	        {
+	        	return false;
+	        }
+        	
             entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
             if (MoCreatures.isServer())
             {

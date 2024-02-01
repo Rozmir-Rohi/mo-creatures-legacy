@@ -282,7 +282,7 @@ public class MoCProxy implements IGuiHandler {
         debug = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "debug", false, "Turns on verbose logging.").getBoolean(false);
         maxTamed = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "maxTamedPerPlayer", 10, "Max tamed creatures a player can have. Requires enableStrictOwnership to be set to true.").getInt();
         maxOPTamed = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "maxTamedPerOP", 20, "Max tamed creatures an op can have. Requires enableStrictOwnership to be set to true.").getInt();
-        enableStrictOwnership = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "enableStrictOwnership", false, "If true: only the owner of a pet can interact with the them. Assigns player as owner for each creature they tame.").getBoolean(false);
+        enableStrictOwnership = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "enableStrictOwnership", false, "If true: only the owner of a pet can interact with the them. This also adds a limit to the amount of tamed creatures a player can have (see 'maxTamed' and 'maxOP')").getBoolean(false);
         enableResetOwnership = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "enableResetOwnerScroll", false, "Allows players to remove a tamed creatures owner essentially untaming it.").getBoolean(false);
         easyBreeding = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "EasyBreeding", false, "Makes horse breeding simpler.").getBoolean(true);
         elephantBulldozer = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "ElephantBulldozer", true, "Allows tamed elephants to break logs and leaves when ramming.").getBoolean(true);

@@ -41,11 +41,11 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 
     public int sprintCounter;
     public int sitCounter;
-    public MoCAnimalChest localelephantchest;
-    public MoCAnimalChest localelephantchest2;
-    public MoCAnimalChest localelephantchest3;
-    public MoCAnimalChest localelephantchest4;
-    public ItemStack localstack;
+    public MoCAnimalChest local_elephant_chest;
+    public MoCAnimalChest local_elephant_chest2;
+    public MoCAnimalChest local_elephant_chest3;
+    public MoCAnimalChest local_elephant_chest4;
+    public ItemStack local_stack;
     boolean hasPlatform;
     public int tailCounter;
     private byte tuskUses;
@@ -74,12 +74,6 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         }
     }
 
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
-    }
-
     @Override
     public void selectType()
     {
@@ -98,6 +92,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
             }
         }
         
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getCustomSpeed());
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
         this.setHealth(getMaxHealth());
     }
@@ -148,18 +143,18 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
     {
         switch (getType())
         {
-        case 1:
-            return MoCreatures.proxy.getTexture("elephantafrican.png");
-        case 2:
-            return MoCreatures.proxy.getTexture("elephantindian.png");
-        case 3:
-            return MoCreatures.proxy.getTexture("mammoth.png");
-        case 4:
-            return MoCreatures.proxy.getTexture("mammothsonghua.png");
-        case 5:
-            return MoCreatures.proxy.getTexture("elephantindianpretty.png");
-        default:
-            return MoCreatures.proxy.getTexture("elephantafrican.png");
+	        case 1:
+	            return MoCreatures.proxy.getTexture("elephantafrican.png");
+	        case 2:
+	            return MoCreatures.proxy.getTexture("elephantindian.png");
+	        case 3:
+	            return MoCreatures.proxy.getTexture("mammoth.png");
+	        case 4:
+	            return MoCreatures.proxy.getTexture("mammothsonghua.png");
+	        case 5:
+	            return MoCreatures.proxy.getTexture("elephantindianpretty.png");
+	        default:
+	            return MoCreatures.proxy.getTexture("elephantafrican.png");
         }
     }
 
@@ -167,47 +162,49 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
     {
         switch (getType())
         {
-        case 1:
-            return 40;
-        case 2:
-            return 30;
-        case 3:
-            return 50;
-        case 4:
-            return 60;
-        case 5:
-            return 40;
-
-        default:
-            return 30;
+	        case 1:
+	            return 40;
+	        case 2:
+	            return 30;
+	        case 3:
+	            return 50;
+	        case 4:
+	            return 60;
+	        case 5:
+	            return 40;
+	
+	        default:
+	            return 30;
         }
     }
 
     @Override
     public double getCustomSpeed()
     {
-        if (sitCounter != 0) return 0D;
+        if (sitCounter != 0) { return 0D; }
 
         double speed = 0.5D;
-        if (getType() == 1)
+        
+        switch (getType())
         {
-            speed = 0.6D;
-        }
-        else if (getType() == 2)
-        {
-            speed = 0.7D;
-        }
-        else if (getType() == 3)
-        {
-            speed = 0.5D;
-        }
-        else if (getType() == 4)
-        {
-            speed = 0.5D;
-        }
-        else if (getType() == 5)
-        {
-            speed = 0.7D;
+	        case 1:
+	        	speed = 0.6D;
+	        	break;
+	        case 2:
+	        	speed = 0.7D;
+	        	break;
+	        case 3:
+	        	speed = 0.5D;
+	        	break;
+	        case 4:
+	        	speed = 0.5D;
+	        	break;
+	        case 5:
+	        	speed = 0.7D;
+	        	break;
+	        default:
+	        	speed = 0.5D;
+	        	break;
         }
 
         if (sprintCounter > 0 && sprintCounter < 150)
@@ -599,9 +596,9 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 
             if ((item == MoCreatures.key) && getStorage() > 0)
             {
-                if (localelephantchest == null)
+                if (local_elephant_chest == null)
                 {
-                    localelephantchest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
+                    local_elephant_chest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
                 }
 
                 if (getStorage() == 1)
@@ -609,7 +606,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                     // only open this chest on server side
                     if (MoCreatures.isServer())
                     {
-                        entityplayer.displayGUIChest(localelephantchest);
+                        entityplayer.displayGUIChest(local_elephant_chest);
                     }
                     return true;
                 }
@@ -617,12 +614,12 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 if (getStorage() == 2)
                 {
                                
-                    if (localelephantchest2 == null)
+                    if (local_elephant_chest2 == null)
                     {
-                        localelephantchest2 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
+                        local_elephant_chest2 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
                     }
                     // only open this chest on server side
-                    InventoryLargeChest doubleChest = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
+                    InventoryLargeChest doubleChest = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), local_elephant_chest, local_elephant_chest2);
                     if (MoCreatures.isServer())
                     {
                         entityplayer.displayGUIChest(doubleChest);
@@ -632,18 +629,18 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 
                 if (getStorage() == 3)
                 {
-                    if (localelephantchest2 == null)
+                    if (local_elephant_chest2 == null)
                     {
-                        localelephantchest2 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
+                        local_elephant_chest2 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
                     }
                             
-                    if (localelephantchest3 == null)
+                    if (local_elephant_chest3 == null)
                     {
-                        localelephantchest3 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
+                        local_elephant_chest3 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
                     }
                     // only open this chest on server side
-                    InventoryLargeChest doubleChest = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
-                    InventoryLargeChest tripleChest = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), doubleChest, localelephantchest3);
+                    InventoryLargeChest doubleChest = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), local_elephant_chest, local_elephant_chest2);
+                    InventoryLargeChest tripleChest = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), doubleChest, local_elephant_chest3);
                     
                     if (MoCreatures.isServer())
                     {
@@ -654,23 +651,23 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 
                 if (getStorage() == 4)
                 {
-                    if (localelephantchest2 == null)
+                    if (local_elephant_chest2 == null)
                     {
-                        localelephantchest2 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
+                        local_elephant_chest2 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
                     }
                             
-                    if (localelephantchest3 == null)
+                    if (local_elephant_chest3 == null)
                     {
-                        localelephantchest3 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
+                        local_elephant_chest3 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
                     }
                     
-                    if (localelephantchest4 == null)
+                    if (local_elephant_chest4 == null)
                     {
-                        localelephantchest4 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
+                        local_elephant_chest4 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
                     }
                     // only open this chest on server side
-                    InventoryLargeChest doubleChest = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), localelephantchest, localelephantchest2);
-                    InventoryLargeChest doubleChestb = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), localelephantchest3, localelephantchest4);
+                    InventoryLargeChest doubleChest = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), local_elephant_chest, local_elephant_chest2);
+                    InventoryLargeChest doubleChestb = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), local_elephant_chest3, local_elephant_chest4);
                     InventoryLargeChest fourChest = new InventoryLargeChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), doubleChest, doubleChestb);
                     
                     if (MoCreatures.isServer())
@@ -833,28 +830,28 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         if (getStorage() > 0)
         {
             NBTTagList nbttaglist = nbttagcompound.getTagList("Items", 10);
-            localelephantchest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
+            local_elephant_chest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
                 NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
                 int j = nbttagcompound1.getByte("Slot") & 0xff;
-                if ((j >= 0) && j < localelephantchest.getSizeInventory())
+                if ((j >= 0) && j < local_elephant_chest.getSizeInventory())
                 {
-                    localelephantchest.setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(nbttagcompound1));
+                    local_elephant_chest.setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(nbttagcompound1));
                 }
             }
         }
         if (getStorage() >= 2)
         {
             NBTTagList nbttaglist = nbttagcompound.getTagList("Items2", 10);
-            localelephantchest2 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
+            local_elephant_chest2 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
                 NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
                 int j = nbttagcompound1.getByte("Slot") & 0xff;
-                if ((j >= 0) && j < localelephantchest2.getSizeInventory())
+                if ((j >= 0) && j < local_elephant_chest2.getSizeInventory())
                 {
-                    localelephantchest2.setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(nbttagcompound1));
+                    local_elephant_chest2.setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(nbttagcompound1));
                 }
             }
         }
@@ -862,14 +859,14 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         if (getStorage() >= 3)
         {
             NBTTagList nbttaglist = nbttagcompound.getTagList("Items3", 10);
-            localelephantchest3 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
+            local_elephant_chest3 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
                 NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
                 int j = nbttagcompound1.getByte("Slot") & 0xff;
-                if ((j >= 0) && j < localelephantchest3.getSizeInventory())
+                if ((j >= 0) && j < local_elephant_chest3.getSizeInventory())
                 {
-                    localelephantchest3.setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(nbttagcompound1));
+                    local_elephant_chest3.setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(nbttagcompound1));
                 }
             }
         }
@@ -877,14 +874,14 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         if (getStorage() >= 4)
         {
             NBTTagList nbttaglist = nbttagcompound.getTagList("Items4", 10);
-            localelephantchest4 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
+            local_elephant_chest4 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
                 NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
                 int j = nbttagcompound1.getByte("Slot") & 0xff;
-                if ((j >= 0) && j < localelephantchest4.getSizeInventory())
+                if ((j >= 0) && j < local_elephant_chest4.getSizeInventory())
                 {
-                    localelephantchest4.setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(nbttagcompound1));
+                    local_elephant_chest4.setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(nbttagcompound1));
                 }
             }
         }
@@ -899,68 +896,68 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         nbttagcompound.setByte("Storage", getStorage());
         nbttagcompound.setByte("TuskUses", this.tuskUses);
         
-        if (getStorage() > 0 && localelephantchest != null)
+        if (getStorage() > 0 && local_elephant_chest != null)
         {
             NBTTagList nbttaglist = new NBTTagList();
-            for (int i = 0; i < localelephantchest.getSizeInventory(); i++)
+            for (int i = 0; i < local_elephant_chest.getSizeInventory(); i++)
             {
-                localstack = localelephantchest.getStackInSlot(i);
-                if (localstack != null)
+                local_stack = local_elephant_chest.getStackInSlot(i);
+                if (local_stack != null)
                 {
                     NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                     nbttagcompound1.setByte("Slot", (byte) i);
-                    localstack.writeToNBT(nbttagcompound1);
+                    local_stack.writeToNBT(nbttagcompound1);
                     nbttaglist.appendTag(nbttagcompound1);
                 }
             }
             nbttagcompound.setTag("Items", nbttaglist);
         }
 
-        if (getStorage() >= 2 && localelephantchest2 != null)
+        if (getStorage() >= 2 && local_elephant_chest2 != null)
         {
             NBTTagList nbttaglist = new NBTTagList();
-            for (int i = 0; i < localelephantchest2.getSizeInventory(); i++)
+            for (int i = 0; i < local_elephant_chest2.getSizeInventory(); i++)
             {
-                localstack = localelephantchest2.getStackInSlot(i);
-                if (localstack != null)
+                local_stack = local_elephant_chest2.getStackInSlot(i);
+                if (local_stack != null)
                 {
                     NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                     nbttagcompound1.setByte("Slot", (byte) i);
-                    localstack.writeToNBT(nbttagcompound1);
+                    local_stack.writeToNBT(nbttagcompound1);
                     nbttaglist.appendTag(nbttagcompound1);
                 }
             }
             nbttagcompound.setTag("Items2", nbttaglist);
         }
 
-        if (getStorage() >= 3 && localelephantchest3 != null)
+        if (getStorage() >= 3 && local_elephant_chest3 != null)
         {
             NBTTagList nbttaglist = new NBTTagList();
-            for (int i = 0; i < localelephantchest3.getSizeInventory(); i++)
+            for (int i = 0; i < local_elephant_chest3.getSizeInventory(); i++)
             {
-                localstack = localelephantchest3.getStackInSlot(i);
-                if (localstack != null)
+                local_stack = local_elephant_chest3.getStackInSlot(i);
+                if (local_stack != null)
                 {
                     NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                     nbttagcompound1.setByte("Slot", (byte) i);
-                    localstack.writeToNBT(nbttagcompound1);
+                    local_stack.writeToNBT(nbttagcompound1);
                     nbttaglist.appendTag(nbttagcompound1);
                 }
             }
             nbttagcompound.setTag("Items3", nbttaglist);
         }
 
-        if (getStorage() >= 4 && localelephantchest4 != null)
+        if (getStorage() >= 4 && local_elephant_chest4 != null)
         {
             NBTTagList nbttaglist = new NBTTagList();
-            for (int i = 0; i < localelephantchest4.getSizeInventory(); i++)
+            for (int i = 0; i < local_elephant_chest4.getSizeInventory(); i++)
             {
-                localstack = localelephantchest4.getStackInSlot(i);
-                if (localstack != null)
+                local_stack = local_elephant_chest4.getStackInSlot(i);
+                if (local_stack != null)
                 {
                     NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                     nbttagcompound1.setByte("Slot", (byte) i);
-                    localstack.writeToNBT(nbttagcompound1);
+                    local_stack.writeToNBT(nbttagcompound1);
                     nbttaglist.appendTag(nbttagcompound1);
                 }
             }
@@ -1169,22 +1166,22 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 if (getStorage() > 0)
                 {
                     MoCTools.dropCustomItem(this, this.worldObj, new ItemStack(MoCreatures.elephantChest, 1));
-                    if (localelephantchest != null) MoCTools.dropInventory(this, localelephantchest);
+                    if (local_elephant_chest != null) MoCTools.dropInventory(this, local_elephant_chest);
                     
                 }
                 if (getStorage() >=2)
                 {
-                    if (localelephantchest2 != null) MoCTools.dropInventory(this, localelephantchest2);
+                    if (local_elephant_chest2 != null) MoCTools.dropInventory(this, local_elephant_chest2);
                     MoCTools.dropCustomItem(this, this.worldObj, new ItemStack(MoCreatures.elephantChest, 1));
                 }
                 if (getStorage() >=3)
                 {
-                    if (localelephantchest3 != null) MoCTools.dropInventory(this, localelephantchest3);
+                    if (local_elephant_chest3 != null) MoCTools.dropInventory(this, local_elephant_chest3);
                     MoCTools.dropCustomItem(this, this.worldObj, new ItemStack(Blocks.chest, 1));
                 }
                 if (getStorage() >=4)
                 {
-                    if (localelephantchest4 != null) MoCTools.dropInventory(this, localelephantchest4);
+                    if (local_elephant_chest4 != null) MoCTools.dropInventory(this, local_elephant_chest4);
                     MoCTools.dropCustomItem(this, this.worldObj, new ItemStack(Blocks.chest, 1));
                 }
                 setStorage((byte) 0);
@@ -1245,7 +1242,10 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         if (super.attackEntityFrom(damagesource, i))
         {
             Entity entity = damagesource.getEntity();
-            if (entity != null && getIsTamed() && entity instanceof EntityPlayer) { return false; }
+            if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName()))))
+            { 
+            	return false; 
+            }
             else if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
             
             else if (!(this.getIsAdult()) && (damagesource.getEntity() != null))

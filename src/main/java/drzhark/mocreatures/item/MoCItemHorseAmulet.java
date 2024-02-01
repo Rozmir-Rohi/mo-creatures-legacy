@@ -46,9 +46,15 @@ public class MoCItemHorseAmulet extends MoCItem {
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World worldObj, EntityPlayer entityplayer)
     {
+    	//if the player using the amulet is not the owner
+        if (ownerName.length() > 0 && !(ownerName.equals(entityplayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
+        {
+        	return itemstack;
+        }
+    	
         if (++ageCounter < 2) { return itemstack; }
 
-        int i = itemstack.getItemDamage();
+        int amulet_durability = itemstack.getItemDamage();
 
         if (MoCreatures.isServer())
         {
@@ -61,7 +67,7 @@ public class MoCItemHorseAmulet extends MoCItem {
             spawnClass = 22;
             if (spawnClass == 0 || creatureType == 0)
             {
-                creatureType = i;
+                creatureType = amulet_durability;
                 spawnClass = 22;
                 age = 100;
                 health = 20;
@@ -73,7 +79,7 @@ public class MoCItemHorseAmulet extends MoCItem {
             }
         }
 
-        if (i != 0)
+        if (amulet_durability != 0)
         {
 
             double dist = 3D;
@@ -97,51 +103,6 @@ public class MoCItemHorseAmulet extends MoCItem {
                     storedCreature.setAdult(adult);
                     storedCreature.setOwnerPetId(PetId);
                     storedCreature.setOwner(entityplayer.getCommandSenderName());
-
-                    //if the player using the amulet is different than the original owner
-                    if (ownerName != "" && !(ownerName.equals(entityplayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
-                    {
-                        MoCPetData oldOwner = MoCreatures.instance.mapData.getPetData(ownerName);
-                        MoCPetData newOwner = MoCreatures.instance.mapData.getPetData(entityplayer.getCommandSenderName());
-                        EntityPlayer epOwner = worldObj.getPlayerEntityByName(entityplayer.getCommandSenderName());
-                        int maxCount = MoCreatures.proxy.maxTamed;
-                        if (MoCTools.isThisPlayerAnOP(epOwner))
-                        {
-                            maxCount = MoCreatures.proxy.maxOPTamed;
-                        }
-                        if (newOwner == null)
-                        {
-                            if (maxCount > 0 || !MoCreatures.proxy.enableStrictOwnership)
-                            {
-                                // create new PetData for new owner
-                                NBTTagCompound petNBT = new NBTTagCompound();
-                                storedCreature.writeEntityToNBT(petNBT);
-                                MoCreatures.instance.mapData.updateOwnerPet((IMoCTameable)storedCreature, petNBT);
-                            }
-                        }
-                        else // add pet to existing pet data
-                        {
-                            if (newOwner.getTamedList().tagCount() < maxCount || !MoCreatures.proxy.enableStrictOwnership)
-                            {
-                                NBTTagCompound petNBT = new NBTTagCompound();
-                                storedCreature.writeEntityToNBT(petNBT);
-                                MoCreatures.instance.mapData.updateOwnerPet((IMoCTameable)storedCreature, petNBT);
-                            }
-                        }
-                        // remove pet entry from old owner
-                        if (oldOwner != null)
-                        {
-                            for (int j = 0; j < oldOwner.getTamedList().tagCount(); j++)
-                            {
-                                NBTTagCompound petEntry = (NBTTagCompound)oldOwner.getTamedList().getCompoundTagAt(j);
-                                if (petEntry.getInteger("PetId") == PetId)
-                                {
-                                    // found match, remove
-                                    oldOwner.getTamedList().removeTag(j);
-                                }
-                            }
-                        }
-                    }
 
                     if (entityplayer.worldObj.spawnEntityInWorld(storedCreature))
                     {

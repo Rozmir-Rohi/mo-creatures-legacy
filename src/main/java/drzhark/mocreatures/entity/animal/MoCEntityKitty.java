@@ -59,7 +59,6 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         setMoCAge(40);
         setKittyState(1);
         kittytimer = 0;
-        //health = 15;
         madtimer = rand.nextInt(5);
 
         foundTree = false;
@@ -297,25 +296,21 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             return null;
         }
     }
-
-    //TODO
-    //change this so MoCAnimal getScaryEntity is used instead to decrease duplication of code
-    public EntityLivingBase getScaryEntity(double d, boolean flag)
+    
+    public boolean entitiesThatAreScary(Entity entity)
     {
-        double d1 = -1D;
-        EntityLivingBase entityliving = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, 4D, d));
-        for (int i = 0; i < list.size(); i++)
-        {
-            Entity entity = (Entity) list.get(i);
-            if ((entity instanceof EntityLivingBase) && !(entity instanceof MoCEntityDeer) && !(entity instanceof MoCEntityHorse) && ((entity.width >= 0.5D) || (entity.height >= 0.5D)) && (flag || !(entity instanceof EntityPlayer)))
-            {
-                entityliving = (EntityLivingBase) entity;
-            }
-        }
-
-        return entityliving;
+        return 
+        		(
+        			entity.getClass() != this.getClass()
+        			&& entity instanceof EntityLivingBase
+        			&& ((entity.width >= 0.5D) || (entity.height >= 0.5D))
+        			&& !(entity instanceof MoCEntityDeer)
+        			&& !(entity instanceof MoCEntityHorse)
+        			&& (getKittyState() == 1 || !(entity instanceof EntityPlayer))
+        			
+        		);
     }
+    
 
     //TODO use MoCAnimal instead
     public EntityLiving getClosestEntityLiving(Entity entity, double d)
@@ -621,7 +616,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             changeKittyStateTo(7);
             return true;
         }
-        if ((itemstack != null) && (getKittyState() > 2) && ((itemstack.getItem() == MoCreatures.medallion) || (itemstack.getItem() == Items.book)))
+        if ((itemstack != null) && (getKittyState() > 2) && ((itemstack.getItem() == MoCreatures.medallion) || (itemstack.getItem() == Items.name_tag)))
         {
             if (MoCreatures.isServer())
             {
@@ -757,663 +752,791 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 
             label0: switch (getKittyState())
             {
-            case -1:
-                break;
-            case 23: // '\027'
-                break;
-
-            case 1: // '\001'
-                if (rand.nextInt(10) == 0)
-                {
-                    EntityLivingBase entityliving = getScaryEntity(6D, true);
-                    if (entityliving != null)
-                    {
-                        MoCTools.runLikeHell(this, entityliving);
-                    }
-                    break;
-                }
-                if (!getIsHungry() || (rand.nextInt(10) != 0))
-                {
-                    break;
-                }
-                EntityItem entityitem = getClosestItem(this, 10D, Items.cooked_fished, Items.cooked_fished);
-                if (entityitem == null)
-                {
-                    break;
-                }
-                float f = entityitem.getDistanceToEntity(this);
-                if (f > 2.0F)
-                {
-                    getMyOwnPath(entityitem, f);
-                }
-                if ((f < 2.0F) && (entityitem != null) && (deathTime == 0))
-                {
-                    entityitem.setDead();
-                    worldObj.playSoundAtEntity(this, "mocreatures:kittyeatingf", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
-                    setHungry(false);
-                    setKittyState(2);
-                }
-                break;
-
-            case 2: // '\002'
-                EntityLivingBase entityliving1 = getScaryEntity(6D, false);
-                if (entityliving1 != null)
-                {
-                    MoCTools.runLikeHell(this, entityliving1);
-                }
-                break;
-
-            case 3: // '\003'
-                kittytimer++;
-                if (kittytimer > 500)
-                {
-                    if (rand.nextInt(200) == 0)
-                    {
-                        changeKittyStateTo(13);
-                        break;
-                    }
-                    if (rand.nextInt(500) == 0)
-                    {
-                        changeKittyStateTo(7);
-                        break;
-                    }
-                }
-                if (rand.nextInt(20) != 0)
-                {
-                    break;
-                }
-                MoCEntityKittyBed entitykittybed = (MoCEntityKittyBed) getKittyStuff(this, 18D, false);
-                if ((entitykittybed == null) || (entitykittybed.riddenByEntity != null) || (!entitykittybed.getHasMilk() && !entitykittybed.getHasFood()))
-                {
-                    break;
-                }
-                float f5 = entitykittybed.getDistanceToEntity(this);
-                if (f5 > 2.0F)
-                {
-                    getMyOwnPath(entitykittybed, f5);
-                }
-                if (f5 < 2.0F)
-                {
-                    changeKittyStateTo(4);
-                    mountEntity(entitykittybed);
-                    setSitting(true);
-                    
-                }
-                break;
-
-            case 4: // '\004'
-                if (ridingEntity != null)
-                {
-                    MoCEntityKittyBed entitykittybed1 = (MoCEntityKittyBed) ridingEntity;
-                    if ((entitykittybed1 != null) && !entitykittybed1.getHasMilk() && !entitykittybed1.getHasFood())
-                    {
-                        heal(5);
-                        changeKittyStateTo(5);
-                    }
-                }
-                else
-                {
-                    heal(5);
-                    changeKittyStateTo(5);
-                }
-                if (rand.nextInt(2500) == 0)
-                {
-                    heal(5);
-                    changeKittyStateTo(7);
-                }
-                break;
-
-            case 5: // '\005'
-                kittytimer++;
-                if ((kittytimer > 2000) && (rand.nextInt(1000) == 0))
-                {
-                    changeKittyStateTo(13);
-                    break;
-                }
-                if (rand.nextInt(20) != 0)
-                {
-                    break;
-                }
-                MoCEntityLitterBox entitylitterbox = (MoCEntityLitterBox) getKittyStuff(this, 18D, true);
-                if ((entitylitterbox == null) || (entitylitterbox.riddenByEntity != null) || entitylitterbox.getUsedLitter())
-                {
-                    break;
-                }
-                float f6 = entitylitterbox.getDistanceToEntity(this);
-                if (f6 > 2.0F)
-                {
-                    getMyOwnPath(entitylitterbox, f6);
-                }
-                if (f6 < 2.0F)
-                {
-                    changeKittyStateTo(6);
-                    mountEntity(entitylitterbox);
-                }
-                break;
-
-            case 6: // '\006'
-                kittytimer++;
-                if (kittytimer <= 300)
-                {
-                    break;
-                }
-                MoCEntityLitterBox entitylitterbox1 = (MoCEntityLitterBox) ridingEntity;
-                if (entitylitterbox1 != null)
-                {
-                    entitylitterbox1.setUsedLitter(true);
-                    entitylitterbox1.littertime = 0;
-                }
-                changeKittyStateTo(7);
-                break;
-
-            case 7: // '\007'
-                if (getIsSitting())
-                {
-                    break;
-                }
-                if (rand.nextInt(20) == 0)
-                {
-                    EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 12D);
-                    if (entityplayer != null)
-                    {
-                        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
-                        if ((itemstack != null) && (itemstack.getItem() == MoCreatures.woolball))
-                        {
-                            changeKittyStateTo(11);
-                            break;
-                        }
-                    }
-                }
-                if (inWater && (rand.nextInt(500) == 0))
-                {
-                    changeKittyStateTo(13);
-                    break;
-                }
-                if ((rand.nextInt(500) == 0) && !worldObj.isDaytime())
-                {
-                    changeKittyStateTo(12);
-                    break;
-                }
-                if (rand.nextInt(2000) == 0)
-                {
-                    changeKittyStateTo(3);
-                    break;
-                }
-                if (rand.nextInt(4000) == 0)
-                {
-                    changeKittyStateTo(16);
-                }
-                break;
-
-            case 8: // '\b'
-                if (inWater && rand.nextInt(200) == 0)
-                {
-                    changeKittyStateTo(13);
-                    break;
-                }
-                if ((entityToAttack != null) && (entityToAttack instanceof EntityItem))
-                {
-                    float f1 = getDistanceToEntity(entityToAttack);
-                    if (f1 < 1.5F)
-                    {
-                        swingArm();
-                        if (rand.nextInt(10) == 0)
-                        {
-                            //float force = 0.3F;
-                            //if (type == 10) force = 0.2F;
-                            MoCTools.bigsmack(this, entityToAttack, 0.3F);
-                            //kittySmack(this, entityToAttack);
-                        }
-                    }
-                }
-                if ((entityToAttack == null) || (rand.nextInt(1000) == 0))
-                {
-                    changeKittyStateTo(7);
-                }
-                break;
-
-            case 9: // looking for mate
-                kittytimer++;
-                if (rand.nextInt(50) == 0)
-                {
-                    List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(16D, 6D, 16D));
-                    int j = 0;
-                    do
-                    {
-                        if (j >= list.size())
-                        {
-                            break;
-                        }
-                        Entity entity = (Entity) list.get(j);
-                        if ((entity instanceof MoCEntityKitty) && (entity instanceof MoCEntityKitty) && (((MoCEntityKitty) entity).getKittyState() == 9))
-                        {
-                            changeKittyStateTo(18);
-                            entityToAttack = entity;
-                            ((MoCEntityKitty) entity).changeKittyStateTo(18);
-                            ((MoCEntityKitty) entity).entityToAttack = this;
-                            break;
-                        }
-                        j++;
-                    } while (true);
-                }
-                if (kittytimer > 2000)
-                {
-                    changeKittyStateTo(7);
-                }
-                break;
-
-            case 10: // '\n'
-                if (getIsAdult())
-                {
-                    changeKittyStateTo(7);
-                    break;
-                }
-                if (rand.nextInt(50) == 0)
-                {
-                    List list1 = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(16D, 6D, 16D));
-                    for (int k = 0; k < list1.size(); k++)
-                    {
-                        Entity entity1 = (Entity) list1.get(k);
-                        if (!(entity1 instanceof MoCEntityKitty) || (((MoCEntityKitty) entity1).getKittyState() != 21))
-                        {
-                            continue;
-                        }
-                        float f9 = getDistanceToEntity(entity1);
-                        if (f9 > 12F)
-                        {
-                            entityToAttack = entity1;
-                        }
-                    }
-
-                }
-                if ((entityToAttack == null) && (rand.nextInt(100) == 0))
-                {
-                    int i = rand.nextInt(10);
-                    if (i < 7)
-                    {
-                        entityToAttack = getClosestItem(this, 10D, null, null);
-                    }
-                    else
-                    {
-                        entityToAttack = worldObj.getClosestPlayerToEntity(this, 18D);
-                    }
-                }
-                if ((entityToAttack != null) && (rand.nextInt(400) == 0))
-                {
-                    entityToAttack = null;
-                }
-                if ((entityToAttack != null) && (entityToAttack instanceof EntityItem))
-                {
-                    float f2 = getDistanceToEntity(entityToAttack);
-                    if (f2 < 1.5F)
-                    {
-                        swingArm();
-                        if (rand.nextInt(10) == 0)
-                        {
-                            MoCTools.bigsmack(this, entityToAttack, 0.2F);
-                            //kittySmack(this, entityToAttack);
-                        }
-                    }
-                }
-                if ((entityToAttack != null) && (entityToAttack instanceof MoCEntityKitty) && (rand.nextInt(20) == 0))
-                {
-                    float f3 = getDistanceToEntity(entityToAttack);
-                    if (f3 < 2.0F)
-                    {
-                        swingArm();
-                        setPathToEntity(null);
-                    }
-                }
-                if ((entityToAttack == null) || !(entityToAttack instanceof EntityPlayer))
-                {
-                    break;
-                }
-                float f4 = getDistanceToEntity(entityToAttack);
-                if ((f4 < 2.0F) && (rand.nextInt(20) == 0))
-                {
-                    swingArm();
-                }
-                break;
-
-            case 11: // '\013'
-                EntityPlayer entityplayer1 = worldObj.getClosestPlayerToEntity(this, 18D);
-                if ((entityplayer1 == null) || (rand.nextInt(10) != 0))
-                {
-                    break;
-                }
-                ItemStack itemstack1 = entityplayer1.inventory.getCurrentItem();
-                if ((itemstack1 == null) || ((itemstack1 != null) && (itemstack1.getItem() != MoCreatures.woolball)))
-                {
-                    changeKittyStateTo(7);
-                    break;
-                }
-                float f8 = entityplayer1.getDistanceToEntity(this);
-                if (f8 > 5F)
-                {
-                    getPathOrWalkableBlock(entityplayer1, f8);
-                }
-                break;
-
-            case 12: // '\f'
-                kittytimer++;
-                if (worldObj.isDaytime() || ((kittytimer > 500) && (rand.nextInt(500) == 0)))
-                {
-                    changeKittyStateTo(7);
-                    break;
-                }
-                setSitting(true);
-                if ((rand.nextInt(80) == 0) || !onGround)
-                {
-                    super.onLivingUpdate();
-                }
-                break;
-
-            case 13: // '\r' Angry kitty attacks player
-                setHungry(false);
-                entityToAttack = worldObj.getClosestPlayerToEntity(this, 18D);
-                if (entityToAttack != null)
-                {
-                    float f7 = getDistanceToEntity(entityToAttack);
-                    if (f7 < 1.5F)
-                    {
-                        swingArm();
-                        if (rand.nextInt(20) == 0)
-                        {
-                            madtimer--;
-                            entityToAttack.attackEntityFrom(DamageSource.causeMobDamage(this), 1);
-                            if (madtimer < 1)
-                            {
-                                changeKittyStateTo(7);
-                                madtimer = rand.nextInt(5);
-                            }
-                        }
-                    }
-                    if (rand.nextInt(500) == 0)
-                    {
-                        changeKittyStateTo(7);
-                    }
-                }
-                else
-                {
-                    changeKittyStateTo(7);
-                }
-                break;
-
-            case 14: // held by rope
-                if (onGround)
-                {
-                    changeKittyStateTo(13);
-                    break;
-                }
-                if (rand.nextInt(50) == 0)
-                {
-                    swingArm();
-                }
-                if (ridingEntity == null)
-                {
-                    break;
-                }
-                rotationYaw = ridingEntity.rotationYaw + 90F;
-                EntityPlayer entityplayer2 = (EntityPlayer) ridingEntity;
-                if (entityplayer2 == null)
-                {
-                    changeKittyStateTo(13);
-                    break;
-                }
-                ItemStack itemstack2 = entityplayer2.inventory.getCurrentItem();
-                if (itemstack2 == null || ((itemstack2 != null) && (itemstack2.getItem() != Items.lead)))
-                {
-                    changeKittyStateTo(13);
-                }
-                break;
-
-            case 15: // '\017'
-                if (onGround)
-                {
-                    changeKittyStateTo(7);
-                }
-                if (ridingEntity != null)
-                {
-                    rotationYaw = ridingEntity.rotationYaw + 90F;
-                }
-                break;
-
-            case 16: // '\020'
-                kittytimer++;
-                if ((kittytimer > 500) && !getOnTree())
-                {
-                    changeKittyStateTo(7);
-                }
-                if (!getOnTree())
-                {
-                    if (!foundTree && (rand.nextInt(50) == 0))
-                    {
-                        int ai[] = MoCTools.ReturnNearestMaterialCoord(this, Material.wood, Double.valueOf(18D), 4D);
-                        if (ai[0] != -1)
-                        {
-                            int i1 = 0;
-                            do
-                            {
-                                if (i1 >= 20)
-                                {
-                                    break;
-                                }
-                                Block block = worldObj.getBlock(ai[0], ai[1] + i1, ai[2]);
-                                if ((block.getMaterial() == Material.leaves))
-                                {
-                                    foundTree = true;
-                                    treeCoord[0] = ai[0];
-                                    treeCoord[1] = ai[1];
-                                    treeCoord[2] = ai[2];
-                                    break;
-                                }
-                                i1++;
-                            } while (true);
-                        }
-                    }
-                    if (!foundTree || (rand.nextInt(10) != 0))
-                    {
-                        break;
-                    }
-                    PathEntity pathentity = worldObj.getEntityPathToXYZ(this, treeCoord[0], treeCoord[1], treeCoord[2], 24F, true, false, false, true);
-
-                    if (pathentity != null)
-                    {
-                        setPathToEntity(pathentity);
-                    }
-                    Double double1 = Double.valueOf(getDistanceSq(treeCoord[0], treeCoord[1], treeCoord[2]));
-                    if (double1.doubleValue() < 7D)
-                    {
-                        setOnTree(true);
-                    }
-                    break;
-                }
-                if (!getOnTree())
-                {
-                    break;
-                }
-                int l = treeCoord[0];
-                int j1 = treeCoord[1];
-                int l1 = treeCoord[2];
-                faceItem(l, j1, l1, 30F);
-                if ((j1 - MathHelper.floor_double(posY)) > 2)
-                {
-                    motionY += 0.029999999999999999D;
-                }
-                boolean flag = false;
-                boolean flag1 = false;
-                if (posX < l)
-                {
-                    int j2 = l - MathHelper.floor_double(posX);
-                    motionX += 0.01D;
-                }
-                else
-                {
-                    int k2 = MathHelper.floor_double(posX) - l;
-                    motionX -= 0.01D;
-                }
-                if (posZ < l1)
-                {
-                    int j3 = l1 - MathHelper.floor_double(posZ);
-                    motionZ += 0.01D;
-                }
-                else
-                {
-                    int k3 = MathHelper.floor_double(posX) - l1;
-                    motionZ -= 0.01D;
-                }
-                if (onGround || !isCollidedHorizontally || !isCollidedVertically)
-                {
-                    break;
-                }
-                int i4 = 0;
-                do
-                {
-                    if (i4 >= 30)
-                    {
-                        break label0;
-                    }
-                    Block block = worldObj.getBlock(treeCoord[0], treeCoord[1] + i4, treeCoord[2]);
-                    if (block == Blocks.air)
-                    {
-                        setLocationAndAngles(treeCoord[0], treeCoord[1] + i4, treeCoord[2], rotationYaw, rotationPitch);
-                        changeKittyStateTo(17);
-                        treeCoord[0] = -1;
-                        treeCoord[1] = -1;
-                        treeCoord[2] = -1;
-                        break label0;
-                    }
-                    i4++;
-                } while (true);
-
-            case 17: // '\021'
-                EntityPlayer entityplayer3 = worldObj.getClosestPlayerToEntity(this, 2D);
-                if (entityplayer3 != null)
-                {
-                    changeKittyStateTo(7);
-                }
-                break;
-
-            case 18: // '\022'
-                if ((entityToAttack == null) || !(entityToAttack instanceof MoCEntityKitty))
-                {
-                    changeKittyStateTo(9);
-                    break;
-                }
-                MoCEntityKitty entitykitty = (MoCEntityKitty) entityToAttack;
-                if ((entitykitty != null) && (entitykitty.getKittyState() == 18))
-                {
-                    if (rand.nextInt(50) == 0)
-                    {
-                        swingArm();
-                    }
-                    float f10 = getDistanceToEntity(entitykitty);
-                    if (f10 < 5F)
-                    {
-                        kittytimer++;
-                    }
-                    if ((kittytimer > 500) && (rand.nextInt(50) == 0))
-                    {
-                        ((MoCEntityKitty) entityToAttack).changeKittyStateTo(7);
-                        changeKittyStateTo(19);
-                    }
-                }
-                else
-                {
-                    changeKittyStateTo(9);
-                }
-                break;
-
-            case 19: // '\023'
-                if (rand.nextInt(20) != 0)
-                {
-                    break;
-                }
-                MoCEntityKittyBed entitykittybed2 = (MoCEntityKittyBed) getKittyStuff(this, 18D, false);
-                if ((entitykittybed2 == null) || (entitykittybed2.riddenByEntity != null))
-                {
-                    break;
-                }
-                float f11 = entitykittybed2.getDistanceToEntity(this);
-                if (f11 > 2.0F)
-                {
-                    getMyOwnPath(entitykittybed2, f11);
-                }
-                if (f11 < 2.0F)
-                {
-                    changeKittyStateTo(20);
-                    mountEntity(entitykittybed2);
-                }
-                break;
-
-            case 20: // '\024'
-                if (ridingEntity == null)
-                {
-                    changeKittyStateTo(19);
-                    break;
-                }
-                rotationYaw = 180F;
-                kittytimer++;
-                if (kittytimer <= 1000)
-                {
-                    break;
-                }
-                int i2 = rand.nextInt(3) + 1;
-                for (int l2 = 0; l2 < i2; l2++)
-                {
-                    MoCEntityKitty entitykitty1 = new MoCEntityKitty(worldObj);
-                    int babytype = this.getType();
-                    if (rand.nextInt(2) == 0)
-                    {
-                        babytype = (rand.nextInt(8)+1);
-                    }
-                    entitykitty1.setType(babytype);
-                    entitykitty1.setPosition(posX, posY, posZ);
-                    worldObj.spawnEntityInWorld(entitykitty1);
-                    entitykitty1.setAdult(false);
-                    entitykitty1.changeKittyStateTo(10);
-                    // attackEntityFrom(DamageSource.generic, 1); blood - workaround to fix
-                    // infinite births
-                }
-
-                changeKittyStateTo(21);
-                break;
-
-            case 21: // '\025'
-                kittytimer++;
-                if (kittytimer > 2000)
-                {
-                    List list2 = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(24D, 8D, 24D));
-                    int i3 = 0;
-                    for (int l3 = 0; l3 < list2.size(); l3++)
-                    {
-                        Entity entity2 = (Entity) list2.get(l3);
-                        if ((entity2 instanceof MoCEntityKitty) && (((MoCEntityKitty) entity2).getKittyState() == 10))
-                        {
-                            i3++;
-                        }
-                    }
-
-                    if (i3 < 1)
-                    {
-                        changeKittyStateTo(7);
-                        break;
-                    }
-                    kittytimer = 1000;
-                }
-                if ((entityToAttack != null) && (entityToAttack instanceof EntityPlayer) && (rand.nextInt(300) == 0))
-                {
-                    entityToAttack = null;
-                }
-                break;
-
-            case 0:
-                changeKittyStateTo(1);
-                break;
-            // case 22: // '\026'
-            default:
-                changeKittyStateTo(7);
-                break;
+	            case -1:
+	                break;
+	            case 23: // '\027'
+	                break;
+	
+	            case 1: // '\001'
+	                if (rand.nextInt(10) == 0)
+	                {
+	                    EntityLivingBase entityliving = getScaryEntity(6D);
+	                    if (entityliving != null)
+	                    {
+	                        MoCTools.runLikeHell(this, entityliving);
+	                    }
+	                    break;
+	                }
+	                
+	                if (!getIsHungry() || (rand.nextInt(10) != 0))
+	                {
+	                    break;
+	                }
+	                
+	                EntityItem entityitem = getClosestItem(this, 10D, Items.cooked_fished, Items.cooked_fished);
+	               
+	                if (entityitem == null)
+	                {
+	                    break;
+	                }
+	                
+	                float f = entityitem.getDistanceToEntity(this);
+	                
+	                if (f > 2.0F)
+	                {
+	                    getMyOwnPath(entityitem, f);
+	                }
+	                
+	                if ((f < 2.0F) && (entityitem != null) && (deathTime == 0))
+	                {
+	                    entityitem.setDead();
+	                    worldObj.playSoundAtEntity(this, "mocreatures:kittyeatingf", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+	                    setHungry(false);
+	                    setKittyState(2);
+	                }
+	                break;
+	
+	                
+	                
+	            case 2: // '\002'
+	                EntityLivingBase entityliving1 = getScaryEntity(6D);
+	                
+	                if (entityliving1 != null)
+	                {
+	                    MoCTools.runLikeHell(this, entityliving1);
+	                }
+	                break;
+	
+	                
+	                
+	            case 3: // '\003'
+	                kittytimer++;
+	                if (kittytimer > 500)
+	                {
+	                    if (rand.nextInt(200) == 0)
+	                    {
+	                        changeKittyStateTo(13);
+	                        break;
+	                    }
+	                    if (rand.nextInt(500) == 0)
+	                    {
+	                        changeKittyStateTo(7);
+	                        break;
+	                    }
+	                }
+	                
+	                if (rand.nextInt(20) != 0)
+	                {
+	                    break;
+	                }
+	                
+	                MoCEntityKittyBed entitykittybed = (MoCEntityKittyBed) getKittyStuff(this, 18D, false);
+	                
+	                if ((entitykittybed == null) || (entitykittybed.riddenByEntity != null) || (!entitykittybed.getHasMilk() && !entitykittybed.getHasFood()))
+	                {
+	                    break;
+	                }
+	                
+	                float f5 = entitykittybed.getDistanceToEntity(this);
+	                
+	                if (f5 > 2.0F)
+	                {
+	                    getMyOwnPath(entitykittybed, f5);
+	                }
+	                
+	                if (f5 < 2.0F)
+	                {
+	                    changeKittyStateTo(4);
+	                    mountEntity(entitykittybed);
+	                    setSitting(true);
+	                    
+	                }
+	                break;
+	
+	                
+	                
+	            case 4: // '\004'
+	                if (ridingEntity != null)
+	                {
+	                    MoCEntityKittyBed entitykittybed1 = (MoCEntityKittyBed) ridingEntity;
+	                    if ((entitykittybed1 != null) && !entitykittybed1.getHasMilk() && !entitykittybed1.getHasFood())
+	                    {
+	                        heal(5);
+	                        changeKittyStateTo(5);
+	                    }
+	                }
+	                
+	                else
+	                {
+	                    heal(5);
+	                    changeKittyStateTo(5);
+	                }
+	                
+	                if (rand.nextInt(2500) == 0)
+	                {
+	                    heal(5);
+	                    changeKittyStateTo(7);
+	                }
+	                break;
+	
+	                
+	                
+	            case 5: // '\005'
+	                kittytimer++;
+	                if ((kittytimer > 2000) && (rand.nextInt(1000) == 0))
+	                {
+	                    changeKittyStateTo(13);
+	                    break;
+	                }
+	                
+	                if (rand.nextInt(20) != 0)
+	                {
+	                    break;
+	                }
+	                
+	                MoCEntityLitterBox entitylitterbox = (MoCEntityLitterBox) getKittyStuff(this, 18D, true);
+	                
+	                if ((entitylitterbox == null) || (entitylitterbox.riddenByEntity != null) || entitylitterbox.getUsedLitter())
+	                {
+	                    break;
+	                }
+	                
+	                
+	                float f6 = entitylitterbox.getDistanceToEntity(this);
+	                
+	                if (f6 > 2.0F)
+	                {
+	                    getMyOwnPath(entitylitterbox, f6);
+	                }
+	                
+	                if (f6 < 2.0F)
+	                {
+	                    changeKittyStateTo(6);
+	                    mountEntity(entitylitterbox);
+	                }
+	                
+	                break;
+	
+	                
+	                
+	            case 6: // '\006'
+	                kittytimer++;
+	                if (kittytimer <= 300)
+	                {
+	                    break;
+	                }
+	                
+	                MoCEntityLitterBox entitylitterbox1 = (MoCEntityLitterBox) ridingEntity;
+	                
+	                if (entitylitterbox1 != null)
+	                {
+	                    entitylitterbox1.setUsedLitter(true);
+	                    entitylitterbox1.littertime = 0;
+	                }
+	                
+	                changeKittyStateTo(7);
+	                break;
+	
+	                
+	                
+	            case 7: // '\007'
+	                if (getIsSitting())
+	                {
+	                    break;
+	                }
+	                
+	                if (rand.nextInt(20) == 0)
+	                {
+	                    EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 12D);
+	                    if (entityplayer != null)
+	                    {
+	                        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+	                        if ((itemstack != null) && (itemstack.getItem() == MoCreatures.woolball))
+	                        {
+	                            changeKittyStateTo(11);
+	                            break;
+	                        }
+	                    }
+	                }
+	                
+	                if (inWater && (rand.nextInt(500) == 0))
+	                {
+	                    changeKittyStateTo(13);
+	                    break;
+	                }
+	                
+	                if ((rand.nextInt(500) == 0) && !worldObj.isDaytime())
+	                {
+	                    changeKittyStateTo(12);
+	                    break;
+	                }
+	                
+	                if (rand.nextInt(2000) == 0)
+	                {
+	                    changeKittyStateTo(3);
+	                    break;
+	                }
+	                
+	                if (rand.nextInt(4000) == 0)
+	                {
+	                    changeKittyStateTo(16);
+	                }
+	                break;
+	
+	                
+	                
+	            case 8: // '\b'
+	                if (inWater && rand.nextInt(200) == 0)
+	                {
+	                    changeKittyStateTo(13);
+	                    break;
+	                }
+	                
+	                if ((entityToAttack != null) && (entityToAttack instanceof EntityItem))
+	                {
+	                    float f1 = getDistanceToEntity(entityToAttack);
+	                    if (f1 < 1.5F)
+	                    {
+	                        swingArm();
+	                        if (rand.nextInt(10) == 0)
+	                        {
+	                            //float force = 0.3F;
+	                            //if (type == 10) force = 0.2F;
+	                            MoCTools.bigsmack(this, entityToAttack, 0.3F);
+	                            //kittySmack(this, entityToAttack);
+	                        }
+	                    }
+	                }
+	                
+	                if ((entityToAttack == null) || (rand.nextInt(1000) == 0))
+	                {
+	                    changeKittyStateTo(7);
+	                }
+	                break;
+	
+	                
+	                
+	            case 9: // looking for mate
+	                kittytimer++;
+	                if (rand.nextInt(50) == 0)
+	                {
+	                    List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(16D, 6D, 16D));
+	                    int j = 0;
+	                    do
+	                    {
+	                        if (j >= list.size())
+	                        {
+	                            break;
+	                        }
+	                        Entity entity = (Entity) list.get(j);
+	                        if ((entity instanceof MoCEntityKitty) && (entity instanceof MoCEntityKitty) && (((MoCEntityKitty) entity).getKittyState() == 9))
+	                        {
+	                            changeKittyStateTo(18);
+	                            entityToAttack = entity;
+	                            ((MoCEntityKitty) entity).changeKittyStateTo(18);
+	                            ((MoCEntityKitty) entity).entityToAttack = this;
+	                            break;
+	                        }
+	                        j++;
+	                    } while (true);
+	                }
+	                
+	                if (kittytimer > 2000)
+	                {
+	                    changeKittyStateTo(7);
+	                }
+	                break;
+	
+	                
+	                
+	            case 10: // '\n'
+	                if (getIsAdult())
+	                {
+	                    changeKittyStateTo(7);
+	                    break;
+	                }
+	                
+	                if (rand.nextInt(50) == 0)
+	                {
+	                    List list1 = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(16D, 6D, 16D));
+	                    for (int k = 0; k < list1.size(); k++)
+	                    {
+	                        Entity entity1 = (Entity) list1.get(k);
+	                        if (!(entity1 instanceof MoCEntityKitty) || (((MoCEntityKitty) entity1).getKittyState() != 21))
+	                        {
+	                            continue;
+	                        }
+	                        float f9 = getDistanceToEntity(entity1);
+	                        if (f9 > 12F)
+	                        {
+	                            entityToAttack = entity1;
+	                        }
+	                    }
+	
+	                }
+	                
+	                if ((entityToAttack == null) && (rand.nextInt(100) == 0))
+	                {
+	                    int i = rand.nextInt(10);
+	                    if (i < 7)
+	                    {
+	                        entityToAttack = getClosestItem(this, 10D, null, null);
+	                    }
+	                    else
+	                    {
+	                        entityToAttack = worldObj.getClosestPlayerToEntity(this, 18D);
+	                    }
+	                }
+	                
+	                if ((entityToAttack != null) && (rand.nextInt(400) == 0))
+	                {
+	                    entityToAttack = null;
+	                }
+	                
+	                if ((entityToAttack != null) && (entityToAttack instanceof EntityItem))
+	                {
+	                    float f2 = getDistanceToEntity(entityToAttack);
+	                    if (f2 < 1.5F)
+	                    {
+	                        swingArm();
+	                        if (rand.nextInt(10) == 0)
+	                        {
+	                            MoCTools.bigsmack(this, entityToAttack, 0.2F);
+	                            //kittySmack(this, entityToAttack);
+	                        }
+	                    }
+	                }
+	                
+	                if ((entityToAttack != null) && (entityToAttack instanceof MoCEntityKitty) && (rand.nextInt(20) == 0))
+	                {
+	                    float f3 = getDistanceToEntity(entityToAttack);
+	                    if (f3 < 2.0F)
+	                    {
+	                        swingArm();
+	                        setPathToEntity(null);
+	                    }
+	                }
+	                
+	                if ((entityToAttack == null) || !(entityToAttack instanceof EntityPlayer))
+	                {
+	                    break;
+	                }
+	                
+	                float f4 = getDistanceToEntity(entityToAttack);
+	                
+	                if ((f4 < 2.0F) && (rand.nextInt(20) == 0))
+	                {
+	                    swingArm();
+	                }
+	                break;
+	
+	                
+	                
+	            case 11: // '\013'
+	                EntityPlayer entityplayer1 = worldObj.getClosestPlayerToEntity(this, 18D);
+	                
+	                if ((entityplayer1 == null) || (rand.nextInt(10) != 0))
+	                {
+	                    break;
+	                }
+	                
+	                ItemStack itemstack1 = entityplayer1.inventory.getCurrentItem();
+	                
+	                if ((itemstack1 == null) || ((itemstack1 != null) && (itemstack1.getItem() != MoCreatures.woolball)))
+	                {
+	                    changeKittyStateTo(7);
+	                    break;
+	                }
+	                
+	                float f8 = entityplayer1.getDistanceToEntity(this);
+	                
+	                if (f8 > 5F)
+	                {
+	                    getPathOrWalkableBlock(entityplayer1, f8);
+	                }
+	                break;
+	
+	                
+	                
+	            case 12: // '\f'
+	                
+	            	kittytimer++;
+	            	
+	                if (worldObj.isDaytime() || ((kittytimer > 500) && (rand.nextInt(500) == 0)))
+	                {
+	                    changeKittyStateTo(7);
+	                    break;
+	                }
+	                
+	                setSitting(true);
+	                
+	                if ((rand.nextInt(80) == 0) || !onGround)
+	                {
+	                    super.onLivingUpdate();
+	                }
+	                break;
+	
+	                
+	                
+	            case 13: // '\r' Angry kitty attacks player
+	                setHungry(false);
+	                entityToAttack = worldObj.getClosestPlayerToEntity(this, 18D);
+	                if (entityToAttack != null)
+	                {
+	                    float f7 = getDistanceToEntity(entityToAttack);
+	                    if (f7 < 1.5F)
+	                    {
+	                        swingArm();
+	                        if (rand.nextInt(20) == 0)
+	                        {
+	                            madtimer--;
+	                            entityToAttack.attackEntityFrom(DamageSource.causeMobDamage(this), 1);
+	                            if (madtimer < 1)
+	                            {
+	                                changeKittyStateTo(7);
+	                                madtimer = rand.nextInt(5);
+	                            }
+	                        }
+	                    }
+	                    if (rand.nextInt(500) == 0)
+	                    {
+	                        changeKittyStateTo(7);
+	                    }
+	                }
+	                
+	                else
+	                {
+	                    changeKittyStateTo(7);
+	                }
+	                break;
+	
+	                
+	                
+	            case 14: // held by rope
+	                if (onGround)
+	                {
+	                    changeKittyStateTo(13);
+	                    break;
+	                }
+	                
+	                if (rand.nextInt(50) == 0)
+	                {
+	                    swingArm();
+	                }
+	                
+	                if (ridingEntity == null)
+	                {
+	                    break;
+	                }
+	                
+	                rotationYaw = ridingEntity.rotationYaw + 90F;
+	                
+	                EntityPlayer entityplayer2 = (EntityPlayer) ridingEntity;
+	                
+	                if (entityplayer2 == null)
+	                {
+	                    changeKittyStateTo(13);
+	                    break;
+	                }
+	                
+	                ItemStack itemstack2 = entityplayer2.inventory.getCurrentItem();
+	                
+	                if (itemstack2 == null || ((itemstack2 != null) && (itemstack2.getItem() != Items.lead)))
+	                {
+	                    changeKittyStateTo(13);
+	                }
+	                break;
+	
+	                
+	                
+	            case 15: // '\017'
+	                if (onGround)
+	                {
+	                    changeKittyStateTo(7);
+	                }
+	                
+	                if (ridingEntity != null)
+	                {
+	                    rotationYaw = ridingEntity.rotationYaw + 90F;
+	                }
+	                break;
+	
+	                
+	                
+	            case 16: // '\020'
+	                kittytimer++;
+	                if ((kittytimer > 500) && !getOnTree())
+	                {
+	                    changeKittyStateTo(7);
+	                }
+	                if (!getOnTree())
+	                {
+	                    if (!foundTree && (rand.nextInt(50) == 0))
+	                    {
+	                        int ai[] = MoCTools.ReturnNearestMaterialCoord(this, Material.wood, Double.valueOf(18D), 4D);
+	                        if (ai[0] != -1)
+	                        {
+	                            int i1 = 0;
+	                            do
+	                            {
+	                                if (i1 >= 20)
+	                                {
+	                                    break;
+	                                }
+	                                Block block = worldObj.getBlock(ai[0], ai[1] + i1, ai[2]);
+	                                if ((block.getMaterial() == Material.leaves))
+	                                {
+	                                    foundTree = true;
+	                                    treeCoord[0] = ai[0];
+	                                    treeCoord[1] = ai[1];
+	                                    treeCoord[2] = ai[2];
+	                                    break;
+	                                }
+	                                i1++;
+	                            } while (true);
+	                        }
+	                    }
+	                    
+	                    if (!foundTree || (rand.nextInt(10) != 0))
+	                    {
+	                        break;
+	                    }
+	                    
+	                    PathEntity pathentity = worldObj.getEntityPathToXYZ(this, treeCoord[0], treeCoord[1], treeCoord[2], 24F, true, false, false, true);
+	
+	                    if (pathentity != null)
+	                    {
+	                        setPathToEntity(pathentity);
+	                    }
+	                    
+	                    Double double1 = Double.valueOf(getDistanceSq(treeCoord[0], treeCoord[1], treeCoord[2]));
+	                    
+	                    if (double1.doubleValue() < 7D)
+	                    {
+	                        setOnTree(true);
+	                    }
+	                    break;
+	                }
+	                
+	                if (!getOnTree())
+	                {
+	                    break;
+	                }
+	                
+	                int l = treeCoord[0];
+	                int j1 = treeCoord[1];
+	                int l1 = treeCoord[2];
+	                faceItem(l, j1, l1, 30F);
+	                
+	                if ((j1 - MathHelper.floor_double(posY)) > 2)
+	                {
+	                    motionY += 0.029999999999999999D;
+	                }
+	                
+	                boolean flag = false;
+	                boolean flag1 = false;
+	                
+	                if (posX < l)
+	                {
+	                    int j2 = l - MathHelper.floor_double(posX);
+	                    motionX += 0.01D;
+	                }
+	                else
+	                {
+	                    int k2 = MathHelper.floor_double(posX) - l;
+	                    motionX -= 0.01D;
+	                }
+	                if (posZ < l1)
+	                {
+	                    int j3 = l1 - MathHelper.floor_double(posZ);
+	                    motionZ += 0.01D;
+	                }
+	                else
+	                {
+	                    int k3 = MathHelper.floor_double(posX) - l1;
+	                    motionZ -= 0.01D;
+	                }
+	                if (onGround || !isCollidedHorizontally || !isCollidedVertically)
+	                {
+	                    break;
+	                }
+	                int i4 = 0;
+	                do
+	                {
+	                    if (i4 >= 30)
+	                    {
+	                        break label0;
+	                    }
+	                    Block block = worldObj.getBlock(treeCoord[0], treeCoord[1] + i4, treeCoord[2]);
+	                    if (block == Blocks.air)
+	                    {
+	                        setLocationAndAngles(treeCoord[0], treeCoord[1] + i4, treeCoord[2], rotationYaw, rotationPitch);
+	                        changeKittyStateTo(17);
+	                        treeCoord[0] = -1;
+	                        treeCoord[1] = -1;
+	                        treeCoord[2] = -1;
+	                        break label0;
+	                    }
+	                    i4++;
+	                } while (true);
+	
+	                
+	                
+	            case 17: // '\021'
+	                EntityPlayer entityplayer3 = worldObj.getClosestPlayerToEntity(this, 2D);
+	                if (entityplayer3 != null)
+	                {
+	                    changeKittyStateTo(7);
+	                }
+	                break;
+	
+	                
+	                
+	            case 18: // '\022'
+	                if ((entityToAttack == null) || !(entityToAttack instanceof MoCEntityKitty))
+	                {
+	                    changeKittyStateTo(9);
+	                    break;
+	                }
+	                
+	                MoCEntityKitty entitykitty = (MoCEntityKitty) entityToAttack;
+	                
+	                if ((entitykitty != null) && (entitykitty.getKittyState() == 18))
+	                {
+	                    if (rand.nextInt(50) == 0)
+	                    {
+	                        swingArm();
+	                    }
+	                    float f10 = getDistanceToEntity(entitykitty);
+	                    if (f10 < 5F)
+	                    {
+	                        kittytimer++;
+	                    }
+	                    if ((kittytimer > 500) && (rand.nextInt(50) == 0))
+	                    {
+	                        ((MoCEntityKitty) entityToAttack).changeKittyStateTo(7);
+	                        changeKittyStateTo(19);
+	                    }
+	                }
+	                
+	                else
+	                {
+	                    changeKittyStateTo(9);
+	                }
+	                break;
+	
+	                
+	                
+	            case 19: // '\023'
+	                if (rand.nextInt(20) != 0)
+	                {
+	                    break;
+	                }
+	                
+	                MoCEntityKittyBed entitykittybed2 = (MoCEntityKittyBed) getKittyStuff(this, 18D, false);
+	                
+	                if ((entitykittybed2 == null) || (entitykittybed2.riddenByEntity != null))
+	                {
+	                    break;
+	                }
+	                
+	                float f11 = entitykittybed2.getDistanceToEntity(this);
+	                
+	                if (f11 > 2.0F)
+	                {
+	                    getMyOwnPath(entitykittybed2, f11);
+	                }
+	                
+	                if (f11 < 2.0F)
+	                {
+	                    changeKittyStateTo(20);
+	                    mountEntity(entitykittybed2);
+	                }
+	                break;
+	
+	                
+	                
+	            case 20: // '\024'
+	                if (ridingEntity == null)
+	                {
+	                    changeKittyStateTo(19);
+	                    break;
+	                }
+	                
+	                rotationYaw = 180F;
+	                kittytimer++;
+	                
+	                if (kittytimer <= 1000)
+	                {
+	                    break;
+	                }
+	                
+	                int i2 = rand.nextInt(3) + 1;
+	                
+	                for (int l2 = 0; l2 < i2; l2++)
+	                {
+	                    MoCEntityKitty entitykitty1 = new MoCEntityKitty(worldObj);
+	                    int babytype = this.getType();
+	                    if (rand.nextInt(2) == 0)
+	                    {
+	                        babytype = (rand.nextInt(8)+1);
+	                    }
+	                    entitykitty1.setType(babytype);
+	                    entitykitty1.setPosition(posX, posY, posZ);
+	                    worldObj.spawnEntityInWorld(entitykitty1);
+	                    entitykitty1.setAdult(false);
+	                    entitykitty1.changeKittyStateTo(10);
+	                    // attackEntityFrom(DamageSource.generic, 1); blood - workaround to fix
+	                    // infinite births
+	                }
+	
+	                changeKittyStateTo(21);
+	                break;
+	
+	                
+	                
+	            case 21: // '\025'
+	                kittytimer++;
+	                
+	                if (kittytimer > 2000)
+	                {
+	                    List list2 = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(24D, 8D, 24D));
+	                    int i3 = 0;
+	                    for (int l3 = 0; l3 < list2.size(); l3++)
+	                    {
+	                        Entity entity2 = (Entity) list2.get(l3);
+	                        if ((entity2 instanceof MoCEntityKitty) && (((MoCEntityKitty) entity2).getKittyState() == 10))
+	                        {
+	                            i3++;
+	                        }
+	                    }
+	
+	                    if (i3 < 1)
+	                    {
+	                        changeKittyStateTo(7);
+	                        break;
+	                    }
+	                    kittytimer = 1000;
+	                }
+	                
+	                if ((entityToAttack != null) && (entityToAttack instanceof EntityPlayer) && (rand.nextInt(300) == 0))
+	                {
+	                    entityToAttack = null;
+	                }
+	                break;
+	
+	                
+	                
+	            case 0:
+	                changeKittyStateTo(1);
+	                break;
+	            
+	                
+	                
+	            // case 22: // '\026'
+	            default:
+	                changeKittyStateTo(7);
+	                break;
             }
         }
         else

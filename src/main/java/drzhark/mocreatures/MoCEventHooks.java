@@ -1,5 +1,7 @@
 package drzhark.mocreatures;
 
+import java.util.Random;
+
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import drzhark.mocreatures.entity.IMoCTameable;
 import drzhark.mocreatures.entity.MoCEntityAquatic;
@@ -127,9 +129,10 @@ public class MoCEventHooks {
 	    	{	//spawn bees when a player breaks a hive from the Palm's Harvest mod
 	    		if ((event.block.blockRegistry).getNameForObject(event.block).equals("harvestcraft:beehive"))
 	    		{   
-		            byte amount_of_bees_to_spawn = 4;
+	    			Random rand = new Random();
+		            int amount_of_bees_to_spawn = 2 + rand.nextInt(5); // 2-6 bees
 		            
-		            for (byte index = 0; index < amount_of_bees_to_spawn; index++)
+		            for (int index = 0; index < amount_of_bees_to_spawn; index++)
 		            {
 		            	MoCEntityBee bee = new MoCEntityBee(event.world);
 			            bee.setPosition(event.x, event.y, event.z);

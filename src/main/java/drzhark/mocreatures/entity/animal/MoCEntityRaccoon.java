@@ -62,6 +62,12 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
         if (super.attackEntityFrom(damagesource, i))
         {
             Entity entity = damagesource.getEntity();
+            
+            if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName()))))
+            { 
+            	return false; 
+            }
+            
             if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
             if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
             {

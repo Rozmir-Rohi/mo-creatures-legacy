@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class MoCEntityBoar extends MoCEntityAnimal {
-    protected int force;
+    protected int attack_damage;
     protected double attackRange;
 
     public MoCEntityBoar(World world)
@@ -20,8 +20,7 @@ public class MoCEntityBoar extends MoCEntityAnimal {
         super(world);
         //texture = MoCreatures.proxy.MODEL_TEXTURE + "boara.png";
         setSize(0.9F, 0.9F);
-        //health = 10;
-        force = 1;
+        attack_damage = 1;
         attackRange = 1.0D;
         setMoCAge(50);
         if (rand.nextInt(4) == 0)
@@ -47,7 +46,7 @@ public class MoCEntityBoar extends MoCEntityAnimal {
         if (attackTime <= 0 && (f < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
-            entity.attackEntityFrom(DamageSource.causeMobDamage(this), force);
+            entity.attackEntityFrom(DamageSource.causeMobDamage(this), attack_damage);
         }
     }
 
@@ -103,12 +102,12 @@ public class MoCEntityBoar extends MoCEntityAnimal {
         if (worldObj.difficultySetting.getDifficultyId() == 1)
         {
             attackRange = 2D;
-            force = 1;
+            attack_damage = 1;
         }
         else if (worldObj.difficultySetting.getDifficultyId() > 1)
         {
             attackRange = 3D;
-            force = 2;
+            attack_damage = 2;
         }
         super.onLivingUpdate();
 

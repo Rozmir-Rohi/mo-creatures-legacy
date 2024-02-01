@@ -5,6 +5,7 @@ import java.util.List;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.animal.MoCEntityBigCat;
+import drzhark.mocreatures.entity.animal.MoCEntityBird;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
 import drzhark.mocreatures.entity.animal.MoCEntityWyvern;
 import drzhark.mocreatures.entity.item.MoCEntityEgg;
@@ -53,6 +54,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     public float moveSpeed;
     protected String texture;
     private boolean has_killed_prey = false;
+    
 
     public MoCEntityAnimal(World world)
     {
@@ -349,11 +351,11 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     	return false;
     }
     
-    public void onKillEntity(EntityLivingBase entityliving)
+    public void onKillEntity(EntityLivingBase entityliving_that_has_been_killed)
     {
     	if (isPredator() && MoCreatures.proxy.destroyDrops)
     	{
-    		if (!(entityliving instanceof EntityPlayer))
+    		if (!(entityliving_that_has_been_killed instanceof EntityPlayer) && !(entityliving_that_has_been_killed instanceof EntityMob))
     		{
 	    		has_killed_prey = true;
     		}
@@ -414,7 +416,13 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
                 }
             }
             
-            if (doesForageForFood() && !isMovementCeased() && (getHealth() < getMaxHealth() || !isPredator() || !getIsAdult()))
+            if (
+            		doesForageForFood() 
+            		&& !isMovementCeased() 
+            		&& (getHealth() < getMaxHealth() || !isPredator() || !getIsAdult())
+            		&& riddenByEntity == null
+            		&& ridingEntity == null
+            	)
             {
             	EntityItem closest_entityitem = getClosestEntityItem(this, 12D);
                 
@@ -427,26 +435,50 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
                 	
                 		float distance_to_entity_item = closest_entityitem.getDistanceToEntity(this);
                 		
-                		if (distance_to_entity_item > 2.0F)
+                		if (this instanceof MoCEntityBird)
                 		{
-                			getMyOwnPath(closest_entityitem, distance_to_entity_item);
+                			MoCEntityBird bird = (MoCEntityBird) this;
+                			
+                			if (bird.fleeing) {return;}
+
+                			bird.FlyToNextEntity(closest_entityitem);
+                			
+                			if ((distance_to_entity_item < 2.0F) && (closest_entityitem != null))
+	                		{
+	                			if (rand.nextInt(50) == 0) //birds take some time to eat the item
+	                			{
+	                				closest_entityitem.setDead();
+		                			heal(5);
+		                			
+		                			if (!getIsTamed() && rand.nextInt(3) == 0) {bird.setPreTamed(true);}
+	                			}
+	                		}
                 		}
                 		
-                		if ((distance_to_entity_item < 2.0F) && (closest_entityitem != null))
+                		
+                		else
                 		{
-                			closest_entityitem.setDead();
-                			
-                			heal(5);
-                			
-                			MoCTools.playCustomSound(this, "eating", worldObj);
+	                		if (distance_to_entity_item > 2.0F)
+	                		{
+	                			getMyOwnPath(closest_entityitem, distance_to_entity_item);
+	                		}
+	                		
+	                		if ((distance_to_entity_item < 2.0F) && (closest_entityitem != null))
+	                		{
+	                			closest_entityitem.setDead();
+	                			
+	                			heal(5);
+	                			
+	                			MoCTools.playCustomSound(this, "eating", worldObj);
+	                		}
+	                		if ((this instanceof MoCEntityBigCat) && !getIsAdult() && !getIsTamed() && (getMoCAge() < 80))
+	            			{
+	                			if (rand.nextInt(10) == 0) //1 out of 10 chance
+	                			{
+	                				((MoCEntityBigCat) this).setPreTamed(true); //sets the baby big cat as ready for taming with a medallion
+	                			}
+	            			}
                 		}
-                		if ((this instanceof MoCEntityBigCat) && !getIsAdult() && (getMoCAge() < 80))
-            			{
-                			if (rand.nextInt(10) == 0) //1 out of 10 chance
-                			{
-                				((MoCEntityBigCat) this).setEaten(true); //sets the baby big cat as pre-tamed - ready for taming with a medallion
-                			}
-            			}
                 	}
                 }
             }

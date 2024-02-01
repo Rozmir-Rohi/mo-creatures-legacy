@@ -26,14 +26,13 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityFox extends MoCEntityTameableAnimal {
     protected double attackRange;
-    protected int force;
+    protected int attack_damage;
 
     public MoCEntityFox(World world)
     {
         super(world);
         setSize(0.9F, 1.3F);
-        //health = 15;
-        force = 2;
+        attack_damage = 2;
         attackRange = 4D;
     }
 
@@ -68,7 +67,7 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
         {
             attackTime = 20;
             
-            entity.attackEntityFrom(DamageSource.causeMobDamage(this), force);
+            entity.attackEntityFrom(DamageSource.causeMobDamage(this), attack_damage);
         }
     }
 
@@ -105,6 +104,10 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
         if (super.attackEntityFrom(damagesource, i))
         {
             Entity entity = damagesource.getEntity();
+            if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName()))))
+            { 
+            	return false; 
+            }
             if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
             if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
             {

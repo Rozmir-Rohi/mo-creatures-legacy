@@ -58,12 +58,6 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         this.canLayEggs = false;
     }
 
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
-    }
-
     @Override
     protected void entityInit()
     {
@@ -161,7 +155,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     @Override
     public boolean attackEntityFrom(DamageSource damagesource, float damage_taken)
     {
-        //dmg reduction
+        //damage reduction
         if (getIsTamed() && getHelmet() != 0)
         {
             int armor_protection = 0;
@@ -198,7 +192,12 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         {
             Entity entity = damagesource.getEntity();
 
-            if ( ((riddenByEntity != null) && (entity == riddenByEntity))  || (entity instanceof EntityPlayer && getIsTamed()) ) { return false; }
+            if ( ((riddenByEntity != null) && (entity == riddenByEntity)) ) { return false; }
+            
+            if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName()))))
+            { 
+            	return false; 
+            }
 
             if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0) && getType() > 2)
             {
@@ -236,19 +235,19 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     {
         switch (getType())
         {
-        case 1:
-            return 10;
-        case 2:
-            return 15;
-        case 3:
-            return 20;
-        case 4:
-            return 20;
-        case 5:
-            return 20;
-
-        default:
-            return 20;
+	        case 1:
+	            return 10;
+	        case 2:
+	            return 15;
+	        case 3:
+	            return 20;
+	        case 4:
+	            return 20;
+	        case 5:
+	            return 20;
+	
+	        default:
+	            return 20;
         }
     }
 
@@ -284,6 +283,9 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
                 setType(4);
             }
         }
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getCustomSpeed());
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
+        setHealth(getMaxHealth());
     }
 
     @Override
@@ -317,62 +319,66 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 
         switch (getType())
         {
-        case 1:
-            return MoCreatures.proxy.getTexture("ostrichc.png"); //chick
-        case 2:
-            return MoCreatures.proxy.getTexture("ostrichb.png"); //female
-        case 3:
-            return MoCreatures.proxy.getTexture("ostricha.png"); //male
-        case 4:
-            return MoCreatures.proxy.getTexture("ostrichd.png"); //albino
-        case 5:
-            return MoCreatures.proxy.getTexture("ostriche.png"); //nether
-        case 6:
-            return MoCreatures.proxy.getTexture("ostrichf.png"); //black wyvern
-        case 7:
-            return MoCreatures.proxy.getTexture("ostrichg.png"); //undead
-        case 8:
-            return MoCreatures.proxy.getTexture("ostrichh.png"); //unicorned
-        default:
-            return MoCreatures.proxy.getTexture("ostricha.png");
+	        case 1:
+	            return MoCreatures.proxy.getTexture("ostrichc.png"); //chick
+	        case 2:
+	            return MoCreatures.proxy.getTexture("ostrichb.png"); //female
+	        case 3:
+	            return MoCreatures.proxy.getTexture("ostricha.png"); //male
+	        case 4:
+	            return MoCreatures.proxy.getTexture("ostrichd.png"); //albino
+	        case 5:
+	            return MoCreatures.proxy.getTexture("ostriche.png"); //nether
+	        case 6:
+	            return MoCreatures.proxy.getTexture("ostrichf.png"); //black wyvern
+	        case 7:
+	            return MoCreatures.proxy.getTexture("ostrichg.png"); //undead
+	        case 8:
+	            return MoCreatures.proxy.getTexture("ostrichh.png"); //unicorned
+	        default:
+	            return MoCreatures.proxy.getTexture("ostricha.png");
         }
     }
 
     @Override
     public double getCustomSpeed()
     {
-        //TODO for newer
-        double OstrichSpeed = 0.8D;
-        if (getType() == 1)
+        double ostrich_speed = 0.8D;
+        
+        switch (getType())
         {
-            OstrichSpeed = 0.8;
+	        case 1:
+	        	ostrich_speed = 0.8;
+	        	break;
+	        case 2:
+	        	ostrich_speed = 0.8D;
+	        	break;
+	        case 3:
+	        	ostrich_speed = 1.1D;
+	        	break;
+	        case 4:
+	        	ostrich_speed = 1.3D;
+	        	break;
+	        case 5:
+	        	ostrich_speed = 1.4D;
+	            this.isImmuneToFire = true;
+	            break;
+	            
+	        default:
+	            return 20;
         }
-        else if (getType() == 2)
-        {
-            OstrichSpeed = 0.8D;
-        }
-        else if (getType() == 3)
-        {
-            OstrichSpeed = 1.1D;
-        }
-        else if (getType() == 4)
-        {
-            OstrichSpeed = 1.3D;
-        }
-        else if (getType() == 5)
-        {
-            OstrichSpeed = 1.4D;
-            this.isImmuneToFire = true;
-        }
+        
+        
         if (sprintCounter > 0 && sprintCounter < 200)
         {
-            OstrichSpeed *= 1.5D;
+            ostrich_speed *= 1.5D;
         }
         if (sprintCounter > 200)
         {
-            OstrichSpeed *= 0.5D;
+            ostrich_speed *= 0.5D;
         }
-        return OstrichSpeed;
+        
+        return ostrich_speed;
     }
 
     @Override

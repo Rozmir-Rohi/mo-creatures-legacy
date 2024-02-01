@@ -117,6 +117,14 @@ public class MoCTools {
 		return ore_dictionary_name_array;
 	}
 
+    
+    /**
+     * Used to push entities back
+     * 
+     * @param entity
+     * @param entity1
+     * @param force
+     */
     public static void bigsmack(Entity entity, Entity entity1, float force)
     {
         double d = entity.posX - entity1.posX;
@@ -138,21 +146,29 @@ public class MoCTools {
             entity1.motionY = force;
         }
     }
-
-    public static void buckleMobs(EntityLiving entityattacker, float damage, Double dist, World worldObj)
+    
+    /**
+     * Used to make creatures ram
+     * 
+     * @param entity_performing_the_ram
+     * @param damage
+     * @param dist
+     * @param worldObj
+     */
+    public static void buckleMobs(EntityLiving entity_performing_the_ram, float damage, Double dist, World worldObj)
     {
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(entityattacker, entityattacker.boundingBox.expand(dist, 2D, dist));
+        List list = worldObj.getEntitiesWithinAABBExcludingEntity(entity_performing_the_ram, entity_performing_the_ram.boundingBox.expand(dist, 2D, dist));
         for (int i = 0; i < list.size(); i++)
         {
             Entity entitytarget = (Entity) list.get(i);
-            if (!(entitytarget instanceof EntityLiving) || (entityattacker.riddenByEntity != null && entitytarget == entityattacker.riddenByEntity))
+            if (!(entitytarget instanceof EntityLiving) || (entity_performing_the_ram.riddenByEntity != null && entitytarget == entity_performing_the_ram.riddenByEntity))
             {
                 continue;
             }
             
 
-            entitytarget.attackEntityFrom(DamageSource.causeMobDamage(entityattacker), damage);
-            bigsmack(entityattacker, entitytarget, 0.6F);
+            entitytarget.attackEntityFrom(DamageSource.causeMobDamage(entity_performing_the_ram), damage);
+            bigsmack(entity_performing_the_ram, entitytarget, 0.6F);
         }
     }
 
@@ -1232,46 +1248,47 @@ public class MoCTools {
      * for taming, increase the taming count of the player, add the
      * player.getCommandSenderName() as the owner of the entity, and name the entity.
      * 
-     * @param ep
-     * @param storedCreature
+     * @param entityplayer
+     * @param creature
      * @return
      */
-    public static boolean tameWithName(EntityPlayer ep, IMoCTameable storedCreature) 
+    public static boolean tameWithName(EntityPlayer entityplayer, IMoCTameable creature) 
     {
-        if (ep == null)
+        if (entityplayer == null || creature == null)
         {
             return false;
         }
-
+        
+        //if the player interacting with creature is not the owner of the pet
+        if (creature.getOwnerName().length() > 0 && !(creature.getOwnerName().equals(entityplayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
+        {
+        	return false;
+        }
+        
         if (MoCreatures.proxy.enableStrictOwnership) 
         {
-            if (storedCreature == null)
-            {
-                ep.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED + "ERROR:" + EnumChatFormatting.WHITE + "The stored creature is NULL and could not be created. Report to admin."));
-                return false;
-            }
             int max = 0;
             max = MoCreatures.proxy.maxTamed;
             // only check count for new pets as owners may be changing the name
-            if (!MoCreatures.instance.mapData.isExistingPet(ep.getCommandSenderName(), storedCreature))
+            if (!MoCreatures.instance.mapData.isExistingPet(entityplayer.getCommandSenderName(), creature))
             {
-                int count = MoCTools.numberTamedByPlayer(ep);
-                if (isThisPlayerAnOP(ep)) 
+                int count = MoCTools.numberTamedByPlayer(entityplayer);
+                if (isThisPlayerAnOP(entityplayer)) 
                 {
                     max = MoCreatures.proxy.maxOPTamed;
                 }
                 if (count >= max) 
                 {
-                    String message = "\2474" + ep.getCommandSenderName() + " can not tame more creatures, limit of " + max + " reached";
-                    ep.addChatMessage(new ChatComponentTranslation(message));
+                    String message = "\2474" + entityplayer.getCommandSenderName() + " can not tame more creatures, limit of " + max + " reached";
+                    entityplayer.addChatMessage(new ChatComponentTranslation(message));
                     return false;
                 }
             }
         }
 
-        storedCreature.setOwner(ep.getCommandSenderName()); // ALWAYS SET OWNER. Required for our new pet save system.
-        MoCMessageHandler.INSTANCE.sendTo(new MoCMessageNameGUI(((Entity) storedCreature).getEntityId()), (EntityPlayerMP)ep);
-        storedCreature.setTamed(true);
+        creature.setOwner(entityplayer.getCommandSenderName()); // ALWAYS SET OWNER. Required for our new pet save system.
+        MoCMessageHandler.INSTANCE.sendTo(new MoCMessageNameGUI(((Entity) creature).getEntityId()), (EntityPlayerMP)entityplayer);
+        creature.setTamed(true);
         return true;
     }
 

@@ -36,7 +36,6 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         setTamed(false);
         setMoCAge(50);
         setSize(0.4F, 0.4F);
-        //health = 4;
         bunnyReproduceTickerA = rand.nextInt(64);
         bunnyReproduceTickerB = 0;
     }

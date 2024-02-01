@@ -25,7 +25,6 @@ public class MoCEntityBee extends MoCEntityInsect
     public MoCEntityBee(World world)
     {
         super(world);
-        //health = 4;
         texture = "bee.png";
     }
 
@@ -42,9 +41,9 @@ public class MoCEntityBee extends MoCEntityInsect
 
         if (MoCreatures.isServer())
         {
-            EntityPlayer ep = worldObj.getClosestPlayerToEntity(this, 5D);
+            EntityPlayer closest_player_nearby = worldObj.getClosestPlayerToEntity(this, 5D);
             
-            if (ep != null && getIsFlying() && --soundCount == -1)
+            if (closest_player_nearby != null && getIsFlying() && --soundCount == -1)
             {
                 MoCTools.playCustomSound(this, getMySound(), this.worldObj);
                 soundCount = 20;
@@ -55,7 +54,7 @@ public class MoCEntityBee extends MoCEntityInsect
                 setIsFlying(false);
             }
             
-            if (entityToAttack != null && !getIsFlying())
+            if (entityToAttack != null && (!getIsFlying() || onGround))
             {
             	motionY += 0.3D;
             	setIsFlying(true);

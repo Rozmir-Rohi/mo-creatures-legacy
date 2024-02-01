@@ -249,7 +249,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     {
     	if (isPredator() && MoCreatures.proxy.destroyDrops)
     	{
-    		if (!(entityliving instanceof EntityPlayer))
+    		if (!(entityliving instanceof EntityPlayer) && !(entityliving instanceof EntityMob))
     		{
 	    		has_killed_prey = true;
     		}

@@ -42,7 +42,6 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     {
         super(world);
         setSize(1.6F, 0.5F);
-        //health = 20;
         texture = "komododragon.png";
         setTamed(false);
         setAdult(false);
@@ -383,10 +382,9 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         {
             Entity entity = damagesource.getEntity();
          
-            
-            if (entity != null && getIsTamed() && entity instanceof EntityPlayer) 
+            if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName())))) 
             { 
-                return false; 
+            	return false;
             }
 
             if ((riddenByEntity != null) && (entity == riddenByEntity)) 

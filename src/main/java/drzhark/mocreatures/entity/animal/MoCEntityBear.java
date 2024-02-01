@@ -56,12 +56,6 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             setAdult(true);
         }
     }
-
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
-    }
     
     @Override
     public boolean doesForageForFood()
@@ -304,6 +298,12 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     		else
             {
     			Entity entity = damagesource.getEntity();
+    			
+    			if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName()))))
+                { 
+                	return false; 
+                }
+    			
     			if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
     			if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0) && this.getType() != 3)
     			{
