@@ -1,6 +1,5 @@
 package drzhark.mocreatures.entity.animal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -45,7 +44,6 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityHorse extends MoCEntityTameableAnimal {
     private int gestationtime;

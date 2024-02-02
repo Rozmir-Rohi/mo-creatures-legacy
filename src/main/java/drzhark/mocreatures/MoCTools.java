@@ -32,7 +32,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -49,6 +48,7 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
@@ -1267,20 +1267,24 @@ public class MoCTools {
         
         if (MoCreatures.proxy.enableStrictOwnership) 
         {
-            int max = 0;
-            max = MoCreatures.proxy.maxTamed;
+            int max_number_of_pets_allowed = 0;
+            max_number_of_pets_allowed = MoCreatures.proxy.maxTamed;
             // only check count for new pets as owners may be changing the name
             if (!MoCreatures.instance.mapData.isExistingPet(entityplayer.getCommandSenderName(), creature))
             {
-                int count = MoCTools.numberTamedByPlayer(entityplayer);
+                int pet_count = MoCTools.numberTamedByPlayer(entityplayer);
                 if (isThisPlayerAnOP(entityplayer)) 
                 {
-                    max = MoCreatures.proxy.maxOPTamed;
+                    max_number_of_pets_allowed = MoCreatures.proxy.maxOPTamed;
                 }
-                if (count >= max) 
+                if (pet_count >= max_number_of_pets_allowed) 
                 {
-                    String message = "\2474" + entityplayer.getCommandSenderName() + " can not tame more creatures, limit of " + max + " reached";
-                    entityplayer.addChatMessage(new ChatComponentTranslation(message));
+                	
+                	if (MoCreatures.isServer())
+                    {
+                		String message = StatCollector.translateToLocalFormatted("notify.MoCreatures.max_pet_count_reached", new Object[] {max_number_of_pets_allowed});
+                        entityplayer.addChatMessage(new ChatComponentTranslation(message));
+                    }
                     return false;
                 }
             }

@@ -286,6 +286,9 @@ container.MoCreatures.WyvernChest=Wyvern Chest
 
 notify.MoCreatures.egg_hatching=Egg hatching soon! KEEP WATCH! The hatched creature located @ %1$s, %2$s, %3$s will be lost if you leave area
 
+notify.MoCreatures.max_pet_count_reached=Unable to tame more creatures. You have reached the limit of %1$s pets set by the server owner
+
+
 death.MoCreatures.attack.dehydration=%1$s died from dehydration
 
 

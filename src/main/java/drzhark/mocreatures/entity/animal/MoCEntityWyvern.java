@@ -703,9 +703,9 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean entitiesToIgnore(Entity entity)
+    public boolean entitiesToIgnoreWhenHunting(Entity entity)
     {
-        return (super.entitiesToIgnore(entity) || (entity instanceof MoCEntityWyvern) || (entity instanceof EntityPlayer));
+        return (super.entitiesToIgnoreWhenHunting(entity) || (entity instanceof MoCEntityWyvern) || (entity instanceof EntityPlayer));
     }
 
     @Override

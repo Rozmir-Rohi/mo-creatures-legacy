@@ -223,7 +223,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         {
             Entity entity1 = (Entity) list.get(i);
 
-            if (entitiesToIgnore(entity1))
+            if (entitiesToIgnoreWhenHunting(entity1))
             {
                 continue;
             }
@@ -287,9 +287,13 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     }
     
     /**
-    * Tells the creature not to hunt any of the entities that are returned with this function
-    */
-    public boolean entitiesToIgnore(Entity entity)
+     * Tells the creature not to hunt any of the entities that are returned with this function.
+     * This is used within the findPlayerToAttack function
+     * 
+     * @param entity
+     * @return
+     */
+    public boolean entitiesToIgnoreWhenHunting(Entity entity)
     {
         return ((!(entity instanceof EntityLiving)) 
                 || (entity instanceof IMob || entity instanceof MoCEntityMob) //don't hunt the creature if it is a mob 

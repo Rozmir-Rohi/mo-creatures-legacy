@@ -1,6 +1,5 @@
 package drzhark.mocreatures.entity.animal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
@@ -20,7 +19,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityBunny extends MoCEntityTameableAnimal {
     public boolean pickedUp;

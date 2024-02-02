@@ -616,7 +616,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             changeKittyStateTo(7);
             return true;
         }
-        if ((itemstack != null) && (getKittyState() > 2) && ((itemstack.getItem() == MoCreatures.medallion) || (itemstack.getItem() == Items.name_tag)))
+        if ((itemstack != null) && (getKittyState() > 2) && ((itemstack.getItem() == MoCreatures.medallion)))
         {
             if (MoCreatures.isServer())
             {

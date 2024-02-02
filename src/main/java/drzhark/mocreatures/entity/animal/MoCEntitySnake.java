@@ -703,9 +703,9 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 
     // ignores big entities, everything else is prey!
     @Override
-    public boolean entitiesToIgnore(Entity entity)
+    public boolean entitiesToIgnoreWhenHunting(Entity entity)
     {
-        return ((super.entitiesToIgnore(entity))
+        return ((super.entitiesToIgnoreWhenHunting(entity))
         		|| (entity instanceof MoCEntitySnake)
         		|| (entity.height > 0.5D && entity.width > 0.5D));
     }

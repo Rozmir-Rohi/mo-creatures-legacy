@@ -105,7 +105,19 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
         
         if (!MoCreatures.isGregTech6Loaded)
         {
-        	if (MoCreatures.isTwilightForestLoaded)
+        	if (MoCreatures.isPalmsHarvestLoaded)
+        	{
+        		if (this.isBurning())
+        		{
+        			dropItem(GameRegistry.findItem("harvestcraft", "venisoncookedItem"), random_amount);
+        		}
+        		else 
+        		{
+        			dropItem(GameRegistry.findItem("harvestcraft", "venisonrawItem"), random_amount);
+        		}
+        	}
+        	
+        	else if (MoCreatures.isTwilightForestLoaded)
         	{
         		if (this.isBurning())
         		{

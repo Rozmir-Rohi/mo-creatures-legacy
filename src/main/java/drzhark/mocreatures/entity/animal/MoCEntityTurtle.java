@@ -1,6 +1,5 @@
 package drzhark.mocreatures.entity.animal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
@@ -21,7 +20,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     private boolean isSwinging;
@@ -312,9 +310,9 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean entitiesToIgnore(Entity entity)
+    public boolean entitiesToIgnoreWhenHunting(Entity entity)
     {
-        return (entity instanceof MoCEntityTurtle) || ((entity.height <= this.height) && (entity.width <= this.width)) || super.entitiesToIgnore(entity);
+        return (entity instanceof MoCEntityTurtle) || ((entity.height <= this.height) && (entity.width <= this.width)) || super.entitiesToIgnoreWhenHunting(entity);
     }
 
     @Override

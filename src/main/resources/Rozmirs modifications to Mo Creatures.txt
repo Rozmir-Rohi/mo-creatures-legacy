@@ -676,4 +676,27 @@ Also, pets can now only be whipped or renamed by their owners. If a player tries
 If a tamed special creature (mostly predators) is attacked by a player and that player is not the owner of that creature, that creature will now attack that player.
 
 
-Pet can no longer be renamed using a book. Renaming items for pets are now: medallion, name tag.
+Pets can no longer be renamed using a book or a name tag, kitties can also no longer be tamed using a book or a name tag . The items for these uses is now only the medallion.
+
+
+Added language file dependency for the max number of pets reached chat notification. Excluding the chat messages for MoC commands, this marks the completion of full language file dependency for all texts from the original Mo' Creatures mod.
+
+
+Decreased health of all insects except crabs to 2HP.
+
+
+Added drops for following mobs:
+	Deer: venison (if palms harvest is installed)
+
+
+Salmon that spawn in freshwater now have a unique red texture, similair to how they change when going into freshwater to breed in real life. You can now only get salmon eggs from salmon that spawn in freshwater.
+
+
+Fixed transparent spots in all medium fish. Improved texture of blue salmon.
+
+
+Tamed blue salmon (hatched from salmon eggs) now become red salmon when they become adults.
+
+
+Improved fishing for small fish, fishy, and medium fish. If theses creatures are reeled in after biting a fishing hook, they will now be instantly turned into an item in the player's inventory. But this does not work if the player hooks the fish by throwing the hook at them without the fish willingly biting the hook.
+

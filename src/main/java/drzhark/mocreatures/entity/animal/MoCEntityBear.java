@@ -1,6 +1,5 @@
 package drzhark.mocreatures.entity.animal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
@@ -15,7 +14,6 @@ import drzhark.mocreatures.entity.aquatic.MoCEntityShark;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -28,7 +26,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityBear extends MoCEntityTameableAnimal {
 
@@ -325,9 +322,9 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     }
     
     @Override
-    public boolean entitiesToIgnore(Entity entity) //don't hunt the following mobs below
+    public boolean entitiesToIgnoreWhenHunting(Entity entity)
     {
-        return (super.entitiesToIgnore(entity) //including the mobs specified in parent file
+        return (super.entitiesToIgnoreWhenHunting(entity) //including the mobs specified in parent file
             	|| (entity instanceof MoCEntityBear) 
             	|| (getIsAdult() && (entity.width > 1.3D && entity.height > 1.3D)) // don't try to hunt creature larger than a deer when adult
                 || (!getIsAdult() && (entity.width > 0.5D && entity.height > 0.5D)) // don't try to hunt creature larger than a chicken when child

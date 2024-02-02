@@ -468,9 +468,9 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     }
 
     @Override
-    public boolean entitiesToIgnore(Entity entity)
+    public boolean entitiesToIgnoreWhenHunting(Entity entity)
     {
-        return (super.entitiesToIgnore(entity)
+        return (super.entitiesToIgnoreWhenHunting(entity)
         		|| (entity instanceof MoCEntityKomodo)
         		|| (entity instanceof EntityPlayer)
             	|| (entity instanceof MoCEntityBigCat)

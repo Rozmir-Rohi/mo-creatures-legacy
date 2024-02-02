@@ -39,3 +39,5 @@ Fixed Head, Helmets, & Wings : Ostrich
 Fixed some textures being fake PNGs.
 
 Fixed wings: pegasus and dark pegasus.
+
+Fixed transparent spots in all medium fish. Improved texture of blue salmon. Also added new red salmon texture.

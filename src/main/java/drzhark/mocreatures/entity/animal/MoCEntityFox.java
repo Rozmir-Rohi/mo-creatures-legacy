@@ -166,9 +166,9 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     }
     
     @Override
-    public boolean entitiesToIgnore(Entity entity) //don't hunt the following mobs below
+    public boolean entitiesToIgnoreWhenHunting(Entity entity)
     {
-        return (super.entitiesToIgnore(entity) //including the mobs specified in parent file
+        return (super.entitiesToIgnoreWhenHunting(entity) //including the mobs specified in parent file
             	|| (entity instanceof MoCEntityFox)
             	|| ((entity.width > 0.5D) && (entity.height > 0.5D)) //don't try to hunt creatures larger than it
             	|| (entity instanceof MoCEntityKomodo)

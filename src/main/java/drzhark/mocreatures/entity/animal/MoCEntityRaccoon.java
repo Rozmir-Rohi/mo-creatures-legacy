@@ -111,11 +111,11 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     }
     
     @Override
-    public boolean entitiesToIgnore(Entity entity) //don't hunt the following mobs below
+    public boolean entitiesToIgnoreWhenHunting(Entity entity)
     {
         return 
         		(
-        			super.entitiesToIgnore(entity) //including the mobs specified in parent file
+        			super.entitiesToIgnoreWhenHunting(entity) //including the mobs specified in parent file
                     || entity instanceof MoCEntityRaccoon
                     || entity instanceof MoCEntityFox
                     || !getIsAdult() 

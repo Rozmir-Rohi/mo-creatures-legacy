@@ -362,7 +362,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean entitiesToIgnore(Entity entity)
+    public boolean entitiesToIgnoreWhenHunting(Entity entity)
     {
         return ((!(entity instanceof MoCEntityGoat)) || ((((MoCEntityGoat) entity).getType() < 5)) || (((MoCEntityGoat) entity).roper != null));
     }

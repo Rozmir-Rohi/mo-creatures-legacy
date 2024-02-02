@@ -28,12 +28,6 @@ public class MoCEntityBee extends MoCEntityInsect
         texture = "bee.png";
     }
 
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(4.0D);
-    }
-
     @Override
     public void onLivingUpdate()
     {

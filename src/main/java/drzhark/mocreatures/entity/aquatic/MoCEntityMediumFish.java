@@ -19,7 +19,7 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
 
-    public static final String fishNames[] = { "Salmon", "Cod", "Bass"};
+    public static final String fishNames[] = { "Salmon", "Cod", "Bass", "Red Salmon"};
 
     private int latMovCounter;
     
@@ -56,6 +56,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
 
         BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, i, j, k);
         
+        
         if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SWAMP))
         {
             setType(3); //bass
@@ -64,24 +65,27 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
 
         int type_chance = rand.nextInt(100);
         
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.OCEAN))
-        {
-        	if (type_chance <= 50)
-			{setType(1);} //salmon
-        
-        	else {setType(2);} //cod
-        
-        	return true;
-        }
-
         if (BiomeDictionary.isBiomeOfType(currentbiome, Type.RIVER))
         {
             if (type_chance <= 40)
-    			{setType(1);} //salmon (more rare than bass because salmon only go to freshwater to breed)
+    			{ //red salmon
+            		setType(4);
+            		setMoCAge(110); //sets as adult on spawn since salmon only go into freshwater in real life when they are adults and ready to breed
+    			} 
             
             else {setType(3);} //bass
             
             return true;
+        }
+        
+        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.OCEAN))
+        {
+        	if (type_chance <= 50)
+			{setType(1);} //blue salmon
+        
+        	else {setType(2);} //cod
+        
+        	return true;
         }
         
         return true;
@@ -98,6 +102,8 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
             return MoCreatures.proxy.getTexture("mediumfish_cod.png");
         case 3:
             return MoCreatures.proxy.getTexture("mediumfish_bass.png");
+        case 4:
+            return MoCreatures.proxy.getTexture("mediumfish_salmon1.png");
         default:
             return MoCreatures.proxy.getTexture("mediumfish_salmon.png");
         }
@@ -110,15 +116,34 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
         int i = rand.nextInt(100);
         if (i < 70)
         {
-            entityDropItem(new ItemStack(Items.fish, 1, 0), 0.0F);
+        	if (this.getType() == 4) //red salmon
+        	{
+        		entityDropItem(new ItemStack(Items.fish, 1, 1), 0.0F); //drops salmon
+        	}
+        	
+        	else
+            {
+        		entityDropItem(new ItemStack(Items.fish, 1, 0), 0.0F);
+            }
         }
         else
         {
-            int j = rand.nextInt(2);
-            for (int k = 0; k < j; k++)
-            {
-                entityDropItem(new ItemStack(MoCreatures.mocegg, 1, getType() + 69), 0.0F);
-            }
+        	if (getIsAdult() && getType() != 1) //not a blue salmon - because salmon only lay eggs when they go to fresh water and become red
+        	{
+	            int j = rand.nextInt(2);
+	            for (int k = 0; k < j; k++)
+	            {
+	            	if (getType() == 4) //red salmon
+	            	{
+	            		entityDropItem(new ItemStack(MoCreatures.mocegg, 1, 1 + 69), 0.0F); //drop salmon egg
+	            	}
+	            	
+	            	else
+	            	{
+	            		entityDropItem(new ItemStack(MoCreatures.mocegg, 1, getType() + 69), 0.0F);
+	            	}
+	            }
+        	}
         }
     }
 
@@ -149,6 +174,11 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
                 heal(1);
             }
         }
+        if (getType() == 1 && getIsTamed() && getIsAdult()) //turns tamed blue salmon into red salmon when they become adults
+        {
+        	setType(4);
+        }
+        
         if (!this.isInsideOfMaterial(Material.water))
         {
             prevRenderYawOffset = renderYawOffset = rotationYaw = prevRotationYaw;

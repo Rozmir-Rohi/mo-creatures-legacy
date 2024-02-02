@@ -4,6 +4,7 @@ import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.entity.aquatic.MoCEntityMediumFish;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -701,6 +702,49 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             {
                 getFished();
             }
+            
+            if (fishHooked)
+            {
+            	boolean hook_nearby = false;
+            	
+            	List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(2, 2, 2));
+                for (int i = 0; i < list.size(); i++)
+                {
+                    Entity entity_nearby = (Entity) list.get(i);
+        
+                    if (entity_nearby instanceof EntityFishHook)
+                    {
+                        if (((EntityFishHook) entity_nearby).field_146043_c == this)
+                        {
+                            hook_nearby = true;
+                        }
+                    }
+                }
+                
+                if (!(hook_nearby) && player_that_hooked_this_fish != null) //tests if the fish has been reeled in by the player
+                {
+                	this.setDead();
+                	
+                	if (this instanceof MoCEntityMediumFish)
+                	{
+                		MoCEntityMediumFish medium_fish = (MoCEntityMediumFish) this;
+                		
+                		if (medium_fish.getType() == 4) //red salmon
+                		{
+                			player_that_hooked_this_fish.inventory.addItemStackToInventory(new ItemStack(Items.fish, 1, 1));
+                		}
+                		else
+                    	{
+                    		player_that_hooked_this_fish.inventory.addItemStackToInventory(new ItemStack(Items.fish, 1, 0));
+                    	}
+                	}
+                	else
+                	{
+                		player_that_hooked_this_fish.inventory.addItemStackToInventory(new ItemStack(Items.fish, 1, 0));
+                	}
+                }
+            }
+            
 
             if (fishHooked && rand.nextInt(200) == 0)
             {
@@ -1021,7 +1065,9 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     {
         return 0;
     }
-
+    
+    EntityPlayer player_that_hooked_this_fish;
+    
     /**
      * The act of getting Hooked into a fish Hook.
      */
@@ -1042,6 +1088,11 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
                 {
                     fishHook.field_146043_c = this;
                     fishHooked = true;
+                    
+                    fishHook.motionY -= 0.20000000298023224D;
+                    playSound("random.splash", 0.25F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.4F);
+                    
+                    player_that_hooked_this_fish = entityplayer1;
                 }
             }    
         }

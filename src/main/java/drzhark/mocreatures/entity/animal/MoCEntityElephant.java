@@ -1,6 +1,5 @@
 package drzhark.mocreatures.entity.animal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;

@@ -475,7 +475,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
 
     
     @Override
-    public boolean entitiesToIgnore(Entity entity) //don't hunt the following mobs below
+    public boolean entitiesToIgnoreWhenHunting(Entity entity)
     {
         return ((!(entity instanceof EntityLiving)) 
                 || (entity instanceof IMob || entity instanceof MoCEntityMob) //don't hunt the creature if it is a mob 
