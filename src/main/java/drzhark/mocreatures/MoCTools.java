@@ -584,16 +584,22 @@ public class MoCTools {
 
     public static float distanceToSurface(Entity entity)
     {
-        int i = MathHelper.floor_double(entity.posX);
-        int j = MathHelper.floor_double(entity.posY);
-        int k = MathHelper.floor_double(entity.posZ);
-        Block block = entity.worldObj.getBlock(i, j, k);
+        int x = MathHelper.floor_double(entity.posX);
+        int y = MathHelper.floor_double(entity.posY);
+        int z = MathHelper.floor_double(entity.posZ);
+        Block block = entity.worldObj.getBlock(x, y, z);
         if (block != Blocks.air && block.getMaterial() == Material.water)
         {
-            for (int x = 1; x < 64; x++)
+            for (int index = 1; index < 64; index++)
             {
-                block = entity.worldObj.getBlock(i, j + x, k);
-                if (block == Blocks.air || block.getMaterial() != Material.water) { return (float) x; }
+                block = entity.worldObj.getBlock(x, y + index, z);
+                if ( 
+                		block == Blocks.air
+                		|| block.getMaterial() != Material.water
+                	) 
+                { 
+                	return (float) index;
+                }
             }
         }
         return 0F;

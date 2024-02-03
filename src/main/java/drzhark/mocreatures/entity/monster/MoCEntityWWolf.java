@@ -59,11 +59,11 @@ public class MoCEntityWWolf extends MoCEntityMob {
     @Override
     public boolean checkSpawningBiome()
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
+        int x_coordinate = MathHelper.floor_double(posX);
+        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
+        int z_coordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase biome = MoCTools.Biomekind(worldObj, i, j, k);
+        BiomeGenBase biome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
         int l = rand.nextInt(10);
 
         if (BiomeDictionary.isBiomeOfType(biome, Type.SNOWY))

@@ -333,11 +333,11 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         {
             if (onGround)
             {
-                double d = entity.posX - posX;
-                double d1 = entity.posZ - posZ;
-                float f1 = MathHelper.sqrt_double((d * d) + (d1 * d1));
-                motionX = ((d / f1) * 0.5D * 0.8D) + (motionX * 0.2D);
-                motionZ = ((d1 / f1) * 0.5D * 0.8D) + (motionZ * 0.2D);
+                double x_distance = entity.posX - posX;
+                double z_distance = entity.posZ - posZ;
+                float overall_horizontal_distance_squared = MathHelper.sqrt_double((x_distance * x_distance) + (z_distance * z_distance));
+                motionX = ((x_distance / overall_horizontal_distance_squared) * 0.5D * 0.8D) + (motionX * 0.2D);
+                motionZ = ((z_distance / overall_horizontal_distance_squared) * 0.5D * 0.8D) + (motionZ * 0.2D);
                 motionY = 0.4D;
             }
         }

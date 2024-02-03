@@ -412,41 +412,22 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
             {
                 setIsHungry(true);
             }
-
-            if ((riddenByEntity == null) && (deathTime == 0) && (!getIsTamed() || getIsHungry()))
-            {
-                EntityItem entityitem = getClosestFish(this, 12D);
-                if (entityitem != null)
-                {
-                    MoveToNextEntity(entityitem);
-                    EntityItem entityitem1 = getClosestFish(this, 2D);
-                    if ((rand.nextInt(20) == 0) && (entityitem1 != null) && (deathTime == 0))
-                    {
-
-                        entityitem1.setDead();
-                        setTemper(getTemper() + 25);
-                        if (getTemper() > getMaxTemper())
-                        {
-                            setTemper(getMaxTemper() - 1);
-                        }
-                        
-                        heal(5);
-                    }
-                }
-            }
+            
             if (!ReadyforParenting(this)) { return; }
-            int i = 0;
+            
+            int list_of_other_dolphins_nearby = 0;
+            
             List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(8D, 2D, 8D));
             for (int j = 0; j < list.size(); j++)
             {
                 Entity entity = (Entity) list.get(j);
                 if (entity instanceof MoCEntityDolphin)
                 {
-                    i++;
+                    list_of_other_dolphins_nearby++;
                 }
             }
 
-            if (i > 1) { return; }
+            if (list_of_other_dolphins_nearby > 1) { return; }
             List list1 = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4D, 2D, 4D));
             for (int k = 0; k < list1.size(); k++)
             {
@@ -496,6 +477,15 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
                 }
             }
         }
+    }
+    
+    @Override
+    public boolean isMyHealFood(ItemStack itemstack)
+    {
+    	return itemstack != null && 
+        		(
+        			itemstack.getItem() == Items.fish
+        		);
     }
 
     public boolean ReadyforParenting(MoCEntityDolphin entitydolphin)

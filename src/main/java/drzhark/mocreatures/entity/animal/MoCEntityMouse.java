@@ -64,12 +64,12 @@ public class MoCEntityMouse extends MoCEntityAnimal
     @Override
     public boolean checkSpawningBiome()
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, i, j, k);
+        int x_coordinate = MathHelper.floor_double(posX);
+        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
+        int z_coordinate = MathHelper.floor_double(posZ);
+        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
 
-        String s = MoCTools.BiomeName(worldObj, i, j, k);
+        String s = MoCTools.BiomeName(worldObj, x_coordinate, y_coordinate, z_coordinate);
         if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SNOWY))
         {
             setType(3); //white mice!
@@ -125,19 +125,20 @@ public class MoCEntityMouse extends MoCEntityAnimal
     @Override
     public boolean getCanSpawnHere()
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
+        int x_coordinate = MathHelper.floor_double(posX);
+        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
+        int z_coordinate = MathHelper.floor_double(posZ);
         return ( 
-                (MoCreatures.entityMap.get(this.getClass()).getFrequency() > 0) &&
-                worldObj.checkNoEntityCollision(boundingBox) 
-                && (worldObj.getCollidingBoundingBoxes(this, boundingBox).size() == 0) 
-                && !worldObj.isAnyLiquid(boundingBox) 
-                && ((worldObj.getBlock(i, j - 1, k) == Blocks.cobblestone) 
-                || (worldObj.getBlock(i, j - 1, k) == Blocks.planks) 
-                || (worldObj.getBlock(i, j - 1, k) == Blocks.dirt) 
-                || (worldObj.getBlock(i, j - 1, k) == Blocks.stone) 
-                || (worldObj.getBlock(i, j - 1, k) == Blocks.grass)));
+	                (MoCreatures.entityMap.get(this.getClass()).getFrequency() > 0) &&
+	                worldObj.checkNoEntityCollision(boundingBox) 
+	                && (worldObj.getCollidingBoundingBoxes(this, boundingBox).size() == 0) 
+	                && !worldObj.isAnyLiquid(boundingBox) 
+	                && ((worldObj.getBlock(x_coordinate, y_coordinate - 1, z_coordinate) == Blocks.cobblestone) 
+	                || (worldObj.getBlock(x_coordinate, y_coordinate - 1, z_coordinate) == Blocks.planks) 
+	                || (worldObj.getBlock(x_coordinate, y_coordinate - 1, z_coordinate) == Blocks.dirt) 
+	                || (worldObj.getBlock(x_coordinate, y_coordinate - 1, z_coordinate) == Blocks.stone) 
+	                || (worldObj.getBlock(x_coordinate, y_coordinate - 1, z_coordinate) == Blocks.grass))
+                );
     }
 
     @Override

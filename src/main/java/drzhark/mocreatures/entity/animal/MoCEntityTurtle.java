@@ -469,14 +469,18 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-    	List<String> ore_dictionary_name_array = MoCTools.getOreDictionaryEntries(itemstack);
-    	
-        return (
-        			itemstack.getItem() == Items.reeds
-        			|| itemstack.getItem() == Items.melon
-        			|| ore_dictionary_name_array.size() > 0 && ore_dictionary_name_array.contains("listAllveggie") //BOP veg or GregTech6 veg or Palm's Harvest veg
-        			|| ore_dictionary_name_array.contains("listAllfruit") //BOP fruit or GregTech6 fruit or Palm's Harvest fruit
-        		);
+    	if (itemstack != null)
+    	{
+	    	List<String> ore_dictionary_name_array = MoCTools.getOreDictionaryEntries(itemstack);
+	    	
+	        return (
+	        			itemstack.getItem() == Items.reeds
+	        			|| itemstack.getItem() == Items.melon
+	        			|| ore_dictionary_name_array.size() > 0 && ore_dictionary_name_array.contains("listAllveggie") //BOP veg or GregTech6 veg or Palm's Harvest veg
+	        			|| ore_dictionary_name_array.contains("listAllfruit") //BOP fruit or GregTech6 fruit or Palm's Harvest fruit
+	        		);
+    	}
+    	else {return false;}
     }
 
     @Override

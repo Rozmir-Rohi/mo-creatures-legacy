@@ -35,12 +35,12 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
     @Override
     public boolean checkSpawningBiome()
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
+        int x_coordinate = MathHelper.floor_double(posX);
+        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
+        int z_coordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, i, j, k);
-        String biome_name = MoCTools.BiomeName(worldObj, i, j, k);
+        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
+        String biome_name = MoCTools.BiomeName(worldObj, x_coordinate, y_coordinate, z_coordinate);
 
         if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SAVANNA)
         		|| BiomeDictionary.isBiomeOfType(currentbiome, Type.SANDY))
@@ -100,17 +100,19 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
     
     private boolean isItemstackFoodItem(ItemStack itemstack)
     {
-    	Item item = itemstack.getItem();
-    	
-    	if (
-    			item instanceof ItemSeeds
-    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
-    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
-    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllseed" //BOP seeds or GregTech6 seeds or Palms Harvest seeds
-    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins" //GregTech6 raisins or Palm's Harvest raisins
-    		) {return true;}
-    	
-    	return false;
+	    if (itemstack != null)
+	    {
+	    	Item item = itemstack.getItem();
+		    	
+		    	return (
+		    			item instanceof ItemSeeds
+		    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
+		    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
+		    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllseed" //BOP seeds or GregTech6 seeds or Palms Harvest seeds
+		    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins" //GregTech6 raisins or Palm's Harvest raisins
+		    		);
+	    }
+	    else {return false;}
     }
 
     @Override

@@ -830,15 +830,15 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     @Override
     protected void dropFewItems(boolean flag, int x)
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
+        int x_coordinate = MathHelper.floor_double(posX);
+        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
+        int z_coordinate = MathHelper.floor_double(posZ);
         int chance = MoCreatures.proxy.wyvernEggDropChance;
         if (getType() == 5) //mother wyverns drop eggs more frequently
         {
             chance = MoCreatures.proxy.motherWyvernEggDropChance;
         }
-        String s = MoCTools.BiomeName(worldObj, i, j, k);
+        String s = MoCTools.BiomeName(worldObj, x_coordinate, y_coordinate, z_coordinate);
         if (rand.nextInt(100) < chance)
         {
             entityDropItem(new ItemStack(MoCreatures.mocegg, 1, getType() + 49), 0.0F);

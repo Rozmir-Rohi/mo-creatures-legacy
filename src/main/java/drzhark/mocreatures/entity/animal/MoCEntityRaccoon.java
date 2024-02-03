@@ -141,7 +141,7 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-		return isItemEdible(itemstack.getItem());
+    	return itemstack != null && isItemEdible(itemstack.getItem());
     }
 
     @Override

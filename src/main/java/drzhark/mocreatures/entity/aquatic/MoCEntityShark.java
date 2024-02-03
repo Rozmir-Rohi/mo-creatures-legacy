@@ -64,8 +64,8 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
         {
             if (entity instanceof EntityPlayer && ((EntityPlayer)entity).ridingEntity != null)
             {
-                Entity playerMount = ((EntityPlayer)entity).ridingEntity;
-                if (playerMount instanceof EntityBoat) 
+                Entity entity_that_player_is_riding = ((EntityPlayer)entity).ridingEntity;
+                if (entity_that_player_is_riding instanceof EntityBoat) 
                 {
                     return;
                 }
@@ -86,7 +86,8 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
             if (entity != this
             	&& !( //don't attack back if the attacking mob is one of the following mobs below
             			entity instanceof EntityMob   //this also stops sharks from fighting Guardians from the Village Names mod
-                    ))   
+                    )
+            	)   
             {
                 entityToAttack = entity;
                 return true;
@@ -102,19 +103,20 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     @Override
     protected void dropFewItems(boolean flag, int x)
     {
-        int i = rand.nextInt(100);
-        if (i < 90)
+        int drop_chance = rand.nextInt(100);
+        if (drop_chance < 90)
         {
-            int j = rand.nextInt(3) + 1;
-            for (int l = 0; l < j; l++)
+            int amount_of_teeth_to_drop = rand.nextInt(3) + 1;
+            
+            for (int index = 0; index < amount_of_teeth_to_drop; index++)
             {
                 entityDropItem(new ItemStack(MoCreatures.sharkteeth, 1, 0), 0.0F);
             }
         }
-        else if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getMoCAge() > 150))
+        else if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getMoCAge() > 150) && drop_chance < 40)
         {
-            int k = rand.nextInt(3);
-            for (int i1 = 0; i1 < k; i1++)
+            int amount_of_eggs_to_drop = rand.nextInt(3);
+            for (int index1 = 0; index1 < amount_of_eggs_to_drop; index1++)
             {
                 entityDropItem(new ItemStack(MoCreatures.mocegg, 1, 11), 0.0F);
             }
@@ -126,14 +128,13 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     {
         if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getMoCAge() >= 100))
         {
-            EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
-            if ((entityplayer != null) && entityplayer.isInWater() && !getIsTamed()) { return entityplayer; }
+            EntityPlayer closest_entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
+            if ((closest_entityplayer != null) && closest_entityplayer.isInWater() && !getIsTamed()) { return closest_entityplayer; }
             
             if (rand.nextInt(200) == 0)  // hunting cooldown between each prey
             {
-                EntityLivingBase entityliving = getClosestEntityLiving(this, 16D);
-                if ((entityliving != null) && !(entityliving instanceof EntityPlayer))
-                	{ return entityliving; }
+                EntityLivingBase entityliving = getClosestEntityLivingThatCanBeHunted(this, 16D);
+                if ((entityliving != null) && !(entityliving instanceof EntityPlayer)) { return entityliving; }
             }
         }
         
@@ -157,36 +158,44 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
         return null;
     }
 
-    public EntityLivingBase getClosestEntityLiving(Entity entity, double d)
+    public EntityLivingBase getClosestEntityLivingThatCanBeHunted(Entity entity, double distance)
     {
-        double d1 = -1D;
+        double current_minimum_distance = -1D;
         EntityLivingBase entityliving = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
-        for (int i = 0; i < list.size(); i++)
+        List entities_nearby_list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
+        
+        int iteration_length = entities_nearby_list.size();
+        
+        if (iteration_length > 0)
         {
-            Entity entity1 = (Entity) list.get(i);
-            if (!(entity1 instanceof EntityLivingBase)
-            		|| (!((entity1 instanceof MoCEntityAquatic) || (entity1 instanceof MoCEntityTameableAquatic)) && !(entity1.isInWater()) // don't attack if mob is not aquatic and not in water
-                    || (entity1 instanceof MoCEntityShark) // don't attack mobs below as well
-                    || (entity1 == entity.riddenByEntity) 
-                    || (entity1 == entity.ridingEntity)
-                    || (entity1 instanceof IMob || entity1 instanceof EntityMob || entity1 instanceof MoCEntityMob) // don't attack if creature is a mob (eg: slime)
-                    || (entity1 instanceof MoCEntityDolphin || entity1 instanceof MoCEntityJellyFish)
-                    || (getIsTamed() && (entity1 instanceof IMoCEntity) && ((IMoCEntity)entity1).getIsTamed() ) 
-                    || ((entity1 instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)) 
-                    || ((entity1 instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)))
-            	)
-            	
-            	{ continue;}
-            
-            double d2 = entity1.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-            
-            if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLivingBase) entity1).canEntityBeSeen(entity))
-            {
-                d1 = d2;
-                entityliving = (EntityLivingBase) entity1;
-            }
+	        for (int index = 0; index < iteration_length; index++)
+	        {
+	            Entity entity_nearby = (Entity) entities_nearby_list.get(index);
+	            
+	            if (!(entity_nearby instanceof EntityLivingBase)
+	            		|| (!((entity_nearby instanceof MoCEntityAquatic) || (entity_nearby instanceof MoCEntityTameableAquatic)) && !(entity_nearby.isInWater()) // don't attack if mob is not aquatic and not in water
+	                    || (entity_nearby instanceof MoCEntityShark) // don't attack mobs below as well
+	                    || (entity_nearby == entity.riddenByEntity) 
+	                    || (entity_nearby == entity.ridingEntity)
+	                    || (entity_nearby instanceof IMob || entity_nearby instanceof EntityMob || entity_nearby instanceof MoCEntityMob) // don't attack if creature is a mob (eg: slime)
+	                    || (entity_nearby instanceof MoCEntityDolphin || entity_nearby instanceof MoCEntityJellyFish)
+	                    || (getIsTamed() && (entity_nearby instanceof IMoCEntity) && ((IMoCEntity)entity_nearby).getIsTamed() ) 
+	                    || ((entity_nearby instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)) 
+	                    || ((entity_nearby instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)))
+	            	)
+	            	
+	            	{ continue;}
+	            
+	            double overall_distance_squared = entity_nearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+	            
+	            if (((distance < 0.0D) || (overall_distance_squared < (distance * distance))) && ((current_minimum_distance == -1D) || (overall_distance_squared < current_minimum_distance)) && ((EntityLivingBase) entity_nearby).canEntityBeSeen(entity))
+	            {
+	                current_minimum_distance = overall_distance_squared;
+	                entityliving = (EntityLivingBase) entity_nearby;
+	            }
+	        }
         }
+        
         return entityliving;
     }
 
@@ -240,8 +249,11 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack par1ItemStack)
+    public boolean isMyHealFood(ItemStack itemstack)
     {
-        return par1ItemStack != null && (par1ItemStack.getItem() == Items.fish);
+        return itemstack != null && 
+        		(
+        			itemstack.getItem() == Items.fish
+        		);
     }
 }

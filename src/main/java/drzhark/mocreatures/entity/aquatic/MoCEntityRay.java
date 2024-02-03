@@ -166,11 +166,11 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
     @Override
     public boolean checkSpawningBiome()
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
-        //String s = MoCTools.BiomeName(worldObj, i, j, k);
-        BiomeGenBase biome = MoCTools.Biomekind(worldObj, i, j, k);
+        int x_coordinate = MathHelper.floor_double(posX);
+        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
+        int z_coordinate = MathHelper.floor_double(posZ);
+        //String s = MoCTools.BiomeName(worldObj, x_coordinate, y_coordinate, z_coordinate);
+        BiomeGenBase biome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
         if (!(biome instanceof BiomeGenOcean))
         {
             setType(2);

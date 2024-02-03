@@ -169,4 +169,13 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
             }
         }
     }
+    
+    @Override
+    public boolean isMyHealFood(ItemStack itemstack)
+    {
+        return itemstack != null && 
+        		(
+        			itemstack.getItem() == Items.fish
+        		);
+    }
 }

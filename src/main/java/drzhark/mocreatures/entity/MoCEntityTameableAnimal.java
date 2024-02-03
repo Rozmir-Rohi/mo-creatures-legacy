@@ -116,7 +116,7 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
         }
         
         //stores in petAmulet
-        if (itemstack != null && itemstack.getItem() == MoCreatures.petamulet && itemstack.getItemDamage() == 0 && this.canBeTrappedInNet()) 
+        if (itemstack != null && itemstack.getItem() == MoCreatures.petamulet && itemstack.getItemDamage() == 0 && this.canBeTrappedInAmulet()) 
         {
         	//if the player using the amulet is not the owner
 	        if (getOwnerName().length() > 0 && !(getOwnerName().equals(entityplayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
@@ -202,19 +202,20 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
      */
     public void playTameEffect(boolean par1)
     {
-        String s = "heart";
+        String particle_name = "heart";
 
         if (!par1)
         {
-            s = "smoke";
+            particle_name = "smoke";
         }
 
-        for (int i = 0; i < 7; ++i)
+        for (int index = 0; index < 7; ++index)
         {
-            double d0 = this.rand.nextGaussian() * 0.02D;
-            double d1 = this.rand.nextGaussian() * 0.02D;
-            double d2 = this.rand.nextGaussian() * 0.02D;
-            this.worldObj.spawnParticle(s, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 0.5D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d0, d1, d2);
+            double x_velocity = this.rand.nextGaussian() * 0.02D;
+            double y_velocity = this.rand.nextGaussian() * 0.02D;
+            double z_velocity = this.rand.nextGaussian() * 0.02D;
+            
+            this.worldObj.spawnParticle(particle_name, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 0.5D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, x_velocity, y_velocity, z_velocity);
         }
     }
 

@@ -168,10 +168,10 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
 
     public boolean getCanSpawnHereCreature()
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
-        return getBlockPathWeight(i, j, k) >= 0.0F;
+        int x_coordinate = MathHelper.floor_double(posX);
+        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
+        int z_coordinate = MathHelper.floor_double(posZ);
+        return getBlockPathWeight(x_coordinate, y_coordinate, z_coordinate) >= 0.0F;
     }
 
     @Override
@@ -182,16 +182,16 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
 
     public boolean getCanSpawnHereMob()
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
-        if (worldObj.getSavedLightValue(EnumSkyBlock.Sky, i, j, k) > rand.nextInt(32)) { return false; }
-        int l = worldObj.getBlockLightValue(i, j, k);
+        int x_coordinate = MathHelper.floor_double(posX);
+        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
+        int z_coordinate = MathHelper.floor_double(posZ);
+        if (worldObj.getSavedLightValue(EnumSkyBlock.Sky, x_coordinate, y_coordinate, z_coordinate) > rand.nextInt(32)) { return false; }
+        int l = worldObj.getBlockLightValue(x_coordinate, y_coordinate, z_coordinate);
         if (worldObj.isThundering())
         {
             int i1 = worldObj.skylightSubtracted;
             worldObj.skylightSubtracted = 10;
-            l = worldObj.getBlockLightValue(i, j, k);
+            l = worldObj.getBlockLightValue(x_coordinate, y_coordinate, z_coordinate);
             worldObj.skylightSubtracted = i1;
         }
         return l <= rand.nextInt(8);

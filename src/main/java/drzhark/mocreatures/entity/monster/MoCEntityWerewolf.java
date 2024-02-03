@@ -153,9 +153,9 @@ public class MoCEntityWerewolf extends MoCEntityMob {
                 setHunched(true);
                 double x_distance = entity.posX - posX;
                 double z_distance = entity.posZ - posZ;
-                float xz_distance_squared = MathHelper.sqrt_double((x_distance * x_distance) + (z_distance * z_distance));
-                motionX = ((x_distance / xz_distance_squared) * 0.5D * 0.80000001192092896D) + (motionX * 0.20000000298023221D);
-                motionZ = ((z_distance / xz_distance_squared) * 0.5D * 0.80000001192092896D) + (motionZ * 0.20000000298023221D);
+                float overall_horizontal_distance_squared = MathHelper.sqrt_double((x_distance * x_distance) + (z_distance * z_distance));
+                motionX = ((x_distance / overall_horizontal_distance_squared) * 0.5D * 0.80000001192092896D) + (motionX * 0.20000000298023221D);
+                motionZ = ((z_distance / overall_horizontal_distance_squared) * 0.5D * 0.80000001192092896D) + (motionZ * 0.20000000298023221D);
                 motionY = 0.40000000596046448D;
             }
         }
@@ -195,28 +195,37 @@ public class MoCEntityWerewolf extends MoCEntityMob {
                 	}
                 }
                 
-                if (item_held_by_player == Items.golden_hoe
+                if (
+                		item_held_by_player == Items.golden_hoe
                 		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("BiomesOPlenty:scytheGold")))
                 		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("battlegear2:dagger.gold")))
                 		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("battlegear2:waraxe.gold"))) // 8 is the actual damage dealt to werewolf using golden war axe in-game because of the item's armor penetration ability 
-                		)
+                	)
                 {
                     damage_dealt_to_werewolf = 6;
                 }
                 
-                if (item_held_by_player == Items.golden_pickaxe) {damage_dealt_to_werewolf = 7;}
+                if (
+                		item_held_by_player == Items.golden_shovel
+                		|| item_held_by_player == Items.golden_pickaxe
+                	) 
+                {
+                	damage_dealt_to_werewolf = 7;
+                }
                 
-                if (item_held_by_player == Items.golden_axe
+                if (
+                		item_held_by_player == Items.golden_axe
                 		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("battlegear2:mace.gold")))
                 		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("battlegear2:spear.gold")))
-                		)
+                	)
                 {
                     damage_dealt_to_werewolf = 8;
                 }
                 
-                if (item_held_by_player == Items.golden_sword
+                if (
+                		item_held_by_player == Items.golden_sword
                 		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("witchery:silversword")))
-                		)
+                	)
                 {
                 	damage_dealt_to_werewolf = 9;
                 }
@@ -253,30 +262,34 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         }
     }
     
-    public EntityLivingBase getClosestTarget(Entity entity, double d)
+    public EntityLivingBase getClosestTarget(Entity entity, double distance)
     {
-        double d1 = -1D;
+        double current_minimum_distance = -1D;
         
         EntityLivingBase entityliving = null;
         
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
+        List entities_nearby_list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
         
+        int iteration_length = entities_nearby_list.size();
         
-        for (int i = 0; i < list.size(); i++)
+        if (iteration_length > 0)
         {
-            Entity entity1 = (Entity) list.get(i);
-            
-           
-            if (entity1 instanceof EntityVillager)
-            {
-	            double d2 = entity1.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+	        for (int index = 0; index < iteration_length; index++)
+	        {
+	            Entity entity_nearby = (Entity) entities_nearby_list.get(index);
 	            
-	            if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLivingBase) entity1).canEntityBeSeen(entity))
+	           
+	            if (entity_nearby instanceof EntityVillager)
 	            {
-	                d1 = d2;
-	                entityliving = (EntityLivingBase) entity1;
+		            double overall_distance_squared = entity_nearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+		            
+		            if (((distance < 0.0D) || (overall_distance_squared < (distance * distance))) && ((current_minimum_distance == -1D) || (overall_distance_squared < current_minimum_distance)) && ((EntityLivingBase) entity_nearby).canEntityBeSeen(entity))
+		            {
+		                current_minimum_distance = overall_distance_squared;
+		                entityliving = (EntityLivingBase) entity_nearby;
+		            }
 	            }
-            }
+	        }
         }
 
         return entityliving;
@@ -298,59 +311,60 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     @Override
     protected Item getDropItem()
     {
-        int i = rand.nextInt(12);
+        int random_number = rand.nextInt(12);
         if (getIsHumanForm())
         {
-            switch (i)
+            switch (random_number)
             {
-            case 0: // '\0'
-                return Items.wooden_shovel;
-
-            case 1: // '\001'
-                return Items.wooden_axe;
-
-            case 2: // '\002'
-                return Items.wooden_sword;
-
-            case 3: // '\003'
-                return Items.wooden_hoe;
-
-            case 4: // '\004'
-                return Items.wooden_pickaxe;
+	            case 0: // '\0'
+	                return Items.wooden_shovel;
+	
+	            case 1: // '\001'
+	                return Items.wooden_axe;
+	
+	            case 2: // '\002'
+	                return Items.wooden_sword;
+	
+	            case 3: // '\003'
+	                return Items.wooden_hoe;
+	
+	            case 4: // '\004'
+	                return Items.wooden_pickaxe;
             }
             return Items.stick;
         }
-        switch (i)
+        
+        switch (random_number)
         {
-        case 0: // '\0'
-            return Items.iron_hoe;
-
-        case 1: // '\001'
-            return Items.iron_shovel;
-
-        case 2: // '\002'
-            return Items.iron_axe;
-
-        case 3: // '\003'
-            return Items.iron_pickaxe;
-
-        case 4: // '\004'
-            return Items.iron_sword;
-
-        case 5: // '\005'
-            return Items.stone_hoe;
-
-        case 6: // '\006'
-            return Items.stone_shovel;
-
-        case 7: // '\007'
-            return Items.stone_axe;
-
-        case 8: // '\b'
-            return Items.stone_pickaxe;
-
-        case 9: // '\t'
-            return Items.stone_sword;
+	        case 0: // '\0'
+	            return Items.iron_hoe;
+	
+	        case 1: // '\001'
+	            return Items.iron_shovel;
+	
+	        case 2: // '\002'
+	            return Items.iron_axe;
+	
+	        case 3: // '\003'
+	            return Items.iron_pickaxe;
+	
+	        case 4: // '\004'
+	            return Items.iron_sword;
+	
+	        case 5: // '\005'
+	            return Items.stone_hoe;
+	
+	        case 6: // '\006'
+	            return Items.stone_shovel;
+	
+	        case 7: // '\007'
+	            return Items.stone_axe;
+	
+	        case 8: // '\b'
+	            return Items.stone_pickaxe;
+	
+	        case 9: // '\t'
+	            return Items.stone_sword;
         }
         return Items.golden_apple;
     }
@@ -424,7 +438,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 
         if (!worldObj.isRemote)
         {
-            for (int i = 0; i < 2; i++)
+            for (int intex = 0; intex < 2; intex++)
             {
                 Item item = getDropItem();
                 if (item != null)
@@ -496,28 +510,35 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     private void Transform()
     {
         if (deathTime > 0) { return; }
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY) + 1;
-        int k = MathHelper.floor_double(posZ);
+        int x_coordinate = MathHelper.floor_double(posX);
+        int y_coordinate = MathHelper.floor_double(boundingBox.minY) + 1;
+        int z_coordinate = MathHelper.floor_double(posZ);
         float f = 0.1F;
-        for (int l = 0; l < 30; l++)
+        
+        for (int index = 0; index < 30; index++)
         {
-            double d = i + worldObj.rand.nextFloat();
-            double d1 = j + worldObj.rand.nextFloat();
-            double d2 = k + worldObj.rand.nextFloat();
-            double d3 = d - i;
-            double d4 = d1 - j;
-            double d5 = d2 - k;
-            double d6 = MathHelper.sqrt_double((d3 * d3) + (d4 * d4) + (d5 * d5));
-            d3 /= d6;
-            d4 /= d6;
-            d5 /= d6;
-            double d7 = 0.5D / ((d6 / f) + 0.10000000000000001D);
-            d7 *= (worldObj.rand.nextFloat() * worldObj.rand.nextFloat()) + 0.3F;
-            d3 *= d7;
-            d4 *= d7;
-            d5 *= d7;
-            worldObj.spawnParticle("explode", (d + (i * 1.0D)) / 2D, (d1 + (j * 1.0D)) / 2D, (d2 + (k * 1.0D)) / 2D, d3, d4, d5);
+            double x_offset = x_coordinate + worldObj.rand.nextFloat();
+            double y_offset = y_coordinate + worldObj.rand.nextFloat();
+            double z_offset = z_coordinate + worldObj.rand.nextFloat();
+            
+            double x_velocity = x_offset - x_coordinate;
+            double y_velocity = y_offset - y_coordinate;
+            double z_velocity = z_offset - z_coordinate;
+            
+            double overall_velocity_squared = MathHelper.sqrt_double((x_velocity * x_velocity) + (y_velocity * y_velocity) + (z_velocity * z_velocity));
+            
+            x_velocity /= overall_velocity_squared;
+            y_velocity /= overall_velocity_squared;
+            z_velocity /= overall_velocity_squared;
+           
+            double velocity_multiplier = 0.5D / ((overall_velocity_squared / f) + 0.10000000000000001D);
+            
+            velocity_multiplier *= (worldObj.rand.nextFloat() * worldObj.rand.nextFloat()) + 0.3F;
+            x_velocity *= velocity_multiplier;
+            y_velocity *= velocity_multiplier;
+            z_velocity *= velocity_multiplier;
+           
+            worldObj.spawnParticle("explode", (x_offset + (x_coordinate * 1.0D)) / 2D, (y_offset + (y_coordinate * 1.0D)) / 2D, (z_offset + (z_coordinate * 1.0D)) / 2D, x_velocity, y_velocity, z_velocity);
         }
 
         if (getIsHumanForm())

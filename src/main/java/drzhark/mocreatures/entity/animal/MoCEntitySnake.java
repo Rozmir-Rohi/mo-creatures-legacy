@@ -737,13 +737,13 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     @Override
     public boolean checkSpawningBiome()
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
+        int x_coordinate = MathHelper.floor_double(posX);
+        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
+        int z_coordinate = MathHelper.floor_double(posZ);
 
-        String s = MoCTools.BiomeName(worldObj, i, j, k);
+        String s = MoCTools.BiomeName(worldObj, x_coordinate, y_coordinate, z_coordinate);
 
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, i, j, k);
+        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
         int l = rand.nextInt(10);
 
 

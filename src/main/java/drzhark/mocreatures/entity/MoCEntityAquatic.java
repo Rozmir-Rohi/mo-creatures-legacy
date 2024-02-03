@@ -4,6 +4,7 @@ import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.entity.aquatic.MoCEntityDolphin;
 import drzhark.mocreatures.entity.aquatic.MoCEntityMediumFish;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -13,6 +14,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,7 +40,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     private int divingCount;
     private int mountCount;
     public EntityLiving roper;
-    public boolean fishHooked;
+    public boolean caught_on_hook;
     protected boolean riderIsDisconnecting;
     protected float moveSpeed;
     protected String texture;
@@ -198,14 +200,17 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         return f + f3;
     }
 
-    public void faceItem(int i, int j, int k, float f)
+    public void faceItem(int x_coordinate, int y_coordinate, int z_coordinate, float f)
     {
-        double d = i - posX;
-        double d1 = k - posZ;
-        double d2 = j - posY;
-        double d3 = MathHelper.sqrt_double((d * d) + (d1 * d1));
-        float f1 = (float) ((Math.atan2(d1, d) * 180D) / 3.1415927410125728D) - 90F;
-        float f2 = (float) ((Math.atan2(d2, d3) * 180D) / 3.1415927410125728D);
+        double x_distance = x_coordinate - posX;
+        double y_distance = y_coordinate - posY;
+        double z_distance = z_coordinate - posZ;
+        
+        double d3 = MathHelper.sqrt_double((x_distance * x_distance) + (z_distance * z_distance));
+        
+        float f1 = (float) ((Math.atan2(z_distance, x_distance) * 180D) / 3.1415927410125728D) - 90F;
+        float f2 = (float) ((Math.atan2(y_distance, d3) * 180D) / 3.1415927410125728D);
+        
         rotationPitch = -b(rotationPitch, f2, f);
         rotationYaw = b(rotationYaw, f1, f);
     }
@@ -231,34 +236,6 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     @Override
     protected void fall(float f)
     {
-    }
-
-    public EntityItem getClosestFish(Entity entity, double d)
-    {
-        double d1 = -1D;
-        EntityItem entityitem = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
-        for (int i = 0; i < list.size(); i++)
-        {
-            Entity entity1 = (Entity) list.get(i);
-            if (!(entity1 instanceof EntityItem))
-            {
-                continue;
-            }
-            EntityItem entityitem1 = (EntityItem) entity1;
-            if ((entityitem1.getEntityItem().getItem() != Items.fish) || !entityitem1.isInWater())
-            {
-                continue;
-            }
-            double d2 = entityitem1.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-            if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)))
-            {
-                d1 = d2;
-                entityitem = entityitem1;
-            }
-        }
-
-        return entityitem;
     }
     
     public boolean isPredator()
@@ -354,14 +331,14 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     }
 
     @Override
-    public void moveEntityWithHeading(float f, float f1)
+    public void moveEntityWithHeading(float strafe, float forward)
     {
         if (riddenByEntity == null)
         {
-            super.moveEntityWithHeading(f, f1);
+            super.moveEntityWithHeading(strafe, forward);
         }
-        float movement_sideways = f;
-        float movement_forward = f1;
+        float movement_sideways = strafe;
+        float movement_forward = forward;
 
         if ((riddenByEntity != null) && !getIsTamed() && !isSwimming())
         {
@@ -449,15 +426,15 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         }
 
         this.prevLimbSwingAmount = this.limbSwingAmount;
-        double d2 = posX - prevPosX;
-        double d3 = posZ - prevPosZ;
-        float f4 = MathHelper.sqrt_double((d2 * d2) + (d3 * d3)) * 4.0F;
-        if (f4 > 1.0F)
+        double x_distance_travelled = posX - prevPosX;
+        double z_distance_travelled = posZ - prevPosZ;
+        float overall_horizontal_distance_travelled_squared = MathHelper.sqrt_double((x_distance_travelled * x_distance_travelled) + (z_distance_travelled * z_distance_travelled)) * 4.0F;
+        if (overall_horizontal_distance_travelled_squared > 1.0F)
         {
-            f4 = 1.0F;
+            overall_horizontal_distance_travelled_squared = 1.0F;
         }
 
-        this.limbSwingAmount += (f4 - this.limbSwingAmount) * 0.4F;
+        this.limbSwingAmount += (overall_horizontal_distance_travelled_squared - this.limbSwingAmount) * 0.4F;
         this.limbSwing += this.limbSwingAmount;
     }
 
@@ -465,38 +442,38 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     {
         if (entity != null)
         {
-            int i = MathHelper.floor_double(entity.posX);
-            int j = MathHelper.floor_double(entity.posY);
-            int k = MathHelper.floor_double(entity.posZ);
-            faceItem(i, j, k, 30F);
-            if (posX < i)
+            int entity_posX = MathHelper.floor_double(entity.posX);
+            int entity_posY = MathHelper.floor_double(entity.posY);
+            int entity_posZ = MathHelper.floor_double(entity.posZ);
+            faceItem(entity_posX, entity_posY, entity_posZ, 30F);
+            if (posX < entity_posX)
             {
-                double d = entity.posX - posX;
-                if (d > 0.5D)
+                double distance = entity.posX - posX;
+                if (distance > 0.5D)
                 {
                     motionX += 0.050000000000000003D;
                 }
             }
             else
             {
-                double d1 = posX - entity.posX;
-                if (d1 > 0.5D)
+                double current_minimum_distance = posX - entity.posX;
+                if (current_minimum_distance > 0.5D)
                 {
                     motionX -= 0.050000000000000003D;
                 }
             }
-            if (posZ < k)
+            if (posZ < entity_posZ)
             {
-                double d2 = entity.posZ - posZ;
-                if (d2 > 0.5D)
+                double distance2 = entity.posZ - posZ;
+                if (distance2 > 0.5D)
                 {
                     motionZ += 0.050000000000000003D;
                 }
             }
             else
             {
-                double d3 = posZ - entity.posZ;
-                if (d3 > 0.5D)
+                double distance3 = posZ - entity.posZ;
+                if (distance3 > 0.5D)
                 {
                     motionZ -= 0.050000000000000003D;
                 }
@@ -544,7 +521,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 
     public void floating()
     {
-        float distY = MoCTools.distanceToSurface(this);
+        float distanceY = MoCTools.distanceToSurface(this);
 
         if (riddenByEntity != null)
         {
@@ -573,7 +550,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             return;
         }
 
-        if (distY < 1 || isDiving())
+        if (distanceY < 1 || isDiving())
         {
             if (motionY < -0.05)
             {
@@ -588,9 +565,9 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             }
             motionY += 0.001D;// 0.001
 
-            if (distY > 1)
+            if (distanceY > 1)
             {
-                motionY += (distY * 0.02);
+                motionY += (distanceY * 0.02);
                 if (motionY > 0.2D)
                 {
                     motionY = 0.2D;
@@ -698,57 +675,83 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
                 MoCTools.forceDataSync(this);
             }
             
-            if (isFisheable() && !fishHooked && rand.nextInt(30) == 0)
+            if (isFisheable() && !caught_on_hook && rand.nextInt(30) == 0) //makes a fish look for a fishing hook to willingly bite
             {
-                getFished();
+                lookForHookToGetCaughtOn();
             }
             
-            if (fishHooked)
+            if (caught_on_hook && hook_that_this_fish_is_hooked_to != null)
             {
-            	boolean hook_nearby = false;
+            	boolean hook_nearby = true;
             	
-            	List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(2, 2, 2));
-                for (int i = 0; i < list.size(); i++)
+            	float distance_to_hook1 = hook_that_this_fish_is_hooked_to.getDistanceToEntity(this);
+                
+            	if (distance_to_hook1 > 2) //tests if the fish has been reeled in by the player
                 {
-                    Entity entity_nearby = (Entity) list.get(i);
-        
-                    if (entity_nearby instanceof EntityFishHook)
-                    {
-                        if (((EntityFishHook) entity_nearby).field_146043_c == this)
-                        {
-                            hook_nearby = true;
-                        }
-                    }
+            		hook_nearby = false;
                 }
                 
-                if (!(hook_nearby) && player_that_hooked_this_fish != null) //tests if the fish has been reeled in by the player
+                if (!(hook_nearby) && player_that_hooked_this_fish != null && hook_that_this_fish_is_hooked_to != null)
                 {
-                	this.setDead();
-                	
-                	if (this instanceof MoCEntityMediumFish)
+                	if (player_that_hooked_this_fish.inventory.getCurrentItem() != null)  //must check if itemstack isn't null before getItem() else game will crash
                 	{
-                		MoCEntityMediumFish medium_fish = (MoCEntityMediumFish) this;
-                		
-                		if (medium_fish.getType() == 4) //red salmon
-                		{
-                			player_that_hooked_this_fish.inventory.addItemStackToInventory(new ItemStack(Items.fish, 1, 1));
-                		}
-                		else
-                    	{
-                    		player_that_hooked_this_fish.inventory.addItemStackToInventory(new ItemStack(Items.fish, 1, 0));
-                    	}
+	                	if (player_that_hooked_this_fish.inventory.getCurrentItem().getItem() == Items.fishing_rod)
+	                	{
+		                	
+		                	ItemStack itemstack;
+		                	
+		                	if (this instanceof MoCEntityMediumFish)
+		                	{
+		                		MoCEntityMediumFish medium_fish = (MoCEntityMediumFish) this;
+		                		
+		                		if (medium_fish.getType() == 4) //red salmon
+		                		{
+		                			itemstack = new ItemStack(Items.fish, 1, 1);
+		                		}
+		                		else
+		                    	{
+		                    		itemstack = new ItemStack(Items.fish, 1, 0);
+		                    	}
+		                	}
+		                	else
+		                	{
+		                		itemstack = new ItemStack(Items.fish, 1, 0);
+		                	}
+		                	
+		                	
+		                	
+		                	EntityItem entityitem = new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, itemstack);
+		                    double x_distance = player_that_hooked_this_fish.posX - hook_that_this_fish_is_hooked_to.posX;
+		                    double y_distance = player_that_hooked_this_fish.posY - hook_that_this_fish_is_hooked_to.posY;
+		                    double z_distance = player_that_hooked_this_fish.posZ - hook_that_this_fish_is_hooked_to.posZ;
+		                    
+		                    this.setDead();
+		                    
+		                    double overall_distance_squared = (double) MathHelper.sqrt_double(x_distance * x_distance + y_distance * y_distance + z_distance * z_distance);
+		                    double d9 = 0.1D;
+		                    
+		                    entityitem.motionX = x_distance * d9;
+		                    entityitem.motionY = y_distance * d9 + (double )MathHelper.sqrt_double(overall_distance_squared) * 0.08D;
+		                    entityitem.motionZ = z_distance * d9;
+		                    
+		                    worldObj.spawnEntityInWorld(entityitem);
+		                    
+		                    player_that_hooked_this_fish.worldObj.spawnEntityInWorld(new EntityXPOrb(player_that_hooked_this_fish.worldObj, player_that_hooked_this_fish.posX, player_that_hooked_this_fish.posY + 0.5D, player_that_hooked_this_fish.posZ + 0.5D, rand.nextInt(6) + 1));
+		                	
+	                	}
                 	}
+                	
                 	else
                 	{
-                		player_that_hooked_this_fish.inventory.addItemStackToInventory(new ItemStack(Items.fish, 1, 0));
+                		caught_on_hook = false;
                 	}
                 }
             }
             
 
-            if (fishHooked && rand.nextInt(200) == 0)
+            if (caught_on_hook && rand.nextInt(200) == 0) // unhooks the fish from the fishing hook if the fish is hooked for too long
             {
-                fishHooked = false;
+                caught_on_hook = false;
                 
                 List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(2, 2, 2));
                 for (int i = 0; i < list.size(); i++)
@@ -894,26 +897,26 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     @Override
     protected void despawnEntity()
     {
-        EntityPlayer var1 = this.worldObj.getClosestPlayerToEntity(this, -1.0D);
-        if (var1 != null)
+        EntityPlayer distance_to_player = this.worldObj.getClosestPlayerToEntity(this, -1.0D);
+        if (distance_to_player != null)
         {
-            double var2 = var1.posX - this.posX;
-            double var4 = var1.posY - this.posY;
-            double var6 = var1.posZ - this.posZ;
-            double var8 = var2 * var2 + var4 * var4 + var6 * var6;
+            double x_distance = distance_to_player.posX - this.posX;
+            double y_distance = distance_to_player.posY - this.posY;
+            double z_distance = distance_to_player.posZ - this.posZ;
+            double overall_distance_squared = x_distance * x_distance + y_distance * y_distance + z_distance * z_distance;
 
-            if (this.canDespawn() && var8 > 16384.0D)
+            if (this.canDespawn() && overall_distance_squared > 16384.0D)
             {
                 this.setDead();
             }
             //changed from 600
-            if (this.entityAge > 1800 && this.rand.nextInt(800) == 0 && var8 > 1024.0D && this.canDespawn())
+            if (entityAge > 1800 && rand.nextInt(800) == 0 && overall_distance_squared > 1024.0D && canDespawn())
             {
                 this.setDead();
             }
-            else if (var8 < 1024.0D)
+            else if (overall_distance_squared < 1024.0D)
             {
-                this.entityAge = 0;
+                entityAge = 0;
             }
         }
     }
@@ -1006,6 +1009,23 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         //this avoids damage done by Players to a tamed creature that is not theirs
         if (MoCreatures.proxy.enableStrictOwnership && getOwnerName() != null && !getOwnerName().equals("") && entity != null && entity instanceof EntityPlayer && !((EntityPlayer) entity).getCommandSenderName().equals(getOwnerName()) && !MoCTools.isThisPlayerAnOP(((EntityPlayer) entity))) { return false; }
 
+        if (isFisheable()) //tests if the fish has been force hooked by a player throwing a fishing hook at them
+        {
+	        if (entity != null)
+	        {
+	        	if (entity instanceof EntityPlayer)
+	        	{
+	        		if (((EntityPlayer) entity).inventory.getCurrentItem() != null) //must check if itemstack isn't null before getItem() else game will crash
+	        		{
+		        		if (((EntityPlayer) entity).inventory.getCurrentItem().getItem() == Items.fishing_rod)
+		        		{
+		        			lookForHookToGetCaughtOn(); //tests if there is a fishing hook nearby, if so sets the fish as caught on a hook
+		        		}
+	        		}
+	        	}
+	        }
+    	}
+        
         //to prevent tamed aquatics from getting block damage
         if (getIsTamed() && damagesource.getDamageType().equalsIgnoreCase("inWall"))
         {
@@ -1068,33 +1088,47 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     
     EntityPlayer player_that_hooked_this_fish;
     
+    EntityFishHook hook_that_this_fish_is_hooked_to;
+    
     /**
      * The act of getting Hooked into a fish Hook.
      */
-    private void getFished()
+    private void lookForHookToGetCaughtOn()
     {
-        EntityPlayer entityplayer1 = worldObj.getClosestPlayerToEntity(this, 18D);
-        if (entityplayer1 != null)
+        EntityPlayer closest_entityplayer = worldObj.getClosestPlayerToEntity(this, 18D);
+        
+        if (closest_entityplayer != null)
         {
-            EntityFishHook fishHook = entityplayer1.fishEntity;
-            if (fishHook != null  && fishHook.field_146043_c == null)
+            EntityFishHook fishHook = closest_entityplayer.fishEntity;
+            
+            if (fishHook != null)
             {
-                float f = fishHook.getDistanceToEntity(this);
-                if (f > 1)
-                {
-                    MoCTools.getPathToEntity(this, fishHook, f);
-                }
-                else
-                {
-                    fishHook.field_146043_c = this;
-                    fishHooked = true;
-                    
-                    fishHook.motionY -= 0.20000000298023224D;
-                    playSound("random.splash", 0.25F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.4F);
-                    
-                    player_that_hooked_this_fish = entityplayer1;
-                }
-            }    
+            	if (fishHook.field_146043_c == null) //hooked by fish willingly biting the fish hook
+            	{
+	                float distance_to_hook = fishHook.getDistanceToEntity(this);
+	                
+	                if (distance_to_hook > 1)
+	                {
+	                    MoCTools.getPathToEntity(this, fishHook, distance_to_hook);
+	                }
+	                else
+	                {
+	                    fishHook.field_146043_c = this;
+	                    caught_on_hook = true;
+	                    
+	                    if (outOfWater == 0) //if in water
+	                    {
+	                    	fishHook.motionY -= 0.20000000298023224D;
+		                    playSound("random.splash", 0.25F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.4F);
+	                    }
+	                    
+	                    player_that_hooked_this_fish = closest_entityplayer;
+	                    
+	                    hook_that_this_fish_is_hooked_to = fishHook;
+	                    
+	                }
+            	}
+            }
         }
     }
 

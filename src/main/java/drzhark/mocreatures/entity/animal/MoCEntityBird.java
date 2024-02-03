@@ -153,18 +153,18 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     {
         if (entity != null)
         {
-            int i = MathHelper.floor_double(entity.posX);
-            int j = MathHelper.floor_double(entity.posY);
-            int k = MathHelper.floor_double(entity.posZ);
-            faceLocation(i, j, k, 30F);
-            if (MathHelper.floor_double(posY) < j)
+            int entity_posX = MathHelper.floor_double(entity.posX);
+            int entity_posY = MathHelper.floor_double(entity.posY);
+            int entity_posZ = MathHelper.floor_double(entity.posZ);
+            faceLocation(entity_posX, entity_posY, entity_posZ, 30F);
+            if (MathHelper.floor_double(posY) < entity_posY)
             {
                 motionY += 0.14999999999999999D;
             }
             if (posX < entity.posX)
             {
-                double d = entity.posX - posX;
-                if (d > 0.5D)
+                double x_distance = entity.posX - posX;
+                if (x_distance > 0.5D)
                 {
                     motionX += 0.050000000000000003D;
                 }
@@ -561,16 +561,20 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-    	Item item = itemstack.getItem();
-    	
-    	return
-    		(
-    			item instanceof ItemSeeds
-    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
-    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
-    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllseed"  //BOP seeds or Palm's Harvest Seeds
-    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins" //GregTech6 seeds/raisins or Palm's Harvest raisins
-    		);
+    	if (itemstack != null)
+    	{
+	    	Item item = itemstack.getItem();
+	    	
+	    	return
+	    		(
+	    			item instanceof ItemSeeds
+	    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
+	    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
+	    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllseed"  //BOP seeds or Palm's Harvest Seeds
+	    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins" //GregTech6 seeds/raisins or Palm's Harvest raisins
+	    		);
+    	}
+    	else {return false;}
     }
 
     @Override

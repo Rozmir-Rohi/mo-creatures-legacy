@@ -514,11 +514,11 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     @Override
     public boolean checkSpawningBiome()
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
+        int x_coordinate = MathHelper.floor_double(posX);
+        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
+        int z_coordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, i, j, k);
+        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
 
         if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SNOWY))
         {
@@ -597,7 +597,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         		return isItemEdible(itemstack.getItem());
         	}
         }
-        return false;
+        else {return false;}
     }
 
     @Override

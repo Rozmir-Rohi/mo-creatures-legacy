@@ -358,11 +358,11 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         {
             if (onGround)
             {
-                double d = entity.posX - posX;
-                double d1 = entity.posZ - posZ;
-                float f1 = MathHelper.sqrt_double((d * d) + (d1 * d1));
-                motionX = ((d / f1) * 0.5D * 0.8D) + (motionX * 0.2D);
-                motionZ = ((d1 / f1) * 0.5D * 0.8D) + (motionZ * 0.2D);
+                double x_distance = entity.posX - posX;
+                double z_distance = entity.posZ - posZ;
+                float overall_horizontal_distance_squared = MathHelper.sqrt_double((x_distance * x_distance) + (z_distance * z_distance));
+                motionX = ((x_distance / overall_horizontal_distance_squared) * 0.5D * 0.8D) + (motionX * 0.2D);
+                motionZ = ((z_distance / overall_horizontal_distance_squared) * 0.5D * 0.8D) + (motionZ * 0.2D);
                 motionY = 0.4D;
             }
             return;
@@ -492,12 +492,12 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     @Override
     public boolean checkSpawningBiome()
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
+        int x_coordinate = MathHelper.floor_double(posX);
+        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
+        int z_coordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, i, j, k);
-        String biome_name = MoCTools.BiomeName(worldObj, i, j, k);
+        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
+        String biome_name = MoCTools.BiomeName(worldObj, x_coordinate, y_coordinate, z_coordinate);
 
         int type_chance = rand.nextInt(100);
 
@@ -798,26 +798,30 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-    	Item item = itemstack.getItem();
-    	
-    	List<String> ore_dictionary_name_array = MoCTools.getOreDictionaryEntries(itemstack);
-    	
-    	return 
-    		(
-    			item == Items.porkchop
-    			|| item == Items.beef 
-    			|| item == Items.chicken
-    			|| item == Items.fish
-    			|| item == MoCreatures.ostrichraw
-    			|| item == MoCreatures.rawTurkey
-    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
-    			|| ore_dictionary_name_array.contains("listAllmeatraw")
-    			|| ore_dictionary_name_array.contains("listAllfishraw")
-    			|| MoCreatures.isGregTech6Loaded &&
-    				(
-    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
-    				)
-    		);
+    	if (itemstack != null)
+    	{
+	    	Item item = itemstack.getItem();
+	    	
+	    	List<String> ore_dictionary_name_array = MoCTools.getOreDictionaryEntries(itemstack);
+	    	
+	    	return 
+	    		(
+	    			item == Items.porkchop
+	    			|| item == Items.beef 
+	    			|| item == Items.chicken
+	    			|| item == Items.fish
+	    			|| item == MoCreatures.ostrichraw
+	    			|| item == MoCreatures.rawTurkey
+	    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
+	    			|| ore_dictionary_name_array.contains("listAllmeatraw")
+	    			|| ore_dictionary_name_array.contains("listAllfishraw")
+	    			|| MoCreatures.isGregTech6Loaded &&
+	    				(
+	    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+	    				)
+	    		);
+    	}
+    	else {return false;}
     }
 
     @Override

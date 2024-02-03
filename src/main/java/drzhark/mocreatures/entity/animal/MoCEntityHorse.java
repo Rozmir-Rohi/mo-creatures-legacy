@@ -190,12 +190,12 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     @Override
     public boolean checkSpawningBiome()
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
+        int x_coordinate = MathHelper.floor_double(posX);
+        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
+        int z_coordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, i, j, k);
-        String biome_name = MoCTools.BiomeName(worldObj, i, j, k);
+        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
+        String biome_name = MoCTools.BiomeName(worldObj, x_coordinate, y_coordinate, z_coordinate);
 
         if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SAVANNA) && !(currentbiome.biomeName.toLowerCase().contains("outback")))
         {
@@ -2090,19 +2090,19 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     // changed to public since we need to send this info to server
     public void NightmareEffect()
     {
-        int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(boundingBox.minY);
-        int k = MathHelper.floor_double(posZ);
-        Block block = worldObj.getBlock(i - 1, j, k - 1);
-        int metadata = worldObj.getBlockMetadata(i - 1, j, k - 1);
+        int x_coordinate = MathHelper.floor_double(posX);
+        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
+        int z_coordinate = MathHelper.floor_double(posZ);
+        Block block = worldObj.getBlock(x_coordinate - 1, y_coordinate, z_coordinate - 1); 
+        int metadata = worldObj.getBlockMetadata(x_coordinate - 1, y_coordinate, z_coordinate - 1);
         BlockEvent.BreakEvent event = null;
         if (!this.worldObj.isRemote)
         {
-            event = new BlockEvent.BreakEvent(i - 1, j, k - 1, worldObj, block, metadata, FakePlayerFactory.get(DimensionManager.getWorld(this.worldObj.provider.dimensionId), MoCreatures.MOCFAKEPLAYER));
+            event = new BlockEvent.BreakEvent(x_coordinate - 1, y_coordinate, z_coordinate - 1, worldObj, block, metadata, FakePlayerFactory.get(DimensionManager.getWorld(this.worldObj.provider.dimensionId), MoCreatures.MOCFAKEPLAYER));
         }
         if (event != null && !event.isCanceled())
         {
-            worldObj.setBlock(i - 1, j, k - 1, Blocks.fire, 0, 3);//MC1.5
+            worldObj.setBlock(x_coordinate - 1, y_coordinate, z_coordinate - 1, Blocks.fire, 0, 3);//MC1.5
             EntityPlayer entityplayer = (EntityPlayer) riddenByEntity;
             if ((entityplayer != null) && (entityplayer.isBurning()))
             {
@@ -2954,7 +2954,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     }
 
     @Override
-    protected boolean canBeTrappedInNet() 
+    protected boolean canBeTrappedInAmulet() 
     {
         return getIsTamed() && !isAmuletHorse();
     }

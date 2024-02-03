@@ -698,5 +698,17 @@ Fixed transparent spots in all medium fish. Improved texture of blue salmon.
 Tamed blue salmon (hatched from salmon eggs) now become red salmon when they become adults.
 
 
-Improved fishing for small fish, fishy, and medium fish. If theses creatures are reeled in after biting a fishing hook, they will now be instantly turned into an item in the player's inventory. But this does not work if the player hooks the fish by throwing the hook at them without the fish willingly biting the hook.
+Improved fishing for small fish, fishy, and medium fish. If these creatures are reeled in after biting a fishing hook, they will now be instantly turned into an item in the player's inventory.
+
+
+Improved fishing for fishable creatures. Now reeling in the fish is just like vanilla minecraft.
+
+
+Small fish, fishy, and medium fish now have a chance to be force hooked on to a fishing rod by a player throwing the fishing hook at them without the fish willingly biting the hook. But this method of catching fish takes more durability damage on the fishing rod than if the player were to wait for the fish to bite the hook.
+
+
+Improved meaningfulness of identifiers in all entity base classes. Also slightly improved the efficiency of For loops in those classes.
+
+
+Fixed werewolf not recognizing golden shovel as one of their weakness items
 
