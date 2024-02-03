@@ -280,8 +280,9 @@ container.MoCreatures.ElephantChest=大象储物箱
 container.MoCreatures.OstrichChest=鸵鸟储物箱
 container.MoCreatures.WyvernChest=翼龙储物箱
 
-notify.MoCreatures.egg_hatching=蛋快孵出来了!继续看!如果您离开该区域，位于%1$s， %2$s， %3$s的孵化生物将会丢失
+notify.MoCreatures.egg_hatching=蛋快孵出来了!继续观察!如果您离开该区域，位于%1$s， %2$s， %3$s的孵化生物将会丢失。
 
+notify.MoCreatures.max_pet_count_reached=无法驯服更多生物。您已达到服务器设定的%1$s个宠物的上限。
 
 death.MoCreatures.attack.dehydration=%1$s死于脱水
 
