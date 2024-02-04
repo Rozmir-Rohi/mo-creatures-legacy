@@ -550,58 +550,58 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
             return;
         }
         //TODO 4FIX test!
-        Vec3 vec3d = entitypath.getPosition(this); //client
+        Vec3 vector_3D = entitypath.getPosition(this); //client
 
-        //Vec3D vec3d = entitypath.getPosition(this); //server
-        for (double d = width * 2.0F; (vec3d != null) && (vec3d.squareDistanceTo(posX, vec3d.yCoord, posZ) < (d * d));)
+        //vector_3D vector_3D = entitypath.getPosition(this); //server
+        for (double d = width * 2.0F; (vector_3D != null) && (vector_3D.squareDistanceTo(posX, vector_3D.yCoord, posZ) < (d * d));)
         {
             entitypath.incrementPathIndex();
             if (entitypath.isFinished())
             {
-                vec3d = null;
+                vector_3D = null;
                 entitypath = null;
             }
             else
             {
-                //vec3d = entitypath.getPosition(this); //server
+                //vector_3D = entitypath.getPosition(this); //server
                 //TODO 4FIX test!
-                vec3d = entitypath.getPosition(this);
+                vector_3D = entitypath.getPosition(this);
             }
         }
 
         isJumping = false;
-        if (vec3d != null)
+        if (vector_3D != null)
         {
-            double d1 = vec3d.xCoord - posX;
-            double d2 = vec3d.zCoord - posZ;
-            double d3 = vec3d.yCoord - i;
-            float f4 = (float) ((Math.atan2(d2, d1) * 180D) / 3.1415927410125728D) - 90F;
-            float f5 = f4 - rotationYaw;
+            double d1 = vector_3D.xCoord - posX;
+            double d2 = vector_3D.zCoord - posZ;
+            double d3 = vector_3D.yCoord - i;
+            float angle_in_degrees_to_new_location = (float) ((Math.atan2(d2, d1) * 180D) / Math.PI) - 90F;
+            float amount_of_degrees_to_change_rotationYaw_by = angle_in_degrees_to_new_location - rotationYaw;
             moveForward = (float)this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();
-            for (; f5 < -180F; f5 += 360F)
+            for (; amount_of_degrees_to_change_rotationYaw_by < -180F; amount_of_degrees_to_change_rotationYaw_by += 360F)
             {
             }
-            for (; f5 >= 180F; f5 -= 360F)
+            for (; amount_of_degrees_to_change_rotationYaw_by >= 180F; amount_of_degrees_to_change_rotationYaw_by -= 360F)
             {
             }
-            if (f5 > 30F)
+            if (amount_of_degrees_to_change_rotationYaw_by > 30F)
             {
-                f5 = 30F;
+                amount_of_degrees_to_change_rotationYaw_by = 30F;
             }
-            if (f5 < -30F)
+            if (amount_of_degrees_to_change_rotationYaw_by < -30F)
             {
-                f5 = -30F;
+                amount_of_degrees_to_change_rotationYaw_by = -30F;
             }
-            rotationYaw += f5;
+            rotationYaw += amount_of_degrees_to_change_rotationYaw_by;
             if (hasAttacked && (entityToAttack != null))
             {
-                double d4 = entityToAttack.posX - posX;
-                double d5 = entityToAttack.posZ - posZ;
-                float f6 = rotationYaw;
-                rotationYaw = (float) ((Math.atan2(d5, d4) * 180D) / 3.1415927410125728D) - 90F;
-                float f7 = (((f6 - rotationYaw) + 90F) * 3.141593F) / 180F;
-                moveStrafing = -MathHelper.sin(f7) * moveForward * 1.0F;
-                moveForward = MathHelper.cos(f7) * moveForward * 1.0F;
+                double x_distance = entityToAttack.posX - posX;
+                double z_distance = entityToAttack.posZ - posZ;
+                float previous_rotationYaw = rotationYaw;
+                rotationYaw = (float) ((Math.atan2(z_distance, x_distance) * 180D) / Math.PI) - 90F;
+                float angle_in_degrees_between_previous_and_new_rotationYaw = (((previous_rotationYaw - rotationYaw) + 90F) * (float) Math.PI) / 180F;
+                moveStrafing = -MathHelper.sin(angle_in_degrees_between_previous_and_new_rotationYaw) * moveForward * 1.0F;
+                moveForward = MathHelper.cos(angle_in_degrees_between_previous_and_new_rotationYaw) * moveForward * 1.0F;
             }
             if (d3 > 0.0D)
             {

@@ -74,7 +74,7 @@ public class MoCModelBird extends ModelBase {
         head.rotateAngleY = f3 / 57.29578F;
         beak.rotateAngleY = head.rotateAngleY;
         leftleg.rotateAngleX = MathHelper.cos(f * 0.6662F) * f1;
-        rightleg.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * f1;
+        rightleg.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * f1;
         rwing.rotateAngleZ = f2;
         lwing.rotateAngleZ = -f2;
     }

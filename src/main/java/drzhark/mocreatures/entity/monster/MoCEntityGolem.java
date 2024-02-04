@@ -187,7 +187,7 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
 
         if (MoCreatures.proxy.getParticleFX() > 0 && getGolemState() == 4 && sCounter > 0)
         {
-            for (int i = 0; i < 10; i++)
+            for (int index = 0; index < 10; index++)
             {
                 worldObj.spawnParticle("explode", posX, posY, posZ, rand.nextGaussian(), rand.nextGaussian(), rand.nextGaussian());
             }
@@ -199,9 +199,9 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
         List<Integer> usedBlocks = usedCubes();
         if ((!usedBlocks.isEmpty()) && (MoCTools.mobGriefing(this.worldObj)) && (MoCreatures.proxy.golemDestroyBlocks))
         {
-            for (int i = 0; i < usedBlocks.size(); i++)
+            for (int index = 0; index < usedBlocks.size(); index++)
             {
-                Block block = Block.getBlockById(generateBlock(golemCubes[usedBlocks.get(i)]));
+                Block block = Block.getBlockById(generateBlock(golemCubes[usedBlocks.get(index)]));
                 EntityItem entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(block, 1, 0));
                 entityitem.delayBeforeCanPickup = 10;
                 worldObj.spawnEntityInWorld(entityitem);
@@ -271,8 +271,8 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
      */
     private int returnRandomCheapBlock()
     {
-        int i = rand.nextInt(4);
-        switch (i)
+        int random_number = rand.nextInt(4);
+        switch (random_number)
         {
         case 0:
             return 3; //dirt
@@ -399,11 +399,11 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
         if (entity == null) { return; }
         List<Integer> armBlocks = new ArrayList<Integer>();
 
-        for (int i = 9; i < 15; i++)
+        for (int index = 9; index < 15; index++)
         {
-            if (golemCubes[i] != 30)
+            if (golemCubes[index] != 30)
             {
-                armBlocks.add(i);
+                armBlocks.add(index);
             }
         }
         if (armBlocks.isEmpty()) { return; }
@@ -440,9 +440,9 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
     private boolean canShoot()
     {
         int x = 0;
-        for (byte i = 9; i < 15; i++)
+        for (byte index = 9; index < 15; index++)
         {
-            if (golemCubes[i] != 30)
+            if (golemCubes[index] != 30)
             {
                 x++;
             }

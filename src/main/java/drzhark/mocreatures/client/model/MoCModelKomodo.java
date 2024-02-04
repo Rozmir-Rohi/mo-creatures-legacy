@@ -284,7 +284,7 @@ public void render(Entity entity, float f, float f1, float f2, float f3, float f
         //super.setRotationAngles(f, f1, f2, f3, f4, f5);
         float TailXRot = MathHelper.cos(f * 0.4F) * 0.2F * f1;
         float LLegXRot = MathHelper.cos(f * 0.6F) * 0.9F * f1;
-        float RLegXRot = MathHelper.cos((f * 0.6F) + 3.141593F) * 0.9F * f1;
+        float RLegXRot = MathHelper.cos((f * 0.6F) + (float) Math.PI) * 0.9F * f1;
         //System.out.println("F3 = " + f3);
         
         if (f3 > 60F)

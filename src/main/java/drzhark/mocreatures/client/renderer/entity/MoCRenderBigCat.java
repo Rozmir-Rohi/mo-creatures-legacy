@@ -153,8 +153,8 @@ public class MoCRenderBigCat extends RenderLiving {
                 entitybigcat.setMoCAge(100);
             }
             d1 -= 0.4D / entitybigcat.getMoCAge() * 0.01F;
-            float f4 = ((entitybigcat.roper.prevRotationYaw + ((entitybigcat.roper.rotationYaw - entitybigcat.roper.prevRotationYaw) * f1 * 0.5F)) * 3.141593F) / 180F;
-            float f6 = ((entitybigcat.roper.prevRotationPitch + ((entitybigcat.roper.rotationPitch - entitybigcat.roper.prevRotationPitch) * f1 * 0.5F)) * 3.141593F) / 180F;
+            float f4 = ((entitybigcat.roper.prevRotationYaw + ((entitybigcat.roper.rotationYaw - entitybigcat.roper.prevRotationYaw) * f1 * 0.5F)) * (float) Math.PI) / 180F;
+            float f6 = ((entitybigcat.roper.prevRotationPitch + ((entitybigcat.roper.rotationPitch - entitybigcat.roper.prevRotationPitch) * f1 * 0.5F)) * (float) Math.PI) / 180F;
             double d3 = MathHelper.sin(f4);
             double d4 = MathHelper.cos(f4);
             double d5 = MathHelper.sin(f6);

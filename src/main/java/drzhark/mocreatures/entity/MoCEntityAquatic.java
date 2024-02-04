@@ -4,7 +4,6 @@ import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
-import drzhark.mocreatures.entity.aquatic.MoCEntityDolphin;
 import drzhark.mocreatures.entity.aquatic.MoCEntityMediumFish;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -180,24 +179,24 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         return 100;
     }
 
-    public float b(float f, float f1, float f2)
+    public float updateRotation(float current_rotation, float intended_rotation, float max_increment)
     {
-        float f3 = f1;
-        for (f3 = f1 - f; f3 < -180F; f3 += 360F)
+        float amount_to_change_rotation_by = intended_rotation;
+        for (amount_to_change_rotation_by = intended_rotation - current_rotation; amount_to_change_rotation_by < -180F; amount_to_change_rotation_by += 360F)
         {
         }
-        for (; f3 >= 180F; f3 -= 360F)
+        for (; amount_to_change_rotation_by >= 180F; amount_to_change_rotation_by -= 360F)
         {
         }
-        if (f3 > f2)
+        if (amount_to_change_rotation_by > max_increment)
         {
-            f3 = f2;
+            amount_to_change_rotation_by = max_increment;
         }
-        if (f3 < -f2)
+        if (amount_to_change_rotation_by < -max_increment)
         {
-            f3 = -f2;
+            amount_to_change_rotation_by = -max_increment;
         }
-        return f + f3;
+        return current_rotation + amount_to_change_rotation_by;
     }
 
     public void faceItem(int x_coordinate, int y_coordinate, int z_coordinate, float f)
@@ -208,11 +207,11 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         
         double d3 = MathHelper.sqrt_double((x_distance * x_distance) + (z_distance * z_distance));
         
-        float f1 = (float) ((Math.atan2(z_distance, x_distance) * 180D) / 3.1415927410125728D) - 90F;
-        float f2 = (float) ((Math.atan2(y_distance, d3) * 180D) / 3.1415927410125728D);
+        float xz_angle_in_degrees_to_new_location = (float) ((Math.atan2(z_distance, x_distance) * 180D) / Math.PI) - 90F;
+        float y_angle_in_degrees_to_new_location = (float) ((Math.atan2(y_distance, d3) * 180D) / Math.PI);
         
-        rotationPitch = -b(rotationPitch, f2, f);
-        rotationYaw = b(rotationYaw, f1, f);
+        rotationPitch = -updateRotation(rotationPitch, y_angle_in_degrees_to_new_location, f);
+        rotationYaw = updateRotation(rotationYaw, xz_angle_in_degrees_to_new_location, f);
     }
 
     @Override
@@ -280,10 +279,11 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 
     public boolean gettingOutOfWater()
     {
-        int i = (int) posX;
-        int j = (int) posY;
-        int k = (int) posZ;
-        return worldObj.isAirBlock(i, j + 1, k);
+        int x = (int) posX;
+        int y = (int) posY;
+        int z = (int) posZ;
+        
+        return worldObj.isAirBlock(x, y + 1, z);
     }
 
     protected String getUpsetSound()
@@ -525,8 +525,8 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 
         if (riddenByEntity != null)
         {
-            EntityPlayer ep = (EntityPlayer) riddenByEntity;
-            if (ep.isAirBorne) // TODO TEST
+            EntityPlayer player_that_is_riding_this_creature = (EntityPlayer) riddenByEntity;
+            if (player_that_is_riding_this_creature.isAirBorne) // TODO TEST
             {
                 motionY += 0.09D;
             }
@@ -582,32 +582,35 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         if ((riddenByEntity != null) && (riddenByEntity instanceof EntityPlayer))
         {
             EntityPlayer entityplayer = (EntityPlayer) riddenByEntity;
-            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(1.0D, 0.0D, 1.0D));
-            if (list != null)
+            List entities_nearby_list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(1.0D, 0.0D, 1.0D));
+            
+            int iteration_length = entities_nearby_list.size();
+            
+            if (iteration_length > 0)
             {
-                for (int i = 0; i < list.size(); i++)
+                for (int index = 0; index < iteration_length; index++)
                 {
-                    Entity entity = (Entity) list.get(i);
-                    if (entity.isDead)
+                    Entity entity_nearby = (Entity) entities_nearby_list.get(index);
+                    if (entity_nearby.isDead)
                     {
                         continue;
                     }
-                    entity.onCollideWithPlayer(entityplayer);
-                    if (!(entity instanceof EntityMob))
+                    
+                    entity_nearby.onCollideWithPlayer(entityplayer);
+                    
+                    if (!(entity_nearby instanceof EntityMob))
                     {
                         continue;
                     }
-                    float f = getDistanceToEntity(entity);
-                    if ((f < 2.0F) && entity instanceof EntityMob && (rand.nextInt(10) == 0))
+                    
+                    float distance = getDistanceToEntity(entity_nearby);
+                    
+                    if ((distance < 2.0F) && entity_nearby instanceof EntityMob && (rand.nextInt(10) == 0))
                     {
-                        attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase) entity), (float)((EntityMob)entity).getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue());
+                        attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase) entity_nearby), (float)((EntityMob)entity_nearby).getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue());
                     }
                 }
             }
-            /*if (entityplayer.isSneaking())
-            {
-                this.makeEntityDive();
-            }*/
         }
     }
 
@@ -753,16 +756,22 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             {
                 caught_on_hook = false;
                 
-                List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(2, 2, 2));
-                for (int i = 0; i < list.size(); i++)
+                List entities_nearby_list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(2, 2, 2));
+                
+                int iteration_length = entities_nearby_list.size();
+                
+                if (iteration_length > 0)
                 {
-                    Entity entity1 = (Entity) list.get(i);
-        
-                    if (entity1 instanceof EntityFishHook)
+                	for (int index = 0; index < iteration_length; index++)
                     {
-                        if (((EntityFishHook)entity1).field_146043_c == this)
+                        Entity entity_nearby = (Entity) entities_nearby_list.get(index);
+            
+                        if (entity_nearby instanceof EntityFishHook)
                         {
-                            ((EntityFishHook)entity1).field_146043_c = null;
+                            if (((EntityFishHook) entity_nearby).field_146043_c == this)
+                            {
+                                ((EntityFishHook) entity_nearby).field_146043_c = null;
+                            }
                         }
                     }
                 }
@@ -903,6 +912,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             double x_distance = distance_to_player.posX - this.posX;
             double y_distance = distance_to_player.posY - this.posY;
             double z_distance = distance_to_player.posZ - this.posZ;
+            
             double overall_distance_squared = x_distance * x_distance + y_distance * y_distance + z_distance * z_distance;
 
             if (this.canDespawn() && overall_distance_squared > 16384.0D)
@@ -1167,16 +1177,24 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
      */
     protected EntityLivingBase getScaryEntity(double d)
     {
-        double d1 = -1D;
+        double current_minimum_distance = -1D;
+        
         EntityLivingBase entityliving = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, 4D, d));
-        for (int i = 0; i < list.size(); i++)
+        List entities_nearby_list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, 4D, d));
+        
+        int iteration_length = entities_nearby_list.size();
+        
+        if (iteration_length > 0)
         {
-            Entity entity = (Entity) list.get(i);
-            if (entitiesThatAreScary(entity))
-            {
-                entityliving = (EntityLivingBase) entity;
-            }
+	        for (int index = 0; index < iteration_length; index++)
+	        {
+	            Entity entity_nearby = (Entity) entities_nearby_list.get(index);
+	            
+	            if (entitiesThatAreScary(entity_nearby))
+	            {
+	                entityliving = (EntityLivingBase) entity_nearby;
+	            }
+	        }
         }
         return entityliving;
     }

@@ -85,8 +85,8 @@ public class MoCModelBigCat2 extends ModelBase {
         head.rotateAngleX = f4 / 57.29578F;
         head.rotateAngleY = f3 / 57.29578F;
         leg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-        leg2.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.4F * f1;
-        leg3.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.4F * f1;
+        leg2.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.4F * f1;
+        leg3.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.4F * f1;
         leg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
         snout.rotateAngleY = head.rotateAngleY;
         snout.rotateAngleX = head.rotateAngleX;

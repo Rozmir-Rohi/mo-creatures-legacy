@@ -92,7 +92,7 @@ public class MoCModelAnt extends ModelBase
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
     {
-        float legMov = MathHelper.cos((f ) + 3.141593F)  * f1;
+        float legMov = MathHelper.cos((f ) + (float) Math.PI)  * f1;
         float legMovB = MathHelper.cos(f )  * f1;
         FrontLegs.rotateAngleX = -0.6192304F + legMov;
         MidLegs.rotateAngleX = 0.5948578F + legMovB;

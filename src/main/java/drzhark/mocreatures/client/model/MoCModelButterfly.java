@@ -167,7 +167,7 @@ public class MoCModelButterfly extends ModelBase {
          * buttefly to have two / 3 movs: 1 slow movement when idle on ground
          * has to be random from closing up to horizontal 2 fast wing flapping
          * flying movement, short range close to 0 degree RLegXRot =
-         * MathHelper.cos((f * 0.6662F) + 3.141593F) * 0.8F * f1;
+         * MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 0.8F * f1;
          */
 
         /**
@@ -194,7 +194,7 @@ public class MoCModelButterfly extends ModelBase {
         }
         else
         {
-            legMov = MathHelper.cos((f * 1.5F) + 3.141593F) * 2.0F * f1;
+            legMov = MathHelper.cos((f * 1.5F) + (float) Math.PI) * 2.0F * f1;
             legMovB = MathHelper.cos(f * 1.5F) * 2.0F * f1;
             if (f2a > 40 & f2a < 60) //random movement
             {

@@ -205,7 +205,7 @@ public class MoCModelSilverSkeleton extends ModelBase
         Head.rotateAngleX = hRotX;
         Head.rotateAngleY = hRotY;
         
-        float RLegXRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * 0.8F * f1;
+        float RLegXRot = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 0.8F * f1;
         float LLegXRot = MathHelper.cos(f * 0.6662F) * 0.8F * f1;
         float ClothRot = MathHelper.cos(f * 0.9F) * 0.6F * f1;
         
@@ -217,7 +217,7 @@ public class MoCModelSilverSkeleton extends ModelBase
         RightKnee.rotateAngleX = RightThigh.rotateAngleX;
         LeftKnee.rotateAngleX = LeftThigh.rotateAngleX;
         
-        float RLegXRot2 = MathHelper.cos(((f + 0.1F) * 0.6662F) + 3.141593F) * 0.8F * f1;
+        float RLegXRot2 = MathHelper.cos(((f + 0.1F) * 0.6662F) + (float) Math.PI) * 0.8F * f1;
         float LLegXRot2 = MathHelper.cos((f + 0.1F) * 0.6662F) * 0.8F * f1;
         if (f1 > 0.15F)
         {

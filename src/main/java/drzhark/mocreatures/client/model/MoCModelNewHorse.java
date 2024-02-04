@@ -620,7 +620,7 @@ public class MoCModelNewHorse extends ModelBase {
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, boolean eating, boolean ramming, boolean rider, boolean floating, boolean standing, boolean saddled, boolean tail, boolean wings, boolean flapwings, boolean shuffle, int type)
     {
-        float RLegXRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * 0.8F * f1;
+        float RLegXRot = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 0.8F * f1;
         float LLegXRot = MathHelper.cos(f * 0.6662F) * 0.8F * f1;
         float HeadXRot = (f4 / 57.29578F);
         
@@ -776,16 +776,16 @@ public class MoCModelNewHorse extends ModelBase {
             float WingRot = 0F;
             if (flapwings)
             {
-                WingRot = MathHelper.cos((f2 * 0.3F) + 3.141593F) * 1.2F;// * f1;
+                WingRot = MathHelper.cos((f2 * 0.3F) + (float) Math.PI) * 1.2F;// * f1;
             }
             else
             //cruising
             {
-                //WingRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.2F * f1;
+                //WingRot = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.2F * f1;
                 WingRot = MathHelper.cos((f * 0.5F)) * 0.1F;//* 1.2F * f1;
             }
 
-            //float WingRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * f1 * 1.2F;
+            //float WingRot = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * f1 * 1.2F;
             //InnerWing.setRotationPoint(5F, 3F, -6F);
             //setRotation(InnerWing, 0F, -0.3490659F, 0F);
             //X dist = 12    
@@ -865,7 +865,7 @@ public class MoCModelNewHorse extends ModelBase {
              * buttefly to have two / 3 movs: 1 slow movement when idle on
              * ground has to be random from closing up to horizontal 2 fast wing
              * flapping flying movement, short range close to 0 degree RLegXRot
-             * = MathHelper.cos((f * 0.6662F) + 3.141593F) * 0.8F * f1;
+             * = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 0.8F * f1;
              */
 
             /**
@@ -910,10 +910,10 @@ public class MoCModelNewHorse extends ModelBase {
             //from regular horse
             /*if (flapwings)
             {
-              WingRot = MathHelper.cos((f2 * 0.3F) + 3.141593F) * 1.2F;// * f1;
+              WingRot = MathHelper.cos((f2 * 0.3F) + (float) Math.PI) * 1.2F;// * f1;
             }else //cruising
             {
-              //WingRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.2F * f1;
+              //WingRot = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.2F * f1;
               WingRot = MathHelper.cos((f * 0.5F)) *0.1F ;//* 1.2F * f1;
             }*/
 
@@ -977,7 +977,7 @@ public class MoCModelNewHorse extends ModelBase {
             Leg4A.rotationPointY = Leg3A.rotationPointY;
             Leg4A.rotationPointZ = Leg3A.rotationPointZ;
 
-            RLegXRot = (-60 / 57.29578F) + MathHelper.cos((f2 * 0.4F) + 3.141593F);
+            RLegXRot = (-60 / 57.29578F) + MathHelper.cos((f2 * 0.4F) + (float) Math.PI);
             LLegXRot = (-60 / 57.29578F) + MathHelper.cos(f2 * 0.4F);
 
             RLegXRotB = (45 / 57.29578F);
@@ -1028,7 +1028,7 @@ public class MoCModelNewHorse extends ModelBase {
             if (!floating && f1 > 0.2F)
             {
 
-                float RLegXRot2 = MathHelper.cos(((f + 0.1F) * 0.6662F) + 3.141593F) * 0.8F * f1;
+                float RLegXRot2 = MathHelper.cos(((f + 0.1F) * 0.6662F) + (float) Math.PI) * 0.8F * f1;
                 float LLegXRot2 = MathHelper.cos((f + 0.1F) * 0.6662F) * 0.8F * f1;
                 if (RLegXRot > RLegXRot2) // - - >
                 {
@@ -1101,7 +1101,7 @@ public class MoCModelNewHorse extends ModelBase {
                     RLegXRot = 0.3F;
                 }
                 
-                LLegXRot = MathHelper.cos((f2 * 0.4F) + 3.141593F);
+                LLegXRot = MathHelper.cos((f2 * 0.4F) + (float) Math.PI);
                 if (LLegXRot > 0.1F)
                 {
                     LLegXRot = 0.3F;

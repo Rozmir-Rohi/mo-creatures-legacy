@@ -161,7 +161,7 @@ public class MoCModelDragonfly extends ModelBase {
         }
         else
         {
-            legMov = MathHelper.cos((f * 1.5F) + 3.141593F) * 2.0F * f1;
+            legMov = MathHelper.cos((f * 1.5F) + (float) Math.PI) * 2.0F * f1;
             legMovB = MathHelper.cos(f * 1.5F) * 2.0F * f1;
         }
 

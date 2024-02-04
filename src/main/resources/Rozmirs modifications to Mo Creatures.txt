@@ -710,5 +710,27 @@ Small fish, fishy, and medium fish now have a chance to be force hooked on to a 
 Improved meaningfulness of identifiers in all entity base classes. Also slightly improved the efficiency of For loops in those classes.
 
 
-Fixed werewolf not recognizing golden shovel as one of their weakness items
+Fixed werewolf not recognizing golden shovel as one of their weakness items.
+
+
+More improvements to meaningfulness of identifiers in entity classes and proxy classes.
+
+
+Reduced golden shovel weakness damage to werewolf to 3.
+
+
+Cleaned up code for werewolf transforming.
+
+
+Silver skeleton now only run fast if they see an entity to attack (eg: player).
+
+
+Blocks thrown by Mini Golems and Big Golems will now instantly turn into solid blocks when they hit the ground. This can be disabled by setting the gamerule doMobGreifing to false.
+
+
+Blocks thrown by Mini Golems now now longer have a chance to be liquid blocks (eg placable water block, placable lava block).
+
+
+Fixed pandas and bear cubs draging themselves around when sitting.
+
 

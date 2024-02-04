@@ -533,8 +533,8 @@ public class MoCModelCrocodile extends ModelBase {
             Leg4A.rotationPointZ = 9F;
 
             Leg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-            Leg2.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.4F * f1;
-            Leg3.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.4F * f1;
+            Leg2.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.4F * f1;
+            Leg3.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.4F * f1;
             Leg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
 
             Leg1.rotateAngleY = 0F;

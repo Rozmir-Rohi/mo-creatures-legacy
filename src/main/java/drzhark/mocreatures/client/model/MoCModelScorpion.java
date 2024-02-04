@@ -386,7 +386,7 @@ public class MoCModelScorpion extends ModelBase {
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, boolean poisoning, boolean isTalking, int attacking, boolean babies)
     {
-        //float RLegXRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * 0.4F * f1;
+        //float RLegXRot = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 0.4F * f1;
 
         if (!poisoning)
         {
@@ -651,11 +651,11 @@ public class MoCModelScorpion extends ModelBase {
          * floats used for the scorpion's leg animations
          */
         float f9 = -(MathHelper.cos(f * 0.6662F * 2.0F + 0.0F) * 0.4F) * f1;
-        float f10 = -(MathHelper.cos(f * 0.6662F * 2.0F + 3.141593F) * 0.4F) * f1;
+        float f10 = -(MathHelper.cos(f * 0.6662F * 2.0F + (float) Math.PI) * 0.4F) * f1;
         float f11 = -(MathHelper.cos(f * 0.6662F * 2.0F + 1.570796F) * 0.4F) * f1;
         float f12 = -(MathHelper.cos(f * 0.6662F * 2.0F + 4.712389F) * 0.4F) * f1;
         float f13 = Math.abs(MathHelper.sin(f * 0.6662F + 0.0F) * 0.4F) * f1;
-        float f14 = Math.abs(MathHelper.sin(f * 0.6662F + 3.141593F) * 0.4F) * f1;
+        float f14 = Math.abs(MathHelper.sin(f * 0.6662F + (float) Math.PI) * 0.4F) * f1;
         float f15 = Math.abs(MathHelper.sin(f * 0.6662F + 1.570796F) * 0.4F) * f1;
         float f16 = Math.abs(MathHelper.sin(f * 0.6662F + 4.712389F) * 0.4F) * f1;
 

@@ -159,7 +159,7 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
                     //System.out.println("attempting poisioning" + this);
                 }
                 
-                if (MoCTools.findNearPlayerAndPoison(this, true))
+                if (MoCTools.findClosestPlayerAndPoisonThem(this, true))
                 {
                     poisoncounter = 0;
                 }

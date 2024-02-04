@@ -46,8 +46,8 @@ public class MoCModelWraith extends ModelBiped {
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity par7Entity)
     {
         //super.setRotationAngles(f, f1, f2, f3, f4, f5);
-        float f6 = MathHelper.sin(onGround * 3.141593F);
-        float f7 = MathHelper.sin((1.0F - ((1.0F - onGround) * (1.0F - onGround))) * 3.141593F);
+        float f6 = MathHelper.sin(onGround * (float) Math.PI);
+        float f7 = MathHelper.sin((1.0F - ((1.0F - onGround) * (1.0F - onGround))) * (float) Math.PI);
         bipedRightArm.rotateAngleZ = 0.0F;
         bipedLeftArm.rotateAngleZ = 0.0F;
         bipedRightArm.rotateAngleY = -(0.1F - (f6 * 0.6F));

@@ -528,11 +528,11 @@ public class MoCModelBear extends ModelBase {
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, int bearState, float AttackRotX)
     {
-        //float RLegXRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * 0.8F * f1;
+        //float RLegXRot = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 0.8F * f1;
         //float LLegXRot = MathHelper.cos(f * 0.6662F) * 0.8F * f1;
 
         float LLegRotX = MathHelper.cos(f * 0.6662F) * 0.8F * f1;
-        float RLegRotX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 0.8F * f1;
+        float RLegRotX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 0.8F * f1;
         float XAngle = (f4 / 57.29578F);
         float YAngle = f3 / 57.29578F;
 

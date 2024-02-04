@@ -365,7 +365,7 @@ public class MoCModelWolf extends ModelBase {
         Head.rotateAngleX = f4 / 57.29578F;
         Head.rotateAngleY = f3 / 57.29578F;
         float LLegX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-        float RLegX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.4F * f1;
+        float RLegX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.4F * f1;
 
         Mouth.rotateAngleX = Head.rotateAngleX;
         Mouth.rotateAngleY = Head.rotateAngleY;

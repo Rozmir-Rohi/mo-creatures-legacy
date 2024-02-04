@@ -94,8 +94,8 @@ public class MoCModelBunny extends ModelBase {
         part2.rotateAngleX = 1.570796F;
         part3.rotateAngleX = 1.570796F;
         part4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.0F * f1;
-        part6.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.2F * f1;
+        part6.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.2F * f1;
         part5.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.0F * f1;
-        part7.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.2F * f1;
+        part7.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.2F * f1;
     }
 }

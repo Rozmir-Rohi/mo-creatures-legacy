@@ -225,7 +225,7 @@ public class MoCModelRoach extends ModelBase
         }
         else
         {
-            legMov = MathHelper.cos((f * 1.5F) + 3.141593F) * 0.6F * f1;
+            legMov = MathHelper.cos((f * 1.5F) + (float) Math.PI) * 0.6F * f1;
             legMovB = MathHelper.cos(f * 1.5F) * 0.8F * f1;
         }
 

@@ -121,7 +121,7 @@ public class MoCModelTurkey extends ModelBase {
     {
 
         float LLegXRot = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-        float RLegXRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.4F * f1;
+        float RLegXRot = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.4F * f1;
         float wingF = (MathHelper.cos(f * 0.6662F) * 1.4F * f1) / 4F;
 
         Head.rotateAngleX = 0.4833219F + f4 / 57.29578F;//(RLegXRot/7F) + (-f4 / (180F / (float)Math.PI)) ;

@@ -947,7 +947,7 @@ private void setRotation(ModelRenderer model, float x, float y, float z)
 
 public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, boolean onAir, boolean flapwings, boolean rider, int openMouth, boolean diving, boolean sitting)
 {
-    float RLegXRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * 0.8F * f1;
+    float RLegXRot = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 0.8F * f1;
     float LLegXRot = MathHelper.cos(f * 0.6662F) * 0.8F * f1;
     
     f3 = MoCTools.realAngle(f3);
@@ -1045,12 +1045,12 @@ public void setRotationAngles(float f, float f1, float f2, float f3, float f4, f
         //float WingRot = 0F;
         if (flapwings)
         {
-            WingSpread = MathHelper.cos((f2 * 0.3F) + 3.141593F) * 1.2F;// * f1;
+            WingSpread = MathHelper.cos((f2 * 0.3F) + (float) Math.PI) * 1.2F;// * f1;
         }
         else
         //cruising
         {
-            //WingRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.2F * f1;
+            //WingRot = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.2F * f1;
             WingSpread = MathHelper.cos((f * 0.5F)) * 0.1F;//* 1.2F * f1;
         }
 

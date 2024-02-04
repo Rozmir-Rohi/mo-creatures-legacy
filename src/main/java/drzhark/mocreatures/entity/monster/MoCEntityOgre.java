@@ -60,15 +60,15 @@ public class MoCEntityOgre extends MoCEntityMob{
         {
             if (getType() == 0)
             {
-                int fOgreChance = MoCreatures.proxy.fireOgreChance;
-                int cOgreChance = MoCreatures.proxy.caveOgreChance;
+                int fireOgreChance = MoCreatures.proxy.fireOgreChance;
+                int caveOgreChance = MoCreatures.proxy.caveOgreChance;
                 int j = rand.nextInt(100);
                 
-                if (canCaveOgreSpawn() && (j >= (100 - cOgreChance)))
+                if (canCaveOgreSpawn() && (j >= (100 - caveOgreChance)))
                 {    //System.out.println("can spawn cave o");
                     setType(rand.nextInt(2)+5);
                 }
-                else if (j >= (100 - fOgreChance))
+                else if (j >= (100 - fireOgreChance))
                 {
                     setType(rand.nextInt(2)+3);
                     this.isImmuneToFire = true;

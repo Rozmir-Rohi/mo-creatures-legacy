@@ -181,7 +181,7 @@ public class MoCModelFirefly extends ModelBase {
     {
         //super.setRotationAngles(f, f1, f2, f3, f4, f5);
 
-        //bipedRightArm.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 2.0F * f1 * 0.5F;
+        //bipedRightArm.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 2.0F * f1 * 0.5F;
         //bipedLeftArm.rotateAngleX = MathHelper.cos(f * 0.6662F) * 2.0F * f1 * 0.5F;
 
         float legMov = 0F;
@@ -200,7 +200,7 @@ public class MoCModelFirefly extends ModelBase {
         }
         else
         {
-            legMov = MathHelper.cos((f * 1.5F) + 3.141593F) * 2.0F * f1;
+            legMov = MathHelper.cos((f * 1.5F) + (float) Math.PI) * 2.0F * f1;
             legMovB = MathHelper.cos(f * 1.5F) * 2.0F * f1;
         }
         FrontLegs.rotateAngleX = -0.8328009F + frontLegAdj + legMov;

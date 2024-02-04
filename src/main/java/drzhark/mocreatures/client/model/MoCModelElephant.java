@@ -881,7 +881,7 @@ public class MoCModelElephant extends ModelBase {
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, byte tusks, boolean sitting, boolean tail)
     {
         
-        float RLegXRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * 0.8F * f1;
+        float RLegXRot = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 0.8F * f1;
         float LLegXRot = MathHelper.cos(f * 0.6662F) * 0.8F * f1;
 
         if (f4 < 0)

@@ -176,7 +176,7 @@ public class MoCModelBoar extends ModelBase {
         RightEar.rotateAngleY = YAngle;
 
         float LLegRotX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-        float RLegRotX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.4F * f1;
+        float RLegRotX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.4F * f1;
 
         UpperLegLeft.rotateAngleX = LLegRotX;
         LowerLegLeft.rotateAngleX = LLegRotX;

@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class MoCEntityMiniGolem extends MoCEntityMob {
 
-    public int tcounter;
+    public int throwCounter;
     public MoCEntityThrowableBlockForGolem tempBlock;
     
     public MoCEntityMiniGolem(World world)
@@ -94,7 +94,7 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
                 
                 if (getHasBlock()) 
                 {
-                    attackWithEntityRock();
+                    attackWithEntityBlock();
                 }
             }
         }
@@ -103,9 +103,17 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
     protected void acquireTileBlock()
     {
         int[] tileBlockInfo = MoCTools.destroyRandomBlockWithMetadata(this, 3D);
-        if (tileBlockInfo[0] == -1)
+        if ( //ignore following blocks
+        		tileBlockInfo[0] == -1
+        		|| tileBlockInfo[0] == 0 //air
+        		|| tileBlockInfo[0] == 7 //bedrock
+        		|| tileBlockInfo[0] == 8 //flowing water
+        		|| tileBlockInfo[0] == 9 //water
+        		|| tileBlockInfo[0] == 10 //flowing lava
+        		|| tileBlockInfo[0] == 11 //lava
+        	)
         {
-            tcounter = 1;
+            throwCounter = 1;
             setHasBlock(false);
             return;
         }
@@ -129,11 +137,11 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
     /**
      * 
      */
-    protected void attackWithEntityRock()
+    protected void attackWithEntityBlock()
     {
-        this.tcounter++;
+        this.throwCounter++;
        
-        if (this.tcounter < 50)
+        if (this.throwCounter < 50)
         {
             //maintains position of entityBlock above head
             this.tempBlock.posX = this.posX;
@@ -141,7 +149,7 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
             this.tempBlock.posZ = this.posZ;
         }
 
-        if (this.tcounter >= 50)
+        if (this.throwCounter >= 50)
         {
             //throws a newly spawned entityBlock and destroys the held entityBlock
             if (entityToAttack != null && this.getDistanceToEntity(entityToAttack) < 48F)
@@ -152,7 +160,7 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
 
             this.tempBlock.setDead();
             setHasBlock(false);
-            this.tcounter = 0;
+            this.throwCounter = 0;
         }
     }
 

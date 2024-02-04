@@ -118,7 +118,7 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
 
             if (!getIsTamed() && getType() > 1 && ++poisoncounter > 250 && (worldObj.difficultySetting.getDifficultyId() > 0) && rand.nextInt(30) == 0)
             {
-                if (MoCTools.findNearPlayerAndPoison(this, true))
+                if (MoCTools.findClosestPlayerAndPoisonThem(this, true))
                 {
                     MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 1), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
                     poisoncounter = 0;

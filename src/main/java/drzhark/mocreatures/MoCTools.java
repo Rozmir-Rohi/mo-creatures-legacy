@@ -46,7 +46,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
@@ -59,6 +58,7 @@ import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCTools {
@@ -607,13 +607,14 @@ public class MoCTools {
 
     public static int distanceToFloor(Entity entity)
     {
-        int i = MathHelper.floor_double(entity.posX);
-        int j = MathHelper.floor_double(entity.posY);
-        int k = MathHelper.floor_double(entity.posZ);
-        for (int x = 0; x < 64; x++)
+        int x = MathHelper.floor_double(entity.posX);
+        int y = MathHelper.floor_double(entity.posY);
+        int z = MathHelper.floor_double(entity.posZ);
+        for (int index = 0; index < 64; index++)
         {
-            Block block = entity.worldObj.getBlock(i, j - x, k);
-            if (block != Blocks.air) { return x; }
+            Block block = entity.worldObj.getBlock(x, y - index, z);
+            
+            if (block != Blocks.air) { return index; }
         }
 
         return 0;
@@ -621,16 +622,19 @@ public class MoCTools {
 
     public boolean isInsideOfMaterial(Material material, Entity entity)
     {
-        double d = entity.posY + (double) entity.getEyeHeight();
-        int i = MathHelper.floor_double(entity.posX);
-        int j = MathHelper.floor_float(MathHelper.floor_double(d));
-        int k = MathHelper.floor_double(entity.posZ);
-        Block block = entity.worldObj.getBlock(i, j, k);
+        double y_distance = entity.posY + (double) entity.getEyeHeight();
+        
+        int x = MathHelper.floor_double(entity.posX);
+        int y = MathHelper.floor_float(MathHelper.floor_double(y_distance));
+        int z = MathHelper.floor_double(entity.posZ);
+        
+        Block block = entity.worldObj.getBlock(x, y, z);
+        
         if (block != Blocks.air && block.getMaterial() == material)
         {
-            float f = BlockLiquid.getLiquidHeightPercent(entity.worldObj.getBlockMetadata(i, j, k)) - 0.1111111F;
-            float f1 = (float) (j + 1) - f;
-            return d < (double) f1;
+            float f = BlockLiquid.getLiquidHeightPercent(entity.worldObj.getBlockMetadata(x, y, z)) - 0.1111111F;
+            float f1 = (float) (y + 1) - f;
+            return y_distance < (double) f1;
         }
         else
         {
@@ -640,17 +644,22 @@ public class MoCTools {
 
     public static void disorientEntity(Entity entity)
     {
-        double rotD = 0;
-        double motD = 0;
-        double d = entity.worldObj.rand.nextGaussian();
-        double d1 = 0.1D * d;
-        motD = (0.2D * d1) + ((1.0D - 0.2D) * motD);
-        entity.motionX += motD;
-        entity.motionZ += motD;
-        double d2 = 0.78D * d;
-        rotD = (0.125D * d2) + ((1.0D - 0.125D) * rotD);
-        entity.rotationYaw += rotD;
-        entity.rotationPitch += rotD;
+        double rotation = 0;
+        double motion = 0;
+        
+        double rand_double = entity.worldObj.rand.nextGaussian();
+        double rand_double1 = 0.1D * rand_double;
+        
+        motion = (0.2D * rand_double1) + ((1.0D - 0.2D) * motion);
+        entity.motionX += motion;
+        entity.motionZ += motion;
+        
+        double rand_double2 = 0.78D * rand_double;
+        
+        rotation = (0.125D * rand_double2) + ((1.0D - 0.125D) * rotation);
+        
+        entity.rotationYaw += rotation;
+        entity.rotationPitch += rotation;
     }
 
     public static void slowEntity(Entity entity)
@@ -666,25 +675,25 @@ public class MoCTools {
 
     public int countEntities(Class class1, World worldObj)
     {
-        int i = 0;
-        for (int j = 0; j < worldObj.loadedEntityList.size(); j++)
+        int number_of_entities = 0;
+        for (int index = 0; index < worldObj.loadedEntityList.size(); index++)
         {
-            Entity entity = (Entity) worldObj.loadedEntityList.get(j);
+            Entity entity = (Entity) worldObj.loadedEntityList.get(index);
             if (class1.isAssignableFrom(entity.getClass()))
             {
-                i++;
+                number_of_entities++;
             }
         }
 
-        return i;
+        return number_of_entities;
     }
 
-    public static BiomeGenBase whatBiome(World world, int i, int j, int k)
+    public static BiomeGenBase whatBiome(World world, int x, int y, int z)
     {
         WorldChunkManager worldchunkmanager = world.getWorldChunkManager();
         if (worldchunkmanager == null) { return null; }
         //TODO works?
-        BiomeGenBase biomegenbase = worldchunkmanager.getBiomeGenAt(i, k);
+        BiomeGenBase biomegenbase = worldchunkmanager.getBiomeGenAt(x, z);
 
         if (biomegenbase == null)
         {
@@ -702,11 +711,11 @@ public class MoCTools {
         return 0.0F;
     }
 
-    public static String BiomeName(World world, int i, int j, int k)
+    public static String BiomeName(World world, int x, int y, int z)
     {
         WorldChunkManager worldchunkmanager = world.getWorldChunkManager();
         if (worldchunkmanager == null) { return null; }
-        BiomeGenBase biomegenbase = worldchunkmanager.getBiomeGenAt(i, k);
+        BiomeGenBase biomegenbase = worldchunkmanager.getBiomeGenAt(x, z);
         //TODO works?
 
         if (biomegenbase == null)
@@ -848,18 +857,18 @@ public class MoCTools {
         HashSet hashset = new HashSet();
         float f1 = f;
         int i = 16;
-        for (int j = 0; j < i; j++)
+        for (int index = 0; index < i; index++)
         {
-            for (int l = 0; l < i; l++)
+            for (int index1 = 0; index1 < i; index1++)
             {
                 label0: for (int j1 = 0; j1 < i; j1++)
                 {
-                    if ((j != 0) && (j != (i - 1)) && (l != 0) && (l != (i - 1)) && (j1 != 0) && (j1 != (i - 1)))
+                    if ((index != 0) && (index != (i - 1)) && (index1 != 0) && (index1 != (i - 1)) && (j1 != 0) && (j1 != (i - 1)))
                     {
                         continue;
                     }
-                    double d3 = ((j / (i - 1.0F)) * 2.0F) - 1.0F;
-                    double d4 = ((l / (i - 1.0F)) * 2.0F) - 1.0F;
+                    double d3 = ((index / (i - 1.0F)) * 2.0F) - 1.0F;
+                    double d4 = ((index1 / (i - 1.0F)) * 2.0F) - 1.0F;
                     double d5 = ((j1 / (i - 1.0F)) * 2.0F) - 1.0F;
                     double d6 = Math.sqrt((d3 * d3) + (d4 * d4) + (d5 * d5));
                     d3 /= d6;
@@ -911,7 +920,7 @@ public class MoCTools {
             int i2 = MathHelper.floor_double(d2 - f - 1.0D);
             int j2 = MathHelper.floor_double(d2 + f + 1.0D);
             List list = entity.worldObj.getEntitiesWithinAABBExcludingEntity(entity, AxisAlignedBB.getBoundingBox(k, k1, i2, i1, l1, j2));
-            Vec3 vec3d = Vec3.createVectorHelper(d, d1, d2);
+            Vec3 vector_3D = Vec3.createVectorHelper(d, d1, d2);
             for (int k2 = 0; k2 < list.size(); k2++)
             {
                 Entity entity1 = (Entity) list.get(k2);
@@ -927,7 +936,7 @@ public class MoCTools {
                 d9 /= d15;
                 d11 /= d15;
                 d13 /= d15;
-                double d17 = entity.worldObj.getBlockDensity(vec3d, entity1.boundingBox);
+                double d17 = entity.worldObj.getBlockDensity(vector_3D, entity1.boundingBox);
                 double d19 = (1.0D - d7) * d17;
 
                 //attacks entities in server
@@ -946,9 +955,9 @@ public class MoCTools {
         ArrayList arraylist = new ArrayList();
         arraylist.addAll(hashset);
 
-        for (int l2 = arraylist.size() - 1; l2 >= 0; l2--)
+        for (int index = arraylist.size() - 1; index >= 0; index--)
         {
-            ChunkPosition chunkposition = (ChunkPosition) arraylist.get(l2);
+            ChunkPosition chunkposition = (ChunkPosition) arraylist.get(index);
             int j3 = chunkposition.chunkPosX;
             int l3 = chunkposition.chunkPosY;
             int j4 = chunkposition.chunkPosZ;
@@ -1007,9 +1016,9 @@ public class MoCTools {
         //sets world on fire on server
         if (mobGriefing && (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) && flag)
         {
-            for (int i3 = arraylist.size() - 1; i3 >= 0; i3--)
+            for (int index = arraylist.size() - 1; index >= 0; index--)
             {
-                ChunkPosition chunkposition1 = (ChunkPosition) arraylist.get(i3);
+                ChunkPosition chunkposition1 = (ChunkPosition) arraylist.get(index);
                 int k3 = chunkposition1.chunkPosX;
                 int i4 = chunkposition1.chunkPosY;
                 int k4 = chunkposition1.chunkPosZ;
@@ -1087,7 +1096,7 @@ public class MoCTools {
             return;
         }
 
-        //full scorpion armor set, regeneration effect
+        //full dirt scorpion armor set, regeneration effect
         if (
         		itemstack_in_armor_slot[0] != null && itemstack_in_armor_slot[0].getItem() == MoCreatures.scorpBootsDirt
         		&& itemstack_in_armor_slot[1] != null && itemstack_in_armor_slot[1].getItem() == MoCreatures.scorpLegsDirt
@@ -1113,8 +1122,8 @@ public class MoCTools {
      */
     public static int destroyRandomBlock(Entity entity, double distance)
     {
-        int l = (int) (distance * distance * distance);
-        for (int i = 0; i < l; i++)
+        int distance_cubed = (int) (distance * distance * distance);
+        for (int index = 0; index < distance_cubed; index++)
         {
             int x = (int) (entity.posX + entity.worldObj.rand.nextInt((int) (distance)) - (int) (distance / 2));
             int y = (int) (entity.posY + entity.worldObj.rand.nextInt((int) (distance)) - (int) (distance / 4));
@@ -1146,17 +1155,26 @@ public class MoCTools {
 
     public static int[] destroyRandomBlockWithMetadata(Entity entity, double distance)
     {
-        int l = (int) (distance * distance * distance);
+        int distance_cubed = (int) (distance * distance * distance);
         int metaD = 0;
-        for (int i = 0; i < l; i++)
+        for (int index = 0; index < distance_cubed; index++)
         {
             int x = (int) (entity.posX + entity.worldObj.rand.nextInt((int) (distance)) - (int) (distance / 2));
             int y = (int) (entity.posY + entity.worldObj.rand.nextInt((int) (distance)) - (int) (distance / 2));
             int z = (int) (entity.posZ + entity.worldObj.rand.nextInt((int) (distance)) - (int) (distance / 2));
-            Block block = entity.worldObj.getBlock(MathHelper.floor_double(x), MathHelper.floor_double(y + 1.1D), MathHelper.floor_double(z));
-            Block block1 = entity.worldObj.getBlock(MathHelper.floor_double(x), MathHelper.floor_double(y), MathHelper.floor_double(z));
+            Block block_above = entity.worldObj.getBlock(MathHelper.floor_double(x), MathHelper.floor_double(y + 1.1D), MathHelper.floor_double(z));
+            Block block = entity.worldObj.getBlock(MathHelper.floor_double(x), MathHelper.floor_double(y), MathHelper.floor_double(z));
 
-            if (block1 != Blocks.air && block1 != Blocks.bedrock && block == Blocks.air) // ignore bedrock
+            if (	
+            		// ignores if on of the following blocks
+            		block != Blocks.air 
+            		&& block != Blocks.bedrock
+            		&& block != Blocks.water
+            		&& block != Blocks.lava
+            		&& !(block instanceof BlockLiquid) //ignores flowing liquid blocks (eg flowing_water, flowing_lava)
+            		
+            		&& block_above == Blocks.air //only destroy if the block above it is air
+            	) 
             {
                 metaD = entity.worldObj.getBlockMetadata(MathHelper.floor_double(x), MathHelper.floor_double(y), MathHelper.floor_double(z));
                 if (mobGriefing(entity.worldObj))
@@ -1174,10 +1192,10 @@ public class MoCTools {
                     }
                     else
                     {
-                        block1 = null;
+                        block = null;
                     }
                 }
-                return (new int[] { block1 == null ? -1 : Block.getIdFromBlock(block1), metaD });
+                return (new int[] { block == null ? -1 : Block.getIdFromBlock(block), metaD });
             }
         }
         return (new int[] { -1, metaD });
@@ -1213,10 +1231,10 @@ public class MoCTools {
             Block block6 = entity.worldObj.getBlock(MathHelper.floor_double(x), MathHelper.floor_double(y), MathHelper.floor_double(z + 1.1D));
             Block block7 = entity.worldObj.getBlock(MathHelper.floor_double(x), MathHelper.floor_double(y), MathHelper.floor_double(z - 1.1D));
 
-            float tX = (float) x - (float) entity.posX;
-            float tY = (float) y - (float) entity.posY;
-            float tZ = (float) z - (float) entity.posZ;
-            float spawnDist = tX * tX + tY * tY + tZ * tZ;
+            float temp_x = (float) x - (float) entity.posX;
+            float temp_y = (float) y - (float) entity.posY;
+            float temp_z = (float) z - (float) entity.posZ;
+            float spawnDist = temp_x * temp_x + temp_y * temp_y + temp_z * temp_z;
 
             if (allowedBlock(Block.getIdFromBlock(block1)) && (block2 == Blocks.air || block3 == Blocks.air || block4 == Blocks.air || block5 == Blocks.air || block6 == Blocks.air || block7 == Blocks.air) & spawnDist > 100F)
             {
@@ -1333,32 +1351,34 @@ public class MoCTools {
         if (strength == 0) { return 0; }
         int count = 0;
         float strengthF = (float) strength;
+        
         double newPosX = entity.posX - (distance * Math.cos((MoCTools.realAngle(entity.rotationYaw - 90F)) / 57.29578F));
         double newPosZ = entity.posZ - (distance * Math.sin((MoCTools.realAngle(entity.rotationYaw - 90F)) / 57.29578F));
         double newPosY = entity.posY;
+        
         int x = MathHelper.floor_double(newPosX);
         int y = MathHelper.floor_double(newPosY);
         int z = MathHelper.floor_double(newPosZ);
 
-        for (int i = 0; i < height; i++)
+        for (int index = 0; index < height; index++)
         {
-            Block block = entity.worldObj.getBlock(x, y + i, z);
+            Block block = entity.worldObj.getBlock(x, y + index, z);
             if (block != Blocks.air && (
             		(block == Blocks.log)
             		|| (block == Blocks.log2)
             		|| (block == Blocks.leaves)
             		|| (block == Blocks.leaves2)))
             {
-                int metadata = entity.worldObj.getBlockMetadata(x, y + i, z);
+                int metadata = entity.worldObj.getBlockMetadata(x, y + index, z);
                 BlockEvent.BreakEvent event = null;
                 if (!entity.worldObj.isRemote)
                 {
-                    event = new BlockEvent.BreakEvent(x, y + i, z, entity.worldObj, block, metadata, FakePlayerFactory.get((WorldServer)entity.worldObj, MoCreatures.MOCFAKEPLAYER));
+                    event = new BlockEvent.BreakEvent(x, y + index, z, entity.worldObj, block, metadata, FakePlayerFactory.get((WorldServer)entity.worldObj, MoCreatures.MOCFAKEPLAYER));
                 }
                 if (event != null && !event.isCanceled())
                 {
-                    block.dropBlockAsItemWithChance(entity.worldObj, x, y + i, z, entity.worldObj.getBlockMetadata(x, y + i, z), 0.20F * strengthF, 1);
-                    entity.worldObj.setBlock(x, y + i, z, Blocks.air, 0, 3);//MC 1.5
+                    block.dropBlockAsItemWithChance(entity.worldObj, x, y + index, z, entity.worldObj.getBlockMetadata(x, y + index, z), 0.20F * strengthF, 1);
+                    entity.worldObj.setBlock(x, y + index, z, Blocks.air, 0, 3);//MC 1.5
                     if (entity.worldObj.rand.nextInt(3) == 0)
                     {
                         MoCTools.playCustomSound(entity, "golemwalk", entity.worldObj);
@@ -1374,9 +1394,9 @@ public class MoCTools {
     {
         if (animalchest == null || !(MoCreatures.isServer()) ) return;
         
-        int i = MathHelper.floor_double(entity.posX);
-        int j = MathHelper.floor_double(entity.boundingBox.minY);
-        int k = MathHelper.floor_double(entity.posZ);
+        int entity_posX = MathHelper.floor_double(entity.posX);
+        int entity_posY = MathHelper.floor_double(entity.boundingBox.minY);
+        int entity_posZ = MathHelper.floor_double(entity.posZ);
         
         for (int l = 0; l < animalchest.getSizeInventory(); l++)
         {
@@ -1385,16 +1405,20 @@ public class MoCTools {
             {
                 continue;
             }
-            float f = (entity.worldObj.rand.nextFloat() * 0.8F) + 0.1F;
-            float f1 = (entity.worldObj.rand.nextFloat() * 0.8F) + 0.1F;
-            float f2 = (entity.worldObj.rand.nextFloat() * 0.8F) + 0.1F;
-            float f3 = 0.05F;
+            float x_offset = (entity.worldObj.rand.nextFloat() * 0.8F) + 0.1F;
+            float y_offset = (entity.worldObj.rand.nextFloat() * 0.8F) + 0.1F;
+            float z_offset = (entity.worldObj.rand.nextFloat() * 0.8F) + 0.1F;
+            
+            float motion_multiplier = 0.05F;
 
-            EntityItem entityitem = new EntityItem(entity.worldObj,  i + f, j + f1, k + f2, itemstack);
-            entityitem.motionX = ((float) entity.worldObj.rand.nextGaussian() * f3);
-            entityitem.motionY = (((float) entity.worldObj.rand.nextGaussian() * f3) + 0.2F);
-            entityitem.motionZ = ((float) entity.worldObj.rand.nextGaussian() * f3);
+            EntityItem entityitem = new EntityItem(entity.worldObj,  entity_posX + x_offset, entity_posY + y_offset, entity_posZ + z_offset, itemstack);
+            
+            entityitem.motionX = ((float) entity.worldObj.rand.nextGaussian() * motion_multiplier);
+            entityitem.motionY = (((float) entity.worldObj.rand.nextGaussian() * motion_multiplier) + 0.2F);
+            entityitem.motionZ = ((float) entity.worldObj.rand.nextGaussian() * motion_multiplier);
+            
             entity.worldObj.spawnEntityInWorld(entityitem);
+            
             animalchest.setInventorySlotContents(l, null);
         }
     }
@@ -1435,11 +1459,11 @@ public class MoCTools {
             {
             }
             
-            EntityPlayer epOwner = entity.worldObj.getPlayerEntityByName(entity.getOwnerName());
+            EntityPlayer owner_of_creature = entity.worldObj.getPlayerEntityByName(entity.getOwnerName());
 
-            if (epOwner != null && epOwner.inventory.getFirstEmptyStack() != -1) // don't attempt to set if player inventory is full
+            if (owner_of_creature != null && owner_of_creature.inventory.getFirstEmptyStack() != -1) // don't attempt to set if player inventory is full
             {
-                epOwner.inventory.addItemStackToInventory(stack);
+                owner_of_creature.inventory.addItemStackToInventory(stack);
             }
             else
             {
@@ -1595,13 +1619,15 @@ public class MoCTools {
     {
          if (MoCreatures.isServer())
          {
-             int var2 = 1 + worldObj.rand.nextInt(4);
-             for (int i = 0; i < var2; ++i)
+             int amount_of_maggots_to_spawn = 1 + worldObj.rand.nextInt(4);
+             for (int index = 0; index < amount_of_maggots_to_spawn; ++index)
              {
-                 float var4 = ((float) (i % 2) - 0.5F) * (float) 1 / 4.0F;
-                 float var5 = ((float) (i / 2) - 0.5F) * (float) 1 / 4.0F;
+                 float maggot_posX = ((float) (index % 2) - 0.5F) * (float) 1 / 4.0F;
+                 float maggot_posZ = ((float) (index / 2) - 0.5F) * (float) 1 / 4.0F;
+                 
                  MoCEntityMaggot maggot = new MoCEntityMaggot(worldObj);
-                 maggot.setLocationAndAngles(entity.posX + (double) var4, entity.posY + 0.5D, entity.posZ + (double) var5, worldObj.rand.nextFloat() * 360.0F, 0.0F);
+                 maggot.setLocationAndAngles(entity.posX + (double) maggot_posX, entity.posY + 0.5D, entity.posZ + (double) maggot_posZ, worldObj.rand.nextFloat() * 360.0F, 0.0F);
+                 
                  worldObj.spawnEntityInWorld(maggot);
              }
          }
@@ -1616,36 +1642,48 @@ public class MoCTools {
         }
     }
 
-    public static void runLikeHell(EntityCreature runningEntity, Entity scary_entity)
+    public static void runLikeHell(EntityCreature running_entity, Entity scary_entity)
     {
-        double x_distance_between_entities = runningEntity.posX - scary_entity.posX;
-        double z_distance_between_entities = runningEntity.posZ - scary_entity.posZ;
-        double d2 = Math.atan2(x_distance_between_entities, z_distance_between_entities);
-        d2 += (runningEntity.worldObj.rand.nextFloat() - runningEntity.worldObj.rand.nextFloat()) * 0.75D;
-        double d3 = runningEntity.posX + (Math.sin(d2) * 8D);
-        double d4 = runningEntity.posZ + (Math.cos(d2) * 8D);
-        int i = MathHelper.floor_double(d3);
-        int j = MathHelper.floor_double(runningEntity.boundingBox.minY);
-        int k = MathHelper.floor_double(d4);
-        int l = 0;
+        double x_distance_between_entities = running_entity.posX - scary_entity.posX;
+        double z_distance_between_entities = running_entity.posZ - scary_entity.posZ;
+        
+        double angle_in_radians_to_new_location = Math.atan2(x_distance_between_entities, z_distance_between_entities);
+        angle_in_radians_to_new_location += (running_entity.worldObj.rand.nextFloat() - running_entity.worldObj.rand.nextFloat()) * 0.75D;
+        
+        double temp_new_posX = running_entity.posX + (Math.sin(angle_in_radians_to_new_location) * 8D);
+        double temp_new_posZ = running_entity.posZ + (Math.cos(angle_in_radians_to_new_location) * 8D);
+        
+        int temp1_new_posX = MathHelper.floor_double(temp_new_posX);
+        int temp1_new_posY = MathHelper.floor_double(running_entity.boundingBox.minY);
+        int temp1_new_posZ = MathHelper.floor_double(temp_new_posZ);
+        
+        int index = 0;
+        
         do
         {
-            if (l >= 16)
+            if (index >= 16)
             {
                 break;
             }
-            int i1 = (i + runningEntity.worldObj.rand.nextInt(4)) - runningEntity.worldObj.rand.nextInt(4);
-            int j1 = (j + runningEntity.worldObj.rand.nextInt(3)) - runningEntity.worldObj.rand.nextInt(3);
-            int k1 = (k + runningEntity.worldObj.rand.nextInt(4)) - runningEntity.worldObj.rand.nextInt(4);
-            if ((j1 > 4) && ((runningEntity.worldObj.getBlock(i1, j1, k1) == Blocks.air) || (runningEntity.worldObj.getBlock(i1, j1, k1) == Blocks.snow)) && (runningEntity.worldObj.getBlock(i1, j1 - 1, k1) != Blocks.air))
+            
+            int new_posX = (temp1_new_posX + running_entity.worldObj.rand.nextInt(4)) - running_entity.worldObj.rand.nextInt(4);
+            int new_posY = (temp1_new_posY + running_entity.worldObj.rand.nextInt(3)) - running_entity.worldObj.rand.nextInt(3);
+            int new_posZ = (temp1_new_posZ + running_entity.worldObj.rand.nextInt(4)) - running_entity.worldObj.rand.nextInt(4);
+            
+            if (
+            		(new_posY > 4)
+            		&& ((running_entity.worldObj.getBlock(new_posX, new_posY, new_posZ) == Blocks.air) || (running_entity.worldObj.getBlock(new_posX, new_posY, new_posZ) == Blocks.snow))
+            		&& (running_entity.worldObj.getBlock(new_posX, new_posY - 1, new_posZ) != Blocks.air)
+            	)
             {
-                PathEntity pathentity = runningEntity.worldObj.getEntityPathToXYZ(runningEntity, i1, j1, k1, 16F, true, false, false, true);
-                runningEntity.setPathToEntity(pathentity);
+                PathEntity pathentity = running_entity.worldObj.getEntityPathToXYZ(running_entity, new_posX, new_posY, new_posZ, 16F, true, false, false, true);
+                running_entity.setPathToEntity(pathentity);
                 break;
             }
-            l++;
+            index++;
         } while (true);
     }
+    
 
     /**
      * Finds a near vulnerable player and poisons it if the player is in the water and not riding anything
@@ -1653,19 +1691,19 @@ public class MoCTools {
      * @param needsToBeInWater: the target needs to be in water for poison to be successful?
      * @return true if was able to poison the player
      */
-    public static boolean findNearPlayerAndPoison(Entity poisoner, boolean needsToBeInWater)
+    public static boolean findClosestPlayerAndPoisonThem(Entity poisoner, boolean needsToBeInWater)
     {
-        EntityPlayer entityplayertarget = poisoner.worldObj.getClosestVulnerablePlayerToEntity(poisoner, 2D);
-        if (entityplayertarget != null && ( (needsToBeInWater && entityplayertarget.isInWater()) || !needsToBeInWater) && poisoner.getDistanceToEntity(entityplayertarget) < 2.0F)
+        EntityPlayer entityplayer_target = poisoner.worldObj.getClosestVulnerablePlayerToEntity(poisoner, 2D);
+        if (entityplayer_target != null && ( (needsToBeInWater && entityplayer_target.isInWater()) || !needsToBeInWater) && poisoner.getDistanceToEntity(entityplayer_target) < 2.0F)
         {
-            if (entityplayertarget.ridingEntity != null && entityplayertarget.ridingEntity instanceof EntityBoat)
+            if (entityplayer_target.ridingEntity != null && entityplayer_target.ridingEntity instanceof EntityBoat)
             {
                 //don't poison players on boats
             }
             else
             {
-                MoCreatures.poisonPlayer(entityplayertarget);
-                entityplayertarget.addPotionEffect(new PotionEffect(Potion.poison.id, 120, 0));
+                MoCreatures.poisonPlayer(entityplayer_target);
+                entityplayer_target.addPotionEffect(new PotionEffect(Potion.poison.id, 120, 0));
                 return true;
             }
         }

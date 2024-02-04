@@ -146,7 +146,7 @@ public class MoCModelMiniGolem extends ModelBase
   public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, boolean hasRock)
   {
       float hRotY = f3 / 57.29578F;
-      float RLegXRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * 0.8F * f1;
+      float RLegXRot = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 0.8F * f1;
       float LLegXRot = MathHelper.cos(f * 0.6662F) * 0.8F * f1;
       
       RightLeg.rotateAngleX = RLegXRot;

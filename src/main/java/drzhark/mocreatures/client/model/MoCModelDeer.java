@@ -79,8 +79,8 @@ public class MoCModelDeer extends ModelBase {
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
     {
         Leg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-        Leg2.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.4F * f1;
-        Leg3.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.4F * f1;
+        Leg2.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.4F * f1;
+        Leg3.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.4F * f1;
         Leg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
     }
 

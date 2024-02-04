@@ -61,16 +61,16 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     {
         if (getType() == 0)
         {
-            int k = rand.nextInt(100);
-            if (k <= 28)
+            int chance = rand.nextInt(100);
+            if (chance <= 28)
             {
                 setType(1);
             }
-            else if (k <= 56)
+            else if (chance <= 56)
             {
                 setType(2);
             }
-            else if (k <= 85)
+            else if (chance <= 85)
             {
                 setType(3);
             }
@@ -96,15 +96,19 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             return MoCreatures.proxy.getTexture("wolftimber.png");
         case 4:
             if (!MoCreatures.proxy.getAnimateTextures()) { return MoCreatures.proxy.getTexture("wolffire1.png"); }
+            
             if (rand.nextInt(3)== 0) {textureCounter++;} //animation speed
+            
             if (textureCounter < 10)
             {
                 textureCounter = 10;
             }
+            
             if (textureCounter > 39)
             {
                 textureCounter = 10;
             }
+            
             String NTA = "wolffire";
             String NTB = "" + textureCounter;
             NTB = NTB.substring(0, 1);
@@ -195,6 +199,11 @@ public class MoCEntityWerewolf extends MoCEntityMob {
                 	}
                 }
                 
+                if (item_held_by_player == Items.golden_shovel)
+                {
+                    damage_dealt_to_werewolf = 3;
+                }	
+                	
                 if (
                 		item_held_by_player == Items.golden_hoe
                 		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("BiomesOPlenty:scytheGold")))
@@ -206,8 +215,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
                 }
                 
                 if (
-                		item_held_by_player == Items.golden_shovel
-                		|| item_held_by_player == Items.golden_pickaxe
+                		item_held_by_player == Items.golden_pickaxe
                 	) 
                 {
                 	damage_dealt_to_werewolf = 7;
@@ -438,7 +446,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 
         if (!worldObj.isRemote)
         {
-            for (int intex = 0; intex < 2; intex++)
+            for (int index = 0; index < 2; index++)
             {
                 Item item = getDropItem();
                 if (item != null)
@@ -510,36 +518,6 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     private void Transform()
     {
         if (deathTime > 0) { return; }
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY) + 1;
-        int z_coordinate = MathHelper.floor_double(posZ);
-        float f = 0.1F;
-        
-        for (int index = 0; index < 30; index++)
-        {
-            double x_offset = x_coordinate + worldObj.rand.nextFloat();
-            double y_offset = y_coordinate + worldObj.rand.nextFloat();
-            double z_offset = z_coordinate + worldObj.rand.nextFloat();
-            
-            double x_velocity = x_offset - x_coordinate;
-            double y_velocity = y_offset - y_coordinate;
-            double z_velocity = z_offset - z_coordinate;
-            
-            double overall_velocity_squared = MathHelper.sqrt_double((x_velocity * x_velocity) + (y_velocity * y_velocity) + (z_velocity * z_velocity));
-            
-            x_velocity /= overall_velocity_squared;
-            y_velocity /= overall_velocity_squared;
-            z_velocity /= overall_velocity_squared;
-           
-            double velocity_multiplier = 0.5D / ((overall_velocity_squared / f) + 0.10000000000000001D);
-            
-            velocity_multiplier *= (worldObj.rand.nextFloat() * worldObj.rand.nextFloat()) + 0.3F;
-            x_velocity *= velocity_multiplier;
-            y_velocity *= velocity_multiplier;
-            z_velocity *= velocity_multiplier;
-           
-            worldObj.spawnParticle("explode", (x_offset + (x_coordinate * 1.0D)) / 2D, (y_offset + (y_coordinate * 1.0D)) / 2D, (z_offset + (z_coordinate * 1.0D)) / 2D, x_velocity, y_velocity, z_velocity);
-        }
 
         if (getIsHumanForm())
         {

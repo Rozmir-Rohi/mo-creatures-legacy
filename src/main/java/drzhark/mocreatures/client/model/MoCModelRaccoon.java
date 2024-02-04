@@ -209,7 +209,7 @@ public class MoCModelRaccoon extends ModelBase
       //LeftSideburn.rotateAngleX = Head.rotateAngleX;
       //LeftSideburn.rotateAngleY = (30F/radianF) + Head.rotateAngleY;
       
-      float RLegXRot = MathHelper.cos((f * 1.0F) + 3.141593F) * 0.8F * f1;
+      float RLegXRot = MathHelper.cos((f * 1.0F) + (float) Math.PI) * 0.8F * f1;
       float LLegXRot = MathHelper.cos(f * 1.0F) * 0.8F * f1;
         
       RightFrontLegA.rotateAngleX = (30F/radianF) + RLegXRot;

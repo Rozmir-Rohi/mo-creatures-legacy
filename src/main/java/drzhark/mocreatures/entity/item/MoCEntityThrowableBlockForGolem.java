@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.IFluidBlock;
 
 public class MoCEntityThrowableBlockForGolem extends Entity {
 
@@ -125,9 +126,11 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
     public void onEntityUpdate()
     {
         Entity master = getMaster();
-        if (MoCreatures.isServer() && this.fuse-- <= 0)
+        if (MoCreatures.isServer())
         {
-            transformToItem();
+        	if (this.getBehavior() != 2 && this.onGround) {transformToSolidBlock();} //turn to solid if not moving towards it's master and if on ground
+        	
+        	if (this.fuse-- <= 0) {transformToSolidBlock();}
         }
 
         //held ThrowableBlocks don't need to adjust its position
@@ -136,35 +139,41 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
             return;
         }
 
-        //rock damage code (for all rock behaviors)
+        //throwable block damage code (for all throwable block behaviors)
         if (!this.onGround) //onground!
         {
-            List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
+            List entities_nearby_list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
 
-            for (int i = 0; i < list.size(); i++)
+            int iteration_length = entities_nearby_list.size();
+            
+            if (iteration_length > 0)
             {
-                Entity entity1 = (Entity) list.get(i);
-                if (master != null && entity1.getEntityId() == master.getEntityId())
-                {
-                    continue;
-                }
-                if (entity1 instanceof MoCEntityGolem)
-                {
-                    continue;
-                }
-                if (entity1 != null && !(entity1 instanceof EntityLivingBase))
-                {
-                    continue;
-                }
-
-                if (master != null)
-                {
-                    entity1.attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase) master), 4);
-                }
-                else
-                {
-                    entity1.attackEntityFrom(DamageSource.generic, 4);
-                }
+	            for (int index = 0; index < iteration_length; index++)
+	            {
+	                Entity entity_nearby = (Entity) entities_nearby_list.get(index);
+	                
+	                if (master != null && entity_nearby.getEntityId() == master.getEntityId())
+	                {
+	                    continue;
+	                }
+	                if (entity_nearby instanceof MoCEntityGolem)
+	                {
+	                    continue;
+	                }
+	                if (entity_nearby != null && !(entity_nearby instanceof EntityLivingBase))
+	                {
+	                    continue;
+	                }
+	
+	                if (master != null)
+	                {
+	                    entity_nearby.attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase) master), 4);
+	                }
+	                else
+	                {
+	                    entity_nearby.attackEntityFrom(DamageSource.generic, 4);
+	                }
+	            }
             }
         }
 
@@ -204,7 +213,7 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
             return;
         }
 
-        if (getBehavior() == 4)// imploding / exploding rock
+        if (getBehavior() == 4)// imploding / exploding throwable block
         {
             if (master == null)
             {
@@ -242,7 +251,7 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
             return;
         }
 
-        if (getBehavior() == 5)// exploding rock
+        if (getBehavior() == 5)// exploding throwable block
         {
             acceleration = 5;
             double summonedSpeed = (double) acceleration;//20D;
@@ -275,14 +284,20 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
 
     }
 
-    private void transformToItem()
+    private void transformToSolidBlock()
     {
-        if ((MoCTools.mobGriefing(this.worldObj)) && (MoCreatures.proxy.golemDestroyBlocks)) // don't drop rocks if mobgriefing is set to false, prevents duping
+        if ((MoCTools.mobGriefing(this.worldObj)) && (MoCreatures.proxy.golemDestroyBlocks)) // don't drop throwable blocks if mobgriefing is set to false, prevents duping
         {
-            EntityItem entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Block.getBlockById(getType()), 1, getMetadata()));
-            entityitem.delayBeforeCanPickup = 10;
-            entityitem.age = 5500;
-            worldObj.spawnEntityInWorld(entityitem);
+            if (!(
+            		getType() == 8 //flowing water
+            		|| getType() == 9 //water
+            		|| getType() == 10 //flowing lava
+            		|| getType() == 11 //lava
+            		||Block.getBlockById(getType()) instanceof IFluidBlock //do not try to transform into solid block if the block is a liquid
+            	))
+            {
+            	worldObj.setBlock((int) posX,(int) posY,(int) posZ, Block.getBlockById(getType()));
+            }
         }
         this.setDead();
     }

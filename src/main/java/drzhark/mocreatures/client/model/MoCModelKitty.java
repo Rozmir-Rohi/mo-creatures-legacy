@@ -148,12 +148,12 @@ public class MoCModelKitty extends ModelBiped {
 
         bipedHeadwear.rotateAngleY = bipedHead.rotateAngleY;
         bipedHeadwear.rotateAngleX = bipedHead.rotateAngleX;
-        bipedRightArm.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 2.0F * f1 * 0.5F;
+        bipedRightArm.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 2.0F * f1 * 0.5F;
         bipedLeftArm.rotateAngleX = MathHelper.cos(f * 0.6662F) * 2.0F * f1 * 0.5F;
         bipedRightArm.rotateAngleZ = 0.0F;
         bipedLeftArm.rotateAngleZ = 0.0F;
         bipedRightLeg.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-        bipedLeftLeg.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.4F * f1;
+        bipedLeftLeg.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.4F * f1;
         bipedRightLeg.rotateAngleY = 0.0F;
         bipedLeftLeg.rotateAngleY = 0.0F;
         if (heldItemLeft != 0)

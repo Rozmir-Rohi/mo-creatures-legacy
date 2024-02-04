@@ -127,9 +127,8 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob
         }
     public float getMoveSpeed()
     {
-        return 1.2F;
-        /*if (isSprinting()) return 1.2F;
-        return 0.8F;*/
+    	if (isSprinting()) {return 1.2F;}
+    	else {return 0.8F;}
     }
 
     @Override

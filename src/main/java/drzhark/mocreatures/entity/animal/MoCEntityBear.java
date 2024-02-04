@@ -36,12 +36,9 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     public MoCEntityBear(World world)
     {
         super(world);
-        //texture = MoCreatures.proxy.MODEL_TEXTURE + "bearbrowm.png";
         setSize(1.2F, 1.5F);
         roper = null;
-        //health = 25;
         setMoCAge(55);
-        //force = 5;
         //attackRange = 16D;
         if (rand.nextInt(4) == 0)
         {
@@ -219,18 +216,18 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
      */
     public int getAttackStrength()
     {
-        int factor = (worldObj.difficultySetting.getDifficultyId());
+        int world_difficulty = (worldObj.difficultySetting.getDifficultyId());
 
         switch (getType())
         {
         case 1:
-            return 2 * factor;
+            return 2 * world_difficulty;
         case 2:
-            return 1 * factor;
+            return 1 * world_difficulty;
         case 3:
             return 1;
         case 4:
-            return 3 * factor;
+            return 3 * world_difficulty;
 
         default:
             return 2;
@@ -264,47 +261,68 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         {
     		if (!(this.getIsAdult()) && (damagesource.getEntity() != null))
         	{
+    			if (getBearState() == 2) //if sitting
+    			{
+    				setBearState(0);
+    			}
+    			
     			MoCTools.runLikeHell(this, damagesource.getEntity()); //child runs away from attacking entity
     			
-    			List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(10D, 10D, 10D));
-    			for (int index = 0; index < entitiesNearbyList.size(); index++)
-    	        {
-    	            Entity entity1 = (Entity) entitiesNearbyList.get(index);
-	                if (entity1 instanceof MoCEntityBear) //set attack target of adults near by to the entity that is attacking that child
-	                {
-	                	MoCEntityBear bearEntityNearBy = (MoCEntityBear) entity1;
-	                	if (bearEntityNearBy.getIsAdult());
-	                	{	
-	                		if (!(bearEntityNearBy.getIsTamed()) && (bearEntityNearBy.getType() == this.getType()))
-	                		{
-	                			bearEntityNearBy.entityToAttack = damagesource.getEntity();
-	                		}
-	                	}
-	                	
-	                	continue; 
-	                }
-	                
-	                else {continue;}
-	                
-	                
-    	        }    
+    			List entities_nearby_list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(10D, 10D, 10D));
+    			
+    			int iteration_length = entities_nearby_list.size();
+    			
+    			if (iteration_length > 0)
+    			{
+	    			for (int index = 0; index < iteration_length; index++)
+	    	        {
+	    	            Entity entity_nearby = (Entity) entities_nearby_list.get(index);
+		                if (entity_nearby instanceof MoCEntityBear) //set attack target of adults near by to the entity that is attacking that child
+		                {
+		                	MoCEntityBear bear_nearby = (MoCEntityBear) entity_nearby;
+		                	if (bear_nearby.getIsAdult());
+		                	{	
+		                		if (!(bear_nearby.getIsTamed()) && (bear_nearby.getType() == this.getType()))
+		                		{
+		                			if (bear_nearby.getBearState() == 2) //if sitting
+		                			{
+		                				bear_nearby.setBearState(0);
+		                			}
+		                			
+		                			bear_nearby.entityToAttack = damagesource.getEntity();
+		                		}
+		                	}
+		                	
+		                	continue; 
+		                }
+		                
+		                else {continue;}
+		                
+		                
+	    	        }
+    			}
     			
     			
         		return false;
         	}
     		else
             {
-    			Entity entity = damagesource.getEntity();
+    			Entity entity_that_attacked_this_creature = damagesource.getEntity();
     			
-    			if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName()))))
+    			if (entity_that_attacked_this_creature != null && getIsTamed() && (entity_that_attacked_this_creature instanceof EntityPlayer && (entity_that_attacked_this_creature.getCommandSenderName().equals(getOwnerName()))))
                 { 
                 	return false; 
                 }
     			
-    			if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
-    			if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0) && this.getType() != 3)
+    			if ((riddenByEntity == entity_that_attacked_this_creature) || (ridingEntity == entity_that_attacked_this_creature)) { return true; }
+    			if ((entity_that_attacked_this_creature != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
     			{
-    				entityToAttack = entity;
+    				entityToAttack = entity_that_attacked_this_creature;
+        			
+        			if (getBearState() == 2) //if sitting
+        			{
+        				setBearState(0);
+        			}
     			}
     			return true;
             }
@@ -324,13 +342,14 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     @Override
     public boolean entitiesToIgnoreWhenHunting(Entity entity)
     {
-        return (super.entitiesToIgnoreWhenHunting(entity) //including the mobs specified in parent file
-            	|| (entity instanceof MoCEntityBear) 
-            	|| (getIsAdult() && (entity.width > 1.3D && entity.height > 1.3D)) // don't try to hunt creature larger than a deer when adult
-                || (!getIsAdult() && (entity.width > 0.5D && entity.height > 0.5D)) // don't try to hunt creature larger than a chicken when child
-            	|| (entity instanceof MoCEntityBigCat)
-            	|| (entity instanceof MoCEntityShark)
-            	|| (entity instanceof MoCEntityJellyFish || entity instanceof MoCEntityRay || entity instanceof EntitySquid)
+        return (
+	        		super.entitiesToIgnoreWhenHunting(entity) //including the mobs specified in parent file
+	            	|| (entity instanceof MoCEntityBear) 
+	            	|| (getIsAdult() && (entity.width > 1.3D && entity.height > 1.3D)) // don't try to hunt creature larger than a deer when adult
+	                || (!getIsAdult() && (entity.width > 0.5D && entity.height > 0.5D)) // don't try to hunt creature larger than a chicken when child
+	            	|| (entity instanceof MoCEntityBigCat)
+	            	|| (entity instanceof MoCEntityShark)
+	            	|| (entity instanceof MoCEntityJellyFish || entity instanceof MoCEntityRay || entity instanceof EntitySquid)
             	);
     }
     
@@ -341,21 +360,21 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     {
         if (worldObj.difficultySetting.getDifficultyId() > 0)
         {
-            float f = getBrightness(1.0F);
-            if (f < 0.0F && this.getType() == 1 || this.getType() == 4)
+            float brightness = getBrightness(1.0F);
+            if (brightness < 0.0F && this.getType() == 1 || this.getType() == 4)
             {
                 EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, getAttackRange());
                 if (entityplayer != null) { return entityplayer; }
             }
             if (rand.nextInt(80) == 0 && this.getType() != 3)
             {
-                EntityLivingBase entityliving = getClosestEntityLiving(this, 10D);
+                EntityLivingBase closest_entityliving = getClosestEntityLiving(this, 10D);
                 
-                if (entityliving instanceof MoCEntityAquatic || entityliving instanceof MoCEntityTameableAquatic) // don't go and hunt fish if they are in the ocean
+                if (closest_entityliving instanceof MoCEntityAquatic || closest_entityliving instanceof MoCEntityTameableAquatic) // don't go and hunt fish if they are in the ocean
                 {
-                	int x = MathHelper.floor_double(entityliving.posX);
-                    int y = MathHelper.floor_double(entityliving.posY);
-                    int z = MathHelper.floor_double(entityliving.posZ);
+                	int x = MathHelper.floor_double(closest_entityliving.posX);
+                    int y = MathHelper.floor_double(closest_entityliving.posY);
+                    int z = MathHelper.floor_double(closest_entityliving.posZ);
 
                     BiomeGenBase biome_that_prey_is_in = MoCTools.Biomekind(worldObj, x, y, z);
 
@@ -365,7 +384,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
                     }
                 }
                 
-                else {return entityliving;}
+                else {return closest_entityliving;}
             }
         }
             return null;
@@ -395,17 +414,17 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             }
         }
         /**
-         * panda bears and cubs will sit down every now and then
+         * panda bears and cubs will sit down every now and then if they are not walking somewhere, not in water and if there isn't an attack target
          */
-        if ((MoCreatures.isServer()) && (getType() == 3 || (!getIsAdult() && getMoCAge() < 60)) && (rand.nextInt(300) == 0))
+        if (MoCreatures.isServer() && getBearState() != 2 && !hasPath() && !isInWater() && entityToAttack == null && (getType() == 3 || (!getIsAdult() && getMoCAge() < 60)) && (rand.nextInt(300) == 0))
         {
             setBearState(2);
         }
 
         /**
-         * Sitting bears will resume on fours stance every now and then
+         * Sitting bears will resume on fours stance if they get in water or every now and then on land
          */
-        if ((MoCreatures.isServer()) && (getBearState() == 2) && (rand.nextInt(800) == 0))
+        if ((MoCreatures.isServer()) && (getBearState() == 2) && ((rand.nextInt(800) == 0) || isInWater()))
         {
             setBearState(0);
         }
@@ -417,8 +436,8 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         if ((MoCreatures.isServer()) && standingCounter == 0 && getBearState() != 2 && getIsAdult() && getType() != 3 && (rand.nextInt(500) == 0))
         {
             standingCounter = 1;
-            EntityPlayer entityplayer1 = worldObj.getClosestPlayerToEntity(this, 8D);
-            if (entityplayer1 != null)
+            EntityPlayer closest_player = worldObj.getClosestPlayerToEntity(this, 8D);
+            if (closest_player != null)
             {
                 setBearState(1);
             }
@@ -461,22 +480,6 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         }
         return false;
     }
-	
-	private boolean isItemstackPandaFoodItem(ItemStack itemstack) {
-    	
-    	Item item = itemstack.getItem();
-    	
-		if (
-				item == Items.reeds
-				|| item == Items.sugar
-            	|| (((item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:bamboo")))
-            	|| (((item.itemRegistry).getNameForObject(item).equals("etfuturum:bamboo")))
-            	|| (((item.itemRegistry).getNameForObject(item).equals("tropicraft:bambooChute")))
-            	|| (((item.itemRegistry).getNameForObject(item).equals("harvestcraft:bambooshootItem")))
-            ) {return true;}
-		
-		return false;
-	}
 
     @Override
     protected Item getDropItem()
@@ -599,6 +602,23 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         }
         else {return false;}
     }
+    
+    
+    private boolean isItemstackPandaFoodItem(ItemStack itemstack) {
+    	
+    	Item item = itemstack.getItem();
+    	
+		if (
+				item == Items.reeds
+				|| item == Items.sugar
+            	|| (((item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:bamboo")))
+            	|| (((item.itemRegistry).getNameForObject(item).equals("etfuturum:bamboo")))
+            	|| (((item.itemRegistry).getNameForObject(item).equals("tropicraft:bambooChute")))
+            	|| (((item.itemRegistry).getNameForObject(item).equals("harvestcraft:bambooshootItem")))
+            ) {return true;}
+		
+		return false;
+	}
 
     @Override
     public int nameYOffset()

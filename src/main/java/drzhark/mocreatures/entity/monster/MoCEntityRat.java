@@ -35,12 +35,12 @@ public class MoCEntityRat extends MoCEntityMob {
     {
         if (getType() == 0)
         {
-            int i = rand.nextInt(100);
-            if (i <= 65)
+            int chance = rand.nextInt(100);
+            if (chance <= 65)
             {
                 setType(1);
             }
-            else if (i <= 98)
+            else if (chance <= 98)
             {
                 setType(2);
             }
@@ -139,9 +139,11 @@ public class MoCEntityRat extends MoCEntityMob {
     @Override
     protected Entity findPlayerToAttack()
     {
-        float f = getBrightness(1.0F);
-        if (f < 0.5F) {
+        float brightness = getBrightness(1.0F);
+        if (brightness < 0.5F) 
+        {
             EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
+            
             return entityplayer != null && this.canEntityBeSeen(entityplayer) ? entityplayer : null;
         }
         return null;

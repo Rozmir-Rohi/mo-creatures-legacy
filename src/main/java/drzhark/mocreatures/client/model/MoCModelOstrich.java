@@ -728,7 +728,7 @@ public class MoCModelOstrich extends ModelBase {
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, boolean hiding, boolean ramming, boolean wing, boolean rider, int jumpCounter, boolean floating)
     {
         float LLegXRot = MathHelper.cos(f * 0.4F) * 1.1F * f1;
-        float RLegXRot = MathHelper.cos((f * 0.4F) + 3.141593F) * 1.1F * f1;
+        float RLegXRot = MathHelper.cos((f * 0.4F) + (float) Math.PI) * 1.1F * f1;
         
         if (hiding)
         {

@@ -334,7 +334,7 @@ public class MoCModelWere extends ModelBase {
     {
 
         float radianF = 57.29578F;
-        float RLegXRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * 0.8F * f1;
+        float RLegXRot = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 0.8F * f1;
         float LLegXRot = MathHelper.cos(f * 0.6662F) * 0.8F * f1;
 
         Head.rotateAngleY = f3 / radianF; //this moves head to left and right

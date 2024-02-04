@@ -91,9 +91,9 @@ public class MoCModelMouse extends ModelBase {
         WhiskerL.rotateAngleX = Head.rotateAngleX;
         WhiskerL.rotateAngleY = Head.rotateAngleY;
         FrontL.rotateAngleX = MathHelper.cos(f * 0.6662F) * 0.6F * f1;
-        RearL.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 0.8F * f1;
+        RearL.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 0.8F * f1;
         RearR.rotateAngleX = MathHelper.cos(f * 0.6662F) * 0.6F * f1;
-        FrontR.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 0.8F * f1;
+        FrontR.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 0.8F * f1;
         Tail.rotateAngleY = FrontL.rotateAngleX * 0.625F;
     }
 }

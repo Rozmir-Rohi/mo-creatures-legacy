@@ -330,11 +330,11 @@ ShellRight = new ModelRenderer(this, 0, 23);
          * floats used for the leg animations
          */
         float f9 = -(MathHelper.cos(f * 5F) ) * f1 *2F;
-        float f10 = -(MathHelper.cos(f * 5F + 3.141593F) ) * f1 *2F;
+        float f10 = -(MathHelper.cos(f * 5F + (float) Math.PI) ) * f1 *2F;
         float f11 = -(MathHelper.cos(f * 5.0F + 1.570796F) ) * f1*2F;
         float f12 = -(MathHelper.cos(f * 5.0F + 4.712389F) ) * f1*2F;
         float f13 = Math.abs(MathHelper.sin(f * 0.6662F + 0.0F) * 0.4F) * f1*5F;
-        float f14 = Math.abs(MathHelper.sin(f * 0.6662F + 3.141593F) * 0.4F) * f1;
+        float f14 = Math.abs(MathHelper.sin(f * 0.6662F + (float) Math.PI) * 0.4F) * f1;
         float f15 = Math.abs(MathHelper.sin(f * 0.6662F + 1.570796F) * 0.4F) * f1;
         float f16 = Math.abs(MathHelper.sin(f * 0.6662F + 4.712389F) * 0.4F) * f1;
 

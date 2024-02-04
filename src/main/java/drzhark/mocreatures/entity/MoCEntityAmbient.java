@@ -404,44 +404,51 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
 
     public void faceLocation(int x, int y, int z, float f)
     {
-        double var4 = x + 0.5D - posX;
-        double var8 = z + 0.5D - posZ;
-        double var6 = y + 0.5D - posY;
-        double var14 = (double) MathHelper.sqrt_double(var4 * var4 + var8 * var8);
-        float var12 = (float) (Math.atan2(var8, var4) * 180.0D / Math.PI) - 90.0F;
-        float var13 = (float) (-(Math.atan2(var6, var14) * 180.0D / Math.PI));
-        this.rotationPitch = -this.updateRotation(this.rotationPitch, var13, f);
-        this.rotationYaw = this.updateRotation(this.rotationYaw, var12, f);
+        double x_distance_to_new_facing_location = x + 0.5D - posX;
+        double y_distance_to_new_facing_location = y + 0.5D - posY;
+        double z_distance_to_new_facing_location = z + 0.5D - posZ;
+        
+        double overall_distance_to_new_facing_location_squared = (double) MathHelper.sqrt_double(x_distance_to_new_facing_location * x_distance_to_new_facing_location + z_distance_to_new_facing_location * z_distance_to_new_facing_location);
+        
+        float xz_angle_in_degrees_to_new_facing_location = (float) (Math.atan2(z_distance_to_new_facing_location, x_distance_to_new_facing_location) * 180.0D / Math.PI) - 90.0F;
+        float y_angle_in_degrees_to_new_facing_location = (float) (-(Math.atan2(y_distance_to_new_facing_location, overall_distance_to_new_facing_location_squared) * 180.0D / Math.PI));
+        
+        this.rotationPitch = -this.updateRotation(rotationPitch, y_angle_in_degrees_to_new_facing_location, f);
+        this.rotationYaw = this.updateRotation(rotationYaw, xz_angle_in_degrees_to_new_facing_location, f);
     }
 
     /**
-     * Arguments: current rotation, intended rotation, max increment.
+     * 
+     * @param current_rotation
+     * @param intended_rotation
+     * @param max_increment
+     * @return
      */
-    private float updateRotation(float par1, float par2, float par3)
+    private float updateRotation(float current_rotation, float intended_rotation, float max_increment)
     {
-        float var4;
+        float amount_to_change_rotation_by;
 
-        for (var4 = par2 - par1; var4 < -180.0F; var4 += 360.0F)
+        for (amount_to_change_rotation_by = intended_rotation - current_rotation; amount_to_change_rotation_by < -180.0F; amount_to_change_rotation_by += 360.0F)
         {
             ;
         }
 
-        while (var4 >= 180.0F)
+        while (amount_to_change_rotation_by >= 180.0F)
         {
-            var4 -= 360.0F;
+            amount_to_change_rotation_by -= 360.0F;
         }
 
-        if (var4 > par3)
+        if (amount_to_change_rotation_by > max_increment)
         {
-            var4 = par3;
+            amount_to_change_rotation_by = max_increment;
         }
 
-        if (var4 < -par3)
+        if (amount_to_change_rotation_by < -max_increment)
         {
-            var4 = -par3;
+            amount_to_change_rotation_by = -max_increment;
         }
 
-        return par1 + var4;
+        return current_rotation + amount_to_change_rotation_by;
     }
 
     public void getMyOwnPath(Entity entity, float f)
@@ -511,17 +518,17 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         
         if ((pathentity == null) && (f > 8F))
         {
-            int i = MathHelper.floor_double(entity.posX) - 2;
-            int j = MathHelper.floor_double(entity.posZ) - 2;
-            int k = MathHelper.floor_double(entity.boundingBox.minY);
+            int x = MathHelper.floor_double(entity.posX) - 2;
+            int y = MathHelper.floor_double(entity.posZ) - 2;
+            int z = MathHelper.floor_double(entity.boundingBox.minY);
             
             for (int index = 0; index <= 4; index++)
             {
                 for (int index1 = 0; index1 <= 4; index1++)
                 {
-                    if (((index < 1) || (index1 < 1) || (index > 3) || (index1 > 3)) && worldObj.getBlock(i + index, k - 1, j + index1).isNormalCube() && !worldObj.getBlock(i + index, k, j + index1).isNormalCube() && !worldObj.getBlock(i + index, k + 1, j + index1).isNormalCube())
+                    if (((index < 1) || (index1 < 1) || (index > 3) || (index1 > 3)) && worldObj.getBlock(x + index, z - 1, y + index1).isNormalCube() && !worldObj.getBlock(x + index, z, y + index1).isNormalCube() && !worldObj.getBlock(x + index, z + 1, y + index1).isNormalCube())
                     {
-                        setLocationAndAngles((i + index) + 0.5F, k, (j + index1) + 0.5F, rotationYaw, rotationPitch);
+                        setLocationAndAngles((x + index) + 0.5F, z, (y + index1) + 0.5F, rotationYaw, rotationPitch);
                         return;
                     }
                 }
@@ -1000,31 +1007,38 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         
         double overall_distance_squared = MathHelper.sqrt_double((x_distance * x_distance) + (z_distance * z_distance));
         
-        float f1 = (float) ((Math.atan2(z_distance, x_distance) * 180D) / 3.1415927410125728D) - 90F;
-        float f2 = (float) ((Math.atan2(y_distance, overall_distance_squared) * 180D) / 3.1415927410125728D);
+        float xz_angle_in_degrees_to_new_location = (float) ((Math.atan2(z_distance, x_distance) * 180D) / Math.PI) - 90F;
+        float y_angle_in_degrees_to_new_location = (float) ((Math.atan2(y_distance, overall_distance_squared) * 180D) / Math.PI);
         
-        rotationPitch = -adjustRotation(rotationPitch, f2, f);
-        rotationYaw = adjustRotation(rotationYaw, f1, f);
+        rotationPitch = -adjustRotation(rotationPitch, y_angle_in_degrees_to_new_location, f);
+        rotationYaw = adjustRotation(rotationYaw, xz_angle_in_degrees_to_new_location, f);
     }
 
-    public float adjustRotation(float f, float f1, float f2)
+    /**
+     * 
+     * @param current_rotation
+     * @param rotation_adjustment
+     * @param rotation_limit
+     * @return
+     */
+    public float adjustRotation(float current_rotation, float rotation_adjustment, float rotation_limit)
     {
-        float f3 = f1;
-        for (f3 = f1 - f; f3 < -180F; f3 += 360F)
+        float amount_to_change_rotation_by = rotation_adjustment;
+        for (amount_to_change_rotation_by = rotation_adjustment - current_rotation; amount_to_change_rotation_by < -180F; amount_to_change_rotation_by += 360F)
         {
         }
-        for (; f3 >= 180F; f3 -= 360F)
+        for (; amount_to_change_rotation_by >= 180F; amount_to_change_rotation_by -= 360F)
         {
         }
-        if (f3 > f2)
+        if (amount_to_change_rotation_by > rotation_limit)
         {
-            f3 = f2;
+            amount_to_change_rotation_by = rotation_limit;
         }
-        if (f3 < -f2)
+        if (amount_to_change_rotation_by < -rotation_limit)
         {
-            f3 = -f2;
+            amount_to_change_rotation_by = -rotation_limit;
         }
-        return f + f3;
+        return current_rotation + amount_to_change_rotation_by;
     }
 
     public boolean isFlyingAlone()
@@ -1240,30 +1254,42 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
     {
         double x_distance = posX - entity.posX;
         double z_distance = posZ - entity.posZ;
-        double d2 = Math.atan2(x_distance, z_distance);
-        d2 += (rand.nextFloat() - rand.nextFloat()) * 0.75D;
-        double d3 = posX + (Math.sin(d2) * 8D);
-        double d4 = posZ + (Math.cos(d2) * 8D);
-        int x_coordinate = MathHelper.floor_double(d3);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(d4);
-        int l = 0;
+        
+        double angle_in_radians_to_new_location = Math.atan2(x_distance, z_distance);
+        angle_in_radians_to_new_location += (rand.nextFloat() - rand.nextFloat()) * 0.75D;
+        
+        double temp_new_posX = posX + (Math.sin(angle_in_radians_to_new_location) * 8D);
+        double temp_new_posZ = posZ + (Math.cos(angle_in_radians_to_new_location) * 8D);
+        
+        int temp1_new_posX = MathHelper.floor_double(temp_new_posX);
+        int temp1_new_posY = MathHelper.floor_double(boundingBox.minY);
+        int temp1_new_posZ = MathHelper.floor_double(temp_new_posZ);
+        
+        int index = 0;
+        
         do
         {
-            if (l >= 16)
+            if (index >= 16)
             {
                 break;
             }
-            int i1 = (x_coordinate + rand.nextInt(4)) - rand.nextInt(4);
-            int j1 = (y_coordinate + rand.nextInt(3)) - rand.nextInt(3);
-            int k1 = (z_coordinate + rand.nextInt(4)) - rand.nextInt(4);
-            if ((j1 > 4) && ((worldObj.isAirBlock(i1, j1, k1)) || (worldObj.getBlock(i1, j1, k1) == Blocks.snow)) && (!worldObj.isAirBlock(i1, j1 - 1, k1)))
+            
+            int new_posX = (temp1_new_posX + rand.nextInt(4)) - rand.nextInt(4);
+            int new_posY = (temp1_new_posY + rand.nextInt(3)) - rand.nextInt(3);
+            int new_posZ = (temp1_new_posZ + rand.nextInt(4)) - rand.nextInt(4);
+            
+            if (
+            		(new_posY > 4) 
+            		&& ((worldObj.isAirBlock(new_posX, new_posY, new_posZ)) || (worldObj.getBlock(new_posX, new_posY, new_posZ) == Blocks.snow))
+            		&& (!worldObj.isAirBlock(new_posX, new_posY - 1, new_posZ))
+            	)
             {
-                PathEntity pathentity = worldObj.getEntityPathToXYZ(this, i1, j1, k1, 16F, true, false, false, true);
+                PathEntity pathentity = worldObj.getEntityPathToXYZ(this, new_posX, new_posY, new_posZ, 16F, true, false, false, true);
                 setPathToEntity(pathentity);
                 break;
             }
-            l++;
+            
+            index++;
         } while (true);
     }
 

@@ -256,8 +256,8 @@ public class MoCModelGoat extends ModelBase {
     {
         //super.setRotationAngles(f, f1, f2, f3, f4, f5);
         Leg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-        Leg2.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.4F * f1;
-        Leg3.rotateAngleX = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.4F * f1;
+        Leg2.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.4F * f1;
+        Leg3.rotateAngleX = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.4F * f1;
         Leg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
         float baseAngle = (30 / 57.29578F) + (f4 / 57.29578F);
 

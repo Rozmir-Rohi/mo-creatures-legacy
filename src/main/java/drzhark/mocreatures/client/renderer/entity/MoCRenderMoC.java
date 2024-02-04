@@ -118,8 +118,8 @@ public class MoCRenderMoC extends RenderLiving {
         {
             d1 -= entityMoC.roperYOffset();
             Tessellator tessellator = Tessellator.instance;
-            float f4 = ((entityMoC.getRoper().prevRotationYaw + ((entityMoC.getRoper().rotationYaw - entityMoC.getRoper().prevRotationYaw) * f1 * 0.5F)) * 3.141593F) / 180F;
-            float f6 = ((entityMoC.getRoper().prevRotationPitch + ((entityMoC.getRoper().rotationPitch - entityMoC.getRoper().prevRotationPitch) * f1 * 0.5F)) * 3.141593F) / 180F;
+            float f4 = ((entityMoC.getRoper().prevRotationYaw + ((entityMoC.getRoper().rotationYaw - entityMoC.getRoper().prevRotationYaw) * f1 * 0.5F)) * (float) Math.PI) / 180F;
+            float f6 = ((entityMoC.getRoper().prevRotationPitch + ((entityMoC.getRoper().rotationPitch - entityMoC.getRoper().prevRotationPitch) * f1 * 0.5F)) * (float) Math.PI) / 180F;
             double d3 = MathHelper.sin(f4);
             double d4 = MathHelper.cos(f4);
             double d5 = MathHelper.sin(f6);

@@ -111,7 +111,7 @@ public class MoCModelMole extends ModelBase
         Nose.rotateAngleX = 0.2617994F + Head.rotateAngleX;
         Nose.rotateAngleY = Head.rotateAngleY;
 
-        float RLegXRot = MathHelper.cos((f * 1.0F) + 3.141593F) * 0.8F * f1;
+        float RLegXRot = MathHelper.cos((f * 1.0F) + (float) Math.PI) * 0.8F * f1;
         float LLegXRot = MathHelper.cos(f * 1.0F) * 0.8F * f1;
 
         RLeg.rotateAngleY = RLegXRot;
