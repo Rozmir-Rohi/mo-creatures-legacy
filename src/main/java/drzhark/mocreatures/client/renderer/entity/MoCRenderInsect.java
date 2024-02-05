@@ -18,9 +18,9 @@ public class MoCRenderInsect extends MoCRenderMoC {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase par1EntityLiving, float par2)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float par2)
     {
-        MoCEntityInsect insect = (MoCEntityInsect) par1EntityLiving;
+        MoCEntityInsect insect = (MoCEntityInsect) entityLiving;
 
         if (insect.climbing())
         {
@@ -31,7 +31,7 @@ public class MoCRenderInsect extends MoCRenderMoC {
 
     }
 
-    protected void rotateAnimal(EntityLiving entityliving)
+    protected void rotateAnimal(EntityLiving entityLiving)
     {
         GL11.glRotatef(90F, -1F, 0.0F, 0.0F);
     }

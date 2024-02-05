@@ -25,24 +25,24 @@ public class MoCRenderDeer extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
-        MoCEntityDeer entitydeer = (MoCEntityDeer) entityliving;
+        MoCEntityDeer entitydeer = (MoCEntityDeer) entityLiving;
         super.doRender(entitydeer, d, d1, d2, f, f1);
     }
 
     @Override
-    protected float handleRotationFloat(EntityLivingBase entityliving, float f)
+    protected float handleRotationFloat(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityDeer entitydeer = (MoCEntityDeer) entityliving;
+        MoCEntityDeer entitydeer = (MoCEntityDeer) entityLiving;
         stretch(entitydeer);
-        return entityliving.ticksExisted + f;
+        return entityLiving.ticksExisted + f;
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        rotateDeer((MoCEntityDeer) entityliving);
+        rotateDeer((MoCEntityDeer) entityLiving);
     }
 
     protected void rotateDeer(MoCEntityDeer entitydeer)

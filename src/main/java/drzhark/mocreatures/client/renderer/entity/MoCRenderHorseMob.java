@@ -21,21 +21,21 @@ public class MoCRenderHorseMob extends RenderLiving {
 
     }
 
-    protected void adjustHeight(EntityLiving entityliving, float FHeight)
+    protected void adjustHeight(EntityLiving entityLiving, float FHeight)
     {
         GL11.glTranslatef(0.0F, FHeight, 0.0F);
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityHorseMob entityhorse = (MoCEntityHorseMob) entityliving;
+        MoCEntityHorseMob entityhorse = (MoCEntityHorseMob) entityLiving;
 
         if (entityhorse.isGhost())
         {
-            adjustHeight(entityhorse, -0.3F + (entityhorse.tFloat() / 3F));
+            adjustHeight(entityhorse, -0.3F + (entityhorse.transparency() / 3F));
         }
-        super.preRenderCallback(entityliving, f);
+        super.preRenderCallback(entityLiving, f);
 
     }
 

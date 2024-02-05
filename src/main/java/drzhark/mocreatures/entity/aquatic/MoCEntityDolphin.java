@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 
 public class MoCEntityDolphin extends MoCEntityTameableAquatic {
 
-    public int gestationtime;
+    public int gestationTime;
 
     public MoCEntityDolphin(World world)
     {
@@ -42,24 +42,24 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     {
         if (getType() == 0)
         {
-            int type_chance = rand.nextInt(100);
-            if (type_chance <= 35)
+            int typeChance = rand.nextInt(100);
+            if (typeChance <= 35)
             {
                 setType(1);
             }
-            else if (type_chance <= 60)
+            else if (typeChance <= 60)
             {
                 setType(2);
             }
-            else if (type_chance <= 85)
+            else if (typeChance <= 85)
             {
                 setType(3);
             }
-            else if (type_chance <= 96)
+            else if (typeChance <= 96)
             {
                 setType(4);
             }
-            else if (type_chance <= 98)
+            else if (typeChance <= 98)
             {
                 setType(5);
             }
@@ -208,9 +208,9 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if (attackTime <= 0 && (f < 3.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY) && (getMoCAge() >= 100))
+        if (attackTime <= 0 && (distanceToEntity < 3.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY) && (getMoCAge() >= 100))
         {
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 5);
@@ -218,15 +218,15 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i) && (worldObj.difficultySetting.getDifficultyId() > 0))
+        if (super.attackEntityFrom(damageSource, damageTaken) && (worldObj.difficultySetting.getDifficultyId() > 0))
         {
-            Entity entity = damagesource.getEntity();
-            if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
-            if (entity != this)
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
+            if ((riddenByEntity == entityThatAttackedThisCreature) || (ridingEntity == entityThatAttackedThisCreature)) { return true; }
+            if (entityThatAttackedThisCreature != this)
             {
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
             }
             return true;
         }
@@ -247,45 +247,59 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     {
         if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getMoCAge() >= 100) && MoCreatures.proxy.attackDolphins && (rand.nextInt(50) == 0))
         {
-            EntityLivingBase entityliving = FindTarget(this, 12D);
-            if ((entityliving != null) && entityliving.isInWater()) { return entityliving; }
+            EntityLivingBase entityLiving = FindTarget(this, 12D);
+            if ((entityLiving != null) && entityLiving.isInWater()) { return entityLiving; }
         }
         return null;
     }
 
-    public EntityLivingBase FindTarget(Entity entity, double d)
+    public EntityLivingBase FindTarget(Entity entity, double distance)
     {
-        double d1 = -1D;
-        EntityLivingBase entityliving = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
-        for (int i = 0; i < list.size(); i++)
+        double currentMinimumDistance = -1D;
+        EntityLivingBase entityLiving = null;
+        
+        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
+        
+        int iterationLength = entitiesNearbyList.size();
+        
+        if (iterationLength > 0)
         {
-            Entity entity1 = (Entity) list.get(i);
-            if (!(entity1 instanceof MoCEntityShark) || (entity1 instanceof MoCEntityShark && ((MoCEntityShark) entity1).getIsTamed()))
-            {
-                continue;
-            }
-            double d2 = entity1.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-            if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLivingBase) entity1).canEntityBeSeen(entity))
-            {
-                d1 = d2;
-                entityliving = (EntityLivingBase) entity1;
-            }
+	        for (int index = 0; index < iterationLength; index++)
+	        {
+	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
+	            
+	            if (!(entityNearby instanceof MoCEntityShark) || (entityNearby instanceof MoCEntityShark && ((MoCEntityShark) entityNearby).getIsTamed()))
+	            {
+	                continue;
+	            }
+	            
+	            double overallDistanceSquared = entityNearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+	            
+	            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)) && ((EntityLivingBase) entityNearby).canEntityBeSeen(entity))
+	            {
+	                currentMinimumDistance = overallDistanceSquared;
+	                entityLiving = (EntityLivingBase) entityNearby;
+	            }
+	        }
         }
 
-        return entityliving;
+        return entityLiving;
     }
 
-    private int Genetics(MoCEntityDolphin entitydolphin, MoCEntityDolphin entitydolphin1)
+    private int genetics(MoCEntityDolphin entitydolphin, MoCEntityDolphin entitydolphin1)
     {
         if (entitydolphin.getType() == entitydolphin1.getType()) { return entitydolphin.getType(); }
-        int i = entitydolphin.getType() + entitydolphin1.getType();
+        int typeToSet = entitydolphin.getType() + entitydolphin1.getType();
+        
         boolean flag = rand.nextInt(3) == 0;
+        
         boolean flag1 = rand.nextInt(10) == 0;
-        if ((i < 5) && flag) { return i; }
-        if (((i == 5) || (i == 6)) && flag1)
+        
+        if ((typeToSet < 5) && flag) { return typeToSet; }
+        
+        if (((typeToSet == 5) || (typeToSet == 6)) && flag1)
         {
-            return i;
+            return typeToSet;
         }
         else
         {
@@ -330,17 +344,17 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
-        if (super.interact(entityplayer)) { return false; }
+        if (super.interact(entityPlayer)) { return false; }
         
         
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         if ((itemstack != null) && (itemstack.getItem() == Items.fish))
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             if (MoCreatures.isServer())
             {
@@ -366,7 +380,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             
             heal(5);
@@ -377,12 +391,12 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         }
         if (riddenByEntity == null)
         {
-            entityplayer.rotationYaw = rotationYaw;
-            entityplayer.rotationPitch = rotationPitch;
-            entityplayer.posY = posY;
+            entityPlayer.rotationYaw = rotationYaw;
+            entityPlayer.rotationPitch = rotationPitch;
+            entityPlayer.posY = posY;
             if (!worldObj.isRemote)
             {
-                entityplayer.mountEntity(this);
+                entityPlayer.mountEntity(this);
             }
             return true;
         }
@@ -414,63 +428,79 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
             
             if (!ReadyforParenting(this)) { return; }
             
-            int list_of_other_dolphins_nearby = 0;
+            int amountOfOtherDolphinsNearby = 0;
             
-            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(8D, 2D, 8D));
-            for (int j = 0; j < list.size(); j++)
+            List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(8D, 2D, 8D));
+            
+            for (int index = 0; index < entitiesNearbyList.size(); index++)
             {
-                Entity entity = (Entity) list.get(j);
-                if (entity instanceof MoCEntityDolphin)
+                Entity entityNearby = (Entity) entitiesNearbyList.get(index);
+                
+                if (entityNearby instanceof MoCEntityDolphin)
                 {
-                    list_of_other_dolphins_nearby++;
+                    amountOfOtherDolphinsNearby++;
                 }
             }
 
-            if (list_of_other_dolphins_nearby > 1) { return; }
-            List list1 = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4D, 2D, 4D));
-            for (int k = 0; k < list1.size(); k++)
+            if (amountOfOtherDolphinsNearby > 1) { return; }
+            
+            List entitiesNearbyList1 = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4D, 2D, 4D));
+            
+            for (int index1 = 0; index1 < entitiesNearbyList1.size(); index1++)
             {
-                Entity entity1 = (Entity) list1.get(k);
-                if (!(entity1 instanceof MoCEntityDolphin) || (entity1 == this))
+                Entity entityNearby1 = (Entity) entitiesNearbyList1.get(index1);
+                
+                if (!(entityNearby1 instanceof MoCEntityDolphin) || (entityNearby1 == this))
                 {
                     continue;
                 }
-                MoCEntityDolphin entitydolphin = (MoCEntityDolphin) entity1;
-                if (!ReadyforParenting(this) || !ReadyforParenting(entitydolphin))
+                
+                MoCEntityDolphin entityDolphinNearby = (MoCEntityDolphin) entityNearby1;
+                
+                if (!ReadyforParenting(this) || !ReadyforParenting(entityDolphinNearby))
                 {
                     continue;
                 }
                 if (rand.nextInt(100) == 0)
                 {
-                    gestationtime++;
+                    gestationTime++;
                 }
-                if (this.gestationtime % 3 == 0)
+                if (this.gestationTime % 3 == 0)
                 {
                     MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHeart(this.getEntityId()), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
                 }
-                if (gestationtime <= 50)
+                if (gestationTime <= 50)
                 {
                     continue;
                 }
-                MoCEntityDolphin babydolphin = new MoCEntityDolphin(worldObj);
-                babydolphin.setPosition(posX, posY, posZ);
-                if (worldObj.spawnEntityInWorld(babydolphin))
+                
+                MoCEntityDolphin babyDolphin = new MoCEntityDolphin(worldObj);
+                babyDolphin.setPosition(posX, posY, posZ);
+                
+                if (worldObj.spawnEntityInWorld(babyDolphin))
                 {
                     setHasEaten(false);
-                    entitydolphin.setHasEaten(false);
-                    gestationtime = 0;
-                    entitydolphin.gestationtime = 0;
-                    int l = Genetics(this, entitydolphin);
-                    babydolphin.setMoCAge(35);
-                    babydolphin.setAdult(false);
-                    babydolphin.setOwner(this.getOwnerName());
-                    babydolphin.setTamed(true);
-                    EntityPlayer entityplayer = worldObj.getPlayerEntityByName(this.getOwnerName());
-                    if (entityplayer != null)
+                    entityDolphinNearby.setHasEaten(false);
+                    gestationTime = 0;
+                    entityDolphinNearby.gestationTime = 0;
+                    
+                    int typeToSet = genetics(this, entityDolphinNearby);
+                    babyDolphin.setMoCAge(35);
+                    
+                    babyDolphin.setAdult(false);
+                    
+                    babyDolphin.setOwner(this.getOwnerName());
+                    babyDolphin.setTamed(true);
+                    
+                    EntityPlayer entityPlayer = worldObj.getPlayerEntityByName(this.getOwnerName());
+                    
+                    if (entityPlayer != null)
                     {
-                        MoCTools.tameWithName(entityplayer, babydolphin);
+                        MoCTools.tameWithName(entityPlayer, babyDolphin);
                     }
-                    babydolphin.setTypeInt(l);
+                    
+                    babyDolphin.setTypeInt(typeToSet);
+                    
                     this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getCustomSpeed()); //set speed according to type
                     break;
                 }
@@ -513,17 +543,17 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
-        setDisplayName(nbttagcompound.getBoolean("DisplayName"));
+        super.readEntityFromNBT(nbtTagCompound);
+        setDisplayName(nbtTagCompound.getBoolean("DisplayName"));
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setBoolean("DisplayName", getDisplayName());
+        super.writeEntityToNBT(nbtTagCompound);
+        nbtTagCompound.setBoolean("DisplayName", getDisplayName());
     }
 
     @Override

@@ -26,15 +26,15 @@ public class MoCRenderFirefly extends MoCRenderInsect {
      * Queries whether should render the specified pass or not.
      */
     @Override
-    protected int shouldRenderPass(EntityLivingBase par1EntityLiving, int par2, float par3)
+    protected int shouldRenderPass(EntityLivingBase entityLiving, int par2, float par3)
     {
-        return this.setTailBrightness((MoCEntityFirefly) par1EntityLiving, par2, par3);
+        return this.setTailBrightness((MoCEntityFirefly) entityLiving, par2, par3);
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase par1EntityLiving, float par2)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float par2)
     {
-        MoCEntityFirefly firefly = (MoCEntityFirefly) par1EntityLiving;
+        MoCEntityFirefly firefly = (MoCEntityFirefly) entityLiving;
         if (firefly.getIsFlying())
         {
             rotateFirefly(firefly);
@@ -55,7 +55,7 @@ public class MoCRenderFirefly extends MoCRenderInsect {
     /**
      * Sets the glowing belly
      */
-    protected int setTailBrightness(MoCEntityFirefly entityliving, int par2, float par3)
+    protected int setTailBrightness(MoCEntityFirefly entityLiving, int par2, float par3)
     {
         if (par2 != 0)
         {

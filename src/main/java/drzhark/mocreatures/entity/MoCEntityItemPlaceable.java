@@ -119,7 +119,7 @@ public class MoCEntityItemPlaceable extends EntityLiving {
 	public EntityItem getClosestEntityItem(Entity entity, double d)
     {
         double d1 = -1D;
-        EntityItem entityitem = null;
+        EntityItem entityItem = null;
         List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
         for (int k = 0; k < list.size(); k++)
         {
@@ -128,15 +128,15 @@ public class MoCEntityItemPlaceable extends EntityLiving {
             {
                 continue;
             }
-            EntityItem entityitem1 = (EntityItem) entity1;
-            double d2 = entityitem1.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+            EntityItem entityItem1 = (EntityItem) entity1;
+            double d2 = entityItem1.getDistanceSq(entity.posX, entity.posY, entity.posZ);
             if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)))
             {
                 d1 = d2;
-                entityitem = entityitem1;
+                entityItem = entityItem1;
             }
         }
 
-        return entityitem;
+        return entityItem;
     }
 }

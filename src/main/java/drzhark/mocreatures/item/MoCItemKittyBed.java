@@ -24,13 +24,13 @@ public class MoCItemKittyBed extends MoCItem {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityPlayer)
     {
         if (MoCreatures.isServer())
         {
             itemstack.stackSize--;
             MoCEntityKittyBed entitykittybed = new MoCEntityKittyBed(world, itemstack.getItemDamage());
-            entitykittybed.setPosition(entityplayer.posX, entityplayer.posY, entityplayer.posZ);
+            entitykittybed.setPosition(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
             world.spawnEntityInWorld(entitykittybed);
             entitykittybed.motionY += world.rand.nextFloat() * 0.05F;
             entitykittybed.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3F;

@@ -31,47 +31,12 @@ public class MoCEntityFly extends MoCEntityInsect
                 setIsFlying(false);
             }
 
-            EntityPlayer ep = worldObj.getClosestPlayerToEntity(this, 5D);
-            if (ep != null && getIsFlying() && --soundCount == -1)
+            EntityPlayer entityPlayer = worldObj.getClosestPlayerToEntity(this, 5D);
+            if (entityPlayer != null && getIsFlying() && --soundCount == -1)
             {
                 MoCTools.playCustomSound(this, "fly", this.worldObj);
                 soundCount = 55;
             }
-
-            //TODO
-            //not working this causes entities to attack it and creepers to blow!
-            /*if (entityToAttack == null && worldObj.rand.nextInt(100) == 0)
-            {
-
-                List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(12D, 8D, 12D));
-                for (int i = 0; i < list.size(); i++)
-                {
-                    Entity entity = (Entity) list.get(i);
-                    if (!(entity instanceof EntityMob))
-                    {
-                        continue;
-                    }
-                    EntityMob entitymob = (EntityMob) entity;
-                    entitymob.setAttackTarget(this);
-                    if (entitymob instanceof EntityZombie)
-                    {
-                        this.entityToAttack = entitymob;
-                    }
-                    if (entitymob instanceof MoCEntityHorseMob)
-                    {
-                        if (((MoCEntityHorseMob) entitymob).getType() == 23)
-                        {
-                            ;
-                        }
-                        {
-                            this.entityToAttack = entitymob;
-                        }
-                        //((MoCEntityOgre) entitymob).attackTime = 20;
-                    }
-                }
-
-            }*/
-
         }
     }
 
@@ -88,8 +53,8 @@ public class MoCEntityFly extends MoCEntityInsect
     }
 
     @Override
-    public boolean isMyFollowFood(ItemStack par1ItemStack)
+    public boolean isMyFollowFood(ItemStack itemstack)
     {
-        return par1ItemStack != null && par1ItemStack.getItem() == Items.rotten_flesh;
+        return itemstack != null && itemstack.getItem() == Items.rotten_flesh;
     }
 }

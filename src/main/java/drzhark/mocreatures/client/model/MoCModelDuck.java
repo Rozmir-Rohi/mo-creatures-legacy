@@ -57,8 +57,8 @@ public class MoCModelDuck extends ModelBase {
     public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7)
     {
         MoCEntityDuck entityDuck = (MoCEntityDuck) par1Entity;
-        boolean fly = !entityDuck.onGround;
-        this.setRotationAngles(par2, par3, par4, par5, par6, par7, fly);
+        boolean isFlappingWings = entityDuck.isOnAir() && entityDuck.motionY < 0.0D;
+        this.setRotationAngles(par2, par3, par4, par5, par6, par7, isFlappingWings);
 
         this.head.render(par7);
         this.bill.render(par7);
@@ -77,7 +77,7 @@ public class MoCModelDuck extends ModelBase {
      * the time(so that arms and legs swing back and forth) and par2 represents
      * how "far" arms and legs can swing at most.
      */
-    public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, boolean fly)
+    public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, boolean isFlappingWings)
     {
         this.head.rotateAngleX = -(par5 / (180F / (float) Math.PI));
         this.head.rotateAngleY = par4 / (180F / (float) Math.PI);
@@ -88,7 +88,7 @@ public class MoCModelDuck extends ModelBase {
         this.body.rotateAngleX = ((float) Math.PI / 2F);
         this.rightLeg.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
         this.leftLeg.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
-        if (fly)
+        if (isFlappingWings)
         {
             Float WingRot = MathHelper.cos((par3 * 1.4F) + (float) Math.PI) * 0.6F;
             this.rightWing.rotateAngleZ = 0.5F + WingRot;

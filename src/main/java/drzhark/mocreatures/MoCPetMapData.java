@@ -153,12 +153,12 @@ public class MoCPetMapData extends WorldSavedData
 
                     if (file1 != null)
                     {
-                        NBTTagCompound nbttagcompound = new NBTTagCompound();
-                        this.writeToNBT(nbttagcompound);
-                        NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-                        nbttagcompound1.setTag("data", nbttagcompound);
+                        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+                        this.writeToNBT(nbtTagCompound);
+                        NBTTagCompound nbtTagCompound1 = new NBTTagCompound();
+                        nbtTagCompound1.setTag("data", nbtTagCompound);
                         FileOutputStream fileoutputstream = new FileOutputStream(file1);
-                        CompressedStreamTools.writeCompressed(nbttagcompound1, fileoutputstream);
+                        CompressedStreamTools.writeCompressed(nbtTagCompound1, fileoutputstream);
                         fileoutputstream.close();
                     }
                 }

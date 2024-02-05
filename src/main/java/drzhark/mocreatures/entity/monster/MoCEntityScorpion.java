@@ -12,7 +12,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -174,8 +173,8 @@ public class MoCEntityScorpion extends MoCEntityMob {
      */
     protected void findSunLightShelter()
     {
-        Vec3 var1 = this.findPossibleShelter();
-        if (var1 == null)
+        Vec3 vectorThreeDimensionalToPossibleShelter = this.findPossibleShelter();
+        if (vectorThreeDimensionalToPossibleShelter == null)
         {
             hideCounter++;
             if (hideCounter > 200)
@@ -187,7 +186,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
         }
         else
         {
-            this.getNavigator().tryMoveToXYZ(var1.xCoord, var1.yCoord, var1.zCoord, this.getMoveSpeed() / 2F);
+            this.getNavigator().tryMoveToXYZ(vectorThreeDimensionalToPossibleShelter.xCoord, vectorThreeDimensionalToPossibleShelter.yCoord, vectorThreeDimensionalToPossibleShelter.zCoord, this.getMoveSpeed() / 2F);
         }
     }
 
@@ -198,7 +197,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
      */
     private boolean wantsToHide()
     {
-        return (worldObj.isDaytime()); //&& worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), (int) this.boundingBox.minY, MathHelper.floor_double(this.posZ)));
+        return (worldObj.isDaytime());
     }
 
     @Override
@@ -260,15 +259,15 @@ public class MoCEntityScorpion extends MoCEntityMob {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i))
+        if (super.attackEntityFrom(damageSource, damageTaken))
         {
-            Entity entity = damagesource.getEntity();
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
 
-            if ((entity != null) && (entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0) && getIsAdult())
+            if ((entityThatAttackedThisCreature != null) && (entityThatAttackedThisCreature != this) && (worldObj.difficultySetting.getDifficultyId() > 0) && getIsAdult())
             {
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
             }
             return true;
         }
@@ -283,14 +282,14 @@ public class MoCEntityScorpion extends MoCEntityMob {
     {
         if (worldObj.difficultySetting.getDifficultyId() > 0 && (!worldObj.isDaytime()) && getIsAdult())// only attacks player at night
         {
-            EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 12D);
-            if ((entityplayer != null)) { return entityplayer; }
+            EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 12D);
+            if ((entityPlayer != null)) { return entityPlayer; }
             {
                 if ((rand.nextInt(80) == 0))
                 {
-                    EntityLivingBase entityliving = getClosestEntityLiving(this, 10D);
-                if (entityliving != null && !(entityliving instanceof EntityPlayer) && this.canEntityBeSeen(entityliving)) // blood - add LoS requirement
-                    return entityliving;
+                    EntityLivingBase entityLiving = getClosestEntityLiving(this, 10D);
+                if (entityLiving != null && !(entityLiving instanceof EntityPlayer) && this.canEntityBeSeen(entityLiving)) // blood - add LoS requirement
+                    return entityLiving;
                 }
             }
         }
@@ -304,21 +303,21 @@ public class MoCEntityScorpion extends MoCEntityMob {
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if ((f > 2.0F) && (f < 6F) && (rand.nextInt(50) == 0))
+        if ((distanceToEntity > 2.0F) && (distanceToEntity < 6F) && (rand.nextInt(50) == 0))
         {
             if (onGround)
             {
-                double x_distance = entity.posX - posX;
-                double z_distance = entity.posZ - posZ;
-                float overall_horizontal_distance_squared = MathHelper.sqrt_double((x_distance * x_distance) + (z_distance * z_distance));
-                motionX = ((x_distance / overall_horizontal_distance_squared) * 0.5D * 0.8D) + (motionX * 0.2D);
-                motionZ = ((z_distance / overall_horizontal_distance_squared) * 0.5D * 0.8D) + (motionZ * 0.2D);
+                double xDistance = entity.posX - posX;
+                double zDistance = entity.posZ - posZ;
+                float overallHorizontalDistanceSquared = MathHelper.sqrt_double((xDistance * xDistance) + (zDistance * zDistance));
+                motionX = ((xDistance / overallHorizontalDistanceSquared) * 0.5D * 0.8D) + (motionX * 0.2D);
+                motionZ = ((zDistance / overallHorizontalDistanceSquared) * 0.5D * 0.8D) + (motionZ * 0.2D);
                 motionY = 0.4D;
             }
         }
-        else if (attackTime <= 0 && (f < 3.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        else if (attackTime <= 0 && (distanceToEntity < 3.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
             boolean flag = (entity instanceof EntityPlayer);
@@ -379,20 +378,20 @@ public class MoCEntityScorpion extends MoCEntityMob {
     }
 
     @Override
-    public void onDeath(DamageSource damagesource)
+    public void onDeath(DamageSource damageSource)
     {
-        super.onDeath(damagesource);
+        super.onDeath(damageSource);
 
         if (MoCreatures.isServer() && getIsAdult() && getHasBabies())
         {
             int k = rand.nextInt(5);
             for (int i = 0; i < k; i++)
             {
-                MoCEntityPetScorpion entityscorpy = new MoCEntityPetScorpion(worldObj);
-                entityscorpy.setPosition(posX, posY, posZ);
-                entityscorpy.setAdult(false);
-                entityscorpy.setType(getType());
-                worldObj.spawnEntityInWorld(entityscorpy);
+                MoCEntityPetScorpion entityBabyScorpion = new MoCEntityPetScorpion(worldObj);
+                entityBabyScorpion.setPosition(posX, posY, posZ);
+                entityBabyScorpion.setAdult(false);
+                entityBabyScorpion.setType(getType());
+                worldObj.spawnEntityInWorld(entityBabyScorpion);
 
             }
         }
@@ -423,7 +422,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
     @Override
     protected Item getDropItem()
     {
-        if (!getIsAdult()) { return Items.string; }
+        if (!getIsAdult()) { return null; }
 
         boolean flag = (rand.nextInt(100) < MoCreatures.proxy.rareItemDropChance);
 
@@ -442,7 +441,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
             if (flag) { return MoCreatures.scorpStingFrost; }
             return MoCreatures.chitinFrost;
         default:
-            return Items.string;
+            return null;
         }
     }
 
@@ -471,48 +470,51 @@ public class MoCEntityScorpion extends MoCEntityMob {
     @Override
     public boolean checkSpawningBiome()
     {
-        if (worldObj.provider.isHellWorld)
-        {
-            setType(3);
-            isImmuneToFire = true;
-            return true;
-        }
-
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
-
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
-
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SNOWY))
-        {
-            setType(4);
-        }
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.BEACH)) //do not spawn in beaches, the code for this is continued in MoCEventHooks.java
-        {
-        	return false;
-        }
-        else if (!worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && (posY < 50D))
-        {
-            setType(2);
-            return true;
-        }
+    	if (getType() == 0)
+    	{
+	        if (worldObj.provider.isHellWorld)
+	        {
+	            setType(3);
+	            isImmuneToFire = true;
+	            return true;
+	        }
+	
+	        int xCoordinate = MathHelper.floor_double(posX);
+	        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+	        int zCoordinate = MathHelper.floor_double(posZ);
+	
+	        BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
+	
+	        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SNOWY))
+	        {
+	            setType(4);
+	        }
+	        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.BEACH)) //do not spawn in beaches, the code for this is continued in MoCEventHooks.java
+	        {
+	        	return false;
+	        }
+	        else if (!worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && (posY < 50D))
+	        {
+	            setType(2);
+	            return true;
+	        }
+    	}
 
         return true;
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
-        setHasBabies(nbttagcompound.getBoolean("Babies"));
+        super.readEntityFromNBT(nbtTagCompound);
+        setHasBabies(nbtTagCompound.getBoolean("Babies"));
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setBoolean("Babies", getHasBabies());
+        super.writeEntityToNBT(nbtTagCompound);
+        nbtTagCompound.setBoolean("Babies", getHasBabies());
     }
 
     @Override

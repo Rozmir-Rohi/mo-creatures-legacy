@@ -12,8 +12,8 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class MoCEntityFishBowl extends MoCEntityItemPlaceable {
-    private int rotInt = 0;
-    private boolean moving = false;
+    private int rotation = 0;
+    private boolean isMoving = false;
 
     public MoCEntityFishBowl(World world)
     {
@@ -245,35 +245,35 @@ public class MoCEntityFishBowl extends MoCEntityItemPlaceable {
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
 
         if ((itemstack != null) && (getType() > 0 && getType() < 11) && ((itemstack.getItem() == MoCreatures.fishbowl_e) || (itemstack.getItem() == MoCreatures.fishbowl_w)))
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             ItemStack mystack = toItemStack(getType());
-            entityplayer.inventory.addItemStackToInventory(mystack);
+            entityPlayer.inventory.addItemStackToInventory(mystack);
             setType(0);
             return true;
         }
         
         if (itemstack == null)
         {
-	        if ((this.ridingEntity == null) && (entityplayer.ridingEntity == null) && (MoCreatures.isServer()))
+	        if ((this.ridingEntity == null) && (entityPlayer.ridingEntity == null) && (MoCreatures.isServer()))
 	        {
-	            rotationYaw = entityplayer.rotationYaw;
-	            mountEntity(entityplayer);
+	            rotationYaw = entityPlayer.rotationYaw;
+	            mountEntity(entityPlayer);
 	        }
 	        else
 	        {
 	            this.mountEntity(null);
-	            motionX = entityplayer.motionX * 5D;
-	            motionY = (entityplayer.motionY / 2D) + 0.2D;
-	            motionZ = entityplayer.motionZ * 5D;
+	            motionX = entityPlayer.motionX * 5D;
+	            motionY = (entityPlayer.motionY / 2D) + 0.2D;
+	            motionZ = entityPlayer.motionZ * 5D;
 	        }
         	return true;
     	}
@@ -281,13 +281,13 @@ public class MoCEntityFishBowl extends MoCEntityItemPlaceable {
     }
 
     @Override
-    public void moveEntity(double d, double d1, double d2)
+    public void moveEntity(double x, double y, double z)
     {
         if ((ridingEntity != null) || !onGround)
         {
             if (!worldObj.isRemote)
             {
-                super.moveEntity(d, d1, d2);
+                super.moveEntity(x, y, z);
             }
         }
     }
@@ -298,35 +298,35 @@ public class MoCEntityFishBowl extends MoCEntityItemPlaceable {
         super.onUpdate();
         if (rand.nextInt(80) == 0)
         {
-            moving = !moving;
+            isMoving = !isMoving;
         }
-        if (moving)
+        if (isMoving)
         {
-            rotInt += rand.nextInt(10);
-            if (rotInt > 360)
+            rotation += rand.nextInt(10);
+            if (rotation > 360)
             {
-                rotInt = 0;
+                rotation = 0;
             }
         }
         prevRenderYawOffset = renderYawOffset = rotationYaw = prevRotationYaw;
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
-        setType(nbttagcompound.getInteger("SheetColour"));
+        super.readEntityFromNBT(nbtTagCompound);
+        setType(nbtTagCompound.getInteger("SheetColour"));
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setInteger("SheetColour", getType());
+        super.writeEntityToNBT(nbtTagCompound);
+        nbtTagCompound.setInteger("SheetColour", getType());
     }
 
     public int getRotation()
     {
-        return rotInt;
+        return rotation;
     }
 }

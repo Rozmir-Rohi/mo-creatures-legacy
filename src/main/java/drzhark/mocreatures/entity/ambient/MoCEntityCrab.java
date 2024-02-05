@@ -19,7 +19,6 @@ public class MoCEntityCrab extends MoCEntityTameableAmbient
     {
         super(world);
         setSize(0.3F, 0.3F);
-        //health = 6;
         setMoCAge(50 + rand.nextInt(50));
     }
 

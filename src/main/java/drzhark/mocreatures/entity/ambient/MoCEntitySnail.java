@@ -91,8 +91,8 @@ public class MoCEntitySnail extends MoCEntityAmbient
 
         if (!worldObj.isRemote)
         {
-            EntityLivingBase entityliving = getScaryEntity(3D);
-            if ((entityliving != null) && entityliving.height > 0.5F && entityliving.width > 0.5F && canEntityBeSeen(entityliving))
+            EntityLivingBase entityLiving = getScaryEntity(3D);
+            if ((entityLiving != null) && entityLiving.height > 0.5F && entityLiving.width > 0.5F && canEntityBeSeen(entityLiving))
             {
                 if (!getIsHiding())
                 {

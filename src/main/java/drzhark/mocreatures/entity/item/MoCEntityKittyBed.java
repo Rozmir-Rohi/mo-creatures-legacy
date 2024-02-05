@@ -16,13 +16,13 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
-    public float milklevel;
+    public float milkLevel;
 
     public MoCEntityKittyBed(World world)
     {
         super(world);
         setSize(1.0F, 0.3F);
-        milklevel = 0.0F;
+        milkLevel = 0.0F;
         //texture = MoCreatures.proxy.MODEL_TEXTURE + "kittybed.png";
     }
 
@@ -30,14 +30,14 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
     {
         super(world);
         setSize(1.0F, 0.3F);
-        milklevel = 0.0F;
+        milkLevel = 0.0F;
         //texture = MoCreatures.proxy.MODEL_TEXTURE + "kittybed.png";
     }
 
-    public MoCEntityKittyBed(World world, int i)
+    public MoCEntityKittyBed(World world, int sheetColour)
     {
         this(world);
-        setSheetColor(i);
+        setSheetColor(sheetColour);
     }
 
     public ResourceLocation getTexture()
@@ -195,38 +195,38 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         if ((itemstack != null) && MoCreatures.isServer() && (itemstack.getItem() == Items.milk_bucket))
         {
-            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.bucket, 1));
+            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.bucket, 1));
             worldObj.playSoundAtEntity(this, "mocreatures:pouringmilk", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             setHasMilk(true);
             setHasFood(false);
-            entityplayer.addStat(MoCAchievements.pet_food, 1);
+            entityPlayer.addStat(MoCAchievements.pet_food, 1);
             return true;
         }
         if ((itemstack != null) && MoCreatures.isServer() && !getHasFood() && (itemstack.getItem() == MoCreatures.petfood))
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             worldObj.playSoundAtEntity(this, "mocreatures:pouringfood", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             setHasMilk(false);
             setHasFood(true);
-            entityplayer.addStat(MoCAchievements.pet_food, 1);
+            entityPlayer.addStat(MoCAchievements.pet_food, 1);
             return true;
         }
         else if (itemstack == null)
         {
-            rotationYaw = entityplayer.rotationYaw;
-            if ((this.ridingEntity == null) && (entityplayer.ridingEntity == null))
+            rotationYaw = entityPlayer.rotationYaw;
+            if ((this.ridingEntity == null) && (entityPlayer.ridingEntity == null))
             {
                 if (MoCreatures.isServer())
                 {
-                    mountEntity(entityplayer);
+                    mountEntity(entityPlayer);
                 }
             }
             else
@@ -242,13 +242,13 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
     }
 
     @Override
-    public void moveEntity(double d, double d1, double d2)
+    public void moveEntity(double x, double y, double z)
     {
         if ((ridingEntity != null) || !onGround || !MoCreatures.proxy.staticBed)
         {
             if (!worldObj.isRemote)
             {
-                super.moveEntity(d, d1, d2);
+                super.moveEntity(x, y, z);
             }
         }
     }
@@ -260,15 +260,15 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
         
         if (MoCreatures.isServer() && (!getHasFood() || !getHasMilk()))
         {
-            EntityItem entityitem = getClosestEntityItem(this, 1D);
+            EntityItem entityItem = getClosestEntityItem(this, 1D);
             
-            if (entityitem != null)
+            if (entityItem != null)
             {
-            	Item item = entityitem.getEntityItem().getItem();
+            	Item item = entityItem.getEntityItem().getItem();
             
             	if (!getHasFood() && (item == MoCreatures.petfood))
             	{
-            		entityitem.setDead();
+            		entityItem.setDead();
             		worldObj.playSoundAtEntity(this, "mocreatures:pouringfood", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             		setHasMilk(false);
             		setHasFood(true);
@@ -287,10 +287,10 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
         }
         if ((getHasMilk() || getHasFood()) && (riddenByEntity != null) && MoCreatures.isServer())
         {
-            milklevel += 0.003F;
-            if (milklevel > 2.0F)
+            milkLevel += 0.003F;
+            if (milkLevel > 2.0F)
             {
-                milklevel = 0.0F;
+                milkLevel = 0.0F;
                 setHasMilk(false);
                 setHasFood(false);
             }
@@ -303,20 +303,20 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        setHasMilk(nbttagcompound.getBoolean("HasMilk"));
-        setSheetColor(nbttagcompound.getInteger("SheetColour"));
-        setHasFood(nbttagcompound.getBoolean("HasFood"));
-        milklevel = nbttagcompound.getFloat("MilkLevel");
+        setHasMilk(nbtTagCompound.getBoolean("HasMilk"));
+        setSheetColor(nbtTagCompound.getInteger("SheetColour"));
+        setHasFood(nbtTagCompound.getBoolean("HasFood"));
+        milkLevel = nbtTagCompound.getFloat("MilkLevel");
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        nbttagcompound.setBoolean("HasMilk", getHasMilk());
-        nbttagcompound.setInteger("SheetColour", getSheetColor());
-        nbttagcompound.setBoolean("HasFood", getHasFood());
-        nbttagcompound.setFloat("MilkLevel", milklevel);
+        nbtTagCompound.setBoolean("HasMilk", getHasMilk());
+        nbtTagCompound.setInteger("SheetColour", getSheetColor());
+        nbtTagCompound.setBoolean("HasFood", getHasFood());
+        nbtTagCompound.setFloat("MilkLevel", milkLevel);
     }
 }

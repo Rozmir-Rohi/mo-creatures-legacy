@@ -24,14 +24,14 @@ public class MoCRenderTurtle extends MoCRenderMoC {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityTurtle entityturtle = (MoCEntityTurtle) entityliving;
+        MoCEntityTurtle entityturtle = (MoCEntityTurtle) entityLiving;
         turtly.upsidedown = entityturtle.getIsUpsideDown();
         turtly.swingProgress = entityturtle.swingProgress;
         turtly.isHiding = entityturtle.getIsHiding();
 
-        if (!entityliving.worldObj.isRemote && (entityliving.ridingEntity != null))
+        if (!entityLiving.worldObj.isRemote && (entityLiving.ridingEntity != null))
         {
 
             GL11.glTranslatef(0.0F, 1.3F, 0.0F);
@@ -65,7 +65,7 @@ public class MoCRenderTurtle extends MoCRenderMoC {
         GL11.glTranslatef(0.0F - f2, 0.5F * entityturtle.getMoCAge() * 0.01F, 0.0F);
     }
 
-    protected void adjustHeight(EntityLiving entityliving, float height)
+    protected void adjustHeight(EntityLiving entityLiving, float height)
     {
         GL11.glTranslatef(0.0F, height, 0.0F);
     }

@@ -24,28 +24,28 @@ public class MoCRenderBunny extends MoCRenderMoC {
     }
 
     @Override
-    public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
-        MoCEntityBunny entitybunny = (MoCEntityBunny) entityliving;
+        MoCEntityBunny entitybunny = (MoCEntityBunny) entityLiving;
         super.doRender(entitybunny, d, d1, d2, f, f1);
     }
 
     @Override
-    protected float handleRotationFloat(EntityLivingBase entityliving, float f)
+    protected float handleRotationFloat(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityBunny entitybunny = (MoCEntityBunny) entityliving;
+        MoCEntityBunny entitybunny = (MoCEntityBunny) entityLiving;
         if (!entitybunny.getIsAdult())
         {
             stretch(entitybunny);
         }
-        return entityliving.ticksExisted + f;
+        return entityLiving.ticksExisted + f;
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        rotBunny((MoCEntityBunny) entityliving);
-        if (entityliving.ridingEntity != null)
+        rotBunny((MoCEntityBunny) entityLiving);
+        if (entityLiving.ridingEntity != null)
         {
             //GL11.glTranslatef(0.0F, 1.3F, 0.0F);
         }

@@ -21,7 +21,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
 
     public static final String fishNames[] = { "Salmon", "Cod", "Bass", "Red Salmon"};
 
-    private int latMovCounter;
+    private int lateralMoveCounter;
     
     public MoCEntityMediumFish(World world)
     {
@@ -50,24 +50,24 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
     @Override
     public boolean checkSpawningBiome()
     {
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
+        BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
         
         
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SWAMP))
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SWAMP))
         {
             setType(3); //bass
             return true;
         }
 
-        int type_chance = rand.nextInt(100);
+        int typeChance = rand.nextInt(100);
         
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.RIVER))
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.RIVER))
         {
-            if (type_chance <= 40)
+            if (typeChance <= 40)
     			{ //red salmon
             		setType(4);
             		setMoCAge(110); //sets as adult on spawn since salmon only go into freshwater in real life when they are adults and ready to breed
@@ -78,9 +78,9 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
             return true;
         }
         
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.OCEAN))
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.OCEAN))
         {
-        	if (type_chance <= 50)
+        	if (typeChance <= 50)
 			{setType(1);} //blue salmon
         
         	else {setType(2);} //cod
@@ -162,10 +162,10 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
             
             if (rand.nextInt(5) == 0 && !getIsTamed())
             {
-                EntityLivingBase entityliving = getScaryEntity(8D);
-                if (entityliving != null && entityliving.isInsideOfMaterial(Material.water))
+                EntityLivingBase entityLiving = getScaryEntity(8D);
+                if (entityLiving != null && entityLiving.isInsideOfMaterial(Material.water))
                 {
-                   MoCTools.runLikeHell(this, entityliving);
+                   MoCTools.runLikeHell(this, entityLiving);
                 }
             }
 
@@ -220,19 +220,19 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
         
         if (rand.nextInt(3) == 0)
         {
-            if (++latMovCounter > 40) latMovCounter = 0;
+            if (++lateralMoveCounter > 40) lateralMoveCounter = 0;
         }
         
-        int latOffset = 0;
-        if (latMovCounter < 21) 
+        int lateralOffset = 0;
+        if (lateralMoveCounter < 21) 
         {
-            latOffset = latMovCounter;
+            lateralOffset = lateralMoveCounter;
         }
         else
         {
-            latOffset = -latMovCounter + 40;
+            lateralOffset = -lateralMoveCounter + 40;
         }
-         return 80 + latOffset;
+         return 80 + lateralOffset;
     }
 
 

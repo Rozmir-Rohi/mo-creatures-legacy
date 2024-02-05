@@ -14,11 +14,11 @@ public class MoCItemHorseSaddle extends MoCItem {
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer entityplayer, EntityLivingBase entityliving)
+    public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer entityPlayer, EntityLivingBase entityLiving)
     {
-        if (entityliving instanceof MoCEntityHorse)
+        if (entityLiving instanceof MoCEntityHorse)
         {
-            MoCEntityHorse entityhorse = (MoCEntityHorse) entityliving;
+            MoCEntityHorse entityhorse = (MoCEntityHorse) entityLiving;
             if (!entityhorse.getIsRideable() && entityhorse.getIsAdult())
             {
                 entityhorse.setRideable(true);

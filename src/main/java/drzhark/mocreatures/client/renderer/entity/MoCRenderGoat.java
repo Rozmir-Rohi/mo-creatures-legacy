@@ -31,17 +31,17 @@ public class MoCRenderGoat extends RenderLiving {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
         GL11.glTranslatef(0.0F, depth, 0.0F);
-        stretch((MoCEntityGoat) entityliving);
+        stretch((MoCEntityGoat) entityLiving);
 
     }
 
     @Override
-    public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
-        MoCEntityGoat entitygoat = (MoCEntityGoat) entityliving;
+        MoCEntityGoat entitygoat = (MoCEntityGoat) entityLiving;
         tempGoat.typeInt = entitygoat.getType();
         tempGoat.entity_age = entitygoat.getMoCAge() * 0.01F;
         tempGoat.bleat = entitygoat.getBleating();
@@ -53,7 +53,7 @@ public class MoCRenderGoat extends RenderLiving {
 
         super.doRender(entitygoat, d, d1, d2, f, f1);
         boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entitygoat.getName()).isEmpty();
-        boolean flag1 = MoCreatures.proxy.getDisplayPetHealth(entityliving);
+        boolean flag1 = MoCreatures.proxy.getDisplayPetHealth(entityLiving);
         //boolean flag2 = MoCreatures.proxy.getdisplayPetIcons();
         if (entitygoat.renderName())
         {

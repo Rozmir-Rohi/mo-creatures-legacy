@@ -19,7 +19,6 @@ public class MoCEntityBee extends MoCEntityInsect
 
 {
     private int soundCount;
-    private boolean upset;
 
     public MoCEntityBee(World world)
     {
@@ -34,9 +33,9 @@ public class MoCEntityBee extends MoCEntityInsect
 
         if (MoCreatures.isServer())
         {
-            EntityPlayer closest_player_nearby = worldObj.getClosestPlayerToEntity(this, 5D);
+            EntityPlayer closestPlayerNearby = worldObj.getClosestPlayerToEntity(this, 5D);
             
-            if (closest_player_nearby != null && getIsFlying() && --soundCount == -1)
+            if (closestPlayerNearby != null && getIsFlying() && --soundCount == -1)
             {
                 MoCTools.playCustomSound(this, getMySound(), this.worldObj);
                 soundCount = 20;
@@ -105,14 +104,14 @@ public class MoCEntityBee extends MoCEntityInsect
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i))
+        if (super.attackEntityFrom(damageSource, damageTaken))
         {
-            Entity entity = damagesource.getEntity();
-            if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
+            if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
             {
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
             }
             return true;
         }
@@ -123,10 +122,10 @@ public class MoCEntityBee extends MoCEntityInsect
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
 
-        if (this.attackTime <= 0 && (f < 2.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        if (this.attackTime <= 0 && (distanceToEntity < 2.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);

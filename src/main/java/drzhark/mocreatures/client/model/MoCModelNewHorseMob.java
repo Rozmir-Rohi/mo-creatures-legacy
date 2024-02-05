@@ -146,7 +146,7 @@ public class MoCModelNewHorseMob extends MoCModelNewHorse {
             }
             else
             {
-                transparency = entityhorse.tFloat();
+                transparency = entityhorse.transparency();
             }
 
             GL11.glPushMatrix();

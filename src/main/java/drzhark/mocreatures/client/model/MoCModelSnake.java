@@ -157,12 +157,12 @@ public class MoCModelSnake extends ModelBase {
         //super.render(entity, f, f1, f2, f3, f4, f5);
         MoCEntitySnake entitysnake = (MoCEntitySnake) entity;
         int typeI = entitysnake.getType();
-        float tongueOff = entitysnake.getfTongue();
-        float mouthOff = entitysnake.getfMouth();
-        float rattleOff = entitysnake.getfRattle();
+        float tongueOff = entitysnake.getTongueState();
+        float mouthOff = entitysnake.getMouthState();
+        float rattleOff = entitysnake.getRattleState();
         boolean climbing = entitysnake.isClimbing();
         boolean isresting = entitysnake.isResting();
-        int movInt = entitysnake.getMovInt();
+        int movInt = entitysnake.getMoveInt();
         float f6 = entitysnake.bodyswing;
         boolean nearplayer = entitysnake.getNearPlayer();
         boolean picked = entitysnake.pickedUp();

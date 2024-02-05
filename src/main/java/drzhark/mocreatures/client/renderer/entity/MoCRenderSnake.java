@@ -25,15 +25,15 @@ public class MoCRenderSnake extends MoCRenderMoC {
         return ((MoCEntitySnake)par1Entity).getTexture();
     }
 
-    protected void adjustHeight(EntityLiving entityliving, float FHeight)
+    protected void adjustHeight(EntityLiving entityLiving, float FHeight)
     {
         GL11.glTranslatef(0.0F, FHeight, 0.0F);
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntitySnake entitysnake = (MoCEntitySnake) entityliving;
+        MoCEntitySnake entitysnake = (MoCEntitySnake) entityLiving;
         stretch(entitysnake);
 
         /*if(mod_mocreatures.mc.isMultiplayerWorld() && (entitysnake.pickedUp()))
@@ -66,7 +66,7 @@ public class MoCRenderSnake extends MoCRenderMoC {
             adjustHeight(entitysnake, -0.25F);
         }
 
-        super.preRenderCallback(entityliving, f);
+        super.preRenderCallback(entityLiving, f);
 
     }
 

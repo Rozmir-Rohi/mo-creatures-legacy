@@ -21,9 +21,9 @@ public class MoCRenderLitterBox extends RenderLiving {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityLitterBox entitylitterbox = (MoCEntityLitterBox) entityliving;
+        MoCEntityLitterBox entitylitterbox = (MoCEntityLitterBox) entityLiving;
         litterbox.usedlitter = entitylitterbox.getUsedLitter();
     }
 

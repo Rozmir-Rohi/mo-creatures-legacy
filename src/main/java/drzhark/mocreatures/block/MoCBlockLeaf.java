@@ -189,16 +189,16 @@ public class MoCBlockLeaf extends BlockLeavesBase
     }
 
     @Override
-    public void harvestBlock(World world, EntityPlayer entityplayer, int i, int j, int k, int l)
+    public void harvestBlock(World world, EntityPlayer entityPlayer, int i, int j, int k, int l)
     {
-        if (!world.isRemote && entityplayer.getCurrentEquippedItem() != null && entityplayer.getCurrentEquippedItem().getItem() == Items.shears)
+        if (!world.isRemote && entityPlayer.getCurrentEquippedItem() != null && entityPlayer.getCurrentEquippedItem().getItem() == Items.shears)
         {
-            entityplayer.addStat(StatList.mineBlockStatArray[Block.getIdFromBlock(this)], 1);
+            entityPlayer.addStat(StatList.mineBlockStatArray[Block.getIdFromBlock(this)], 1);
             dropBlockAsItem(world, i, j, k, new ItemStack(MoCreatures.mocLeaf, 1, l & 3));
         }
         else
         {
-            super.harvestBlock(world, entityplayer, i, j, k, l);
+            super.harvestBlock(world, entityPlayer, i, j, k, l);
         }
     }
 

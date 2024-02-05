@@ -35,15 +35,15 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
     @Override
     public boolean checkSpawningBiome()
     {
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
-        String biome_name = MoCTools.BiomeName(worldObj, x_coordinate, y_coordinate, z_coordinate);
+        BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        String biomeName = MoCTools.BiomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SAVANNA)
-        		|| BiomeDictionary.isBiomeOfType(currentbiome, Type.SANDY))
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SAVANNA)
+        		|| BiomeDictionary.isBiomeOfType(currentBiome, Type.SANDY))
         {
         	return false; //do not spawn in savannah or desert biomes (this is mainly fix spawns when Biomes O' Plenty is used). The code for this continues is MoCEventHooks.java
         }
@@ -78,15 +78,15 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
-        if (super.interact(entityplayer)) { return false; }
+        if (super.interact(entityPlayer)) { return false; }
 
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
 
         if (MoCreatures.isServer() && !getIsTamed() && (itemstack != null) && (isItemstackFoodItem(itemstack)))
         {
-            MoCTools.tameWithName(entityplayer, this);
+            MoCTools.tameWithName(entityPlayer, this);
         }
 
         return true;

@@ -37,11 +37,11 @@ public class MoCMessageHeart implements IMessage, IMessageHandler<MoCMessageHear
     public IMessage onMessage(MoCMessageHeart message, MessageContext ctx)
     {
         List<Entity> entList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
-        for (Entity ent : entList)
+        for (Entity entity : entList)
         {
-            if (ent.getEntityId() == message.entityId && ent instanceof MoCEntityAnimal)
+            if (entity.getEntityId() == message.entityId && entity instanceof MoCEntityAnimal)
             {
-                ((MoCEntityAnimal) ent).SpawnHeart();
+                ((MoCEntityAnimal) entity).SpawnHeart();
                 break;
             }
         }

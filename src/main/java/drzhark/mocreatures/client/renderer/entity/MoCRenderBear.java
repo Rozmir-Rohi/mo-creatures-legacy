@@ -19,11 +19,11 @@ public class MoCRenderBear extends MoCRenderMoC {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityBear entitybear = (MoCEntityBear) entityliving;
+        MoCEntityBear entitybear = (MoCEntityBear) entityLiving;
         stretch(entitybear);
-        super.preRenderCallback(entityliving, f);
+        super.preRenderCallback(entityLiving, f);
 
     }
 

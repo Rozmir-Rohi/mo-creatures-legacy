@@ -42,14 +42,14 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class MoCEntityKitty extends MoCEntityTameableAnimal {
 
-    private int kittytimer;
-    private int madtimer;
-    private boolean foundTree;
+    private int kittyTimer;
+    private int madTimer;
+    private boolean hasFoundTree;
     private final int treeCoord[] = { -1, -1, -1 };
-    private int displaycount;
+    private int displayCount;
 
-    private boolean isSwinging;
-    private boolean onTree;
+    private boolean isSwingingArm;
+    private boolean isOnTree;
 
     public MoCEntityKitty(World world)
     {
@@ -58,10 +58,10 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         setAdult(true);
         setMoCAge(40);
         setKittyState(1);
-        kittytimer = 0;
-        madtimer = rand.nextInt(5);
+        kittyTimer = 0;
+        madTimer = rand.nextInt(5);
 
-        foundTree = false;
+        hasFoundTree = false;
     }
 
     protected void applyEntityAttributes()
@@ -139,12 +139,12 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 
     public boolean getIsSwinging()
     {
-        return isSwinging;
+        return isSwingingArm;
     }
 
     public boolean getOnTree()
     {
-        return onTree;
+        return isOnTree;
     }
 
     public void setKittyState(int i)
@@ -172,28 +172,28 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 
     public void setOnTree(boolean var1)
     {
-        onTree = var1;
+        isOnTree = var1;
     }
 
     public void setSwinging(boolean var1)
     {
-        isSwinging = var1;
+        isSwingingArm = var1;
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
 
-        if ((f > 2.0F) && (f < 6F) && (rand.nextInt(30) == 0) && onGround)
+        if ((distanceToEntity > 2.0F) && (distanceToEntity < 6F) && (rand.nextInt(30) == 0) && onGround)
         {
-            double x_distance = entity.posX - posX;
-            double z_distance = entity.posZ - posZ;
-            float overall_horizontal_distance_squared = MathHelper.sqrt_double((x_distance * x_distance) + (z_distance * z_distance));
-            motionX = ((x_distance / overall_horizontal_distance_squared) * 0.5D * 0.8D) + (motionX * 0.2D);
-            motionZ = ((z_distance / overall_horizontal_distance_squared) * 0.5D * 0.8D) + (motionZ * 0.2D);
+            double xDistance = entity.posX - posX;
+            double zDistance = entity.posZ - posZ;
+            float overallHorizontalDistanceSquared = MathHelper.sqrt_double((xDistance * xDistance) + (zDistance * zDistance));
+            motionX = ((xDistance / overallHorizontalDistanceSquared) * 0.5D * 0.8D) + (motionX * 0.2D);
+            motionZ = ((zDistance / overallHorizontalDistanceSquared) * 0.5D * 0.8D) + (motionZ * 0.2D);
             motionY = 0.4D;
         }
-        if ((f < 2D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        if ((distanceToEntity < 2D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
             if ((getKittyState() != 18) && (getKittyState() != 10))
@@ -207,12 +207,12 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i))
+        if (super.attackEntityFrom(damageSource, damageTaken))
         {
-            Entity entity = damagesource.getEntity();
-            if (entity != this)
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
+            if (entityThatAttackedThisCreature != this)
             {
                 if (getKittyState() == 10)
                 {
@@ -222,23 +222,23 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                         Entity entity1 = (Entity) list.get(j);
                         if ((entity1 instanceof MoCEntityKitty) && (((MoCEntityKitty) entity1).getKittyState() == 21))
                         {
-                            ((MoCEntityKitty) entity1).entityToAttack = entity;
+                            ((MoCEntityKitty) entity1).entityToAttack = entityThatAttackedThisCreature;
                             return true;
                         }
                     }
 
                     return true;
                 }
-                if (entity instanceof EntityPlayer)
+                if (entityThatAttackedThisCreature instanceof EntityPlayer)
                 {
                     if (getKittyState() < 2)
                     {
-                        entityToAttack = entity;
+                        entityToAttack = entityThatAttackedThisCreature;
                         setKittyState(-1);
                     }
                     if ((getKittyState() == 19) || (getKittyState() == 20) || (getKittyState() == 21))
                     {
-                        entityToAttack = entity;
+                        entityToAttack = entityThatAttackedThisCreature;
                         setSitting(false);
                         return true;
                     }
@@ -249,7 +249,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                     }
                     return true;
                 }
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
             }
             return true;
         }
@@ -267,9 +267,9 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             mountEntity(null);
         }
         setSitting(false);
-        kittytimer = 0;
+        kittyTimer = 0;
         setOnTree(false);
-        foundTree = false;
+        hasFoundTree = false;
         entityToAttack = null;
     }
 
@@ -288,8 +288,8 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     {
         if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getKittyState() != 8) && (getKittyState() != 10) && (getKittyState() != 15) && (getKittyState() != 18) && (getKittyState() != 19) && !isMovementCeased() && getIsHungry())
         {
-            EntityLivingBase entityliving = getClosestEntityLiving(this, 10D);
-            return entityliving;
+            EntityLivingBase entityLiving = getClosestEntityLiving(this, 10D);
+            return entityLiving;
         }
         else
         {
@@ -316,7 +316,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     public EntityLiving getClosestEntityLiving(Entity entity, double d)
     {
         double d1 = -1D;
-        EntityLiving entityliving = null;
+        EntityLiving entityLiving = null;
         List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
         for (int i = 0; i < list.size(); i++)
         {
@@ -341,9 +341,9 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                 int y = MathHelper.floor_double(entity1.posY);
                 int z = MathHelper.floor_double(entity1.posZ);
 
-                BiomeGenBase biome_that_prey_is_in = MoCTools.Biomekind(worldObj, x, y, z);
+                BiomeGenBase biomeThatPreyIsIn = MoCTools.Biomekind(worldObj, x, y, z);
 
-                if (BiomeDictionary.isBiomeOfType(biome_that_prey_is_in, Type.OCEAN) || BiomeDictionary.isBiomeOfType(biome_that_prey_is_in, Type.BEACH)) // stops kitty from going into the ocean to hunt fish
+                if (BiomeDictionary.isBiomeOfType(biomeThatPreyIsIn, Type.OCEAN) || BiomeDictionary.isBiomeOfType(biomeThatPreyIsIn, Type.BEACH)) // stops kitty from going into the ocean to hunt fish
                 {
                 	{
                         continue;
@@ -355,11 +355,11 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLiving) entity1).canEntityBeSeen(entity))
             {
                 d1 = d2;
-                entityliving = (EntityLiving) entity1;
+                entityLiving = (EntityLiving) entity1;
             }
         }
 
-        return entityliving;
+        return entityLiving;
     }
 
     @Override
@@ -552,23 +552,23 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
-        if (super.interact(entityplayer)) { return false; }
+        if (super.interact(entityPlayer)) { return false; }
         //Ownership code
-        //if (MoCreatures.proxy.enableStrictOwnership && getOwnerName() != null && !getOwnerName().equals("") && !entityplayer.getCommandSenderName().equals(getOwnerName())) { return true; }
+        //if (MoCreatures.proxy.enableStrictOwnership && getOwnerName() != null && !getOwnerName().equals("") && !entityPlayer.getCommandSenderName().equals(getOwnerName())) { return true; }
 
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         if ((getKittyState() == 2) && (itemstack != null) && (itemstack.getItem() == MoCreatures.medallion))
         {
             if (MoCreatures.isServer())
             {
-                MoCTools.tameWithName(entityplayer, this);
-                entityplayer.addStat(MoCAchievements.tame_kitty, 1);
+                MoCTools.tameWithName(entityPlayer, this);
+                entityPlayer.addStat(MoCAchievements.tame_kitty, 1);
             }
             if (getIsTamed() && --itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             if (getIsTamed())
             {
@@ -577,11 +577,17 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             }
             return false;
         }
-        if ((getKittyState() == 7) && (itemstack != null) && ((itemstack.getItem() == Items.cake) || (itemstack.getItem() == Items.fish) || (itemstack.getItem() == Items.cooked_fished)))
+        if ((getKittyState() == 7) && (itemstack != null) && 
+        		(
+        			itemstack.getItem() == Items.cake
+        			|| itemstack.getItem() == Items.fish
+        			|| itemstack.getItem() == Items.cooked_fished
+        		)
+        	)
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             worldObj.playSoundAtEntity(this, "mocreatures:kittyeatingf", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             heal(8);
@@ -592,24 +598,29 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             setKittyState(8);
-            EntityItem entityitem = new EntityItem(worldObj, posX, posY + 1.0D, posZ, new ItemStack(MoCreatures.woolball, 1));
-            entityitem.delayBeforeCanPickup = 30;
-            entityitem.age = -10000;
-            worldObj.spawnEntityInWorld(entityitem);
-            entityitem.motionY += worldObj.rand.nextFloat() * 0.05F;
-            entityitem.motionX += (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.3F;
-            entityitem.motionZ += (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.3F;
-            entityToAttack = entityitem;
+            EntityItem entityItem = new EntityItem(worldObj, posX, posY + 1.0D, posZ, new ItemStack(MoCreatures.woolball, 1));
+            entityItem.delayBeforeCanPickup = 30;
+            entityItem.age = -10000;
+            worldObj.spawnEntityInWorld(entityItem);
+            entityItem.motionY += worldObj.rand.nextFloat() * 0.05F;
+            entityItem.motionX += (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.3F;
+            entityItem.motionZ += (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.3F;
+            entityToAttack = entityItem;
             return true;
         }
-        if ((getKittyState() == 13) && (itemstack != null) && ((itemstack.getItem() == Items.fish) || (itemstack.getItem() == Items.cooked_fished)))
+        if ((getKittyState() == 13) && (itemstack != null) && 
+        		(
+        			itemstack.getItem() == Items.fish
+        			|| itemstack.getItem() == Items.cooked_fished
+        		)
+        	)
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             worldObj.playSoundAtEntity(this, "mocreatures:kittyeatingf", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             heal(5);
@@ -620,17 +631,17 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         {
             if (MoCreatures.isServer())
             {
-                MoCTools.tameWithName((EntityPlayerMP) entityplayer, this);
+                MoCTools.tameWithName((EntityPlayerMP) entityPlayer, this);
             }
 
             return true;
         }
-        if ((itemstack != null) && (getKittyState() > 2) && pickable() && (itemstack.getItem() == Items.lead) && (entityplayer.ridingEntity == null))
+        if ((itemstack != null) && (getKittyState() > 2) && pickable() && (itemstack.getItem() == Items.lead) && (entityPlayer.ridingEntity == null))
         {
             changeKittyStateTo(14);
             if (MoCreatures.isServer())
             {
-                mountEntity(entityplayer);
+                mountEntity(entityPlayer);
             }
             return true;
         }
@@ -644,12 +655,12 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             ridingEntity = null;
             return true;
         }
-        if ((itemstack == null) && (getKittyState() > 2) && pickable() && (entityplayer.ridingEntity == null))
+        if ((itemstack == null) && (getKittyState() > 2) && pickable() && (entityPlayer.ridingEntity == null))
         {
             changeKittyStateTo(15);
             if (MoCreatures.isServer())
             {
-                mountEntity(entityplayer);
+                mountEntity(entityPlayer);
             }
             return true;
         }
@@ -716,22 +727,22 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             
             if (this.getIsTamed() && isNight() && (this.ridingEntity == null) && !getIsSitting()) //find kittybed to sleep in else sleep on the spot
             {
-            	MoCEntityKittyBed entitykittybed = (MoCEntityKittyBed) getKittyStuff(this, 18D, false);
+            	MoCEntityKittyBed entityKittyBed = (MoCEntityKittyBed) getKittyStuff(this, 18D, false);
             	
-                if ((entitykittybed != null) && (entitykittybed.riddenByEntity == null))
+                if ((entityKittyBed != null) && (entityKittyBed.riddenByEntity == null))
                 {
-                	float distance_to_kittybed = entitykittybed.getDistanceToEntity(this);
-                    if (distance_to_kittybed > 2.0F)
+                	float distanceToKittybed = entityKittyBed.getDistanceToEntity(this);
+                    if (distanceToKittybed > 2.0F)
                     {
-                        getMyOwnPath(entitykittybed, distance_to_kittybed);
+                        getMyOwnPath(entityKittyBed, distanceToKittybed);
                     }
-                    if (distance_to_kittybed < 2.0F) //sleep in kittybed
+                    if (distanceToKittybed < 2.0F) //sleep in kittybed
                     {
-                        mountEntity(entitykittybed);
+                        mountEntity(entityKittyBed);
                         setKittyState(12);
                     }
                 }
-                if (entitykittybed == null)
+                if (entityKittyBed == null)
                 {	if ((rand.nextInt(500) == 0)) //sleep on the spot
                     {
                 		setKittyState(12); 
@@ -760,10 +771,10 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	            case 1: // '\001'
 	                if (rand.nextInt(10) == 0)
 	                {
-	                    EntityLivingBase entityliving = getScaryEntity(6D);
-	                    if (entityliving != null)
+	                    EntityLivingBase entityLiving = getScaryEntity(6D);
+	                    if (entityLiving != null)
 	                    {
-	                        MoCTools.runLikeHell(this, entityliving);
+	                        MoCTools.runLikeHell(this, entityLiving);
 	                    }
 	                    break;
 	                }
@@ -773,23 +784,23 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                    break;
 	                }
 	                
-	                EntityItem entityitem = getClosestItem(this, 10D, Items.cooked_fished, Items.cooked_fished);
+	                EntityItem entityItem = getClosestItem(this, 10D, Items.cooked_fished, Items.cooked_fished);
 	               
-	                if (entityitem == null)
+	                if (entityItem == null)
 	                {
 	                    break;
 	                }
 	                
-	                float f = entityitem.getDistanceToEntity(this);
+	                float f = entityItem.getDistanceToEntity(this);
 	                
 	                if (f > 2.0F)
 	                {
-	                    getMyOwnPath(entityitem, f);
+	                    getMyOwnPath(entityItem, f);
 	                }
 	                
-	                if ((f < 2.0F) && (entityitem != null) && (deathTime == 0))
+	                if ((f < 2.0F) && (entityItem != null) && (deathTime == 0))
 	                {
-	                    entityitem.setDead();
+	                    entityItem.setDead();
 	                    worldObj.playSoundAtEntity(this, "mocreatures:kittyeatingf", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
 	                    setHungry(false);
 	                    setKittyState(2);
@@ -799,19 +810,19 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                
 	                
 	            case 2: // '\002'
-	                EntityLivingBase entityliving1 = getScaryEntity(6D);
+	                EntityLivingBase entityLiving1 = getScaryEntity(6D);
 	                
-	                if (entityliving1 != null)
+	                if (entityLiving1 != null)
 	                {
-	                    MoCTools.runLikeHell(this, entityliving1);
+	                    MoCTools.runLikeHell(this, entityLiving1);
 	                }
 	                break;
 	
 	                
 	                
 	            case 3: // '\003'
-	                kittytimer++;
-	                if (kittytimer > 500)
+	                kittyTimer++;
+	                if (kittyTimer > 500)
 	                {
 	                    if (rand.nextInt(200) == 0)
 	                    {
@@ -882,8 +893,8 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                
 	                
 	            case 5: // '\005'
-	                kittytimer++;
-	                if ((kittytimer > 2000) && (rand.nextInt(1000) == 0))
+	                kittyTimer++;
+	                if ((kittyTimer > 2000) && (rand.nextInt(1000) == 0))
 	                {
 	                    changeKittyStateTo(13);
 	                    break;
@@ -920,8 +931,8 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                
 	                
 	            case 6: // '\006'
-	                kittytimer++;
-	                if (kittytimer <= 300)
+	                kittyTimer++;
+	                if (kittyTimer <= 300)
 	                {
 	                    break;
 	                }
@@ -931,7 +942,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                if (entitylitterbox1 != null)
 	                {
 	                    entitylitterbox1.setUsedLitter(true);
-	                    entitylitterbox1.littertime = 0;
+	                    entitylitterbox1.litterTime = 0;
 	                }
 	                
 	                changeKittyStateTo(7);
@@ -947,10 +958,10 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                
 	                if (rand.nextInt(20) == 0)
 	                {
-	                    EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 12D);
-	                    if (entityplayer != null)
+	                    EntityPlayer entityPlayer = worldObj.getClosestPlayerToEntity(this, 12D);
+	                    if (entityPlayer != null)
 	                    {
-	                        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+	                        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
 	                        if ((itemstack != null) && (itemstack.getItem() == MoCreatures.woolball))
 	                        {
 	                            changeKittyStateTo(11);
@@ -1002,7 +1013,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                        {
 	                            //float force = 0.3F;
 	                            //if (type == 10) force = 0.2F;
-	                            MoCTools.bigsmack(this, entityToAttack, 0.3F);
+	                            MoCTools.pushEntityBack(this, entityToAttack, 0.3F);
 	                            //kittySmack(this, entityToAttack);
 	                        }
 	                    }
@@ -1017,7 +1028,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                
 	                
 	            case 9: // looking for mate
-	                kittytimer++;
+	                kittyTimer++;
 	                if (rand.nextInt(50) == 0)
 	                {
 	                    List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(16D, 6D, 16D));
@@ -1041,7 +1052,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                    } while (true);
 	                }
 	                
-	                if (kittytimer > 2000)
+	                if (kittyTimer > 2000)
 	                {
 	                    changeKittyStateTo(7);
 	                }
@@ -1101,7 +1112,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                        swingArm();
 	                        if (rand.nextInt(10) == 0)
 	                        {
-	                            MoCTools.bigsmack(this, entityToAttack, 0.2F);
+	                            MoCTools.pushEntityBack(this, entityToAttack, 0.2F);
 	                            //kittySmack(this, entityToAttack);
 	                        }
 	                    }
@@ -1133,14 +1144,14 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                
 	                
 	            case 11: // '\013'
-	                EntityPlayer entityplayer1 = worldObj.getClosestPlayerToEntity(this, 18D);
+	                EntityPlayer entityPlayer1 = worldObj.getClosestPlayerToEntity(this, 18D);
 	                
-	                if ((entityplayer1 == null) || (rand.nextInt(10) != 0))
+	                if ((entityPlayer1 == null) || (rand.nextInt(10) != 0))
 	                {
 	                    break;
 	                }
 	                
-	                ItemStack itemstack1 = entityplayer1.inventory.getCurrentItem();
+	                ItemStack itemstack1 = entityPlayer1.inventory.getCurrentItem();
 	                
 	                if ((itemstack1 == null) || ((itemstack1 != null) && (itemstack1.getItem() != MoCreatures.woolball)))
 	                {
@@ -1148,11 +1159,11 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                    break;
 	                }
 	                
-	                float f8 = entityplayer1.getDistanceToEntity(this);
+	                float f8 = entityPlayer1.getDistanceToEntity(this);
 	                
 	                if (f8 > 5F)
 	                {
-	                    getPathOrWalkableBlock(entityplayer1, f8);
+	                    getPathOrWalkableBlock(entityPlayer1, f8);
 	                }
 	                break;
 	
@@ -1160,9 +1171,9 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                
 	            case 12: // '\f'
 	                
-	            	kittytimer++;
+	            	kittyTimer++;
 	            	
-	                if (worldObj.isDaytime() || ((kittytimer > 500) && (rand.nextInt(500) == 0)))
+	                if (worldObj.isDaytime() || ((kittyTimer > 500) && (rand.nextInt(500) == 0)))
 	                {
 	                    changeKittyStateTo(7);
 	                    break;
@@ -1189,12 +1200,12 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                        swingArm();
 	                        if (rand.nextInt(20) == 0)
 	                        {
-	                            madtimer--;
+	                            madTimer--;
 	                            entityToAttack.attackEntityFrom(DamageSource.causeMobDamage(this), 1);
-	                            if (madtimer < 1)
+	                            if (madTimer < 1)
 	                            {
 	                                changeKittyStateTo(7);
-	                                madtimer = rand.nextInt(5);
+	                                madTimer = rand.nextInt(5);
 	                            }
 	                        }
 	                    }
@@ -1231,15 +1242,15 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                
 	                rotationYaw = ridingEntity.rotationYaw + 90F;
 	                
-	                EntityPlayer entityplayer2 = (EntityPlayer) ridingEntity;
+	                EntityPlayer entityPlayer2 = (EntityPlayer) ridingEntity;
 	                
-	                if (entityplayer2 == null)
+	                if (entityPlayer2 == null)
 	                {
 	                    changeKittyStateTo(13);
 	                    break;
 	                }
 	                
-	                ItemStack itemstack2 = entityplayer2.inventory.getCurrentItem();
+	                ItemStack itemstack2 = entityPlayer2.inventory.getCurrentItem();
 	                
 	                if (itemstack2 == null || ((itemstack2 != null) && (itemstack2.getItem() != Items.lead)))
 	                {
@@ -1264,14 +1275,14 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                
 	                
 	            case 16: // '\020'
-	                kittytimer++;
-	                if ((kittytimer > 500) && !getOnTree())
+	                kittyTimer++;
+	                if ((kittyTimer > 500) && !getOnTree())
 	                {
 	                    changeKittyStateTo(7);
 	                }
 	                if (!getOnTree())
 	                {
-	                    if (!foundTree && (rand.nextInt(50) == 0))
+	                    if (!hasFoundTree && (rand.nextInt(50) == 0))
 	                    {
 	                        int ai[] = MoCTools.ReturnNearestMaterialCoord(this, Material.wood, Double.valueOf(18D), 4D);
 	                        if (ai[0] != -1)
@@ -1286,7 +1297,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                                Block block = worldObj.getBlock(ai[0], ai[1] + i1, ai[2]);
 	                                if ((block.getMaterial() == Material.leaves))
 	                                {
-	                                    foundTree = true;
+	                                    hasFoundTree = true;
 	                                    treeCoord[0] = ai[0];
 	                                    treeCoord[1] = ai[1];
 	                                    treeCoord[2] = ai[2];
@@ -1297,16 +1308,16 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                        }
 	                    }
 	                    
-	                    if (!foundTree || (rand.nextInt(10) != 0))
+	                    if (!hasFoundTree || (rand.nextInt(10) != 0))
 	                    {
 	                        break;
 	                    }
 	                    
-	                    PathEntity pathentity = worldObj.getEntityPathToXYZ(this, treeCoord[0], treeCoord[1], treeCoord[2], 24F, true, false, false, true);
+	                    PathEntity pathEntity = worldObj.getEntityPathToXYZ(this, treeCoord[0], treeCoord[1], treeCoord[2], 24F, true, false, false, true);
 	
-	                    if (pathentity != null)
+	                    if (pathEntity != null)
 	                    {
-	                        setPathToEntity(pathentity);
+	                        setPathToEntity(pathEntity);
 	                    }
 	                    
 	                    Double double1 = Double.valueOf(getDistanceSq(treeCoord[0], treeCoord[1], treeCoord[2]));
@@ -1323,12 +1334,12 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                    break;
 	                }
 	                
-	                int l = treeCoord[0];
-	                int j1 = treeCoord[1];
-	                int l1 = treeCoord[2];
-	                faceItem(l, j1, l1, 30F);
+	                int treeCoordX = treeCoord[0];
+	                int treeCoordY = treeCoord[1];
+	                int treeCoordZ = treeCoord[2];
+	                faceItem(treeCoordX, treeCoordY, treeCoordZ, 30F);
 	                
-	                if ((j1 - MathHelper.floor_double(posY)) > 2)
+	                if ((treeCoordY - MathHelper.floor_double(posY)) > 2)
 	                {
 	                    motionY += 0.029999999999999999D;
 	                }
@@ -1336,24 +1347,24 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                boolean flag = false;
 	                boolean flag1 = false;
 	                
-	                if (posX < l)
+	                if (posX < treeCoordX)
 	                {
-	                    int j2 = l - MathHelper.floor_double(posX);
+	                    int j2 = treeCoordX - MathHelper.floor_double(posX);
 	                    motionX += 0.01D;
 	                }
 	                else
 	                {
-	                    int k2 = MathHelper.floor_double(posX) - l;
+	                    int k2 = MathHelper.floor_double(posX) - treeCoordX;
 	                    motionX -= 0.01D;
 	                }
-	                if (posZ < l1)
+	                if (posZ < treeCoordZ)
 	                {
-	                    int j3 = l1 - MathHelper.floor_double(posZ);
+	                    int j3 = treeCoordZ - MathHelper.floor_double(posZ);
 	                    motionZ += 0.01D;
 	                }
 	                else
 	                {
-	                    int k3 = MathHelper.floor_double(posX) - l1;
+	                    int k3 = MathHelper.floor_double(posX) - treeCoordZ;
 	                    motionZ -= 0.01D;
 	                }
 	                if (onGround || !isCollidedHorizontally || !isCollidedVertically)
@@ -1383,8 +1394,8 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                
 	                
 	            case 17: // '\021'
-	                EntityPlayer entityplayer3 = worldObj.getClosestPlayerToEntity(this, 2D);
-	                if (entityplayer3 != null)
+	                EntityPlayer entityPlayer3 = worldObj.getClosestPlayerToEntity(this, 2D);
+	                if (entityPlayer3 != null)
 	                {
 	                    changeKittyStateTo(7);
 	                }
@@ -1410,9 +1421,9 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                    float f10 = getDistanceToEntity(entitykitty);
 	                    if (f10 < 5F)
 	                    {
-	                        kittytimer++;
+	                        kittyTimer++;
 	                    }
-	                    if ((kittytimer > 500) && (rand.nextInt(50) == 0))
+	                    if ((kittyTimer > 500) && (rand.nextInt(50) == 0))
 	                    {
 	                        ((MoCEntityKitty) entityToAttack).changeKittyStateTo(7);
 	                        changeKittyStateTo(19);
@@ -1464,9 +1475,9 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                }
 	                
 	                rotationYaw = 180F;
-	                kittytimer++;
+	                kittyTimer++;
 	                
-	                if (kittytimer <= 1000)
+	                if (kittyTimer <= 1000)
 	                {
 	                    break;
 	                }
@@ -1496,9 +1507,9 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                
 	                
 	            case 21: // '\025'
-	                kittytimer++;
+	                kittyTimer++;
 	                
-	                if (kittytimer > 2000)
+	                if (kittyTimer > 2000)
 	                {
 	                    List list2 = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(24D, 8D, 24D));
 	                    int i3 = 0;
@@ -1516,7 +1527,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                        changeKittyStateTo(7);
 	                        break;
 	                    }
-	                    kittytimer = 1000;
+	                    kittyTimer = 1000;
 	                }
 	                
 	                if ((entityToAttack != null) && (entityToAttack instanceof EntityPlayer) && (rand.nextInt(300) == 0))
@@ -1622,21 +1633,21 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
-        setSitting(nbttagcompound.getBoolean("Sitting"));
-        setKittyState(nbttagcompound.getInteger("KittyState"));
-        setDisplayName(nbttagcompound.getBoolean("DisplayName"));
+        super.readEntityFromNBT(nbtTagCompound);
+        setSitting(nbtTagCompound.getBoolean("Sitting"));
+        setKittyState(nbtTagCompound.getInteger("KittyState"));
+        setDisplayName(nbtTagCompound.getBoolean("DisplayName"));
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setBoolean("Sitting", getIsSitting());
-        nbttagcompound.setInteger("KittyState", getKittyState());
-        nbttagcompound.setBoolean("DisplayName", getDisplayName());
+        super.writeEntityToNBT(nbtTagCompound);
+        nbtTagCompound.setBoolean("Sitting", getIsSitting());
+        nbtTagCompound.setInteger("KittyState", getKittyState());
+        nbtTagCompound.setBoolean("DisplayName", getDisplayName());
     }
 
     @Override
@@ -1654,7 +1665,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     
     //drops medallion on death
     @Override
-    public void onDeath(DamageSource damagesource)
+    public void onDeath(DamageSource damageSource)
     {
         if (MoCreatures.isServer())
         {
@@ -1663,7 +1674,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                 MoCTools.dropCustomItem(this, this.worldObj, new ItemStack(MoCreatures.medallion, 1));
             }
         }
-        super.onDeath(damagesource);
+        super.onDeath(damageSource);
     }
     
     private boolean isNight()
@@ -1672,7 +1683,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean swimmerEntity()
+    public boolean isSwimmerEntity()
     {
         return true;
     }

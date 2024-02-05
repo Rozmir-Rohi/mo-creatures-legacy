@@ -105,10 +105,10 @@ public class MoCEntityInsect extends MoCEntityAmbient {
                 int ai[] = MoCTools.ReturnNearestBlockCoord(this, Blocks.torch, 8D);
                 if (ai[0] > -1000)
                 {
-                    PathEntity pathentity = worldObj.getEntityPathToXYZ(this,ai[0], ai[1], ai[2], 24F, true, false, false, true);
-                    if (pathentity != null)
+                    PathEntity pathEntity = worldObj.getEntityPathToXYZ(this,ai[0], ai[1], ai[2], 24F, true, false, false, true);
+                    if (pathEntity != null)
                     {
-                        this.setPathToEntity(pathentity);
+                        this.setPathToEntity(pathEntity);
                     }
                 }
             }

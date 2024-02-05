@@ -47,9 +47,9 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if (attackTime <= 0 && (f < 2.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        if (attackTime <= 0 && (distanceToEntity < 2.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
@@ -57,21 +57,21 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i))
+        if (super.attackEntityFrom(damageSource, damageTaken))
         {
-            Entity entity = damagesource.getEntity();
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
             
-            if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName()))))
+            if (entityThatAttackedThisCreature != null && getIsTamed() && (entityThatAttackedThisCreature instanceof EntityPlayer && (entityThatAttackedThisCreature.getCommandSenderName().equals(getOwnerName()))))
             { 
             	return false; 
             }
             
-            if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
-            if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
+            if ((riddenByEntity == entityThatAttackedThisCreature) || (ridingEntity == entityThatAttackedThisCreature)) { return true; }
+            if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
             {
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
             }
             return true;
         }
@@ -82,20 +82,20 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
-        if (super.interact(entityplayer)) { return false; }
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        if (super.interact(entityPlayer)) { return false; }
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         if ((itemstack != null) && isItemEdible(itemstack.getItem()))
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
 
             if (MoCreatures.isServer() && !getIsTamed())
             {
-                MoCTools.tameWithName(entityplayer, this);
+                MoCTools.tameWithName(entityPlayer, this);
             }
             
             heal(5);
@@ -111,11 +111,11 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     }
     
     @Override
-    public boolean entitiesToIgnoreWhenHunting(Entity entity)
+    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
     {
         return 
         		(
-        			super.entitiesToIgnoreWhenHunting(entity) //including the mobs specified in parent file
+        			super.entitiesToIgnoreWhenLookingForAnEntityToAttack(entity) //including the mobs specified in parent file
                     || entity instanceof MoCEntityRaccoon
                     || entity instanceof MoCEntityFox
                     || !getIsAdult() 
@@ -129,8 +129,8 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     {
         if ((rand.nextInt(80) == 0) && (worldObj.difficultySetting.getDifficultyId() > 0))
         {
-            EntityLivingBase entityliving = getClosestEntityLiving(this, 8D);
-            return entityliving;
+            EntityLivingBase entityLiving = getClosestEntityLiving(this, 8D);
+            return entityLiving;
         }
         else
         {

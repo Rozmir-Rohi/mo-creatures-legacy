@@ -58,14 +58,15 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if ((f < 3.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY) && (getMoCAge() >= 100))
+        if ((distanceToEntity < 3.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY) && (getMoCAge() >= 100))
         {
             if (entity instanceof EntityPlayer && ((EntityPlayer)entity).ridingEntity != null)
             {
-                Entity entity_that_player_is_riding = ((EntityPlayer)entity).ridingEntity;
-                if (entity_that_player_is_riding instanceof EntityBoat) 
+                Entity entityThatPlayerIsRiding = ((EntityPlayer)entity).ridingEntity;
+                
+                if (entityThatPlayerIsRiding instanceof EntityBoat) 
                 {
                     return;
                 }
@@ -76,20 +77,20 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i) && (worldObj.difficultySetting.getDifficultyId() > 0))
+        if (super.attackEntityFrom(damageSource, damageTaken) && (worldObj.difficultySetting.getDifficultyId() > 0))
         {
-            Entity entity = damagesource.getEntity();
-            if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
+            if ((riddenByEntity == entityThatAttackedThisCreature) || (ridingEntity == entityThatAttackedThisCreature)) { return true; }
             
-            if (entity != this
+            if (entityThatAttackedThisCreature != this
             	&& !( //don't attack back if the attacking mob is one of the following mobs below
-            			entity instanceof EntityMob   //this also stops sharks from fighting Guardians from the Village Names mod
+            			entityThatAttackedThisCreature instanceof EntityMob   //this also stops sharks from fighting Guardians from the Village Names mod
                     )
             	)   
             {
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
                 return true;
             }
             return false;
@@ -103,20 +104,20 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     @Override
     protected void dropFewItems(boolean flag, int x)
     {
-        int drop_chance = rand.nextInt(100);
-        if (drop_chance < 90)
+        int dropChance = rand.nextInt(100);
+        if (dropChance < 90)
         {
-            int amount_of_teeth_to_drop = rand.nextInt(3) + 1;
+            int amountOfTeethToDrop = rand.nextInt(3) + 1;
             
-            for (int index = 0; index < amount_of_teeth_to_drop; index++)
+            for (int index = 0; index < amountOfTeethToDrop; index++)
             {
                 entityDropItem(new ItemStack(MoCreatures.sharkteeth, 1, 0), 0.0F);
             }
         }
-        else if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getMoCAge() > 150) && drop_chance < 40)
+        else if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getMoCAge() > 150) && dropChance < 40)
         {
-            int amount_of_eggs_to_drop = rand.nextInt(3);
-            for (int index1 = 0; index1 < amount_of_eggs_to_drop; index1++)
+            int amountOfEggsToDrop = rand.nextInt(3);
+            for (int index1 = 0; index1 < amountOfEggsToDrop; index1++)
             {
                 entityDropItem(new ItemStack(MoCreatures.mocegg, 1, 11), 0.0F);
             }
@@ -128,13 +129,13 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     {
         if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getMoCAge() >= 100))
         {
-            EntityPlayer closest_entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
-            if ((closest_entityplayer != null) && closest_entityplayer.isInWater() && !getIsTamed()) { return closest_entityplayer; }
+            EntityPlayer closestEntityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
+            if ((closestEntityPlayer != null) && closestEntityPlayer.isInWater() && !getIsTamed()) { return closestEntityPlayer; }
             
             if (rand.nextInt(200) == 0)  // hunting cooldown between each prey
             {
-                EntityLivingBase entityliving = getClosestEntityLivingThatCanBeHunted(this, 16D);
-                if ((entityliving != null) && !(entityliving instanceof EntityPlayer)) { return entityliving; }
+                EntityLivingBase entityLiving = getClosestEntityLivingThatCanBeHunted(this, 16D);
+                if ((entityLiving != null) && !(entityLiving instanceof EntityPlayer)) { return entityLiving; }
             }
         }
         
@@ -142,15 +143,15 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
         {
 	        if (this.getIsTamed()) //defend owner if they are attacked by an entity
 	    	{
-	    		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
 	    		
-	    		if (owner_of_entity_that_is_online != null)
+	    		if (ownerOfEntityThatIsOnline != null)
 	    		{
-	    			EntityLivingBase entity_that_attacked_owner = owner_of_entity_that_is_online.getAITarget();
+	    			EntityLivingBase entityThatAttackedOwner = ownerOfEntityThatIsOnline.getAITarget();
 	    			
-	    			if (entity_that_attacked_owner != null)
+	    			if (entityThatAttackedOwner != null)
 	    			{
-	    				return entity_that_attacked_owner;
+	    				return entityThatAttackedOwner;
 	    			}
 	    		}
 	    	}
@@ -160,43 +161,43 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
 
     public EntityLivingBase getClosestEntityLivingThatCanBeHunted(Entity entity, double distance)
     {
-        double current_minimum_distance = -1D;
-        EntityLivingBase entityliving = null;
-        List entities_nearby_list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
+        double currentMinimumDistance = -1D;
+        EntityLivingBase entityLiving = null;
+        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
         
-        int iteration_length = entities_nearby_list.size();
+        int iterationLength = entitiesNearbyList.size();
         
-        if (iteration_length > 0)
+        if (iterationLength > 0)
         {
-	        for (int index = 0; index < iteration_length; index++)
+	        for (int index = 0; index < iterationLength; index++)
 	        {
-	            Entity entity_nearby = (Entity) entities_nearby_list.get(index);
+	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
 	            
-	            if (!(entity_nearby instanceof EntityLivingBase)
-	            		|| (!((entity_nearby instanceof MoCEntityAquatic) || (entity_nearby instanceof MoCEntityTameableAquatic)) && !(entity_nearby.isInWater()) // don't attack if mob is not aquatic and not in water
-	                    || (entity_nearby instanceof MoCEntityShark) // don't attack mobs below as well
-	                    || (entity_nearby == entity.riddenByEntity) 
-	                    || (entity_nearby == entity.ridingEntity)
-	                    || (entity_nearby instanceof IMob || entity_nearby instanceof EntityMob || entity_nearby instanceof MoCEntityMob) // don't attack if creature is a mob (eg: slime)
-	                    || (entity_nearby instanceof MoCEntityDolphin || entity_nearby instanceof MoCEntityJellyFish)
-	                    || (getIsTamed() && (entity_nearby instanceof IMoCEntity) && ((IMoCEntity)entity_nearby).getIsTamed() ) 
-	                    || ((entity_nearby instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)) 
-	                    || ((entity_nearby instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)))
+	            if (!(entityNearby instanceof EntityLivingBase)
+	            		|| (!((entityNearby instanceof MoCEntityAquatic) || (entityNearby instanceof MoCEntityTameableAquatic)) && !(entityNearby.isInWater()) // don't attack if mob is not aquatic and not in water
+	                    || (entityNearby instanceof MoCEntityShark) // don't attack mobs below as well
+	                    || (entityNearby == entity.riddenByEntity) 
+	                    || (entityNearby == entity.ridingEntity)
+	                    || (entityNearby instanceof IMob || entityNearby instanceof EntityMob || entityNearby instanceof MoCEntityMob) // don't attack if creature is a mob (eg: slime)
+	                    || (entityNearby instanceof MoCEntityDolphin || entityNearby instanceof MoCEntityJellyFish)
+	                    || (getIsTamed() && (entityNearby instanceof IMoCEntity) && ((IMoCEntity)entityNearby).getIsTamed() ) 
+	                    || ((entityNearby instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)) 
+	                    || ((entityNearby instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)))
 	            	)
 	            	
 	            	{ continue;}
 	            
-	            double overall_distance_squared = entity_nearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+	            double overallDistanceSquared = entityNearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
 	            
-	            if (((distance < 0.0D) || (overall_distance_squared < (distance * distance))) && ((current_minimum_distance == -1D) || (overall_distance_squared < current_minimum_distance)) && ((EntityLivingBase) entity_nearby).canEntityBeSeen(entity))
+	            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)) && ((EntityLivingBase) entityNearby).canEntityBeSeen(entity))
 	            {
-	                current_minimum_distance = overall_distance_squared;
-	                entityliving = (EntityLivingBase) entity_nearby;
+	                currentMinimumDistance = overallDistanceSquared;
+	                entityLiving = (EntityLivingBase) entityNearby;
 	            }
 	        }
         }
         
-        return entityliving;
+        return entityLiving;
     }
 
     @Override
@@ -237,15 +238,15 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
+        super.readEntityFromNBT(nbtTagCompound);
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
+        super.writeEntityToNBT(nbtTagCompound);
     }
 
     @Override

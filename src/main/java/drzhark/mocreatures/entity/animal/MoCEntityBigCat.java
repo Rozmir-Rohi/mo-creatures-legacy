@@ -352,24 +352,24 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if (attackTime <= 0 && (f > 2.0F) && (f < 6F) && (rand.nextInt(50) == 0))
+        if (attackTime <= 0 && (distanceToEntity > 2.0F) && (distanceToEntity < 6F) && (rand.nextInt(50) == 0))
         {
             if (onGround)
             {
-                double x_distance = entity.posX - posX;
-                double z_distance = entity.posZ - posZ;
-                float overall_horizontal_distance_squared = MathHelper.sqrt_double((x_distance * x_distance) + (z_distance * z_distance));
-                motionX = ((x_distance / overall_horizontal_distance_squared) * 0.5D * 0.8D) + (motionX * 0.2D);
-                motionZ = ((z_distance / overall_horizontal_distance_squared) * 0.5D * 0.8D) + (motionZ * 0.2D);
+                double xDistance = entity.posX - posX;
+                double zDistance = entity.posZ - posZ;
+                float overallHorizontalDistanceSquared = MathHelper.sqrt_double((xDistance * xDistance) + (zDistance * zDistance));
+                motionX = ((xDistance / overallHorizontalDistanceSquared) * 0.5D * 0.8D) + (motionX * 0.2D);
+                motionZ = ((zDistance / overallHorizontalDistanceSquared) * 0.5D * 0.8D) + (motionZ * 0.2D);
                 motionY = 0.4D;
             }
             return;
 
         }
 
-        if (this.attackTime <= 0 && (f < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        if (this.attackTime <= 0 && (distanceToEntity < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), getAttackStrength());
@@ -378,21 +378,21 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 
     // Method used for receiving damage from another source
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i))
+        if (super.attackEntityFrom(damageSource, damageTaken))
         {
-            Entity entity = damagesource.getEntity();
-            if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName()))))
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
+            if (entityThatAttackedThisCreature != null && getIsTamed() && (entityThatAttackedThisCreature instanceof EntityPlayer && (entityThatAttackedThisCreature.getCommandSenderName().equals(getOwnerName()))))
             { 
             	return false; 
             }
-            if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
-            if ((entity != this) && (worldObj.difficultySetting != worldObj.difficultySetting.PEACEFUL))
+            if ((riddenByEntity == entityThatAttackedThisCreature) || (ridingEntity == entityThatAttackedThisCreature)) { return true; }
+            if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting != worldObj.difficultySetting.PEACEFUL))
             {
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
                 
-                if (!(this.getIsAdult()) && (entity != null) && !(this.getIsTamed()))
+                if (!(this.getIsAdult()) && (entityThatAttackedThisCreature != null) && !(this.getIsTamed()))
             	{
         			
         			List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(10D, 10D, 10D));
@@ -406,7 +406,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     	                	{	
     	                		if (!(bigCatEntityNearBy.getIsTamed()) && (bigCatEntityNearBy.getType() == this.getType()))
     	                		{
-    	                			bigCatEntityNearBy.entityToAttack = damagesource.getEntity();
+    	                			bigCatEntityNearBy.entityToAttack = damageSource.getEntity();
     	                		}
     	                	}	
     	                	continue; 
@@ -422,17 +422,17 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         return false;
     }
 
-    public int checkForOtherBigCatsNearby(double d)
+    public int checkForOtherBigCatsNearbyAndTheirType(double d)
     {
         boolean flag = false;
-        List entities_nearby_list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
-        for (int index = 0; index < entities_nearby_list.size(); index++)
+        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
+        for (int index = 0; index < entitiesNearbyList.size(); index++)
         {
-            Entity entity_nearby = (Entity) entities_nearby_list.get(index);
-            if ((entity_nearby != this) && (entity_nearby instanceof MoCEntityBigCat))
+            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
+            if ((entityNearby != this) && (entityNearby instanceof MoCEntityBigCat))
             {
-                MoCEntityBigCat entitybigcat_nearby = (MoCEntityBigCat) entity_nearby;
-                return entitybigcat_nearby.getType();
+                MoCEntityBigCat entitybigcatNearby = (MoCEntityBigCat) entityNearby;
+                return entitybigcatNearby.getType();
             }
         }
 
@@ -446,25 +446,25 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 
         if (worldObj.difficultySetting != worldObj.difficultySetting.PEACEFUL)
         {
-            EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, getAttackRange());
-            if (!getIsTamed() && (entityplayer != null) && getIsAdult() && getIsHungry())
+            EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, getAttackRange());
+            if (!getIsTamed() && (entityPlayer != null) && getIsAdult() && getIsHungry())
             {
                 if ((getType() == 1) || (getType() == 5) || (getType() == 7))
                 {
                     setHungry(false);
-                    return entityplayer;
+                    return entityPlayer;
                 }
                 if (rand.nextInt(30) == 0)
                 {
                     setHungry(false);
-                    return entityplayer;
+                    return entityPlayer;
                 }
             }
             if ((rand.nextInt(80) == 0) && getIsHungry())
             {
-                EntityLivingBase entityliving = getClosestEntityLiving(this, getAttackRange());
+                EntityLivingBase entityLiving = getClosestEntityLiving(this, getAttackRange());
                 setHungry(false);
-                return entityliving;
+                return entityLiving;
             }
         }
         
@@ -472,15 +472,15 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     	{
 	        if (this.getIsTamed()) //defend owner if they are attacked by an entity
 	    	{
-	    		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
 	    		
-	    		if (owner_of_entity_that_is_online != null)
+	    		if (ownerOfEntityThatIsOnline != null)
 	    		{
-	    			EntityLivingBase entity_that_attacked_owner = owner_of_entity_that_is_online.getAITarget();
+	    			EntityLivingBase entityThatAttackedOwner = ownerOfEntityThatIsOnline.getAITarget();
 	    			
-	    			if (entity_that_attacked_owner != null)
+	    			if (entityThatAttackedOwner != null)
 	    			{
-	    				return entity_that_attacked_owner;
+	    				return entityThatAttackedOwner;
 	    			}
 	    		}
 	    	}
@@ -492,23 +492,23 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     @Override
     public boolean checkSpawningBiome()
     {
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
-        String biome_name = MoCTools.BiomeName(worldObj, x_coordinate, y_coordinate, z_coordinate);
+        BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        String biomeName = MoCTools.BiomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
-        int type_chance = rand.nextInt(100);
+        int typeChance = rand.nextInt(100);
 
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SAVANNA))
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SAVANNA))
         {
-        	if (!(currentbiome.biomeName.toLowerCase().contains("outback")))
+        	if (!(currentBiome.biomeName.toLowerCase().contains("outback")))
         	{
-	            if (type_chance <= 30)
+	            if (typeChance <= 30)
 	    			{setType(4);} //cheetah
 	            
-	            else if (type_chance <= 40)
+	            else if (typeChance <= 40)
 	    			{setType(2);} //lion type 1 - male
 	            
 	            else {setType(1);} //lion type 2 - female
@@ -521,12 +521,12 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
             return true;
         }
         
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.JUNGLE))
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.JUNGLE))
         {
-        	if (type_chance <= 10)
+        	if (typeChance <= 10)
     			{setType(7);} //white tiger
         	
-        	else if (type_chance <= 30)
+        	else if (typeChance <= 30)
         		{setType(3);} //panther
             
             else {setType(5);} //tiger
@@ -535,7 +535,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         }
         
         
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SNOWY))
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SNOWY))
         {
             setType(6); //snow leopard
             return true;
@@ -543,26 +543,26 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         
         
 
-        int type_other = 0;
+        int typeOfOtherBigCatNearby = 0;
         {
-            type_other = checkForOtherBigCatsNearby(12D);
+            typeOfOtherBigCatNearby = checkForOtherBigCatsNearbyAndTheirType(12D);
 
            
-            if (type_other == 2)
+            if (typeOfOtherBigCatNearby == 2)
             {
-                type_other = 1;
+                typeOfOtherBigCatNearby = 1;
             }
-            else if (type_other == 1 && rand.nextInt(3) == 0)
+            else if (typeOfOtherBigCatNearby == 1 && rand.nextInt(3) == 0)
             {
-                type_other = 2;
+                typeOfOtherBigCatNearby = 2;
             }
-            else if (type_other == 7)
+            else if (typeOfOtherBigCatNearby == 7)
             {
-                type_other = 5;
+                typeOfOtherBigCatNearby = 5;
             }
         }
         
-        setType(type_other);
+        setType(typeOfOtherBigCatNearby);
         return true;
     }
 
@@ -594,9 +594,9 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean entitiesToIgnoreWhenHunting(Entity entity)
+    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
     {
-        return (super.entitiesToIgnoreWhenHunting(entity) //including the mobs specified in parent file
+        return (super.entitiesToIgnoreWhenLookingForAnEntityToAttack(entity) //including the mobs specified in parent file
                     || (entity instanceof MoCEntityBigCat)
                     || (getIsAdult() && (entity.width > 1.3D && entity.height > 1.3D)) // don't try to hunt creature larger than a deer when adult
                     || (!getIsAdult() && (entity.width > 0.5D && entity.height > 0.5D)) // don't try to hunt creature larger than a chicken when child
@@ -655,11 +655,11 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         }
     }
 
-    public EntityCreature getMastersEnemy(EntityPlayer entityplayer, double d)
+    public EntityCreature getMastersEnemy(EntityPlayer entityPlayer, double d)
     {
         double d1 = -1D;
         EntityCreature entitycreature = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(entityplayer, boundingBox.expand(d, 4D, d));
+        List list = worldObj.getEntitiesWithinAABBExcludingEntity(entityPlayer, boundingBox.expand(d, 4D, d));
         for (int i = 0; i < list.size(); i++)
         {
             Entity entity = (Entity) list.get(i);
@@ -668,31 +668,31 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
                 continue;
             }
             EntityCreature entitycreature1 = (EntityCreature) entity;
-            if ((entitycreature1 != null) && (entitycreature1.getAttackTarget() == entityplayer)) { return entitycreature1; }
+            if ((entitycreature1 != null) && (entitycreature1.getAttackTarget() == entityPlayer)) { return entitycreature1; }
         }
 
         return entitycreature;
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
 
-        if (super.interact(entityplayer)) { return false; }
+        if (super.interact(entityPlayer)) { return false; }
         
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         
         if ((itemstack != null) && !getIsTamed() && getPreTamed() && (itemstack.getItem() == MoCreatures.medallion))
         {
             if (MoCreatures.isServer())
             {
-                MoCTools.tameWithName(entityplayer, this);
-                entityplayer.addStat(MoCAchievements.tame_big_cat, 1);
+                MoCTools.tameWithName(entityPlayer, this);
+                entityPlayer.addStat(MoCAchievements.tame_big_cat, 1);
             }
             
             if (getIsTamed() && --itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                 return true;
             }
 
@@ -730,7 +730,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 
     //drops medallion on death
     @Override
-    public void onDeath(DamageSource damagesource)
+    public void onDeath(DamageSource damageSource)
     {
         if (MoCreatures.isServer())
         {
@@ -739,7 +739,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
                 MoCTools.dropCustomItem(this, this.worldObj, new ItemStack(MoCreatures.medallion, 1));
             }
         }
-        super.onDeath(damagesource);
+        super.onDeath(damageSource);
     }
     
     @Override
@@ -762,11 +762,11 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
                 
                 if (getType() == 1) //used to make baby lions have a chance to grow into male lions
                 {
-                	int type_that_baby_lion_grows_up_to_be  = rand.nextInt(2)+1;
+                	int typeThatBabyLionGrowsUpToBe  = rand.nextInt(2)+1;
                 	
-                	if(type_that_baby_lion_grows_up_to_be != 1)
+                	if(typeThatBabyLionGrowsUpToBe != 1)
                 	{
-                		setType(type_that_baby_lion_grows_up_to_be);
+                		setType(typeThatBabyLionGrowsUpToBe);
                 		
                 		
                 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
@@ -802,7 +802,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     	{
 	    	Item item = itemstack.getItem();
 	    	
-	    	List<String> ore_dictionary_name_array = MoCTools.getOreDictionaryEntries(itemstack);
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
 	    	
 	    	return 
 	    		(
@@ -813,8 +813,8 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 	    			|| item == MoCreatures.ostrichraw
 	    			|| item == MoCreatures.rawTurkey
 	    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
-	    			|| ore_dictionary_name_array.contains("listAllmeatraw")
-	    			|| ore_dictionary_name_array.contains("listAllfishraw")
+	    			|| oreDictionaryNameArray.contains("listAllmeatraw")
+	    			|| oreDictionaryNameArray.contains("listAllfishraw")
 	    			|| MoCreatures.isGregTech6Loaded &&
 	    				(
 	    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
@@ -837,19 +837,19 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
-        setSitting(nbttagcompound.getBoolean("Sitting"));
-        setDisplayName(nbttagcompound.getBoolean("DisplayName"));
+        super.readEntityFromNBT(nbtTagCompound);
+        setSitting(nbtTagCompound.getBoolean("Sitting"));
+        setDisplayName(nbtTagCompound.getBoolean("DisplayName"));
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setBoolean("Sitting", getIsSitting());
-        nbttagcompound.setBoolean("DisplayName", getDisplayName());
+        super.writeEntityToNBT(nbtTagCompound);
+        nbtTagCompound.setBoolean("Sitting", getIsSitting());
+        nbtTagCompound.setBoolean("DisplayName", getDisplayName());
     }
     
     @Override

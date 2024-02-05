@@ -37,11 +37,11 @@ public class MoCMessageVanish implements IMessage, IMessageHandler<MoCMessageVan
     public IMessage onMessage(MoCMessageVanish message, MessageContext ctx)
     {
         List<Entity> entList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
-        for (Entity ent : entList)
+        for (Entity entity : entList)
         {
-            if (ent.getEntityId() == message.entityId && ent instanceof MoCEntityHorse)
+            if (entity.getEntityId() == message.entityId && entity instanceof MoCEntityHorse)
             {
-                ((MoCEntityHorse) ent).setVanishC((byte) 1);
+                ((MoCEntityHorse) entity).setVanishC((byte) 1);
                 break;
             }
         }

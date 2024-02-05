@@ -39,7 +39,7 @@ public class ItemStaffTeleport extends MoCItem
      * is being used
      */
     @Override
-    public EnumAction getItemUseAction(ItemStack par1ItemStack)
+    public EnumAction getItemUseAction(ItemStack itemstack)
     {
         return EnumAction.block;
     }
@@ -49,43 +49,43 @@ public class ItemStaffTeleport extends MoCItem
      * pressed. Args: itemStack, world, entityPlayer
      */
     @Override
-    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer entityplayer)
+    public ItemStack onItemRightClick(ItemStack itemstack, World par2World, EntityPlayer entityPlayer)
     {
-        if (entityplayer.ridingEntity != null || entityplayer.riddenByEntity != null)
+        if (entityPlayer.ridingEntity != null || entityPlayer.riddenByEntity != null)
         {
-            return par1ItemStack;
+            return itemstack;
         }
 
-        double coordY = entityplayer.posY + (double)entityplayer.getEyeHeight();
-        double coordZ = entityplayer.posZ;
-        double coordX = entityplayer.posX;
+        double coordY = entityPlayer.posY + (double)entityPlayer.getEyeHeight();
+        double coordZ = entityPlayer.posZ;
+        double coordX = entityPlayer.posX;
         for (int x = 4; x < 128; x++)
         {
-            double newPosY = coordY - Math.cos( (entityplayer.rotationPitch- 90F) / 57.29578F) * x;
-            double newPosX = coordX + Math.cos((MoCTools.realAngle(entityplayer.rotationYaw- 90F) / 57.29578F)) * (Math.sin( (entityplayer.rotationPitch- 90F) / 57.29578F) * x );
-            double newPosZ = coordZ + Math.sin((MoCTools.realAngle(entityplayer.rotationYaw- 90F) / 57.29578F)) * (Math.sin( (entityplayer.rotationPitch- 90F) / 57.29578F) * x );
-            Block block = entityplayer.worldObj.getBlock( MathHelper.floor_double(newPosX),  MathHelper.floor_double(newPosY),  MathHelper.floor_double(newPosZ)); 
+            double newPosY = coordY - Math.cos( (entityPlayer.rotationPitch- 90F) / 57.29578F) * x;
+            double newPosX = coordX + Math.cos((MoCTools.realAngle(entityPlayer.rotationYaw- 90F) / 57.29578F)) * (Math.sin( (entityPlayer.rotationPitch- 90F) / 57.29578F) * x );
+            double newPosZ = coordZ + Math.sin((MoCTools.realAngle(entityPlayer.rotationYaw- 90F) / 57.29578F)) * (Math.sin( (entityPlayer.rotationPitch- 90F) / 57.29578F) * x );
+            Block block = entityPlayer.worldObj.getBlock( MathHelper.floor_double(newPosX),  MathHelper.floor_double(newPosY),  MathHelper.floor_double(newPosZ)); 
             if (block != Blocks.air)
             {
-                newPosY = coordY - Math.cos( (entityplayer.rotationPitch- 90F) / 57.29578F) * (x-1);
-                newPosX = coordX + Math.cos((MoCTools.realAngle(entityplayer.rotationYaw- 90F) / 57.29578F)) * (Math.sin( (entityplayer.rotationPitch- 90F) / 57.29578F) * (x-1) );
-                newPosZ = coordZ + Math.sin((MoCTools.realAngle(entityplayer.rotationYaw- 90F) / 57.29578F)) * (Math.sin( (entityplayer.rotationPitch- 90F) / 57.29578F) * (x-1) );
+                newPosY = coordY - Math.cos( (entityPlayer.rotationPitch- 90F) / 57.29578F) * (x-1);
+                newPosX = coordX + Math.cos((MoCTools.realAngle(entityPlayer.rotationYaw- 90F) / 57.29578F)) * (Math.sin( (entityPlayer.rotationPitch- 90F) / 57.29578F) * (x-1) );
+                newPosZ = coordZ + Math.sin((MoCTools.realAngle(entityPlayer.rotationYaw- 90F) / 57.29578F)) * (Math.sin( (entityPlayer.rotationPitch- 90F) / 57.29578F) * (x-1) );
 
                 if (MoCreatures.isServer())
                 {
-                    EntityPlayerMP thePlayer = (EntityPlayerMP) entityplayer;
-                    thePlayer.playerNetServerHandler.setPlayerLocation((double)newPosX, (double)newPosY, (double)newPosZ, entityplayer.rotationYaw, entityplayer.rotationPitch);
-                    MoCTools.playCustomSound(entityplayer, "appearmagic", entityplayer.worldObj);
+                    EntityPlayerMP thePlayer = (EntityPlayerMP) entityPlayer;
+                    thePlayer.playerNetServerHandler.setPlayerLocation((double)newPosX, (double)newPosY, (double)newPosZ, entityPlayer.rotationYaw, entityPlayer.rotationPitch);
+                    MoCTools.playCustomSound(entityPlayer, "appearmagic", entityPlayer.worldObj);
                 }
-                MoCreatures.proxy.teleportFX(entityplayer);
-                entityplayer.setItemInUse(par1ItemStack, 200);
-                par1ItemStack.damageItem(1, entityplayer);
+                MoCreatures.proxy.teleportFX(entityPlayer);
+                entityPlayer.setItemInUse(itemstack, 200);
+                itemstack.damageItem(1, entityPlayer);
 
-                return par1ItemStack;
+                return itemstack;
             }
         }
 
-        entityplayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
-        return par1ItemStack;
+        entityPlayer.setItemInUse(itemstack, this.getMaxItemUseDuration(itemstack));
+        return itemstack;
     }
 }

@@ -1119,7 +1119,7 @@ public class MoCreatures {
         //if (!mc.theWorld.isRemote)
         //{
         //    inst.poisoned = true;
-        //    inst.poisoncounter = 0;
+        //    inst.poisonCounter = 0;
         //}
     }
 
@@ -1130,8 +1130,8 @@ public class MoCreatures {
 
     public static void showCreaturePedia(String s)
     {
-        //TODO 4FIX        EntityPlayer entityplayer = mc.thePlayer;
-        //showCreaturePedia(entityplayer, s);
+        //TODO 4FIX        EntityPlayer entityPlayer = mc.thePlayer;
+        //showCreaturePedia(entityPlayer, s);
     }
 
     public static void updateSettings()

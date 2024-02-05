@@ -25,9 +25,9 @@ public abstract class MoCEntityFlyerMob extends MoCEntityMob {
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if (attackTime <= 0 && (f < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        if (attackTime <= 0 && (distanceToEntity < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), attackStrength);
@@ -42,10 +42,10 @@ public abstract class MoCEntityFlyerMob extends MoCEntityMob {
     @Override
     protected Entity findPlayerToAttack()
     {
-        EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 20D);
-        if ((entityplayer != null) && canEntityBeSeen(entityplayer))
+        EntityPlayer entityPlayer = worldObj.getClosestPlayerToEntity(this, 20D);
+        if ((entityPlayer != null) && canEntityBeSeen(entityPlayer))
         {
-            return entityplayer;
+            return entityPlayer;
         }
         else
         {
@@ -66,12 +66,12 @@ public abstract class MoCEntityFlyerMob extends MoCEntityMob {
     }
 
     @Override
-    public void moveEntityWithHeading(float strafe_movement, float forward_movement)
+    public void moveEntityWithHeading(float strafeMovement, float forwardMovement)
     {
         if (handleWaterMovement())
         {
-            double y_coordinate = posY;
-            moveFlying(strafe_movement, forward_movement, 0.02F);
+            double yCoordinate = posY;
+            moveFlying(strafeMovement, forwardMovement, 0.02F);
             moveEntity(motionX, motionY, motionZ);
             motionX *= 0.80000001192092896D;
             motionY *= 0.80000001192092896D;
@@ -79,8 +79,8 @@ public abstract class MoCEntityFlyerMob extends MoCEntityMob {
         }
         else if (handleLavaMovement())
         {
-            double y_coordinate1 = posY;
-            moveFlying(strafe_movement, forward_movement, 0.02F);
+            double yCoordinate1 = posY;
+            moveFlying(strafeMovement, forwardMovement, 0.02F);
             moveEntity(motionX, motionY, motionZ);
             motionX *= 0.5D;
             motionY *= 0.5D;
@@ -99,7 +99,7 @@ public abstract class MoCEntityFlyerMob extends MoCEntityMob {
                 }
             }
             float f3 = 0.162771F / (movement * movement * movement);
-            moveFlying(strafe_movement, forward_movement, onGround ? 0.1F * f3 : 0.02F);
+            moveFlying(strafeMovement, forwardMovement, onGround ? 0.1F * f3 : 0.02F);
             movement = 0.91F;
             if (onGround)
             {
@@ -123,12 +123,12 @@ public abstract class MoCEntityFlyerMob extends MoCEntityMob {
                 motionY = -0.25D;
             }
         }
-        double x_distance_travelled = posX - prevPosX;
-        double z_distance_travelled = posZ - prevPosZ;
-        float overall_horizontal_distance_travelled_squared = MathHelper.sqrt_double((x_distance_travelled * x_distance_travelled) + (z_distance_travelled * z_distance_travelled)) * 4F;
-        if (overall_horizontal_distance_travelled_squared > 1.0F)
+        double xDistanceTravelled = posX - prevPosX;
+        double zDistanceTravelled = posZ - prevPosZ;
+        float overallHorizontalDistanceTravelledSquared = MathHelper.sqrt_double((xDistanceTravelled * xDistanceTravelled) + (zDistanceTravelled * zDistanceTravelled)) * 4F;
+        if (overallHorizontalDistanceTravelledSquared > 1.0F)
         {
-            overall_horizontal_distance_travelled_squared = 1.0F;
+            overallHorizontalDistanceTravelledSquared = 1.0F;
         }
     }
 
@@ -189,9 +189,9 @@ public abstract class MoCEntityFlyerMob extends MoCEntityMob {
                 entitypath = worldObj.getEntityPathToXYZ(this, j, k, l, 10F, true, false, false, true);
             }
         }
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        boolean is_water_movement = handleWaterMovement();
-        boolean is_lava_movement = handleLavaMovement();
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        boolean isWaterMovement = handleWaterMovement();
+        boolean isLavaMovement = handleLavaMovement();
         rotationPitch = 0.0F;
         if ((entitypath == null) || (rand.nextInt(100) == 0))
         {
@@ -200,61 +200,61 @@ public abstract class MoCEntityFlyerMob extends MoCEntityMob {
             return;
         }
         //TODO 4FIX test!
-        Vec3 vector_3D = entitypath.getPosition(this); //Client
-        //vector_3D vector_3D = entitypath.getPosition(this); //Server
-        for (double d = width * 2.0F; (vector_3D != null) && (vector_3D.squareDistanceTo(posX, vector_3D.yCoord, posZ) < (d * d));)
+        Vec3 vectorThreeDimensional = entitypath.getPosition(this); //Client
+        //vectorThreeDimensional vectorThreeDimensional = entitypath.getPosition(this); //Server
+        for (double d = width * 2.0F; (vectorThreeDimensional != null) && (vectorThreeDimensional.squareDistanceTo(posX, vectorThreeDimensional.yCoord, posZ) < (d * d));)
         {
             entitypath.incrementPathIndex();
             if (entitypath.isFinished())
             {
-                vector_3D = null;
+                vectorThreeDimensional = null;
                 entitypath = null;
             }
             else
             {
                 //TODO 4FIX test!
-                vector_3D = entitypath.getPosition(this); //client
-                //vector_3D = entitypath.getPosition(this); //server
+                vectorThreeDimensional = entitypath.getPosition(this); //client
+                //vectorThreeDimensional = entitypath.getPosition(this); //server
             }
         }
 
         isJumping = false;
-        if (vector_3D != null)
+        if (vectorThreeDimensional != null)
         {
-            double x_vector_distance = vector_3D.xCoord - posX;
-            double y_vector_distance = vector_3D.yCoord - y_coordinate;
-            double z_vector_distance = vector_3D.zCoord - posZ;
-            float angle_in_degrees_to_new_location = (float) ((Math.atan2(z_vector_distance, x_vector_distance) * 180D) / Math.PI) - 90F;
-            float amount_of_degrees_to_change_rotationYaw_by = angle_in_degrees_to_new_location - rotationYaw;
+            double vectorDistanceX = vectorThreeDimensional.xCoord - posX;
+            double vectorDistanceY = vectorThreeDimensional.yCoord - yCoordinate;
+            double vectorDistanceZ = vectorThreeDimensional.zCoord - posZ;
+            float angleInDegreesToNewLocation = (float) ((Math.atan2(vectorDistanceZ, vectorDistanceX) * 180D) / Math.PI) - 90F;
+            float amountOfDegreesToChangeRotationYawBy = angleInDegreesToNewLocation - rotationYaw;
             
             moveForward = (float)this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();
             
-            for (; amount_of_degrees_to_change_rotationYaw_by < -180F; amount_of_degrees_to_change_rotationYaw_by += 360F)
+            for (; amountOfDegreesToChangeRotationYawBy < -180F; amountOfDegreesToChangeRotationYawBy += 360F)
             {
             }
-            for (; amount_of_degrees_to_change_rotationYaw_by >= 180F; amount_of_degrees_to_change_rotationYaw_by -= 360F)
+            for (; amountOfDegreesToChangeRotationYawBy >= 180F; amountOfDegreesToChangeRotationYawBy -= 360F)
             {
             }
-            if (amount_of_degrees_to_change_rotationYaw_by > 30F)
+            if (amountOfDegreesToChangeRotationYawBy > 30F)
             {
-                amount_of_degrees_to_change_rotationYaw_by = 30F;
+                amountOfDegreesToChangeRotationYawBy = 30F;
             }
-            if (amount_of_degrees_to_change_rotationYaw_by < -30F)
+            if (amountOfDegreesToChangeRotationYawBy < -30F)
             {
-                amount_of_degrees_to_change_rotationYaw_by = -30F;
+                amountOfDegreesToChangeRotationYawBy = -30F;
             }
-            rotationYaw += amount_of_degrees_to_change_rotationYaw_by;
+            rotationYaw += amountOfDegreesToChangeRotationYawBy;
             if (hasAttacked && (entityToAttack != null))
             {
-                double x_distance = entityToAttack.posX - posX;
-                double z_distance = entityToAttack.posZ - posZ;
-                float previous_rotationYaw = rotationYaw;
-                rotationYaw = (float) ((Math.atan2(z_distance, x_distance) * 180D) / Math.PI) - 90F;
-                float angle_in_degrees_between_previous_and_new_rotationYaw = (((previous_rotationYaw - rotationYaw) + 90F) * (float) Math.PI) / 180F;
-                moveStrafing = -MathHelper.sin(angle_in_degrees_between_previous_and_new_rotationYaw) * moveForward * 1.0F;
-                moveForward = MathHelper.cos(angle_in_degrees_between_previous_and_new_rotationYaw) * moveForward * 1.0F;
+                double xDistance = entityToAttack.posX - posX;
+                double zDistance = entityToAttack.posZ - posZ;
+                float previousRotationYaw = rotationYaw;
+                rotationYaw = (float) ((Math.atan2(zDistance, xDistance) * 180D) / Math.PI) - 90F;
+                float angleInDegreesBetweenPreviousAndNewRotationYaw = (((previousRotationYaw - rotationYaw) + 90F) * (float) Math.PI) / 180F;
+                moveStrafing = -MathHelper.sin(angleInDegreesBetweenPreviousAndNewRotationYaw) * moveForward * 1.0F;
+                moveForward = MathHelper.cos(angleInDegreesBetweenPreviousAndNewRotationYaw) * moveForward * 1.0F;
             }
-            if (y_vector_distance > 0.0D)
+            if (vectorDistanceY > 0.0D)
             {
                 isJumping = true;
             }
@@ -267,7 +267,7 @@ public abstract class MoCEntityFlyerMob extends MoCEntityMob {
         {
             isJumping = true;
         }
-        if ((rand.nextFloat() < 0.8F) && (is_water_movement || is_lava_movement))
+        if ((rand.nextFloat() < 0.8F) && (isWaterMovement || isLavaMovement))
         {
             isJumping = true;
         }

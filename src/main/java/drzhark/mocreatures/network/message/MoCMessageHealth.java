@@ -41,11 +41,11 @@ public class MoCMessageHealth implements IMessage, IMessageHandler<MoCMessageHea
     public IMessage onMessage(MoCMessageHealth message, MessageContext ctx)
     {
         List<Entity> entList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
-        for (Entity ent : entList)
+        for (Entity entity : entList)
         {
-            if (ent.getEntityId() == message.entityId && ent instanceof EntityLiving)
+            if (entity.getEntityId() == message.entityId && entity instanceof EntityLiving)
             {
-                ((EntityLiving) ent).setHealth(message.health);
+                ((EntityLiving) entity).setHealth(message.health);
                 break;
             }
         }

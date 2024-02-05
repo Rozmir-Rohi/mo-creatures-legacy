@@ -16,7 +16,7 @@ public class MoCEntityButterfly extends MoCEntityInsect
         super(world);
     }
 
-    private int fCounter;
+    private int renderHeightAdjustmentCounter;
 
     @Override
     public void onLivingUpdate()
@@ -72,18 +72,18 @@ public class MoCEntityButterfly extends MoCEntityInsect
     }
 
     /**
-     * Used to flicker ghosts
+     * Used to adjust height in MoCRenderButterfly.java when butterfly is flying
      * 
      * @return
      */
-    public float tFloat()
+    public float renderHeightAdjustmentWhenFlying()
     {
-        if (++this.fCounter > 1000)
+        if (++this.renderHeightAdjustmentCounter > 1000)
         {
-            this.fCounter = 0;
+            this.renderHeightAdjustmentCounter = 0;
         }
 
-        return MathHelper.cos((fCounter * 0.1F)) * 0.2F;
+        return MathHelper.cos((renderHeightAdjustmentCounter * 0.1F)) * 0.2F;
     }
 
     @Override
@@ -109,9 +109,9 @@ public class MoCEntityButterfly extends MoCEntityInsect
     }
 
     @Override
-    public boolean isMyFollowFood(ItemStack par1ItemStack)
+    public boolean isMyFollowFood(ItemStack itemstack)
     {
-        return par1ItemStack != null && (par1ItemStack.getItem() == Item.getItemFromBlock(Blocks.red_flower) || par1ItemStack.getItem() == Item.getItemFromBlock(Blocks.yellow_flower));
+        return itemstack != null && (itemstack.getItem() == Item.getItemFromBlock(Blocks.red_flower) || itemstack.getItem() == Item.getItemFromBlock(Blocks.yellow_flower));
     }
     
     @Override

@@ -8,9 +8,7 @@ import drzhark.mocreatures.entity.monster.MoCEntityGolem;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -23,27 +21,27 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
     private int masterID;
     public int acceleration = 100;
     private int blockMetadata;
-    private double oPosX;
-    private double oPosY;
-    private double oPosZ;
+    private double oldPosX;
+    private double oldPosY;
+    private double oldPosZ;
 
-    public MoCEntityThrowableBlockForGolem(World par1World)
+    public MoCEntityThrowableBlockForGolem(World world)
     {
-        super(par1World);
-        this.preventEntitySpawning = true;
-        this.setSize(1F, 1F);
-        this.yOffset = this.height / 2.0F;
+        super(world);
+        preventEntitySpawning = true;
+        setSize(1F, 1F);
+        yOffset = height / 2.0F;
     }
 
-    public MoCEntityThrowableBlockForGolem(World par1World, Entity entitythrower, double par2, double par4, double par6)//, int behavior)//, int bMetadata)
+    public MoCEntityThrowableBlockForGolem(World world, Entity entityThrower, double x, double y, double z)//, int behavior)//, int bMetadata)
     {
-        this(par1World);
-        this.setPosition(par2, par4, par6);
-        this.fuse = 250;
-        this.prevPosX = oPosX = par2;
-        this.prevPosY = oPosY = par4;
-        this.prevPosZ = oPosZ = par6;
-        this.setMasterID(entitythrower.getEntityId());
+        this(world);
+        setPosition(x, y, z);
+        fuse = 250;
+        prevPosX = oldPosX = x;
+        prevPosY = oldPosY = y;
+        prevPosZ = oldPosZ = z;
+        setMasterID(entityThrower.getEntityId());
     }
 
     public void setMetadata(int i)
@@ -96,27 +94,27 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        nbttagcompound.setInteger("TypeInt", getType());
-        nbttagcompound.setInteger("Metadata", getMetadata());
-        nbttagcompound.setInteger("Behavior", getBehavior());
-        nbttagcompound.setInteger("MasterID", getMasterID());
+        nbtTagCompound.setInteger("TypeInt", getType());
+        nbtTagCompound.setInteger("Metadata", getMetadata());
+        nbtTagCompound.setInteger("Behavior", getBehavior());
+        nbtTagCompound.setInteger("MasterID", getMasterID());
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        setType(nbttagcompound.getInteger("TypeInt"));
-        setMetadata(nbttagcompound.getInteger("Metadata"));
-        setBehavior(nbttagcompound.getInteger("Behavior"));
-        setMasterID(nbttagcompound.getInteger("MasterID"));
+        setType(nbtTagCompound.getInteger("TypeInt"));
+        setMetadata(nbtTagCompound.getInteger("Metadata"));
+        setBehavior(nbtTagCompound.getInteger("Behavior"));
+        setMasterID(nbtTagCompound.getInteger("MasterID"));
     }
 
     @Override
     public boolean canBeCollidedWith()
     {
-        return !this.isDead;
+        return !isDead;
     }
 
     /**
@@ -128,9 +126,9 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
         Entity master = getMaster();
         if (MoCreatures.isServer())
         {
-        	if (this.getBehavior() != 2 && this.onGround) {transformToSolidBlock();} //turn to solid if not moving towards it's master and if on ground
+        	if (getBehavior() != 2 && onGround) {transformToSolidBlock();} //turn to solid if not moving towards it's master and if on ground
         	
-        	if (this.fuse-- <= 0) {transformToSolidBlock();}
+        	if (fuse-- <= 0) {transformToSolidBlock();}
         }
 
         //held ThrowableBlocks don't need to adjust its position
@@ -140,46 +138,46 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
         }
 
         //throwable block damage code (for all throwable block behaviors)
-        if (!this.onGround) //onground!
+        if (!onGround) //onground!
         {
-            List entities_nearby_list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
+            List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
 
-            int iteration_length = entities_nearby_list.size();
+            int iterationLength = entitiesNearbyList.size();
             
-            if (iteration_length > 0)
+            if (iterationLength > 0)
             {
-	            for (int index = 0; index < iteration_length; index++)
+	            for (int index = 0; index < iterationLength; index++)
 	            {
-	                Entity entity_nearby = (Entity) entities_nearby_list.get(index);
+	                Entity entityNearby = (Entity) entitiesNearbyList.get(index);
 	                
-	                if (master != null && entity_nearby.getEntityId() == master.getEntityId())
+	                if (master != null && entityNearby.getEntityId() == master.getEntityId())
 	                {
 	                    continue;
 	                }
-	                if (entity_nearby instanceof MoCEntityGolem)
+	                if (entityNearby instanceof MoCEntityGolem)
 	                {
 	                    continue;
 	                }
-	                if (entity_nearby != null && !(entity_nearby instanceof EntityLivingBase))
+	                if (entityNearby != null && !(entityNearby instanceof EntityLivingBase))
 	                {
 	                    continue;
 	                }
 	
 	                if (master != null)
 	                {
-	                    entity_nearby.attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase) master), 4);
+	                    entityNearby.attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase) master), 4);
 	                }
 	                else
 	                {
-	                    entity_nearby.attackEntityFrom(DamageSource.generic, 4);
+	                    entityNearby.attackEntityFrom(DamageSource.generic, 4);
 	                }
 	            }
             }
         }
 
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
 
         if (getBehavior() == 2)
         {
@@ -192,23 +190,23 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
                 acceleration = 10;
             }
 
-            float tX = (float) this.posX - (float) master.posX;
-            float tZ = (float) this.posZ - (float) master.posZ;
-            float distXZToMaster = tX * tX + tZ * tZ;
+            float xDistanceToMaster = (float) posX - (float) master.posX;
+            float zDistanceToMaster = (float) posZ - (float) master.posZ;
+            float xzDistanceToMaster = xDistanceToMaster * xDistanceToMaster + zDistanceToMaster * zDistanceToMaster;
 
-            if (distXZToMaster < 1.0F && master instanceof MoCEntityGolem)
+            if (xzDistanceToMaster < 1.0F && master instanceof MoCEntityGolem)
             {
-                ((MoCEntityGolem) master).receiveBlock(this.getType(), this.getMetadata());
-                this.setDead();
+                ((MoCEntityGolem) master).receiveBlock(getType(), getMetadata());
+                setDead();
             }
 
             double summonedSpeed = (double) acceleration;//20D;
-            motionX = ((master.posX - this.posX) / summonedSpeed);
-            motionY = ((master.posY - this.posY) / 20D + 0.15D);
-            motionZ = ((master.posZ - this.posZ) / summonedSpeed);
+            motionX = ((master.posX - posX) / summonedSpeed);
+            motionY = ((master.posY - posY) / 20D + 0.15D);
+            motionZ = ((master.posZ - posZ) / summonedSpeed);
             if (MoCreatures.isServer())
             {
-                this.moveEntity(this.motionX, this.motionY, this.motionZ);
+                moveEntity(motionX, motionY, motionZ);
             }
             return;
         }
@@ -227,16 +225,16 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
             //moves towards the master entity the bigger the number, the slower
             acceleration = 10;
 
-            float tX = (float) this.posX - (float) master.posX;
-            float tZ = (float) this.posZ - (float) master.posZ;
-            float distXZToMaster = tX * tX + tZ * tZ;
+            float xDistanceToMaster = (float) posX - (float) master.posX;
+            float zDistanceToMaster = (float) posZ - (float) master.posZ;
+            float xzDistanceToMaster = xDistanceToMaster * xDistanceToMaster + zDistanceToMaster * zDistanceToMaster;
 
             double summonedSpeed = (double) acceleration;//20D;
-            motionX = ((master.posX - this.posX) / summonedSpeed);
-            motionY = ((master.posY - this.posY) / 20D + 0.15D);
-            motionZ = ((master.posZ - this.posZ) / summonedSpeed);
+            motionX = ((master.posX - posX) / summonedSpeed);
+            motionY = ((master.posY - posY) / 20D + 0.15D);
+            motionZ = ((master.posZ - posZ) / summonedSpeed);
 
-            if (distXZToMaster < 2.5F && master instanceof MoCEntityGolem)
+            if (xzDistanceToMaster < 2.5F && master instanceof MoCEntityGolem)
             {
                 motionX = 0D;
                 motionY = 0D;
@@ -245,7 +243,7 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
 
             if (MoCreatures.isServer())
             {
-                this.moveEntity(this.motionX, this.motionY, this.motionZ);
+                moveEntity(motionX, motionY, motionZ);
             }
 
             return;
@@ -255,38 +253,38 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
         {
             acceleration = 5;
             double summonedSpeed = (double) acceleration;//20D;
-            motionX = ((oPosX - this.posX) / summonedSpeed);
-            motionY = ((oPosY - this.posY) / 20D + 0.15D);
-            motionZ = ((oPosZ - this.posZ) / summonedSpeed);
+            motionX = ((oldPosX - posX) / summonedSpeed);
+            motionY = ((oldPosY - posY) / 20D + 0.15D);
+            motionZ = ((oldPosZ - posZ) / summonedSpeed);
             if (MoCreatures.isServer())
             {
-                this.moveEntity(this.motionX, this.motionY, this.motionZ);
+                moveEntity(motionX, motionY, motionZ);
             }
             setBehavior(0);
             return;
         }
 
-        this.motionY -= 0.04D;
+        motionY -= 0.04D;
         if (MoCreatures.isServer())
         {
-            this.moveEntity(this.motionX, this.motionY, this.motionZ);
+            moveEntity(motionX, motionY, motionZ);
         }
-        this.motionX *= 0.98D;
-        this.motionY *= 0.98D;
-        this.motionZ *= 0.98D;
+        motionX *= 0.98D;
+        motionY *= 0.98D;
+        motionZ *= 0.98D;
 
-        if (this.onGround)
+        if (onGround)
         {
-            this.motionX *= 0.699D;
-            this.motionZ *= 0.699D;
-            this.motionY *= -0.5D;
+            motionX *= 0.699D;
+            motionZ *= 0.699D;
+            motionY *= -0.5D;
         }
 
     }
 
     private void transformToSolidBlock()
     {
-        if ((MoCTools.mobGriefing(this.worldObj)) && (MoCreatures.proxy.golemDestroyBlocks)) // don't drop throwable blocks if mobgriefing is set to false, prevents duping
+        if ((MoCTools.mobGriefing(worldObj)) && (MoCreatures.proxy.golemDestroyBlocks)) // don't drop throwable blocks if mobgriefing is set to false, prevents duping
         {
             if (!(
             		getType() == 8 //flowing water
@@ -299,14 +297,14 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
             	worldObj.setBlock((int) posX,(int) posY,(int) posZ, Block.getBlockById(getType()));
             }
         }
-        this.setDead();
+        setDead();
     }
 
     public Block getMyBlock()
     {
-        if (this.getType() != 0)
+        if (getType() != 0)
         {
-            return Block.getBlockById(this.getType());
+            return Block.getBlockById(getType());
         }
         return Blocks.stone;
     }
@@ -314,9 +312,9 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
     private Entity getMaster()
     {
         List<Entity> entityList = worldObj.loadedEntityList;
-        for (Entity ent : entityList)
+        for (Entity entity : entityList)
         {
-            if (ent.getEntityId() == getMasterID()) { return ent; }
+            if (entity.getEntityId() == getMasterID()) { return entity; }
         }
 
         return null;

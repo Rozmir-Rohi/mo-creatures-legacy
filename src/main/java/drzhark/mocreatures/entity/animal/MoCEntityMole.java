@@ -42,9 +42,9 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
         return isDiggableBlock(Block.getIdFromBlock(block));//(j == 2 | j == 3 | j == 12);
     }
 
-    private boolean isDiggableBlock(int i)
+    private boolean isDiggableBlock(int blockID)
     {
-        return i == 2 | i == 3 | i == 12;
+        return blockID == 2 | blockID == 3 | blockID == 12;
     }
     
     
@@ -90,8 +90,8 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
     public int pitchRotationOffset() 
     {
 
-        int i = (int)getState();
-        switch (i)
+        int state = (int)getState();
+        switch (state)
         {
         case 0:
             return 0;
@@ -109,8 +109,8 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
     @Override
     public float getAdjustedYOffset()
     {
-        int i = (int)getState();
-        switch (i)
+        int state = (int)getState();
+        switch (state)
         {
         case 0:
             return 0F;
@@ -141,15 +141,15 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
 
             if (getState() != 2 && getState() != 1 && isOnDirt())
             {
-                EntityLivingBase entityliving = getScaryEntity(4D);
-                if ((entityliving != null) && canEntityBeSeen(entityliving))
+                EntityLivingBase entityLiving = getScaryEntity(4D);
+                if ((entityLiving != null) && canEntityBeSeen(entityLiving))
                 {
                     setState((byte)1);
                     setPathToEntity(null);
                 }
             }
 
-            //if underground and no enemies: pick a boo
+            //if underground and no enemies: pick a scary entity
             if (rand.nextInt(20) == 0 && getState() == 2 && (getScaryEntity(4D) == null))
             {
                 setState((byte)3);
@@ -167,11 +167,6 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
             {
                 setState((byte)2);
             }
-            
-            /*if (getState() == 2)
-            {
-                if (rand.nextInt(50) == 0) digForward();
-            }*/
             
             //digging fx
             if ((getState() == 1 || getState() == 2))
@@ -192,9 +187,9 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
     }
     
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (getState() != 2) return super.attackEntityFrom(damagesource, i);
+        if (getState() != 2) return super.attackEntityFrom(damageSource, damageTaken);
         return false;
     }
     
@@ -211,29 +206,37 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
     }
     
     @Override
-    protected void collideWithEntity(Entity par1Entity)
+    public boolean isInvisible() //stops mole's own shadow from rendering on the block above where it is digging
     {
-        if (getState() != 2) super.collideWithEntity(par1Entity);
-//            par1Entity.applyEntityCollision(this);
+		return (getState() == 2);
+    	
+    }
+    
+    @Override
+    protected void collideWithEntity(Entity entity)
+    {
+        if (getState() != 2) {super.collideWithEntity(entity);}
     }
     
     @Override
     public boolean isEntityInsideOpaqueBlock()
     {
-        if (getState() == 2) { return false; }
+        if (getState() == 2) {return false;}
+        
         return super.isEntityInsideOpaqueBlock();
     }
     
     @Override
-    public void onDeath(DamageSource damagesource)
+    public void onDeath(DamageSource damageSource)
     {
-        super.onDeath(damagesource);
+        super.onDeath(damageSource);
     }
     
     @Override
     public boolean isEntityInvulnerable()
     {
-        if (getState() == 2) return true;
+        if (getState() == 2) {return true;}
+        
         return super.isEntityInvulnerable();
     }
     
@@ -262,7 +265,7 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean swimmerEntity()
+    public boolean isSwimmerEntity()
     {
         return true;
     }

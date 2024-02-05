@@ -21,35 +21,35 @@ public class MoCRenderRat extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
-        MoCEntityRat entityrat = (MoCEntityRat) entityliving;
+        MoCEntityRat entityrat = (MoCEntityRat) entityLiving;
         super.doRender(entityrat, d, d1, d2, f, f1);
     }
 
     @Override
-    protected float handleRotationFloat(EntityLivingBase entityliving, float f)
+    protected float handleRotationFloat(EntityLivingBase entityLiving, float f)
     {
-        stretch(entityliving);
-        return entityliving.ticksExisted + f;
+        stretch(entityLiving);
+        return entityLiving.ticksExisted + f;
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityRat entityrat = (MoCEntityRat) entityliving;
+        MoCEntityRat entityrat = (MoCEntityRat) entityLiving;
         if (entityrat.climbing())
         {
-            rotateAnimal(entityliving);
+            rotateAnimal(entityLiving);
         }
     }
 
-    protected void rotateAnimal(EntityLivingBase entityliving)
+    protected void rotateAnimal(EntityLivingBase entityLiving)
     {
         GL11.glRotatef(90F, -1F, 0.0F, 0.0F);
     }
 
-    protected void stretch(EntityLivingBase entityliving)
+    protected void stretch(EntityLivingBase entityLiving)
     {
         float f = 0.8F;
         GL11.glScalef(f, f, f);

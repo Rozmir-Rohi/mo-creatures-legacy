@@ -37,11 +37,11 @@ public class MoCMessageExplode implements IMessage, IMessageHandler<MoCMessageEx
     public IMessage onMessage(MoCMessageExplode message, MessageContext ctx)
     {
         List<Entity> entList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
-        for (Entity ent : entList)
+        for (Entity entity : entList)
         {
-            if (ent.getEntityId() == message.entityId && ent instanceof MoCEntityOgre)
+            if (entity.getEntityId() == message.entityId && entity instanceof MoCEntityOgre)
             {
-                ((MoCEntityOgre) ent).DestroyingOgre();
+                ((MoCEntityOgre) entity).DestroyingOgre();
                 break;
             }
         }

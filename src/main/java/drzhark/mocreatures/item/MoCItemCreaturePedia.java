@@ -26,29 +26,29 @@ public class MoCItemCreaturePedia extends MoCItem {
     /**
      * Called when a player right clicks a entity with a item.
      */
-    public void itemInteractionForEntity2(ItemStack par1ItemStack, EntityLiving entityliving)
+    public void itemInteractionForEntity2(ItemStack itemstack, EntityLiving entityLiving)
     {
-        if (entityliving.worldObj.isRemote) { return; }
+        if (entityLiving.worldObj.isRemote) { return; }
 
-        if (entityliving instanceof MoCEntityHorse)
+        if (entityLiving instanceof MoCEntityHorse)
         {
             MoCreatures.showCreaturePedia("/mocreatures/pedia/horse.png");
             return;
         }
 
-        if (entityliving instanceof MoCEntityTurtle)
+        if (entityLiving instanceof MoCEntityTurtle)
         {
             MoCreatures.showCreaturePedia("/mocreatures/pedia/turtle.png");
             return;
         }
 
-        if (entityliving instanceof MoCEntityBunny)
+        if (entityLiving instanceof MoCEntityBunny)
         {
             MoCreatures.showCreaturePedia("/mocreatures/pedia/bunny.png");
             return;
         }
 
-        if (entityliving instanceof MoCEntityDolphin)
+        if (entityLiving instanceof MoCEntityDolphin)
         {
             MoCreatures.showCreaturePedia("/mocreatures/pedia/dolphin.png");
             return;
@@ -56,18 +56,18 @@ public class MoCItemCreaturePedia extends MoCItem {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World worldObj, EntityPlayer entityplayer)
+    public ItemStack onItemRightClick(ItemStack itemstack, World worldObj, EntityPlayer entityPlayer)
     {
         if (!worldObj.isRemote)
         {
             double dist = 5D;
-            double newPosX = entityplayer.posX - (dist * Math.cos((MoCTools.realAngle(entityplayer.rotationYaw - 90F)) / 57.29578F));
-            double newPosZ = entityplayer.posZ - (dist * Math.sin((MoCTools.realAngle(entityplayer.rotationYaw - 90F)) / 57.29578F));
-            double newPosY = entityplayer.posY - 1D;
+            double newPosX = entityPlayer.posX - (dist * Math.cos((MoCTools.realAngle(entityPlayer.rotationYaw - 90F)) / 57.29578F));
+            double newPosZ = entityPlayer.posZ - (dist * Math.sin((MoCTools.realAngle(entityPlayer.rotationYaw - 90F)) / 57.29578F));
+            double newPosY = entityPlayer.posY - 1D;
 
             double d1 = -1D;
-            EntityLivingBase entityliving = null;
-            List list = worldObj.getEntitiesWithinAABBExcludingEntity(entityplayer, entityplayer.boundingBox.expand(dist, dist, dist));
+            EntityLivingBase entityLiving = null;
+            List list = worldObj.getEntitiesWithinAABBExcludingEntity(entityPlayer, entityPlayer.boundingBox.expand(dist, dist, dist));
             for (int i = 0; i < list.size(); i++)
             {
                 Entity entity1 = (Entity) list.get(i);
@@ -76,44 +76,44 @@ public class MoCItemCreaturePedia extends MoCItem {
                     continue;
                 }
 
-                if (!(entityplayer.canEntityBeSeen(entity1)))
+                if (!(entityPlayer.canEntityBeSeen(entity1)))
                 {
                     continue;
                 }
 
-                double d2 = entity1.getDistanceSq(entityplayer.posX, entityplayer.posY, entityplayer.posZ);
-                if (((dist < 0.0D) || (d2 < (dist * dist))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLivingBase) entity1).canEntityBeSeen(entityplayer))
+                double d2 = entity1.getDistanceSq(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+                if (((dist < 0.0D) || (d2 < (dist * dist))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLivingBase) entity1).canEntityBeSeen(entityPlayer))
                 {
                     d1 = d2;
-                    entityliving = (EntityLivingBase) entity1;
+                    entityLiving = (EntityLivingBase) entity1;
                 }
             }
 
-            if (entityliving == null) { return itemstack; }
+            if (entityLiving == null) { return itemstack; }
 
-            if (entityliving instanceof MoCEntityHorse)
+            if (entityLiving instanceof MoCEntityHorse)
             {
-                MoCreatures.showCreaturePedia(entityplayer, "/mocreatures/pedia/horse.png");
+                MoCreatures.showCreaturePedia(entityPlayer, "/mocreatures/pedia/horse.png");
                 return itemstack;
             }
 
-            if (entityliving instanceof MoCEntityTurtle)
+            if (entityLiving instanceof MoCEntityTurtle)
             {
-                MoCreatures.showCreaturePedia(entityplayer, "/mocreatures/pedia/turtle.png");
+                MoCreatures.showCreaturePedia(entityPlayer, "/mocreatures/pedia/turtle.png");
                 return itemstack;
             }
 
-            if (entityliving instanceof MoCEntityBunny)
+            if (entityLiving instanceof MoCEntityBunny)
             {
-                MoCreatures.showCreaturePedia(entityplayer, "/mocreatures/pedia/bunny.png");
+                MoCreatures.showCreaturePedia(entityPlayer, "/mocreatures/pedia/bunny.png");
                 return itemstack;
             }
 
             //TODO 4FIX             
-            /*if (entityliving instanceof MoCEntityDolphin)
+            /*if (entityLiving instanceof MoCEntityDolphin)
             {
                 //System.out.println("showing dolphin");
-                MoCreatures.showCreaturePedia(entityplayer, "/mocreatures/pedia/dolphin.png");
+                MoCreatures.showCreaturePedia(entityPlayer, "/mocreatures/pedia/dolphin.png");
                 return itemstack;
             }*/
         }

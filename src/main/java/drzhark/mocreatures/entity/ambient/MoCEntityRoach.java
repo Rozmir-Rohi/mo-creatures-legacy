@@ -32,10 +32,10 @@ public class MoCEntityRoach extends MoCEntityInsect
 
             if (!getIsFlying() && rand.nextInt(10) == 0)
             {
-                EntityLivingBase entityliving = getScaryEntity(3D);
-                if (entityliving != null)
+                EntityLivingBase entityLiving = getScaryEntity(3D);
+                if (entityLiving != null)
                 {
-                    runLikeHell(entityliving);
+                    runLikeHell(entityLiving);
                 }
             }
         }
@@ -60,9 +60,9 @@ public class MoCEntityRoach extends MoCEntityInsect
     }
 
     @Override
-    public boolean isMyFollowFood(ItemStack par1ItemStack)
+    public boolean isMyFollowFood(ItemStack itemstack)
     {
-        return par1ItemStack != null && par1ItemStack.getItem() == Items.rotten_flesh;
+        return itemstack != null && itemstack.getItem() == Items.rotten_flesh;
     }
 
     @Override

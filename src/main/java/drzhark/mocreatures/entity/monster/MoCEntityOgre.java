@@ -21,18 +21,18 @@ import net.minecraft.world.World;
 
 public class MoCEntityOgre extends MoCEntityMob{
 
-    public int frequencyA;
-    public int attackCounterLeft;
-    public int attackCounterRight;
+    public int attackFrequency;
+    public int attackCounterLeftArm;
+    public int attackCounterRightArm;
     private int movingHead;
-    public boolean pendingSmashAttack;
+    public boolean isPendingSmashAttack;
 
     public MoCEntityOgre(World world)
     {
         super(world);
         setSize(1.9F, 3F);
         isImmuneToFire = false;
-        frequencyA = 30;
+        attackFrequency = 30;
     }
 
     protected void applyEntityAttributes()
@@ -62,13 +62,14 @@ public class MoCEntityOgre extends MoCEntityMob{
             {
                 int fireOgreChance = MoCreatures.proxy.fireOgreChance;
                 int caveOgreChance = MoCreatures.proxy.caveOgreChance;
-                int j = rand.nextInt(100);
                 
-                if (canCaveOgreSpawn() && (j >= (100 - caveOgreChance)))
+                int typeChance = rand.nextInt(100);
+                
+                if (canCaveOgreSpawn() && (typeChance >= (100 - caveOgreChance)))
                 {    //System.out.println("can spawn cave o");
                     setType(rand.nextInt(2)+5);
                 }
-                else if (j >= (100 - fireOgreChance))
+                else if (typeChance >= (100 - fireOgreChance))
                 {
                     setType(rand.nextInt(2)+3);
                     this.isImmuneToFire = true;
@@ -103,9 +104,9 @@ public class MoCEntityOgre extends MoCEntityMob{
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if (attackTime <= 0 && (f < 2.5F) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY) && (worldObj.difficultySetting.getDifficultyId() > 0))
+        if (attackTime <= 0 && (distanceToEntity < 2.5F) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY) && (worldObj.difficultySetting.getDifficultyId() > 0))
         {
             attackTime = 20;
             this.attackEntityAsMob(entity);
@@ -113,15 +114,15 @@ public class MoCEntityOgre extends MoCEntityMob{
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i))
+        if (super.attackEntityFrom(damageSource, damageTaken))
         {
-            Entity entity = damagesource.getEntity();
-            if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
-            if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
+            if ((riddenByEntity == entityThatAttackedThisCreature) || (ridingEntity == entityThatAttackedThisCreature)) { return true; }
+            if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
             {
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
             }
             return true;
         }
@@ -140,11 +141,11 @@ public class MoCEntityOgre extends MoCEntityMob{
     @Override
     protected Entity findPlayerToAttack()
     {
-        float f = getBrightness(1.0F);
-        if (f < 0.5F)
+        float brightness = getBrightness(1.0F);
+        if (brightness < 0.5F)
         {
-            EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, getAttackRange());
-            if ((entityplayer != null) && (worldObj.difficultySetting.getDifficultyId() > 0)) { return entityplayer; }
+            EntityPlayer closestEntityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, getAttackRange());
+            if ((closestEntityPlayer != null) && (worldObj.difficultySetting.getDifficultyId() > 0)) { return closestEntityPlayer; }
         }
         return null;
     }
@@ -220,14 +221,14 @@ public class MoCEntityOgre extends MoCEntityMob{
         if (MoCreatures.isServer())
         {
             
-            if ((entityToAttack != null) && (rand.nextInt(frequencyA) == 0) && attackTime == 0 && attackCounterLeft == 0 && attackCounterRight == 0)
+            if ((entityToAttack != null) && (rand.nextInt(attackFrequency) == 0) && attackTime == 0 && attackCounterLeftArm == 0 && attackCounterRightArm == 0)
             {
                 startOgreAttack();
             }
             
-            if ((attackTime <= 0) && pendingSmashAttack)
+            if ((attackTime <= 0) && isPendingSmashAttack)
             {
-                pendingSmashAttack = false;
+                isPendingSmashAttack = false;
                 DestroyingOgre();
                 MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageExplode(this.getEntityId()), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
             }
@@ -238,8 +239,8 @@ public class MoCEntityOgre extends MoCEntityMob{
             
                 if (worldObj.isDaytime())
                 {
-                    float f = getBrightness(1.0F);
-                    if ((f > 0.5F) && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && ((rand.nextFloat() * 30F) < ((f - 0.4F) * 2.0F)))
+                    float brightness = getBrightness(1.0F);
+                    if ((brightness > 0.5F) && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && ((rand.nextFloat() * 30F) < ((brightness - 0.4F) * 2.0F)))
                     {
                         this.setHealth(getHealth() - 5);
                     }
@@ -247,14 +248,14 @@ public class MoCEntityOgre extends MoCEntityMob{
             }
         }
 
-        if (attackCounterLeft > 0 && ++attackCounterLeft > 30)
+        if (attackCounterLeftArm > 0 && ++attackCounterLeftArm > 30)
         {
-            attackCounterLeft = 0;
+            attackCounterLeftArm = 0;
         }
         
-        if (attackCounterRight > 0 && ++attackCounterRight > 30)
+        if (attackCounterRightArm > 0 && ++attackCounterRightArm > 30)
         {
-            attackCounterRight = 0;
+            attackCounterRightArm = 0;
         }
         super.onLivingUpdate();
     }
@@ -267,17 +268,17 @@ public class MoCEntityOgre extends MoCEntityMob{
         if (MoCreatures.isServer())
         {
             attackTime = 15;
-            pendingSmashAttack = true;
+            isPendingSmashAttack = true;
             boolean leftArmW = (getType() == 2 || getType() == 4 || getType() == 6) && rand.nextInt(2) == 0;
 
             if (leftArmW)
             {
-                attackCounterLeft = 1;
+                attackCounterLeftArm = 1;
                 MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 1), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
             }
             else
             {
-                attackCounterRight = 1;
+                attackCounterRightArm = 1;
                 MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 2), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
             }
         }
@@ -288,22 +289,22 @@ public class MoCEntityOgre extends MoCEntityMob{
     {
         if (animationType == 1) //left arm
         {
-            attackCounterLeft = 1;
+            attackCounterLeftArm = 1;
         }
         if (animationType == 2) //right arm
         {
-            attackCounterRight = 1;
+            attackCounterRightArm = 1;
         }
     }
     
-    public void onDeath(DamageSource source_of_damage) {
-        if (source_of_damage.getEntity() != null && source_of_damage.getEntity() instanceof EntityPlayer)
+    public void onDeath(DamageSource damageSource) {
+        if (damageSource.getEntity() != null && damageSource.getEntity() instanceof EntityPlayer)
         {
-          EntityPlayer player = (EntityPlayer)source_of_damage.getEntity();
+          EntityPlayer player = (EntityPlayer)damageSource.getEntity();
           if (player != null)
             player.addStat(MoCAchievements.kill_ogre, 1); 
         } 
-        super.onDeath(source_of_damage);
+        super.onDeath(damageSource);
       }
 
     public int getMovingHead()

@@ -46,8 +46,8 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     private float myMoveSpeed;
     private boolean waterbound;
     private int hunting;
-    private float spin_attack_strength;
-    private int attack_speed_when_caught_prey_in_mouth;
+    private float spinAttackStrength;
+    private int attackSpeedWhenCaughtPreyInMouth;
 
     public MoCEntityCrocodile(World world)
     {
@@ -162,7 +162,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean swimmerEntity()
+    public boolean isSwimmerEntity()
     {
         return true;
     }
@@ -238,7 +238,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
 
         if (MoCreatures.isServer() && rand.nextInt(500) == 0 && !waterbound && !getIsResting() && !isInsideOfMaterial(Material.water))
         {
-            MoCTools.MoveToWater(this);
+            MoCTools.moveToWater(this);
         }
 
         if (MoCreatures.isServer() && getMoCAge() < 150 && (rand.nextInt(200) == 0))
@@ -254,7 +254,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
         {
             if (!isInsideOfMaterial(Material.water))
             {
-                MoCTools.MoveToWater(this);
+                MoCTools.moveToWater(this);
             }
             else
             {
@@ -280,12 +280,12 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
                     }
                     
                     if (getMoCAge() < 90) //if is child (higher number for attack speed means the slower it is)
-                    {attack_speed_when_caught_prey_in_mouth = 15;}
+                    {attackSpeedWhenCaughtPreyInMouth = 15;}
                     else
-                    {attack_speed_when_caught_prey_in_mouth = 5;}
+                    {attackSpeedWhenCaughtPreyInMouth = 5;}
                     
 
-                    if (MoCreatures.isServer() && rand.nextInt(attack_speed_when_caught_prey_in_mouth) == 0)  //cause damage to creature in mouth
+                    if (MoCreatures.isServer() && rand.nextInt(attackSpeedWhenCaughtPreyInMouth) == 0)  //cause damage to creature in mouth
                     {
                         riddenByEntity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
                     }
@@ -301,8 +301,8 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
 
             if (isSpinning())
             {
-            	if (getMoCAge() < 90) {spin_attack_strength = 2;} //child spin attack strength
-            	else {spin_attack_strength = 7;} //adult spin attack strength
+            	if (getMoCAge() < 90) {spinAttackStrength = 2;} //child spin attack strength
+            	else {spinAttackStrength = 7;} //adult spin attack strength
             	
                 spinInt += 3;
                 if ((spinInt % 20) == 0)
@@ -312,7 +312,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
                 if (spinInt > 80)
                 {
                     spinInt = 0;
-                    riddenByEntity.attackEntityFrom(DamageSource.causeMobDamage(this), spin_attack_strength);
+                    riddenByEntity.attackEntityFrom(DamageSource.causeMobDamage(this), spinAttackStrength);
                 }
             }
         }
@@ -357,7 +357,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
     	if (this.getIsResting()) {this.setIsResting(false);}
     	
@@ -369,11 +369,11 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
         }
         if (getHasCaughtPrey()) { return; }
 
-        if (attackTime <= 0 && (f < 2.5F) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        if (attackTime <= 0 && (distanceToEntity < 2.5F) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
-        	float attack_strength;
-        	if (getMoCAge() < 90) {attack_strength = 2;} // if child attack strength is 2
-        	else {attack_strength = 10;} // else it is an adult and attack strength is 10
+        	float attackStrength;
+        	if (getMoCAge() < 90) {attackStrength = 2;} // if child attack strength is 2
+        	else {attackStrength = 10;} // else it is an adult and attack strength is 10
         	
             attackTime = 20;
             if (entity.ridingEntity == null && rand.nextInt(3) == 0)
@@ -383,7 +383,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
             }
             else
             {
-                entity.attackEntityFrom(DamageSource.causeMobDamage(this), attack_strength);
+                entity.attackEntityFrom(DamageSource.causeMobDamage(this), attackStrength);
                 crocBite();
                 setHasCaughtPrey(false);
             }
@@ -392,16 +392,16 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
     	if (this.getIsResting()) {this.setIsResting(false);} // TODO: Here marker
     	
         if (riddenByEntity != null)
         {
 
-            Entity entity = damagesource.getEntity();
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
             
-            if (entity != null && riddenByEntity == entity)
+            if (entityThatAttackedThisCreature != null && riddenByEntity == entityThatAttackedThisCreature)
             {
                 if (rand.nextInt(2) != 0)
                 {
@@ -414,22 +414,22 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
             }
 
         }
-        if (super.attackEntityFrom(damagesource, i))
+        if (super.attackEntityFrom(damageSource, damageTaken))
         {
-            Entity entity = damagesource.getEntity();
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
             
-            if ((entity != null) && (entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
+            if ((entityThatAttackedThisCreature != null) && (entityThatAttackedThisCreature != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
             {
-            	entityToAttack = entity;
+            	entityToAttack = entityThatAttackedThisCreature;
             	
                 return true;
             }
 
-            if (riddenByEntity != null && riddenByEntity == entity)
+            if (riddenByEntity != null && riddenByEntity == entityThatAttackedThisCreature)
             {
-                if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
+                if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
                 {
-                    entityToAttack = entity;
+                    entityToAttack = entityThatAttackedThisCreature;
                 }
                 return true;
             }
@@ -447,35 +447,35 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
         {
             double attackDistance = 6D;
             
-            EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, attackDistance); 
-            if((entityplayer != null) && getIsAdult()) 
+            EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, attackDistance); 
+            if((entityPlayer != null) && getIsAdult()) 
             {
-                 return entityplayer; 
+                 return entityPlayer; 
             }
             
-            EntityLivingBase entityliving = getClosestEntityLiving(this, attackDistance);
-            if (entityliving instanceof MoCEntityAquatic || entityliving instanceof MoCEntityTameableAquatic) // don't go and hunt fish if they are in the ocean
+            EntityLivingBase entityLiving = getClosestEntityLiving(this, attackDistance);
+            if (entityLiving instanceof MoCEntityAquatic || entityLiving instanceof MoCEntityTameableAquatic) // don't go and hunt fish if they are in the ocean
             	{
-                	int x = MathHelper.floor_double(entityliving.posX);
-                    int y = MathHelper.floor_double(entityliving.posY);
-                    int z = MathHelper.floor_double(entityliving.posZ);
+                	int x = MathHelper.floor_double(entityLiving.posX);
+                    int y = MathHelper.floor_double(entityLiving.posY);
+                    int z = MathHelper.floor_double(entityLiving.posZ);
 
-                    BiomeGenBase biome_that_prey_is_in = MoCTools.Biomekind(worldObj, x, y, z);
+                    BiomeGenBase biomeThatPreyIsIn = MoCTools.Biomekind(worldObj, x, y, z);
 
-                    if (BiomeDictionary.isBiomeOfType(biome_that_prey_is_in, Type.OCEAN) || BiomeDictionary.isBiomeOfType(biome_that_prey_is_in, Type.BEACH))
+                    if (BiomeDictionary.isBiomeOfType(biomeThatPreyIsIn, Type.OCEAN) || BiomeDictionary.isBiomeOfType(biomeThatPreyIsIn, Type.BEACH))
                     {
                     	 return null;
                     }
             	}
                 
-            else {return entityliving;}
+            else {return entityLiving;}
         }
         return null;
     }
 
     
     @Override
-    public boolean entitiesToIgnoreWhenHunting(Entity entity)
+    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
     {
         return ((!(entity instanceof EntityLiving)) 
                 || (entity instanceof IMob || entity instanceof MoCEntityMob) //don't hunt the creature if it is a mob 
@@ -526,7 +526,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public void floating()
+    public void floatOnWater()
     {
         if ((entityToAttack != null && ((entityToAttack.posY < (posY - 0.5D)) && getDistanceToEntity(entityToAttack) < 10F))) // || caughtPrey)
         {
@@ -537,7 +537,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
         }
         else
         {
-            super.floating();
+            super.floatOnWater();
         }
     }
 
@@ -572,12 +572,12 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public void onDeath(DamageSource damagesource)
+    public void onDeath(DamageSource damageSource)
     {
 
         unMount();
         MoCTools.checkForTwistedEntities(worldObj);
-        super.onDeath(damagesource);
+        super.onDeath(damageSource);
     }
 
     public void unMount()
@@ -602,14 +602,14 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
+        super.readEntityFromNBT(nbtTagCompound);
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
+        super.writeEntityToNBT(nbtTagCompound);
     }
 }

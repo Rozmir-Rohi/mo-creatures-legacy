@@ -164,9 +164,9 @@ public class MoCRenderMoC extends RenderLiving {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        IMoCEntity mocreature = (IMoCEntity) entityliving;
+        IMoCEntity mocreature = (IMoCEntity) entityLiving;
         /*if (mocreature.getSizeFactor() != 1.0F)
         {
             stretch(mocreature);
@@ -179,7 +179,7 @@ public class MoCRenderMoC extends RenderLiving {
         adjustYaw(mocreature);
         
         
-        super.preRenderCallback(entityliving, f);
+        super.preRenderCallback(entityLiving, f);
 
     }
 

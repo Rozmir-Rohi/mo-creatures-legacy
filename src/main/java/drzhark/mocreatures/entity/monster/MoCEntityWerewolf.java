@@ -21,9 +21,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class MoCEntityWerewolf extends MoCEntityMob {
-    private boolean transforming;
-    private boolean hunched;
-    private int transform_counter;
+    private boolean isTransforming;
+    private boolean isHunched;
+    private int transformCounter;
     private int textureCounter;
 
     public MoCEntityWerewolf(World world)
@@ -31,8 +31,8 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         super(world);
         //texture = MoCreatures.proxy.MODEL_TEXTURE + "werehuman.png";
         setSize(0.9F, 1.6F);
-        transforming = false;
-        transform_counter = 0;
+        isTransforming = false;
+        transformCounter = 0;
         setHumanForm(true);
     }
 
@@ -143,29 +143,29 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
         if (getIsHumanForm())
         {
             entityToAttack = null;
             return;
         }
-        if ((f > 2.0F) && (f < 6F) && (rand.nextInt(15) == 0))
+        if ((distanceToEntity > 2.0F) && (distanceToEntity < 6F) && (rand.nextInt(15) == 0))
         {
             if (onGround)
             {
                 setHunched(true);
-                double x_distance = entity.posX - posX;
-                double z_distance = entity.posZ - posZ;
-                float overall_horizontal_distance_squared = MathHelper.sqrt_double((x_distance * x_distance) + (z_distance * z_distance));
-                motionX = ((x_distance / overall_horizontal_distance_squared) * 0.5D * 0.80000001192092896D) + (motionX * 0.20000000298023221D);
-                motionZ = ((z_distance / overall_horizontal_distance_squared) * 0.5D * 0.80000001192092896D) + (motionZ * 0.20000000298023221D);
+                double xDistance = entity.posX - posX;
+                double zDistance = entity.posZ - posZ;
+                float overallHorizontalDistanceSquared = MathHelper.sqrt_double((xDistance * xDistance) + (zDistance * zDistance));
+                motionX = ((xDistance / overallHorizontalDistanceSquared) * 0.5D * 0.80000001192092896D) + (motionX * 0.20000000298023221D);
+                motionZ = ((zDistance / overallHorizontalDistanceSquared) * 0.5D * 0.80000001192092896D) + (motionZ * 0.20000000298023221D);
                 motionY = 0.40000000596046448D;
             }
         }
         else
         {
-            if (attackTime <= 0 && (f < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+            if (attackTime <= 0 && (distanceToEntity < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
             {
                 attackTime = 20;
                 entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
@@ -178,71 +178,71 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float damage_dealt_to_werewolf)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageDealtToWerewolf)
     {
-        Entity entity = damagesource.getEntity();
-        if (!getIsHumanForm() && (entity != null) && (entity instanceof EntityPlayer))
+        Entity entityThatAttackedThisCreature = damageSource.getEntity();
+        if (!getIsHumanForm() && (entityThatAttackedThisCreature != null) && (entityThatAttackedThisCreature instanceof EntityPlayer))
         {
-            EntityPlayer entityplayer = (EntityPlayer) entity;
-            ItemStack itemstack = entityplayer.getCurrentEquippedItem();
+            EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
+            ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
             if (itemstack != null)
             {
-                damage_dealt_to_werewolf = 1;
+                damageDealtToWerewolf = 1;
                 
-                Item item_held_by_player = itemstack.getItem();
+                Item itemHeldByPlayer = itemstack.getItem();
                 
-                if (damagesource.isProjectile())
+                if (damageSource.isProjectile())
                 {
-                	if (!(item_held_by_player instanceof ItemBow))
+                	if (!(itemHeldByPlayer instanceof ItemBow))
                 	{
-                		damage_dealt_to_werewolf = 0;
+                		damageDealtToWerewolf = 0;
                 	}
                 }
                 
-                if (item_held_by_player == Items.golden_shovel)
+                if (itemHeldByPlayer == Items.golden_shovel)
                 {
-                    damage_dealt_to_werewolf = 3;
+                    damageDealtToWerewolf = 3;
                 }	
                 	
                 if (
-                		item_held_by_player == Items.golden_hoe
-                		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("BiomesOPlenty:scytheGold")))
-                		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("battlegear2:dagger.gold")))
-                		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("battlegear2:waraxe.gold"))) // 8 is the actual damage dealt to werewolf using golden war axe in-game because of the item's armor penetration ability 
+                		itemHeldByPlayer == Items.golden_hoe
+                		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("BiomesOPlenty:scytheGold")))
+                		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:dagger.gold")))
+                		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:waraxe.gold"))) // 8 is the actual damage dealt to werewolf using golden war axe in-game because of the item's armor penetration ability 
                 	)
                 {
-                    damage_dealt_to_werewolf = 6;
+                    damageDealtToWerewolf = 6;
                 }
                 
                 if (
-                		item_held_by_player == Items.golden_pickaxe
+                		itemHeldByPlayer == Items.golden_pickaxe
                 	) 
                 {
-                	damage_dealt_to_werewolf = 7;
+                	damageDealtToWerewolf = 7;
                 }
                 
                 if (
-                		item_held_by_player == Items.golden_axe
-                		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("battlegear2:mace.gold")))
-                		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("battlegear2:spear.gold")))
+                		itemHeldByPlayer == Items.golden_axe
+                		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:mace.gold")))
+                		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:spear.gold")))
                 	)
                 {
-                    damage_dealt_to_werewolf = 8;
+                    damageDealtToWerewolf = 8;
                 }
                 
                 if (
-                		item_held_by_player == Items.golden_sword
-                		|| (((item_held_by_player.itemRegistry).getNameForObject(item_held_by_player).equals("witchery:silversword")))
+                		itemHeldByPlayer == Items.golden_sword
+                		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("witchery:silversword")))
                 	)
                 {
-                	damage_dealt_to_werewolf = 9;
+                	damageDealtToWerewolf = 9;
                 }
                 
-                if (item_held_by_player == MoCreatures.silversword) {damage_dealt_to_werewolf = 10;}
+                if (itemHeldByPlayer == MoCreatures.silversword) {damageDealtToWerewolf = 10;}
                 
             }
         }
-        return super.attackEntityFrom(damagesource, damage_dealt_to_werewolf);
+        return super.attackEntityFrom(damageSource, damageDealtToWerewolf);
     }
 
     @Override
@@ -250,18 +250,18 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     {
         if (getIsHumanForm()) { return null; }
         
-        EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
+        EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
         
-        EntityLivingBase entityliving = getClosestTarget(this, 16D);
+        EntityLivingBase entityLiving = getClosestTarget(this, 16D);
         
-        if ((entityplayer != null) && canEntityBeSeen(entityplayer))
+        if ((entityPlayer != null) && canEntityBeSeen(entityPlayer))
         {
-            return entityplayer;
+            return entityPlayer;
         }
         
-        else if ((entityliving != null) && canEntityBeSeen(entityliving))
+        else if ((entityLiving != null) && canEntityBeSeen(entityLiving))
         {
-        	return entityliving;
+        	return entityLiving;
         }
         
         else
@@ -272,35 +272,35 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     
     public EntityLivingBase getClosestTarget(Entity entity, double distance)
     {
-        double current_minimum_distance = -1D;
+        double currentMinimumDistance = -1D;
         
-        EntityLivingBase entityliving = null;
+        EntityLivingBase entityLiving = null;
         
-        List entities_nearby_list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
+        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
         
-        int iteration_length = entities_nearby_list.size();
+        int iterationLength = entitiesNearbyList.size();
         
-        if (iteration_length > 0)
+        if (iterationLength > 0)
         {
-	        for (int index = 0; index < iteration_length; index++)
+	        for (int index = 0; index < iterationLength; index++)
 	        {
-	            Entity entity_nearby = (Entity) entities_nearby_list.get(index);
+	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
 	            
 	           
-	            if (entity_nearby instanceof EntityVillager)
+	            if (entityNearby instanceof EntityVillager)
 	            {
-		            double overall_distance_squared = entity_nearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+		            double overallDistanceSquared = entityNearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
 		            
-		            if (((distance < 0.0D) || (overall_distance_squared < (distance * distance))) && ((current_minimum_distance == -1D) || (overall_distance_squared < current_minimum_distance)) && ((EntityLivingBase) entity_nearby).canEntityBeSeen(entity))
+		            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)) && ((EntityLivingBase) entityNearby).canEntityBeSeen(entity))
 		            {
-		                current_minimum_distance = overall_distance_squared;
-		                entityliving = (EntityLivingBase) entity_nearby;
+		                currentMinimumDistance = overallDistanceSquared;
+		                entityLiving = (EntityLivingBase) entityNearby;
 		            }
 	            }
 	        }
         }
 
-        return entityliving;
+        return entityLiving;
     }
 
     @Override
@@ -319,10 +319,10 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     @Override
     protected Item getDropItem()
     {
-        int random_number = rand.nextInt(12);
+        int randomNumber = rand.nextInt(12);
         if (getIsHumanForm())
         {
-            switch (random_number)
+            switch (randomNumber)
             {
 	            case 0: // '\0'
 	                return Items.wooden_shovel;
@@ -342,7 +342,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             return Items.stick;
         }
         
-        switch (random_number)
+        switch (randomNumber)
         {
 	        case 0: // '\0'
 	            return Items.iron_hoe;
@@ -425,9 +425,9 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     }
 
     @Override
-    public void onDeath(DamageSource source_of_damage)
+    public void onDeath(DamageSource damageSource)
     {
-        Entity entity = source_of_damage.getEntity();
+        Entity entity = damageSource.getEntity();
         if ((scoreValue > 0) && (entity != null))
         {
             entity.addToPlayerScore(this, scoreValue);
@@ -438,9 +438,9 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         }
         
 
-        if ((source_of_damage.getEntity() != null) && (source_of_damage.getEntity() instanceof EntityPlayer) && !(getIsHumanForm()))
+        if ((damageSource.getEntity() != null) && (damageSource.getEntity() instanceof EntityPlayer) && !(getIsHumanForm()))
         {
-        	EntityPlayer player = (EntityPlayer)source_of_damage.getEntity();
+        	EntityPlayer player = (EntityPlayer)damageSource.getEntity();
             if (player != null) {player.addStat(MoCAchievements.kill_werewolf, 1);}
         }
 
@@ -466,7 +466,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         {
             if (((IsNight() && getIsHumanForm()) || (!IsNight() && !getIsHumanForm())) && (rand.nextInt(250) == 0))
             {
-                transforming = true;
+                isTransforming = true;
             }
             if (getIsHumanForm() && (entityToAttack != null))
             {
@@ -480,28 +480,28 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             {
                 setHunched(false);
             }
-            if (transforming && (rand.nextInt(3) == 0))
+            if (isTransforming && (rand.nextInt(3) == 0))
             {
-                transform_counter++;
-                if ((transform_counter % 2) == 0)
+                transformCounter++;
+                if ((transformCounter % 2) == 0)
                 {
                     posX += 0.29999999999999999D;
-                    posY += transform_counter / 30;
+                    posY += transformCounter / 30;
                     attackEntityFrom(DamageSource.causeMobDamage(this), 0);
                 }
-                if ((transform_counter % 2) != 0)
+                if ((transformCounter % 2) != 0)
                 {
                     posX -= 0.29999999999999999D;
                 }
-                if (transform_counter == 10)
+                if (transformCounter == 10)
                 {
                     worldObj.playSoundAtEntity(this, "mocreatures:weretransform", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
                 }
-                if (transform_counter > 30)
+                if (transformCounter > 30)
                 {
                     Transform();
-                    transform_counter = 0;
-                    transforming = false;
+                    transformCounter = 0;
+                    isTransforming = false;
                 }
             }
             if (rand.nextInt(300) == 0)
@@ -529,13 +529,13 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             }
             
             this.setHealth(getMaxHealth());
-            transforming = false;
+            isTransforming = false;
         }
         else
         {
             setHumanForm(true);
             
-            float health_for_human_form = Math.round((getHealth() / getMaxHealth()) * 16.0D);
+            float healthForHumanForm = Math.round((getHealth() / getMaxHealth()) * 16.0D);
             
             if (getMaxHealth() != 16F)
             {
@@ -543,32 +543,32 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             }
             
             
-            this.setHealth(health_for_human_form);
-            transforming = false;
+            this.setHealth(healthForHumanForm);
+            isTransforming = false;
         }
     }
 
     @Override
     protected void updateEntityActionState()
     {
-        if (!transforming)
+        if (!isTransforming)
         {
             super.updateEntityActionState();
         }
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
-        setHumanForm(nbttagcompound.getBoolean("HumanForm"));
+        super.readEntityFromNBT(nbtTagCompound);
+        setHumanForm(nbtTagCompound.getBoolean("HumanForm"));
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setBoolean("HumanForm", getIsHumanForm());
+        super.writeEntityToNBT(nbtTagCompound);
+        nbtTagCompound.setBoolean("HumanForm", getIsHumanForm());
     }
 
     @Override

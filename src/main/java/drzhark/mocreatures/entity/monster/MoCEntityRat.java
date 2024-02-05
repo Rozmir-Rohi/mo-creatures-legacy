@@ -35,12 +35,12 @@ public class MoCEntityRat extends MoCEntityMob {
     {
         if (getType() == 0)
         {
-            int chance = rand.nextInt(100);
-            if (chance <= 65)
+            int typeChance = rand.nextInt(100);
+            if (typeChance <= 65)
             {
                 setType(1);
             }
-            else if (chance <= 98)
+            else if (typeChance <= 98)
             {
                 setType(2);
             }
@@ -75,51 +75,53 @@ public class MoCEntityRat extends MoCEntityMob {
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        float f1 = getBrightness(1.0F);
-        if ((f1 > 0.5F) && (rand.nextInt(100) == 0))
+        float brightness = getBrightness(1.0F);
+        if ((brightness > 0.5F) && (rand.nextInt(100) == 0))
         {
             entityToAttack = null;
             return;
         }
         else
         {
-            super.attackEntity(entity, f);
+            super.attackEntity(entity, distanceToEntity);
             return;
         }
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i))
+        if (super.attackEntityFrom(damageSource, damageTaken))
         {
-            Entity entity = damagesource.getEntity();
-            if (entity instanceof EntityPlayer)
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
+            if (entityThatAttackedThisCreature instanceof EntityPlayer)
             {
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
             }
-            if ((entity instanceof EntityArrow) && (((EntityArrow) entity).shootingEntity != null))
+            if ((entityThatAttackedThisCreature instanceof EntityArrow) && (((EntityArrow) entityThatAttackedThisCreature).shootingEntity != null))
             {
-                entity = ((EntityArrow) entity).shootingEntity;
+                entityThatAttackedThisCreature = ((EntityArrow) entityThatAttackedThisCreature).shootingEntity;
             }
-            if (entity instanceof EntityLiving)
+            if (entityThatAttackedThisCreature instanceof EntityLiving)
             {
                 //TODO 4FIX TEST
-                List list = worldObj.getEntitiesWithinAABB(MoCEntityRat.class, AxisAlignedBB.getBoundingBox(posX, posY, posZ, posX + 1.0D, posY + 1.0D, posZ + 1.0D).expand(16D, 4D, 16D));
-                Iterator iterator = list.iterator();
+                List entitiesNearbyList = worldObj.getEntitiesWithinAABB(MoCEntityRat.class, AxisAlignedBB.getBoundingBox(posX, posY, posZ, posX + 1.0D, posY + 1.0D, posZ + 1.0D).expand(16D, 4D, 16D));
+                Iterator iterator = entitiesNearbyList.iterator();
                 do
                 {
                     if (!iterator.hasNext())
                     {
                         break;
                     }
-                    Entity entity1 = (Entity) iterator.next();
-                    MoCEntityRat entityrat = (MoCEntityRat) entity1;
-                    if ((entityrat != null) && (entityrat.entityToAttack == null))
+                    Entity entityNearby = (Entity) iterator.next();
+                    
+                    MoCEntityRat entityRatNearby = (MoCEntityRat) entityNearby;
+                    
+                    if ((entityRatNearby != null) && (entityRatNearby.entityToAttack == null))
                     {
-                        entityrat.entityToAttack = entity;
+                        entityRatNearby.entityToAttack = entityThatAttackedThisCreature;
                     }
                 } while (true);
             }
@@ -142,9 +144,9 @@ public class MoCEntityRat extends MoCEntityMob {
         float brightness = getBrightness(1.0F);
         if (brightness < 0.5F) 
         {
-            EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
+            EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
             
-            return entityplayer != null && this.canEntityBeSeen(entityplayer) ? entityplayer : null;
+            return entityPlayer != null && this.canEntityBeSeen(entityPlayer) ? entityPlayer : null;
         }
         return null;
     }
@@ -180,14 +182,14 @@ public class MoCEntityRat extends MoCEntityMob {
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
+        super.readEntityFromNBT(nbtTagCompound);
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
+        super.writeEntityToNBT(nbtTagCompound);
     }
 }

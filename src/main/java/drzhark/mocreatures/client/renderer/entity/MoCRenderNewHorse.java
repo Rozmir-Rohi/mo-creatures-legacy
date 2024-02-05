@@ -24,15 +24,15 @@ public class MoCRenderNewHorse extends MoCRenderMoC {
         return ((MoCEntityHorse)par1Entity).getTexture();
     }
 
-    protected void adjustHeight(EntityLiving entityliving, float FHeight)
+    protected void adjustHeight(EntityLiving entityLiving, float FHeight)
     {
         GL11.glTranslatef(0.0F, FHeight, 0.0F);
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityHorse entityhorse = (MoCEntityHorse) entityliving;
+        MoCEntityHorse entityhorse = (MoCEntityHorse) entityLiving;
         if (!entityhorse.getIsAdult() || entityhorse.getType() > 64)
         {
             stretch(entityhorse);
@@ -41,7 +41,7 @@ public class MoCRenderNewHorse extends MoCRenderMoC {
         {
             adjustHeight(entityhorse, -0.3F + (entityhorse.ghostHorseTransparencyFloat() / 5F));
         }
-        super.preRenderCallback(entityliving, f);
+        super.preRenderCallback(entityLiving, f);
 
     }
 

@@ -21,7 +21,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
-    public int littertime;
+    public int litterTime;
 
     public MoCEntityLitterBox(World world)
     {
@@ -156,29 +156,29 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
 
         if ((itemstack != null) && MoCreatures.isServer() && getUsedLitter() && (itemstack.getItem() == Item.getItemFromBlock(Blocks.sand)))
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             setUsedLitter(false);
-            littertime = 0;
-            entityplayer.addStat(MoCAchievements.kitty_litter, 1);
+            litterTime = 0;
+            entityPlayer.addStat(MoCAchievements.kitty_litter, 1);
             return true;
         }
         else if ((itemstack == null))
         {
-            rotationYaw = entityplayer.rotationYaw;
-            if ((itemstack == null) && (this.ridingEntity == null) && (entityplayer.ridingEntity == null))
+            rotationYaw = entityPlayer.rotationYaw;
+            if ((itemstack == null) && (this.ridingEntity == null) && (entityPlayer.ridingEntity == null))
             {
                 if (MoCreatures.isServer())
                 {
-                    mountEntity(entityplayer);
+                    mountEntity(entityPlayer);
                 }
             }
             else
@@ -194,13 +194,13 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
     }
 
     @Override
-    public void moveEntity(double d, double d1, double d2)
+    public void moveEntity(double x, double y, double z)
     {
         if ((ridingEntity != null) || !onGround || !MoCreatures.proxy.staticLitter)
         {
             if (!worldObj.isRemote)
             {
-                super.moveEntity(d, d1, d2);
+                super.moveEntity(x, y, z);
             }
         }
     }
@@ -212,16 +212,16 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
         
         if (MoCreatures.isServer() && getUsedLitter())
         {
-            EntityItem entityitem = getClosestEntityItem(this, 1D);
+            EntityItem entityItem = getClosestEntityItem(this, 1D);
             
-            if (entityitem != null)	
+            if (entityItem != null)	
             {
             
-            	Block block_item = Block.getBlockFromItem(entityitem.getEntityItem().getItem());
+            	Block blockItem = Block.getBlockFromItem(entityItem.getEntityItem().getItem());
             
-            	if (block_item == Blocks.sand)
+            	if (blockItem == Blocks.sand)
             	{
-            		entityitem.setDead();
+            		entityItem.setDead();
             		setUsedLitter(false);
             	}
             }
@@ -239,7 +239,7 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
         }
         if (getUsedLitter() && MoCreatures.isServer())
         {
-            littertime++;
+            litterTime++;
             worldObj.spawnParticle("smoke", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
             List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(12D, 4D, 12D));
             for (int i = 0; i < list.size(); i++)
@@ -257,15 +257,15 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
                 }
                 if (entitymob instanceof MoCEntityOgre)
                 {
-                    ((MoCEntityOgre) entitymob).pendingSmashAttack = false;
+                    ((MoCEntityOgre) entitymob).isPendingSmashAttack = false;
                 }
             }
 
         }
-        if (littertime > 5000 && MoCreatures.isServer())
+        if (litterTime > 5000 && MoCreatures.isServer())
         {
             setUsedLitter(false);
-            littertime = 0;
+            litterTime = 0;
         }
     }
 
@@ -275,14 +275,14 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        nbttagcompound.setBoolean("UsedLitter", getUsedLitter());
+        nbtTagCompound.setBoolean("UsedLitter", getUsedLitter());
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        setUsedLitter(nbttagcompound.getBoolean("UsedLitter"));
+        setUsedLitter(nbtTagCompound.getBoolean("UsedLitter"));
     }
 }

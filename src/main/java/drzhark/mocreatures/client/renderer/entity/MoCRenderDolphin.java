@@ -24,12 +24,12 @@ public class MoCRenderDolphin extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
-        MoCEntityDolphin entitydolphin = (MoCEntityDolphin) entityliving;
+        MoCEntityDolphin entitydolphin = (MoCEntityDolphin) entityLiving;
         super.doRender(entitydolphin, d, d1, d2, f, f1);
         boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entitydolphin.getName()).isEmpty();
-        boolean flag1 = MoCreatures.proxy.getDisplayPetHealth(entityliving);
+        boolean flag1 = MoCreatures.proxy.getDisplayPetHealth(entityLiving);
         //boolean flag2 = MoCreatures.proxy.getdisplayPetIcons();
         if (entitydolphin.renderName())
         {
@@ -106,15 +106,15 @@ public class MoCRenderDolphin extends RenderLiving {
         }
     }
 
-    public void doRender2(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
+    public void doRender2(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
-        MoCEntityDolphin entitydolphin = (MoCEntityDolphin) entityliving;
+        MoCEntityDolphin entitydolphin = (MoCEntityDolphin) entityLiving;
         super.doRender(entitydolphin, d, d1, d2, f, f1);
         if (entitydolphin.renderName())
         {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
-            float f4 = entityliving.getDistanceToEntity(renderManager.livingPlayer);
+            float f4 = entityLiving.getDistanceToEntity(renderManager.livingPlayer);
             String s = "";
             s = (new StringBuilder()).append(s).append(entitydolphin.getName()).toString();
             if ((f4 < 12F) && (s.length() > 0))
@@ -140,7 +140,7 @@ public class MoCRenderDolphin extends RenderLiving {
                 tessellator.addVertex(-i - 1, 8 + byte0, 0.0D);
                 tessellator.addVertex(i + 1, 8 + byte0, 0.0D);
                 tessellator.addVertex(i + 1, -1 + byte0, 0.0D);
-                if (MoCreatures.proxy.getDisplayPetHealth(entityliving))
+                if (MoCreatures.proxy.getDisplayPetHealth(entityLiving))
                 {
                     float f5 = entitydolphin.getHealth();
                     float f6 = entitydolphin.getMaxHealth();
@@ -172,10 +172,10 @@ public class MoCRenderDolphin extends RenderLiving {
     }
 
     @Override
-    protected float handleRotationFloat(EntityLivingBase entityliving, float f)
+    protected float handleRotationFloat(EntityLivingBase entityLiving, float f)
     {
-        stretch((MoCEntityDolphin) entityliving);
-        return entityliving.ticksExisted + f;
+        stretch((MoCEntityDolphin) entityLiving);
+        return entityLiving.ticksExisted + f;
     }
 
     protected void stretch(MoCEntityDolphin entitydolphin)

@@ -37,11 +37,11 @@ public class MoCMessageAppear implements IMessage, IMessageHandler<MoCMessageApp
     public IMessage onMessage(MoCMessageAppear message, MessageContext ctx)
     {
         List<Entity> entList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
-        for (Entity ent : entList)
+        for (Entity entity : entList)
         {
-            if (ent.getEntityId() == message.entityId && ent instanceof MoCEntityHorse)
+            if (entity.getEntityId() == message.entityId && entity instanceof MoCEntityHorse)
             {
-                ((MoCEntityHorse) ent).MaterializeFX();
+                ((MoCEntityHorse) entity).MaterializeFX();
                 break;
             }
         }

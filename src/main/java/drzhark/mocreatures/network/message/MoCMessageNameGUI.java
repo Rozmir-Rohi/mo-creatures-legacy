@@ -50,11 +50,11 @@ public class MoCMessageNameGUI implements IMessage, IMessageHandler<MoCMessageNa
     public void handleClientMessage(MoCMessageNameGUI message, MessageContext ctx)
     {
         List<Entity> entList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
-        for (Entity ent : entList)
+        for (Entity entity : entList)
         {
-            if (ent.getEntityId() == message.entityId && ent instanceof IMoCEntity)
+            if (entity.getEntityId() == message.entityId && entity instanceof IMoCEntity)
             {
-                MoCClientProxy.mc.displayGuiScreen(new MoCGUIEntityNamer(((IMoCEntity) ent), ((IMoCEntity) ent).getName()));
+                MoCClientProxy.mc.displayGuiScreen(new MoCGUIEntityNamer(((IMoCEntity) entity), ((IMoCEntity) entity).getName()));
                 break;
             }
         }

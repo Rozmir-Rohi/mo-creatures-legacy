@@ -23,21 +23,21 @@ public class MoCRenderOstrich extends MoCRenderMoC {
         return ((MoCEntityOstrich)par1Entity).getTexture();
     }
 
-    protected void adjustHeight(EntityLiving entityliving, float FHeight)
+    protected void adjustHeight(EntityLiving entityLiving, float FHeight)
     {
         GL11.glTranslatef(0.0F, FHeight, 0.0F);
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityOstrich entityostrich = (MoCEntityOstrich) entityliving;
+        MoCEntityOstrich entityostrich = (MoCEntityOstrich) entityLiving;
         if (entityostrich.getType() == 1)
         {
             stretch(entityostrich);
         }
 
-        super.preRenderCallback(entityliving, f);
+        super.preRenderCallback(entityLiving, f);
 
     }
 

@@ -45,8 +45,8 @@ public class MoCEntityCricket extends MoCEntityInsect
     	
         if (getType() == 0) // if the type is still 0, make it a random type
         {
-            int i = rand.nextInt(100);
-            if (i <= 50)
+            int typeChance = rand.nextInt(100);
+            if (typeChance <= 50)
             {
                 setType(1);
             }
@@ -60,15 +60,15 @@ public class MoCEntityCricket extends MoCEntityInsect
     @Override
     public boolean checkSpawningBiome()
     {
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
+        BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
       
         //sets the cricket to have a more yellow shade to fit in with the grass
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SAVANNA)
-        		|| BiomeDictionary.isBiomeOfType(currentbiome, Type.SANDY)
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SAVANNA)
+        		|| BiomeDictionary.isBiomeOfType(currentBiome, Type.SANDY)
         	) 
         {
         	setType(2); //yellow shade cricket
@@ -109,8 +109,8 @@ public class MoCEntityCricket extends MoCEntityInsect
 
             if (getIsFlying() || !this.onGround)
             {
-                EntityPlayer ep = worldObj.getClosestPlayerToEntity(this, 5D);
-                if (ep != null && --soundCounter == -1)
+                EntityPlayer entityPlayer = worldObj.getClosestPlayerToEntity(this, 5D);
+                if (entityPlayer != null && --soundCounter == -1)
                 {
                     MoCTools.playCustomSound(this, "cricketfly", this.worldObj);
                     soundCounter = 10;
@@ -118,8 +118,8 @@ public class MoCEntityCricket extends MoCEntityInsect
             }
             else if (!DimensionManager.getWorld(0).isDaytime())
             {
-                EntityPlayer ep = worldObj.getClosestPlayerToEntity(this, 12D);
-                if (ep != null && --soundCounter == -1)
+                EntityPlayer entityPlayer = worldObj.getClosestPlayerToEntity(this, 12D);
+                if (entityPlayer != null && --soundCounter == -1)
                 {
                     MoCTools.playCustomSound(this, "cricket", this.worldObj);
                     soundCounter = 20;

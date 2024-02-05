@@ -64,13 +64,13 @@ public class MoCEntityMouse extends MoCEntityAnimal
     @Override
     public boolean checkSpawningBiome()
     {
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
+        BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
-        String s = MoCTools.BiomeName(worldObj, x_coordinate, y_coordinate, z_coordinate);
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SNOWY))
+        String biomeName = MoCTools.BiomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SNOWY))
         {
             setType(3); //white mice!
         }
@@ -125,19 +125,19 @@ public class MoCEntityMouse extends MoCEntityAnimal
     @Override
     public boolean getCanSpawnHere()
     {
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
         return ( 
 	                (MoCreatures.entityMap.get(this.getClass()).getFrequency() > 0) &&
 	                worldObj.checkNoEntityCollision(boundingBox) 
 	                && (worldObj.getCollidingBoundingBoxes(this, boundingBox).size() == 0) 
 	                && !worldObj.isAnyLiquid(boundingBox) 
-	                && ((worldObj.getBlock(x_coordinate, y_coordinate - 1, z_coordinate) == Blocks.cobblestone) 
-	                || (worldObj.getBlock(x_coordinate, y_coordinate - 1, z_coordinate) == Blocks.planks) 
-	                || (worldObj.getBlock(x_coordinate, y_coordinate - 1, z_coordinate) == Blocks.dirt) 
-	                || (worldObj.getBlock(x_coordinate, y_coordinate - 1, z_coordinate) == Blocks.stone) 
-	                || (worldObj.getBlock(x_coordinate, y_coordinate - 1, z_coordinate) == Blocks.grass))
+	                && ((worldObj.getBlock(xCoordinate, yCoordinate - 1, zCoordinate) == Blocks.cobblestone) 
+	                || (worldObj.getBlock(xCoordinate, yCoordinate - 1, zCoordinate) == Blocks.planks) 
+	                || (worldObj.getBlock(xCoordinate, yCoordinate - 1, zCoordinate) == Blocks.dirt) 
+	                || (worldObj.getBlock(xCoordinate, yCoordinate - 1, zCoordinate) == Blocks.stone) 
+	                || (worldObj.getBlock(xCoordinate, yCoordinate - 1, zCoordinate) == Blocks.grass))
                 );
     }
 
@@ -187,19 +187,19 @@ public class MoCEntityMouse extends MoCEntityAnimal
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {   
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         
         if (itemstack == null)
         {
-        	rotationYaw = entityplayer.rotationYaw;
+        	rotationYaw = entityPlayer.rotationYaw;
         
 	        if (this.ridingEntity == null)
 	        {
-	            if ((MoCreatures.isServer()) && (entityplayer.ridingEntity == null))
+	            if ((MoCreatures.isServer()) && (entityPlayer.ridingEntity == null))
 	            {
-	            	mountEntity(entityplayer);
+	            	mountEntity(entityPlayer);
 	            	setPicked(true);
 	            }
 	        }
@@ -209,9 +209,9 @@ public class MoCEntityMouse extends MoCEntityAnimal
 	            if (MoCreatures.isServer()) this.mountEntity(null);
 	            return false;
 	        }
-	        motionX = entityplayer.motionX * 5D;
-	        motionY = (entityplayer.motionY / 2D) + 0.5D;
-	        motionZ = entityplayer.motionZ * 5D;
+	        motionX = entityPlayer.motionX * 5D;
+	        motionY = (entityPlayer.motionY / 2D) + 0.5D;
+	        motionZ = entityPlayer.motionZ * 5D;
 	
 	        return true;
         }
@@ -232,10 +232,10 @@ public class MoCEntityMouse extends MoCEntityAnimal
         {
             if(rand.nextInt(15) == 0)
             {
-                EntityLivingBase entityliving = getScaryEntity(6D);
-                if(entityliving != null)
+                EntityLivingBase entityLiving = getScaryEntity(6D);
+                if(entityLiving != null)
                 {
-                    MoCTools.runLikeHell(this, entityliving);
+                    MoCTools.runLikeHell(this, entityLiving);
 
                 }
             }
@@ -255,18 +255,18 @@ public class MoCEntityMouse extends MoCEntityAnimal
     }
     
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
         if (MoCreatures.isServer())
         {
         	if (this.ridingEntity != null && 
-        			(damagesource.getEntity() == this.ridingEntity || DamageSource.inWall.equals(damagesource)))
+        			(damageSource.getEntity() == this.ridingEntity || DamageSource.inWall.equals(damageSource)))
             {
          	   return false;
             }
         }
         
-        return super.attackEntityFrom(damagesource, i);
+        return super.attackEntityFrom(damageSource, damageTaken);
     }
 
     private void reproduce()
@@ -292,7 +292,7 @@ public class MoCEntityMouse extends MoCEntityAnimal
 
     
     @Override
-    public boolean swimmerEntity()
+    public boolean isSwimmerEntity()
     {
         return true;
     }

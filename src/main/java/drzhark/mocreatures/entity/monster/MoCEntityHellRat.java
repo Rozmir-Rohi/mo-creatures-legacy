@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public class MoCEntityHellRat extends MoCEntityRat {
 
-    private int textCounter;
+    private int textureCounter;
 
     public MoCEntityHellRat(World world)
     {
@@ -36,19 +36,19 @@ public class MoCEntityHellRat extends MoCEntityRat {
     {
         if (rand.nextInt(2) == 0)
         {
-            textCounter++;
+            textureCounter++;
         }
-        if (textCounter < 10)
+        if (textureCounter < 10)
         {
-            textCounter = 10;
+            textureCounter = 10;
         }
-        if (textCounter > 29)
+        if (textureCounter > 29)
         {
-            textCounter = 10;
+            textureCounter = 10;
         }
-        String textNumber = "" + textCounter;
-        textNumber = textNumber.substring(0, 1);
-        return MoCreatures.proxy.getTexture("hellrat" + textNumber + ".png");
+        String textureNumber = "" + textureCounter;
+        textureNumber = textureNumber.substring(0, 1);
+        return MoCreatures.proxy.getTexture("hellrat" + textureNumber + ".png");
     }
 
     @Override

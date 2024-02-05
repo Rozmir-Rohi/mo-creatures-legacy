@@ -150,8 +150,8 @@ public class MoCModelSilverSkeleton extends ModelBase
         super.render(entity, f, f1, f2, f3, f4, f5);
         MoCEntitySilverSkeleton samurai = (MoCEntitySilverSkeleton) entity;
         boolean sprinting = samurai.isSprinting();//getIsAngry();
-        int leftAttack = samurai.attackCounterLeft;
-        int rightAttack = samurai.attackCounterRight;
+        int leftAttack = samurai.attackCounterLeftArm;
+        int rightAttack = samurai.attackCounterRightArm;
         setRotationAngles(f, f1, f2, f3, f4, f5, leftAttack, rightAttack);
         
         if (sprinting && f1 > 0.3F)

@@ -514,11 +514,11 @@ public class MoCClientProxy extends MoCProxy {
         return displayPetIcons;
     }
 
-    public boolean getDisplayPetHealth(EntityLiving entityliving)
+    public boolean getDisplayPetHealth(EntityLiving entityLiving)
     {
     	if (displayPetHealth == true)
     	{
-	        if (entityliving.getHealth() == entityliving.getMaxHealth())
+	        if (entityLiving.getHealth() == entityLiving.getMaxHealth())
 	        {
 	        	return false;
 	        }

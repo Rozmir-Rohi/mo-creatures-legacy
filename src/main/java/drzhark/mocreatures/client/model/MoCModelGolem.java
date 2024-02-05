@@ -344,11 +344,11 @@ public class MoCModelGolem extends ModelBase {
         boolean openChest = entityG.openChest();
         boolean isSummoning = entityG.isMissingCubes();
         boolean angry = entityG.getGolemState() > 1;
-        boolean throwing = (entityG.tcounter > 25);
+        boolean throwing = (entityG.throwBlockCounter > 25);
 
         for (int i = 0; i < 23; i++)
         {
-            blocksText[i] = entityG.getBlockText(i);
+            blocksText[i] = entityG.getBlockTexture(i);
         }
 
         setRotationAngles(f, f1, f2, f3, f4, f5, openChest, isSummoning, throwing);

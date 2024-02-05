@@ -59,7 +59,7 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
     protected EntityLivingBase getClosestEntityLiving(Entity entity, double d)
     {
         double d1 = -1D;
-        EntityLivingBase entityliving = null;
+        EntityLivingBase entityLiving = null;
         List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
         for (int i = 0; i < list.size(); i++)
         {
@@ -86,11 +86,11 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
             if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLivingBase) entity1).canEntityBeSeen(entity))
             {
                 d1 = d2;
-                entityliving = (EntityLivingBase) entity1;
+                entityLiving = (EntityLivingBase) entity1;
             }
         }
 
-        return entityliving;
+        return entityLiving;
     }
     
     @Override
@@ -98,28 +98,28 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
     {
         if ((worldObj.difficultySetting.getDifficultyId() > 0))
         {
-            EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 12D);
-            if ((entityplayer != null) && entityplayer.isInWater() && !getIsTamed()) { return entityplayer; }
+            EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 12D);
+            if ((entityPlayer != null) && entityPlayer.isInWater() && !getIsTamed()) { return entityPlayer; }
             
             if (rand.nextInt(80) == 0)
             {
-            	EntityLivingBase entityliving = getClosestEntityLiving(this, 4D);
-                return entityliving;
+            	EntityLivingBase entityLiving = getClosestEntityLiving(this, 4D);
+                return entityLiving;
             }
         }
         return null;
     }
     
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i) && (worldObj.difficultySetting.getDifficultyId() > 0))
+        if (super.attackEntityFrom(damageSource, damageTaken) && (worldObj.difficultySetting.getDifficultyId() > 0))
         {
-            Entity entity = damagesource.getEntity();
-            if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
-            if (entity != this)
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
+            if ((riddenByEntity == entityThatAttackedThisCreature) || (ridingEntity == entityThatAttackedThisCreature)) { return true; }
+            if (entityThatAttackedThisCreature != this)
             {
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
             }
             return true;
         }
@@ -135,9 +135,9 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if (entity.isInWater() && (f < 0.8D))
+        if (entity.isInWater() && (distanceToEntity < 0.8D))
         {
             if (entity instanceof EntityPlayer && ((EntityPlayer)entity).ridingEntity != null)
             {
@@ -155,15 +155,15 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
     @Override
     protected void dropFewItems(boolean flag, int x)
     {
-        int i = rand.nextInt(100);
-        if (i < 70)
+        int fishDropChance = rand.nextInt(100);
+        if (fishDropChance < 70)
         {
             entityDropItem(new ItemStack(Items.fish, 1, 0), 0.0F);
         }
         else
         {
-            int j = rand.nextInt(2);
-            for (int k = 0; k < j; k++)
+            int amountOfEggsToDrop = rand.nextInt(2);
+            for (int index = 0; index < amountOfEggsToDrop; index++)
             {
                 entityDropItem(new ItemStack(MoCreatures.mocegg, 1, 90), 0.0F); 
             }

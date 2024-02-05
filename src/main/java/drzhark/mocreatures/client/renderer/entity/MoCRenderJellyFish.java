@@ -23,10 +23,10 @@ public class MoCRenderJellyFish extends RenderLiving {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
         GL11.glTranslatef(0.0F, depth, 0.0F);
-        MoCEntityJellyFish jelly = (MoCEntityJellyFish) entityliving;
+        MoCEntityJellyFish jelly = (MoCEntityJellyFish) entityLiving;
         if (!jelly.isSwimming() && jelly.onGround)
         {
 
@@ -40,20 +40,20 @@ public class MoCRenderJellyFish extends RenderLiving {
 
     }
 
-    protected void rotateAnimal(EntityLiving entityliving)
+    protected void rotateAnimal(EntityLiving entityLiving)
     {
         GL11.glRotatef(90F, -1F, 0.0F, 0.0F);
     }
 
-    protected void adjustHeight(EntityLiving entityliving)
+    protected void adjustHeight(EntityLiving entityLiving)
     {
         GL11.glTranslatef(0.0F, -0.3F, 0.0F);
     }
 
     @Override
-    public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
-        MoCEntityJellyFish entityjellyfish = (MoCEntityJellyFish) entityliving;
+        MoCEntityJellyFish entityjellyfish = (MoCEntityJellyFish) entityLiving;
         boolean flag = entityjellyfish.isGlowing();
 
         if (!entityjellyfish.isSwimming())
@@ -78,7 +78,7 @@ public class MoCRenderJellyFish extends RenderLiving {
             GL11.glBlendFunc(770, 1);
             //GL11.glBlendFunc(770, GL11.GL_ONE);
         }
-        super.doRender(entityliving, d, d1, d2, f, f1);
+        super.doRender(entityLiving, d, d1, d2, f, f1);
         GL11.glDisable(3042/*GL_BLEND*/);
         GL11.glPopMatrix();
 

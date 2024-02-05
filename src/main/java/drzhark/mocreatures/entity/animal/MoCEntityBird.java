@@ -153,18 +153,18 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     {
         if (entity != null)
         {
-            int entity_posX = MathHelper.floor_double(entity.posX);
-            int entity_posY = MathHelper.floor_double(entity.posY);
-            int entity_posZ = MathHelper.floor_double(entity.posZ);
-            faceLocation(entity_posX, entity_posY, entity_posZ, 30F);
-            if (MathHelper.floor_double(posY) < entity_posY)
+            int entityPosX = MathHelper.floor_double(entity.posX);
+            int entityPosY = MathHelper.floor_double(entity.posY);
+            int entityPosZ = MathHelper.floor_double(entity.posZ);
+            faceLocation(entityPosX, entityPosY, entityPosZ, 30F);
+            if (MathHelper.floor_double(posY) < entityPosY)
             {
                 motionY += 0.14999999999999999D;
             }
             if (posX < entity.posX)
             {
-                double x_distance = entity.posX - posX;
-                if (x_distance > 0.5D)
+                double xDistance = entity.posX - posX;
+                if (xDistance > 0.5D)
                 {
                     motionX += 0.050000000000000003D;
                 }
@@ -244,9 +244,9 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean entitiesToIgnoreWhenHunting(Entity entity)
+    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
     {
-        return (entity instanceof MoCEntityBird) || ((entity.height <= this.height) && (entity.width <= this.width)) || super.entitiesToIgnoreWhenHunting(entity);
+        return (entity instanceof MoCEntityBird) || ((entity.height <= this.height) && (entity.width <= this.width)) || super.entitiesToIgnoreWhenLookingForAnEntityToAttack(entity);
     }
 
     @Override
@@ -305,11 +305,11 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
         
-        if (super.interact(entityplayer)) { return false; }
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        if (super.interact(entityPlayer)) { return false; }
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         
         if (itemstack != null)
         {		
@@ -317,12 +317,12 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         	{
         		if (--itemstack.stackSize == 0)
         		{
-        			entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+        			entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
         		}
         		if (MoCreatures.isServer() && !getIsTamed() && getPreTamed())
         		{
-        			MoCTools.tameWithName(entityplayer, this);
-        			entityplayer.addStat(MoCAchievements.tame_bird, 1);
+        			MoCTools.tameWithName(entityPlayer, this);
+        			entityPlayer.addStat(MoCAchievements.tame_bird, 1);
         		}
         		heal(5);
         		return true;
@@ -333,25 +333,25 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         {
         	if (getIsTamed())
         	{
-        		rotationYaw = entityplayer.rotationYaw;
-        		if ((this.ridingEntity == null) && (entityplayer.ridingEntity == null))
+        		rotationYaw = entityPlayer.rotationYaw;
+        		if ((this.ridingEntity == null) && (entityPlayer.ridingEntity == null))
         		{
         			if (MoCreatures.isServer())
         			{
-        				mountEntity(entityplayer);
+        				mountEntity(entityPlayer);
         				setPicked(true);
         				return true;
         			}
         		}
     
-        		if ((this.ridingEntity == entityplayer))
+        		if ((this.ridingEntity == entityPlayer))
         		{
         			if (MoCreatures.isServer())
         			{
         				this.mountEntity(null);
-        				motionX = entityplayer.motionX * 5D;
-        		        motionY = (entityplayer.motionY / 2D) + 0.5D;
-        		        motionZ = entityplayer.motionZ * 5D;
+        				motionX = entityPlayer.motionX * 5D;
+        		        motionY = (entityPlayer.motionY / 2D) + 0.5D;
+        		        motionZ = entityPlayer.motionZ * 5D;
         		        return true;
         			}
         		}
@@ -408,8 +408,8 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         //check added to avoid duplicating behavior on client / server
         if (MoCreatures.isServer())
         {
-            EntityLivingBase entityliving = getScaryEntity(5D);
-            if (rand.nextInt(10) == 0 && (entityliving != null) && !getIsTamed() && !getPreTamed() && canEntityBeSeen(entityliving))
+            EntityLivingBase entityLiving = getScaryEntity(5D);
+            if (rand.nextInt(10) == 0 && (entityLiving != null) && !getIsTamed() && !getPreTamed() && canEntityBeSeen(entityLiving))
             {
                 fleeing = true;
             }
@@ -446,12 +446,12 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     }
     
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
         if (MoCreatures.isServer())
         {
         	if (this.ridingEntity != null && 
-        			(damagesource.getEntity() == this.ridingEntity || DamageSource.inWall.equals(damagesource)))
+        			(damageSource.getEntity() == this.ridingEntity || DamageSource.inWall.equals(damageSource)))
             {
          	   return false;
             }
@@ -459,7 +459,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         	if (!fleeing) {fleeing = true;}
         }
         
-        return super.attackEntityFrom(damagesource, i);
+        return super.attackEntityFrom(damageSource, damageTaken);
     }
 
     public int[] ReturnNearestMaterialCoord(Entity entity, Material material, Double double1)
@@ -516,14 +516,14 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         }
         if ((ridingEntity != null) && (ridingEntity instanceof EntityPlayer))
         {
-            EntityPlayer entityplayer = (EntityPlayer) ridingEntity;
-            if (entityplayer != null)
+            EntityPlayer entityPlayer = (EntityPlayer) ridingEntity;
+            if (entityPlayer != null)
             {
-                rotationYaw = entityplayer.rotationYaw;
-                entityplayer.fallDistance = 0.0F;
-                if (entityplayer.motionY < -0.10000000000000001D)
+                rotationYaw = entityPlayer.rotationYaw;
+                entityPlayer.fallDistance = 0.0F;
+                if (entityPlayer.motionY < -0.10000000000000001D)
                 {
-                    entityplayer.motionY = -0.10000000000000001D;
+                    entityPlayer.motionY = -0.10000000000000001D;
                 }
             }
         }

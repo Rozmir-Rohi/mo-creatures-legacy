@@ -59,12 +59,11 @@ public class MoCEntityWWolf extends MoCEntityMob {
     @Override
     public boolean checkSpawningBiome()
     {
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase biome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
-        int l = rand.nextInt(10);
+        BiomeGenBase biome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
         if (BiomeDictionary.isBiomeOfType(biome, Type.SNOWY))
         {
@@ -96,9 +95,9 @@ public class MoCEntityWWolf extends MoCEntityMob {
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if (attackTime <= 0 && (f < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        if (attackTime <= 0 && (distanceToEntity < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             openMouth();
             attackTime = 20;
@@ -140,17 +139,17 @@ public class MoCEntityWWolf extends MoCEntityMob {
     @Override
     protected Entity findPlayerToAttack()
     {
-        EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
+        EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
         
-        if (entityplayer != null)
+        if (entityPlayer != null)
         {
-        	return entityplayer;
+        	return entityPlayer;
         }
         
         else if (rand.nextInt(80) == 0)
         {
-            EntityLivingBase entityliving = getClosestTarget(this, 10D);
-            return entityliving;
+            EntityLivingBase entityLiving = getClosestTarget(this, 10D);
+            return entityLiving;
         }
         
         else
@@ -166,44 +165,53 @@ public class MoCEntityWWolf extends MoCEntityMob {
     }
 
     //TODO move this
-    public EntityLivingBase getClosestTarget(Entity entity, double d)
+    public EntityLivingBase getClosestTarget(Entity entity, double distance)
     {
-        double d1 = -1D;
-        EntityLivingBase entityliving = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
-        for (int i = 0; i < list.size(); i++)
+        double currentMinimumDistance = -1D;
+        EntityLivingBase entityLiving = null;
+        
+        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
+        
+        int iterationLength = entitiesNearbyList.size();
+        
+        if (iterationLength > 0)
         {
-            Entity entity1 = (Entity) list.get(i);
-            
-            if (//don't hunt the following entities below
-            		!(entity1 instanceof EntityLivingBase)
-            		|| entity1 == entity
-            		|| entity1 == entity.riddenByEntity
-            		|| entity1 == entity.ridingEntity
-            		|| entity1 instanceof EntityPlayer
-            		|| entity1 instanceof EntityMob
-            		|| entity1 instanceof MoCEntityBigCat
-            		|| entity1 instanceof MoCEntityBear
-            		|| entity1 instanceof EntityCow
-            		|| (
-            				(entity1 instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)
-            			)
-            		|| (
-            				(entity1 instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)
-            			)
-            	)
-            {
-                continue;
-            }
-            double d2 = entity1.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-            if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLivingBase) entity1).canEntityBeSeen(entity))
-            {
-                d1 = d2;
-                entityliving = (EntityLivingBase) entity1;
-            }
+	        for (int index = 0; index < iterationLength; index++)
+	        {
+	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
+	            
+	            if (//don't hunt the following entities below
+	            		!(entityNearby instanceof EntityLivingBase)
+	            		|| entityNearby == entity
+	            		|| entityNearby == entity.riddenByEntity
+	            		|| entityNearby == entity.ridingEntity
+	            		|| entityNearby instanceof EntityPlayer
+	            		|| entityNearby instanceof EntityMob
+	            		|| entityNearby instanceof MoCEntityBigCat
+	            		|| entityNearby instanceof MoCEntityBear
+	            		|| entityNearby instanceof EntityCow
+	            		|| (
+	            				(entityNearby instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)
+	            			)
+	            		|| (
+	            				(entityNearby instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)
+	            			)
+	            	)
+	            {
+	                continue;
+	            }
+	            
+	            double overallDistanceSquared = entityNearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+	            
+	            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)) && ((EntityLivingBase) entityNearby).canEntityBeSeen(entity))
+	            {
+	                currentMinimumDistance = overallDistanceSquared;
+	                entityLiving = (EntityLivingBase) entityNearby;
+	            }
+	        }
         }
 
-        return entityliving;
+        return entityLiving;
     }
 
     @Override

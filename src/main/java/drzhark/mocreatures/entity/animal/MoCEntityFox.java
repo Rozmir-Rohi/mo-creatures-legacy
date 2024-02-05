@@ -26,13 +26,13 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityFox extends MoCEntityTameableAnimal {
     protected double attackRange;
-    protected int attack_damage;
+    protected int attackDamage;
 
     public MoCEntityFox(World world)
     {
         super(world);
         setSize(0.9F, 1.3F);
-        attack_damage = 2;
+        attackDamage = 2;
         attackRange = 4D;
     }
 
@@ -61,13 +61,13 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if (attackTime <= 0 && (f < 2.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        if (attackTime <= 0 && (distanceToEntity < 2.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
             
-            entity.attackEntityFrom(DamageSource.causeMobDamage(this), attack_damage);
+            entity.attackEntityFrom(DamageSource.causeMobDamage(this), attackDamage);
         }
     }
 
@@ -99,19 +99,19 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i))
+        if (super.attackEntityFrom(damageSource, damageTaken))
         {
-            Entity entity = damagesource.getEntity();
-            if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName()))))
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
+            if (entityThatAttackedThisCreature != null && getIsTamed() && (entityThatAttackedThisCreature instanceof EntityPlayer && (entityThatAttackedThisCreature.getCommandSenderName().equals(getOwnerName()))))
             { 
             	return false; 
             }
-            if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
-            if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
+            if ((riddenByEntity == entityThatAttackedThisCreature) || (ridingEntity == entityThatAttackedThisCreature)) { return true; }
+            if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
             {
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
             }
             return true;
         }
@@ -122,10 +122,10 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
-        if (super.interact(entityplayer)) { return false; }
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        if (super.interact(entityPlayer)) { return false; }
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         
         if ((itemstack != null) && 
         		(//taming items
@@ -139,12 +139,12 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
 
             if (MoCreatures.isServer() && !getIsTamed())
             {
-                MoCTools.tameWithName(entityplayer, this);
+                MoCTools.tameWithName(entityPlayer, this);
             }
             
             heal(5);
@@ -166,9 +166,9 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     }
     
     @Override
-    public boolean entitiesToIgnoreWhenHunting(Entity entity)
+    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
     {
-        return (super.entitiesToIgnoreWhenHunting(entity) //including the mobs specified in parent file
+        return (super.entitiesToIgnoreWhenLookingForAnEntityToAttack(entity) //including the mobs specified in parent file
             	|| (entity instanceof MoCEntityFox)
             	|| ((entity.width > 0.5D) && (entity.height > 0.5D)) //don't try to hunt creatures larger than it
             	|| (entity instanceof MoCEntityKomodo)
@@ -183,23 +183,23 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     {
         if ((rand.nextInt(80) == 0) && (worldObj.difficultySetting.getDifficultyId() > 0))
         {
-            EntityLivingBase entityliving = getClosestEntityLiving(this, 8D);
+            EntityLivingBase entityLiving = getClosestEntityLiving(this, 8D);
             
-            if (entityliving instanceof MoCEntityAquatic || entityliving instanceof MoCEntityTameableAquatic) // don't go and hunt fish if they are in the ocean
+            if (entityLiving instanceof MoCEntityAquatic || entityLiving instanceof MoCEntityTameableAquatic) // don't go and hunt fish if they are in the ocean
             {
-            	int x = MathHelper.floor_double(entityliving.posX);
-                int y = MathHelper.floor_double(entityliving.posY);
-                int z = MathHelper.floor_double(entityliving.posZ);
+            	int x = MathHelper.floor_double(entityLiving.posX);
+                int y = MathHelper.floor_double(entityLiving.posY);
+                int z = MathHelper.floor_double(entityLiving.posZ);
 
-                BiomeGenBase biome_that_prey_is_in = MoCTools.Biomekind(worldObj, x, y, z);
+                BiomeGenBase biomeThatPreyIsIn = MoCTools.Biomekind(worldObj, x, y, z);
 
-                if (BiomeDictionary.isBiomeOfType(biome_that_prey_is_in, Type.OCEAN) || BiomeDictionary.isBiomeOfType(biome_that_prey_is_in, Type.BEACH))
+                if (BiomeDictionary.isBiomeOfType(biomeThatPreyIsIn, Type.OCEAN) || BiomeDictionary.isBiomeOfType(biomeThatPreyIsIn, Type.BEACH))
                 {
                 	return null;
                 }
             }
             
-            else {return entityliving;}
+            else {return entityLiving;}
         }
         return null;
     }
@@ -207,12 +207,13 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     @Override
     public boolean checkSpawningBiome()
     {
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
+        
+        BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SNOWY))
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SNOWY))
         {
             setType(2);
         }
@@ -268,7 +269,7 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     }
     
     @Override
-    public boolean swimmerEntity()
+    public boolean isSwimmerEntity()
     {
         return true;
     }

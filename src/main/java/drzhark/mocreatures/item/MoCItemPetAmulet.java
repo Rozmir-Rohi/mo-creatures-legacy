@@ -53,7 +53,7 @@ public class MoCItemPetAmulet extends MoCItem
     }
     
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World worldObj, EntityPlayer entityplayer)
+    public ItemStack onItemRightClick(ItemStack itemstack, World worldObj, EntityPlayer entityPlayer)
     {	
     	
     	int amulet_durability = itemstack.getItemDamage();
@@ -67,9 +67,9 @@ public class MoCItemPetAmulet extends MoCItem
         {
 
             double dist = 1D;
-            double newPosY = entityplayer.posY;
-            double newPosX = entityplayer.posX - (dist * Math.cos((MoCTools.realAngle(entityplayer.rotationYaw - 90F)) / 57.29578F));
-            double newPosZ = entityplayer.posZ - (dist * Math.sin((MoCTools.realAngle(entityplayer.rotationYaw - 90F)) / 57.29578F));
+            double newPosY = entityPlayer.posY;
+            double newPosX = entityPlayer.posX - (dist * Math.cos((MoCTools.realAngle(entityPlayer.rotationYaw - 90F)) / 57.29578F));
+            double newPosZ = entityPlayer.posZ - (dist * Math.sin((MoCTools.realAngle(entityPlayer.rotationYaw - 90F)) / 57.29578F));
 
             ItemStack emptyAmulet = new ItemStack(MoCreatures.fishnet, 1, 0);
             if (this.amuletType == 1)
@@ -77,7 +77,7 @@ public class MoCItemPetAmulet extends MoCItem
                 emptyAmulet = new ItemStack(MoCreatures.petamulet, 1, 0);
             }
 
-            //entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(MoCreatures.fishnet, 1, 0));
+            //entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(MoCreatures.fishnet, 1, 0));
             if (MoCreatures.isServer())
             {
                 initAndReadNBT(itemstack);
@@ -100,7 +100,7 @@ public class MoCItemPetAmulet extends MoCItem
                         IMoCTameable storedCreature = (IMoCTameable) tempLiving;
                         
                         //if the player using the amulet is not the owner
-            	        if (ownerName.length() > 0 && !(ownerName.equals(entityplayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
+            	        if (ownerName.length() > 0 && !(ownerName.equals(entityPlayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
             	        {
             	        	return itemstack;
             	        }
@@ -111,7 +111,7 @@ public class MoCItemPetAmulet extends MoCItem
                         storedCreature.setTamed(true);
                         storedCreature.setName(name);
                         storedCreature.setOwnerPetId(PetId);
-                        storedCreature.setOwner(entityplayer.getCommandSenderName());
+                        storedCreature.setOwner(entityPlayer.getCommandSenderName());
                         
                         ((EntityLiving)storedCreature).setHealth(health);
                         storedCreature.setMoCAge(age);
@@ -122,15 +122,15 @@ public class MoCItemPetAmulet extends MoCItem
                             ((MoCEntityKitty)storedCreature).setKittyState(2); // allows name to render
                         }
 
-                        if (entityplayer.worldObj.spawnEntityInWorld((EntityLiving)storedCreature))
+                        if (entityPlayer.worldObj.spawnEntityInWorld((EntityLiving)storedCreature))
                         { 	
-                            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAppear(((EntityLiving)storedCreature).getEntityId()), new TargetPoint(entityplayer.worldObj.provider.dimensionId, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 64));
+                            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAppear(((EntityLiving)storedCreature).getEntityId()), new TargetPoint(entityPlayer.worldObj.provider.dimensionId, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, 64));
                             if ((MoCreatures.proxy.enableStrictOwnership && ownerName.isEmpty()) || name.isEmpty()) 
                             {
-                                 MoCTools.tameWithName(entityplayer, storedCreature);
+                                 MoCTools.tameWithName(entityPlayer, storedCreature);
                             }
 
-                            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, emptyAmulet);
+                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, emptyAmulet);
                             MoCPetData petData = MoCreatures.instance.mapData.getPetData(storedCreature.getOwnerName());
                             if (petData != null)
                             {
@@ -208,9 +208,9 @@ public class MoCItemPetAmulet extends MoCItem
      * allows items to add custom lines of information to the mouseover description
      */
     @Override
-    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
+    public void addInformation(ItemStack itemstack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-        initAndReadNBT(par1ItemStack);
+        initAndReadNBT(itemstack);
         if (spawnClass != "") par3List.add(EnumChatFormatting.AQUA + StatCollector.translateToLocal("entity.MoCreatures." + this.spawnClass + ".name"));  //Writes the name of the entity type to item desc
         if (name != "")    par3List.add(EnumChatFormatting.BLUE + this.name); //writes the pet name to item desc
         if (ownerName != "") par3List.add(EnumChatFormatting.DARK_BLUE + ((new ChatComponentTranslation("amulet_and_fishnet_desc.MoCreatures.ownedBy", new Object[] {this.ownerName})).getUnformattedTextForChat())); //writes "owned by OWNER" (dependent on lang files)in item desc

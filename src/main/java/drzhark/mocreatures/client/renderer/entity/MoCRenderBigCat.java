@@ -43,9 +43,9 @@ public class MoCRenderBigCat extends RenderLiving {
     }
 
     @Override
-    protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f)
+    protected int shouldRenderPass(EntityLivingBase entityLiving, int i, float f)
     {
-        return shouldRenderPass((MoCEntityBigCat) entityliving, i);
+        return shouldRenderPass((MoCEntityBigCat) entityLiving, i);
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {
@@ -53,14 +53,14 @@ public class MoCRenderBigCat extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
 
-        MoCEntityBigCat entitybigcat = (MoCEntityBigCat) entityliving;
+        MoCEntityBigCat entitybigcat = (MoCEntityBigCat) entityLiving;
 
         super.doRender(entitybigcat, d, d1, d2, f, f1);
         boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entitybigcat.getName()).isEmpty();
-        boolean flag1 = MoCreatures.proxy.getDisplayPetHealth(entityliving);
+        boolean flag1 = MoCreatures.proxy.getDisplayPetHealth(entityLiving);
         boolean flag2 = MoCreatures.proxy.getDisplayPetIcons();
         if (entitybigcat.renderName())
         {
@@ -190,17 +190,17 @@ public class MoCRenderBigCat extends RenderLiving {
     }
 
     @Override
-    protected float handleRotationFloat(EntityLivingBase entityliving, float f)
+    protected float handleRotationFloat(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityBigCat entitybigcat = (MoCEntityBigCat) entityliving;
+        MoCEntityBigCat entitybigcat = (MoCEntityBigCat) entityLiving;
         stretch(entitybigcat);
-        return entityliving.ticksExisted + f;
+        return entityLiving.ticksExisted + f;
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityBigCat entitybigcat = (MoCEntityBigCat) entityliving;
+        MoCEntityBigCat entitybigcat = (MoCEntityBigCat) entityLiving;
         bigcat1.sitting = entitybigcat.getIsSitting();
         bigcat1.tamed = entitybigcat.getIsTamed();
     }

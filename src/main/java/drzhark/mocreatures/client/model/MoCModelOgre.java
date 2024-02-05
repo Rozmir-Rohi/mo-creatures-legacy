@@ -591,8 +591,8 @@ public class MoCModelOgre extends ModelBase
         //super.render(entity, f, f1, f2, f3, f4, f5);
         MoCEntityOgre entityogre = (MoCEntityOgre) entity;
         int type = entityogre.getType();
-        int leftAttack = entityogre.attackCounterLeft;
-        int rightAttack = entityogre.attackCounterRight;
+        int leftAttack = entityogre.attackCounterLeftArm;
+        int rightAttack = entityogre.attackCounterRightArm;
         int headMoving = entityogre.getMovingHead();
         
         setRotationAngles(f, f1, f2, f3, f4, f5, headMoving, type, leftAttack, rightAttack);

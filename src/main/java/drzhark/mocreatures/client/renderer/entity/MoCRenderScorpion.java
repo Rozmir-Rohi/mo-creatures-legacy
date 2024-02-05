@@ -21,16 +21,16 @@ public class MoCRenderScorpion extends MoCRenderMoC {
     }
 
     @Override
-    public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
-        MoCEntityScorpion entityscorpion = (MoCEntityScorpion) entityliving;
+        MoCEntityScorpion entityscorpion = (MoCEntityScorpion) entityLiving;
         super.doRender(entityscorpion, d, d1, d2, f, f1);
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityScorpion entityscorpion = (MoCEntityScorpion) entityliving;
+        MoCEntityScorpion entityscorpion = (MoCEntityScorpion) entityLiving;
 
         if (entityscorpion.climbing())
         {
@@ -51,11 +51,11 @@ public class MoCRenderScorpion extends MoCRenderMoC {
         }
     }
 
-    protected void upsideDown(EntityLiving entityliving)
+    protected void upsideDown(EntityLiving entityLiving)
     {
         GL11.glRotatef(-90F, -1F, 0.0F, 0.0F);
 
-        if (entityliving.ridingEntity == MoCClientProxy.mc.thePlayer)
+        if (entityLiving.ridingEntity == MoCClientProxy.mc.thePlayer)
         {
             GL11.glTranslatef(-0.55F, -1.9F, -0.7F);
 
@@ -68,12 +68,12 @@ public class MoCRenderScorpion extends MoCRenderMoC {
 
     }
 
-    protected void adjustHeight(EntityLiving entityliving)
+    protected void adjustHeight(EntityLiving entityLiving)
     {
         GL11.glTranslatef(0.0F, -0.1F, 0.0F);
     }
 
-    protected void rotateAnimal(EntityLiving entityliving)
+    protected void rotateAnimal(EntityLiving entityLiving)
     {
         GL11.glRotatef(90F, -1F, 0.0F, 0.0F);
     }

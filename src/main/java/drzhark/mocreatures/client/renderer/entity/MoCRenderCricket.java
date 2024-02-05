@@ -19,9 +19,9 @@ public class MoCRenderCricket extends MoCRenderMoC {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase par1EntityLiving, float par2)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float par2)
     {
-        rotateCricket((MoCEntityCricket) par1EntityLiving);
+        rotateCricket((MoCEntityCricket) entityLiving);
     }
 
     protected void rotateCricket(MoCEntityCricket entityfirefly)

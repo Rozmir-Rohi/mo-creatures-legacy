@@ -55,7 +55,7 @@ public class WorldProviderWyvernEnd extends WorldProviderSurface
     @SideOnly(Side.CLIENT)
 
     /**
-     * Return vector_3D with biome specific fog color
+     * Return vectorThreeDimensional with biome specific fog color
      */
     public Vec3 getFogColor(float par1, float par2)
     {

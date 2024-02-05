@@ -28,14 +28,14 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntitySnake extends MoCEntityTameableAnimal {
 
-    private float fTongue;
-    private float fMouth;
+    private float tongueState;
+    private float mouthState;
     private boolean isBiting;
-    private int fRattle;
+    private int rattleState;
     private boolean isPissed;
     private int hissCounter;
 
-    private int movInt;
+    private int moveInt;
     private boolean isNearPlayer;
     public float bodyswing;
 
@@ -46,7 +46,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         super(world);
         setSize(1.4F, 0.5F);
         bodyswing = 2F;
-        movInt = rand.nextInt(10);
+        moveInt = rand.nextInt(10);
         setMoCAge(50 + rand.nextInt(50));
     }
 
@@ -152,35 +152,35 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
 
-        if (entityplayer.riddenByEntity != null && entityplayer.riddenByEntity instanceof MoCEntityMouse)
+        if (entityPlayer.riddenByEntity != null && entityPlayer.riddenByEntity instanceof MoCEntityMouse)
         {
-        	entityplayer.riddenByEntity.setDead();
+        	entityPlayer.riddenByEntity.setDead();
         	
         	MoCTools.playCustomSound(this, "eating", worldObj);
         	
         	heal(5);
         	
-        	entityplayer.addStat(MoCAchievements.feed_snake_with_live_mouse, 1);
+        	entityPlayer.addStat(MoCAchievements.feed_snake_with_live_mouse, 1);
         	
         	return false;
         	
         }
-        if (super.interact(entityplayer)) { return false; }
+        if (super.interact(entityPlayer)) { return false; }
         if (!getIsTamed()) { return false; }
 
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         
         if (itemstack == null)
         {
-	        rotationYaw = entityplayer.rotationYaw;
+	        rotationYaw = entityPlayer.rotationYaw;
 	        if (this.ridingEntity == null)
 	        {
-	            if (MoCreatures.isServer() && (entityplayer.ridingEntity == null))
+	            if (MoCreatures.isServer() && (entityPlayer.ridingEntity == null))
 	            {
-	                mountEntity(entityplayer);
+	                mountEntity(entityPlayer);
 	            }
 	        }
 	        else
@@ -190,9 +190,9 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 	                this.mountEntity(null);
 	            }
 	        }
-	        motionX = entityplayer.motionX * 5D;
-	        motionY = (entityplayer.motionY / 2D) + 0.5D;
-	        motionZ = entityplayer.motionZ * 5D;
+	        motionX = entityPlayer.motionX * 5D;
+	        motionY = (entityPlayer.motionY / 2D) + 0.5D;
+	        motionZ = entityPlayer.motionZ * 5D;
 	        return true;
         }
         return false;
@@ -226,13 +226,13 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         return isNearPlayer;
     }
 
-    public int getMovInt()
+    public int getMoveInt()
     {
-        return movInt;
+        return moveInt;
     }
 
     @Override
-    public boolean swimmerEntity()
+    public boolean isSwimmerEntity()
     {
         return true;
     }
@@ -246,7 +246,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     public void setNearPlayer(boolean flag)
     {
         isNearPlayer = flag;
-        if (flag == false) {this.fRattle = 0;}
+        if (flag == false) {this.rattleState = 0;}
     }
 
     /*@Override
@@ -318,7 +318,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 
         if (pickedUp())
         {
-            movInt = 0;
+            moveInt = 0;
         }
 
         if (isResting())
@@ -333,12 +333,12 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             rotationYaw = ridingEntity.rotationYaw;// -90F;
         }
 
-        if (getfTongue() != 0.0F)
+        if (getTongueState() != 0.0F)
         {
-            setfTongue(getfTongue() + 0.2F);
-            if (getfTongue() > 8.0F)
+            setTongueState(getTongueState() + 0.2F);
+            if (getTongueState() > 8.0F)
             {
-                setfTongue(0.0F);
+                setTongueState(0.0F);
             }
         }
         
@@ -353,12 +353,12 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             // hiss
             if (hissCounter % 25 == 0)
             {
-                setfMouth(0.3F);
+                setMouthState(0.3F);
                 worldObj.playSoundAtEntity(this, "mocreatures:snakeupset", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             }
             if (hissCounter % 35 == 0)
             {
-                setfMouth(0.0F);
+                setMouthState(0.0F);
             }
 
             if (hissCounter > 100 && rand.nextInt(50) == 0)
@@ -374,28 +374,28 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             hissCounter = 0;
         }
 
-        if (getfMouth() != 0.0F && hissCounter == 0) //biting
+        if (getMouthState() != 0.0F && hissCounter == 0) //biting
         {
-            setfMouth(getfMouth() + 0.1F);
-            if (getfMouth() > 0.5F)
+            setMouthState(getMouthState() + 0.1F);
+            if (getMouthState() > 0.5F)
             {
-                setfMouth(0.0F);
+                setMouthState(0.0F);
             }
         }
         
-        if ((this.getType() == 7) && getfRattle() != 0 && !getIsTamed()) //rattling
+        if ((this.getType() == 7) && getRattleState() != 0 && !getIsTamed()) //rattling
         {
-        	this.fRattle += 1;
+        	this.rattleState += 1;
         	
         	setPissed(true);
                 
-            if (this.fRattle % 20 == 0 )
+            if (this.rattleState % 20 == 0 )
             {
             	worldObj.playSoundAtEntity(this, "mocreatures:snakerattle", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             }
-            if (getfRattle() > 40)
+            if (getRattleState() > 40)
             {
-            	setfRattle(0);
+            	setRattleState(0);
             }
         }
     }
@@ -406,34 +406,34 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
      * 
      * @return
      */
-    public float getfTongue()
+    public float getTongueState()
     {
-        return fTongue;
+        return tongueState;
     }
 
-    public void setfTongue(float fTongue)
+    public void setTongueState(float toungeStateToSet)
     {
-        this.fTongue = fTongue;
+        tongueState = toungeStateToSet;
     }
 
-    public float getfMouth()
+    public float getMouthState()
     {
-        return fMouth;
+        return mouthState;
     }
 
-    public void setfMouth(float fMouth)
+    public void setMouthState(float mouthStateToSet)
     {
-        this.fMouth = fMouth;
+        mouthState = mouthStateToSet;
     }
 
-    public float getfRattle()
+    public float getRattleState()
     {
-        return fRattle;
+        return rattleState;
     }
 
-    public void setfRattle(int fRattle)
+    public void setRattleState(int rattleStateToSet)
     {
-        this.fRattle = fRattle;
+        rattleState = rattleStateToSet;
     }
 
     @Override
@@ -444,17 +444,17 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         /**
          * stick tongue
          */
-        if (rand.nextInt(50) == 0 && getfTongue() == 0.0F)
+        if (rand.nextInt(50) == 0 && getTongueState() == 0.0F)
         {
-            setfTongue(0.1F);
+            setTongueState(0.1F);
         }
 
         /**
          * Open mouth
          */
-        if (rand.nextInt(100) == 0 && getfMouth() == 0.0F)
+        if (rand.nextInt(100) == 0 && getMouthState() == 0.0F)
         {
-            setfMouth(0.1F);
+            setMouthState(0.1F);
         }
 
         if (getType() == 7)
@@ -471,7 +471,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 
             if (rand.nextInt(chance) == 0)
             {
-                setfRattle(1);
+                setRattleState(1);
             }
         }
         /**
@@ -479,7 +479,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
          */
         if (!isResting() && !pickedUp() && rand.nextInt(50) == 0)
         {
-            movInt = rand.nextInt(10);
+            moveInt = rand.nextInt(10);
         }
 
         /**
@@ -488,13 +488,13 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         if (isBiting())
         {
             bodyswing -= 0.5F;
-            setfMouth(0.3F);
+            setMouthState(0.3F);
 
             if (bodyswing < 0F)
             {
                 worldObj.playSoundAtEntity(this, "mocreatures:snakesnap", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
                 bodyswing = 2.5F;
-                setfMouth(0.0F);
+                setMouthState(0.0F);
                 setBiting(false);
             }
         }
@@ -511,26 +511,26 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
          * Follow player that is carrying a mice
          * 
          */
-        EntityPlayer entityplayer1 = worldObj.getClosestPlayerToEntity(this, 12D);
-        if (entityplayer1 != null)
+        EntityPlayer entityPlayer1 = worldObj.getClosestPlayerToEntity(this, 12D);
+        if (entityPlayer1 != null)
         {
-            double player_distance_to_snake = MoCTools.getSqDistanceTo(entityplayer1, posX, posY, posZ);
+            double playerDistanceToSnake = MoCTools.getSqDistanceTo(entityPlayer1, posX, posY, posZ);
             
             
             if (isNotScared())
             {
-            	if (this.getType() == 7 && player_distance_to_snake <=8D)  //distance for rattle snake to only rattle as a warning to player
+            	if (this.getType() == 7 && playerDistanceToSnake <= 8D)  //distance for rattle snake to only rattle as a warning to player
             	{
             		setNearPlayer(true);
-            		this.faceEntity(entityplayer1, 8F, 8F); //stare at player
+            		this.faceEntity(entityPlayer1, 8F, 8F); //stare at player
             	}
-            	else if (this.getType() != 7 && player_distance_to_snake <= 5D) {setNearPlayer(true);}
+            	else if (this.getType() != 7 && playerDistanceToSnake <= 5D) {setNearPlayer(true);}
                 else {setNearPlayer(false);}
 
-                if (entityplayer1.riddenByEntity != null && (entityplayer1.riddenByEntity instanceof MoCEntityMouse || entityplayer1.riddenByEntity instanceof MoCEntityBird))
+                if (entityPlayer1.riddenByEntity != null && (entityPlayer1.riddenByEntity instanceof MoCEntityMouse || entityPlayer1.riddenByEntity instanceof MoCEntityBird))
                 {
-                    PathEntity pathentity = worldObj.getPathEntityToEntity(this, entityplayer1, 16F, true, false, false, true);
-                    setPathToEntity(pathentity);
+                    PathEntity pathEntity = worldObj.getPathEntityToEntity(this, entityPlayer1, 16F, true, false, false, true);
+                    setPathToEntity(pathEntity);
                     setPissed(false);
                     hissCounter = 0;
                 }
@@ -538,7 +538,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             else
             {
                 setNearPlayer(false);
-                if (player_distance_to_snake < 2D && !getIsTamed() && this.getType() != 7)
+                if (playerDistanceToSnake < 2D && !getIsTamed() && this.getType() != 7)
                 {
                     fleeingTick = 40;
                 }
@@ -553,7 +553,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
 
         if ((getType() < 3 || getIsTamed()) && entity instanceof EntityPlayer)
@@ -565,7 +565,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         // attack only after hissing/rattling!
         if (!isPissed() && !getIsTamed()) { return; }
 
-        if (attackTime <= 0 && (f < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        if (attackTime <= 0 && (distanceToEntity < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             setBiting(true);
             attackTime = 20;
@@ -612,32 +612,32 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
     	if (MoCreatures.isServer())
         {
         	if (this.ridingEntity != null && 
-        			(damagesource.getEntity() == this.ridingEntity || DamageSource.inWall.equals(damagesource)))
+        			(damageSource.getEntity() == this.ridingEntity || DamageSource.inWall.equals(damageSource)))
             {
          	   return false;
             }
         	
-        	else if (getType() < 3) { return super.attackEntityFrom(damagesource, i); }
+        	else if (getType() < 3) { return super.attackEntityFrom(damageSource, damageTaken); }
 
-        	else if (super.attackEntityFrom(damagesource, i))
+        	else if (super.attackEntityFrom(damageSource, damageTaken))
             {
-                Entity entity = damagesource.getEntity();
+                Entity entityThatAttackedThisCreature = damageSource.getEntity();
                 
-                if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName()))))
+                if (entityThatAttackedThisCreature != null && getIsTamed() && (entityThatAttackedThisCreature instanceof EntityPlayer && (entityThatAttackedThisCreature.getCommandSenderName().equals(getOwnerName()))))
                 { 
                 	return false; 
                 }
 
-                if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
-                if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
+                if ((riddenByEntity == entityThatAttackedThisCreature) || (ridingEntity == entityThatAttackedThisCreature)) { return true; }
+                if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
                 {
                     setPissed(true);
-                    entityToAttack = entity;
+                    entityToAttack = entityThatAttackedThisCreature;
                 }
                 return true;
             }
@@ -655,15 +655,15 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     {
         if (worldObj.difficultySetting.getDifficultyId() > 0)
         {
-            EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 4D);
-            if (!getIsTamed() && (entityplayer != null)) // && getIsAdult() )
+            EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 4D);
+            if (!getIsTamed() && (entityPlayer != null)) // && getIsAdult() )
             {
-                if (isNotScared() && isPissed()) { return entityplayer; }
+                if (isNotScared() && isPissed()) { return entityPlayer; }
             }
             if ((rand.nextInt(100) == 0))
             {
-                EntityLivingBase entityliving = getClosestEntityLiving(this, 8D);
-                return entityliving;
+                EntityLivingBase entityLiving = getClosestEntityLiving(this, 8D);
+                return entityLiving;
             }
         }
         
@@ -671,15 +671,15 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         {
 	        if (this.getIsTamed() && this.ridingEntity == null) //defend owner if they are attacked by an entity
 	    	{
-	    		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
 	    		
-	    		if (owner_of_entity_that_is_online != null)
+	    		if (ownerOfEntityThatIsOnline != null)
 	    		{
-	    			EntityLivingBase entity_that_attacked_owner = owner_of_entity_that_is_online.getAITarget();
+	    			EntityLivingBase entityThatAttackedOwner = ownerOfEntityThatIsOnline.getAITarget();
 	    			
-	    			if (entity_that_attacked_owner != null)
+	    			if (entityThatAttackedOwner != null)
 	    			{
-	    				return entity_that_attacked_owner;
+	    				return entityThatAttackedOwner;
 	    			}
 	    		}
 	    	}
@@ -703,9 +703,9 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 
     // ignores big entities, everything else is prey!
     @Override
-    public boolean entitiesToIgnoreWhenHunting(Entity entity)
+    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
     {
-        return ((super.entitiesToIgnoreWhenHunting(entity))
+        return ((super.entitiesToIgnoreWhenLookingForAnEntityToAttack(entity))
         		|| (entity instanceof MoCEntitySnake)
         		|| (entity.height > 0.5D && entity.width > 0.5D));
     }
@@ -737,17 +737,17 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     @Override
     public boolean checkSpawningBiome()
     {
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
 
-        String s = MoCTools.BiomeName(worldObj, x_coordinate, y_coordinate, z_coordinate);
+        String biomeName = MoCTools.BiomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
+        BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
         int l = rand.nextInt(10);
 
 
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SANDY))
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SANDY))
         {
             if (l < 5)
             {
@@ -760,7 +760,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         }
 
 
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.FOREST))
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.FOREST))
         {
             if (l < 4)
             {
@@ -773,7 +773,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         }
         
         
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.JUNGLE))
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.JUNGLE))
         {
             if (l < 4)
             {
@@ -789,7 +789,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             }
         }
         
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SWAMP))
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SWAMP))
         {
             // python or bright green bright orange
             if (l < 4)

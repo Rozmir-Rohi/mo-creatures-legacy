@@ -21,7 +21,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class MoCEntityBunny extends MoCEntityTameableAnimal {
-    public boolean pickedUp;
+    public boolean isPickedUp;
     public int bunnyReproduceTickerA;
     public int bunnyReproduceTickerB;
 
@@ -83,12 +83,12 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
     @Override
     public boolean checkSpawningBiome()
     {
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.SNOWY))
+        BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SNOWY))
         {
             setType(3); //snow white bunnies!
             return true;
@@ -156,17 +156,17 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
-        if (super.interact(entityplayer)) { return false; }
+        if (super.interact(entityPlayer)) { return false; }
 
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         
         if (itemstack != null)
         {	
         	Item item = itemstack.getItem();
         	
-        	List<String> ore_dictionary_name_array = MoCTools.getOreDictionaryEntries(itemstack);
+        	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
 
         	if (    	
         			item == Items.carrot
@@ -174,19 +174,19 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot")
         			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:food") && itemstack.getItemDamage() == 2 //BoP Wild Carrots
         			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:food") && itemstack.getItemDamage() == 11 //BoP Turnip
-        			|| ore_dictionary_name_array.size() > 0 && ore_dictionary_name_array.contains("listAllveggie") //BOP veg or GregTech6 veg or Palm's Harvest veg
+        			|| oreDictionaryNameArray.size() > 0 && oreDictionaryNameArray.contains("listAllveggie") //BOP veg or GregTech6 veg or Palm's Harvest veg
 
         		)
         		
         	{
             	if (--itemstack.stackSize == 0)
             	{
-                	entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                	entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             	}
             
             	if (MoCreatures.isServer() && !getIsTamed())
             	{
-                	MoCTools.tameWithName(entityplayer, this);
+                	MoCTools.tameWithName(entityPlayer, this);
             	}
             
             	if (this.getIsTamed() && !getHasEaten())
@@ -205,29 +205,29 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         {
         	if (getIsTamed())
         	{
-        		rotationYaw = entityplayer.rotationYaw;
-        		if ((this.ridingEntity == null) && (entityplayer.ridingEntity == null))
+        		rotationYaw = entityPlayer.rotationYaw;
+        		if ((this.ridingEntity == null) && (entityPlayer.ridingEntity == null))
         		{
         			// This is required since the server will send a Packet39AttachEntity which informs the client to mount
         			if (MoCreatures.isServer())
         			{
-        				mountEntity(entityplayer);
+        				mountEntity(entityPlayer);
         			}
-        			pickedUp = true;
+        			isPickedUp = true;
         			return true;
         		}
         		
-        		else if (this.ridingEntity == entityplayer)
+        		else if (this.ridingEntity == entityPlayer)
         		{
         			worldObj.playSoundAtEntity(this, "mocreatures:rabbitlift", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
         			if (MoCreatures.isServer())
         			{
         				this.mountEntity(null);
-        				motionX = entityplayer.motionX * 5D;
-            			motionY = (entityplayer.motionY / 2D) + 0.5D;
-                		motionZ = entityplayer.motionZ * 5D;
+        				motionX = entityPlayer.motionX * 5D;
+            			motionY = (entityPlayer.motionY / 2D) + 0.5D;
+                		motionZ = entityPlayer.motionZ * 5D;
         			}
-        			pickedUp = false;
+        			isPickedUp = false;
             		return true;
         		}
         	}
@@ -322,13 +322,13 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         {
             motionY = 0.45000000000000001D;
         }
-        if (!pickedUp)
+        if (!isPickedUp)
         {
             super.updateEntityActionState();
         }
         else if (onGround && this.ridingEntity == null)
         {
-            pickedUp = false;
+            isPickedUp = false;
             //System.out.println("pickedOff");
             worldObj.playSoundAtEntity(this, "mocreatures:rabbitland", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
             List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(12D, 12D, 12D));
@@ -371,22 +371,22 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
     }
     
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
         if (MoCreatures.isServer())
         {
         	if (this.ridingEntity != null && 
-        			(damagesource.getEntity() == this.ridingEntity || DamageSource.inWall.equals(damagesource)))
+        			(damageSource.getEntity() == this.ridingEntity || DamageSource.inWall.equals(damageSource)))
             {
          	   return false;
             }
         }
         
-        return super.attackEntityFrom(damagesource, i);
+        return super.attackEntityFrom(damageSource, damageTaken);
     }
     
     @Override
-    public boolean swimmerEntity()
+    public boolean isSwimmerEntity()
     {
         return true;
     }

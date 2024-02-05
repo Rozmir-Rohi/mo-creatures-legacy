@@ -16,8 +16,8 @@ import net.minecraft.world.World;
 
 public class MoCEntitySilverSkeleton extends MoCEntityMob
 {
-    public int attackCounterLeft;
-    public int attackCounterRight;
+    public int attackCounterLeftArm;
+    public int attackCounterRightArm;
 
     public MoCEntitySilverSkeleton(World world)
     {
@@ -48,23 +48,23 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob
 
             if (this.worldObj.isDaytime())
             {
-                float var1 = this.getBrightness(1.0F);
+                float brightness = getBrightness(1.0F);
 
-                if (var1 > 0.5F && this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) && this.rand.nextFloat() * 30.0F < (var1 - 0.4F) * 2.0F)
+                if (brightness > 0.5F && this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) && this.rand.nextFloat() * 30.0F < (brightness - 0.4F) * 2.0F)
                 {
                     this.setFire(8);
                 }
             }
         }
 
-        if (attackCounterLeft > 0 && ++attackCounterLeft > 10)
+        if (attackCounterLeftArm > 0 && ++attackCounterLeftArm > 10)
         {
-            attackCounterLeft = 0;
+            attackCounterLeftArm = 0;
         }
 
-        if (attackCounterRight > 0 && ++attackCounterRight > 10)
+        if (attackCounterRightArm > 0 && ++attackCounterRightArm > 10)
         {
-            attackCounterRight = 0;
+            attackCounterRightArm = 0;
         }
 
         super.onLivingUpdate();
@@ -87,11 +87,11 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob
             
             if (animationType == 1) //left arm
             {
-                attackCounterLeft = 1;
+                attackCounterLeftArm = 1;
             }
             if (animationType == 2) //right arm
             {
-                attackCounterRight = 1;
+                attackCounterRightArm = 1;
             }
         }
 
@@ -102,27 +102,27 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob
         {
             if (MoCreatures.isServer())
             {
-                boolean leftArmW = rand.nextInt(2) == 0;
+                boolean willAttackWithLeftArm = rand.nextInt(2) == 0;
                 
-                if (leftArmW)
+                if (willAttackWithLeftArm)
                 {
-                    attackCounterLeft = 1;
+                    attackCounterLeftArm = 1;
                     MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 1), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
                 }else
                 {
-                    attackCounterRight = 1;
+                    attackCounterRightArm = 1;
                     MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 2), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
                 }
             }
         }
 
-        protected void attackEntity(Entity par1Entity, float par2)
+        protected void attackEntity(Entity entity, float distanceToEntity)
         {
-            if (this.attackTime <= 0 && par2 < 2.0F && par1Entity.boundingBox.maxY > this.boundingBox.minY && par1Entity.boundingBox.minY < this.boundingBox.maxY)
+            if (this.attackTime <= 0 && distanceToEntity < 2.0F && entity.boundingBox.maxY > this.boundingBox.minY && entity.boundingBox.minY < this.boundingBox.maxY)
             {
                 this.attackTime = 20;
                 startAttackAnimation();
-                this.attackEntityAsMob(par1Entity);
+                this.attackEntityAsMob(entity);
             }
         }
     public float getMoveSpeed()

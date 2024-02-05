@@ -45,17 +45,17 @@ public class MoCRenderKittyBed extends RenderLiving {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityKittyBed entitykittybed = (MoCEntityKittyBed) entityliving;
+        MoCEntityKittyBed entitykittybed = (MoCEntityKittyBed) entityLiving;
         mycolor = entitykittybed.getSheetColor();
         kittybed.hasMilk = entitykittybed.getHasMilk();
         kittybed.hasFood = entitykittybed.getHasFood();
         kittybed.pickedUp = entitykittybed.getPickedUp();
-        kittybed.milklevel = entitykittybed.milklevel;
+        kittybed.milklevel = entitykittybed.milkLevel;
     }
 
-    protected int shouldRenderPass(MoCEntityKittyBed entityliving, int i)
+    protected int shouldRenderPass(MoCEntityKittyBed entityLiving, int i)
     {
         this.bindTexture(MoCreatures.proxy.getTexture("kittybed_model.png"));
         float alpha = 0.5F;    // alpha value (opacity of color overlaid to default texture)
@@ -72,9 +72,9 @@ public class MoCRenderKittyBed extends RenderLiving {
     }
 
     @Override
-    protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f)
+    protected int shouldRenderPass(EntityLivingBase entityLiving, int i, float f)
     {
-        return shouldRenderPass((MoCEntityKittyBed)entityliving, i);
+        return shouldRenderPass((MoCEntityKittyBed)entityLiving, i);
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {

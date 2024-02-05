@@ -27,7 +27,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityFishy extends MoCEntityTameableAquatic {
 
-    public int gestationtime;
+    public int gestationTime;
     private boolean hasEaten;
 
     public static final String fishNames[] = { "Blue", "Orange", "Cyan", "Greeny", "Green", "Purple", "Yellow", "Striped", "Yellowy", "Red" };
@@ -126,7 +126,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     public EntityLivingBase FindTarget(Entity entity, double d)
     {
         double d1 = -1D;
-        EntityLivingBase entityliving = null;
+        EntityLivingBase entityLiving = null;
         List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
         for (int i = 0; i < list.size(); i++)
         {
@@ -139,10 +139,10 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
             if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLivingBase) entity1).canEntityBeSeen(entity))
             {
                 d1 = d2;
-                entityliving = (EntityLivingBase) entity1;
+                entityLiving = (EntityLivingBase) entity1;
             }
         }
-        return entityliving;
+        return entityLiving;
     }
 
     @Override
@@ -169,10 +169,10 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
 
             if (rand.nextInt(5) == 0 && !getIsTamed())
             {
-                EntityLivingBase entityliving = getScaryEntity(8D);
-                if (entityliving != null && entityliving.isInsideOfMaterial(Material.water))
+                EntityLivingBase entityLiving = getScaryEntity(8D);
+                if (entityLiving != null && entityLiving.isInsideOfMaterial(Material.water))
                 {
-                   MoCTools.runLikeHell(this, entityliving);
+                   MoCTools.runLikeHell(this, entityLiving);
                 }
             }
 
@@ -209,13 +209,13 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
                 }
                 if (rand.nextInt(100) == 0)
                 {
-                    gestationtime++;
+                    gestationTime++;
                 }
-                if (this.gestationtime % 3 == 0)
+                if (this.gestationTime % 3 == 0)
                 {
                     MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHeart(this.getEntityId()), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
                 }
-                if (gestationtime <= 50)
+                if (gestationTime <= 50)
                 {
                     continue;
                 }
@@ -228,13 +228,13 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
                     worldObj.playSoundAtEntity(this, "mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
                     setHasEaten(false);
                     entityfishy.setHasEaten(false);
-                    gestationtime = 0;
-                    entityfishy.gestationtime = 0;
+                    gestationTime = 0;
+                    entityfishy.gestationTime = 0;
 
-                    EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 24D);
-                    if (entityplayer != null)
+                    EntityPlayer entityPlayer = worldObj.getClosestPlayerToEntity(this, 24D);
+                    if (entityPlayer != null)
                     {
-                        MoCTools.tameWithName(entityplayer, entityfishy1);
+                        MoCTools.tameWithName(entityPlayer, entityfishy1);
                     }
 
                     entityfishy1.setMoCAge(20);

@@ -18,7 +18,7 @@ import net.minecraft.world.biome.BiomeGenOcean;
 
 public class MoCEntityRay extends MoCEntityTameableAquatic {
 
-    private int poisoncounter;
+    private int poisonCounter;
     private int tailCounter;
 
     public MoCEntityRay(World world)
@@ -83,18 +83,18 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
     }
     
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
-        if (super.interact(entityplayer)) { return false; }
+        if (super.interact(entityPlayer)) { return false; }
         
         if (riddenByEntity == null && getType() == 1)
         {
-            entityplayer.rotationYaw = rotationYaw;
-            entityplayer.rotationPitch = rotationPitch;
-            entityplayer.posY = posY;
+            entityPlayer.rotationYaw = rotationYaw;
+            entityPlayer.rotationPitch = rotationPitch;
+            entityPlayer.posY = posY;
             if (!worldObj.isRemote)
             {
-                entityplayer.mountEntity(this);
+                entityPlayer.mountEntity(this);
             }
             return true;
         }
@@ -116,12 +116,12 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
                 }
             }
 
-            if (!getIsTamed() && getType() > 1 && ++poisoncounter > 250 && (worldObj.difficultySetting.getDifficultyId() > 0) && rand.nextInt(30) == 0)
+            if (!getIsTamed() && getType() > 1 && ++poisonCounter > 250 && (worldObj.difficultySetting.getDifficultyId() > 0) && rand.nextInt(30) == 0)
             {
                 if (MoCTools.findClosestPlayerAndPoisonThem(this, true))
                 {
                     MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 1), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
-                    poisoncounter = 0;
+                    poisonCounter = 0;
                 }
             }
         }
@@ -144,16 +144,16 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i))
+        if (super.attackEntityFrom(damageSource, damageTaken))
         {
             if (getType() == 1 || (worldObj.difficultySetting.getDifficultyId() == 0)) { return true; }
-            Entity entity = damagesource.getEntity();
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
 
-            if (entity != this)
+            if (entityThatAttackedThisCreature != this)
             {
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
             }
             return true;
         }
@@ -166,11 +166,11 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
     @Override
     public boolean checkSpawningBiome()
     {
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
-        //String s = MoCTools.BiomeName(worldObj, x_coordinate, y_coordinate, z_coordinate);
-        BiomeGenBase biome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
+        //String biomeName = MoCTools.BiomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        BiomeGenBase biome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
         if (!(biome instanceof BiomeGenOcean))
         {
             setType(2);
@@ -220,8 +220,8 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
     @Override
     public float getSizeFactor()
     {
-        float f = (float)getMoCAge() * 0.01F;
-        if (f > 1.5F) f = 1.5F;
-        return f;
+        float sizeFactor = (float) getMoCAge() * 0.01F;
+        if (sizeFactor > 1.5F) sizeFactor = 1.5F;
+        return sizeFactor;
     }
 }

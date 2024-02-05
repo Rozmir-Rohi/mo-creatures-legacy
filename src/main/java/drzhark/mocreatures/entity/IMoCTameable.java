@@ -20,9 +20,9 @@ public interface IMoCTameable {
 
     int getType();
 
-    void writeEntityToNBT(NBTTagCompound nbttagcompound);
+    void writeEntityToNBT(NBTTagCompound nbtTagCompound);
 
-    void readEntityFromNBT(NBTTagCompound nbttagcompound);
+    void readEntityFromNBT(NBTTagCompound nbtTagCompound);
 
     int getMoCAge();
 

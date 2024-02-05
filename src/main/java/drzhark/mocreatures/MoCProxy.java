@@ -150,7 +150,7 @@ public class MoCProxy implements IGuiHandler {
 
     public void VacuumFX(MoCEntityGolem entity) {}
     
-    public void hammerFX(EntityPlayer entityplayer) {}
+    public void hammerFX(EntityPlayer entityPlayer) {}
 
     public void teleportFX(EntityPlayer entity) {}
     
@@ -168,11 +168,11 @@ public class MoCProxy implements IGuiHandler {
         return displayPetIcons;
     }
 
-    public boolean getDisplayPetHealth(EntityLiving entityliving)
+    public boolean getDisplayPetHealth(EntityLiving entityLiving)
     {
     	if (displayPetHealth == true)
     	{
-	        if (entityliving.getHealth() == entityliving.getMaxHealth())
+	        if (entityLiving.getHealth() == entityLiving.getMaxHealth())
 	        {
 	        	return false;
 	        }

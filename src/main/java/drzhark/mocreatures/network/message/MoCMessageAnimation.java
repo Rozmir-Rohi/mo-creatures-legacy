@@ -41,11 +41,11 @@ public class MoCMessageAnimation implements IMessage, IMessageHandler<MoCMessage
     public IMessage onMessage(MoCMessageAnimation message, MessageContext ctx)
     {
         List<Entity> entList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
-        for (Entity ent : entList)
+        for (Entity entity : entList)
         {
-            if (ent.getEntityId() == message.entityId && ent instanceof IMoCEntity)
+            if (entity.getEntityId() == message.entityId && entity instanceof IMoCEntity)
             {
-                ((IMoCEntity) ent).performAnimation(message.animationType);
+                ((IMoCEntity) entity).performAnimation(message.animationType);
                 break;
             }
         }

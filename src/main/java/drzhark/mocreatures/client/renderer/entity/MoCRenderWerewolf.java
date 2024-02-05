@@ -27,11 +27,11 @@ public class MoCRenderWerewolf extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
-        MoCEntityWerewolf entitywerewolf = (MoCEntityWerewolf) entityliving;
+        MoCEntityWerewolf entitywerewolf = (MoCEntityWerewolf) entityLiving;
         tempWerewolf.hunched = entitywerewolf.getIsHunched();
-        super.doRender(entityliving, d, d1, d2, f, f1);
+        super.doRender(entityLiving, d, d1, d2, f, f1);
 
     }
 
@@ -69,9 +69,9 @@ public class MoCRenderWerewolf extends RenderLiving {
     }
 
     @Override
-    protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f)
+    protected int shouldRenderPass(EntityLivingBase entityLiving, int i, float f)
     {
-        return shouldRenderPass((MoCEntityWerewolf) entityliving, i);
+        return shouldRenderPass((MoCEntityWerewolf) entityLiving, i);
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {

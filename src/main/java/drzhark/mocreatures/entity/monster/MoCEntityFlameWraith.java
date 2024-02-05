@@ -35,9 +35,9 @@ public class MoCEntityFlameWraith extends MoCEntityWraith implements IMob {
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if (attackTime <= 0 && (f < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        if (attackTime <= 0 && (distanceToEntity < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
@@ -66,8 +66,8 @@ public class MoCEntityFlameWraith extends MoCEntityWraith implements IMob {
             }
             if (worldObj.isDaytime())
             {
-                float f = getBrightness(1.0F);
-                if ((f > 0.5F) && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && ((rand.nextFloat() * 30F) < ((f - 0.4F) * 2.0F)))
+                float brightness = getBrightness(1.0F);
+                if ((brightness > 0.5F) && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && ((rand.nextFloat() * 30F) < ((brightness - 0.4F) * 2.0F)))
                 {
                     this.setHealth(getHealth() - 2);
                 }
@@ -76,12 +76,16 @@ public class MoCEntityFlameWraith extends MoCEntityWraith implements IMob {
         super.onLivingUpdate();
     }
     
-    public void onDeath(DamageSource source_of_damage) {
-        if (source_of_damage.getEntity() != null && source_of_damage.getEntity() instanceof EntityPlayer) {
-          EntityPlayer player = (EntityPlayer)source_of_damage.getEntity();
+    public void onDeath(DamageSource damageSource)
+    {
+        if (damageSource.getEntity() != null && damageSource.getEntity() instanceof EntityPlayer)
+        {
+          EntityPlayer player = (EntityPlayer)damageSource.getEntity();
+          
           if (player != null) {player.addStat(MoCAchievements.kill_wraith, 1);} 
         } 
-        super.onDeath(source_of_damage);
+        
+        super.onDeath(damageSource);
       }
 
     @Override

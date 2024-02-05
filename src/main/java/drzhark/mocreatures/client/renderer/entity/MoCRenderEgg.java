@@ -20,12 +20,12 @@ public class MoCRenderEgg extends RenderLiving {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityEgg entityegg = (MoCEntityEgg) entityliving;
+        MoCEntityEgg entityegg = (MoCEntityEgg) entityLiving;
         stretch(entityegg);
 
-        super.preRenderCallback(entityliving, f);
+        super.preRenderCallback(entityLiving, f);
 
     }
 

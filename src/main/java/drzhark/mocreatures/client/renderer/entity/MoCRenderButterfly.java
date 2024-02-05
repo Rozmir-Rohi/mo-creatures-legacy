@@ -22,12 +22,12 @@ public class MoCRenderButterfly extends MoCRenderInsect {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase par1EntityLiving, float par2)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float par2)
     {
-        MoCEntityButterfly butterfly = (MoCEntityButterfly) par1EntityLiving;
+        MoCEntityButterfly butterfly = (MoCEntityButterfly) entityLiving;
         if (butterfly.isOnAir() || !butterfly.onGround)
         {
-            adjustHeight(butterfly, butterfly.tFloat());
+            adjustHeight(butterfly, butterfly.renderHeightAdjustmentWhenFlying());
         }
         if (butterfly.climbing())
         {
@@ -36,9 +36,9 @@ public class MoCRenderButterfly extends MoCRenderInsect {
         stretch(butterfly);
     }
 
-    protected void adjustHeight(EntityLiving entityliving, float FHeight)
+    protected void adjustHeight(EntityLiving entityLiving, float fHeight)
     {
-        GL11.glTranslatef(0.0F, FHeight, 0.0F);
+        GL11.glTranslatef(0.0F, fHeight, 0.0F);
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {

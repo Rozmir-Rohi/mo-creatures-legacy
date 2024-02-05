@@ -29,8 +29,8 @@ public class MoCEntityHorseMob extends MoCEntityMob
     public int standCounter;
     public int tailCounter;
     public int eatingCounter;
-    private int fCounter;
-    private float transFloat = 0.2F;
+    private int transparencyCounter;
+    private float trasparency = 0.2F;
     public int wingFlapCounter;
 
     public MoCEntityHorseMob(World world)
@@ -48,7 +48,7 @@ public class MoCEntityHorseMob extends MoCEntityMob
     @Override
     public boolean canBeCollidedWith() //stops arrows from mounted skeleton hitting the horse mob
     {
-        return !(this.riddenByEntity instanceof EntitySkeleton);
+        return !(riddenByEntity instanceof EntitySkeleton);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class MoCEntityHorseMob extends MoCEntityMob
         if (worldObj.provider.isHellWorld)
         {
             setType(38);
-            this.isImmuneToFire = true;
+            isImmuneToFire = true;
         }else
         {
             if (getType() == 0)
@@ -209,26 +209,26 @@ public class MoCEntityHorseMob extends MoCEntityMob
      * Used to flicker ghosts
      * @return
      */
-    public float tFloat()
+    public float transparency()
       {
-        if (++this.fCounter > 60)
+        if (++transparencyCounter > 60)
         {
-          this.fCounter = 0;
-          this.transFloat = (rand.nextFloat() * (0.6F - 0.3F) + 0.3F);
+          transparencyCounter = 0;
+          trasparency = (rand.nextFloat() * (0.6F - 0.3F) + 0.3F);
         }
 
-        return this.transFloat;
+        return trasparency;
       }
 
     public boolean isFlyer()
     {
-        return this.getType() == 16 //pegasus
-        || this.getType() == 40 // dark pegasus
-        || this.getType() == 34 // fairy b
-        || this.getType() == 36 // fairy p
-        || this.getType() == 32 // bat horse
-        || this.getType() == 21 // ghost winged
-        || this.getType() == 25;// undead pegasus
+        return getType() == 16 //pegasus
+        || getType() == 40 // dark pegasus
+        || getType() == 34 // fairy b
+        || getType() == 36 // fairy p
+        || getType() == 32 // bat horse
+        || getType() == 21 // ghost winged
+        || getType() == 25;// undead pegasus
     }
 
     /**
@@ -237,11 +237,11 @@ public class MoCEntityHorseMob extends MoCEntityMob
      */
     public boolean isUnicorned()
     {
-        return this.getType() == 18 
-        || this.getType() == 34 
-        || this.getType() == 36 
-        || this.getType() == 40 
-        || this.getType() == 24;
+        return getType() == 18 
+        || getType() == 34 
+        || getType() == 36 
+        || getType() == 40 
+        || getType() == 24;
     }
 
     /**
@@ -250,7 +250,7 @@ public class MoCEntityHorseMob extends MoCEntityMob
      */
     public boolean isGhost()
     {
-        return this.getType() == 21 || this.getType() == 22;
+        return getType() == 21 || getType() == 22;
     }
 
     public void onLivingUpdate()
@@ -267,7 +267,7 @@ public class MoCEntityHorseMob extends MoCEntityMob
             moveTail();
         }
 
-        if (!isOnAir() && (this.riddenByEntity == null) && rand.nextInt(250)==0)
+        if (!isOnAir() && (riddenByEntity == null) && rand.nextInt(250)==0)
         {
             stand();
         }
@@ -284,27 +284,27 @@ public class MoCEntityHorseMob extends MoCEntityMob
         
         if (!worldObj.isRemote)
         {
-	        if (this.isFlyer() && this.getEntityToAttack() != null) //this is a path finding helper to attack other entities when flying
+	        if (isFlyer() && getEntityToAttack() != null) //this is a path finding helper to attack other entities when flying
             {
 	        	
-	        	double x_distance = this.getEntityToAttack().posX - this.posX;
-	            double y_distance = this.getEntityToAttack().posY - this.posY;
-	            double z_distance = this.getEntityToAttack().posZ - this.posZ;
-	            double overall_distance_sq = x_distance * x_distance + y_distance * y_distance + z_distance * z_distance;
+	        	double xDistance = getEntityToAttack().posX - posX;
+	            double yDistance = getEntityToAttack().posY - posY;
+	            double zDistance = getEntityToAttack().posZ - posZ;
+	            double overallDistanceSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
 	        	
-	            double fly_speed = getMoveSpeed();
+	            double flySpeed = getMoveSpeed();
 	            
-	        	if (y_distance > 0) //fly up to player
+	        	if (yDistance > 0) //fly up to player
 	        	{
-	        		 this.motionY += (y_distance / overall_distance_sq) * 0.3D;
+	        		 motionY += (yDistance / overallDistanceSquared) * 0.3D;
 	        	}
 	        	
-	        	if (this.isOnAir() && overall_distance_sq > 3) //continue chasing player through air in x and z directions
+	        	if (isOnAir() && overallDistanceSquared > 3) //continue chasing player through air in x and z directions
 	        	{
-			        this.faceEntity(this.getEntityToAttack(), 10F, 10F);
+			        faceEntity(getEntityToAttack(), 10F, 10F);
 
-            		this.motionX = x_distance / overall_distance_sq * fly_speed;
-                    this.motionZ = z_distance / overall_distance_sq * fly_speed;
+            		motionX = xDistance / overallDistanceSquared * flySpeed;
+                    motionZ = zDistance / overallDistanceSquared * flySpeed;
 	        	}
             }
     	}
@@ -317,21 +317,21 @@ public class MoCEntityHorseMob extends MoCEntityMob
                 wingFlap();
             }
 
-            if (this.worldObj.isDaytime())
+            if (worldObj.isDaytime())
             {
-                float var1 = this.getBrightness(1.0F);
-                if (var1 > 0.5F && this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) && this.rand.nextFloat() * 30.0F < (var1 - 0.4F) * 2.0F)
+                float var1 = getBrightness(1.0F);
+                if (var1 > 0.5F && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && rand.nextFloat() * 30.0F < (var1 - 0.4F) * 2.0F)
                 {
-                    this.setFire(8);
+                    setFire(8);
                 }
             }
 
-            if (!isOnAir() && (this.riddenByEntity == null) && rand.nextInt(300)==0)
+            if (!isOnAir() && (riddenByEntity == null) && rand.nextInt(300)==0)
             {
                 setEating();
             }
 
-            if (this.riddenByEntity == null)
+            if (riddenByEntity == null)
             {
                 List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4D, 3D, 4D));
                 for(int i = 0; i < list.size(); i++)
@@ -381,36 +381,36 @@ public class MoCEntityHorseMob extends MoCEntityMob
     protected Item getDropItem()
     {
         boolean flag = (rand.nextInt(100) < MoCreatures.proxy.rareItemDropChance);
-        if (this.getType() == 32 && MoCreatures.proxy.rareItemDropChance < 25)
+        if (getType() == 32 && MoCreatures.proxy.rareItemDropChance < 25)
         {
             flag = (rand.nextInt(100) < 25);
         }
 
-        if (flag && (this.getType() == 36 || (this.getType() >=50 && this.getType() < 60))) //unicorn
+        if (flag && (getType() == 36 || (getType() >=50 && getType() < 60))) //unicorn
         {
             return MoCreatures.unicornhorn;
         }
-        if (this.getType() == 39) //pegasus
+        if (getType() == 39) //pegasus
         {
             return Items.feather;
         }
-        if (this.getType() == 40) //dark pegasus
+        if (getType() == 40) //dark pegasus
         {
             return Items.feather;
         }
-        if (this.getType() == 38 && flag && worldObj.provider.isHellWorld) //nightmare
+        if (getType() == 38 && flag && worldObj.provider.isHellWorld) //nightmare
         {
             return MoCreatures.heartfire;
         }
-        if (this.getType() == 32 && flag) //bat horse
+        if (getType() == 32 && flag) //bat horse
         {
             return MoCreatures.heartdarkness;
         }
-        if (this.getType() == 26)//skely
+        if (getType() == 26)//skely
         {
             return Items.bone;
         }
-        if ((this.getType() == 23 || this.getType() == 24 || this.getType() == 25))
+        if ((getType() == 23 || getType() == 24 || getType() == 25))
         {
             if (flag)
             {
@@ -419,7 +419,7 @@ public class MoCEntityHorseMob extends MoCEntityMob
             return Items.rotten_flesh;
         }
 
-        if (this.getType() == 21 || this.getType() == 22)
+        if (getType() == 21 || getType() == 22)
         {
             return Items.ghast_tear;
         }
@@ -428,37 +428,37 @@ public class MoCEntityHorseMob extends MoCEntityMob
     }
 
     @Override
-    protected void attackEntity(Entity par1Entity, float par2)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if (this.attackTime <= 0 && par2 < 2.5F && par1Entity.boundingBox.maxY > this.boundingBox.minY && par1Entity.boundingBox.minY < this.boundingBox.maxY)
+        if (attackTime <= 0 && distanceToEntity < 2.5F && entity.boundingBox.maxY > boundingBox.minY && entity.boundingBox.minY < boundingBox.maxY)
         {
-            this.attackTime = 20;
+            attackTime = 20;
             stand();
             openMouth();
             MoCTools.playCustomSound(this, "horsemad", worldObj);
-            this.attackEntityAsMob(par1Entity);
+            attackEntityAsMob(entity);
         }
     }
     
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
         if (MoCreatures.isServer())
         {
-        	Entity entity = damagesource.getEntity();
+        	Entity entityThatAttackedThisCreature = damageSource.getEntity();
         	
-        	if (getIsTamed()) {MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHealth(this.getEntityId(), this.getHealth()), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));}
+        	if (getIsTamed()) {MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHealth(getEntityId(), getHealth()), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));}
             
-            if ((riddenByEntity != null) && (entity == riddenByEntity)) { return false; }
+            if ((riddenByEntity != null) && (entityThatAttackedThisCreature == riddenByEntity)) { return false; }
         }
         
-        return super.attackEntityFrom(damagesource, i);
+        return super.attackEntityFrom(damageSource, damageTaken);
     }
 
     @Override
     public double getMountedYOffset()
     {
-        return (double)this.height * 0.75D - 0.5D;
+        return (double)height * 0.75D - 0.5D;
     }
 
     @Override
@@ -466,8 +466,8 @@ public class MoCEntityHorseMob extends MoCEntityMob
     {
         super.updateRiderPosition();
         if (riddenByEntity == null)    return;
-        ((EntityLivingBase) riddenByEntity).renderYawOffset = this.rotationYaw;
-        ((EntityLivingBase) riddenByEntity).prevRenderYawOffset = this.rotationYaw;
+        ((EntityLivingBase) riddenByEntity).renderYawOffset = rotationYaw;
+        ((EntityLivingBase) riddenByEntity).prevRenderYawOffset = rotationYaw;
     }
 
     @Override

@@ -29,17 +29,17 @@ public class MoCRenderCrocodile extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
 
-        MoCEntityCrocodile entitycrocodile = (MoCEntityCrocodile) entityliving;
+        MoCEntityCrocodile entitycrocodile = (MoCEntityCrocodile) entityLiving;
         super.doRender(entitycrocodile, d, d1, d2, f, f1);
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityCrocodile entitycrocodile = (MoCEntityCrocodile) entityliving;
+        MoCEntityCrocodile entitycrocodile = (MoCEntityCrocodile) entityLiving;
         croc.biteProgress = entitycrocodile.biteProgress;
         croc.swimming = entitycrocodile.isSwimming();
         croc.resting = entitycrocodile.getIsResting();
@@ -82,7 +82,7 @@ public class MoCRenderCrocodile extends RenderLiving {
         //GL11.glTranslatef(0.0F-f2, 0.5F, 0.0F);
     }
 
-    protected void adjustHeight(EntityLiving entityliving, float FHeight)
+    protected void adjustHeight(EntityLiving entityLiving, float FHeight)
     {
         GL11.glTranslatef(0.0F, FHeight, 0.0F);
     }

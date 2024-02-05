@@ -76,9 +76,9 @@ public class MoCRenderGolem extends MoCRenderMoC {
      * Queries whether should render the specified pass or not.
      */
     @Override
-    protected int shouldRenderPass(EntityLivingBase par1EntityLiving, int par2, float par3)
+    protected int shouldRenderPass(EntityLivingBase entityLiving, int par2, float par3)
     {
-        return this.renderGPassModel((MoCEntityGolem) par1EntityLiving, par2, par3);
+        return this.renderGPassModel((MoCEntityGolem) entityLiving, par2, par3);
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {

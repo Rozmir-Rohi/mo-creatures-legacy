@@ -19,7 +19,7 @@ public class MoCRenderHellRat extends MoCRenderRat {
     }
 
     @Override
-    protected void stretch(EntityLivingBase entityliving)
+    protected void stretch(EntityLivingBase entityLiving)
     {
         float f = 1.3F;
         GL11.glScalef(f, f, f);

@@ -42,23 +42,24 @@ public class MoCEntityAnt extends MoCEntityInsect{
         {
             if (!getHasFood())
             {
-                EntityItem entityitem = getClosestFood(this, 8D);
-                if (entityitem != null && entityitem.ridingEntity == null)
+                EntityItem entityItem = getClosestFood(this, 8D);
+                if (entityItem != null && entityItem.ridingEntity == null)
                 {
-                    float f = entityitem.getDistanceToEntity(this);
-                    if (f > 1.0F)
+                    float distanceToEntityItem = entityItem.getDistanceToEntity(this);
+                    
+                    if (distanceToEntityItem > 1.0F)
                     {
-                        int i = MathHelper.floor_double(entityitem.posX);
-                        int j = MathHelper.floor_double(entityitem.posY);
-                        int k = MathHelper.floor_double(entityitem.posZ);
-                        faceLocation(i, j, k, 30F);
+                        int entityItemPosX = MathHelper.floor_double(entityItem.posX);
+                        int entityItemPosY = MathHelper.floor_double(entityItem.posY);
+                        int entityItemPosZ = MathHelper.floor_double(entityItem.posZ);
+                        faceLocation(entityItemPosX, entityItemPosY, entityItemPosZ, 30F);
 
-                        getMyOwnPath(entityitem, f);
+                        getMyOwnPath(entityItem, distanceToEntityItem);
                         return;
                     }
-                    if ((f < 1.0F) && (entityitem != null))
+                    if ((distanceToEntityItem < 1.0F) && (entityItem != null))
                     {
-                        exchangeItem(entityitem);
+                        exchangeItem(entityItem);
                         setHasFood(true);
                         return;
                     }
@@ -73,10 +74,10 @@ public class MoCEntityAnt extends MoCEntityInsect{
         {
             if (this.riddenByEntity == null)
             {
-                EntityItem entityitem = getClosestFood(this, 2D);
-                if (entityitem != null && entityitem.ridingEntity == null)
+                EntityItem entityItem = getClosestFood(this, 2D);
+                if (entityItem != null && entityItem.ridingEntity == null)
                 {
-                    entityitem.mountEntity(this);
+                    entityItem.mountEntity(this);
                     return;
                     
                 }
@@ -89,10 +90,10 @@ public class MoCEntityAnt extends MoCEntityInsect{
         }
     }
 
-    private void exchangeItem(EntityItem entityitem)
+    private void exchangeItem(EntityItem entityItem)
     {
-        EntityItem cargo = new EntityItem(worldObj, this.posX, this.posY+0.2D, this.posZ, entityitem.getEntityItem());
-        entityitem.setDead();
+        EntityItem cargo = new EntityItem(worldObj, posX, posY+0.2D, posZ, entityItem.getEntityItem());
+        entityItem.setDead();
         if (MoCreatures.isServer()) this.worldObj.spawnEntityInWorld(cargo);
     }
     @Override
@@ -109,9 +110,9 @@ public class MoCEntityAnt extends MoCEntityInsect{
     }
 
     @Override
-    public boolean isMyFollowFood(ItemStack par1ItemStack)
+    public boolean isMyFollowFood(ItemStack itemstack)
     {
-        return par1ItemStack != null && isItemEdible(par1ItemStack.getItem());
+        return itemstack != null && isItemEdible(itemstack.getItem());
     }
 
     

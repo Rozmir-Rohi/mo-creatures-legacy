@@ -20,46 +20,46 @@ public class MoCRenderMouse extends MoCRenderMoC {
     }
 
     @Override
-    public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
-        MoCEntityMouse entitymouse = (MoCEntityMouse) entityliving;
+        MoCEntityMouse entitymouse = (MoCEntityMouse) entityLiving;
         super.doRender(entitymouse, d, d1, d2, f, f1);
     }
 
     @Override
-    protected float handleRotationFloat(EntityLivingBase entityliving, float f)
+    protected float handleRotationFloat(EntityLivingBase entityLiving, float f)
     {
-        stretch(entityliving);
-        return entityliving.ticksExisted + f;
+        stretch(entityLiving);
+        return entityLiving.ticksExisted + f;
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityMouse entitymouse = (MoCEntityMouse) entityliving;
+        MoCEntityMouse entitymouse = (MoCEntityMouse) entityLiving;
         if (entitymouse.upsideDown())
         {
-            upsideDown(entityliving);
+            upsideDown(entityLiving);
 
         }
         if (entitymouse.climbing())
         {
-            rotateAnimal(entityliving);
+            rotateAnimal(entityLiving);
         }
     }
 
-    protected void rotateAnimal(EntityLivingBase entityliving)
+    protected void rotateAnimal(EntityLivingBase entityLiving)
     {
         GL11.glRotatef(90F, -1F, 0.0F, 0.0F);
     }
 
-    protected void stretch(EntityLivingBase entityliving)
+    protected void stretch(EntityLivingBase entityLiving)
     {
         float f = 0.6F;
         GL11.glScalef(f, f, f);
     }
 
-    protected void upsideDown(EntityLivingBase entityliving)
+    protected void upsideDown(EntityLivingBase entityLiving)
     {
         GL11.glRotatef(-90F, -1F, 0.0F, 0.0F);
         //GL11.glTranslatef(-0.55F, 0F, -0.7F);

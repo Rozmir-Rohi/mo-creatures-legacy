@@ -39,11 +39,11 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     private int divingCount;
     private int mountCount;
     public EntityLiving roper;
-    public boolean caught_on_hook;
+    public boolean isCaughtOnHook;
     protected boolean riderIsDisconnecting;
     protected float moveSpeed;
     protected String texture;
-    private boolean has_killed_prey = false;
+    private boolean hasKilledPrey = false;
 
     public MoCEntityAquatic(World world)
     {
@@ -68,10 +68,10 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     }
 
     @Override
-    public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1EntityLivingData)
+    public IEntityLivingData onSpawnWithEgg(IEntityLivingData entityLivingData)
     {
         selectType();
-        return super.onSpawnWithEgg(par1EntityLivingData);
+        return super.onSpawnWithEgg(entityLivingData);
     }
 
     /**
@@ -179,39 +179,39 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         return 100;
     }
 
-    public float updateRotation(float current_rotation, float intended_rotation, float max_increment)
+    public float updateRotation(float currentRotation, float intendedRotation, float maxIncrement)
     {
-        float amount_to_change_rotation_by = intended_rotation;
-        for (amount_to_change_rotation_by = intended_rotation - current_rotation; amount_to_change_rotation_by < -180F; amount_to_change_rotation_by += 360F)
+        float amountToChangeRotationBy = intendedRotation;
+        for (amountToChangeRotationBy = intendedRotation - currentRotation; amountToChangeRotationBy < -180F; amountToChangeRotationBy += 360F)
         {
         }
-        for (; amount_to_change_rotation_by >= 180F; amount_to_change_rotation_by -= 360F)
+        for (; amountToChangeRotationBy >= 180F; amountToChangeRotationBy -= 360F)
         {
         }
-        if (amount_to_change_rotation_by > max_increment)
+        if (amountToChangeRotationBy > maxIncrement)
         {
-            amount_to_change_rotation_by = max_increment;
+            amountToChangeRotationBy = maxIncrement;
         }
-        if (amount_to_change_rotation_by < -max_increment)
+        if (amountToChangeRotationBy < -maxIncrement)
         {
-            amount_to_change_rotation_by = -max_increment;
+            amountToChangeRotationBy = -maxIncrement;
         }
-        return current_rotation + amount_to_change_rotation_by;
+        return currentRotation + amountToChangeRotationBy;
     }
 
-    public void faceItem(int x_coordinate, int y_coordinate, int z_coordinate, float f)
+    public void faceItem(int xCoordinate, int yCoordinate, int zCoordinate, float f)
     {
-        double x_distance = x_coordinate - posX;
-        double y_distance = y_coordinate - posY;
-        double z_distance = z_coordinate - posZ;
+        double xDistance = xCoordinate - posX;
+        double yDistance = yCoordinate - posY;
+        double zDistance = zCoordinate - posZ;
         
-        double d3 = MathHelper.sqrt_double((x_distance * x_distance) + (z_distance * z_distance));
+        double d3 = MathHelper.sqrt_double((xDistance * xDistance) + (zDistance * zDistance));
         
-        float xz_angle_in_degrees_to_new_location = (float) ((Math.atan2(z_distance, x_distance) * 180D) / Math.PI) - 90F;
-        float y_angle_in_degrees_to_new_location = (float) ((Math.atan2(y_distance, d3) * 180D) / Math.PI);
+        float xzAngleInDegreesToNewLocation = (float) ((Math.atan2(zDistance, xDistance) * 180D) / Math.PI) - 90F;
+        float yAngleInDegreesToNewLocation = (float) ((Math.atan2(yDistance, d3) * 180D) / Math.PI);
         
-        rotationPitch = -updateRotation(rotationPitch, y_angle_in_degrees_to_new_location, f);
-        rotationYaw = updateRotation(rotationYaw, xz_angle_in_degrees_to_new_location, f);
+        rotationPitch = -updateRotation(rotationPitch, yAngleInDegreesToNewLocation, f);
+        rotationYaw = updateRotation(rotationYaw, xzAngleInDegreesToNewLocation, f);
     }
 
     @Override
@@ -242,13 +242,13 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     	return false;
     }
     
-    public void onKillEntity(EntityLivingBase entityliving)
+    public void onKillEntity(EntityLivingBase entityLiving)
     {
     	if (isPredator() && MoCreatures.proxy.destroyDrops)
     	{
-    		if (!(entityliving instanceof EntityPlayer) && !(entityliving instanceof EntityMob))
+    		if (!(entityLiving instanceof EntityPlayer) && !(entityLiving instanceof EntityMob))
     		{
-	    		has_killed_prey = true;
+	    		hasKilledPrey = true;
     		}
     	}
     }
@@ -337,8 +337,8 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         {
             super.moveEntityWithHeading(strafe, forward);
         }
-        float movement_sideways = strafe;
-        float movement_forward = forward;
+        float movementSideways = strafe;
+        float movementForward = forward;
 
         if ((riddenByEntity != null) && !getIsTamed() && !isSwimming())
         {
@@ -395,8 +395,8 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         {
             motionX += riddenByEntity.motionX * (getCustomSpeed() / 5.0D);
             motionZ += riddenByEntity.motionZ * (getCustomSpeed() / 5.0D);
-            movement_sideways = ((EntityLivingBase)this.riddenByEntity).moveStrafing * 0.5F;
-            movement_forward = ((EntityLivingBase)this.riddenByEntity).moveForward;
+            movementSideways = ((EntityLivingBase)this.riddenByEntity).moveStrafing * 0.5F;
+            movementForward = ((EntityLivingBase)this.riddenByEntity).moveForward;
 
             if (jumpPending)
             {
@@ -421,20 +421,20 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             if (MoCreatures.isServer())
             {
                 //moveEntity(motionX, motionY, motionZ);
-                super.moveEntityWithHeading(movement_sideways, movement_forward);
+                super.moveEntityWithHeading(movementSideways, movementForward);
             }
         }
 
         this.prevLimbSwingAmount = this.limbSwingAmount;
-        double x_distance_travelled = posX - prevPosX;
-        double z_distance_travelled = posZ - prevPosZ;
-        float overall_horizontal_distance_travelled_squared = MathHelper.sqrt_double((x_distance_travelled * x_distance_travelled) + (z_distance_travelled * z_distance_travelled)) * 4.0F;
-        if (overall_horizontal_distance_travelled_squared > 1.0F)
+        double xDistanceTravelled = posX - prevPosX;
+        double zDistanceTravelled = posZ - prevPosZ;
+        float overallHorizontalDistanceTravelledSquared = MathHelper.sqrt_double((xDistanceTravelled * xDistanceTravelled) + (zDistanceTravelled * zDistanceTravelled)) * 4.0F;
+        if (overallHorizontalDistanceTravelledSquared > 1.0F)
         {
-            overall_horizontal_distance_travelled_squared = 1.0F;
+            overallHorizontalDistanceTravelledSquared = 1.0F;
         }
 
-        this.limbSwingAmount += (overall_horizontal_distance_travelled_squared - this.limbSwingAmount) * 0.4F;
+        this.limbSwingAmount += (overallHorizontalDistanceTravelledSquared - this.limbSwingAmount) * 0.4F;
         this.limbSwing += this.limbSwingAmount;
     }
 
@@ -442,11 +442,11 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     {
         if (entity != null)
         {
-            int entity_posX = MathHelper.floor_double(entity.posX);
-            int entity_posY = MathHelper.floor_double(entity.posY);
-            int entity_posZ = MathHelper.floor_double(entity.posZ);
-            faceItem(entity_posX, entity_posY, entity_posZ, 30F);
-            if (posX < entity_posX)
+            int entityPosX = MathHelper.floor_double(entity.posX);
+            int entityPosY = MathHelper.floor_double(entity.posY);
+            int entityPosZ = MathHelper.floor_double(entity.posZ);
+            faceItem(entityPosX, entityPosY, entityPosZ, 30F);
+            if (posX < entityPosX)
             {
                 double distance = entity.posX - posX;
                 if (distance > 0.5D)
@@ -456,13 +456,13 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             }
             else
             {
-                double current_minimum_distance = posX - entity.posX;
-                if (current_minimum_distance > 0.5D)
+                double currentMinimumDistance = posX - entity.posX;
+                if (currentMinimumDistance > 0.5D)
                 {
                     motionX -= 0.050000000000000003D;
                 }
             }
-            if (posZ < entity_posZ)
+            if (posZ < entityPosZ)
             {
                 double distance2 = entity.posZ - posZ;
                 if (distance2 > 0.5D)
@@ -519,14 +519,14 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 
     }
 
-    public void floating()
+    public void floatOnWater()
     {
         float distanceY = MoCTools.distanceToSurface(this);
 
         if (riddenByEntity != null)
         {
-            EntityPlayer player_that_is_riding_this_creature = (EntityPlayer) riddenByEntity;
-            if (player_that_is_riding_this_creature.isAirBorne) // TODO TEST
+            EntityPlayer playerThatIsRidingThisCreature = (EntityPlayer) riddenByEntity;
+            if (playerThatIsRidingThisCreature.isAirBorne) // TODO TEST
             {
                 motionY += 0.09D;
             }
@@ -581,33 +581,33 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     {
         if ((riddenByEntity != null) && (riddenByEntity instanceof EntityPlayer))
         {
-            EntityPlayer entityplayer = (EntityPlayer) riddenByEntity;
-            List entities_nearby_list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(1.0D, 0.0D, 1.0D));
+            EntityPlayer entityPlayer = (EntityPlayer) riddenByEntity;
+            List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(1.0D, 0.0D, 1.0D));
             
-            int iteration_length = entities_nearby_list.size();
+            int iterationLength = entitiesNearbyList.size();
             
-            if (iteration_length > 0)
+            if (iterationLength > 0)
             {
-                for (int index = 0; index < iteration_length; index++)
+                for (int index = 0; index < iterationLength; index++)
                 {
-                    Entity entity_nearby = (Entity) entities_nearby_list.get(index);
-                    if (entity_nearby.isDead)
+                    Entity entityNearby = (Entity) entitiesNearbyList.get(index);
+                    if (entityNearby.isDead)
                     {
                         continue;
                     }
                     
-                    entity_nearby.onCollideWithPlayer(entityplayer);
+                    entityNearby.onCollideWithPlayer(entityPlayer);
                     
-                    if (!(entity_nearby instanceof EntityMob))
+                    if (!(entityNearby instanceof EntityMob))
                     {
                         continue;
                     }
                     
-                    float distance = getDistanceToEntity(entity_nearby);
+                    float distance = getDistanceToEntity(entityNearby);
                     
-                    if ((distance < 2.0F) && entity_nearby instanceof EntityMob && (rand.nextInt(10) == 0))
+                    if ((distance < 2.0F) && entityNearby instanceof EntityMob && (rand.nextInt(10) == 0))
                     {
-                        attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase) entity_nearby), (float)((EntityMob)entity_nearby).getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue());
+                        attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase) entityNearby), (float)((EntityMob)entityNearby).getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue());
                     }
                 }
             }
@@ -639,29 +639,29 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
                 }
             }
             
-            if (isPredator() && has_killed_prey) 
+            if (isPredator() && hasKilledPrey) 
             {
             	if (MoCreatures.proxy.destroyDrops) //destroy the drops of the prey
             	{
-	            	List entities_nearby_list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(3, 3, 3));
+	            	List entitiesNearbyList = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(3, 3, 3));
 	
-	            	int iteration_length = entities_nearby_list.size();
+	            	int iterationLength = entitiesNearbyList.size();
 	            	
-	            	if (iteration_length > 0)
+	            	if (iterationLength > 0)
 	            	{
-		                for (int index = 0; index < iteration_length; index++)
+		                for (int index = 0; index < iterationLength; index++)
 		                {
-		                    Entity entity_in_list = (Entity) entities_nearby_list.get(index);
-		                    if (!(entity_in_list instanceof EntityItem))
+		                    Entity entityNearby = (Entity) entitiesNearbyList.get(index);
+		                    if (!(entityNearby instanceof EntityItem))
 		                    {
 		                        continue;
 		                    }
 		                    
-		                    EntityItem entityitem = (EntityItem) entity_in_list;
+		                    EntityItem entityItemNearby = (EntityItem) entityNearby;
 		                    
-		                    if ((entityitem != null) && (entityitem.age < 5)) //targeting entityitem with age below 5 makes sure that the predator only eats the items that are dropped from the prey
+		                    if ((entityItemNearby != null) && (entityItemNearby.age < 5)) //targeting entityItem with age below 5 makes sure that the predator only eats the items that are dropped from the prey
 		                    {
-		                        entityitem.setDead();
+		                        entityItemNearby.setDead();
 		                    }
 		                }
 	            	}
@@ -670,7 +670,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             	heal(5);
 	    		MoCTools.playCustomSound(this, "eating", worldObj);
 	    		
-                has_killed_prey = false;
+                hasKilledPrey = false;
             }
 
             if (forceUpdates() && rand.nextInt(500) == 0)
@@ -678,99 +678,99 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
                 MoCTools.forceDataSync(this);
             }
             
-            if (isFisheable() && !caught_on_hook && rand.nextInt(30) == 0) //makes a fish look for a fishing hook to willingly bite
+            if (isFisheable() && !isCaughtOnHook && rand.nextInt(30) == 0) //makes a fish look for a fishing hook to willingly bite
             {
                 lookForHookToGetCaughtOn();
             }
             
-            if (caught_on_hook && hook_that_this_fish_is_hooked_to != null)
+            if (isCaughtOnHook && hookThatThisFishIsHookedTo != null)
             {
-            	boolean hook_nearby = true;
+            	boolean isHookNearby = true;
             	
-            	float distance_to_hook1 = hook_that_this_fish_is_hooked_to.getDistanceToEntity(this);
+            	float distanceToHook1 = hookThatThisFishIsHookedTo.getDistanceToEntity(this);
                 
-            	if (distance_to_hook1 > 2) //tests if the fish has been reeled in by the player
+            	if (distanceToHook1 > 2) //tests if the fish has been reeled in by the player
                 {
-            		hook_nearby = false;
+            		isHookNearby = false;
                 }
                 
-                if (!(hook_nearby) && player_that_hooked_this_fish != null && hook_that_this_fish_is_hooked_to != null)
+                if (!(isHookNearby) && playerThatHookedThisFish != null && hookThatThisFishIsHookedTo != null)
                 {
-                	if (player_that_hooked_this_fish.inventory.getCurrentItem() != null)  //must check if itemstack isn't null before getItem() else game will crash
+                	if (playerThatHookedThisFish.inventory.getCurrentItem() != null)  //must check if itemstack isn't null before getItem() else game will crash
                 	{
-	                	if (player_that_hooked_this_fish.inventory.getCurrentItem().getItem() == Items.fishing_rod)
+	                	if (playerThatHookedThisFish.inventory.getCurrentItem().getItem() == Items.fishing_rod)
 	                	{
 		                	
-		                	ItemStack itemstack;
+		                	ItemStack itemstackToBeFished;
 		                	
 		                	if (this instanceof MoCEntityMediumFish)
 		                	{
-		                		MoCEntityMediumFish medium_fish = (MoCEntityMediumFish) this;
+		                		MoCEntityMediumFish mediumFish = (MoCEntityMediumFish) this;
 		                		
-		                		if (medium_fish.getType() == 4) //red salmon
+		                		if (mediumFish.getType() == 4) //red salmon
 		                		{
-		                			itemstack = new ItemStack(Items.fish, 1, 1);
+		                			itemstackToBeFished = new ItemStack(Items.fish, 1, 1);
 		                		}
 		                		else
 		                    	{
-		                    		itemstack = new ItemStack(Items.fish, 1, 0);
+		                    		itemstackToBeFished = new ItemStack(Items.fish, 1, 0);
 		                    	}
 		                	}
 		                	else
 		                	{
-		                		itemstack = new ItemStack(Items.fish, 1, 0);
+		                		itemstackToBeFished = new ItemStack(Items.fish, 1, 0);
 		                	}
 		                	
 		                	
 		                	
-		                	EntityItem entityitem = new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, itemstack);
-		                    double x_distance = player_that_hooked_this_fish.posX - hook_that_this_fish_is_hooked_to.posX;
-		                    double y_distance = player_that_hooked_this_fish.posY - hook_that_this_fish_is_hooked_to.posY;
-		                    double z_distance = player_that_hooked_this_fish.posZ - hook_that_this_fish_is_hooked_to.posZ;
+		                	EntityItem entityItem = new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, itemstackToBeFished);
+		                    double xDistance = playerThatHookedThisFish.posX - hookThatThisFishIsHookedTo.posX;
+		                    double yDistance = playerThatHookedThisFish.posY - hookThatThisFishIsHookedTo.posY;
+		                    double zDistance = playerThatHookedThisFish.posZ - hookThatThisFishIsHookedTo.posZ;
 		                    
 		                    this.setDead();
 		                    
-		                    double overall_distance_squared = (double) MathHelper.sqrt_double(x_distance * x_distance + y_distance * y_distance + z_distance * z_distance);
-		                    double d9 = 0.1D;
+		                    double overallDistanceSquared = (double) MathHelper.sqrt_double(xDistance * xDistance + yDistance * yDistance + zDistance * zDistance);
+		                    double distanceOffset = 0.1D;
 		                    
-		                    entityitem.motionX = x_distance * d9;
-		                    entityitem.motionY = y_distance * d9 + (double )MathHelper.sqrt_double(overall_distance_squared) * 0.08D;
-		                    entityitem.motionZ = z_distance * d9;
+		                    entityItem.motionX = xDistance * distanceOffset;
+		                    entityItem.motionY = yDistance * distanceOffset + (double )MathHelper.sqrt_double(overallDistanceSquared) * 0.08D;
+		                    entityItem.motionZ = zDistance * distanceOffset;
 		                    
-		                    worldObj.spawnEntityInWorld(entityitem);
+		                    worldObj.spawnEntityInWorld(entityItem);
 		                    
-		                    player_that_hooked_this_fish.worldObj.spawnEntityInWorld(new EntityXPOrb(player_that_hooked_this_fish.worldObj, player_that_hooked_this_fish.posX, player_that_hooked_this_fish.posY + 0.5D, player_that_hooked_this_fish.posZ + 0.5D, rand.nextInt(6) + 1));
+		                    playerThatHookedThisFish.worldObj.spawnEntityInWorld(new EntityXPOrb(playerThatHookedThisFish.worldObj, playerThatHookedThisFish.posX, playerThatHookedThisFish.posY + 0.5D, playerThatHookedThisFish.posZ + 0.5D, rand.nextInt(6) + 1));
 		                	
 	                	}
                 	}
                 	
                 	else
                 	{
-                		caught_on_hook = false;
+                		isCaughtOnHook = false;
                 	}
                 }
             }
             
 
-            if (caught_on_hook && rand.nextInt(200) == 0) // unhooks the fish from the fishing hook if the fish is hooked for too long
+            if (isCaughtOnHook && rand.nextInt(200) == 0) // unhooks the fish from the fishing hook if the fish is hooked for too long
             {
-                caught_on_hook = false;
+                isCaughtOnHook = false;
                 
-                List entities_nearby_list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(2, 2, 2));
+                List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(2, 2, 2));
                 
-                int iteration_length = entities_nearby_list.size();
+                int iterationLength = entitiesNearbyList.size();
                 
-                if (iteration_length > 0)
+                if (iterationLength > 0)
                 {
-                	for (int index = 0; index < iteration_length; index++)
+                	for (int index = 0; index < iterationLength; index++)
                     {
-                        Entity entity_nearby = (Entity) entities_nearby_list.get(index);
+                        Entity entityNearby = (Entity) entitiesNearbyList.get(index);
             
-                        if (entity_nearby instanceof EntityFishHook)
+                        if (entityNearby instanceof EntityFishHook)
                         {
-                            if (((EntityFishHook) entity_nearby).field_146043_c == this)
+                            if (((EntityFishHook) entityNearby).field_146043_c == this)
                             {
-                                ((EntityFishHook) entity_nearby).field_146043_c = null;
+                                ((EntityFishHook) entityNearby).field_146043_c = null;
                             }
                         }
                     }
@@ -787,7 +787,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 
         if (isSwimming())
         {
-            floating();
+            floatOnWater();
             outOfWater = 0;
             this.setAir(300);
         }
@@ -845,27 +845,27 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setBoolean("Tamed", getIsTamed());
-        nbttagcompound.setBoolean("Adult", getIsAdult());
-        nbttagcompound.setInteger("Age", getMoCAge());
-        nbttagcompound.setString("Name", getName());
-        nbttagcompound.setInteger("TypeInt", getType());
-        nbttagcompound.setString("Owner", getOwnerName());
+        super.writeEntityToNBT(nbtTagCompound);
+        nbtTagCompound.setBoolean("Tamed", getIsTamed());
+        nbtTagCompound.setBoolean("Adult", getIsAdult());
+        nbtTagCompound.setInteger("Age", getMoCAge());
+        nbtTagCompound.setString("Name", getName());
+        nbtTagCompound.setInteger("TypeInt", getType());
+        nbtTagCompound.setString("Owner", getOwnerName());
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
-        setTamed(nbttagcompound.getBoolean("Tamed"));
-        setAdult(nbttagcompound.getBoolean("Adult"));
-        setMoCAge(nbttagcompound.getInteger("Age"));
-        setName(nbttagcompound.getString("Name"));
-        setType(nbttagcompound.getInteger("TypeInt"));
-        setOwner(nbttagcompound.getString("Owner"));
+        super.readEntityFromNBT(nbtTagCompound);
+        setTamed(nbtTagCompound.getBoolean("Tamed"));
+        setAdult(nbtTagCompound.getBoolean("Adult"));
+        setMoCAge(nbtTagCompound.getInteger("Age"));
+        setName(nbtTagCompound.getString("Name"));
+        setType(nbtTagCompound.getInteger("TypeInt"));
+        setOwner(nbtTagCompound.getString("Owner"));
     }
 
     /**
@@ -906,25 +906,25 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     @Override
     protected void despawnEntity()
     {
-        EntityPlayer distance_to_player = this.worldObj.getClosestPlayerToEntity(this, -1.0D);
-        if (distance_to_player != null)
+        EntityPlayer distanceToPlayer = this.worldObj.getClosestPlayerToEntity(this, -1.0D);
+        if (distanceToPlayer != null)
         {
-            double x_distance = distance_to_player.posX - this.posX;
-            double y_distance = distance_to_player.posY - this.posY;
-            double z_distance = distance_to_player.posZ - this.posZ;
+            double xDistance = distanceToPlayer.posX - this.posX;
+            double yDistance = distanceToPlayer.posY - this.posY;
+            double zDistance = distanceToPlayer.posZ - this.posZ;
             
-            double overall_distance_squared = x_distance * x_distance + y_distance * y_distance + z_distance * z_distance;
+            double overallDistanceSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
 
-            if (this.canDespawn() && overall_distance_squared > 16384.0D)
+            if (this.canDespawn() && overallDistanceSquared > 16384.0D)
             {
                 this.setDead();
             }
             //changed from 600
-            if (entityAge > 1800 && rand.nextInt(800) == 0 && overall_distance_squared > 1024.0D && canDespawn())
+            if (entityAge > 1800 && rand.nextInt(800) == 0 && overallDistanceSquared > 1024.0D && canDespawn())
             {
                 this.setDead();
             }
-            else if (overall_distance_squared < 1024.0D)
+            else if (overallDistanceSquared < 1024.0D)
             {
                 entityAge = 0;
             }
@@ -1013,21 +1013,21 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        Entity entity = damagesource.getEntity();
+        Entity entityThatAttackedThisCreature = damageSource.getEntity();
         //this avoids damage done by Players to a tamed creature that is not theirs
-        if (MoCreatures.proxy.enableStrictOwnership && getOwnerName() != null && !getOwnerName().equals("") && entity != null && entity instanceof EntityPlayer && !((EntityPlayer) entity).getCommandSenderName().equals(getOwnerName()) && !MoCTools.isThisPlayerAnOP(((EntityPlayer) entity))) { return false; }
+        if (MoCreatures.proxy.enableStrictOwnership && getOwnerName() != null && !getOwnerName().equals("") && entityThatAttackedThisCreature != null && entityThatAttackedThisCreature instanceof EntityPlayer && !((EntityPlayer) entityThatAttackedThisCreature).getCommandSenderName().equals(getOwnerName()) && !MoCTools.isThisPlayerAnOP(((EntityPlayer) entityThatAttackedThisCreature))) { return false; }
 
         if (isFisheable()) //tests if the fish has been force hooked by a player throwing a fishing hook at them
         {
-	        if (entity != null)
+	        if (entityThatAttackedThisCreature != null)
 	        {
-	        	if (entity instanceof EntityPlayer)
+	        	if (entityThatAttackedThisCreature instanceof EntityPlayer)
 	        	{
-	        		if (((EntityPlayer) entity).inventory.getCurrentItem() != null) //must check if itemstack isn't null before getItem() else game will crash
+	        		if (((EntityPlayer) entityThatAttackedThisCreature).inventory.getCurrentItem() != null) //must check if itemstack isn't null before getItem() else game will crash
 	        		{
-		        		if (((EntityPlayer) entity).inventory.getCurrentItem().getItem() == Items.fishing_rod)
+		        		if (((EntityPlayer) entityThatAttackedThisCreature).inventory.getCurrentItem().getItem() == Items.fishing_rod)
 		        		{
 		        			lookForHookToGetCaughtOn(); //tests if there is a fishing hook nearby, if so sets the fish as caught on a hook
 		        		}
@@ -1037,7 +1037,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     	}
         
         //to prevent tamed aquatics from getting block damage
-        if (getIsTamed() && damagesource.getDamageType().equalsIgnoreCase("inWall"))
+        if (getIsTamed() && damageSource.getDamageType().equalsIgnoreCase("inWall"))
         {
             return false;
         }
@@ -1046,7 +1046,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             //MoCServerPacketHandler.sendHealth(this.getEntityId(), this.worldObj.provider.dimensionId, this.getHealth());
         }*/
 
-        return super.attackEntityFrom(damagesource, i);
+        return super.attackEntityFrom(damageSource, damageTaken);
 
     }
 
@@ -1096,35 +1096,35 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         return 0;
     }
     
-    EntityPlayer player_that_hooked_this_fish;
+    EntityPlayer playerThatHookedThisFish;
     
-    EntityFishHook hook_that_this_fish_is_hooked_to;
+    EntityFishHook hookThatThisFishIsHookedTo;
     
     /**
      * The act of getting Hooked into a fish Hook.
      */
     private void lookForHookToGetCaughtOn()
     {
-        EntityPlayer closest_entityplayer = worldObj.getClosestPlayerToEntity(this, 18D);
+        EntityPlayer closestEntityPlayer = worldObj.getClosestPlayerToEntity(this, 18D);
         
-        if (closest_entityplayer != null)
+        if (closestEntityPlayer != null)
         {
-            EntityFishHook fishHook = closest_entityplayer.fishEntity;
+            EntityFishHook fishHook = closestEntityPlayer.fishEntity;
             
             if (fishHook != null)
             {
             	if (fishHook.field_146043_c == null) //hooked by fish willingly biting the fish hook
             	{
-	                float distance_to_hook = fishHook.getDistanceToEntity(this);
+	                float distanceToHook = fishHook.getDistanceToEntity(this);
 	                
-	                if (distance_to_hook > 1)
+	                if (distanceToHook > 1)
 	                {
-	                    MoCTools.getPathToEntity(this, fishHook, distance_to_hook);
+	                    MoCTools.getPathToEntity(this, fishHook, distanceToHook);
 	                }
 	                else
 	                {
 	                    fishHook.field_146043_c = this;
-	                    caught_on_hook = true;
+	                    isCaughtOnHook = true;
 	                    
 	                    if (outOfWater == 0) //if in water
 	                    {
@@ -1132,9 +1132,9 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 		                    playSound("random.splash", 0.25F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.4F);
 	                    }
 	                    
-	                    player_that_hooked_this_fish = closest_entityplayer;
+	                    playerThatHookedThisFish = closestEntityPlayer;
 	                    
-	                    hook_that_this_fish_is_hooked_to = fishHook;
+	                    hookThatThisFishIsHookedTo = fishHook;
 	                    
 	                }
             	}
@@ -1177,26 +1177,26 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
      */
     protected EntityLivingBase getScaryEntity(double d)
     {
-        double current_minimum_distance = -1D;
+        double currentMinimumDistance = -1D;
         
-        EntityLivingBase entityliving = null;
-        List entities_nearby_list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, 4D, d));
+        EntityLivingBase entityLiving = null;
+        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, 4D, d));
         
-        int iteration_length = entities_nearby_list.size();
+        int iterationLength = entitiesNearbyList.size();
         
-        if (iteration_length > 0)
+        if (iterationLength > 0)
         {
-	        for (int index = 0; index < iteration_length; index++)
+	        for (int index = 0; index < iterationLength; index++)
 	        {
-	            Entity entity_nearby = (Entity) entities_nearby_list.get(index);
+	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
 	            
-	            if (entitiesThatAreScary(entity_nearby))
+	            if (entitiesThatAreScary(entityNearby))
 	            {
-	                entityliving = (EntityLivingBase) entity_nearby;
+	                entityLiving = (EntityLivingBase) entityNearby;
 	            }
 	        }
         }
-        return entityliving;
+        return entityLiving;
     }
 
     /**

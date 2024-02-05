@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class MoCEntityBoar extends MoCEntityAnimal {
-    protected int attack_damage;
+    protected int attackDamage;
     protected double attackRange;
 
     public MoCEntityBoar(World world)
@@ -20,7 +20,7 @@ public class MoCEntityBoar extends MoCEntityAnimal {
         super(world);
         //texture = MoCreatures.proxy.MODEL_TEXTURE + "boara.png";
         setSize(0.9F, 0.9F);
-        attack_damage = 1;
+        attackDamage = 1;
         attackRange = 1.0D;
         setMoCAge(50);
         if (rand.nextInt(4) == 0)
@@ -41,12 +41,12 @@ public class MoCEntityBoar extends MoCEntityAnimal {
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if (attackTime <= 0 && (f < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        if (attackTime <= 0 && (distanceToEntity < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
-            entity.attackEntityFrom(DamageSource.causeMobDamage(this), attack_damage);
+            entity.attackEntityFrom(DamageSource.causeMobDamage(this), attackDamage);
         }
     }
 
@@ -59,15 +59,15 @@ public class MoCEntityBoar extends MoCEntityAnimal {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i))
+        if (super.attackEntityFrom(damageSource, damageTaken))
         {
-            Entity entity = damagesource.getEntity();
-            if ((riddenByEntity == entity) || (ridingEntity == entity)) { return true; }
-            if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0) && getIsAdult())
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
+            if ((riddenByEntity == entityThatAttackedThisCreature) || (ridingEntity == entityThatAttackedThisCreature)) { return true; }
+            if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting.getDifficultyId() > 0) && getIsAdult())
             {
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
             }
             return true;
         }
@@ -88,8 +88,8 @@ public class MoCEntityBoar extends MoCEntityAnimal {
     {
         if (worldObj.difficultySetting.getDifficultyId() > 0)
         {
-            EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, attackRange);
-            if ((entityplayer != null) && (rand.nextInt(50) == 0)) { return entityplayer; }
+            EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, attackRange);
+            if ((entityPlayer != null) && (rand.nextInt(50) == 0)) { return entityPlayer; }
         }
         return null;
     }
@@ -102,12 +102,12 @@ public class MoCEntityBoar extends MoCEntityAnimal {
         if (worldObj.difficultySetting.getDifficultyId() == 1)
         {
             attackRange = 2D;
-            attack_damage = 1;
+            attackDamage = 1;
         }
         else if (worldObj.difficultySetting.getDifficultyId() > 1)
         {
             attackRange = 3D;
-            attack_damage = 2;
+            attackDamage = 2;
         }
         super.onLivingUpdate();
 

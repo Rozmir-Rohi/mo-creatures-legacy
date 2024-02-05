@@ -21,9 +21,9 @@ public class MoCRenderFishy extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
-        MoCEntityFishy entityfishy = (MoCEntityFishy) entityliving;
+        MoCEntityFishy entityfishy = (MoCEntityFishy) entityLiving;
         if (entityfishy.getType() == 0)// && !MoCreatures.mc.isMultiplayerWorld())
         {
             entityfishy.selectType();
@@ -32,20 +32,20 @@ public class MoCRenderFishy extends RenderLiving {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
         GL11.glTranslatef(0.0F, 0.3F, 0.0F);
     }
 
     @Override
-    protected float handleRotationFloat(EntityLivingBase entityliving, float f)
+    protected float handleRotationFloat(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityFishy entityfishy = (MoCEntityFishy) entityliving;
+        MoCEntityFishy entityfishy = (MoCEntityFishy) entityLiving;
         if (!entityfishy.getIsAdult())
         {
             stretch(entityfishy);
         }
-        return entityliving.ticksExisted + f;
+        return entityLiving.ticksExisted + f;
     }
 
     protected void stretch(MoCEntityFishy entityfishy)

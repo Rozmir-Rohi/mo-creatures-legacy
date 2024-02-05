@@ -43,14 +43,13 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     public int transformType;
     public boolean canLayEggs;
 
-    public MoCAnimalChest localchest;
-    public ItemStack localstack;
+    public MoCAnimalChest localChest;
+    public ItemStack localItemstack;
 
     public MoCEntityOstrich(World world)
     {
         super(world);
         setSize(1.0F, 1.6F);
-        //health = 20;
         setMoCAge(35);
         roper = null;
         this.eggCounter = this.rand.nextInt(1000) + 1000;
@@ -153,27 +152,27 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float damage_taken)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
         //damage reduction
         if (getIsTamed() && getHelmet() != 0)
         {
-            int armor_protection = 0;
+            int damageReduction = 0;
             switch (getHelmet())
             {
 	            case 5: // hide helmet
 	            case 6: // fur helmet
 	            case 1:
-	                armor_protection = 1; // leather helmet
+	                damageReduction = 1; // leather helmet
 	                break;
 	                
 	            case 7: //croc helmet
 	            case 2: // iron helmet
-	                armor_protection = 2;
+	                damageReduction = 2;
 	                break;
 	                
 	            case 3: //gold helmet
-	                armor_protection = 3;
+	                damageReduction = 3;
 	                break;
 	                
 	            case 4: //diamond helmet
@@ -181,27 +180,27 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 	            case 10: //frost scorpion helmet
 	            case 11: //cave scorpion helmet
 	            case 12: // nether scorpion helmet
-	                armor_protection = 4;
+	                damageReduction = 4;
 	                break;
             }
-            damage_taken -= armor_protection;
-            if (damage_taken <= 0) damage_taken = 1;
+            damageTaken -= damageReduction;
+            if (damageTaken <= 0) damageTaken = 1;
         }
 
-        if (super.attackEntityFrom(damagesource, damage_taken))
+        if (super.attackEntityFrom(damageSource, damageTaken))
         {
-            Entity entity = damagesource.getEntity();
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
 
-            if ( ((riddenByEntity != null) && (entity == riddenByEntity)) ) { return false; }
+            if ( ((riddenByEntity != null) && (entityThatAttackedThisCreature == riddenByEntity)) ) { return false; }
             
-            if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName()))))
+            if (entityThatAttackedThisCreature != null && getIsTamed() && (entityThatAttackedThisCreature instanceof EntityPlayer && (entityThatAttackedThisCreature.getCommandSenderName().equals(getOwnerName()))))
             { 
             	return false; 
             }
 
-            if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0) && getType() > 2)
+            if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting.getDifficultyId() > 0) && getType() > 2)
             {
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
                 flapWings();
             }
             return true;
@@ -213,16 +212,16 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public void onDeath(DamageSource damagesource)
+    public void onDeath(DamageSource damageSource)
     {
-        super.onDeath(damagesource);
+        super.onDeath(damageSource);
         dropMyStuff();
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if (this.attackTime <= 0 && f < 2.0F && entity.boundingBox.maxY > this.boundingBox.minY && entity.boundingBox.minY < this.boundingBox.maxY)
+        if (this.attackTime <= 0 && distanceToEntity < 2.0F && entity.boundingBox.maxY > this.boundingBox.minY && entity.boundingBox.minY < this.boundingBox.maxY)
         {
             this.attackTime = 20;
             openMouth();
@@ -343,24 +342,24 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     @Override
     public double getCustomSpeed()
     {
-        double ostrich_speed = 0.8D;
+        double ostrichSpeed = 0.8D;
         
         switch (getType())
         {
 	        case 1:
-	        	ostrich_speed = 0.8;
+	        	ostrichSpeed = 0.8;
 	        	break;
 	        case 2:
-	        	ostrich_speed = 0.8D;
+	        	ostrichSpeed = 0.8D;
 	        	break;
 	        case 3:
-	        	ostrich_speed = 1.1D;
+	        	ostrichSpeed = 1.1D;
 	        	break;
 	        case 4:
-	        	ostrich_speed = 1.3D;
+	        	ostrichSpeed = 1.3D;
 	        	break;
 	        case 5:
-	        	ostrich_speed = 1.4D;
+	        	ostrichSpeed = 1.4D;
 	            this.isImmuneToFire = true;
 	            break;
 	            
@@ -371,14 +370,14 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         
         if (sprintCounter > 0 && sprintCounter < 200)
         {
-            ostrich_speed *= 1.5D;
+            ostrichSpeed *= 1.5D;
         }
         if (sprintCounter > 200)
         {
-            ostrich_speed *= 0.5D;
+            ostrichSpeed *= 0.5D;
         }
         
-        return ostrich_speed;
+        return ostrichSpeed;
     }
 
     @Override
@@ -516,10 +515,10 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             //egg laying
             if (this.canLayEggs && (getType() == 2) && !getEggWatching() && --this.eggCounter <= 0 && this.rand.nextInt(5) == 0)// &&
             {
-                EntityPlayer entityplayer1 = worldObj.getClosestPlayerToEntity(this, 12D);
-                if (entityplayer1 != null)
+                EntityPlayer entityPlayer1 = worldObj.getClosestPlayerToEntity(this, 12D);
+                if (entityPlayer1 != null)
                 {
-                    double distP = MoCTools.getSqDistanceTo(entityplayer1, posX, posY, posZ);
+                    double distP = MoCTools.getSqDistanceTo(entityPlayer1, posX, posY, posZ);
                     if (distP < 10D)
                     {
                         int OstrichEggType = 30;
@@ -558,8 +557,8 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
                 MoCEntityEgg myEgg = (MoCEntityEgg) getScaryEntity(8D);
                 if ((myEgg != null) && (MoCTools.getSqDistanceTo(myEgg, this.posX, this.posY, this.posZ) > 4D))
                 {
-                    PathEntity pathentity = worldObj.getPathEntityToEntity(this, myEgg, 16F, true, false, false, true);
-                    setPathToEntity(pathentity);
+                    PathEntity pathEntity = worldObj.getPathEntityToEntity(this, myEgg, 16F, true, false, false, true);
+                    setPathToEntity(pathEntity);
                 }
                 if (myEgg == null) //didn't find egg
                 {
@@ -582,7 +581,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     protected MoCEntityOstrich getClosestMaleOstrich(Entity entity, double d)
     {
         double d1 = -1D;
-        MoCEntityOstrich entityliving = null;
+        MoCEntityOstrich entityLiving = null;
         List list = worldObj.getEntitiesWithinAABBExcludingEntity(entity, entity.boundingBox.expand(d, d, d));
         for (int i = 0; i < list.size(); i++)
         {
@@ -596,11 +595,11 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)))
             {
                 d1 = d2;
-                entityliving = (MoCEntityOstrich) entity1;
+                entityLiving = (MoCEntityOstrich) entity1;
             }
         }
 
-        return entityliving;
+        return entityLiving;
     }
 
     @Override
@@ -623,16 +622,16 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
-        if (super.interact(entityplayer)) { return false; }
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        if (super.interact(entityPlayer)) { return false; }
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
 
         if (getIsTamed() && (getType() > 1) && (itemstack != null) && !getIsRideable() && (itemstack.getItem() == MoCreatures.horsesaddle || itemstack.getItem() == Items.saddle))
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             setRideable(true);
             return true;
@@ -642,7 +641,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
 
             openMouth();
@@ -662,11 +661,11 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
             }
             else
             {
-                entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
             }
             if (getType() == 6)
             {
@@ -684,11 +683,11 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
             }
             else
             {
-                entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
             }
             if (getType() == 7)
             {
@@ -706,11 +705,11 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
             }
             else
             {
-                entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
             }
             if (getType() == 8)
             {
@@ -728,11 +727,11 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
             }
             else
             {
-                entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
             }
             if (getType() == 5)
             {
@@ -751,11 +750,11 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             if (colorInt == 0) colorInt = 16;
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             dropFlag();
             setFlagColor((byte)colorInt);
-            entityplayer.addStat(MoCAchievements.ostrich_flag, 1);
+            entityPlayer.addStat(MoCAchievements.ostrich_flag, 1);
             return true;
         }
         
@@ -763,26 +762,26 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         {
              if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
 
-            entityplayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.key));
+            entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.key));
             setIsChested(true);
-            entityplayer.addStat(MoCAchievements.ostrich_chest, 1);
+            entityPlayer.addStat(MoCAchievements.ostrich_chest, 1);
             return true;
         }
         
         if ((itemstack != null) && (itemstack.getItem() == MoCreatures.key) && getIsChested())
         {
             // if first time opening horse chest, we must initialize it
-            if (localchest == null)
+            if (localChest == null)
             {
-                localchest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.OstrichChest"), 9);
+                localChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.OstrichChest"), 9);
             }
             // only open this chest on server side
             if (MoCreatures.isServer())
             {
-                entityplayer.displayGUIChest(localchest);
+                entityPlayer.displayGUIChest(localChest);
             }
             return true;
         }
@@ -845,11 +844,11 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 
                 if (helmetType != 0)
                 {
-                    entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                    entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                     dropArmor();
                     MoCTools.playCustomSound(this, "armoroff", worldObj);
                     setHelmet(helmetType);
-                    entityplayer.addStat(MoCAchievements.ostrich_helmet, 1);
+                    entityPlayer.addStat(MoCAchievements.ostrich_helmet, 1);
                     return true;
                 }
                
@@ -857,12 +856,12 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         }
         if ((itemstack == null) && getIsRideable() && getIsAdult() && (riddenByEntity == null))
         {
-            entityplayer.rotationYaw = rotationYaw;
-            entityplayer.rotationPitch = rotationPitch;
+            entityPlayer.rotationYaw = rotationYaw;
+            entityPlayer.rotationPitch = rotationPitch;
             setHiding(false);
-            if (!this.worldObj.isRemote && (this.riddenByEntity == null || this.riddenByEntity == entityplayer))
+            if (!this.worldObj.isRemote && (this.riddenByEntity == null || this.riddenByEntity == entityPlayer))
             {
-                entityplayer.mountEntity(this);
+                entityPlayer.mountEntity(this);
             }
             return true;
         }
@@ -878,9 +877,9 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         {
             int color = getFlagColor();
             if (color == 16) color = 0;
-            EntityItem entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Blocks.wool, 1, color));
-            entityitem.delayBeforeCanPickup = 10;
-            worldObj.spawnEntityInWorld(entityitem);
+            EntityItem entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Blocks.wool, 1, color));
+            entityItem.delayBeforeCanPickup = 10;
+            worldObj.spawnEntityInWorld(entityItem);
             setFlagColor((byte)0);
         }
     }
@@ -937,57 +936,57 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
-        setRideable(nbttagcompound.getBoolean("Saddle"));
-        setEggWatching(nbttagcompound.getBoolean("EggWatch"));
-        setHiding(nbttagcompound.getBoolean("Hiding"));
-        setHelmet(nbttagcompound.getByte("Helmet"));
-        setFlagColor(nbttagcompound.getByte("FlagColor"));
-        setIsChested(nbttagcompound.getBoolean("Bagged"));
+        super.readEntityFromNBT(nbtTagCompound);
+        setRideable(nbtTagCompound.getBoolean("Saddle"));
+        setEggWatching(nbtTagCompound.getBoolean("EggWatch"));
+        setHiding(nbtTagCompound.getBoolean("Hiding"));
+        setHelmet(nbtTagCompound.getByte("Helmet"));
+        setFlagColor(nbtTagCompound.getByte("FlagColor"));
+        setIsChested(nbtTagCompound.getBoolean("Bagged"));
         if (getIsChested())
         {
-            NBTTagList nbttaglist = nbttagcompound.getTagList("Items", 10);
-            localchest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.OstrichChest"), 18);
+            NBTTagList nbttaglist = nbtTagCompound.getTagList("Items", 10);
+            localChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.OstrichChest"), 18);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
-                NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
-                int j = nbttagcompound1.getByte("Slot") & 0xff;
-                if ((j >= 0) && j < localchest.getSizeInventory())
+                NBTTagCompound nbtTagCompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
+                int j = nbtTagCompound1.getByte("Slot") & 0xff;
+                if ((j >= 0) && j < localChest.getSizeInventory())
                 {
-                    localchest.setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(nbttagcompound1));
+                    localChest.setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(nbtTagCompound1));
                 }
             }
         }
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setBoolean("Saddle", getIsRideable());
-        nbttagcompound.setBoolean("EggWatch", getEggWatching());
-        nbttagcompound.setBoolean("Hiding", getHiding());
-        nbttagcompound.setByte("Helmet", getHelmet());
-        nbttagcompound.setByte("FlagColor", getFlagColor());
-        nbttagcompound.setBoolean("Bagged", getIsChested());
+        super.writeEntityToNBT(nbtTagCompound);
+        nbtTagCompound.setBoolean("Saddle", getIsRideable());
+        nbtTagCompound.setBoolean("EggWatch", getEggWatching());
+        nbtTagCompound.setBoolean("Hiding", getHiding());
+        nbtTagCompound.setByte("Helmet", getHelmet());
+        nbtTagCompound.setByte("FlagColor", getFlagColor());
+        nbtTagCompound.setBoolean("Bagged", getIsChested());
         
-        if (getIsChested() && localchest != null)
+        if (getIsChested() && localChest != null)
         {
             NBTTagList nbttaglist = new NBTTagList();
-            for (int i = 0; i < localchest.getSizeInventory(); i++)
+            for (int i = 0; i < localChest.getSizeInventory(); i++)
             {
-                localstack = localchest.getStackInSlot(i);
-                if (localstack != null)
+                localItemstack = localChest.getStackInSlot(i);
+                if (localItemstack != null)
                 {
-                    NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-                    nbttagcompound1.setByte("Slot", (byte) i);
-                    localstack.writeToNBT(nbttagcompound1);
-                    nbttaglist.appendTag(nbttagcompound1);
+                    NBTTagCompound nbtTagCompound1 = new NBTTagCompound();
+                    nbtTagCompound1.setByte("Slot", (byte) i);
+                    localItemstack.writeToNBT(nbtTagCompound1);
+                    nbttaglist.appendTag(nbtTagCompound1);
                 }
             }
-            nbttagcompound.setTag("Items", nbttaglist);
+            nbtTagCompound.setTag("Items", nbttaglist);
         }
     }
 
@@ -1037,9 +1036,9 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack par1ItemStack)
+    public boolean isMyHealFood(ItemStack itemstack)
     {
-        return isItemEdible(par1ItemStack.getItem());
+        return isItemEdible(itemstack.getItem());
     }
 
     @Override
@@ -1052,7 +1051,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             
             if (getIsChested())
             {
-               MoCTools.dropInventory(this, localchest);
+               MoCTools.dropInventory(this, localChest);
                MoCTools.dropCustomItem(this, this.worldObj, new ItemStack(Blocks.chest, 1));
                setIsChested(false);
             }
@@ -1068,7 +1067,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     {
         if (MoCreatures.isServer())
         {
-            EntityItem entityitem = null;// = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Blocks.wool, 1, color));
+            EntityItem entityItem = null;// = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Blocks.wool, 1, color));
             
             switch (getHelmet())
             {
@@ -1077,44 +1076,44 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
                 return;
                 //break;
             case 1:
-                entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Items.leather_helmet, 1));
+                entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Items.leather_helmet, 1));
                 break;
             case 2:
-                entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Items.iron_helmet, 1));
+                entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Items.iron_helmet, 1));
                 break;
             case 3:
-                entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Items.golden_helmet, 1));
+                entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Items.golden_helmet, 1));
                 break;
             case 4:
-                entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Items.diamond_helmet, 1));
+                entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Items.diamond_helmet, 1));
                 break;
             case 5:
-                entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.helmetHide, 1));
+                entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.helmetHide, 1));
                 break;
             case 6:
-                entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.helmetFur, 1));
+                entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.helmetFur, 1));
                 break;
             case 7:
-                entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.helmetCroc, 1));
+                entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.helmetCroc, 1));
                 break;
             case 9:
-                entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.scorpHelmetDirt, 1));
+                entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.scorpHelmetDirt, 1));
                 break;
             case 10:
-                entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.scorpHelmetFrost, 1));
+                entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.scorpHelmetFrost, 1));
                 break;
             case 11:
-                entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.scorpHelmetCave, 1));
+                entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.scorpHelmetCave, 1));
                 break;
             case 12:
-                entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.scorpHelmetNether, 1));
+                entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.scorpHelmetNether, 1));
                 break;
             }
 
-            if (entityitem != null)
+            if (entityItem != null)
             {
-                entityitem.delayBeforeCanPickup = 10;
-                worldObj.spawnEntityInWorld(entityitem);
+                entityItem.delayBeforeCanPickup = 10;
+                worldObj.spawnEntityInWorld(entityItem);
             }
             setHelmet((byte)0);
         }

@@ -248,18 +248,18 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
-        if (super.interact(entityplayer)) { return false; }
+        if (super.interact(entityPlayer)) { return false; }
 
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         
         if ((itemstack != null) && getIsTamed() && !getIsRideable() && getMoCAge() > 90 &&
                 (itemstack.getItem() == Items.saddle || itemstack.getItem() == MoCreatures.horsesaddle))
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             setRideable(true);
             MoCTools.playCustomSound(this, "roping", worldObj);
@@ -270,9 +270,9 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         {
             if (MoCreatures.isServer() && (itemstack == null) && (this.riddenByEntity == null))
             {
-            	entityplayer.rotationYaw = rotationYaw;
-                entityplayer.rotationPitch = rotationPitch;
-                entityplayer.mountEntity(this);
+            	entityPlayer.rotationYaw = rotationYaw;
+                entityPlayer.rotationPitch = rotationPitch;
+                entityPlayer.mountEntity(this);
                 return true;
             }
         }
@@ -317,7 +317,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     }
 
     @Override
-    public boolean swimmerEntity()
+    public boolean isSwimmerEntity()
     {
         return true;
     }
@@ -329,17 +329,17 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setBoolean("Saddle", getIsRideable());
+        super.writeEntityToNBT(nbtTagCompound);
+        nbtTagCompound.setBoolean("Saddle", getIsRideable());
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
-        setRideable(nbttagcompound.getBoolean("Saddle"));
+        super.readEntityFromNBT(nbtTagCompound);
+        setRideable(nbtTagCompound.getBoolean("Saddle"));
     }
 
     @Override
@@ -359,14 +359,14 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
         
-        if (attackTime <= 0 && (f < 3.0D))
+        if (attackTime <= 0 && (distanceToEntity < 3.0D))
         {
             attackTime = 20;
-            boolean entity_to_attack_is_a_player = (entity instanceof EntityPlayer);
-            if (entity_to_attack_is_a_player)
+            boolean isEntityToAttackInstanceOfPlayer = (entity instanceof EntityPlayer);
+            if (isEntityToAttackInstanceOfPlayer)
             {
                 MoCreatures.poisonPlayer((EntityPlayer) entity);
             }
@@ -376,25 +376,25 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i))
+        if (super.attackEntityFrom(damageSource, damageTaken))
         {
-            Entity entity = damagesource.getEntity();
+            Entity entityThatAttackedThisCreature = damageSource.getEntity();
          
-            if (entity != null && getIsTamed() && (entity instanceof EntityPlayer && (entity.getCommandSenderName().equals(getOwnerName())))) 
+            if (entityThatAttackedThisCreature != null && getIsTamed() && (entityThatAttackedThisCreature instanceof EntityPlayer && (entityThatAttackedThisCreature.getCommandSenderName().equals(getOwnerName())))) 
             { 
             	return false;
             }
 
-            if ((riddenByEntity != null) && (entity == riddenByEntity)) 
+            if ((riddenByEntity != null) && (entityThatAttackedThisCreature == riddenByEntity)) 
             { 
                 return false; 
             }
 
-            if ((entity != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
+            if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
             {
-                entityToAttack = entity;
+                entityToAttack = entityThatAttackedThisCreature;
             }
             return true;
         }
@@ -406,15 +406,15 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     {
         if (worldObj.difficultySetting.getDifficultyId() > 0)
         {
-            EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 6D);
-            if (!getIsTamed() && (entityplayer != null) && getMoCAge()>70)
+            EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 6D);
+            if (!getIsTamed() && (entityPlayer != null) && getMoCAge()>70)
             {
-                    return entityplayer;
+                    return entityPlayer;
             }
             if ((rand.nextInt(80) == 0))
             {
-                EntityLivingBase entityliving = getClosestEntityLiving(this, 8D);
-                return entityliving;
+                EntityLivingBase entityLiving = getClosestEntityLiving(this, 8D);
+                return entityLiving;
             }
         }
         
@@ -422,15 +422,15 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         {
 	        if (this.getIsTamed() && this.riddenByEntity == null) //defend owner if they are attacked by an entity
 	    	{
-	    		EntityPlayer owner_of_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
 	    		
-	    		if (owner_of_entity_that_is_online != null)
+	    		if (ownerOfEntityThatIsOnline != null)
 	    		{
-	    			EntityLivingBase entity_that_attacked_owner = owner_of_entity_that_is_online.getAITarget();
+	    			EntityLivingBase entityThatAttackedOwner = ownerOfEntityThatIsOnline.getAITarget();
 	    			
-	    			if (entity_that_attacked_owner != null)
+	    			if (entityThatAttackedOwner != null)
 	    			{
-	    				return entity_that_attacked_owner;
+	    				return entityThatAttackedOwner;
 	    			}
 	    		}
 	    	}
@@ -468,9 +468,9 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     }
 
     @Override
-    public boolean entitiesToIgnoreWhenHunting(Entity entity)
+    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
     {
-        return (super.entitiesToIgnoreWhenHunting(entity)
+        return (super.entitiesToIgnoreWhenLookingForAnEntityToAttack(entity)
         		|| (entity instanceof MoCEntityKomodo)
         		|| (entity instanceof EntityPlayer)
             	|| (entity instanceof MoCEntityBigCat)

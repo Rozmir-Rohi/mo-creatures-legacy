@@ -8,13 +8,7 @@ import net.minecraft.world.World;
 
 public class MoCEntityDuck extends MoCEntityAnimal//EntityChicken
 {
-    public boolean field_70885_d = false;
-    public float field_70886_e = 0.0F;
-    public float destPos = 0.0F;
-    public float field_70884_g;
-    public float field_70888_h;
-    public float field_70889_i = 1.0F;
-
+	
     public MoCEntityDuck(World world)
     {
         super(world);
@@ -25,7 +19,12 @@ public class MoCEntityDuck extends MoCEntityAnimal//EntityChicken
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(4.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(4.0D);
+    }
+    
+    public boolean isSwimmerEntity()
+    {
+        return true;
     }
 
     @Override
@@ -50,33 +49,11 @@ public class MoCEntityDuck extends MoCEntityAnimal//EntityChicken
     public void onLivingUpdate()
     {
         super.onLivingUpdate();
-        this.field_70888_h = this.field_70886_e;
-        this.field_70884_g = this.destPos;
-        this.destPos = (float) ((double) this.destPos + (double) (this.onGround ? -1 : 4) * 0.3D);
 
-        if (this.destPos < 0.0F)
+        if (isOnAir() && motionY < 0.0D) //slows falling 
         {
-            this.destPos = 0.0F;
+            motionY *= 0.6D;
         }
-
-        if (this.destPos > 1.0F)
-        {
-            this.destPos = 1.0F;
-        }
-
-        if (!this.onGround && this.field_70889_i < 1.0F)
-        {
-            this.field_70889_i = 1.0F;
-        }
-
-        this.field_70889_i = (float) ((double) this.field_70889_i * 0.9D);
-
-        if (!this.onGround && this.motionY < 0.0D)
-        {
-            this.motionY *= 0.6D;
-        }
-
-        this.field_70886_e += this.field_70889_i * 2.0F;
     }
 
     @Override

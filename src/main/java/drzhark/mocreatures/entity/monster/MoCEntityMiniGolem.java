@@ -26,7 +26,7 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
     }
 
     @Override
@@ -76,12 +76,12 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
                 if (!getIsAngry()) setIsAngry(true);
             }
 
-            if (this.worldObj.isDaytime())
+            if (worldObj.isDaytime())
             {
-                float var1 = this.getBrightness(1.0F);
-                if (var1 > 0.5F && this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) && this.rand.nextFloat() * 30.0F < (var1 - 0.4F) * 2.0F)
+                float brightness = getBrightness(1.0F);
+                if (brightness > 0.5F && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && rand.nextFloat() * 30.0F < (brightness - 0.4F) * 2.0F)
                 {
-                    this.setFire(8);
+                    setFire(8);
                 }
             }
             
@@ -118,13 +118,13 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
             return;
         }
         //creates a dummy entityBock on top of it
-        MoCEntityThrowableBlockForGolem entityBlock = new MoCEntityThrowableBlockForGolem(this.worldObj, this, this.posX, this.posY + 2.0D, this.posZ);//, true, false);
-        this.worldObj.spawnEntityInWorld(entityBlock);
+        MoCEntityThrowableBlockForGolem entityBlock = new MoCEntityThrowableBlockForGolem(worldObj, this, posX, posY + 2.0D, posZ);//, true, false);
+        worldObj.spawnEntityInWorld(entityBlock);
 
         entityBlock.setType(tileBlockInfo[0]);
         entityBlock.setMetadata(tileBlockInfo[1]);
         entityBlock.setBehavior(1);
-        this.tempBlock = entityBlock;
+        tempBlock = entityBlock;
         setHasBlock(true);
     }
 
@@ -139,35 +139,35 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
      */
     protected void attackWithEntityBlock()
     {
-        this.throwCounter++;
+        throwCounter++;
        
-        if (this.throwCounter < 50)
+        if (throwCounter < 50)
         {
             //maintains position of entityBlock above head
-            this.tempBlock.posX = this.posX;
-            this.tempBlock.posY = (this.posY + 1.0D);
-            this.tempBlock.posZ = this.posZ;
+            tempBlock.posX = posX;
+            tempBlock.posY = (posY + 1.0D);
+            tempBlock.posZ = posZ;
         }
 
-        if (this.throwCounter >= 50)
+        if (throwCounter >= 50)
         {
             //throws a newly spawned entityBlock and destroys the held entityBlock
-            if (entityToAttack != null && this.getDistanceToEntity(entityToAttack) < 48F)
+            if (entityToAttack != null && getDistanceToEntity(entityToAttack) < 48F)
             {
-                //System.out.println("distance = " + this.getDistanceToEntity(entityToAttack));
-                throwBlockAtEntity(entityToAttack, this.tempBlock.getType(), this.tempBlock.getMetadata());
+                //System.out.println("distance = " + getDistanceToEntity(entityToAttack));
+                throwBlockAtEntity(entityToAttack, tempBlock.getType(), tempBlock.getMetadata());
             }
 
-            this.tempBlock.setDead();
+            tempBlock.setDead();
             setHasBlock(false);
-            this.throwCounter = 0;
+            throwCounter = 0;
         }
     }
 
     @Override
-    protected void attackEntity(Entity entity, float f)
+    protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if (this.attackTime <= 0 && (f < 2.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        if (attackTime <= 0 && (distanceToEntity < 2.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
@@ -177,8 +177,8 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
     @Override
     protected Entity findPlayerToAttack()
     {
-        EntityPlayer var1 = this.worldObj.getClosestVulnerablePlayerToEntity(this, 16.0D);
-        return var1 != null && this.canEntityBeSeen(var1) ? var1 : null;
+        EntityPlayer closestEntityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16.0D);
+        return closestEntityPlayer != null && canEntityBeSeen(closestEntityPlayer) ? closestEntityPlayer : null;
     }
 
     /**
@@ -194,12 +194,12 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
      * Throws stone at entity
      * 
      * @param targetEntity
-     * @param blocktype
+     * @param blockType
      * @param metadata
      */
-    protected void throwBlockAtEntity(Entity targetEntity, int blocktype, int metadata)
+    protected void throwBlockAtEntity(Entity targetEntity, int blockType, int metadata)
     {
-        throwBlockAtCoordinates((int) targetEntity.posX, (int) targetEntity.posY, (int) targetEntity.posZ, blocktype, metadata);
+        throwBlockAtCoordinates((int) targetEntity.posX, (int) targetEntity.posY, (int) targetEntity.posZ, blockType, metadata);
     }
 
     /**
@@ -208,19 +208,19 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
      * @param X
      * @param Y
      * @param Z
-     * @param blocktype
+     * @param blockType
      * @param metadata
      */
-    protected void throwBlockAtCoordinates(int X, int Y, int Z, int blocktype, int metadata)
+    protected void throwBlockAtCoordinates(int X, int Y, int Z, int blockType, int metadata)
     {
-        MoCEntityThrowableBlockForGolem entityBlock = new MoCEntityThrowableBlockForGolem(this.worldObj, this, this.posX, this.posY + 3.0D, this.posZ);//, false, false);
-        this.worldObj.spawnEntityInWorld(entityBlock);
-        entityBlock.setType(blocktype);
+        MoCEntityThrowableBlockForGolem entityBlock = new MoCEntityThrowableBlockForGolem(worldObj, this, posX, posY + 3.0D, posZ);//, false, false);
+        worldObj.spawnEntityInWorld(entityBlock);
+        entityBlock.setType(blockType);
         entityBlock.setMetadata(metadata);
         entityBlock.setBehavior(0);
-        entityBlock.motionX = ((X - this.posX) / 20.0D);
-        entityBlock.motionY = ((Y - this.posY) / 20.0D + 0.5D);
-        entityBlock.motionZ = ((Z - this.posZ) / 20.0D);
+        entityBlock.motionX = ((X - posX) / 20.0D);
+        entityBlock.motionY = ((Y - posY) / 20.0D + 0.5D);
+        entityBlock.motionZ = ((Z - posZ) / 20.0D);
     }
 
     @Override

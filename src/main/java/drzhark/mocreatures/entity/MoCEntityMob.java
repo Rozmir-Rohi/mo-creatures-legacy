@@ -41,7 +41,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     private boolean riderIsDisconnecting;
     protected float moveSpeed;
     protected String texture;
-    private boolean has_killed_prey = false;
+    private boolean hasKilledPrey = false;
 
     public MoCEntityMob(World world)
     {
@@ -60,10 +60,10 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     }
 
     @Override
-    public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1EntityLivingData)
+    public IEntityLivingData onSpawnWithEgg(IEntityLivingData entityLivingData)
     {
         selectType();
-        return super.onSpawnWithEgg(par1EntityLivingData);
+        return super.onSpawnWithEgg(entityLivingData);
     }
 
     public ResourceLocation getTexture()
@@ -168,10 +168,10 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
 
     public boolean getCanSpawnHereCreature()
     {
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
-        return getBlockPathWeight(x_coordinate, y_coordinate, z_coordinate) >= 0.0F;
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
+        return getBlockPathWeight(xCoordinate, yCoordinate, zCoordinate) >= 0.0F;
     }
 
     @Override
@@ -182,16 +182,16 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
 
     public boolean getCanSpawnHereMob()
     {
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
-        if (worldObj.getSavedLightValue(EnumSkyBlock.Sky, x_coordinate, y_coordinate, z_coordinate) > rand.nextInt(32)) { return false; }
-        int l = worldObj.getBlockLightValue(x_coordinate, y_coordinate, z_coordinate);
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
+        if (worldObj.getSavedLightValue(EnumSkyBlock.Sky, xCoordinate, yCoordinate, zCoordinate) > rand.nextInt(32)) { return false; }
+        int l = worldObj.getBlockLightValue(xCoordinate, yCoordinate, zCoordinate);
         if (worldObj.isThundering())
         {
             int i1 = worldObj.skylightSubtracted;
             worldObj.skylightSubtracted = 10;
-            l = worldObj.getBlockLightValue(x_coordinate, y_coordinate, z_coordinate);
+            l = worldObj.getBlockLightValue(xCoordinate, yCoordinate, zCoordinate);
             worldObj.skylightSubtracted = i1;
         }
         return l <= rand.nextInt(8);
@@ -202,7 +202,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     protected EntityLivingBase getClosestEntityLiving(Entity entity, double d)
     {
         double d1 = -1D;
-        EntityLivingBase entityliving = null;
+        EntityLivingBase entityLiving = null;
         List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
         for (int i = 0; i < list.size(); i++)
         {
@@ -216,11 +216,11 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
             if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLivingBase) entity1).canEntityBeSeen(entity))
             {
                 d1 = d2;
-                entityliving = (EntityLivingBase) entity1;
+                entityLiving = (EntityLivingBase) entity1;
             }
         }
 
-        return entityliving;
+        return entityLiving;
     }
 
     public boolean entitiesToIgnore(Entity entity)
@@ -245,13 +245,13 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     	return false;
     }
     
-    public void onKillEntity(EntityLivingBase entityliving)
+    public void onKillEntity(EntityLivingBase entityLiving)
     {
     	if (isPredator() && MoCreatures.proxy.destroyDrops)
     	{
-    		if (!(entityliving instanceof EntityPlayer) && !(entityliving instanceof EntityMob))
+    		if (!(entityLiving instanceof EntityPlayer) && !(entityLiving instanceof EntityMob))
     		{
-	    		has_killed_prey = true;
+	    		hasKilledPrey = true;
     		}
     	}
     }
@@ -275,29 +275,29 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
             MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHealth(this.getEntityId(), this.getHealth()), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
         }
         
-        if (isPredator() && has_killed_prey) 
+        if (isPredator() && hasKilledPrey) 
         {
         	if (MoCreatures.proxy.destroyDrops) //destroy the drops of the prey
         	{
-            	List entities_nearby_list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(3, 3, 3));
+            	List entitiesNearbyList = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(3, 3, 3));
 
-            	int iteration_length = entities_nearby_list.size();
+            	int iterationLength = entitiesNearbyList.size();
             	
-            	if (iteration_length > 0)
+            	if (iterationLength > 0)
             	{
-	                for (int index = 0; index < iteration_length; index++)
+	                for (int index = 0; index < iterationLength; index++)
 	                {
-	                    Entity entity_in_list = (Entity) entities_nearby_list.get(index);
-	                    if (!(entity_in_list instanceof EntityItem))
+	                    Entity entityNearby = (Entity) entitiesNearbyList.get(index);
+	                    if (!(entityNearby instanceof EntityItem))
 	                    {
 	                        continue;
 	                    }
 	                    
-	                    EntityItem entityitem = (EntityItem) entity_in_list;
+	                    EntityItem entityItem = (EntityItem) entityNearby;
 	                    
-	                    if ((entityitem != null) && (entityitem.age < 5)) //targeting entityitem with age below 5 makes sure that the predator only eats the items that are dropped from the prey
+	                    if ((entityItem != null) && (entityItem.age < 5)) //targeting entityItem with age below 5 makes sure that the predator only eats the items that are dropped from the prey
 	                    {
-	                        entityitem.setDead();
+	                        entityItem.setDead();
 	                    }
 	                }
             	}
@@ -305,7 +305,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
             
         	heal(5);
     		
-            has_killed_prey = false;
+            hasKilledPrey = false;
         }
         
         moveSpeed = getMoveSpeed();
@@ -313,13 +313,13 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
         if (MoCreatures.isServer() && getIsTamed())
         {
             MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHealth(this.getEntityId(), this.getHealth()), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
         }
-        return super.attackEntityFrom(damagesource, i);
+        return super.attackEntityFrom(damageSource, damageTaken);
     }
 
     /**
@@ -333,26 +333,26 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setBoolean("Tamed", getIsTamed());
-        nbttagcompound.setBoolean("Adult", getIsAdult());
-        nbttagcompound.setInteger("Age", getMoCAge());
-        nbttagcompound.setString("Name", getName());
-        nbttagcompound.setInteger("TypeInt", getType());
+        super.writeEntityToNBT(nbtTagCompound);
+        nbtTagCompound.setBoolean("Tamed", getIsTamed());
+        nbtTagCompound.setBoolean("Adult", getIsAdult());
+        nbtTagCompound.setInteger("Age", getMoCAge());
+        nbtTagCompound.setString("Name", getName());
+        nbtTagCompound.setInteger("TypeInt", getType());
 
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
-        setTamed(nbttagcompound.getBoolean("Tamed"));
-        setAdult(nbttagcompound.getBoolean("Adult"));
-        setMoCAge(nbttagcompound.getInteger("Age"));
-        setName(nbttagcompound.getString("Name"));
-        setType(nbttagcompound.getInteger("TypeInt"));
+        super.readEntityFromNBT(nbtTagCompound);
+        setTamed(nbtTagCompound.getBoolean("Tamed"));
+        setAdult(nbtTagCompound.getBoolean("Adult"));
+        setMoCAge(nbtTagCompound.getInteger("Age"));
+        setName(nbtTagCompound.getString("Name"));
+        setType(nbtTagCompound.getInteger("TypeInt"));
 
     }
 
@@ -370,10 +370,10 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     {
         if (isFlyer())
         {
-            EntityPlayer entityplayer = worldObj.getClosestVulnerablePlayerToEntity(this, 20D);
-            if ((entityplayer != null) && canEntityBeSeen(entityplayer))
+            EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 20D);
+            if ((entityPlayer != null) && canEntityBeSeen(entityPlayer))
             {
-                return entityplayer;
+                return entityPlayer;
             }
             else
             {
@@ -550,58 +550,58 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
             return;
         }
         //TODO 4FIX test!
-        Vec3 vector_3D = entitypath.getPosition(this); //client
+        Vec3 vectorThreeDimensional = entitypath.getPosition(this); //client
 
-        //vector_3D vector_3D = entitypath.getPosition(this); //server
-        for (double d = width * 2.0F; (vector_3D != null) && (vector_3D.squareDistanceTo(posX, vector_3D.yCoord, posZ) < (d * d));)
+        //vectorThreeDimensional vectorThreeDimensional = entitypath.getPosition(this); //server
+        for (double d = width * 2.0F; (vectorThreeDimensional != null) && (vectorThreeDimensional.squareDistanceTo(posX, vectorThreeDimensional.yCoord, posZ) < (d * d));)
         {
             entitypath.incrementPathIndex();
             if (entitypath.isFinished())
             {
-                vector_3D = null;
+                vectorThreeDimensional = null;
                 entitypath = null;
             }
             else
             {
-                //vector_3D = entitypath.getPosition(this); //server
+                //vectorThreeDimensional = entitypath.getPosition(this); //server
                 //TODO 4FIX test!
-                vector_3D = entitypath.getPosition(this);
+                vectorThreeDimensional = entitypath.getPosition(this);
             }
         }
 
         isJumping = false;
-        if (vector_3D != null)
+        if (vectorThreeDimensional != null)
         {
-            double d1 = vector_3D.xCoord - posX;
-            double d2 = vector_3D.zCoord - posZ;
-            double d3 = vector_3D.yCoord - i;
-            float angle_in_degrees_to_new_location = (float) ((Math.atan2(d2, d1) * 180D) / Math.PI) - 90F;
-            float amount_of_degrees_to_change_rotationYaw_by = angle_in_degrees_to_new_location - rotationYaw;
+            double d1 = vectorThreeDimensional.xCoord - posX;
+            double d2 = vectorThreeDimensional.zCoord - posZ;
+            double d3 = vectorThreeDimensional.yCoord - i;
+            float angleInDegreesToNewLocation = (float) ((Math.atan2(d2, d1) * 180D) / Math.PI) - 90F;
+            float amountOfDegreesToChangeRotationYawBy = angleInDegreesToNewLocation - rotationYaw;
             moveForward = (float)this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();
-            for (; amount_of_degrees_to_change_rotationYaw_by < -180F; amount_of_degrees_to_change_rotationYaw_by += 360F)
+            for (; amountOfDegreesToChangeRotationYawBy < -180F; amountOfDegreesToChangeRotationYawBy += 360F)
             {
             }
-            for (; amount_of_degrees_to_change_rotationYaw_by >= 180F; amount_of_degrees_to_change_rotationYaw_by -= 360F)
+            for (; amountOfDegreesToChangeRotationYawBy >= 180F; amountOfDegreesToChangeRotationYawBy -= 360F)
             {
             }
-            if (amount_of_degrees_to_change_rotationYaw_by > 30F)
+            if (amountOfDegreesToChangeRotationYawBy > 30F)
             {
-                amount_of_degrees_to_change_rotationYaw_by = 30F;
+                amountOfDegreesToChangeRotationYawBy = 30F;
             }
-            if (amount_of_degrees_to_change_rotationYaw_by < -30F)
+            if (amountOfDegreesToChangeRotationYawBy < -30F)
             {
-                amount_of_degrees_to_change_rotationYaw_by = -30F;
+                amountOfDegreesToChangeRotationYawBy = -30F;
             }
-            rotationYaw += amount_of_degrees_to_change_rotationYaw_by;
+            rotationYaw += amountOfDegreesToChangeRotationYawBy;
             if (hasAttacked && (entityToAttack != null))
             {
-                double x_distance = entityToAttack.posX - posX;
-                double z_distance = entityToAttack.posZ - posZ;
-                float previous_rotationYaw = rotationYaw;
-                rotationYaw = (float) ((Math.atan2(z_distance, x_distance) * 180D) / Math.PI) - 90F;
-                float angle_in_degrees_between_previous_and_new_rotationYaw = (((previous_rotationYaw - rotationYaw) + 90F) * (float) Math.PI) / 180F;
-                moveStrafing = -MathHelper.sin(angle_in_degrees_between_previous_and_new_rotationYaw) * moveForward * 1.0F;
-                moveForward = MathHelper.cos(angle_in_degrees_between_previous_and_new_rotationYaw) * moveForward * 1.0F;
+                double xDistance = entityToAttack.posX - posX;
+                double zDistance = entityToAttack.posZ - posZ;
+                float previousRotationYaw = rotationYaw;
+                rotationYaw = (float) ((Math.atan2(zDistance, xDistance) * 180D) / Math.PI) - 90F;
+                float angleInDegreesBetweenPreviousAndNewRotationYaw = (((previousRotationYaw - rotationYaw) + 90F) * (float) Math.PI) / 180F;
+                moveStrafing = -MathHelper.sin(angleInDegreesBetweenPreviousAndNewRotationYaw) * moveForward * 1.0F;
+                moveForward = MathHelper.cos(angleInDegreesBetweenPreviousAndNewRotationYaw) * moveForward * 1.0F;
             }
             if (d3 > 0.0D)
             {
@@ -731,8 +731,8 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
 
     protected void getPathOrWalkableBlock(Entity entity, float f)
     {
-        PathEntity pathentity = worldObj.getPathEntityToEntity(this, entity, 16F, true, false, false, true);
-        if ((pathentity == null) && (f > 12F))
+        PathEntity pathEntity = worldObj.getPathEntityToEntity(this, entity, 16F, true, false, false, true);
+        if ((pathEntity == null) && (f > 12F))
         {
             int i = MathHelper.floor_double(entity.posX) - 2;
             int j = MathHelper.floor_double(entity.posZ) - 2;
@@ -752,7 +752,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         }
         else
         {
-            setPathToEntity(pathentity);
+            setPathToEntity(pathEntity);
         }
     }
 

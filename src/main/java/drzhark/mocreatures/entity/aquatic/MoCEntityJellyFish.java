@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     public float pulsingSize;
-    private int poisoncounter;
+    private int poisonCounter;
 
     public MoCEntityJellyFish(World world)
     {
@@ -31,20 +31,20 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     {
         if (getType() == 0)
         {
-            int i = rand.nextInt(100);
-            if (i <= 20)
+            int typeChance = rand.nextInt(100);
+            if (typeChance <= 20)
             {
                 setType(1);
             }
-            else if (i <= 40)
+            else if (typeChance <= 40)
             {
                 setType(2);
             }
-            else if (i <= 65)
+            else if (typeChance <= 65)
             {
                 setType(3);
             }
-            else if (i <= 80)
+            else if (typeChance <= 80)
             {
                 setType(4);
             }
@@ -72,8 +72,8 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     {
         if (dataWatcher.getWatchableObjectByte(22) == 1)
         {
-            EntityPlayer entityplayer = worldObj.getClosestPlayer(posX, posY, posZ, 12D);
-            return (entityplayer != null);
+            EntityPlayer entityPlayer = worldObj.getClosestPlayer(posX, posY, posZ, 12D);
+            return (entityPlayer != null);
         }
         return false;
     }
@@ -151,33 +151,33 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
                 }
             }
 
-            if (!getIsTamed() && ++poisoncounter > 250 && (worldObj.difficultySetting.getDifficultyId() > 0)  && rand.nextInt(30) == 0)
+            if (!getIsTamed() && ++poisonCounter > 250 && (worldObj.difficultySetting.getDifficultyId() > 0)  && rand.nextInt(30) == 0)
             {
-                EntityPlayer entityplayertarget = worldObj.getClosestPlayer(posX, posY, posZ, 3D);
-                if (entityplayertarget != null)
+                EntityPlayer entityPlayertarget = worldObj.getClosestPlayer(posX, posY, posZ, 3D);
+                if (entityPlayertarget != null)
                 {
                     //System.out.println("attempting poisioning" + this);
                 }
                 
                 if (MoCTools.findClosestPlayerAndPoisonThem(this, true))
                 {
-                    poisoncounter = 0;
+                    poisonCounter = 0;
                 }
             }
         }
     }
 
     @Override
-    public void floating()
+    public void floatOnWater()
     {
-        float distY = MoCTools.distanceToSurface(this);
+        float yDistanceToSurfaceOfWater = MoCTools.distanceToSurface(this);
 
         if (motionY < -0.004)
         {
             motionY = -0.004;
         }
 
-        if (distY > 1 && pulsingSize == 0.0F)
+        if (yDistanceToSurfaceOfWater > 1 && pulsingSize == 0.0F)
         {
             motionY += 0.15D;
         }
@@ -204,8 +204,8 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     
     @Override
     public int nameYOffset()
-    {     int yOff = (int) (getMoCAge() * -1 /2.3);
-         return yOff;
+    {     int yOffsetName = (int) (getMoCAge() * -1 /2.3);
+         return yOffsetName;
     }
       
     @Override

@@ -23,8 +23,8 @@ import net.minecraft.world.World;
 
 public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     private boolean isSwinging;
-    private boolean twistright;
-    private int flopcounter;
+    private boolean twistRight;
+    private int flopCounter;
 
     public MoCEntityTurtle(World world)
     {
@@ -117,13 +117,13 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
-        if (super.interact(entityplayer)) { return false; }
+        if (super.interact(entityPlayer)) { return false; }
         
         if (getIsTamed())
         {
-            ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+            ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
             if (getIsUpsideDown())
             {
                 flipFlop(false);
@@ -132,10 +132,10 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
 
             if (ridingEntity == null)
             {
-                rotationYaw = entityplayer.rotationYaw;
-                if (MoCreatures.isServer() && (entityplayer.ridingEntity == null))
+                rotationYaw = entityPlayer.rotationYaw;
+                if (MoCreatures.isServer() && (entityPlayer.ridingEntity == null))
                 {
-                    mountEntity(entityplayer);
+                    mountEntity(entityPlayer);
                 }
             }
             else
@@ -144,9 +144,9 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
                 {
                     this.mountEntity(null);
                 }
-                motionX = entityplayer.motionX * 5D;
-                motionY = (entityplayer.motionY / 2D) + 0.2D;
-                motionZ = entityplayer.motionZ * 5D;
+                motionX = entityPlayer.motionX * 5D;
+                motionY = (entityPlayer.motionY / 2D) + 0.2D;
+                motionZ = entityPlayer.motionZ * 5D;
             }
             return true;
         }
@@ -194,8 +194,8 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
         {
             if (!getIsUpsideDown() && !getIsTamed())
             {
-                EntityLivingBase entityliving = getScaryEntity(4D);
-                if ((entityliving != null) && canEntityBeSeen(entityliving))
+                EntityLivingBase entityLiving = getScaryEntity(4D);
+                if ((entityLiving != null) && canEntityBeSeen(entityLiving))
                 {
 
                     if (!getIsHiding())
@@ -212,24 +212,24 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
                     setIsHiding(false);
                     if (!hasPath() && rand.nextInt(50) == 0)
                     {
-                        EntityItem entityitem = getClosestItem(this, 10D, Items.melon, Items.reeds);
+                        EntityItem entityItem = getClosestItem(this, 10D, Items.melon, Items.reeds);
                         
-                        if (entityitem != null)
+                        if (entityItem != null)
                         {
-                            float f = entityitem.getDistanceToEntity(this);
+                            float f = entityItem.getDistanceToEntity(this);
                             if (f > 2.0F)
                             {
-                                getMyOwnPath(entityitem, f);
+                                getMyOwnPath(entityItem, f);
                             }
-                            if ((f < 2.0F) && (entityitem != null) && (deathTime == 0))
+                            if ((f < 2.0F) && (entityItem != null) && (deathTime == 0))
                             {
-                                entityitem.setDead();
+                                entityItem.setDead();
                                 MoCTools.playCustomSound(this, "eating", worldObj);
 
-                                EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 24D);
-                                if (entityplayer != null)
+                                EntityPlayer entityPlayer = worldObj.getClosestPlayerToEntity(this, 24D);
+                                if (entityPlayer != null)
                                 {
-                                    MoCTools.tameWithName(entityplayer, this);
+                                    MoCTools.tameWithName(entityPlayer, this);
                                 }
                             }
                         }
@@ -239,18 +239,18 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
 
             if (!getIsUpsideDown() && getIsTamed() && rand.nextInt(20) == 0)
             {
-                EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 12D);
-                if (entityplayer != null)
+                EntityPlayer entityPlayer = worldObj.getClosestPlayerToEntity(this, 12D);
+                if (entityPlayer != null)
                 {
-                    PathEntity pathentity = worldObj.getPathEntityToEntity(this, entityplayer, 16F, true, false, false, true);
-                    setPathToEntity(pathentity);
+                    PathEntity pathEntity = worldObj.getPathEntityToEntity(this, entityPlayer, 16F, true, false, false, true);
+                    setPathToEntity(pathEntity);
                 }
             }
         }
     }
 
     @Override
-    public boolean swimmerEntity()
+    public boolean isSwimmerEntity()
     {
         return true;
     }
@@ -262,7 +262,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
 
         if (getIsHiding())
@@ -275,7 +275,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
         }
         else
         {
-            boolean flag = super.attackEntityFrom(damagesource, i);
+            boolean flag = super.attackEntityFrom(damageSource, damageTaken);
             if (rand.nextInt(3) == 0)
             {
                 flipFlop(true);
@@ -297,10 +297,10 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     {
         if ((ridingEntity != null) && (ridingEntity instanceof EntityPlayer))
         {
-            EntityPlayer entityplayer = (EntityPlayer) ridingEntity;
-            if (entityplayer != null)
+            EntityPlayer entityPlayer = (EntityPlayer) ridingEntity;
+            if (entityPlayer != null)
             {
-                rotationYaw = entityplayer.rotationYaw;
+                rotationYaw = entityPlayer.rotationYaw;
             }
         }
         else
@@ -310,9 +310,9 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean entitiesToIgnoreWhenHunting(Entity entity)
+    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
     {
-        return (entity instanceof MoCEntityTurtle) || ((entity.height <= this.height) && (entity.width <= this.width)) || super.entitiesToIgnoreWhenHunting(entity);
+        return (entity instanceof MoCEntityTurtle) || ((entity.height <= this.height) && (entity.width <= this.width)) || super.entitiesToIgnoreWhenLookingForAnEntityToAttack(entity);
     }
 
     @Override
@@ -327,14 +327,14 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
         if (getIsUpsideDown() && (ridingEntity == null) && rand.nextInt(20) == 0)
         {
             setSwinging(true);
-            flopcounter++;
+            flopCounter++;
         }
 
         if (getIsSwinging())
         {
             swingProgress += 0.2F;
 
-            boolean flag = (flopcounter > (rand.nextInt(3) + 8));
+            boolean flag = (flopCounter > (rand.nextInt(3) + 8));
 
             if (swingProgress > 2.0F && (!flag || rand.nextInt(20) == 0))
             {
@@ -342,7 +342,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
                 swingProgress = 0.0F;
                 if (rand.nextInt(2) == 0)
                 {
-                    twistright = !twistright;
+                    twistRight = !twistRight;
                 }
 
             }
@@ -353,7 +353,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
                 // TODO
                 worldObj.playSoundAtEntity(this, "mob.chicken.plop", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
                 setIsUpsideDown(false);
-                flopcounter = 0;
+                flopCounter = 0;
             }
         }
     }
@@ -382,24 +382,24 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
 
     public int getFlipDirection()
     {
-        if (twistright) { return 1; }
+        if (twistRight) { return 1; }
         return -1;
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
-        setIsUpsideDown(nbttagcompound.getBoolean("UpsideDown"));
-        setDisplayName(nbttagcompound.getBoolean("DisplayName"));
+        super.readEntityFromNBT(nbtTagCompound);
+        setIsUpsideDown(nbtTagCompound.getBoolean("UpsideDown"));
+        setDisplayName(nbtTagCompound.getBoolean("DisplayName"));
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
-        nbttagcompound.setBoolean("UpsideDown", getIsUpsideDown());
-        nbttagcompound.setBoolean("DisplayName", getDisplayName());
+        super.writeEntityToNBT(nbtTagCompound);
+        nbtTagCompound.setBoolean("UpsideDown", getIsUpsideDown());
+        nbtTagCompound.setBoolean("DisplayName", getDisplayName());
     }
 
     @Override
@@ -471,13 +471,13 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     {
     	if (itemstack != null)
     	{
-	    	List<String> ore_dictionary_name_array = MoCTools.getOreDictionaryEntries(itemstack);
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
 	    	
 	        return (
 	        			itemstack.getItem() == Items.reeds
 	        			|| itemstack.getItem() == Items.melon
-	        			|| ore_dictionary_name_array.size() > 0 && ore_dictionary_name_array.contains("listAllveggie") //BOP veg or GregTech6 veg or Palm's Harvest veg
-	        			|| ore_dictionary_name_array.contains("listAllfruit") //BOP fruit or GregTech6 fruit or Palm's Harvest fruit
+	        			|| oreDictionaryNameArray.size() > 0 && oreDictionaryNameArray.contains("listAllveggie") //BOP veg or GregTech6 veg or Palm's Harvest veg
+	        			|| oreDictionaryNameArray.contains("listAllfruit") //BOP fruit or GregTech6 fruit or Palm's Harvest fruit
 	        		);
     	}
     	else {return false;}

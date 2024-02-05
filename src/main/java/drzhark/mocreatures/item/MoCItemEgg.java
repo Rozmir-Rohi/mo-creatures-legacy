@@ -24,7 +24,7 @@ public class MoCItemEgg extends MoCItem {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityPlayer)
     {
         itemstack.stackSize--;
         if (MoCreatures.isServer())
@@ -35,8 +35,8 @@ public class MoCItemEgg extends MoCItem {
                 i = 31; //for ostrich eggs. placed eggs become stolen eggs.
             }
             MoCEntityEgg entityegg = new MoCEntityEgg(world, i);
-            entityegg.setPosition(entityplayer.posX, entityplayer.posY, entityplayer.posZ);
-            entityplayer.worldObj.spawnEntityInWorld(entityegg);
+            entityegg.setPosition(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+            entityPlayer.worldObj.spawnEntityInWorld(entityegg);
             entityegg.motionY += world.rand.nextFloat() * 0.05F;
             entityegg.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3F;
             entityegg.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3F;

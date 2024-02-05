@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 public class MoCEntityDeer extends MoCEntityTameableAnimal {
 
     
-    private boolean is_running = false;
+    private boolean isRunning = false;
 
     public MoCEntityDeer(World world)
     {
@@ -97,11 +97,11 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
     }
     
     @Override
-    protected void dropFewItems(boolean has_entity_been_hit_by_player, int level_of_looting_enchantment_used_to_kill_entity)
+    protected void dropFewItems(boolean hasEntityBeenHitByPlayer, int levelOfLootingEnchantmentUsedToKillThisEntity)
     {   
-        int random_amount = rand.nextInt(3);
+        int randomAmount = rand.nextInt(3);
 
-        dropItem(MoCreatures.animalHide, random_amount);
+        dropItem(MoCreatures.animalHide, randomAmount);
         
         if (!MoCreatures.isGregTech6Loaded)
         {
@@ -109,11 +109,11 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
         	{
         		if (this.isBurning())
         		{
-        			dropItem(GameRegistry.findItem("harvestcraft", "venisoncookedItem"), random_amount);
+        			dropItem(GameRegistry.findItem("harvestcraft", "venisoncookedItem"), randomAmount);
         		}
         		else 
         		{
-        			dropItem(GameRegistry.findItem("harvestcraft", "venisonrawItem"), random_amount);
+        			dropItem(GameRegistry.findItem("harvestcraft", "venisonrawItem"), randomAmount);
         		}
         	}
         	
@@ -121,11 +121,11 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
         	{
         		if (this.isBurning())
         		{
-        			dropItem(GameRegistry.findItem("TwilightForest", "item.venisonCooked"), random_amount);
+        			dropItem(GameRegistry.findItem("TwilightForest", "item.venisonCooked"), randomAmount);
         		}
         		else 
         		{
-        			dropItem(GameRegistry.findItem("TwilightForest", "item.venisonRaw"), random_amount);
+        			dropItem(GameRegistry.findItem("TwilightForest", "item.venisonRaw"), randomAmount);
         		}
         	}
         }
@@ -168,36 +168,36 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
             }
             if (rand.nextInt(5) == 0)
             {
-                EntityLivingBase scary_entity_nearby = getScaryEntity(10D);
+                EntityLivingBase scaryEntityNearby = getScaryEntity(10D);
                 
-                if (scary_entity_nearby instanceof EntityPlayer)
+                if (scaryEntityNearby instanceof EntityPlayer)
                 {
-                	EntityPlayer entityplayer = (EntityPlayer) scary_entity_nearby;
+                	EntityPlayer entityPlayer = (EntityPlayer) scaryEntityNearby;
                 	
-                	if (entityplayer.capabilities.isCreativeMode
-                			|| entityplayer.isPotionActive(14)) //invisibility potion
+                	if (entityPlayer.capabilities.isCreativeMode
+                			|| entityPlayer.isPotionActive(14)) //invisibility potion
                 	{
-                		scary_entity_nearby = null; // ignore player
+                		scaryEntityNearby = null; // ignore player
                 	}
                 }
                 
-                if (scary_entity_nearby != null)
+                if (scaryEntityNearby != null)
                 {
-                    is_running = true;
+                    isRunning = true;
 
                     
                     this.fleeingTick = 200; //run away
-                    //MoCTools.runLikeHell(this, scary_entity_nearby);
+                    //MoCTools.runLikeHell(this, scaryEntityNearby);
 
                 }
-                else if ((scary_entity_nearby == null) && (is_running == true || fleeingTick > 0))
+                else if ((scaryEntityNearby == null) && (isRunning || fleeingTick > 0))
                 {
-                    is_running = false;
+                    isRunning = false;
                     this.fleeingTick = 0;
                 }
             }
             
-            if ((is_running) && !this.isInWater()) // increase running speed
+            if ((isRunning) && !this.isInWater()) // increase running speed
             {
             	if (motionX != 0) {motionX = getMoveSpeed() * 0.08 * Math.signum(motionX);}
             	
@@ -214,11 +214,11 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
     }
     
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        if (super.attackEntityFrom(damagesource, i))
+        if (super.attackEntityFrom(damageSource, damageTaken))
         {
-        	is_running = true;
+        	isRunning = true;
         	this.fleeingTick = 200;
         }
         return true;
@@ -241,7 +241,7 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
         {
             speed = 1.3F;
         }
-        if (is_running)
+        if (isRunning)
         {
             speed *= 2.0F;
         }

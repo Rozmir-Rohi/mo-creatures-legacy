@@ -728,9 +728,29 @@ Silver skeleton now only run fast if they see an entity to attack (eg: player).
 Blocks thrown by Mini Golems and Big Golems will now instantly turn into solid blocks when they hit the ground. This can be disabled by setting the gamerule doMobGreifing to false.
 
 
-Blocks thrown by Mini Golems now now longer have a chance to be liquid blocks (eg placable water block, placable lava block).
+Mini Golems are now no longer able to pickup and throw liquid blocks (eg placeable water block, placeable lava block).
 
 
-Fixed pandas and bear cubs draging themselves around when sitting.
+Fixed pandas and bear cubs dragging themselves around when sitting.
 
+
+Cleaned up code for duck. Also fixed duck not floating in water.
+
+
+Fixed all identifiers to match java naming conventions. Also improved meaningfulness of identifiers and removed unused code where found appropriate.
+
+
+Fixed duck not floating in water. Fixed duck flapping wings in water.
+
+
+Fixed mole having a shadow on the surface when it is digging undergound.
+
+
+Fixed already spawned scorpions changing their type when they walk into an area where another type of scorpion spawns.
+
+
+Scorpions now no longer drop string.
+
+
+FOUND BUG: ducks are darker when floating on water. I don't know how to fix this.
 

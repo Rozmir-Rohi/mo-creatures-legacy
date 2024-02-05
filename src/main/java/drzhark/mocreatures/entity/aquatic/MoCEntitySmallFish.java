@@ -24,7 +24,7 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
 
     public static final String fishNames[] = { "Anchovy", "Angelfish", "Goldfish", "Anglerfish", "Mandarin"};
 
-    private int latMovCounter;
+    private int lateralMovCounter;
     
     public MoCEntitySmallFish(World world)
     {
@@ -55,17 +55,17 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
     @Override
     public boolean checkSpawningBiome()
     {
-        int x_coordinate = MathHelper.floor_double(posX);
-        int y_coordinate = MathHelper.floor_double(boundingBox.minY);
-        int z_coordinate = MathHelper.floor_double(posZ);
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase currentbiome = MoCTools.Biomekind(worldObj, x_coordinate, y_coordinate, z_coordinate);
+        BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
-        int type_chance = rand.nextInt(100);
+        int typeChance = rand.nextInt(100);
         
-        if (BiomeDictionary.isBiomeOfType(currentbiome, Type.OCEAN))
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.OCEAN))
         {
-        	if (type_chance <= 30)
+        	if (typeChance <= 30)
 			{setType(4);} //Angler
         
         	else {setType(5);} //mandarin
@@ -136,10 +136,10 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
 
             if (!isNotScared() && rand.nextInt(5) == 0 && !getIsTamed())
             {
-                EntityLivingBase entityliving = getScaryEntity(8D);
-                if (entityliving != null && entityliving.isInsideOfMaterial(Material.water))
+                EntityLivingBase entityLiving = getScaryEntity(8D);
+                if (entityLiving != null && entityLiving.isInsideOfMaterial(Material.water))
                 {
-                   MoCTools.runLikeHell(this, entityliving);
+                   MoCTools.runLikeHell(this, entityLiving);
                 }
             }
             if (getIsTamed() && rand.nextInt(100) == 0 && getHealth() < getMaxHealth())
@@ -207,19 +207,19 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
 
         if (rand.nextInt(3) == 0)
         {
-            if (++latMovCounter > 40) latMovCounter = 0;
+            if (++lateralMovCounter > 40) lateralMovCounter = 0;
         }
 
-        int latOffset = 0;
-        if (latMovCounter < 21) 
+        int lateralOffset = 0;
+        if (lateralMovCounter < 21) 
         {
-            latOffset = latMovCounter;
+            lateralOffset = lateralMovCounter;
         }
         else
         {
-            latOffset = -latMovCounter + 40;
+            lateralOffset = -lateralMovCounter + 40;
         }
-         return 80 + latOffset;
+         return 80 + lateralOffset;
     }
 
     @Override

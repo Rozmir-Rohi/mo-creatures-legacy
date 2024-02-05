@@ -40,16 +40,16 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
         dataWatcher.updateObject(30, i);
     }
 
-    public boolean interact(EntityPlayer entityplayer)
+    public boolean interact(EntityPlayer entityPlayer)
     {
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         //before ownership check 
         if ((itemstack != null) && getIsTamed() && ((itemstack.getItem() == MoCreatures.scrollOfOwner)) 
-                && MoCreatures.proxy.enableResetOwnership && MoCTools.isThisPlayerAnOP(entityplayer))
+                && MoCreatures.proxy.enableResetOwnership && MoCTools.isThisPlayerAnOP(entityPlayer))
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             if (MoCreatures.isServer())
             {
@@ -63,7 +63,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
             return true;
         }
         //if the player interacting is not the owner, do nothing!
-        if (MoCreatures.proxy.enableStrictOwnership && getOwnerName() != null && !getOwnerName().equals("") && !entityplayer.getCommandSenderName().equals(getOwnerName()) && !MoCTools.isThisPlayerAnOP(entityplayer)) 
+        if (MoCreatures.proxy.enableStrictOwnership && getOwnerName() != null && !getOwnerName().equals("") && !entityPlayer.getCommandSenderName().equals(getOwnerName()) && !MoCTools.isThisPlayerAnOP(entityPlayer)) 
         {
             return true; 
         }
@@ -71,7 +71,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
         //changes name
         if (MoCreatures.isServer() && itemstack != null && getIsTamed() && (itemstack.getItem() == MoCreatures.medallion))
         {
-            if (MoCTools.tameWithName(entityplayer, this))
+            if (MoCTools.tameWithName(entityPlayer, this))
             {
                 return true;
             }
@@ -84,7 +84,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             if (MoCreatures.isServer())
             {
@@ -107,7 +107,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             if (MoCreatures.isServer())
             {
@@ -124,7 +124,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             worldObj.playSoundAtEntity(this, "mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             if (MoCreatures.isServer())
@@ -138,12 +138,12 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
         if (itemstack != null && itemstack.getItem() == MoCreatures.fishnet && itemstack.getItemDamage() == 0 && this.canBeTrappedInNet()) 
         {
         	//if the player using the amulet is not the owner
-	        if (getOwnerName().length() > 0 && !(getOwnerName().equals(entityplayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
+	        if (getOwnerName().length() > 0 && !(getOwnerName().equals(entityPlayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
 	        {
 	        	return false;
 	        }
         	
-            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             if (MoCreatures.isServer())
             {
                 MoCPetData petData = MoCreatures.instance.mapData.getPetData(this.getOwnerName());
@@ -164,7 +164,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
         {
             if (--itemstack.stackSize == 0)
             {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
             worldObj.playSoundAtEntity(this, "mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             if (MoCreatures.isServer())
@@ -185,7 +185,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
         }
 
        
-        return super.interact(entityplayer);
+        return super.interact(entityPlayer);
     }
 
     // Fixes despawn issue when chunks unload and duplicated mounts when disconnecting on servers
@@ -213,32 +213,32 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
 
         for (int index = 0; index < 7; ++index)
         {
-            double x_velocity = this.rand.nextGaussian() * 0.02D;
-            double y_velocity = this.rand.nextGaussian() * 0.02D;
-            double z_velocity = this.rand.nextGaussian() * 0.02D;
-            this.worldObj.spawnParticle(particle_name, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 0.5D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, x_velocity, y_velocity, z_velocity);
+            double xVelocity = this.rand.nextGaussian() * 0.02D;
+            double yVelocity = this.rand.nextGaussian() * 0.02D;
+            double zVelocity = this.rand.nextGaussian() * 0.02D;
+            this.worldObj.spawnParticle(particle_name, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 0.5D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, xVelocity, yVelocity, zVelocity);
         }
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
-        super.writeEntityToNBT(nbttagcompound);
+        super.writeEntityToNBT(nbtTagCompound);
         if (getOwnerPetId() != -1)
-            nbttagcompound.setInteger("PetId", this.getOwnerPetId());
+            nbtTagCompound.setInteger("PetId", this.getOwnerPetId());
         if (this instanceof IMoCTameable && getIsTamed() && MoCreatures.instance.mapData != null)
         {
-            MoCreatures.instance.mapData.updateOwnerPet((IMoCTameable)this, nbttagcompound);
+            MoCreatures.instance.mapData.updateOwnerPet((IMoCTameable)this, nbtTagCompound);
         }
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
-        super.readEntityFromNBT(nbttagcompound);
-        if (nbttagcompound.hasKey("PetId"))
-            setOwnerPetId(nbttagcompound.getInteger("PetId"));
-        if (this.getIsTamed() && nbttagcompound.hasKey("PetId"))
+        super.readEntityFromNBT(nbtTagCompound);
+        if (nbtTagCompound.hasKey("PetId"))
+            setOwnerPetId(nbtTagCompound.getInteger("PetId"));
+        if (this.getIsTamed() && nbtTagCompound.hasKey("PetId"))
         {
             MoCPetData petData = MoCreatures.instance.mapData.getPetData(this.getOwnerName());
             if (petData != null)
@@ -247,7 +247,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
                 for (int i = 0; i < tag.tagCount(); i++)
                 {
                     NBTTagCompound nbt = (NBTTagCompound)tag.getCompoundTagAt(i);
-                    if (nbt.getInteger("PetId") == nbttagcompound.getInteger("PetId"))
+                    if (nbt.getInteger("PetId") == nbtTagCompound.getInteger("PetId"))
                     {
                         // update amulet flag
                         nbt.setBoolean("InAmulet", false);

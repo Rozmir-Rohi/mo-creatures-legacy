@@ -15,7 +15,7 @@ public class MoCItemLitterBox extends MoCItem {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityPlayer)
     {
 
         if (MoCreatures.isServer())
@@ -23,8 +23,8 @@ public class MoCItemLitterBox extends MoCItem {
 
             itemstack.stackSize--;
             MoCEntityLitterBox entitylitterbox = new MoCEntityLitterBox(world);
-            entitylitterbox.setPosition(entityplayer.posX, entityplayer.posY, entityplayer.posZ);
-            entityplayer.worldObj.spawnEntityInWorld(entitylitterbox);
+            entitylitterbox.setPosition(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+            entityPlayer.worldObj.spawnEntityInWorld(entitylitterbox);
             entitylitterbox.motionY += world.rand.nextFloat() * 0.05F;
             entitylitterbox.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3F;
             entitylitterbox.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3F;
