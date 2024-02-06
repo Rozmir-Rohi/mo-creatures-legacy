@@ -734,13 +734,10 @@ Mini Golems are now no longer able to pickup and throw liquid blocks (eg placeab
 Fixed pandas and bear cubs dragging themselves around when sitting.
 
 
-Cleaned up code for duck. Also fixed duck not floating in water.
+Cleaned up code for duck. Also fixed duck not floating in water. Fixed duck flapping wings in water.
 
 
 Fixed all identifiers to match java naming conventions. Also improved meaningfulness of identifiers and removed unused code where found appropriate.
-
-
-Fixed duck not floating in water. Fixed duck flapping wings in water.
 
 
 Fixed mole having a shadow on the surface when it is digging undergound.
@@ -753,4 +750,10 @@ Scorpions now no longer drop string.
 
 
 FOUND BUG: ducks are darker when floating on water. I don't know how to fix this.
+
+
+More identifier changes to match java naming conventions.
+
+
+Added fullstops to end of all sentences for achievement descriptions. This fix was only need for en_US.lang and does not need to be applied for other existing language files.
 

@@ -296,7 +296,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
                 setIsFlying(!getIsFlying());
             }
 
-            if (!getIsTamed() && this.dimension == MoCreatures.WyvernLairDimensionID && (rand.nextInt(50) == 0) && this.posY < 10D)
+            if (!getIsTamed() && this.dimension == MoCreatures.wyvernLairDimensionID && (rand.nextInt(50) == 0) && this.posY < 10D)
             {
                 this.setDead();
             }
@@ -350,7 +350,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         {
         	Item item = itemstack.getItem();
         	
-        	if (!getIsRideable() && getMoCAge() > 90 && (item == Items.saddle || item == MoCreatures.horsesaddle) )
+        	if (!getIsRideable() && getMoCAge() > 90 && (item == Items.saddle || item == MoCreatures.craftedSaddle) )
             {
                 if (--itemstack.stackSize == 0)
                 {
@@ -414,7 +414,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
                 return true;
             }
 
-            if ((item == MoCreatures.essencelight) && getMoCAge() > 90 && getType() < 5)
+            if ((item == MoCreatures.essenceLight) && getMoCAge() > 90 && getType() < 5)
             {
                 if (--itemstack.stackSize == 0)
                 {
@@ -438,7 +438,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
                 return true;
             }
 
-            if (getType() == 5 && (item == MoCreatures.essenceundead))
+            if (getType() == 5 && (item == MoCreatures.essenceUndead))
             {
                 if (--itemstack.stackSize == 0)
                 {
@@ -456,7 +456,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
                 return true;
             }
 
-            if (getType() == 5 && (item == MoCreatures.essencelight))
+            if (getType() == 5 && (item == MoCreatures.essenceLight))
             {
                 if (--itemstack.stackSize == 0)
                 {
@@ -474,7 +474,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
                 return true;
             }
 
-            if (getType() == 5 && (item == MoCreatures.essencedarkness))
+            if (getType() == 5 && (item == MoCreatures.essenceDarkness))
             {
                 if (--itemstack.stackSize == 0)
                 {
@@ -791,7 +791,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         return itemstack != null && 
         	(
         		itemstack.getItem() == MoCreatures.ratRaw
-        		|| itemstack.getItem() == MoCreatures.rawTurkey
+        		|| itemstack.getItem() == MoCreatures.turkeyRaw
         		|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
         		|| MoCreatures.isGregTech6Loaded &&
         			(	

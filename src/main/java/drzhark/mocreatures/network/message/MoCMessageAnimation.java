@@ -38,10 +38,10 @@ public class MoCMessageAnimation implements IMessage, IMessageHandler<MoCMessage
     }
 
     @Override
-    public IMessage onMessage(MoCMessageAnimation message, MessageContext ctx)
+    public IMessage onMessage(MoCMessageAnimation message, MessageContext context)
     {
-        List<Entity> entList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
-        for (Entity entity : entList)
+        List<Entity> entityList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
+        for (Entity entity : entityList)
         {
             if (entity.getEntityId() == message.entityId && entity instanceof IMoCEntity)
             {

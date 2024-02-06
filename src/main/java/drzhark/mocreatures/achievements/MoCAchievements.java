@@ -11,6 +11,20 @@ import net.minecraftforge.common.AchievementPage;
 
 public class MoCAchievements {
 
+/*
+ * ============================= NOTICE ====================================
+ * 
+ * Do NOT convert the fields in this class to camel case.
+ * 
+ * Snake case is used ON PURPOSE FOR FIELDS IN THIS CLASS to differentiate
+ * from the multiple very similar fields that are called from other classes.
+ * 
+ * 
+ * =========================================================================
+ * 
+ */
+	
+	
 public static Achievement craft_saddle;
 
 public static Achievement tier2_horse;
@@ -127,48 +141,48 @@ public static void initilization()
 	FMLCommonHandler.instance().bus().register(new MoCAchievementEvents());
 	
 	
-	craft_saddle = new Achievement("achievement.craft_saddle", "craft_saddle", 0, 0, new ItemStack(MoCreatures.horsesaddle), (Achievement)null).initIndependentStat().registerStat();
+	craft_saddle = new Achievement("achievement.craft_saddle", "craft_saddle", 0, 0, new ItemStack(MoCreatures.craftedSaddle), (Achievement)null).initIndependentStat().registerStat();
 	
 	
-	tier2_horse = new Achievement("achievement.tier2_horse", "tier2_horse", 7, 0, MoCreatures.achievement_icon_tier2_horse, (Achievement)null).initIndependentStat().registerStat();
-	tier3_horse = new Achievement("achievement.tier3_horse", "tier3_horse", 9, 0, MoCreatures.achievement_icon_tier3_horse, tier2_horse).registerStat();
-	tier4_horse = new Achievement("achievement.tier4_horse", "tier4_horse", 11, 0, MoCreatures.achievement_icon_tier4_horse, tier3_horse).registerStat();
-	zebra = new Achievement("achievement.zebra", "zebra", 13, 0, MoCreatures.achievement_icon_zebra, tier4_horse).registerStat();
-	zebra_record = new Achievement("achievement.zebra_record", "zebra_record", 13, -2, new ItemStack(MoCreatures.recordshuffle), zebra).registerStat();
-	zorse = new Achievement("achievement.zorse", "zorse", 15, 0, MoCreatures.achievement_icon_zorse, zebra).registerStat();
+	tier2_horse = new Achievement("achievement.tier2_horse", "tier2_horse", 7, 0, MoCreatures.achievementIconTier2Horse, (Achievement)null).initIndependentStat().registerStat();
+	tier3_horse = new Achievement("achievement.tier3_horse", "tier3_horse", 9, 0, MoCreatures.achievementIconTier3Horse, tier2_horse).registerStat();
+	tier4_horse = new Achievement("achievement.tier4_horse", "tier4_horse", 11, 0, MoCreatures.achievementIconTier4Horse, tier3_horse).registerStat();
+	zebra = new Achievement("achievement.zebra", "zebra", 13, 0, MoCreatures.achievementIconZebra, tier4_horse).registerStat();
+	zebra_record = new Achievement("achievement.zebra_record", "zebra_record", 13, -2, new ItemStack(MoCreatures.recordShuffle), zebra).registerStat();
+	zorse = new Achievement("achievement.zorse", "zorse", 15, 0, MoCreatures.achievementIconZorse, zebra).registerStat();
 	
 	heart_undead = new Achievement("achievement.heart_undead", "heart_undead", 15, 6, new ItemStack(MoCreatures.heartundead), AchievementList.buildSword).registerStat();
-	essence_undead = new Achievement("achievement.essence_undead", "essence_undead", 15, 4, new ItemStack(MoCreatures.essenceundead), heart_undead).registerStat();
-	undead_horse = new Achievement("achievement.undead_horse", "undead_horse", 15, 2, MoCreatures.achievement_icon_undead_horse, essence_undead).registerStat();
-	amulet_bone = new Achievement("achievement.amulet_bone", "amulet_bone", 13, 2, new ItemStack(MoCreatures.amuletbone), undead_horse).registerStat();
+	essence_undead = new Achievement("achievement.essence_undead", "essence_undead", 15, 4, new ItemStack(MoCreatures.essenceUndead), heart_undead).registerStat();
+	undead_horse = new Achievement("achievement.undead_horse", "undead_horse", 15, 2, MoCreatures.achievementIconUndeadHorse, essence_undead).registerStat();
+	amulet_bone = new Achievement("achievement.amulet_bone", "amulet_bone", 13, 2, new ItemStack(MoCreatures.amuletBone), undead_horse).registerStat();
 	
 	
-	ghost_horse = new Achievement("achievement.ghost_horse", "ghost_horse", 15, 8, MoCreatures.achievement_icon_ghost_horse, (Achievement)null).initIndependentStat().registerStat();
-	amulet_ghost = new Achievement("achievement.amulet_ghost", "amulet_ghost", 13, 8, new ItemStack(MoCreatures.amuletghost), ghost_horse).registerStat();
+	ghost_horse = new Achievement("achievement.ghost_horse", "ghost_horse", 15, 8, MoCreatures.achievementIconGhostHorse, (Achievement)null).initIndependentStat().registerStat();
+	amulet_ghost = new Achievement("achievement.amulet_ghost", "amulet_ghost", 13, 8, new ItemStack(MoCreatures.amuletGhost), ghost_horse).registerStat();
 	
 	
 	
-	heart_fire = new Achievement("achievement.heart_fire", "heart_fire", 17, 6, new ItemStack(MoCreatures.heartfire), AchievementList.buildSword).registerStat();
-	essence_fire = new Achievement("achievement.essence_fire", "essence_fire", 17, 4, new ItemStack(MoCreatures.essencefire), heart_fire).registerStat();
-	nightmare_horse =  new Achievement("achievement.nightmare_horse", "nightmare_horse", 17, 2, MoCreatures.achievement_icon_nightmare_horse, essence_fire).registerStat();
+	heart_fire = new Achievement("achievement.heart_fire", "heart_fire", 17, 6, new ItemStack(MoCreatures.heartFire), AchievementList.buildSword).registerStat();
+	essence_fire = new Achievement("achievement.essence_fire", "essence_fire", 17, 4, new ItemStack(MoCreatures.essenceFire), heart_fire).registerStat();
+	nightmare_horse =  new Achievement("achievement.nightmare_horse", "nightmare_horse", 17, 2, MoCreatures.achievementIconNightmareHorse, essence_fire).registerStat();
 	
 	
-	heart_darkness = new Achievement("achievement.heart_darkness", "heart_darkness", 17, -6, new ItemStack(MoCreatures.heartdarkness), AchievementList.buildSword).registerStat();
-	essence_darkness = new Achievement("achievement.essence_darkness", "essence_darkness", 17, -4, new ItemStack(MoCreatures.essencedarkness), heart_darkness).registerStat();
-	bat_horse = new Achievement("achievement.bat_horse", "bat_horse", 17, -2, MoCreatures.achievement_icon_bat_horse, essence_darkness).registerStat();
-	crystal_horse_armor = new Achievement("achievement.crystal_horse_armor", "crystal_horse_armor", 15, -2, new ItemStack(MoCreatures.horsearmorcrystal), bat_horse).registerStat();
+	heart_darkness = new Achievement("achievement.heart_darkness", "heart_darkness", 17, -6, new ItemStack(MoCreatures.heartDarkness), AchievementList.buildSword).registerStat();
+	essence_darkness = new Achievement("achievement.essence_darkness", "essence_darkness", 17, -4, new ItemStack(MoCreatures.essenceDarkness), heart_darkness).registerStat();
+	bat_horse = new Achievement("achievement.bat_horse", "bat_horse", 17, -2, MoCreatures.achievementIconBatHorse, essence_darkness).registerStat();
+	crystal_horse_armor = new Achievement("achievement.crystal_horse_armor", "crystal_horse_armor", 15, -2, new ItemStack(MoCreatures.horseArmorCrystal), bat_horse).registerStat();
 	
 	
-	essence_light = new Achievement("achievement.essence_light", "essence_light", 19, 0, new ItemStack(MoCreatures.essencelight), (Achievement)null).initIndependentStat().registerStat();
-	pegasus = new Achievement("achievement.pegasus", "pegasus", 21, -2, MoCreatures.achievement_icon_pegasus, essence_light).registerStat();
-	unicorn = new Achievement("achievement.unicorn", "unicorn", 21, 2, MoCreatures.achievement_icon_unicorn, essence_light).registerStat();
+	essence_light = new Achievement("achievement.essence_light", "essence_light", 19, 0, new ItemStack(MoCreatures.essenceLight), (Achievement)null).initIndependentStat().registerStat();
+	pegasus = new Achievement("achievement.pegasus", "pegasus", 21, -2, MoCreatures.achievementIconPegasus, essence_light).registerStat();
+	unicorn = new Achievement("achievement.unicorn", "unicorn", 21, 2, MoCreatures.achievementIconUnicorn, essence_light).registerStat();
 	
 	
-	amulet_sky = new Achievement("achievement.amulet_sky", "amulet_sky", 21, -6, new ItemStack(MoCreatures.amuletpegasus), pegasus).registerStat();
-	dark_pegasus = new Achievement("achievement.dark_pegasus", "dark_pegasus", 23, -4, MoCreatures.achievement_icon_dark_pegasus, pegasus).registerStat();
+	amulet_sky = new Achievement("achievement.amulet_sky", "amulet_sky", 21, -6, new ItemStack(MoCreatures.amuletPegasus), pegasus).registerStat();
+	dark_pegasus = new Achievement("achievement.dark_pegasus", "dark_pegasus", 23, -4, MoCreatures.achievementIconDarkPegasus, pegasus).registerStat();
 	
-	fairy_horse = new Achievement("achievement.fairy_horse", "fairy_horse", 23, 0, MoCreatures.achievement_icon_fairy_horse, essence_light).setSpecial().registerStat();
-	amulet_fairy = new Achievement("achievement.amulet_fairy", "amulet_fairy", 25, 0, new ItemStack(MoCreatures.amuletfairy), fairy_horse).registerStat();
+	fairy_horse = new Achievement("achievement.fairy_horse", "fairy_horse", 23, 0, MoCreatures.achievementIconFairyHorse, essence_light).setSpecial().registerStat();
+	amulet_fairy = new Achievement("achievement.amulet_fairy", "amulet_fairy", 25, 0, new ItemStack(MoCreatures.amuletFairy), fairy_horse).registerStat();
 	
 	
 	wyvern_portal_staff = new Achievement("achievement.wyvern_portal_staff", "wyvern_portal_staff", 19, 8, new ItemStack(MoCreatures.staffPortal), essence_light).registerStat();
@@ -185,7 +199,7 @@ public static void initilization()
 	
 	
 	
-	tame_elephant = new Achievement("achievement.tame_elephant", "tame_elephant", 7, -5, new ItemStack(MoCreatures.sugarlump), (Achievement)null).initIndependentStat().registerStat();
+	tame_elephant = new Achievement("achievement.tame_elephant", "tame_elephant", 7, -5, new ItemStack(MoCreatures.sugarLump), (Achievement)null).initIndependentStat().registerStat();
 	mount_elephant = new Achievement("achievement.mount_elephant", "mount_elephant", 9, -5, new ItemStack(MoCreatures.elephantHarness), tame_elephant).registerStat();
 	mammoth_platform = new Achievement("achievement.mammoth_platform", "mammoth_platform", 11, -7, new ItemStack(MoCreatures.mammothPlatform), mount_elephant).registerStat();
 	elephant_garment = new Achievement("achievement.elephant_garment", "elephant_garment", 11, -6, new ItemStack(MoCreatures.elephantGarment), mount_elephant).registerStat();
@@ -195,56 +209,56 @@ public static void initilization()
 	
 	
 	craft_medallion = new Achievement("achievement.craft_medallion", "craft_medallion", 2, 4, new ItemStack(MoCreatures.medallion), (Achievement)null).initIndependentStat().registerStat();
-	tame_kitty = new Achievement("achievement.tame_kitty", "tame_kitty", 4, 6, new ItemStack(MoCreatures.achievement_icon_tame_kitty), craft_medallion).registerStat();
+	tame_kitty = new Achievement("achievement.tame_kitty", "tame_kitty", 4, 6, new ItemStack(MoCreatures.achievementIconTameKitty), craft_medallion).registerStat();
 	kitty_litter_box = new Achievement("achievement.kitty_litter_box", "kitty_litter_box", 3, 8, new ItemStack(MoCreatures.litterbox), tame_kitty).registerStat();
 	kitty_litter = new Achievement("achievement.kitty_litter", "kitty_litter", 3, 10, new ItemStack(Blocks.sand), kitty_litter_box).registerStat();
 	kitty_bed = new Achievement("achievement.kitty_bed", "kitty_bed", 4, 8, new ItemStack(MoCreatures.kittybed), tame_kitty).registerStat();
-	pet_food = new Achievement("achievement.pet_food", "pet_food", 4, 10, new ItemStack(MoCreatures.petfood), kitty_bed).registerStat();
+	pet_food = new Achievement("achievement.pet_food", "pet_food", 4, 10, new ItemStack(MoCreatures.petFood), kitty_bed).registerStat();
 	wool_ball = new Achievement("achievement.wool_ball", "wool_ball", 5, 8, new ItemStack(MoCreatures.woolball), tame_kitty).registerStat();
 	
-	tame_big_cat = new Achievement("achievement.tame_big_cat", "tame_big_cat", 0, 6, new ItemStack(MoCreatures.achievement_icon_tame_big_cat), craft_medallion).registerStat();
+	tame_big_cat = new Achievement("achievement.tame_big_cat", "tame_big_cat", 0, 6, new ItemStack(MoCreatures.achievementIconTameBigCat), craft_medallion).registerStat();
 	
-	big_cat_claw = new Achievement("achievement.big_cat_claw", "big_cat_claw", -2, 4, new ItemStack(MoCreatures.bigcatclaw), AchievementList.buildSword).registerStat();
+	big_cat_claw = new Achievement("achievement.big_cat_claw", "big_cat_claw", -2, 4, new ItemStack(MoCreatures.bigcatClaw), AchievementList.buildSword).registerStat();
 	craft_whip = new Achievement("achievement.craft_whip", "craft_whip", -2, 6, new ItemStack(MoCreatures.whip), big_cat_claw).registerStat();
-	indiana = new Achievement("achievement.indiana", "indiana", 0, 8, new ItemStack(MoCreatures.achievement_icon_indiana), craft_whip).registerStat();
+	indiana = new Achievement("achievement.indiana", "indiana", 0, 8, new ItemStack(MoCreatures.achievementIconIndiana), craft_whip).registerStat();
 	
 	
-	shark_tooth = new Achievement("achievement.shark_tooth", "shark_tooth", -6, 4, new ItemStack(MoCreatures.sharkteeth), AchievementList.buildSword).registerStat();
-	fish_net = new Achievement("achievement.fish_net", "fish_net", -5, 6, new ItemStack(MoCreatures.fishnet), shark_tooth).registerStat();
-	shark_sword = new Achievement("achievement.shark_sword", "shark_sword", -7, 6, new ItemStack(MoCreatures.sharksword), shark_tooth).registerStat();
+	shark_tooth = new Achievement("achievement.shark_tooth", "shark_tooth", -6, 4, new ItemStack(MoCreatures.sharkTeeth), AchievementList.buildSword).registerStat();
+	fish_net = new Achievement("achievement.fish_net", "fish_net", -5, 6, new ItemStack(MoCreatures.fishNet), shark_tooth).registerStat();
+	shark_sword = new Achievement("achievement.shark_sword", "shark_sword", -7, 6, new ItemStack(MoCreatures.sharkSword), shark_tooth).registerStat();
 	
-	catch_fish_in_fish_bowl = new Achievement("achievement.catch_fish_in_fish_bowl", "catch_fish_in_fish_bowl", -9, 4, new ItemStack(MoCreatures.fishbowl_1), (Achievement)null).initIndependentStat().registerStat();
+	catch_fish_in_fish_bowl = new Achievement("achievement.catch_fish_in_fish_bowl", "catch_fish_in_fish_bowl", -9, 4, new ItemStack(MoCreatures.fishbowlFishy1), (Achievement)null).initIndependentStat().registerStat();
 	
-	pet_amulet = new Achievement("achievement.pet_amulet", "pet_amulet", 6, 4, new ItemStack(MoCreatures.petamulet), (Achievement)null).initIndependentStat().registerStat();
+	pet_amulet = new Achievement("achievement.pet_amulet", "pet_amulet", 6, 4, new ItemStack(MoCreatures.petAmulet), (Achievement)null).initIndependentStat().registerStat();
 	
 	
 	
-	tame_bird = new Achievement("achievement.tame_bird", "tame_bird", -7, 2, new ItemStack(MoCreatures.achievement_icon_tame_bird), (Achievement)null).initIndependentStat().registerStat();
+	tame_bird = new Achievement("achievement.tame_bird", "tame_bird", -7, 2, new ItemStack(MoCreatures.achievementIconTameBird), (Achievement)null).initIndependentStat().registerStat();
 	
-	feed_snake_with_live_mouse = new Achievement("achievement.feed_snake_with_live_mouse", "feed_snake_with_live_mouse", -9, 2, new ItemStack(MoCreatures.achievement_icon_feed_snake_with_live_mouse), (Achievement)null).initIndependentStat().registerStat();
+	feed_snake_with_live_mouse = new Achievement("achievement.feed_snake_with_live_mouse", "feed_snake_with_live_mouse", -9, 2, new ItemStack(MoCreatures.achievementIconFeedSnakeWithLiveMouse), (Achievement)null).initIndependentStat().registerStat();
 	
-	tame_panda = new Achievement("achievement.tame_panda", "tame_panda", -11, 2,  new ItemStack(MoCreatures.achievement_icon_tame_panda), (Achievement)null).initIndependentStat().registerStat();
+	tame_panda = new Achievement("achievement.tame_panda", "tame_panda", -11, 2,  new ItemStack(MoCreatures.achievementIconTamePanda), (Achievement)null).initIndependentStat().registerStat();
 	
-	tame_scorpion = new Achievement("achievement.tame_scorpion", "tame_scorpion", -13, 2,  new ItemStack(MoCreatures.achievement_icon_tame_scorpion), (Achievement)null).initIndependentStat().registerStat();
+	tame_scorpion = new Achievement("achievement.tame_scorpion", "tame_scorpion", -13, 2,  new ItemStack(MoCreatures.achievementIconTameScorpion), (Achievement)null).initIndependentStat().registerStat();
 	
 	ostrich_egg = new Achievement("achievement.ostrich_egg", "ostrich_egg", -15, 2, new ItemStack(MoCreatures.mocegg), (Achievement)null).initIndependentStat().registerStat();
-	ostrich_helmet = new Achievement("achievement.ostrich_helmet", "ostrich_helmet", -15, 5, new ItemStack(MoCreatures.achievement_icon_ostrich_helmet), ostrich_egg).registerStat();
-	ostrich_chest = new Achievement("achievement.ostrich_chest", "ostrich_chest", -14, 4, new ItemStack(MoCreatures.achievement_icon_ostrich_chest), ostrich_egg).registerStat();
-	ostrich_flag = new Achievement("achievement.ostrich_flag", "ostrich_flag", -12, 4, new ItemStack(MoCreatures.achievement_icon_ostrich_flag), ostrich_chest).registerStat();
+	ostrich_helmet = new Achievement("achievement.ostrich_helmet", "ostrich_helmet", -15, 5, new ItemStack(MoCreatures.achievementIconOstrichHelmet), ostrich_egg).registerStat();
+	ostrich_chest = new Achievement("achievement.ostrich_chest", "ostrich_chest", -14, 4, new ItemStack(MoCreatures.achievementIconOstrichChest), ostrich_egg).registerStat();
+	ostrich_flag = new Achievement("achievement.ostrich_flag", "ostrich_flag", -12, 4, new ItemStack(MoCreatures.achievementIconOstrichFlag), ostrich_chest).registerStat();
 	
 	cook_omelette = new Achievement("achievement.cook_omelette", "cook_omelette", -7, -1, new ItemStack(MoCreatures.omelet), AchievementList.buildFurnace).registerStat();
-	cook_turkey = new Achievement("achievement.cook_turkey", "cook_turkey", -7, 0, new ItemStack(MoCreatures.cookedTurkey), AchievementList.buildFurnace).registerStat();
-	cook_ostrich = new Achievement("achievement.cook_ostrich", "cook_ostrich", -8, -1, new ItemStack(MoCreatures.ostrichcooked), AchievementList.buildFurnace).registerStat();
+	cook_turkey = new Achievement("achievement.cook_turkey", "cook_turkey", -7, 0, new ItemStack(MoCreatures.turkeyCooked), AchievementList.buildFurnace).registerStat();
+	cook_ostrich = new Achievement("achievement.cook_ostrich", "cook_ostrich", -8, -1, new ItemStack(MoCreatures.ostrichCooked), AchievementList.buildFurnace).registerStat();
 	cook_rat = new Achievement("achievement.cook_rat", "cook_rat", -9, -1, new ItemStack(MoCreatures.ratCooked), AchievementList.buildFurnace).registerStat();
 	rat_burger = new Achievement("achievement.rat_burger", "rat_burger", -11, -1, new ItemStack(MoCreatures.ratBurger), cook_rat).registerStat();
-	cook_crab = new Achievement("achievement.cook_crab", "cook_crab", -8, 0, new ItemStack(MoCreatures.crabcooked), AchievementList.buildFurnace).registerStat();
-	cook_turtle = new Achievement("achievement.cook_turtle", "cook_turtle", -9, 0, new ItemStack(MoCreatures.turtlesoup), AchievementList.buildSword).registerStat();
+	cook_crab = new Achievement("achievement.cook_crab", "cook_crab", -8, 0, new ItemStack(MoCreatures.crabCooked), AchievementList.buildFurnace).registerStat();
+	cook_turtle = new Achievement("achievement.cook_turtle", "cook_turtle", -9, 0, new ItemStack(MoCreatures.turtleSoup), AchievementList.buildSword).registerStat();
 	
 	
-	kill_wraith = new Achievement("achievement.kill_wraith", "kill_wraith", -7, -3, new ItemStack(MoCreatures.achievement_icon_kill_wraith), AchievementList.buildSword).registerStat();
-	kill_ogre = new Achievement("achievement.kill_ogre", "kill_ogre", -7, -4, new ItemStack(MoCreatures.achievement_icon_kill_ogre), AchievementList.buildSword).registerStat();
-	kill_werewolf = new Achievement("achievement.kill_werewolf", "kill_werewolf", -8, -3, new ItemStack(MoCreatures.achievement_icon_kill_werewolf), AchievementList.buildSword).registerStat();
-	kill_big_golem = new Achievement("achievement.kill_big_golem", "kill_big_golem", -8, -4, new ItemStack(MoCreatures.achievement_icon_kill_big_golem), AchievementList.buildSword).setSpecial().registerStat();
+	kill_wraith = new Achievement("achievement.kill_wraith", "kill_wraith", -7, -3, new ItemStack(MoCreatures.achievementIconKillWraith), AchievementList.buildSword).registerStat();
+	kill_ogre = new Achievement("achievement.kill_ogre", "kill_ogre", -7, -4, new ItemStack(MoCreatures.achievementIconKillOgre), AchievementList.buildSword).registerStat();
+	kill_werewolf = new Achievement("achievement.kill_werewolf", "kill_werewolf", -8, -3, new ItemStack(MoCreatures.achievementIconKillWerewolf), AchievementList.buildSword).registerStat();
+	kill_big_golem = new Achievement("achievement.kill_big_golem", "kill_big_golem", -8, -4, new ItemStack(MoCreatures.achievementIconKillBigGolem), AchievementList.buildSword).setSpecial().registerStat();
 	
 	leonardo = new Achievement("achievement.leonardo", "leonardo", -7, -7, new ItemStack(MoCreatures.katana), AchievementList.buildSword).registerStat();
 	raphael = new Achievement("achievement.raphael", "raphael", -7, -6, new ItemStack(MoCreatures.sai), AchievementList.buildSword).registerStat();
@@ -252,14 +266,14 @@ public static void initilization()
 	michelangelo = new Achievement("achievement.michelangelo", "michelangelo", -8, -6, new ItemStack(MoCreatures.nunchaku), AchievementList.buildSword).registerStat();
 	
 	
-	silver_sword = new Achievement("achievement.silver_sword", "silver_sword", -10, -7, new ItemStack(MoCreatures.silversword), AchievementList.buildSword).setSpecial().registerStat();
+	silver_sword = new Achievement("achievement.silver_sword", "silver_sword", -10, -7, new ItemStack(MoCreatures.silverSword), AchievementList.buildSword).setSpecial().registerStat();
 	
 	
 	
 	get_fur = new Achievement("achievement.get_fur", "get_fur", 3, -5, new ItemStack(MoCreatures.fur), AchievementList.buildSword).registerStat(); 
 	fur_armor = new Achievement("achievement.fur_armor", "fur_armor", 3, -7, new ItemStack(MoCreatures.helmetFur), get_fur).registerStat(); 
 	
-	get_hide = new Achievement("achievement.get_hide", "get_hide", 1, -5, new ItemStack(MoCreatures.animalHide), AchievementList.buildSword).registerStat();
+	get_hide = new Achievement("achievement.get_hide", "get_hide", 1, -5, new ItemStack(MoCreatures.hide), AchievementList.buildSword).registerStat();
 	hide_armor = new Achievement("achievement.hide_armor", "hide_armor", 1, -7, new ItemStack(MoCreatures.helmetHide), get_hide).registerStat(); 
 	
 	get_reptile_hide = new Achievement("achievement.get_reptile_hide", "get_reptile_hide", -1, -5, new ItemStack(MoCreatures.hideCroc), AchievementList.buildSword).registerStat(); 

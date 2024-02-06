@@ -110,19 +110,19 @@ public class MoCItemHorseAmulet extends MoCItem {
                         //gives an empty amulet
                         if (creatureType == 26 || creatureType == 27 || creatureType == 28)
                         {
-                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(MoCreatures.amuletbone, 1, 0));
+                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(MoCreatures.amuletBone, 1, 0));
                         }
                         else if (creatureType == 21 || creatureType == 22)
                         {
-                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(MoCreatures.amuletghost, 1, 0));
+                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(MoCreatures.amuletGhost, 1, 0));
                         }
                         else if ((creatureType > 47 && creatureType < 60))
                         {
-                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(MoCreatures.amuletfairy, 1, 0));
+                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(MoCreatures.amuletFairy, 1, 0));
                         }
                         else if (creatureType == 39 || creatureType == 40)
                         {
-                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(MoCreatures.amuletpegasus, 1, 0));
+                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(MoCreatures.amuletPegasus, 1, 0));
                         }
                         MoCPetData petData = MoCreatures.instance.mapData.getPetData(storedCreature.getOwnerName());
                         if (petData != null)

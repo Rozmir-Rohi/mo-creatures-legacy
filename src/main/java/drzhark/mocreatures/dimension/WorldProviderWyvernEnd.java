@@ -19,7 +19,7 @@ public class WorldProviderWyvernEnd extends WorldProviderSurface
     public void registerWorldChunkManager()
     {
         this.worldChunkMgr = new WorldChunkManagerWyvernLair(MoCreatures.WyvernLairBiome, 0.5F, 0.0F);
-        setDimension(MoCreatures.WyvernLairDimensionID);
+        setDimension(MoCreatures.wyvernLairDimensionID);
         setCustomSky();
     }
 

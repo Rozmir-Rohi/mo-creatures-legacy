@@ -170,7 +170,7 @@ public class MoCEntityOgre extends MoCEntityMob{
              {
                     return Item.getItemFromBlock(Blocks.fire);
              }
-             return MoCreatures.heartfire;
+             return MoCreatures.heartFire;
         }
         return Items.diamond;
     }

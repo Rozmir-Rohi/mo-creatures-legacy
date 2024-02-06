@@ -43,7 +43,7 @@ public class MoCRenderGoat extends RenderLiving {
     {
         MoCEntityGoat entitygoat = (MoCEntityGoat) entityLiving;
         tempGoat.typeInt = entitygoat.getType();
-        tempGoat.entity_age = entitygoat.getMoCAge() * 0.01F;
+        tempGoat.entityAge = entitygoat.getMoCAge() * 0.01F;
         tempGoat.bleat = entitygoat.getBleating();
         tempGoat.attacking = entitygoat.getAttacking();
         tempGoat.legMov = entitygoat.legMovement();

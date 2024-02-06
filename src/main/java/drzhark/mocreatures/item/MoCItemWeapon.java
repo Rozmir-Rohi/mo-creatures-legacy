@@ -53,7 +53,7 @@ public class MoCItemWeapon extends ItemSword {
         }
         if (name.contains("shark"))
         {
-        	toolMaterial.customCraftingMaterial = MoCreatures.sharkteeth;
+        	toolMaterial.customCraftingMaterial = MoCreatures.sharkTeeth;
         }  
     }
     

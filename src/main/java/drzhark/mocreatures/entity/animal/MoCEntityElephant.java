@@ -427,7 +427,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
         	
         	if (//general food
-        			item == MoCreatures.sugarlump
+        			item == MoCreatures.sugarLump
             		|| item == Items.wheat
             		|| (item.itemRegistry).getNameForObject(item).equals("tropicraft:coconutChunk")
             		|| (item.itemRegistry).getNameForObject(item).equals("tropicraft:pineappleCubes")
@@ -455,7 +455,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 MoCTools.playCustomSound(this, "eating", worldObj);
                 heal(5);
                 
-                if (!getIsTamed() && !getIsAdult() && (item == MoCreatures.sugarlump)) //taming food
+                if (!getIsTamed() && !getIsAdult() && (item == MoCreatures.sugarLump)) //taming food
                 {
                 	++temper;
                 
@@ -1144,7 +1144,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
     @Override
     protected Item getDropItem()
     {
-      return MoCreatures.animalHide;
+      return MoCreatures.hide;
     }
     
     @Override

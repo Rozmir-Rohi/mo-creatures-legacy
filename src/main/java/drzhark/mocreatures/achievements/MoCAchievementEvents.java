@@ -24,15 +24,15 @@ public class MoCAchievementEvents {
 	{
 		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.heartundead)) {event.player.addStat(MoCAchievements.heart_undead, 1);}
 	
-		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.heartdarkness)) {event.player.addStat(MoCAchievements.heart_darkness, 1);}
+		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.heartDarkness)) {event.player.addStat(MoCAchievements.heart_darkness, 1);}
 	
-		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.heartfire)) {event.player.addStat(MoCAchievements.heart_fire, 1);}
+		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.heartFire)) {event.player.addStat(MoCAchievements.heart_fire, 1);}
 		
 		if (isWyvernEgg(event.pickedUp.getEntityItem())) {event.player.addStat(MoCAchievements.wyvern_egg, 1);}
 		
-		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.bigcatclaw)) {event.player.addStat(MoCAchievements.big_cat_claw, 1);}
+		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.bigcatClaw)) {event.player.addStat(MoCAchievements.big_cat_claw, 1);}
 		
-		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.sharkteeth)) {event.player.addStat(MoCAchievements.shark_tooth, 1);}
+		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.sharkTeeth)) {event.player.addStat(MoCAchievements.shark_tooth, 1);}
 		
 		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.katana)) {event.player.addStat(MoCAchievements.leonardo, 1);}
 		
@@ -42,11 +42,11 @@ public class MoCAchievementEvents {
 		
 		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.nunchaku)) {event.player.addStat(MoCAchievements.michelangelo, 1);}
 		
-		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.silversword)) {event.player.addStat(MoCAchievements.silver_sword, 1);}
+		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.silverSword)) {event.player.addStat(MoCAchievements.silver_sword, 1);}
 		
 		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.fur)) {event.player.addStat(MoCAchievements.get_fur, 1);}
 		
-		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.animalHide)) {event.player.addStat(MoCAchievements.get_hide, 1);}
+		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.hide)) {event.player.addStat(MoCAchievements.get_hide, 1);}
 		
 		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.hideCroc)) {event.player.addStat(MoCAchievements.get_reptile_hide, 1);}
 		
@@ -61,7 +61,7 @@ public class MoCAchievementEvents {
 				|| event.pickedUp.getEntityItem().getItem() == MoCreatures.scorpStingNether
 			) {event.player.addStat(MoCAchievements.get_scorpion_material, 1);}
 		
-		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.recordshuffle)) {event.player.addStat(MoCAchievements.zebra_record, 1);}
+		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.recordShuffle)) {event.player.addStat(MoCAchievements.zebra_record, 1);}
 	
 	}
 	
@@ -71,29 +71,29 @@ public class MoCAchievementEvents {
 	@SubscribeEvent
 	public void MoCItemCraftedEvent(PlayerEvent.ItemCraftedEvent event)
 	{
-		if (event.crafting.getItem().equals(MoCreatures.horsesaddle)) {event.player.addStat(MoCAchievements.craft_saddle, 1);}
+		if (event.crafting.getItem().equals(MoCreatures.craftedSaddle)) {event.player.addStat(MoCAchievements.craft_saddle, 1);}
 		
-		if (event.crafting.getItem().equals(MoCreatures.essenceundead)) {event.player.addStat(MoCAchievements.essence_undead, 1);}
+		if (event.crafting.getItem().equals(MoCreatures.essenceUndead)) {event.player.addStat(MoCAchievements.essence_undead, 1);}
 		
-		if (event.crafting.getItem().equals(MoCreatures.amuletbone)) {event.player.addStat(MoCAchievements.amulet_bone, 1);}
+		if (event.crafting.getItem().equals(MoCreatures.amuletBone)) {event.player.addStat(MoCAchievements.amulet_bone, 1);}
 		
-		if (event.crafting.getItem().equals(MoCreatures.amuletghost)) {event.player.addStat(MoCAchievements.amulet_ghost, 1);}
+		if (event.crafting.getItem().equals(MoCreatures.amuletGhost)) {event.player.addStat(MoCAchievements.amulet_ghost, 1);}
 		
-		if (event.crafting.getItem().equals(MoCreatures.essencedarkness)) {event.player.addStat(MoCAchievements.essence_darkness, 1);}
+		if (event.crafting.getItem().equals(MoCreatures.essenceDarkness)) {event.player.addStat(MoCAchievements.essence_darkness, 1);}
 		
-		if (event.crafting.getItem().equals(MoCreatures.horsearmorcrystal)) {event.player.addStat(MoCAchievements.crystal_horse_armor, 1);}
+		if (event.crafting.getItem().equals(MoCreatures.horseArmorCrystal)) {event.player.addStat(MoCAchievements.crystal_horse_armor, 1);}
 		
-		if (event.crafting.getItem().equals(MoCreatures.essencefire)) {event.player.addStat(MoCAchievements.essence_fire, 1);}
+		if (event.crafting.getItem().equals(MoCreatures.essenceFire)) {event.player.addStat(MoCAchievements.essence_fire, 1);}
 		
-		if (event.crafting.getItem().equals(MoCreatures.essencelight))
+		if (event.crafting.getItem().equals(MoCreatures.essenceLight))
 		{
 			event.player.addStat(MoCAchievements.essence_light, 1);
 			event.player.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle, 2)); //give the player back 2 bottles
 		}
 		
-		if (event.crafting.getItem().equals(MoCreatures.amuletfairy)) {event.player.addStat(MoCAchievements.amulet_fairy, 1);}
+		if (event.crafting.getItem().equals(MoCreatures.amuletFairy)) {event.player.addStat(MoCAchievements.amulet_fairy, 1);}
 		
-		if (event.crafting.getItem().equals(MoCreatures.amuletpegasus)) {event.player.addStat(MoCAchievements.amulet_sky, 1);}
+		if (event.crafting.getItem().equals(MoCreatures.amuletPegasus)) {event.player.addStat(MoCAchievements.amulet_sky, 1);}
 		
 		if (event.crafting.getItem().equals(MoCreatures.medallion)) {event.player.addStat(MoCAchievements.craft_medallion, 1);}
 		
@@ -105,13 +105,13 @@ public class MoCAchievementEvents {
 		
 		if (event.crafting.getItem().equals(MoCreatures.whip)) {event.player.addStat(MoCAchievements.craft_whip, 1);}
 		
-		if (event.crafting.getItem().equals(MoCreatures.fishnet)) {event.player.addStat(MoCAchievements.fish_net, 1);}
+		if (event.crafting.getItem().equals(MoCreatures.fishNet)) {event.player.addStat(MoCAchievements.fish_net, 1);}
 		
-		if (event.crafting.getItem().equals(MoCreatures.sharksword)) {event.player.addStat(MoCAchievements.shark_sword, 1);}
+		if (event.crafting.getItem().equals(MoCreatures.sharkSword)) {event.player.addStat(MoCAchievements.shark_sword, 1);}
 		
-		if (event.crafting.getItem().equals(MoCreatures.petamulet)) {event.player.addStat(MoCAchievements.pet_amulet, 1);}
+		if (event.crafting.getItem().equals(MoCreatures.petAmulet)) {event.player.addStat(MoCAchievements.pet_amulet, 1);}
 		
-		if (event.crafting.getItem().equals(MoCreatures.turtlesoup)) {event.player.addStat(MoCAchievements.cook_turtle, 1);}
+		if (event.crafting.getItem().equals(MoCreatures.turtleSoup)) {event.player.addStat(MoCAchievements.cook_turtle, 1);}
 		
 		if (event.crafting.getItem().equals(MoCreatures.ratBurger)) {event.player.addStat(MoCAchievements.rat_burger, 1);}
 		
@@ -179,13 +179,13 @@ public class MoCAchievementEvents {
 	{
 		if (event.smelting.getItem().equals(MoCreatures.omelet)) {event.player.addStat(MoCAchievements.cook_omelette, 1);}
 		
-		if (event.smelting.getItem().equals(MoCreatures.cookedTurkey)) {event.player.addStat(MoCAchievements.cook_turkey, 1);}
+		if (event.smelting.getItem().equals(MoCreatures.turkeyCooked)) {event.player.addStat(MoCAchievements.cook_turkey, 1);}
 		
-		if (event.smelting.getItem().equals(MoCreatures.ostrichcooked)) {event.player.addStat(MoCAchievements.cook_ostrich, 1);}
+		if (event.smelting.getItem().equals(MoCreatures.ostrichCooked)) {event.player.addStat(MoCAchievements.cook_ostrich, 1);}
 		
 		if (event.smelting.getItem().equals(MoCreatures.ratCooked)) {event.player.addStat(MoCAchievements.cook_rat, 1);}
 		
-		if (event.smelting.getItem().equals(MoCreatures.crabcooked)) {event.player.addStat(MoCAchievements.cook_crab, 1);}
+		if (event.smelting.getItem().equals(MoCreatures.crabCooked)) {event.player.addStat(MoCAchievements.cook_crab, 1);}
 	}
 
 }

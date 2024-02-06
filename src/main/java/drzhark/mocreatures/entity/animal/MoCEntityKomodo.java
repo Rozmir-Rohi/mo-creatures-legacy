@@ -255,7 +255,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         
         if ((itemstack != null) && getIsTamed() && !getIsRideable() && getMoCAge() > 90 &&
-                (itemstack.getItem() == Items.saddle || itemstack.getItem() == MoCreatures.horsesaddle))
+                (itemstack.getItem() == Items.saddle || itemstack.getItem() == MoCreatures.craftedSaddle))
         {
             if (--itemstack.stackSize == 0)
             {
@@ -449,8 +449,8 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     			|| itemstack.getItem() == Items.chicken
     			|| itemstack.getItem() == Items.fish
         		|| itemstack.getItem() == MoCreatures.ratRaw
-        		|| itemstack.getItem() == MoCreatures.rawTurkey
-            	|| itemstack.getItem() == MoCreatures.ostrichraw
+        		|| itemstack.getItem() == MoCreatures.turkeyRaw
+            	|| itemstack.getItem() == MoCreatures.ostrichRaw
         		|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
     			|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
     			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllmeatraw"

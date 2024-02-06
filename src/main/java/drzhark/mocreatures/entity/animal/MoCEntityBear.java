@@ -484,7 +484,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     @Override
     protected Item getDropItem()
     {
-        return MoCreatures.animalHide;
+        return MoCreatures.hide;
     }
     
     @Override

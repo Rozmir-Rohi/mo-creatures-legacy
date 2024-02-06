@@ -127,7 +127,7 @@ public class MoCEntityBoar extends MoCEntityAnimal {
 
         if (rand.nextInt(2) == 0) { return Items.porkchop; }
 
-        return MoCreatures.animalHide;
+        return MoCreatures.hide;
     }
 
     @Override

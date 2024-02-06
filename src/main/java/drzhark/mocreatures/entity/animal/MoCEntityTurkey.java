@@ -73,7 +73,7 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
     protected Item getDropItem()
     {
         boolean flag = (rand.nextInt(2) == 0);
-        if (flag) { return MoCreatures.rawTurkey; }
+        if (flag) { return MoCreatures.turkeyRaw; }
         return Items.feather;
     }
 

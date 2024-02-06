@@ -24,19 +24,19 @@ public class MoCGUIEntityNamer extends GuiScreen {
     protected String screenTitle;
     private final IMoCEntity NamedEntity;
     private int updateCounter;
-    private String NameToSet;
+    private String nameToSet;
     protected int xSize;
     protected int ySize;
     private static TextureManager textureManager = MoCClientProxy.mc.getTextureManager();
     private static final ResourceLocation TEXTURE_MOCNAME = new ResourceLocation("mocreatures", MoCreatures.proxy.GUI_TEXTURE + "mocname.png");
 
-    public MoCGUIEntityNamer(IMoCEntity mocanimal, String s)
+    public MoCGUIEntityNamer(IMoCEntity mocAnimal, String string)
     {
         xSize = 256;
         ySize = 181;
         screenTitle = StatCollector.translateToLocal("gui_namer.MoCreatures.chooseName");
-        NamedEntity = mocanimal;
-        NameToSet = s;
+        NamedEntity = mocAnimal;
+        nameToSet = string;
     }
 
     @Override
@@ -49,36 +49,36 @@ public class MoCGUIEntityNamer extends GuiScreen {
 
     public void updateName()
     {
-        NamedEntity.setName(NameToSet);
+        NamedEntity.setName(nameToSet);
         
         
-        MoCMessageHandler.INSTANCE.sendToServer(new MoCMessageUpdatePetName(((EntityLiving) NamedEntity).getEntityId(), NameToSet));
+        MoCMessageHandler.INSTANCE.sendToServer(new MoCMessageUpdatePetName(((EntityLiving) NamedEntity).getEntityId(), nameToSet));
         mc.displayGuiScreen(null);
     }
 
     @Override
-    protected void actionPerformed(GuiButton guibutton)
+    protected void actionPerformed(GuiButton guiButton)
     {
-        if (!guibutton.enabled) { return; }
-        if ((guibutton.id == 0) && (this.NameToSet != null) && (!this.NameToSet.equals("")))
+        if (!guiButton.enabled) { return; }
+        if ((guiButton.id == 0) && (this.nameToSet != null) && (!this.nameToSet.equals("")))
         {
             updateName();
         }
     }
 
     @Override
-    public void drawScreen(int i, int j, float f)
+    public void drawScreen(int x, int y, float f)
     {
         drawDefaultBackground();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         textureManager.bindTexture(TEXTURE_MOCNAME);
-        int l = (width - xSize) / 2;
-        int i1 = (height - (ySize + 16)) / 2;
+        int guiPositionX = (width - xSize) / 2;
+        int guiPositionY = (height - (ySize + 16)) / 2;
         
-        drawTexturedModalRect(l, i1, 0, 0, xSize, ySize);
+        drawTexturedModalRect(guiPositionX, guiPositionY, 0, 0, xSize, ySize);
         drawCenteredString(fontRendererObj, screenTitle, width / 2, (int) (height / 2) - 20 , 0xffffff);
-        drawCenteredString(fontRendererObj, NameToSet, width / 2, (int) (height / 2) , 0xffffff);
-        super.drawScreen(i, j, f);
+        drawCenteredString(fontRendererObj, nameToSet, width / 2, (int) (height / 2) , 0xffffff);
+        super.drawScreen(x, y, f);
     }
 
     @Override
@@ -95,34 +95,34 @@ public class MoCGUIEntityNamer extends GuiScreen {
     }
 
     @Override
-    protected void keyTyped(char character, int key_code)
+    protected void keyTyped(char character, int keyCode)
     {
-        if ((key_code == 14) && (NameToSet.length() > 0))
+        if ((keyCode == 14) && (nameToSet.length() > 0))
         {
-            NameToSet = NameToSet.substring(0, NameToSet.length() - 1);
+            nameToSet = nameToSet.substring(0, nameToSet.length() - 1);
         }
         
         
-        if ( ((character != 22) && (!ChatAllowedCharacters.isAllowedCharacter(character))) || (NameToSet.length() >= 15))
+        if ( ((character != 22) && (!ChatAllowedCharacters.isAllowedCharacter(character))) || (nameToSet.length() >= 15))
         {
         }
         
         
         else
         {
-        	String character_string = "";
+        	String characterString = "";
         			
         	if (character == 22) //22 is the crtl + V  (paste function)
             {
-            	character_string = getClipboardString();
+            	characterString = getClipboardString();
             }
-        	else {character_string = Character.toString(character);}
+        	else {characterString = Character.toString(character);}
         	
-            StringBuilder name = new StringBuilder(NameToSet);
+            StringBuilder name = new StringBuilder(nameToSet);
             
             
-            name.append(character_string);
-            NameToSet = name.toString();
+            name.append(characterString);
+            nameToSet = name.toString();
         }
     }
 

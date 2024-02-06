@@ -238,7 +238,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
                 	damageDealtToWerewolf = 9;
                 }
                 
-                if (itemHeldByPlayer == MoCreatures.silversword) {damageDealtToWerewolf = 10;}
+                if (itemHeldByPlayer == MoCreatures.silverSword) {damageDealtToWerewolf = 10;}
                 
             }
         }

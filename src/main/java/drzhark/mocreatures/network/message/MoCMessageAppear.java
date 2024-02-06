@@ -34,10 +34,10 @@ public class MoCMessageAppear implements IMessage, IMessageHandler<MoCMessageApp
     }
 
     @Override
-    public IMessage onMessage(MoCMessageAppear message, MessageContext ctx)
+    public IMessage onMessage(MoCMessageAppear message, MessageContext context)
     {
-        List<Entity> entList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
-        for (Entity entity : entList)
+        List<Entity> entityList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
+        for (Entity entity : entityList)
         {
             if (entity.getEntityId() == message.entityId && entity instanceof MoCEntityHorse)
             {

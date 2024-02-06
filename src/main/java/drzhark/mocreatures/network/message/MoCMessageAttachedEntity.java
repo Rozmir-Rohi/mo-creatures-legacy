@@ -35,7 +35,7 @@ public class MoCMessageAttachedEntity implements IMessage, IMessageHandler<MoCMe
     }
 
     @Override
-    public IMessage onMessage(MoCMessageAttachedEntity message, MessageContext ctx)
+    public IMessage onMessage(MoCMessageAttachedEntity message, MessageContext context)
     {
         Object var2 = MoCClientProxy.mc.thePlayer.worldObj.getEntityByID(message.sourceEntityId);
         Entity var3 = MoCClientProxy.mc.thePlayer.worldObj.getEntityByID(message.targetEntityId);

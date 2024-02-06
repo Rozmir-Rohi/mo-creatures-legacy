@@ -38,40 +38,40 @@ public class MoCMessageUpdatePetName implements IMessage, IMessageHandler<MoCMes
     @Override
     public void toBytes(ByteBuf buffer)
     {
-    	int byte_length = 0;
+    	int byteLength = 0;
     	
-    	char[] character_array = this.name.toCharArray();
+    	char[] characterArray = this.name.toCharArray();
     	
-    	for (char character : character_array) //this loop goes through each character in the string and assigns them the amount of bytes they need
+    	for (char character : characterArray) //this loop goes through each character in the string and assigns them the amount of bytes they need
     	{	
     		
-    		UnicodeScript script_that_character_is_written_in = Character.UnicodeScript.of(character);
+    		UnicodeScript scriptThatCharacterIsWrittenIn = Character.UnicodeScript.of(character);
     		
-    		if (script_that_character_is_written_in == Character.UnicodeScript.LATIN)
+    		if (scriptThatCharacterIsWrittenIn == Character.UnicodeScript.LATIN) //English characters
     		{
-    			byte_length += 1;
+    			byteLength += 1;
     		}
     		
-    		if (Character.UnicodeBlock.of(character) == Character.UnicodeBlock.LATIN_1_SUPPLEMENT) //Latin characters needed for western languages (such as Spanish, German, Norwegian... ect)
+    		if (Character.UnicodeBlock.of(character) == Character.UnicodeBlock.LATIN_1_SUPPLEMENT) //Latin characters needed for certain western languages (such as Spanish, German, Norwegian... ect)
     		{
-    			byte_length += Character.charCount(Character.getNumericValue(character));
+    			byteLength += Character.charCount(Character.getNumericValue(character));
     		}
     		
-    		if (script_that_character_is_written_in == Character.UnicodeScript.GREEK
-    				|| script_that_character_is_written_in == Character.UnicodeScript.CYRILLIC //Russian
-    				|| script_that_character_is_written_in == Character.UnicodeScript.ARABIC
-    				|| script_that_character_is_written_in == Character.UnicodeScript.HEBREW
+    		if (scriptThatCharacterIsWrittenIn == Character.UnicodeScript.GREEK
+    				|| scriptThatCharacterIsWrittenIn == Character.UnicodeScript.CYRILLIC //Russian
+    				|| scriptThatCharacterIsWrittenIn == Character.UnicodeScript.ARABIC
+    				|| scriptThatCharacterIsWrittenIn == Character.UnicodeScript.HEBREW
     				)
     		{
-    			byte_length += 2;
+    			byteLength += 2;
     		}
     		
-    		if (script_that_character_is_written_in == Character.UnicodeScript.HAN //Chinese
-    				|| script_that_character_is_written_in == Character.UnicodeScript.HIRAGANA //Japanese Hiragana
-    				|| script_that_character_is_written_in == Character.UnicodeScript.KATAKANA //Japanese Katakana
-    				|| script_that_character_is_written_in == Character.UnicodeScript.HANGUL //Korean
-    				|| script_that_character_is_written_in == Character.UnicodeScript.THAI
-    				|| script_that_character_is_written_in == Character.UnicodeScript.DEVANAGARI //Hindi or Sanskrit
+    		if (scriptThatCharacterIsWrittenIn == Character.UnicodeScript.HAN //Chinese
+    				|| scriptThatCharacterIsWrittenIn == Character.UnicodeScript.HIRAGANA //Japanese Hiragana
+    				|| scriptThatCharacterIsWrittenIn == Character.UnicodeScript.KATAKANA //Japanese Katakana
+    				|| scriptThatCharacterIsWrittenIn == Character.UnicodeScript.HANGUL //Korean
+    				|| scriptThatCharacterIsWrittenIn == Character.UnicodeScript.THAI
+    				|| scriptThatCharacterIsWrittenIn == Character.UnicodeScript.DEVANAGARI //Hindi or Sanskrit
     				
     				//Below are more characters required for certain eastern languages (such as Kanji for Japanese)
     				|| Character.UnicodeBlock.of(character) == Character.UnicodeBlock.CJK_COMPATIBILITY
@@ -89,11 +89,11 @@ public class MoCMessageUpdatePetName implements IMessage, IMessageHandler<MoCMes
     				|| Character.UnicodeBlock.of(character) == Character.UnicodeBlock.ENCLOSED_CJK_LETTERS_AND_MONTHS
     				)
     		{
-    			byte_length += 3;
+    			byteLength += 3;
     		}
     	}
         
-        buffer.writeInt(byte_length);
+        buffer.writeInt(byteLength);
         
         
         buffer.writeBytes(StandardCharsets.UTF_8.encode(this.name)); //encodes to UTF-8 before writeBytes to properly process special characters
@@ -113,10 +113,10 @@ public class MoCMessageUpdatePetName implements IMessage, IMessageHandler<MoCMes
     }
 
     @Override
-    public IMessage onMessage(MoCMessageUpdatePetName message, MessageContext ctx)
+    public IMessage onMessage(MoCMessageUpdatePetName message, MessageContext context)
     {
         Entity pet = null;
-        List<Entity> entityList = ctx.getServerHandler().playerEntity.worldObj.loadedEntityList;
+        List<Entity> entityList = context.getServerHandler().playerEntity.worldObj.loadedEntityList;
         String ownerName = "";
 
         for (Entity entity : entityList)
@@ -135,9 +135,9 @@ public class MoCMessageUpdatePetName implements IMessage, IMessageHandler<MoCMes
         {
             int id = ((IMoCTameable)pet).getOwnerPetId();
             NBTTagList tag = petData.getOwnerRootNBT().getTagList("TamedList", 10);
-            for (int i = 0; i < tag.tagCount(); i++)
+            for (int index = 0; index < tag.tagCount(); index++)
             {
-                NBTTagCompound nbt = (NBTTagCompound)tag.getCompoundTagAt(i);
+                NBTTagCompound nbt = (NBTTagCompound)tag.getCompoundTagAt(index);
                 if (nbt.getInteger("PetId") == id)
                 {
                     nbt.setString("Name", message.name);

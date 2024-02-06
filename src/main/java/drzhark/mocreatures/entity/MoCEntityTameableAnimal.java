@@ -116,7 +116,7 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
         }
         
         //stores in petAmulet
-        if (itemstack != null && itemstack.getItem() == MoCreatures.petamulet && itemstack.getItemDamage() == 0 && this.canBeTrappedInAmulet()) 
+        if (itemstack != null && itemstack.getItem() == MoCreatures.petAmulet && itemstack.getItemDamage() == 0 && this.canBeTrappedInAmulet()) 
         {
         	//if the player using the amulet is not the owner
 	        if (getOwnerName().length() > 0 && !(getOwnerName().equals(entityPlayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)

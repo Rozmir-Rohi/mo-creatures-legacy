@@ -114,11 +114,11 @@ public class MoCItemFishBowl extends MoCItem {
 
                     if (--itemstack.stackSize == 0)
                     {
-                        return new ItemStack(MoCreatures.fishbowl_w, 1, 11);
+                        return new ItemStack(MoCreatures.fishbowlWater, 1, 11);
                     }
                     else
                     {
-                        entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.fishbowl_w, 1, 11));
+                        entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.fishbowlWater, 1, 11));
 
                         return itemstack;
                     }
@@ -137,11 +137,11 @@ public class MoCItemFishBowl extends MoCItem {
 
                     if (--itemstack.stackSize == 0)
                     {
-                        return new ItemStack(MoCreatures.fishbowl_e, 1, 0);
+                        return new ItemStack(MoCreatures.fishbowlEmpty, 1, 0);
                     }
                     else
                     {
-                        entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.fishbowl_e, 1, 0));
+                        entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.fishbowlEmpty, 1, 0));
                         return itemstack;
                     }
                 }

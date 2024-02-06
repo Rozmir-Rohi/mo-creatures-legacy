@@ -67,7 +67,7 @@ public class MoCTools {
     public static void dropSaddle(MoCEntityAnimal entity, World worldObj)
     {
         if (!entity.getIsRideable() || !MoCreatures.isServer()) { return; }
-        dropCustomItem(entity, worldObj, new ItemStack(MoCreatures.horsesaddle, 1));
+        dropCustomItem(entity, worldObj, new ItemStack(MoCreatures.craftedSaddle, 1));
         entity.setRideable(false);
     }
 
@@ -774,7 +774,7 @@ public class MoCTools {
         entityItem6.delayBeforeCanPickup = 10;
         worldObj.spawnEntityInWorld(entityItem6);
 
-        EntityItem entityItem7 = new EntityItem(worldObj, entity.posX, entity.posY, entity.posZ, new ItemStack(MoCreatures.recordshuffle, 6));
+        EntityItem entityItem7 = new EntityItem(worldObj, entity.posX, entity.posY, entity.posZ, new ItemStack(MoCreatures.recordShuffle, 6));
         entityItem7.delayBeforeCanPickup = 10;
         worldObj.spawnEntityInWorld(entityItem7);
 
@@ -814,7 +814,7 @@ public class MoCTools {
         entityItem17.delayBeforeCanPickup = 10;
         worldObj.spawnEntityInWorld(entityItem17);
 
-        EntityItem entityItem18 = new EntityItem(worldObj, entity.posX, entity.posY, entity.posZ, new ItemStack(MoCreatures.unicornhorn, 16));
+        EntityItem entityItem18 = new EntityItem(worldObj, entity.posX, entity.posY, entity.posZ, new ItemStack(MoCreatures.unicornHorn, 16));
         entityItem18.delayBeforeCanPickup = 10;
         worldObj.spawnEntityInWorld(entityItem18);
 
@@ -822,15 +822,15 @@ public class MoCTools {
         entityItem19.delayBeforeCanPickup = 10;
         worldObj.spawnEntityInWorld(entityItem19);
 
-        EntityItem entityItem20 = new EntityItem(worldObj, entity.posX, entity.posY, entity.posZ, new ItemStack(MoCreatures.essencedarkness, 6));
+        EntityItem entityItem20 = new EntityItem(worldObj, entity.posX, entity.posY, entity.posZ, new ItemStack(MoCreatures.essenceDarkness, 6));
         entityItem20.delayBeforeCanPickup = 10;
         worldObj.spawnEntityInWorld(entityItem20);
 
-        EntityItem entityItem21 = new EntityItem(worldObj, entity.posX, entity.posY, entity.posZ, new ItemStack(MoCreatures.essenceundead, 6));
+        EntityItem entityItem21 = new EntityItem(worldObj, entity.posX, entity.posY, entity.posZ, new ItemStack(MoCreatures.essenceUndead, 6));
         entityItem21.delayBeforeCanPickup = 10;
         worldObj.spawnEntityInWorld(entityItem21);
 
-        EntityItem entityItem22 = new EntityItem(worldObj, entity.posX, entity.posY, entity.posZ, new ItemStack(MoCreatures.essencefire, 6));
+        EntityItem entityItem22 = new EntityItem(worldObj, entity.posX, entity.posY, entity.posZ, new ItemStack(MoCreatures.essenceFire, 6));
         entityItem22.delayBeforeCanPickup = 10;
         worldObj.spawnEntityInWorld(entityItem22);
 
@@ -1478,10 +1478,10 @@ public class MoCTools {
     {
         if (MoCreatures.isServer())
         {
-            ItemStack stack = new ItemStack(MoCreatures.fishnet, 1, 1); 
+            ItemStack stack = new ItemStack(MoCreatures.fishNet, 1, 1); 
             if (amuletType == 2)
             {
-               stack = new ItemStack(MoCreatures.petamulet, 1, 1);
+               stack = new ItemStack(MoCreatures.petAmulet, 1, 1);
             }
 
             if( stack.stackTagCompound == null )
@@ -1540,19 +1540,19 @@ public class MoCTools {
         {
             if (entity.getType() == 26 || entity.getType() == 27 || entity.getType() == 28)
             {
-                return new ItemStack(MoCreatures.amuletbonefull, 1, entity.getType());
+                return new ItemStack(MoCreatures.amuletBoneFull, 1, entity.getType());
             }
             if (entity.getType() > 47 && entity.getType() < 60)
             {
-                return new ItemStack(MoCreatures.amuletfairyfull, 1, entity.getType());
+                return new ItemStack(MoCreatures.amuletFairyFull, 1, entity.getType());
             }
             if (entity.getType() == 39 || entity.getType() == 40)
             {
-                return new ItemStack(MoCreatures.amuletpegasusfull, 1, entity.getType());
+                return new ItemStack(MoCreatures.amuletPegasusFull, 1, entity.getType());
             }
             if (entity.getType() == 21 || entity.getType() == 22)
             {
-               return new ItemStack(MoCreatures.amuletghostfull, 1, entity.getType());
+               return new ItemStack(MoCreatures.amuletGhostFull, 1, entity.getType());
             }
         }
         return null;
@@ -1569,19 +1569,19 @@ public class MoCTools {
         {
             if (entity.getType() == 26 || entity.getType() == 27 || entity.getType() == 28)
             {
-                return new ItemStack(MoCreatures.amuletbone, 1, entity.getType());
+                return new ItemStack(MoCreatures.amuletBone, 1, entity.getType());
             }
             if (entity.getType() > 49 && entity.getType() < 60)
             {
-                return new ItemStack(MoCreatures.amuletfairy, 1, entity.getType());
+                return new ItemStack(MoCreatures.amuletFairy, 1, entity.getType());
             }
             if (entity.getType() == 39 || entity.getType() == 40)
             {
-                return new ItemStack(MoCreatures.amuletpegasus, 1, entity.getType());
+                return new ItemStack(MoCreatures.amuletPegasus, 1, entity.getType());
             }
             if (entity.getType() == 21 || entity.getType() == 22)
             {
-               return new ItemStack(MoCreatures.amuletghost, 1, entity.getType());
+               return new ItemStack(MoCreatures.amuletGhost, 1, entity.getType());
             }
         }
         return null;

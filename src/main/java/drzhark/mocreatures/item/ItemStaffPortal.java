@@ -48,7 +48,7 @@ public class ItemStaffPortal extends MoCItem
         }
         else
         {
-            if (thePlayer.dimension != MoCreatures.WyvernLairDimensionID)
+            if (thePlayer.dimension != MoCreatures.wyvernLairDimensionID)
             {
                 portalDimension = thePlayer.dimension;
                 portalPosX = (int) thePlayer.posX;
@@ -56,13 +56,13 @@ public class ItemStaffPortal extends MoCItem
                 portalPosZ = (int) thePlayer.posZ;
                 writeToNBT(nbtcompound);
 
-                ChunkCoordinates var2 = thePlayer.mcServer.worldServerForDimension(MoCreatures.WyvernLairDimensionID).getEntrancePortalLocation();
+                ChunkCoordinates var2 = thePlayer.mcServer.worldServerForDimension(MoCreatures.wyvernLairDimensionID).getEntrancePortalLocation();
 
                 if (var2 != null)
                 {
                     thePlayer.playerNetServerHandler.setPlayerLocation((double)var2.posX, (double)var2.posY, (double)var2.posZ, 0.0F, 0.0F);
                 }
-                thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, MoCreatures.WyvernLairDimensionID, new MoCDirectTeleporter(thePlayer.mcServer.worldServerForDimension(MoCreatures.WyvernLairDimensionID)));
+                thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, MoCreatures.wyvernLairDimensionID, new MoCDirectTeleporter(thePlayer.mcServer.worldServerForDimension(MoCreatures.wyvernLairDimensionID)));
                 itemstack.damageItem(1, entityPlayer);
                 entityPlayer.addStat(MoCAchievements.wyvern_portal_staff, 1);
                 return true;

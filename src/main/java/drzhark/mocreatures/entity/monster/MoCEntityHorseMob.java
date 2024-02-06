@@ -388,7 +388,7 @@ public class MoCEntityHorseMob extends MoCEntityMob
 
         if (flag && (getType() == 36 || (getType() >=50 && getType() < 60))) //unicorn
         {
-            return MoCreatures.unicornhorn;
+            return MoCreatures.unicornHorn;
         }
         if (getType() == 39) //pegasus
         {
@@ -400,11 +400,11 @@ public class MoCEntityHorseMob extends MoCEntityMob
         }
         if (getType() == 38 && flag && worldObj.provider.isHellWorld) //nightmare
         {
-            return MoCreatures.heartfire;
+            return MoCreatures.heartFire;
         }
         if (getType() == 32 && flag) //bat horse
         {
-            return MoCreatures.heartdarkness;
+            return MoCreatures.heartDarkness;
         }
         if (getType() == 26)//skely
         {

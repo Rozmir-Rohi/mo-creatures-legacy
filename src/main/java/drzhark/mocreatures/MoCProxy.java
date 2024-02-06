@@ -65,8 +65,8 @@ public class MoCProxy implements IGuiHandler {
     public int blockLogID;
     public int blockTallGrassID;
     public int blockPlanksID;
-    public int WyvernDimension;
-    public int WyvernBiomeID;
+    public int wyvernDimension;
+    public int wyvernBiomeID;
 
     public int maxTamed;
     public int maxOPTamed;
@@ -308,8 +308,8 @@ public class MoCProxy implements IGuiHandler {
         fireOgreChance = (short) mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "FireOgreChance", 25, "The chance percentage of spawning Fire ogres in the Overworld.").getInt();
         caveOgreChance = (short) mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "CaveOgreChance", 75, "The chance percentage of spawning Cave ogres at depth of 50 in the Overworld.").getInt();
         golemDestroyBlocks = mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "golemDestroyBlocks", true, "Allows Big Golems to break blocks.").getBoolean(true);
-        WyvernDimension = mocSettingsConfig.get(CATEGORY_MOC_ID_SETTINGS, "WyvernLairDimensionID", -17).getInt();
-        WyvernBiomeID = mocSettingsConfig.get(CATEGORY_MOC_ID_SETTINGS, "WyvernLairBiomeID", 207).getInt();
+        wyvernDimension = mocSettingsConfig.get(CATEGORY_MOC_ID_SETTINGS, "wyvernLairDimensionID", -17).getInt();
+        wyvernBiomeID = mocSettingsConfig.get(CATEGORY_MOC_ID_SETTINGS, "WyvernLairBiomeID", 207).getInt();
         replaceVanillaCreepers = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "ReplaceVanillaCreepers", true, "THIS MAY BE INCOMPATIBLE WITH OTHER MODS THAT DO THINGS WITH CREEPERS - If true: will replace vanilla creepers in worlds with own extension of creeper code. This is used to make creepers scared of kitty. If this is causing problems with other mods set this to false to turn it off.").getBoolean(true);
         mocSettingsConfig.save();
     }
@@ -348,9 +348,9 @@ public class MoCProxy implements IGuiHandler {
      * Sets the name client side. Name is synchronized with datawatchers
      * 
      * @param player
-     * @param mocanimal
+     * @param mocAnimal
      */
-    public void setName(EntityPlayer player, IMoCEntity mocanimal) {
+    public void setName(EntityPlayer player, IMoCEntity mocAnimal) {
         //client side only
     }
 

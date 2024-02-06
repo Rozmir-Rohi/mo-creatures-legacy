@@ -485,7 +485,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         if (super.interact(entityPlayer)) { return false; }
 
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-        if ((itemstack != null) && getIsAdult() && !getIsRideable() && (itemstack.getItem() == Items.saddle || itemstack.getItem() == MoCreatures.horsesaddle))
+        if ((itemstack != null) && getIsAdult() && !getIsRideable() && (itemstack.getItem() == Items.saddle || itemstack.getItem() == MoCreatures.craftedSaddle))
         {
             if (--itemstack.stackSize == 0)
             {
@@ -495,7 +495,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && this.getIsTamed() && itemstack.getItem() == MoCreatures.essenceundead)
+        if ((itemstack != null) && this.getIsTamed() && itemstack.getItem() == MoCreatures.essenceUndead)
         {
             if (--itemstack.stackSize == 0)
             {
@@ -509,7 +509,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && this.getIsTamed() && itemstack.getItem() == MoCreatures.essencedarkness)
+        if ((itemstack != null) && this.getIsTamed() && itemstack.getItem() == MoCreatures.essenceDarkness)
         {
             if (--itemstack.stackSize == 0)
             {

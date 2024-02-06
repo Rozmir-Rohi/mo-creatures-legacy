@@ -91,7 +91,7 @@ public class MoCEntityCrab extends MoCEntityTameableAmbient
     @Override
     protected Item getDropItem()
     {
-        return MoCreatures.crabraw;
+        return MoCreatures.crabRaw;
     }
 
     @Override

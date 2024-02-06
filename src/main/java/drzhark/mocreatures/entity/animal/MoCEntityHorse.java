@@ -342,7 +342,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
             if (armorType == 1) {horseArmorToDrop = Items.iron_horse_armor;}
             if (armorType == 2) {horseArmorToDrop = Items.golden_horse_armor;}
             if (armorType == 3) {horseArmorToDrop = Items.diamond_horse_armor;}
-            if (armorType == 4) {horseArmorToDrop = MoCreatures.horsearmorcrystal;}
+            if (armorType == 4) {horseArmorToDrop = MoCreatures.horseArmorCrystal;}
             
             if (armorType != 0)
             {
@@ -603,16 +603,16 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         int randomAmount = rand.nextInt(3);
 
         if (canDropRareItem && (this.getType() == 36 || (this.getType() >= 50 && this.getType() < 60))) // unicorn
-        { dropItem(MoCreatures.unicornhorn, 1); }
+        { dropItem(MoCreatures.unicornHorn, 1); }
         
         if (this.getType() == 39 || (this.getType() == 40))// pegasus and dark pegasus
         { dropItem(Items.feather, randomAmount); }
         
         if (this.getType() == 38 && canDropRareItem && worldObj.provider.isHellWorld) // nightmare
-        { dropItem(MoCreatures.heartfire, 1); }
+        { dropItem(MoCreatures.heartFire, 1); }
         
         if (this.getType() == 32 && canDropRareItem) // bat horse
-        { dropItem(MoCreatures.heartdarkness, 1); }
+        { dropItem(MoCreatures.heartDarkness, 1); }
         
         if (this.getType() == 26)// skeleton
         { dropItem(Items.bone, randomAmount); }
@@ -1362,7 +1362,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         {
         	Item item = itemstack.getItem();
         
-	        if (!getIsRideable() && (item == Items.saddle) || (item == MoCreatures.horsesaddle))
+	        if (!getIsRideable() && (item == Items.saddle) || (item == MoCreatures.craftedSaddle))
 	        {
 	            if (--itemstack.stackSize == 0)
 	            {
@@ -1402,7 +1402,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		            return true;
 		        }
 		
-		        if ((item == MoCreatures.horsearmorcrystal) && isMagicHorse())
+		        if ((item == MoCreatures.horseArmorCrystal) && isMagicHorse())
 		        {
 		            if (getArmorType() == 0) {MoCTools.playCustomSound(this, "armorput", worldObj);}
 		            
@@ -1418,7 +1418,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		        }
 		
 		        // transform to undead, or heal undead horse
-		        if (item == MoCreatures.essenceundead)
+		        if (item == MoCreatures.essenceUndead)
 		        {
 		            if (--itemstack.stackSize == 0)
 		            {
@@ -1468,7 +1468,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		        }
 		
 		        // to transform to nightmares: only pure breeds
-		        if (item == MoCreatures.essencefire)
+		        if (item == MoCreatures.essenceFire)
 		        {
 		            if (--itemstack.stackSize == 0)
 		            {
@@ -1502,7 +1502,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		        }
 		
 		        // transform to dark pegasus
-		        if (item == MoCreatures.essencedarkness)
+		        if (item == MoCreatures.essenceDarkness)
 		        {
 		            if (--itemstack.stackSize == 0)
 		            {
@@ -1541,7 +1541,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		            return true;
 		        }
 		
-		        if (item == MoCreatures.essencelight)
+		        if (item == MoCreatures.essenceLight)
 		        {
 		            if (--itemstack.stackSize == 0)
 		            {
@@ -1590,28 +1590,28 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		
 		        if (this.isAmuletHorse())
 		        {
-		            if ((horseType == 26 || horseType == 27 || horseType == 28) && item == MoCreatures.amuletbone)
+		            if ((horseType == 26 || horseType == 27 || horseType == 28) && item == MoCreatures.amuletBone)
 		            {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		                vanishHorse();
 		                return true;
 		            }
 		
-		            if ((horseType > 47 && horseType < 60) && item == MoCreatures.amuletfairy)
+		            if ((horseType > 47 && horseType < 60) && item == MoCreatures.amuletFairy)
 		            {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		                vanishHorse();
 		                return true;
 		            }
 		
-		            if ((horseType == 39 || horseType == 40) && (item == MoCreatures.amuletpegasus))
+		            if ((horseType == 39 || horseType == 40) && (item == MoCreatures.amuletPegasus))
 		            {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		                vanishHorse();
 		                return true;
 		            }
 		
-		            if ((horseType == 21 || horseType == 22) && (item == MoCreatures.amuletghost))
+		            if ((horseType == 21 || horseType == 22) && (item == MoCreatures.amuletGhost))
 		            {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		                vanishHorse();
@@ -1698,7 +1698,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		            if (MoCreatures.isServer())
 		            {
-		                EntityItem entityItem1 = new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(MoCreatures.recordshuffle, 1));
+		                EntityItem entityItem1 = new EntityItem(worldObj, this.posX, this.posY, this.posZ, new ItemStack(MoCreatures.recordShuffle, 1));
 		                entityItem1.delayBeforeCanPickup = 20;
 		                worldObj.spawnEntityInWorld(entityItem1);
 		            }
@@ -1729,7 +1729,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	        		( 
 	        			//food items for normal horses
 	        			item == Items.wheat
-	        			|| item == MoCreatures.sugarlump
+	        			|| item == MoCreatures.sugarLump
 	        			|| item == Items.bread
 	        			|| item == Items.apple
 	        			|| item == Items.golden_apple
@@ -1763,7 +1763,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	        			
 	        		) {temperIncrease = 25; healAmount = 5; ageIncrease = 1;}
 	        	
-	        	if (item == MoCreatures.sugarlump) {temperIncrease = 25; healAmount = 10; ageIncrease = 2;}
+	        	if (item == MoCreatures.sugarLump) {temperIncrease = 25; healAmount = 10; ageIncrease = 2;}
 	        	if (item == Items.bread) {temperIncrease = 100; healAmount = 20; ageIncrease = 3;}
 	        	if (item == Items.apple || item == Items.golden_apple) {temperIncrease = 0; healAmount = 25; ageIncrease = 1;}
 	        	if (item == MoCreatures.haystack) {temperIncrease = 0; healAmount = 25; ageIncrease = 1;}

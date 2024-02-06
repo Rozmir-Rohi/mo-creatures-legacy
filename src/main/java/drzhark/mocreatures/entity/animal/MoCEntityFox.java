@@ -129,7 +129,7 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
         
         if ((itemstack != null) && 
         		(//taming items
-        			itemstack.getItem() == MoCreatures.rawTurkey
+        			itemstack.getItem() == MoCreatures.turkeyRaw
         			|| MoCreatures.isGregTech6Loaded &&
         				(
         					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"

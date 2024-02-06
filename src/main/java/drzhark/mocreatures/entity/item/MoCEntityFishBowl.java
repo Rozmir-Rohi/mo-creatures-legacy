@@ -121,43 +121,43 @@ public class MoCEntityFishBowl extends MoCEntityItemPlaceable {
         	switch (getType())
         	{
         		case 0:
-        			this.entityDropItem(new ItemStack(MoCreatures.fishbowl_e, 1, 0), 0F);
+        			this.entityDropItem(new ItemStack(MoCreatures.fishbowlEmpty, 1, 0), 0F);
         			break;
 	        	case 1:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowl_1, 1, 1), 0F);
+	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy1, 1, 1), 0F);
 	        		break;
 	        	case 2:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowl_2, 1, 2), 0F);
+	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy2, 1, 2), 0F);
 	        		break;
 	        	case 3:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowl_3, 1, 3), 0F);
+	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy3, 1, 3), 0F);
 	        		break;
 	        	case 4:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowl_4, 1, 4), 0F);
+	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy4, 1, 4), 0F);
 	        		break;
 	        	case 5:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowl_5, 1, 5), 0F);
+	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy5, 1, 5), 0F);
 	        		break;
 	        	case 6:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowl_6, 1, 6), 0F);
+	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy6, 1, 6), 0F);
 	        		break;
 	        	case 7:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowl_7, 1, 7), 0F);
+	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy7, 1, 7), 0F);
 	        		break;
 	        	case 8:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowl_8, 1, 8), 0F);
+	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy8, 1, 8), 0F);
 	        		break;
 	        	case 9:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowl_9, 1, 9), 0F);
+	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy9, 1, 9), 0F);
 	        		break;
 	        	case 10:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowl_10, 1, 10), 0F);
+	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy10, 1, 10), 0F);
 	        		break;
 	        	case 11:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowl_w, 1, 11), 0F);
+	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlWater, 1, 11), 0F);
 	        		break;
 	        	default:
-        			this.entityDropItem(new ItemStack(MoCreatures.fishbowl_e, 1, 0), 0F);
+        			this.entityDropItem(new ItemStack(MoCreatures.fishbowlEmpty, 1, 0), 0F);
         	}
         }
     }
@@ -216,29 +216,29 @@ public class MoCEntityFishBowl extends MoCEntityItemPlaceable {
         switch (type)
         {
         case 0:
-            return new ItemStack(MoCreatures.fishbowl_e, 1, 0);
+            return new ItemStack(MoCreatures.fishbowlEmpty, 1, 0);
         case 1:
-            return new ItemStack(MoCreatures.fishbowl_1, 1, 1);
+            return new ItemStack(MoCreatures.fishbowlFishy1, 1, 1);
         case 2:
-            return new ItemStack(MoCreatures.fishbowl_2, 1, 2);
+            return new ItemStack(MoCreatures.fishbowlFishy2, 1, 2);
         case 3:
-            return new ItemStack(MoCreatures.fishbowl_3, 1, 3);
+            return new ItemStack(MoCreatures.fishbowlFishy3, 1, 3);
         case 4:
-            return new ItemStack(MoCreatures.fishbowl_4, 1, 4);
+            return new ItemStack(MoCreatures.fishbowlFishy4, 1, 4);
         case 5:
-            return new ItemStack(MoCreatures.fishbowl_5, 1, 5);
+            return new ItemStack(MoCreatures.fishbowlFishy5, 1, 5);
         case 6:
-            return new ItemStack(MoCreatures.fishbowl_6, 1, 6);
+            return new ItemStack(MoCreatures.fishbowlFishy6, 1, 6);
         case 7:
-            return new ItemStack(MoCreatures.fishbowl_7, 1, 7);
+            return new ItemStack(MoCreatures.fishbowlFishy7, 1, 7);
         case 8:
-            return new ItemStack(MoCreatures.fishbowl_8, 1, 8);
+            return new ItemStack(MoCreatures.fishbowlFishy8, 1, 8);
         case 9:
-            return new ItemStack(MoCreatures.fishbowl_9, 1, 9);
+            return new ItemStack(MoCreatures.fishbowlFishy9, 1, 9);
         case 10:
-            return new ItemStack(MoCreatures.fishbowl_10, 1, 10);
+            return new ItemStack(MoCreatures.fishbowlFishy10, 1, 10);
         case 11:
-            return new ItemStack(MoCreatures.fishbowl_w, 1, 11);
+            return new ItemStack(MoCreatures.fishbowlWater, 1, 11);
         default:
             return null;
         }
@@ -249,7 +249,7 @@ public class MoCEntityFishBowl extends MoCEntityItemPlaceable {
     {
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
 
-        if ((itemstack != null) && (getType() > 0 && getType() < 11) && ((itemstack.getItem() == MoCreatures.fishbowl_e) || (itemstack.getItem() == MoCreatures.fishbowl_w)))
+        if ((itemstack != null) && (getType() > 0 && getType() < 11) && ((itemstack.getItem() == MoCreatures.fishbowlEmpty) || (itemstack.getItem() == MoCreatures.fishbowlWater)))
         {
             if (--itemstack.stackSize == 0)
             {

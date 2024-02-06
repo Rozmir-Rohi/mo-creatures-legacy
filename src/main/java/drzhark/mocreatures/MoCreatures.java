@@ -167,14 +167,14 @@ public class MoCreatures {
     public static boolean isTwilightForestLoaded;
     public static boolean isFoodExpansionLoaded;
     public static boolean isImprovingMinecraftLoaded;
-    public static GameProfile MOCFAKEPLAYER = new GameProfile(UUID.fromString("6E379B45-1111-2222-3333-2FE1A88BCD66"), "[MoCreatures]");
+    public static final GameProfile MOCFAKEPLAYER = new GameProfile(UUID.fromString("6E379B45-1111-2222-3333-2FE1A88BCD66"), "[MoCreatures]");
 
     /**
      * ITEMS
      */
-    static int MoCEggID;// = 7772;
-    static int MoCEntityID = 7256; // used internally, does not need to be configured by users
-    public static int WyvernLairDimensionID; //17;
+    static int mocEggID;// = 7772;
+    static int mocEntityID = 7256; // used internally, does not need to be configured by users
+    public static int wyvernLairDimensionID; //17;
 
     public static Block mocStone;
     public static Block mocGrass;
@@ -190,30 +190,29 @@ public class MoCreatures {
     public static Item staffTeleport;
     public static Item builderHammer;
 
-    static ArmorMaterial crocARMOR = EnumHelper.addArmorMaterial("crocARMOR", 15, new int[] { 2, 6, 5, 2 }, 12);
-    static ArmorMaterial furARMOR = EnumHelper.addArmorMaterial("furARMOR", 15, new int[] { 1, 3, 2, 1 }, 12);
-    static ArmorMaterial hideARMOR = EnumHelper.addArmorMaterial("hideARMOR", 15, new int[] { 1, 3, 2, 1 }, 12);
-    static ArmorMaterial scorpDirtARMOR = EnumHelper.addArmorMaterial("scorpDirtARMOR", 15, new int[] { 2, 6, 5, 2 }, 12);
-    static ArmorMaterial scorpFrostARMOR = EnumHelper.addArmorMaterial("scorpFrostARMOR", 18, new int[] { 2, 7, 6, 2 }, 12);
-    static ArmorMaterial scorpNetherARMOR = EnumHelper.addArmorMaterial("scorpNetherARMOR", 20, new int[] { 3, 7, 6, 3 }, 15);
-    static ArmorMaterial scorpCaveARMOR = EnumHelper.addArmorMaterial("scorpCaveARMOR", 15, new int[] { 2, 6, 5, 2 }, 12);
-    static ArmorMaterial silverARMOR = EnumHelper.addArmorMaterial("silverARMOR", 15, new int[] { 2, 6, 5, 2 }, 15);
-    static ToolMaterial SILVER = EnumHelper.addToolMaterial("SILVER", 0, 250, 6.0F, 4, 15);
+    static final ArmorMaterial CROC_ARMOR = EnumHelper.addArmorMaterial("crocARMOR", 15, new int[] { 2, 6, 5, 2 }, 12);
+    static final ArmorMaterial FUR_ARMOR = EnumHelper.addArmorMaterial("furARMOR", 15, new int[] { 1, 3, 2, 1 }, 12);
+    static final ArmorMaterial HIDE_ARMOR = EnumHelper.addArmorMaterial("hideARMOR", 15, new int[] { 1, 3, 2, 1 }, 12);
+    static final ArmorMaterial SCORP_DIRT_ARMOR = EnumHelper.addArmorMaterial("scorpDirtARMOR", 15, new int[] { 2, 6, 5, 2 }, 12);
+    static final ArmorMaterial SCORP_FROST_ARMOR = EnumHelper.addArmorMaterial("scorpFrostARMOR", 18, new int[] { 2, 7, 6, 2 }, 12);
+    static final ArmorMaterial SCORP_NETHER_ARMOR = EnumHelper.addArmorMaterial("scorpNetherARMOR", 20, new int[] { 3, 7, 6, 3 }, 15);
+    static final ArmorMaterial SCORP_CAVE_ARMOR = EnumHelper.addArmorMaterial("scorpCaveARMOR", 15, new int[] { 2, 6, 5, 2 }, 12);
+    static final ArmorMaterial SILVER_ARMOR = EnumHelper.addArmorMaterial("silverARMOR", 15, new int[] { 2, 6, 5, 2 }, 15);
     
-    static ToolMaterial scorpWEAPON = EnumHelper.addToolMaterial("scorpWeapon", 0, 250, 6.0F, 2.0F, 14);
-    
-    static ToolMaterial sharkWEAPON = EnumHelper.addToolMaterial("sharkWeapon", 0, 250, 6.0F, 2.0F, 14);
+    static final ToolMaterial SILVER_WEAPON = EnumHelper.addToolMaterial("SILVER", 0, 250, 6.0F, 4, 15);
+    static final ToolMaterial SCORP_WEAPON = EnumHelper.addToolMaterial("scorpWeapon", 0, 250, 6.0F, 2.0F, 14);
+    static final ToolMaterial SHARK_WEAPON = EnumHelper.addToolMaterial("sharkWeapon", 0, 250, 6.0F, 2.0F, 14);
     
     public static Item mocegg;
     
-    public static Item bigcatclaw;
+    public static Item bigcatClaw;
     public static Item whip;
     
     public static Item medallion;
     public static Item kittybed;
     public static Item litterbox;
     public static Item woolball;
-    public static Item petfood;
+    public static Item petFood;
     
     
     public static Item hideCroc;
@@ -222,18 +221,18 @@ public class MoCreatures {
     public static Item legsCroc;
     public static Item bootsCroc;
     
-    public static Item fishbowl_e;
-    public static Item fishbowl_w;
-    public static Item fishbowl_1;
-    public static Item fishbowl_2;
-    public static Item fishbowl_3;
-    public static Item fishbowl_4;
-    public static Item fishbowl_5;
-    public static Item fishbowl_6;
-    public static Item fishbowl_7;
-    public static Item fishbowl_8;
-    public static Item fishbowl_9;
-    public static Item fishbowl_10;
+    public static Item fishbowlEmpty;
+    public static Item fishbowlWater;
+    public static Item fishbowlFishy1;
+    public static Item fishbowlFishy2;
+    public static Item fishbowlFishy3;
+    public static Item fishbowlFishy4;
+    public static Item fishbowlFishy5;
+    public static Item fishbowlFishy6;
+    public static Item fishbowlFishy7;
+    public static Item fishbowlFishy8;
+    public static Item fishbowlFishy9;
+    public static Item fishbowlFishy10;
 
     public static Item fur;
     public static Item helmetFur;
@@ -245,51 +244,51 @@ public class MoCreatures {
     public static Item sai;
     public static Item bo;
     public static Item katana;
-    public static Item sharksword;
-    public static Item silversword;
+    public static Item sharkSword;
+    public static Item silverSword;
     
-    public static Item essencedarkness;
-    public static Item essencefire;
-    public static Item essenceundead;
-    public static Item essencelight;
+    public static Item essenceDarkness;
+    public static Item essenceFire;
+    public static Item essenceUndead;
+    public static Item essenceLight;
     
-    public static Item amuletbone;
-    public static Item amuletbonefull;
-    public static Item amuletghost;
-    public static Item amuletghostfull;
-    public static Item amuletfairy;
-    public static Item amuletfairyfull;
-    public static Item amuletpegasus;
-    public static Item amuletpegasusfull;
+    public static Item amuletBone;
+    public static Item amuletBoneFull;
+    public static Item amuletGhost;
+    public static Item amuletGhostFull;
+    public static Item amuletFairy;
+    public static Item amuletFairyFull;
+    public static Item amuletPegasus;
+    public static Item amuletPegasusFull;
     
 
-    public static Item heartdarkness;
-    public static Item heartfire;
+    public static Item heartDarkness;
+    public static Item heartFire;
     public static Item heartundead;
     
     public static Item omelet;
-    public static Item turtleraw;
-    public static Item turtlesoup;
-    public static Item ostrichraw;
-    public static Item ostrichcooked;
-    public static Item rawTurkey;
-    public static Item cookedTurkey;
+    public static Item turtleRaw;
+    public static Item turtleSoup;
+    public static Item ostrichRaw;
+    public static Item ostrichCooked;
+    public static Item turkeyRaw;
+    public static Item turkeyCooked;
     public static Item ratRaw;
     public static Item ratCooked;
     public static Item ratBurger;
-    public static Item crabraw;
-    public static Item crabcooked;
+    public static Item crabRaw;
+    public static Item crabCooked;
     
-    public static Item unicornhorn;
+    public static Item unicornHorn;
     
-    public static Item staffunicorn;
-    public static Item staffdiamond;
+    public static Item staffUnicorn;
+    public static Item staffDiamond;
     public static Item staff;
-    public static Item staffender;
+    public static Item staffEnder;
     
-    public static Item recordshuffle;
+    public static Item recordShuffle;
 
-    public static Item animalHide;
+    public static Item hide;
     public static Item chestHide;
     public static Item helmetHide;
     public static Item legsHide;
@@ -342,48 +341,48 @@ public class MoCreatures {
     public static Item scrollOfSale;
     public static Item scrollOfOwner;
 
-    public static Item sharkteeth;
-    public static Item fishnet;
+    public static Item sharkTeeth;
+    public static Item fishNet;
     
-    public static Item horsesaddle;
+    public static Item craftedSaddle;
     public static Item haystack;
-    public static Item horsearmorcrystal;
-    public static Item sugarlump;
+    public static Item horseArmorCrystal;
+    public static Item sugarLump;
     public static Item key;
-    public static Item petamulet;
+    public static Item petAmulet;
     
     
-    public static Item achievement_icon_kill_wraith;
-    public static Item achievement_icon_kill_ogre;
-    public static Item achievement_icon_kill_werewolf;
-    public static Item achievement_icon_kill_big_golem;
+    public static Item achievementIconKillWraith;
+    public static Item achievementIconKillOgre;
+    public static Item achievementIconKillWerewolf;
+    public static Item achievementIconKillBigGolem;
     
-    public static Item achievement_icon_bat_horse;
-    public static Item achievement_icon_dark_pegasus;
-    public static Item achievement_icon_fairy_horse;
-    public static Item achievement_icon_nightmare_horse;
-    public static Item achievement_icon_ghost_horse;
-    public static Item achievement_icon_pegasus;
-    public static Item achievement_icon_tier2_horse;
-    public static Item achievement_icon_tier3_horse;
-    public static Item achievement_icon_tier4_horse;
-    public static Item achievement_icon_undead_horse;
-    public static Item achievement_icon_unicorn;
-    public static Item achievement_icon_zebra;
-    public static Item achievement_icon_zorse;
+    public static Item achievementIconBatHorse;
+    public static Item achievementIconDarkPegasus;
+    public static Item achievementIconFairyHorse;
+    public static Item achievementIconNightmareHorse;
+    public static Item achievementIconGhostHorse;
+    public static Item achievementIconPegasus;
+    public static Item achievementIconTier2Horse;
+    public static Item achievementIconTier3Horse;
+    public static Item achievementIconTier4Horse;
+    public static Item achievementIconUndeadHorse;
+    public static Item achievementIconUnicorn;
+    public static Item achievementIconZebra;
+    public static Item achievementIconZorse;
     
-    public static Item achievement_icon_indiana;
-    public static Item achievement_icon_tame_big_cat;
-    public static Item achievement_icon_tame_kitty;
+    public static Item achievementIconIndiana;
+    public static Item achievementIconTameBigCat;
+    public static Item achievementIconTameKitty;
     
     
-    public static Item achievement_icon_tame_bird;
-    public static Item achievement_icon_feed_snake_with_live_mouse;
-    public static Item achievement_icon_tame_panda;
-    public static Item achievement_icon_tame_scorpion;
-    public static Item achievement_icon_ostrich_helmet;
-    public static Item achievement_icon_ostrich_chest;
-    public static Item achievement_icon_ostrich_flag;
+    public static Item achievementIconTameBird;
+    public static Item achievementIconFeedSnakeWithLiveMouse;
+    public static Item achievementIconTamePanda;
+    public static Item achievementIconTameScorpion;
+    public static Item achievementIconOstrichHelmet;
+    public static Item achievementIconOstrichChest;
+    public static Item achievementIconOstrichFlag;
     
 
     public static MoCPlayerTracker tracker;
@@ -417,7 +416,7 @@ public class MoCreatures {
     @EventHandler
     public void load(FMLInitializationEvent event)
     {
-        DimensionManager.registerProviderType(WyvernLairDimensionID, WorldProviderWyvernEnd.class, true);
+        DimensionManager.registerProviderType(wyvernLairDimensionID, WorldProviderWyvernEnd.class, true);
         
         if (MoCreatures.proxy.replaceVanillaCreepers)
         {
@@ -448,9 +447,9 @@ public class MoCreatures {
     public void postInit(FMLPostInitializationEvent event)
     {
         //ForgeChunkManager.setForcedChunkLoadingCallback(instance, new MoCloadCallback());
-        DimensionManager.registerDimension(WyvernLairDimensionID, WyvernLairDimensionID);
+        DimensionManager.registerDimension(wyvernLairDimensionID, wyvernLairDimensionID);
         // ***MUST REGISTER BIOMES AT THIS POINT TO MAKE SURE OUR ENTITIES GET ALL BIOMES FROM DICTIONARY****
-        this.WyvernLairBiome = new BiomeGenWyvernLair(MoCreatures.proxy.WyvernBiomeID);
+        this.WyvernLairBiome = new BiomeGenWyvernLair(MoCreatures.proxy.wyvernBiomeID);
         this.defaultBiomeSupport.add("biomesop");
         this.defaultBiomeSupport.add("extrabiomes");
         this.defaultBiomeSupport.add("highlands");
@@ -664,22 +663,22 @@ public class MoCreatures {
     {
         if (proxy.debug) 
         {
-            MoCLog.logger.info("registerEntity " + entityClass + " with Mod ID " + MoCEntityID);
+            MoCLog.logger.info("registerEntity " + entityClass + " with Mod ID " + mocEntityID);
         }
-        EntityRegistry.registerModEntity(entityClass, entityName, MoCEntityID, instance, 128, 1, true);
-        MoCEntityID += 1;
+        EntityRegistry.registerModEntity(entityClass, entityName, mocEntityID, instance, 128, 1, true);
+        mocEntityID += 1;
     }
 
     private void registerEntity(Class<? extends Entity> entityClass, String entityName, int eggColor, int eggDotsColor)
     {
         if (proxy.debug) 
         {
-          MoCLog.logger.info("registerEntity " + entityClass + " with Mod ID " + MoCEntityID);
+          MoCLog.logger.info("registerEntity " + entityClass + " with Mod ID " + mocEntityID);
         }
-        EntityRegistry.registerModEntity(entityClass, entityName, MoCEntityID, instance, 128, 1, true);
-        EntityList.IDtoClassMapping.put(Integer.valueOf(MoCEntityID), entityClass);
-        EntityList.entityEggs.put(Integer.valueOf(MoCEntityID), new EntityEggInfo(MoCEntityID, eggColor, eggDotsColor));
-        MoCEntityID += 1;
+        EntityRegistry.registerModEntity(entityClass, entityName, mocEntityID, instance, 128, 1, true);
+        EntityList.IDtoClassMapping.put(Integer.valueOf(mocEntityID), entityClass);
+        EntityList.entityEggs.put(Integer.valueOf(mocEntityID), new EntityEggInfo(mocEntityID, eggColor, eggDotsColor));
+        mocEntityID += 1;
     }
 
     private int getItemId(String name, int defaultId)
@@ -689,16 +688,16 @@ public class MoCreatures {
 
     protected void InitItems()
     {
-        WyvernLairDimensionID = proxy.WyvernDimension;//17
+        wyvernLairDimensionID = proxy.wyvernDimension;//17
 
-        recordshuffle = new MoCItemRecord("recordshuffle");
-        horsesaddle = new MoCItemHorseSaddle("horsesaddle");
+        recordShuffle = new MoCItemRecord("recordshuffle");
+        craftedSaddle = new MoCItemHorseSaddle("horsesaddle");
 
-        sharkteeth = new MoCItem("sharkteeth");
+        sharkTeeth = new MoCItem("sharkteeth");
         haystack = new MoCItemHayStack("haystack");
-        sugarlump = new MoCItemSugarLump("sugarlump");
+        sugarLump = new MoCItemSugarLump("sugarlump");
         mocegg = new MoCItemEgg("mocegg");
-        bigcatclaw = new MoCItem("bigcatclaw");
+        bigcatClaw = new MoCItem("bigcatclaw");
         whip = new MoCItemWhip("whip");
 
         medallion = new MoCItem("medallion");
@@ -706,76 +705,76 @@ public class MoCreatures {
         litterbox = new MoCItemLitterBox("kittylitter");
         woolball = new MoCItem("woolball");
 
-        petfood = new MoCItem("petfood");
+        petFood = new MoCItem("petfood");
         builderHammer = new ItemBuilderHammer("builderhammer");
 
         hideCroc = new MoCItem("reptilehide");
-        helmetCroc = new MoCItemArmor("reptilehelmet", crocARMOR, 4, 0);
-        plateCroc = new MoCItemArmor("reptileplate", crocARMOR, 4, 1);
-        legsCroc = new MoCItemArmor("reptilelegs", crocARMOR, 4, 2);
-        bootsCroc = new MoCItemArmor("reptileboots", crocARMOR, 4, 3);
+        helmetCroc = new MoCItemArmor("reptilehelmet", CROC_ARMOR, 4, 0);
+        plateCroc = new MoCItemArmor("reptileplate", CROC_ARMOR, 4, 1);
+        legsCroc = new MoCItemArmor("reptilelegs", CROC_ARMOR, 4, 2);
+        bootsCroc = new MoCItemArmor("reptileboots", CROC_ARMOR, 4, 3);
         
-        fishbowl_e = new MoCItemFishBowl("bowlempty", 0);
-        fishbowl_w = new MoCItemFishBowl("bowlwater", 11);
-        fishbowl_1 = new MoCItemFishBowl("bowlfish1", 1);
-        fishbowl_2 = new MoCItemFishBowl("bowlfish2", 2);
-        fishbowl_3 = new MoCItemFishBowl("bowlfish3", 3);
-        fishbowl_4 = new MoCItemFishBowl("bowlfish4", 4);
-        fishbowl_5 = new MoCItemFishBowl("bowlfish5", 5);
-        fishbowl_6 = new MoCItemFishBowl("bowlfish6", 6);
-        fishbowl_7 = new MoCItemFishBowl("bowlfish7", 7);
-        fishbowl_8 = new MoCItemFishBowl("bowlfish8", 8);
-        fishbowl_9 = new MoCItemFishBowl("bowlfish9", 9);
-        fishbowl_10 = new MoCItemFishBowl("bowlfish10", 10);
+        fishbowlEmpty = new MoCItemFishBowl("bowlempty", 0);
+        fishbowlWater = new MoCItemFishBowl("bowlwater", 11);
+        fishbowlFishy1 = new MoCItemFishBowl("bowlfish1", 1);
+        fishbowlFishy2 = new MoCItemFishBowl("bowlfish2", 2);
+        fishbowlFishy3 = new MoCItemFishBowl("bowlfish3", 3);
+        fishbowlFishy4 = new MoCItemFishBowl("bowlfish4", 4);
+        fishbowlFishy5 = new MoCItemFishBowl("bowlfish5", 5);
+        fishbowlFishy6 = new MoCItemFishBowl("bowlfish6", 6);
+        fishbowlFishy7 = new MoCItemFishBowl("bowlfish7", 7);
+        fishbowlFishy8 = new MoCItemFishBowl("bowlfish8", 8);
+        fishbowlFishy9 = new MoCItemFishBowl("bowlfish9", 9);
+        fishbowlFishy10 = new MoCItemFishBowl("bowlfish10", 10);
 
         fur = new MoCItem("fur");
         omelet = new MoCItemFood("omelet", 4, 0.6F, false);
-        turtleraw = new MoCItemFood("turtleraw", 2, 0.3F, false);
-        turtlesoup = new MoCItemTurtleSoup("turtlesoup", 6, 0.6F, false);
+        turtleRaw = new MoCItemFood("turtleraw", 2, 0.3F, false);
+        turtleSoup = new MoCItemTurtleSoup("turtlesoup", 6, 0.6F, false);
 
         nunchaku = new MoCItemWeapon("nunchaku", ToolMaterial.IRON);
         sai = new MoCItemWeapon("sai", ToolMaterial.IRON);
         bo = new MoCItemWeapon("bo", ToolMaterial.IRON);
         katana = new MoCItemWeapon("katana", ToolMaterial.IRON);
-        sharksword = new MoCItemWeapon("sharksword", sharkWEAPON);
+        sharkSword = new MoCItemWeapon("sharksword", SHARK_WEAPON);
 
         key = new MoCItem("key");
-        essencedarkness = new MoCItem("essencedarkness");
-        essencefire = new MoCItem("essencefire");
-        amuletbone = new MoCItemHorseAmulet("amuletbone");
-        amuletbonefull = new MoCItemHorseAmulet("amuletbonefull");
-        amuletghost = new MoCItemHorseAmulet("amuletghost");
-        amuletghostfull = new MoCItemHorseAmulet("amuletghostfull");
-        amuletfairy = new MoCItemHorseAmulet("amuletfairy");
-        amuletfairyfull = new MoCItemHorseAmulet("amuletfairyfull");
-        amuletpegasus = new MoCItemHorseAmulet("amuletpegasus");
-        amuletpegasusfull = new MoCItemHorseAmulet("amuletpegasusfull");
+        essenceDarkness = new MoCItem("essencedarkness");
+        essenceFire = new MoCItem("essencefire");
+        amuletBone = new MoCItemHorseAmulet("amuletbone");
+        amuletBoneFull = new MoCItemHorseAmulet("amuletbonefull");
+        amuletGhost = new MoCItemHorseAmulet("amuletghost");
+        amuletGhostFull = new MoCItemHorseAmulet("amuletghostfull");
+        amuletFairy = new MoCItemHorseAmulet("amuletfairy");
+        amuletFairyFull = new MoCItemHorseAmulet("amuletfairyfull");
+        amuletPegasus = new MoCItemHorseAmulet("amuletpegasus");
+        amuletPegasusFull = new MoCItemHorseAmulet("amuletpegasusfull");
 
-        essenceundead = new MoCItem("essenceundead");
-        essencelight = new MoCItem("essencelight");
+        essenceUndead = new MoCItem("essenceundead");
+        essenceLight = new MoCItem("essencelight");
 
-        chestFur = new MoCItemArmor("furchest", furARMOR, 4, 1);
-        helmetFur = new MoCItemArmor("furhelmet", furARMOR, 4, 0);
-        legsFur = new MoCItemArmor("furlegs", furARMOR, 4, 2);
-        bootsFur = new MoCItemArmor("furboots", furARMOR, 4, 3);
+        chestFur = new MoCItemArmor("furchest", FUR_ARMOR, 4, 1);
+        helmetFur = new MoCItemArmor("furhelmet", FUR_ARMOR, 4, 0);
+        legsFur = new MoCItemArmor("furlegs", FUR_ARMOR, 4, 2);
+        bootsFur = new MoCItemArmor("furboots", FUR_ARMOR, 4, 3);
 
-        heartdarkness = new MoCItem("heartdarkness");
-        heartfire = new MoCItem("heartfire");
+        heartDarkness = new MoCItem("heartdarkness");
+        heartFire = new MoCItem("heartfire");
         heartundead = new MoCItem("heartundead");
-        ostrichraw = new MoCItemFood("ostrichraw", 2, 0.3F, false).setPotionEffect(Potion.hunger.id, 30, 0, 0.8F);
-        ostrichcooked = new MoCItemFood("ostrichcooked", 6, 0.6F, false);
-        unicornhorn = new MoCItem("unicornhorn");
+        ostrichRaw = new MoCItemFood("ostrichraw", 2, 0.3F, false).setPotionEffect(Potion.hunger.id, 30, 0, 0.8F);
+        ostrichCooked = new MoCItemFood("ostrichcooked", 6, 0.6F, false);
+        unicornHorn = new MoCItem("unicornhorn");
 
-        fishnet = new MoCItemPetAmulet("fishnet");
-        horsearmorcrystal = new MoCItem("horsearmorcrystal");
+        fishNet = new MoCItemPetAmulet("fishnet");
+        horseArmorCrystal = new MoCItem("horsearmorcrystal");
 
-        rawTurkey = new MoCItemFood("turkeyraw", 3, 0.3F, false).setPotionEffect(Potion.hunger.id, 30, 0, 0.8F);
-        cookedTurkey = new MoCItemFood("turkeycooked", 8, 0.6F, false);
-        animalHide = new MoCItem("hide");
-        chestHide = new MoCItemArmor("hidechest", hideARMOR, 4, 1);
-        helmetHide = new MoCItemArmor("hidehelmet", hideARMOR, 4, 0);
-        legsHide = new MoCItemArmor("hidelegs", hideARMOR, 4, 2);
-        bootsHide = new MoCItemArmor("hideboots", hideARMOR, 4, 3);
+        turkeyRaw = new MoCItemFood("turkeyraw", 3, 0.3F, false).setPotionEffect(Potion.hunger.id, 30, 0, 0.8F);
+        turkeyCooked = new MoCItemFood("turkeycooked", 8, 0.6F, false);
+        hide = new MoCItem("hide");
+        chestHide = new MoCItemArmor("hidechest", HIDE_ARMOR, 4, 1);
+        helmetHide = new MoCItemArmor("hidehelmet", HIDE_ARMOR, 4, 0);
+        legsHide = new MoCItemArmor("hidelegs", HIDE_ARMOR, 4, 2);
+        bootsHide = new MoCItemArmor("hideboots", HIDE_ARMOR, 4, 3);
         ratRaw = new MoCItemFood("ratraw", 2, 0.3F, false).setPotionEffect(Potion.hunger.id, 30, 0, 0.8F);
         ratCooked = new MoCItemFood("ratcooked", 4, 0.6F, false);
         ratBurger = new MoCItemFood("ratburger", 8, 0.6F, false);
@@ -785,30 +784,30 @@ public class MoCreatures {
         chitinFrost = new MoCItem("chitinfrost");
         chitinNether = new MoCItem("chitinnether");
 
-        scorpSwordDirt = new MoCItemWeapon("scorpsworddirt", scorpWEAPON, 1, false);
-        scorpSwordFrost = new MoCItemWeapon("scorpswordfrost", scorpWEAPON, 2, false);
-        scorpSwordNether = new MoCItemWeapon("scorpswordnether", scorpWEAPON, 3, false);
-        scorpSwordCave = new MoCItemWeapon("scorpswordcave", scorpWEAPON, 4, false);
+        scorpSwordDirt = new MoCItemWeapon("scorpsworddirt", SCORP_WEAPON, 1, false);
+        scorpSwordFrost = new MoCItemWeapon("scorpswordfrost", SCORP_WEAPON, 2, false);
+        scorpSwordNether = new MoCItemWeapon("scorpswordnether", SCORP_WEAPON, 3, false);
+        scorpSwordCave = new MoCItemWeapon("scorpswordcave", SCORP_WEAPON, 4, false);
 
-        scorpHelmetDirt = new MoCItemArmor("scorphelmetdirt", scorpDirtARMOR, 4, 0);
-        scorpPlateDirt = new MoCItemArmor("scorpplatedirt", scorpDirtARMOR, 4, 1);
-        scorpLegsDirt = new MoCItemArmor("scorplegsdirt", scorpDirtARMOR, 4, 2);
-        scorpBootsDirt = new MoCItemArmor("scorpbootsdirt", scorpDirtARMOR, 4, 3);
+        scorpHelmetDirt = new MoCItemArmor("scorphelmetdirt", SCORP_DIRT_ARMOR, 4, 0);
+        scorpPlateDirt = new MoCItemArmor("scorpplatedirt", SCORP_DIRT_ARMOR, 4, 1);
+        scorpLegsDirt = new MoCItemArmor("scorplegsdirt", SCORP_DIRT_ARMOR, 4, 2);
+        scorpBootsDirt = new MoCItemArmor("scorpbootsdirt", SCORP_DIRT_ARMOR, 4, 3);
 
-        scorpHelmetFrost = new MoCItemArmor("scorphelmetfrost", scorpFrostARMOR, 4, 0);
-        scorpPlateFrost = new MoCItemArmor("scorpplatefrost", scorpFrostARMOR, 4, 1);
-        scorpLegsFrost = new MoCItemArmor("scorplegsfrost", scorpFrostARMOR, 4, 2);
-        scorpBootsFrost = new MoCItemArmor("scorpbootsfrost", scorpFrostARMOR, 4, 3);
+        scorpHelmetFrost = new MoCItemArmor("scorphelmetfrost", SCORP_FROST_ARMOR, 4, 0);
+        scorpPlateFrost = new MoCItemArmor("scorpplatefrost", SCORP_FROST_ARMOR, 4, 1);
+        scorpLegsFrost = new MoCItemArmor("scorplegsfrost", SCORP_FROST_ARMOR, 4, 2);
+        scorpBootsFrost = new MoCItemArmor("scorpbootsfrost", SCORP_FROST_ARMOR, 4, 3);
 
-        scorpHelmetNether = new MoCItemArmor("scorphelmetnether", scorpNetherARMOR, 4, 0);
-        scorpPlateNether = new MoCItemArmor("scorpplatenether", scorpNetherARMOR, 4, 1);
-        scorpLegsNether = new MoCItemArmor("scorplegsnether", scorpNetherARMOR, 4, 2);
-        scorpBootsNether = new MoCItemArmor("scorpbootsnether", scorpNetherARMOR, 4, 3);
+        scorpHelmetNether = new MoCItemArmor("scorphelmetnether", SCORP_NETHER_ARMOR, 4, 0);
+        scorpPlateNether = new MoCItemArmor("scorpplatenether", SCORP_NETHER_ARMOR, 4, 1);
+        scorpLegsNether = new MoCItemArmor("scorplegsnether", SCORP_NETHER_ARMOR, 4, 2);
+        scorpBootsNether = new MoCItemArmor("scorpbootsnether", SCORP_NETHER_ARMOR, 4, 3);
         
-        scorpHelmetCave = new MoCItemArmor("scorphelmetcave", scorpCaveARMOR, 4, 0);
-        scorpPlateCave = new MoCItemArmor("scorpplatecave", scorpCaveARMOR, 4, 1);
-        scorpLegsCave = new MoCItemArmor("scorplegscave", scorpCaveARMOR, 4, 2);
-        scorpBootsCave = new MoCItemArmor("scorpbootscave", scorpCaveARMOR, 4, 3);
+        scorpHelmetCave = new MoCItemArmor("scorphelmetcave", SCORP_CAVE_ARMOR, 4, 0);
+        scorpPlateCave = new MoCItemArmor("scorpplatecave", SCORP_CAVE_ARMOR, 4, 1);
+        scorpLegsCave = new MoCItemArmor("scorplegscave", SCORP_CAVE_ARMOR, 4, 2);
+        scorpBootsCave = new MoCItemArmor("scorpbootscave", SCORP_CAVE_ARMOR, 4, 3);
 
         scorpStingDirt = new MoCItemWeapon("scorpstingdirt", ToolMaterial.GOLD, 1, true);
         scorpStingFrost = new MoCItemWeapon("scorpstingfrost", ToolMaterial.GOLD, 2, true);
@@ -828,9 +827,9 @@ public class MoCreatures {
         elephantHowdah = new MoCItem("elephanthowdah");
         mammothPlatform = new MoCItem("mammothplatform");
 
-        crabraw = new MoCItemFood("crabraw", 2, 0.3F, false).setPotionEffect(Potion.hunger.id, 30, 0, 0.8F);
-        crabcooked = new MoCItemFood("crabcooked", 6, 0.6F, false);
-        silversword = new MoCItemWeapon("silversword", this.SILVER);
+        crabRaw = new MoCItemFood("crabraw", 2, 0.3F, false).setPotionEffect(Potion.hunger.id, 30, 0, 0.8F);
+        crabCooked = new MoCItemFood("crabcooked", 6, 0.6F, false);
+        silverSword = new MoCItemWeapon("silversword", this.SILVER_WEAPON);
 
         multiBlockNames.add ("WyvernLair");
         multiBlockNames.add("OgreLair");
@@ -838,38 +837,38 @@ public class MoCreatures {
         staffPortal = new ItemStaffPortal("staffportal");
         staffTeleport = new ItemStaffTeleport("staffteleport");
         scrollOfOwner = new MoCItem("scrollofowner");
-        petamulet = new MoCItemPetAmulet("petamulet", 1);
+        petAmulet = new MoCItemPetAmulet("petamulet", 1);
         
-        achievement_icon_kill_wraith = new MoCItem("achievement_icon_kill_wraith");
-        achievement_icon_kill_ogre = new MoCItem("achievement_icon_kill_ogre");
-        achievement_icon_kill_werewolf = new MoCItem("achievement_icon_kill_werewolf");
-        achievement_icon_kill_big_golem = new MoCItem("achievement_icon_kill_big_golem");
+        achievementIconKillWraith = new MoCItem("achievement_icon_kill_wraith");
+        achievementIconKillOgre = new MoCItem("achievement_icon_kill_ogre");
+        achievementIconKillWerewolf = new MoCItem("achievement_icon_kill_werewolf");
+        achievementIconKillBigGolem = new MoCItem("achievement_icon_kill_big_golem");
         
         
-        achievement_icon_bat_horse = new MoCItem("achievement_icon_bat_horse");
-        achievement_icon_dark_pegasus = new MoCItem("achievement_icon_dark_pegasus");
-        achievement_icon_fairy_horse = new MoCItem("achievement_icon_fairy_horse");
-        achievement_icon_nightmare_horse = new MoCItem("achievement_icon_nightmare_horse");
-        achievement_icon_ghost_horse = new MoCItem("achievement_icon_ghost_horse");
-        achievement_icon_pegasus = new MoCItem("achievement_icon_pegasus");
-        achievement_icon_tier2_horse = new MoCItem("achievement_icon_tier2_horse");
-        achievement_icon_tier3_horse = new MoCItem("achievement_icon_tier3_horse");
-        achievement_icon_tier4_horse = new MoCItem("achievement_icon_tier4_horse");
-        achievement_icon_undead_horse = new MoCItem("achievement_icon_undead_horse");
-        achievement_icon_unicorn = new MoCItem("achievement_icon_unicorn");
-        achievement_icon_zebra = new MoCItem("achievement_icon_zebra");
-        achievement_icon_zorse = new MoCItem("achievement_icon_zorse");
+        achievementIconBatHorse = new MoCItem("achievement_icon_bat_horse");
+        achievementIconDarkPegasus = new MoCItem("achievement_icon_dark_pegasus");
+        achievementIconFairyHorse = new MoCItem("achievement_icon_fairy_horse");
+        achievementIconNightmareHorse = new MoCItem("achievement_icon_nightmare_horse");
+        achievementIconGhostHorse = new MoCItem("achievement_icon_ghost_horse");
+        achievementIconPegasus = new MoCItem("achievement_icon_pegasus");
+        achievementIconTier2Horse = new MoCItem("achievement_icon_tier2_horse");
+        achievementIconTier3Horse = new MoCItem("achievement_icon_tier3_horse");
+        achievementIconTier4Horse = new MoCItem("achievement_icon_tier4_horse");
+        achievementIconUndeadHorse = new MoCItem("achievement_icon_undead_horse");
+        achievementIconUnicorn = new MoCItem("achievement_icon_unicorn");
+        achievementIconZebra = new MoCItem("achievement_icon_zebra");
+        achievementIconZorse = new MoCItem("achievement_icon_zorse");
         
-        achievement_icon_indiana = new MoCItem("achievement_icon_indiana");
-        achievement_icon_tame_big_cat = new MoCItem("achievement_icon_tame_big_cat");
-        achievement_icon_tame_kitty = new MoCItem("achievement_icon_tame_kitty");
-        achievement_icon_tame_bird = new MoCItem("achievement_icon_tame_bird");
-        achievement_icon_feed_snake_with_live_mouse = new MoCItem("achievement_icon_feed_snake_with_live_mouse");
-        achievement_icon_tame_panda = new MoCItem("achievement_icon_tame_panda");
-        achievement_icon_tame_scorpion = new MoCItem("achievement_icon_tame_scorpion");
-        achievement_icon_ostrich_helmet = new MoCItem("achievement_icon_ostrich_helmet");
-        achievement_icon_ostrich_chest = new MoCItem("achievement_icon_ostrich_chest");
-        achievement_icon_ostrich_flag = new MoCItem("achievement_icon_ostrich_flag");
+        achievementIconIndiana = new MoCItem("achievement_icon_indiana");
+        achievementIconTameBigCat = new MoCItem("achievement_icon_tame_big_cat");
+        achievementIconTameKitty = new MoCItem("achievement_icon_tame_kitty");
+        achievementIconTameBird = new MoCItem("achievement_icon_tame_bird");
+        achievementIconFeedSnakeWithLiveMouse = new MoCItem("achievement_icon_feed_snake_with_live_mouse");
+        achievementIconTamePanda = new MoCItem("achievement_icon_tame_panda");
+        achievementIconTameScorpion = new MoCItem("achievement_icon_tame_scorpion");
+        achievementIconOstrichHelmet = new MoCItem("achievement_icon_ostrich_helmet");
+        achievementIconOstrichChest = new MoCItem("achievement_icon_ostrich_chest");
+        achievementIconOstrichFlag = new MoCItem("achievement_icon_ostrich_flag");
 
         //new blocks
         mocStone = new MoCBlockRock("MoCStone").setHardness(1.5F).setResistance(10.0F).setStepSound(Block.soundTypeStone);
@@ -891,13 +890,13 @@ public class MoCreatures {
 
     private void AddRecipes()
     {
-        GameRegistry.addSmelting(MoCreatures.crabraw, new ItemStack(MoCreatures.crabcooked, 1), 0F);
+        GameRegistry.addSmelting(MoCreatures.crabRaw, new ItemStack(MoCreatures.crabCooked, 1), 0F);
         
         GameRegistry.addSmelting(MoCreatures.ratRaw, new ItemStack(MoCreatures.ratCooked, 1), 0F);
 
-        GameRegistry.addSmelting(MoCreatures.ostrichraw, new ItemStack(MoCreatures.ostrichcooked, 1), 0F);
+        GameRegistry.addSmelting(MoCreatures.ostrichRaw, new ItemStack(MoCreatures.ostrichCooked, 1), 0F);
 
-        GameRegistry.addSmelting(MoCreatures.rawTurkey, new ItemStack(MoCreatures.cookedTurkey, 1), 0F);
+        GameRegistry.addSmelting(MoCreatures.turkeyRaw, new ItemStack(MoCreatures.turkeyCooked, 1), 0F);
 
         GameRegistry.addSmelting(MoCreatures.mocegg, new ItemStack(MoCreatures.omelet, 1), 0F);
 
@@ -910,7 +909,7 @@ public class MoCreatures {
         GameRegistry.addShapelessRecipe(new ItemStack(scrollOfSale, 1), new Object[] { Items.paper, Items.feather });
         
         
-        GameRegistry.addShapelessRecipe(new ItemStack(Items.leather, 1), new Object[] { animalHide });
+        GameRegistry.addShapelessRecipe(new ItemStack(Items.leather, 1), new Object[] { hide });
 
         GameRegistry.addShapelessRecipe(new ItemStack(Blocks.wool, 1), new Object[] { fur });
 
@@ -922,11 +921,11 @@ public class MoCreatures {
 
         GameRegistry.addShapelessRecipe(new ItemStack(scorpSwordDirt, 1), new Object[] { Items.diamond_sword, scorpStingDirt, scorpStingDirt, scorpStingDirt });
 
-        GameRegistry.addShapelessRecipe(new ItemStack(turtlesoup, 1), new Object[] { new ItemStack(turtleraw, 1), new ItemStack(Items.bowl, 1) });
+        GameRegistry.addShapelessRecipe(new ItemStack(turtleSoup, 1), new Object[] { new ItemStack(turtleRaw, 1), new ItemStack(Items.bowl, 1) });
 
-        GameRegistry.addShapelessRecipe(new ItemStack(essencelight, 1), new Object[] { essenceundead, essencefire, essencedarkness });
+        GameRegistry.addShapelessRecipe(new ItemStack(essenceLight, 1), new Object[] { essenceUndead, essenceFire, essenceDarkness });
 
-        GameRegistry.addRecipe(new ItemStack(fishnet, 1), new Object[] { " # ", "S#S", "#S#", Character.valueOf('#'), Items.string, Character.valueOf('S'), sharkteeth });
+        GameRegistry.addRecipe(new ItemStack(fishNet, 1), new Object[] { " # ", "S#S", "#S#", Character.valueOf('#'), Items.string, Character.valueOf('S'), sharkTeeth });
         
         GameRegistry.addRecipe(new ItemStack(tusksWood, 1), new Object[] { "X  ", "XR ", "XXX", Character.valueOf('X'), Blocks.planks, Character.valueOf('R'), Items.lead  });
         
@@ -936,9 +935,9 @@ public class MoCreatures {
         
         GameRegistry.addRecipe(new ItemStack(mammothPlatform, 1), new Object[] { "WRW", "PPP", "WRW",  Character.valueOf('W'), Blocks.log, Character.valueOf('R'), Items.lead ,  Character.valueOf('P'), Blocks.planks});
         
-        GameRegistry.addRecipe(new ItemStack(elephantChest, 1), new Object[] { " W ", "CHC", " W ", Character.valueOf('H'), animalHide, Character.valueOf('W'), new ItemStack(Blocks.wool, 1, 0), Character.valueOf('C'), Blocks.chest });
+        GameRegistry.addRecipe(new ItemStack(elephantChest, 1), new Object[] { " W ", "CHC", " W ", Character.valueOf('H'), hide, Character.valueOf('W'), new ItemStack(Blocks.wool, 1, 0), Character.valueOf('C'), Blocks.chest });
         
-        GameRegistry.addRecipe(new ItemStack(elephantHarness, 1), new Object[] { "HWH", "IWI", "HWH", Character.valueOf('H'), animalHide, Character.valueOf('W'), new ItemStack(Blocks.wool, 1, 0), Character.valueOf('I'), Items.iron_ingot });
+        GameRegistry.addRecipe(new ItemStack(elephantHarness, 1), new Object[] { "HWH", "IWI", "HWH", Character.valueOf('H'), hide, Character.valueOf('W'), new ItemStack(Blocks.wool, 1, 0), Character.valueOf('I'), Items.iron_ingot });
         
         GameRegistry.addRecipe(new ItemStack(elephantHowdah, 1), new Object[] { "SRS", "RYR", "SRS", Character.valueOf('S'), Items.stick, Character.valueOf('R'), new ItemStack(Blocks.wool, 1, 14), Character.valueOf('Y'), new ItemStack(Blocks.wool, 1, 4) });
 
@@ -983,15 +982,15 @@ public class MoCreatures {
 
         GameRegistry.addRecipe(new ItemStack(scorpBootsDirt, 1), new Object[] { "X X", "X X", Character.valueOf('X'), chitin });
 
-        GameRegistry.addRecipe(new ItemStack(chestHide, 1), new Object[] { "X X", "XXX", "XXX", Character.valueOf('X'), animalHide });
+        GameRegistry.addRecipe(new ItemStack(chestHide, 1), new Object[] { "X X", "XXX", "XXX", Character.valueOf('X'), hide });
 
-        GameRegistry.addRecipe(new ItemStack(helmetHide, 1), new Object[] { "XXX", "X X", Character.valueOf('X'), animalHide });
+        GameRegistry.addRecipe(new ItemStack(helmetHide, 1), new Object[] { "XXX", "X X", Character.valueOf('X'), hide });
 
-        GameRegistry.addRecipe(new ItemStack(legsHide, 1), new Object[] { "XXX", "X X", "X X", Character.valueOf('X'), animalHide });
+        GameRegistry.addRecipe(new ItemStack(legsHide, 1), new Object[] { "XXX", "X X", "X X", Character.valueOf('X'), hide });
 
-        GameRegistry.addRecipe(new ItemStack(bootsHide, 1), new Object[] { "X X", "X X", Character.valueOf('X'), animalHide });
+        GameRegistry.addRecipe(new ItemStack(bootsHide, 1), new Object[] { "X X", "X X", Character.valueOf('X'), hide });
 
-        GameRegistry.addRecipe(new ItemStack(horsearmorcrystal, 1), new Object[] { "  D", "CDC", "DCD", Character.valueOf('D'), Items.diamond, Character.valueOf('C'), Blocks.glass });
+        GameRegistry.addRecipe(new ItemStack(horseArmorCrystal, 1), new Object[] { "  D", "CDC", "DCD", Character.valueOf('D'), Items.diamond, Character.valueOf('C'), Blocks.glass });
 
         //GameRegistry.addRecipe(new ItemStack(horsearmormetal, 1), new Object[] { "  X", "XYX", "XXX", Character.valueOf('X'), Item.ingotIron, Character.valueOf('Y'), new ItemStack(Blocks.wool, 1, 15) });
 
@@ -999,15 +998,15 @@ public class MoCreatures {
 
         //GameRegistry.addRecipe(new ItemStack(horsearmordiamond, 1), new Object[] { "  X", "XYX", "XXX", Character.valueOf('X'), Item.diamond, Character.valueOf('Y'), new ItemStack(Blocks.wool, 1, 11) });
 
-        GameRegistry.addShapelessRecipe(new ItemStack(essencelight, 1), new Object[] { new ItemStack(essenceundead, 1), new ItemStack(essencefire, 1), new ItemStack(essencedarkness, 1)});
+        GameRegistry.addShapelessRecipe(new ItemStack(essenceLight, 1), new Object[] { new ItemStack(essenceUndead, 1), new ItemStack(essenceFire, 1), new ItemStack(essenceDarkness, 1)});
 
-        GameRegistry.addShapelessRecipe(new ItemStack(essenceundead, 1), new Object[] { new ItemStack(Items.rotten_flesh, 1), new ItemStack(heartundead, 1), new ItemStack(Items.glass_bottle, 1)});
+        GameRegistry.addShapelessRecipe(new ItemStack(essenceUndead, 1), new Object[] { new ItemStack(Items.rotten_flesh, 1), new ItemStack(heartundead, 1), new ItemStack(Items.glass_bottle, 1)});
 
-        GameRegistry.addShapelessRecipe(new ItemStack(essencefire, 1), new Object[] { new ItemStack(Items.blaze_powder, 1), new ItemStack(heartfire, 1), new ItemStack(Items.glass_bottle, 1)});
+        GameRegistry.addShapelessRecipe(new ItemStack(essenceFire, 1), new Object[] { new ItemStack(Items.blaze_powder, 1), new ItemStack(heartFire, 1), new ItemStack(Items.glass_bottle, 1)});
 
-        GameRegistry.addShapelessRecipe(new ItemStack(essencefire, 1), new Object[] { new ItemStack(Blocks.fire, 1), new ItemStack(heartfire, 1), new ItemStack(Items.glass_bottle, 1)});
+        GameRegistry.addShapelessRecipe(new ItemStack(essenceFire, 1), new Object[] { new ItemStack(Blocks.fire, 1), new ItemStack(heartFire, 1), new ItemStack(Items.glass_bottle, 1)});
 
-        GameRegistry.addShapelessRecipe(new ItemStack(essencedarkness, 1), new Object[] { new ItemStack(Items.ender_pearl, 1), new ItemStack(heartdarkness, 1), new ItemStack(Items.glass_bottle, 1)});
+        GameRegistry.addShapelessRecipe(new ItemStack(essenceDarkness, 1), new Object[] { new ItemStack(Items.ender_pearl, 1), new ItemStack(heartDarkness, 1), new ItemStack(Items.glass_bottle, 1)});
 
         GameRegistry.addRecipe(new ItemStack(chestFur, 1), new Object[] { "X X", "XXX", "XXX", Character.valueOf('X'), fur });
 
@@ -1019,25 +1018,25 @@ public class MoCreatures {
 
         GameRegistry.addRecipe(new ItemStack(key, 1), new Object[] { "  #", " # ", "X  ", Character.valueOf('#'), Items.stick, Character.valueOf('X'), Items.iron_ingot, });
 
-        GameRegistry.addRecipe(new ItemStack(petamulet, 1), new Object[] { "X X", " Z ", "X X", Character.valueOf('X'), Items.gold_nugget, Character.valueOf('Z'), Items.diamond });
+        GameRegistry.addRecipe(new ItemStack(petAmulet, 1), new Object[] { "X X", " Z ", "X X", Character.valueOf('X'), Items.gold_nugget, Character.valueOf('Z'), Items.diamond });
 
-        GameRegistry.addRecipe(new ItemStack(amuletbone, 1), new Object[] { "#X#", "XZX", "#X#", Character.valueOf('#'), Items.bone, Character.valueOf('X'), Items.gold_nugget, Character.valueOf('Z'), Items.ender_pearl });
+        GameRegistry.addRecipe(new ItemStack(amuletBone, 1), new Object[] { "#X#", "XZX", "#X#", Character.valueOf('#'), Items.bone, Character.valueOf('X'), Items.gold_nugget, Character.valueOf('Z'), Items.ender_pearl });
 
-        GameRegistry.addRecipe(new ItemStack(amuletghost, 1), new Object[] { "#X#", "XZX", "#X#", Character.valueOf('#'), Items.bone, Character.valueOf('X'), Items.gold_nugget, Character.valueOf('Z'), Items.ghast_tear });
+        GameRegistry.addRecipe(new ItemStack(amuletGhost, 1), new Object[] { "#X#", "XZX", "#X#", Character.valueOf('#'), Items.bone, Character.valueOf('X'), Items.gold_nugget, Character.valueOf('Z'), Items.ghast_tear });
 
-        GameRegistry.addRecipe(new ItemStack(amuletfairy, 1), new Object[] { "#X#", "XZX", "#X#", Character.valueOf('#'), Blocks.fire, Character.valueOf('X'), Items.gold_nugget, Character.valueOf('Z'), unicornhorn });
+        GameRegistry.addRecipe(new ItemStack(amuletFairy, 1), new Object[] { "#X#", "XZX", "#X#", Character.valueOf('#'), Blocks.fire, Character.valueOf('X'), Items.gold_nugget, Character.valueOf('Z'), unicornHorn });
 
-        GameRegistry.addRecipe(new ItemStack(amuletfairy, 1), new Object[] { "#X#", "XZX", "#X#", Character.valueOf('#'), Blocks.fire, Character.valueOf('X'), Items.gold_nugget, Character.valueOf('Z'), essencelight });
+        GameRegistry.addRecipe(new ItemStack(amuletFairy, 1), new Object[] { "#X#", "XZX", "#X#", Character.valueOf('#'), Blocks.fire, Character.valueOf('X'), Items.gold_nugget, Character.valueOf('Z'), essenceLight });
 
-        GameRegistry.addRecipe(new ItemStack(amuletpegasus, 1), new Object[] { "#X#", "XZX", "#X#", Character.valueOf('#'), Blocks.fire, Character.valueOf('X'), Items.gold_nugget, Character.valueOf('Z'), Items.diamond });
+        GameRegistry.addRecipe(new ItemStack(amuletPegasus, 1), new Object[] { "#X#", "XZX", "#X#", Character.valueOf('#'), Blocks.fire, Character.valueOf('X'), Items.gold_nugget, Character.valueOf('Z'), Items.diamond });
 
-        GameRegistry.addRecipe(new ItemStack(sharksword, 1), new Object[] { "#X#", "#X#", " X ", Character.valueOf('#'), sharkteeth, Character.valueOf('X'), Items.stick, });
+        GameRegistry.addRecipe(new ItemStack(sharkSword, 1), new Object[] { "#X#", "#X#", " X ", Character.valueOf('#'), sharkTeeth, Character.valueOf('X'), Items.stick, });
 
-        GameRegistry.addRecipe(new ItemStack(fishbowl_e, 1), new Object[] { "# #", "# #", "###", Character.valueOf('#'), Blocks.glass, });
+        GameRegistry.addRecipe(new ItemStack(fishbowlEmpty, 1), new Object[] { "# #", "# #", "###", Character.valueOf('#'), Blocks.glass, });
 
         //GameRegistry.addRecipe(new ItemStack(rope, 1), new Object[] { "# #", " # ", "# #", Character.valueOf('#'), Item.silk, });
 
-        GameRegistry.addShapelessRecipe(new ItemStack(petfood, 4), new Object[] { new ItemStack(Items.fish, 1), new ItemStack(Items.porkchop, 1) });
+        GameRegistry.addShapelessRecipe(new ItemStack(petFood, 4), new Object[] { new ItemStack(Items.fish, 1), new ItemStack(Items.porkchop, 1) });
 
         GameRegistry.addRecipe(new ItemStack(woolball, 1), new Object[] { " # ", "# #", " # ", Character.valueOf('#'), Items.string, });
 
@@ -1047,25 +1046,25 @@ public class MoCreatures {
 
         GameRegistry.addRecipe(new ItemStack(medallion, 1), new Object[] { "# #", " X ", Character.valueOf('#'), Items.leather, Character.valueOf('X'), Items.gold_ingot, });
 
-        GameRegistry.addRecipe(new ItemStack(whip, 1), new Object[] { "#X#", "X X", "# Z", Character.valueOf('#'), bigcatclaw, Character.valueOf('X'), Items.leather, Character.valueOf('Z'), Items.iron_ingot });
+        GameRegistry.addRecipe(new ItemStack(whip, 1), new Object[] { "#X#", "X X", "# Z", Character.valueOf('#'), bigcatClaw, Character.valueOf('X'), Items.leather, Character.valueOf('Z'), Items.iron_ingot });
 
-        GameRegistry.addRecipe(new ItemStack(horsesaddle, 1), new Object[] { "XXX", "X#X", "# #", Character.valueOf('#'), Items.iron_ingot, Character.valueOf('X'), Items.leather });
+        GameRegistry.addRecipe(new ItemStack(craftedSaddle, 1), new Object[] { "XXX", "X#X", "# #", Character.valueOf('#'), Items.iron_ingot, Character.valueOf('X'), Items.leather });
 
         GameRegistry.addRecipe(new ItemStack(haystack, 1), new Object[] { "XXX", "XXX", Character.valueOf('X'), Items.wheat });
 
         GameRegistry.addRecipe(new ItemStack(Items.wheat, 6), new Object[] { "X", Character.valueOf('X'), haystack });
 
-        GameRegistry.addRecipe(new ItemStack(sugarlump, 1), new Object[] { "XX", "##", Character.valueOf('X'), Items.sugar, Character.valueOf('#'), Items.sugar });
+        GameRegistry.addRecipe(new ItemStack(sugarLump, 1), new Object[] { "XX", "##", Character.valueOf('X'), Items.sugar, Character.valueOf('#'), Items.sugar });
 
-        GameRegistry.addRecipe(new ItemStack(horsesaddle, 1), new Object[] { "X", "#", Character.valueOf('X'), Items.saddle, Character.valueOf('#'), Items.iron_ingot });
+        GameRegistry.addRecipe(new ItemStack(craftedSaddle, 1), new Object[] { "X", "#", Character.valueOf('X'), Items.saddle, Character.valueOf('#'), Items.iron_ingot });
 
-        GameRegistry.addRecipe(new ItemStack(Items.chainmail_chestplate, 1), new Object[] { "X X", "XXX", "XXX", Character.valueOf('X'), sharkteeth });
+        GameRegistry.addRecipe(new ItemStack(Items.chainmail_chestplate, 1), new Object[] { "X X", "XXX", "XXX", Character.valueOf('X'), sharkTeeth });
 
-        GameRegistry.addRecipe(new ItemStack(Items.chainmail_helmet, 1), new Object[] { "XXX", "X X", Character.valueOf('X'), sharkteeth });
+        GameRegistry.addRecipe(new ItemStack(Items.chainmail_helmet, 1), new Object[] { "XXX", "X X", Character.valueOf('X'), sharkTeeth });
 
-        GameRegistry.addRecipe(new ItemStack(Items.chainmail_leggings, 1), new Object[] { "XXX", "X X", "X X", Character.valueOf('X'), sharkteeth });
+        GameRegistry.addRecipe(new ItemStack(Items.chainmail_leggings, 1), new Object[] { "XXX", "X X", "X X", Character.valueOf('X'), sharkTeeth });
 
-        GameRegistry.addRecipe(new ItemStack(Items.chainmail_boots, 1), new Object[] { "X X", "X X", Character.valueOf('X'), sharkteeth });
+        GameRegistry.addRecipe(new ItemStack(Items.chainmail_boots, 1), new Object[] { "X X", "X X", Character.valueOf('X'), sharkTeeth });
 
         GameRegistry.addRecipe(new ItemStack(plateCroc, 1), new Object[] { "X X", "XXX", "XXX", Character.valueOf('X'), hideCroc });
 
@@ -1089,9 +1088,9 @@ public class MoCreatures {
             GameRegistry.addShapelessRecipe(new ItemStack(mocPlank, 4, i), new Object[] { new ItemStack(mocLog, 1, i)});
         }
         
-        GameRegistry.addRecipe(new ItemStack(staffPortal, 1), new Object[] { "  E", " U ", "R  ", Character.valueOf('E'), Items.ender_eye, Character.valueOf('U'), unicornhorn, Character.valueOf('R'), Items.blaze_rod });
+        GameRegistry.addRecipe(new ItemStack(staffPortal, 1), new Object[] { "  E", " U ", "R  ", Character.valueOf('E'), Items.ender_eye, Character.valueOf('U'), unicornHorn, Character.valueOf('R'), Items.blaze_rod });
         
-        GameRegistry.addRecipe(new ItemStack(staffPortal, 1), new Object[] { "  E", " U ", "R  ", Character.valueOf('E'), Items.ender_eye, Character.valueOf('U'), essencelight, Character.valueOf('R'), Items.blaze_rod });
+        GameRegistry.addRecipe(new ItemStack(staffPortal, 1), new Object[] { "  E", " U ", "R  ", Character.valueOf('E'), Items.ender_eye, Character.valueOf('U'), essenceLight, Character.valueOf('R'), Items.blaze_rod });
     }
 
     public static void burnPlayer(EntityPlayer player)

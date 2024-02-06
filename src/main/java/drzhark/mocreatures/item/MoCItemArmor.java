@@ -37,7 +37,7 @@ public class MoCItemArmor extends ItemArmor
 	        
 	        if (name.contains("hide"))
 	        {
-	        	enumarmormaterial.customCraftingMaterial = MoCreatures.animalHide;
+	        	enumarmormaterial.customCraftingMaterial = MoCreatures.hide;
 	        }
 	        if (name.contains("scorp")) //scorpion armor
 	        {

@@ -71,10 +71,10 @@ public class MoCItemPetAmulet extends MoCItem
             double newPosX = entityPlayer.posX - (dist * Math.cos((MoCTools.realAngle(entityPlayer.rotationYaw - 90F)) / 57.29578F));
             double newPosZ = entityPlayer.posZ - (dist * Math.sin((MoCTools.realAngle(entityPlayer.rotationYaw - 90F)) / 57.29578F));
 
-            ItemStack emptyAmulet = new ItemStack(MoCreatures.fishnet, 1, 0);
+            ItemStack emptyAmulet = new ItemStack(MoCreatures.fishNet, 1, 0);
             if (this.amuletType == 1)
             {
-                emptyAmulet = new ItemStack(MoCreatures.petamulet, 1, 0);
+                emptyAmulet = new ItemStack(MoCreatures.petAmulet, 1, 0);
             }
 
             //entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(MoCreatures.fishnet, 1, 0));

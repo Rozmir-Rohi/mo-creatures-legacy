@@ -101,7 +101,7 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
     {   
         int randomAmount = rand.nextInt(3);
 
-        dropItem(MoCreatures.animalHide, randomAmount);
+        dropItem(MoCreatures.hide, randomAmount);
         
         if (!MoCreatures.isGregTech6Loaded)
         {

@@ -439,7 +439,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
         { return MoCreatures.nunchaku; }
         
         
-        return MoCreatures.turtleraw;
+        return MoCreatures.turtleRaw;
     }
 
     /**

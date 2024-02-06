@@ -40,7 +40,7 @@ public class MoCMessageTwoBytes implements IMessage, IMessageHandler<MoCMessageT
     }
 
     @Override
-    public IMessage onMessage(MoCMessageTwoBytes message, MessageContext ctx)
+    public IMessage onMessage(MoCMessageTwoBytes message, MessageContext context)
     {
         Entity entity = MoCClientProxy.mc.thePlayer.worldObj.getEntityByID(message.entityId);
         if (entity != null && entity instanceof MoCEntityGolem)

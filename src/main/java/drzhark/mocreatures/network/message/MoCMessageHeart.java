@@ -34,10 +34,10 @@ public class MoCMessageHeart implements IMessage, IMessageHandler<MoCMessageHear
     }
 
     @Override
-    public IMessage onMessage(MoCMessageHeart message, MessageContext ctx)
+    public IMessage onMessage(MoCMessageHeart message, MessageContext context)
     {
-        List<Entity> entList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
-        for (Entity entity : entList)
+        List<Entity> entityList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
+        for (Entity entity : entityList)
         {
             if (entity.getEntityId() == message.entityId && entity instanceof MoCEntityAnimal)
             {

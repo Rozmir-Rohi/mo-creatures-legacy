@@ -627,7 +627,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         if (super.interact(entityPlayer)) { return false; }
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
 
-        if (getIsTamed() && (getType() > 1) && (itemstack != null) && !getIsRideable() && (itemstack.getItem() == MoCreatures.horsesaddle || itemstack.getItem() == Items.saddle))
+        if (getIsTamed() && (getType() > 1) && (itemstack != null) && !getIsRideable() && (itemstack.getItem() == MoCreatures.craftedSaddle || itemstack.getItem() == Items.saddle))
         {
             if (--itemstack.stackSize == 0)
             {
@@ -657,7 +657,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && this.getIsTamed() && getType()> 1 && itemstack.getItem() == MoCreatures.essencedarkness)
+        if ((itemstack != null) && this.getIsTamed() && getType()> 1 && itemstack.getItem() == MoCreatures.essenceDarkness)
         {
             if (--itemstack.stackSize == 0)
             {
@@ -679,7 +679,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && this.getIsTamed() && getType()> 1 && itemstack.getItem() == MoCreatures.essenceundead)
+        if ((itemstack != null) && this.getIsTamed() && getType()> 1 && itemstack.getItem() == MoCreatures.essenceUndead)
         {
             if (--itemstack.stackSize == 0)
             {
@@ -701,7 +701,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && this.getIsTamed() && getType()> 1 && itemstack.getItem() == MoCreatures.essencelight)
+        if ((itemstack != null) && this.getIsTamed() && getType()> 1 && itemstack.getItem() == MoCreatures.essenceLight)
         {
             if (--itemstack.stackSize == 0)
             {
@@ -723,7 +723,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && this.getIsTamed() && getType()> 1 && itemstack.getItem() == MoCreatures.essencefire)
+        if ((itemstack != null) && this.getIsTamed() && getType()> 1 && itemstack.getItem() == MoCreatures.essenceFire)
         {
             if (--itemstack.stackSize == 0)
             {
@@ -922,17 +922,17 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     {
         boolean flag = (rand.nextInt(100) < MoCreatures.proxy.rareItemDropChance);
         if (flag && (this.getType() == 8)) // unicorn
-        { return MoCreatures.unicornhorn; }
+        { return MoCreatures.unicornHorn; }
         if (this.getType() == 5 && flag) 
-        { return MoCreatures.heartfire; }
+        { return MoCreatures.heartFire; }
         if (this.getType() == 6 && flag) // bat horse
-        { return MoCreatures.heartdarkness; }
+        { return MoCreatures.heartDarkness; }
         if (this.getType() == 7 )
         {
             if (flag) { return MoCreatures.heartundead; }
             return Items.rotten_flesh;
         }
-         return MoCreatures.ostrichraw;
+         return MoCreatures.ostrichRaw;
     }
 
     @Override

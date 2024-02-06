@@ -135,7 +135,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
         }
         
         //stores in fishnet
-        if (itemstack != null && itemstack.getItem() == MoCreatures.fishnet && itemstack.getItemDamage() == 0 && this.canBeTrappedInNet()) 
+        if (itemstack != null && itemstack.getItem() == MoCreatures.fishNet && itemstack.getItemDamage() == 0 && this.canBeTrappedInNet()) 
         {
         	//if the player using the amulet is not the owner
 	        if (getOwnerName().length() > 0 && !(getOwnerName().equals(entityPlayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)

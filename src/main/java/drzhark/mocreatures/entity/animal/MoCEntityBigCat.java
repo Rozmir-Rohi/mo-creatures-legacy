@@ -626,7 +626,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     @Override
     protected Item getDropItem()
     {
-        return MoCreatures.bigcatclaw;
+        return MoCreatures.bigcatClaw;
     }
 
     @Override
@@ -810,8 +810,8 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 	    			|| item == Items.beef 
 	    			|| item == Items.chicken
 	    			|| item == Items.fish
-	    			|| item == MoCreatures.ostrichraw
-	    			|| item == MoCreatures.rawTurkey
+	    			|| item == MoCreatures.ostrichRaw
+	    			|| item == MoCreatures.turkeyRaw
 	    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
 	    			|| oreDictionaryNameArray.contains("listAllmeatraw")
 	    			|| oreDictionaryNameArray.contains("listAllfishraw")

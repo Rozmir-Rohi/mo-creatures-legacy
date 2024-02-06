@@ -21,11 +21,11 @@ public class MoCMessageEntityDive implements IMessage, IMessageHandler<MoCMessag
     }
 
     @Override
-    public IMessage onMessage(MoCMessageEntityDive message, MessageContext ctx)
+    public IMessage onMessage(MoCMessageEntityDive message, MessageContext context)
     {
-        if (ctx.getServerHandler().playerEntity.ridingEntity != null && ctx.getServerHandler().playerEntity.ridingEntity instanceof IMoCEntity)
+        if (context.getServerHandler().playerEntity.ridingEntity != null && context.getServerHandler().playerEntity.ridingEntity instanceof IMoCEntity)
         {
-            ((IMoCEntity) ctx.getServerHandler().playerEntity.ridingEntity).makeEntityDive();
+            ((IMoCEntity) context.getServerHandler().playerEntity.ridingEntity).makeEntityDive();
         }
         return null;
     }

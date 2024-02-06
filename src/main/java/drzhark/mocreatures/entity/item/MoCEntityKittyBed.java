@@ -207,7 +207,7 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
             entityPlayer.addStat(MoCAchievements.pet_food, 1);
             return true;
         }
-        if ((itemstack != null) && MoCreatures.isServer() && !getHasFood() && (itemstack.getItem() == MoCreatures.petfood))
+        if ((itemstack != null) && MoCreatures.isServer() && !getHasFood() && (itemstack.getItem() == MoCreatures.petFood))
         {
             if (--itemstack.stackSize == 0)
             {
@@ -266,7 +266,7 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
             {
             	Item item = entityItem.getEntityItem().getItem();
             
-            	if (!getHasFood() && (item == MoCreatures.petfood))
+            	if (!getHasFood() && (item == MoCreatures.petFood))
             	{
             		entityItem.setDead();
             		worldObj.playSoundAtEntity(this, "mocreatures:pouringfood", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));

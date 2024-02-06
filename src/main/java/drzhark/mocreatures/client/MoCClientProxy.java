@@ -284,12 +284,12 @@ public class MoCClientProxy extends MoCProxy {
      * Sets the name client side. Name is synchronized with datawatchers
      * 
      * @param player
-     * @param mocanimal
+     * @param mocAnimal
      */
     @Override
-    public void setName(EntityPlayer player, IMoCEntity mocanimal)
+    public void setName(EntityPlayer player, IMoCEntity mocAnimal)
     {
-        mc.displayGuiScreen(new MoCGUIEntityNamer(mocanimal, mocanimal.getName()));
+        mc.displayGuiScreen(new MoCGUIEntityNamer(mocAnimal, mocAnimal.getName()));
 
     }
 

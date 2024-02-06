@@ -38,10 +38,10 @@ public class MoCMessageHealth implements IMessage, IMessageHandler<MoCMessageHea
     }
 
     @Override
-    public IMessage onMessage(MoCMessageHealth message, MessageContext ctx)
+    public IMessage onMessage(MoCMessageHealth message, MessageContext context)
     {
-        List<Entity> entList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
-        for (Entity entity : entList)
+        List<Entity> entityList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
+        for (Entity entity : entityList)
         {
             if (entity.getEntityId() == message.entityId && entity instanceof EntityLiving)
             {

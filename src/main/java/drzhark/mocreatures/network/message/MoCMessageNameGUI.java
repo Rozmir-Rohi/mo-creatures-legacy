@@ -37,20 +37,20 @@ public class MoCMessageNameGUI implements IMessage, IMessageHandler<MoCMessageNa
     }
 
     @Override
-    public IMessage onMessage(MoCMessageNameGUI message, MessageContext ctx)
+    public IMessage onMessage(MoCMessageNameGUI message, MessageContext context)
     {
-        if (ctx.side == Side.CLIENT)
+        if (context.side == Side.CLIENT)
         {
-            handleClientMessage(message, ctx);
+            handleClientMessage(message, context);
         }
         return null;
     }
 
     @SideOnly(Side.CLIENT)
-    public void handleClientMessage(MoCMessageNameGUI message, MessageContext ctx)
+    public void handleClientMessage(MoCMessageNameGUI message, MessageContext context)
     {
-        List<Entity> entList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
-        for (Entity entity : entList)
+        List<Entity> entityList = MoCClientProxy.mc.thePlayer.worldObj.loadedEntityList;
+        for (Entity entity : entityList)
         {
             if (entity.getEntityId() == message.entityId && entity instanceof IMoCEntity)
             {
