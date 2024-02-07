@@ -1,6 +1,11 @@
 package drzhark.mocreatures.entity.animal;
 
 import drzhark.mocreatures.entity.MoCEntityAnimal;
+import drzhark.mocreatures.entity.MoCEntityInsect;
+import drzhark.mocreatures.entity.ambient.MoCEntityMaggot;
+import drzhark.mocreatures.entity.ambient.MoCEntitySnail;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;

@@ -2,6 +2,7 @@ package drzhark.mocreatures.entity.aquatic;
 
 import java.util.List;
 
+import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.IMoCEntity;
 import drzhark.mocreatures.entity.MoCEntityAmbient;
@@ -17,6 +18,7 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -173,9 +175,18 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-        return itemstack != null && 
-        		(
-        			itemstack.getItem() == Items.fish
+    	if (itemstack != null)
+    	{
+	    	Item item = itemstack.getItem();
+	    	
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+	    	
+	    	return
+	    		(
+	    			(item == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
+        			|| oreDictionaryNameArray.contains("listAllfishraw")
         		);
+    	}
+    	return false;
     }
 }

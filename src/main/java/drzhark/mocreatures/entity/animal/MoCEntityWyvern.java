@@ -707,9 +707,9 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
+    public boolean shouldEntityBeIgnored(Entity entity)
     {
-        return (super.entitiesToIgnoreWhenLookingForAnEntityToAttack(entity) || (entity instanceof MoCEntityWyvern) || (entity instanceof EntityPlayer));
+        return (super.shouldEntityBeIgnored(entity) || (entity instanceof MoCEntityWyvern) || (entity instanceof EntityPlayer));
     }
 
     @Override
@@ -793,6 +793,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         		itemstack.getItem() == MoCreatures.ratRaw
         		|| itemstack.getItem() == MoCreatures.turkeyRaw
         		|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
+        		|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("harvestcraft:rabbitrawItem")
         		|| MoCreatures.isGregTech6Loaded &&
         			(	
         				OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"

@@ -109,7 +109,8 @@ public class MoCEntityBee extends MoCEntityInsect
         if (super.attackEntityFrom(damageSource, damageTaken))
         {
             Entity entityThatAttackedThisCreature = damageSource.getEntity();
-            if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting.getDifficultyId() > 0))
+            
+            if (entityThatAttackedThisCreature != this && worldObj.difficultySetting.getDifficultyId() > 0)
             {
                 entityToAttack = entityThatAttackedThisCreature;
             }

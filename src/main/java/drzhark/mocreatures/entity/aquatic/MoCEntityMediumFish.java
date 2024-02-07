@@ -130,8 +130,8 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
         {
         	if (getIsAdult() && getType() != 1) //not a blue salmon - because salmon only lay eggs when they go to fresh water and become red
         	{
-	            int j = rand.nextInt(2);
-	            for (int k = 0; k < j; k++)
+	            int amountOfEggsToDrop = rand.nextInt(2);
+	            for (int index = 0; index < amountOfEggsToDrop; index++)
 	            {
 	            	if (getType() == 4) //red salmon
 	            	{

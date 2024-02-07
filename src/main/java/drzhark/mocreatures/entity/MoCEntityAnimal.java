@@ -230,7 +230,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
 	        {
 	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
 
-	            if (entitiesToIgnoreWhenLookingForAnEntityToAttack(entityNearby))
+	            if (shouldEntityBeIgnored(entityNearby))
 	            {
 	                continue;
 	            }
@@ -324,7 +324,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
      * @param entity
      * @return
      */
-    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
+    public boolean shouldEntityBeIgnored(Entity entity)
     {
         return
         	(
@@ -487,9 +487,9 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
                 		{
                 			MoCEntityBird bird = (MoCEntityBird) this;
 
-                			if (bird.fleeing) {return;}
+                			if (bird.isFleeing) {return;}
 
-                			bird.FlyToNextEntity(closestEntityItem);
+                			bird.flyToNextEntity(closestEntityItem);
 
                 			if ((distanceToEntityItem < 2.0F) && (closestEntityItem != null))
 	                		{

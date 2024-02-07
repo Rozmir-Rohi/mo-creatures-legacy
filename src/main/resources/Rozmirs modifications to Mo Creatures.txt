@@ -755,5 +755,22 @@ FOUND BUG: ducks are darker when floating on water. I don't know how to fix this
 More identifier changes to match java naming conventions.
 
 
-Added fullstops to end of all sentences for achievement descriptions. This fix was only need for en_US.lang and does not need to be applied for other existing language files.
+Added full stops to end of all sentences for achievement descriptions. This fix was only need for en_US.lang and does not need to be applied for other existing language files.
 
+
+The following creatures now accept food from the "listAllfishraw" oredictionary:
+ - Big Cat
+ - Piranha
+ - Dolphin
+ - Shark
+ - Komodo Dragons
+ - Kitty (Only when angry to calm down, or after using litter box, or after eating from kitty bed)
+
+
+Komodo Dragons now accept rotten flesh as a food item.
+
+
+Wyverns now accept harvestcraft raw rabbit as a food item.
+
+
+Fixed the land predators that are supposed to hunt fish not hunting fish if they are in rivers.

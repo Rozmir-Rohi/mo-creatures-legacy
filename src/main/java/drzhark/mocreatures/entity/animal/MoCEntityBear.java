@@ -340,10 +340,10 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     }
     
     @Override
-    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
+    public boolean shouldEntityBeIgnored(Entity entity)
     {
         return (
-	        		super.entitiesToIgnoreWhenLookingForAnEntityToAttack(entity) //including the mobs specified in parent file
+	        		super.shouldEntityBeIgnored(entity) //including the mobs specified in parent file
 	            	|| (entity instanceof MoCEntityBear) 
 	            	|| (getIsAdult() && (entity.width > 1.3D && entity.height > 1.3D)) // don't try to hunt creature larger than a deer when adult
 	                || (!getIsAdult() && (entity.width > 0.5D && entity.height > 0.5D)) // don't try to hunt creature larger than a chicken when child
@@ -370,21 +370,11 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             {
                 EntityLivingBase closestEntityLiving = getClosestEntityLiving(this, 10D);
                 
-                if (closestEntityLiving instanceof MoCEntityAquatic || closestEntityLiving instanceof MoCEntityTameableAquatic) // don't go and hunt fish if they are in the ocean
-                {
-                	int x = MathHelper.floor_double(closestEntityLiving.posX);
-                    int y = MathHelper.floor_double(closestEntityLiving.posY);
-                    int z = MathHelper.floor_double(closestEntityLiving.posZ);
-
-                    BiomeGenBase biomeThatPreyIsIn = MoCTools.Biomekind(worldObj, x, y, z);
-
-                    if (BiomeDictionary.isBiomeOfType(biomeThatPreyIsIn, Type.OCEAN) || BiomeDictionary.isBiomeOfType(biomeThatPreyIsIn, Type.BEACH))
-                    {
-                    	 return null;
-                    }
-                }
                 
-                else {return closestEntityLiving;}
+                if (closestEntityLiving != null && !MoCTools.isEntityAFishThatIsInTheOcean(closestEntityLiving))
+                {
+                	return closestEntityLiving;
+                }
             }
         }
             return null;

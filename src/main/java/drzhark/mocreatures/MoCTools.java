@@ -10,7 +10,9 @@ import cpw.mods.fml.relauncher.Side;
 import drzhark.mocreatures.entity.IMoCEntity;
 import drzhark.mocreatures.entity.IMoCTameable;
 import drzhark.mocreatures.entity.MoCEntityAnimal;
+import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
+import drzhark.mocreatures.entity.MoCEntityTameableAquatic;
 import drzhark.mocreatures.entity.ambient.MoCEntityMaggot;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
 import drzhark.mocreatures.entity.animal.MoCEntityPetScorpion;
@@ -55,7 +57,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.oredict.OreDictionary;
@@ -183,6 +187,27 @@ public class MoCTools {
             entityTarget.attackEntityFrom(DamageSource.causeMobDamage(entityattacker), damage);
             pushEntityBack(entityattacker, entityTarget, 0.6F);
         }
+    }
+    
+    public static boolean isEntityAFishThatIsInTheOcean(Entity entity)
+    {
+    	if (entity instanceof MoCEntityAquatic || entity instanceof MoCEntityTameableAquatic) // don't go and hunt fish if they are in the ocean
+        {
+        	int x = MathHelper.floor_double(entity.posX);
+            int y = MathHelper.floor_double(entity.posY);
+            int z = MathHelper.floor_double(entity.posZ);
+
+            BiomeGenBase biomeThatEntityIsIn = MoCTools.Biomekind(entity.worldObj, x, y, z);
+
+            if (
+            		!(BiomeDictionary.isBiomeOfType(biomeThatEntityIsIn, Type.RIVER)) 
+            		&& (BiomeDictionary.isBiomeOfType(biomeThatEntityIsIn, Type.OCEAN) || BiomeDictionary.isBiomeOfType(biomeThatEntityIsIn, Type.BEACH))
+            	)
+            {
+            	 return true;
+            }
+        }
+    	return false;
     }
 
     public static void spawnNearPlayer(EntityPlayer player, int entityId, int numberToSpawn)//, World worldObj)

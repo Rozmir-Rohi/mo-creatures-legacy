@@ -313,53 +313,50 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     
 
     //TODO use MoCAnimal instead
-    public EntityLiving getClosestEntityLiving(Entity entity, double d)
+    public EntityLiving getClosestEntityLiving(Entity entity, double distance)
     {
-        double d1 = -1D;
-        EntityLiving entityLiving = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
-        for (int i = 0; i < list.size(); i++)
+        double currentMinimumDistance = -1D;
+        EntityLiving closestEntityLiving = null;
+        
+        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
+        
+        int iterationLength = entitiesNearbyList.size();
+        
+        if (iterationLength > 0)
         {
-            Entity entity1 = (Entity) list.get(i);
-            //do not hunt the following mobs below
-            if (!(entity1 instanceof EntityLiving)
-            	|| (entity1 instanceof MoCEntityKitty)
-            	|| (entity1 instanceof EntityPlayer)
-            	|| (entity1 instanceof IMob || entity1 instanceof MoCEntityMob)
-            	|| (entity1 instanceof MoCEntityKittyBed)
-            	|| (entity1 instanceof MoCEntityLitterBox)
-            	|| (entity1 instanceof MoCEntityJellyFish)
-            	|| (entity1 instanceof MoCEntityRay)
-            	|| ((entity1.width > 0.5D) && (entity1.height > 0.5D)))            	
-            {
-                continue;
-            }
-            
-            if (entity1 instanceof MoCEntityAquatic || entity1 instanceof MoCEntityTameableAquatic)
-            {
-            	int x = MathHelper.floor_double(entity1.posX);
-                int y = MathHelper.floor_double(entity1.posY);
-                int z = MathHelper.floor_double(entity1.posZ);
-
-                BiomeGenBase biomeThatPreyIsIn = MoCTools.Biomekind(worldObj, x, y, z);
-
-                if (BiomeDictionary.isBiomeOfType(biomeThatPreyIsIn, Type.OCEAN) || BiomeDictionary.isBiomeOfType(biomeThatPreyIsIn, Type.BEACH)) // stops kitty from going into the ocean to hunt fish
-                {
-                	{
-                        continue;
-                    }
-                }
-            }
-            
-            double d2 = entity1.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-            if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLiving) entity1).canEntityBeSeen(entity))
-            {
-                d1 = d2;
-                entityLiving = (EntityLiving) entity1;
-            }
+	        for (int index = 0; index < iterationLength; index++)
+	        {
+	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
+	            
+	            //do not hunt the following mobs below
+	            if (!(entityNearby instanceof EntityLiving)
+	            	|| (entityNearby instanceof MoCEntityKitty)
+	            	|| (entityNearby instanceof EntityPlayer)
+	            	|| (entityNearby instanceof IMob || entityNearby instanceof MoCEntityMob)
+	            	|| (entityNearby instanceof MoCEntityKittyBed)
+	            	|| (entityNearby instanceof MoCEntityLitterBox)
+	            	|| (entityNearby instanceof MoCEntityJellyFish)
+	            	|| (entityNearby instanceof MoCEntityRay)
+	            	|| ((entityNearby.width > 0.5D) && (entityNearby.height > 0.5D)))            	
+	            {
+	                continue;
+	            }
+	            
+	            if (entityNearby == null || MoCTools.isEntityAFishThatIsInTheOcean(entityNearby))
+	            {
+	            	continue;
+	            }
+	            
+	            double overallDistanceSquared = entityNearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+	            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)) && ((EntityLiving) entityNearby).canEntityBeSeen(entity))
+	            {
+	                currentMinimumDistance = overallDistanceSquared;
+	                closestEntityLiving = (EntityLiving) entityNearby;
+	            }
+	        }
         }
 
-        return entityLiving;
+        return closestEntityLiving;
     }
 
     @Override
@@ -580,7 +577,8 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         if ((getKittyState() == 7) && (itemstack != null) && 
         		(
         			itemstack.getItem() == Items.cake
-        			|| itemstack.getItem() == Items.fish
+        			|| (itemstack.getItem() == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
+        			|| isItemStackInRawFishOreDictionary(itemstack)
         			|| itemstack.getItem() == Items.cooked_fished
         		)
         	)
@@ -614,6 +612,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         if ((getKittyState() == 13) && (itemstack != null) && 
         		(
         			itemstack.getItem() == Items.fish
+        			|| isItemStackInRawFishOreDictionary(itemstack)
         			|| itemstack.getItem() == Items.cooked_fished
         		)
         	)
@@ -1579,6 +1578,21 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     private boolean pickable()
     {
         return (getKittyState() != 13) && (getKittyState() != 14) && (getKittyState() != 15) && (getKittyState() != 19) && (getKittyState() != 20) && (getKittyState() != 21);
+    }
+    
+    private boolean isItemStackInRawFishOreDictionary(ItemStack itemstack)
+    {
+    	if (itemstack != null)
+    	{
+	    	Item item = itemstack.getItem();
+	    	
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+	    	
+	    	return oreDictionaryNameArray.contains("listAllfishraw");
+	    	
+    	}
+    	
+    	return false;
     }
 
     @Override

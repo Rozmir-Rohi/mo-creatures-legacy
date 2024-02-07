@@ -40,23 +40,23 @@ public class MoCItemWhip extends MoCItem {
     @Override
     public boolean isBookEnchantable(ItemStack stack, ItemStack book) //only the unbreaking enchantment can be applied to whips
     {	
-    	NBTTagList book_enchantment_NBT_tag_list = (NBTTagList) book.getTagCompound().getTag("StoredEnchantments");
+    	NBTTagList bookEnchantmentNbtTagList = (NBTTagList) book.getTagCompound().getTag("StoredEnchantments");
     	
-    	List<Short> book_enchantment_id_list = new ArrayList<>();
+    	List<Short> bookEnchantmentIdList = new ArrayList<>();
     	
-    	if (book_enchantment_NBT_tag_list != null)
+    	if (bookEnchantmentNbtTagList != null)
         {
-            for (int i = 0; i < book_enchantment_NBT_tag_list.tagCount(); ++i)
+            for (int index = 0; index < bookEnchantmentNbtTagList.tagCount(); ++index)
             {
             	
-            	short enchantment_id = book_enchantment_NBT_tag_list.getCompoundTagAt(i).getShort("id");
+            	short enchantmentId = bookEnchantmentNbtTagList.getCompoundTagAt(index).getShort("id");
             	
-                book_enchantment_id_list.add(enchantment_id);
+                bookEnchantmentIdList.add(enchantmentId);
                 
             }
             
             
-            if (book_enchantment_id_list.size() == 1 && book_enchantment_id_list.get(0) == (short) 34) //34 is the id for the unbreaking enchantment
+            if (bookEnchantmentIdList.size() == 1 && bookEnchantmentIdList.get(0) == (short) 34) //34 is the id for the unbreaking enchantment
             {
             	return true;
             }
@@ -88,46 +88,46 @@ public class MoCItemWhip extends MoCItem {
             
             itemstack.damageItem(1, entityPlayer);
             
-            List list_of_entities_near_player = world.getEntitiesWithinAABBExcludingEntity(entityPlayer, entityPlayer.boundingBox.expand(5D, 5D, 5D));
+            List listOfEntitiesNearPlayer = world.getEntitiesWithinAABBExcludingEntity(entityPlayer, entityPlayer.boundingBox.expand(5D, 5D, 5D));
             
             
-            if (!(list_of_entities_near_player.isEmpty()))
+            if (!(listOfEntitiesNearPlayer.isEmpty()))
             {
-	            List<MoCEntityAnimal> whippable_entity_list = new ArrayList<>();
+	            List<MoCEntityAnimal> whippableEntityList = new ArrayList<>();
 	            
-	            List<Double> whippable_entityDistance_to_player_list = new ArrayList<>();
+	            List<Double> whippableEntityDistanceToPlayerList = new ArrayList<>();
 	            
-	            int iterationLength = list_of_entities_near_player.size();
+	            int iterationLength = listOfEntitiesNearPlayer.size();
 	            
-	            findWhippableEntitiesNearPlayer(entityPlayer, list_of_entities_near_player, whippable_entity_list, whippable_entityDistance_to_player_list, iterationLength);
+	            findWhippableEntitiesNearPlayer(entityPlayer, listOfEntitiesNearPlayer, whippableEntityList, whippableEntityDistanceToPlayerList, iterationLength);
 	            
 	            
-	            if (!(whippable_entityDistance_to_player_list.isEmpty()) && !(whippable_entity_list.isEmpty())) 
+	            if (!(whippableEntityDistanceToPlayerList.isEmpty()) && !(whippableEntityList.isEmpty())) 
 	            {
-	            	int index_of_closest_whippable_entityNearby = whippable_entityDistance_to_player_list.indexOf(Collections.min(whippable_entityDistance_to_player_list));
+	            	int indexOfClosestWhippableEntityNearby = whippableEntityDistanceToPlayerList.indexOf(Collections.min(whippableEntityDistanceToPlayerList));
 	            	
 	            	
-		            if ((index_of_closest_whippable_entityNearby >= 0))
+		            if ((indexOfClosestWhippableEntityNearby >= 0))
 		            {
 		            
-		            	MoCEntityAnimal closest_whippable_entity_to_player = whippable_entity_list.get(index_of_closest_whippable_entityNearby);    
+		            	MoCEntityAnimal closestWhippableEntityToPlayer = whippableEntityList.get(indexOfClosestWhippableEntityNearby);    
 			            
 		            	//if the player using the whip is not the owner
 				        if (
-				        		closest_whippable_entity_to_player.getOwnerName() != null 
-				        		&& !closest_whippable_entity_to_player.getOwnerName().equals("") 
-				        		&& !(entityPlayer.getCommandSenderName().equals(closest_whippable_entity_to_player.getOwnerName())) 
+				        		closestWhippableEntityToPlayer.getOwnerName() != null 
+				        		&& !closestWhippableEntityToPlayer.getOwnerName().equals("") 
+				        		&& !(entityPlayer.getCommandSenderName().equals(closestWhippableEntityToPlayer.getOwnerName())) 
 				        	) 
 				        { 
-				        	if (closest_whippable_entity_to_player.isPredator() && closest_whippable_entity_to_player.riddenByEntity == null)
+				        	if (closestWhippableEntityToPlayer.isPredator() && closestWhippableEntityToPlayer.riddenByEntity == null)
 				        	{
-				        		closest_whippable_entity_to_player.setTarget(entityPlayer); 
+				        		closestWhippableEntityToPlayer.setTarget(entityPlayer); 
 				        	}
 				        }
 		            	
 				        else
 				        {
-				        	performWhipActionOnWhippableEntity(entityPlayer, closest_whippable_entity_to_player, world); 
+				        	performWhipActionOnWhippableEntity(entityPlayer, closestWhippableEntityToPlayer, world); 
 				        }	
 			        }
 	            }
@@ -138,27 +138,27 @@ public class MoCItemWhip extends MoCItem {
     
     
 
-	private void findWhippableEntitiesNearPlayer(EntityPlayer entityPlayer, List list_of_entities_near_player, List<MoCEntityAnimal> whippable_entity_list, List<Double> whippable_entityDistance_to_player_list, int iterationLength)
+	private void findWhippableEntitiesNearPlayer(EntityPlayer entityPlayer, List listOfEntitiesNearPlayer, List<MoCEntityAnimal> whippableEntityList, List<Double> whippableEntityDistanceToPlayerList, int iterationLength)
 	{
 		for (int index = 0; index < iterationLength; index++)
 		{
-		    Entity entity_near_player = (Entity) list_of_entities_near_player.get(index);
+		    Entity entityNearPlayer = (Entity) listOfEntitiesNearPlayer.get(index);
 		    
-		    if (entity_near_player instanceof MoCEntityAnimal)
+		    if (entityNearPlayer instanceof MoCEntityAnimal)
 		    {
-		        MoCEntityAnimal animal_near_player = (MoCEntityAnimal) entity_near_player;
+		        MoCEntityAnimal animalNearPlayer = (MoCEntityAnimal) entityNearPlayer;
 		        
 		        if (
-		        		animal_near_player instanceof MoCEntityBigCat
-		            	|| animal_near_player instanceof MoCEntityHorse
-		            	|| animal_near_player instanceof MoCEntityKitty
-		            	|| animal_near_player instanceof MoCEntityWyvern
-		            	|| animal_near_player instanceof MoCEntityOstrich
-		            	|| animal_near_player instanceof MoCEntityElephant
+		        		animalNearPlayer instanceof MoCEntityBigCat
+		            	|| animalNearPlayer instanceof MoCEntityHorse
+		            	|| animalNearPlayer instanceof MoCEntityKitty
+		            	|| animalNearPlayer instanceof MoCEntityWyvern
+		            	|| animalNearPlayer instanceof MoCEntityOstrich
+		            	|| animalNearPlayer instanceof MoCEntityElephant
 		        	)
 		        {
-		        	whippable_entity_list.add(animal_near_player);
-		        	whippable_entityDistance_to_player_list.add(entityPlayer.getDistanceSq(animal_near_player.posX, animal_near_player.posY, animal_near_player.posZ));
+		        	whippableEntityList.add(animalNearPlayer);
+		        	whippableEntityDistanceToPlayerList.add(entityPlayer.getDistanceSq(animalNearPlayer.posX, animalNearPlayer.posY, animalNearPlayer.posZ));
 		        }
 		    }
 		    else {continue;}
@@ -167,21 +167,21 @@ public class MoCItemWhip extends MoCItem {
 
 	
     
-	private void performWhipActionOnWhippableEntity(EntityPlayer entityPlayer, MoCEntityAnimal closest_whippable_entity_to_player, World world)
+	private void performWhipActionOnWhippableEntity(EntityPlayer entityPlayer, MoCEntityAnimal closestWhippableEntityToPlayer, World world)
 	{
-		if (closest_whippable_entity_to_player != null)
+		if (closestWhippableEntityToPlayer != null)
 		{		
-		    if (closest_whippable_entity_to_player instanceof MoCEntityBigCat)
+		    if (closestWhippableEntityToPlayer instanceof MoCEntityBigCat)
 		    {
-		        MoCEntityBigCat entitybigcat = (MoCEntityBigCat) closest_whippable_entity_to_player;
-		        if (entitybigcat.getIsTamed())
+		        MoCEntityBigCat entityBigcat = (MoCEntityBigCat) closestWhippableEntityToPlayer;
+		        if (entityBigcat.getIsTamed())
 		        {
-		            entitybigcat.setSitting(!entitybigcat.getIsSitting());
+		            entityBigcat.setSitting(!entityBigcat.getIsSitting());
 		            bigCatWhipCounter++;
 		        }
-		        else if ((world.difficultySetting.getDifficultyId() > 0) && entitybigcat.getIsAdult())
+		        else if ((world.difficultySetting.getDifficultyId() > 0) && entityBigcat.getIsAdult())
 		        {
-		            entitybigcat.setTarget(entityPlayer);
+		            entityBigcat.setTarget(entityPlayer);
 		        }
 		    }
 		    if (bigCatWhipCounter > 6)
@@ -191,104 +191,104 @@ public class MoCItemWhip extends MoCItem {
 		    }
 		    
 		    
-		    if (closest_whippable_entity_to_player instanceof MoCEntityHorse)
+		    if (closestWhippableEntityToPlayer instanceof MoCEntityHorse)
 		    {
-		        MoCEntityHorse entityhorse = (MoCEntityHorse) closest_whippable_entity_to_player;
-		        if (entityhorse.getIsTamed())
+		        MoCEntityHorse entityHorse = (MoCEntityHorse) closestWhippableEntityToPlayer;
+		        if (entityHorse.getIsTamed())
 		        {
-		            if (entityhorse.riddenByEntity == null)
+		            if (entityHorse.riddenByEntity == null)
 		            {
-		                entityhorse.setEating(!entityhorse.getEating());
+		                entityHorse.setEating(!entityHorse.getEating());
 		            }
-		            else if (entityhorse.isNightmare())
+		            else if (entityHorse.isNightmare())
 		            {
-		                entityhorse.setNightmareFireTrailCounter(250);
+		                entityHorse.setNightmareFireTrailCounter(250);
 		            }
-		            else if (entityhorse.sprintCounter == 0)
+		            else if (entityHorse.sprintCounter == 0)
 		            {
-		                entityhorse.sprintCounter = 1;
+		                entityHorse.sprintCounter = 1;
 		                
-		                if (entityhorse.isUndead()) {world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:horsemadundead", 1.0F, 1.0F + 0.2F);}
+		                if (entityHorse.isUndead()) {world.playSoundAtEntity(closestWhippableEntityToPlayer, "mocreatures:horsemadundead", 1.0F, 1.0F + 0.2F);}
 		                
-		                else if (entityhorse.isGhost()) {world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:horsemadghost", 1.0F, 1.0F + 0.2F);}
+		                else if (entityHorse.isGhost()) {world.playSoundAtEntity(closestWhippableEntityToPlayer, "mocreatures:horsemadghost", 1.0F, 1.0F + 0.2F);}
 		                
-		                else {world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:horsemad", 1.0F, 1.0F + 0.2F);}
+		                else {world.playSoundAtEntity(closestWhippableEntityToPlayer, "mocreatures:horsemad", 1.0F, 1.0F + 0.2F);}
 		                
 		            }
 		        }
 		    }
 		    
 		    
-		    if ((closest_whippable_entity_to_player instanceof MoCEntityKitty))
+		    if ((closestWhippableEntityToPlayer instanceof MoCEntityKitty))
 		    {
-		        MoCEntityKitty entitykitty = (MoCEntityKitty) closest_whippable_entity_to_player;
-		        if ((entitykitty.getKittyState() > 2) && entitykitty.whipeable())
+		        MoCEntityKitty entityKitty = (MoCEntityKitty) closestWhippableEntityToPlayer;
+		        if ((entityKitty.getKittyState() > 2) && entityKitty.whipeable())
 		        {
-		            entitykitty.setSitting(!entitykitty.getIsSitting());
+		            entityKitty.setSitting(!entityKitty.getIsSitting());
 		        }
 		    }
 		    
 		    
-		    if ((closest_whippable_entity_to_player instanceof MoCEntityWyvern))
+		    if ((closestWhippableEntityToPlayer instanceof MoCEntityWyvern))
 		    {
-		        MoCEntityWyvern entitywyvern = (MoCEntityWyvern) closest_whippable_entity_to_player;
-		        if (entitywyvern.getIsTamed() && !entitywyvern.isOnAir())
+		        MoCEntityWyvern entityWyvern = (MoCEntityWyvern) closestWhippableEntityToPlayer;
+		        if (entityWyvern.getIsTamed() && !entityWyvern.isOnAir())
 		        {
-		            entitywyvern.setSitting(!entitywyvern.getIsSitting());
+		            entityWyvern.setSitting(!entityWyvern.getIsSitting());
 		        }
 		    }
 		    
 		    
-		    if (closest_whippable_entity_to_player instanceof MoCEntityOstrich)
+		    if (closestWhippableEntityToPlayer instanceof MoCEntityOstrich)
 		    {
-		        MoCEntityOstrich entityostrich = (MoCEntityOstrich) closest_whippable_entity_to_player;
+		        MoCEntityOstrich entityOstrich = (MoCEntityOstrich) closestWhippableEntityToPlayer;
 
 		        //makes ridden ostrich sprint
-		        if (entityostrich.riddenByEntity != null && entityostrich.sprintCounter == 0)
+		        if (entityOstrich.riddenByEntity != null && entityOstrich.sprintCounter == 0)
 		        {
-		            entityostrich.sprintCounter = 1;
-		            world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:ostrichhurt", 1.0F, 1.0F + 0.2F);
+		            entityOstrich.sprintCounter = 1;
+		            world.playSoundAtEntity(closestWhippableEntityToPlayer, "mocreatures:ostrichhurt", 1.0F, 1.0F + 0.2F);
 		        }
 
 		        //toggles hiding of tamed ostriches
-		        if (entityostrich.getIsTamed() && entityostrich.riddenByEntity == null)
+		        if (entityOstrich.getIsTamed() && entityOstrich.riddenByEntity == null)
 		        {
-		            entityostrich.setHiding(!entityostrich.getHiding());
+		            entityOstrich.setHiding(!entityOstrich.getHiding());
 		        }
 		    }
 		    
 		    
-		    if (closest_whippable_entity_to_player instanceof MoCEntityElephant)
+		    if (closestWhippableEntityToPlayer instanceof MoCEntityElephant)
 		    {
-		        MoCEntityElephant entityelephant = (MoCEntityElephant) closest_whippable_entity_to_player;
+		        MoCEntityElephant entityElephant = (MoCEntityElephant) closestWhippableEntityToPlayer;
 
 		        //makes ridden elephants charge
-		        if (entityelephant.riddenByEntity != null && entityelephant.sprintCounter == 0)
+		        if (entityElephant.riddenByEntity != null && entityElephant.sprintCounter == 0)
 		        {
-		            entityelephant.sprintCounter = 1;
-		            world.playSoundAtEntity(closest_whippable_entity_to_player, "mocreatures:elephantgrunt", 1.0F, 1.0F + 0.2F);
+		            entityElephant.sprintCounter = 1;
+		            world.playSoundAtEntity(closestWhippableEntityToPlayer, "mocreatures:elephantgrunt", 1.0F, 1.0F + 0.2F);
 		        }
 		    }
 		}
 	}
 
 	
-    public void whipFX(World world, int i, int j, int k)
+    public void whipFX(World world, int x, int y, int z)
     {
-        double d = i + 0.5F;
-        double d1 = j + 1.0F;
-        double d2 = k + 0.5F;
-        double d3 = 0.2199999988079071D;
-        double d4 = 0.27000001072883606D;
-        world.spawnParticle("smoke", d - d4, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
-        world.spawnParticle("flame", d - d4, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
-        world.spawnParticle("smoke", d + d4, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
-        world.spawnParticle("flame", d + d4, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
-        world.spawnParticle("smoke", d, d1 + d3, d2 - d4, 0.0D, 0.0D, 0.0D);
-        world.spawnParticle("flame", d, d1 + d3, d2 - d4, 0.0D, 0.0D, 0.0D);
-        world.spawnParticle("smoke", d, d1 + d3, d2 + d4, 0.0D, 0.0D, 0.0D);
-        world.spawnParticle("flame", d, d1 + d3, d2 + d4, 0.0D, 0.0D, 0.0D);
-        world.spawnParticle("smoke", d, d1, d2, 0.0D, 0.0D, 0.0D);
-        world.spawnParticle("flame", d, d1, d2, 0.0D, 0.0D, 0.0D);
+        double particleBasePositionX = x + 0.5F;
+        double particleBasePositionY = y + 1.0F;
+        double particleBasePositionZ = z + 0.5F;
+        double yOffset = 0.2199999988079071D;
+        double xzOffset = 0.27000001072883606D;
+        world.spawnParticle("smoke", particleBasePositionX - xzOffset, particleBasePositionY + yOffset, particleBasePositionZ, 0.0D, 0.0D, 0.0D);
+        world.spawnParticle("flame", particleBasePositionX - xzOffset, particleBasePositionY + yOffset, particleBasePositionZ, 0.0D, 0.0D, 0.0D);
+        world.spawnParticle("smoke", particleBasePositionX + xzOffset, particleBasePositionY + yOffset, particleBasePositionZ, 0.0D, 0.0D, 0.0D);
+        world.spawnParticle("flame", particleBasePositionX + xzOffset, particleBasePositionY + yOffset, particleBasePositionZ, 0.0D, 0.0D, 0.0D);
+        world.spawnParticle("smoke", particleBasePositionX, particleBasePositionY + yOffset, particleBasePositionZ - xzOffset, 0.0D, 0.0D, 0.0D);
+        world.spawnParticle("flame", particleBasePositionX, particleBasePositionY + yOffset, particleBasePositionZ - xzOffset, 0.0D, 0.0D, 0.0D);
+        world.spawnParticle("smoke", particleBasePositionX, particleBasePositionY + yOffset, particleBasePositionZ + xzOffset, 0.0D, 0.0D, 0.0D);
+        world.spawnParticle("flame", particleBasePositionX, particleBasePositionY + yOffset, particleBasePositionZ + xzOffset, 0.0D, 0.0D, 0.0D);
+        world.spawnParticle("smoke", particleBasePositionX, particleBasePositionY, particleBasePositionZ, 0.0D, 0.0D, 0.0D);
+        world.spawnParticle("flame", particleBasePositionX, particleBasePositionY, particleBasePositionZ, 0.0D, 0.0D, 0.0D);
     }
 }

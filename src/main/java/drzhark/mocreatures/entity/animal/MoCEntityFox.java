@@ -166,14 +166,16 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     }
     
     @Override
-    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
+    public boolean shouldEntityBeIgnored(Entity entity)
     {
-        return (super.entitiesToIgnoreWhenLookingForAnEntityToAttack(entity) //including the mobs specified in parent file
-            	|| (entity instanceof MoCEntityFox)
-            	|| ((entity.width > 0.5D) && (entity.height > 0.5D)) //don't try to hunt creatures larger than it
-            	|| (entity instanceof MoCEntityKomodo)
-            	|| (entity instanceof MoCEntityJellyFish || entity instanceof MoCEntityRay || entity instanceof EntitySquid)
-                || (getIsTamed() && (entity instanceof IMoCEntity) && ((IMoCEntity)entity).getIsTamed() ) 
+        return
+        		(
+        			super.shouldEntityBeIgnored(entity) //including the mobs specified in parent file
+        			|| (entity instanceof MoCEntityFox)
+        			|| ((entity.width > 0.5D) && (entity.height > 0.5D)) //don't try to hunt creatures larger than a chicken
+        			|| (entity instanceof MoCEntityKomodo)
+        			|| (entity instanceof MoCEntityJellyFish || entity instanceof MoCEntityRay || entity instanceof EntitySquid)
+        			|| (getIsTamed() && (entity instanceof IMoCEntity) && ((IMoCEntity)entity).getIsTamed() ) 
         		);
     }
 
@@ -183,23 +185,17 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     {
         if ((rand.nextInt(80) == 0) && (worldObj.difficultySetting.getDifficultyId() > 0))
         {
-            EntityLivingBase entityLiving = getClosestEntityLiving(this, 8D);
+            EntityLivingBase closestEntityLiving = getClosestEntityLiving(this, 8D);
             
-            if (entityLiving instanceof MoCEntityAquatic || entityLiving instanceof MoCEntityTameableAquatic) // don't go and hunt fish if they are in the ocean
+            if (shouldEntityBeIgnored(closestEntityLiving))
             {
-            	int x = MathHelper.floor_double(entityLiving.posX);
-                int y = MathHelper.floor_double(entityLiving.posY);
-                int z = MathHelper.floor_double(entityLiving.posZ);
-
-                BiomeGenBase biomeThatPreyIsIn = MoCTools.Biomekind(worldObj, x, y, z);
-
-                if (BiomeDictionary.isBiomeOfType(biomeThatPreyIsIn, Type.OCEAN) || BiomeDictionary.isBiomeOfType(biomeThatPreyIsIn, Type.BEACH))
-                {
-                	return null;
-                }
+            	return null;
             }
             
-            else {return entityLiving;}
+            if (closestEntityLiving != null && !MoCTools.isEntityAFishThatIsInTheOcean(closestEntityLiving))
+            {
+            	return closestEntityLiving;
+            }
         }
         return null;
     }

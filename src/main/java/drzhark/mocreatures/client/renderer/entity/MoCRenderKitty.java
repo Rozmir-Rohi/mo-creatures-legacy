@@ -157,9 +157,9 @@ public class MoCRenderKitty extends RenderBiped {
         return entityLiving.ticksExisted + f;
     }
 
-    protected void onMaBack(EntityLivingBase entityLiving)
+    protected void onPlayersBack(EntityLivingBase entityLiving)
     {
-        GL11.glRotatef(90F, 0.0F, 0.0F, -1F);
+        GL11.glRotatef(90F, 0F, 0.0F, -1F);
 
         if (!entityLiving.worldObj.isRemote && (entityLiving.ridingEntity != null))
         {
@@ -201,7 +201,7 @@ public class MoCRenderKitty extends RenderBiped {
         }
         if (entitykitty.onMaBack())
         {
-            onMaBack(entityLiving);
+            onPlayersBack(entityLiving);
         }
     }
 

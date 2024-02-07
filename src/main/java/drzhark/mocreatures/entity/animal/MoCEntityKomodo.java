@@ -1,5 +1,7 @@
 package drzhark.mocreatures.entity.animal;
 
+import java.util.List;
+
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
@@ -22,6 +24,7 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -442,23 +445,33 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-        return itemstack != null && 
-        	(
-        		itemstack.getItem() == Items.porkchop
-    			|| itemstack.getItem() == Items.beef 
-    			|| itemstack.getItem() == Items.chicken
-    			|| itemstack.getItem() == Items.fish
-        		|| itemstack.getItem() == MoCreatures.ratRaw
-        		|| itemstack.getItem() == MoCreatures.turkeyRaw
-            	|| itemstack.getItem() == MoCreatures.ostrichRaw
-        		|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
-    			|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
-    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllmeatraw"
-    			|| MoCreatures.isGregTech6Loaded &&
-    				(
-    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
-    				)
-        	);
+        if (itemstack != null)
+        {
+        	Item item = itemstack.getItem();
+        	
+        	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+        	
+        	return 
+	        	(
+	        		item == Items.porkchop
+	    			|| item == Items.beef 
+	    			|| item == Items.chicken
+	    			|| (item == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
+	        		|| item == Items.rotten_flesh
+	    			|| item == MoCreatures.ratRaw
+	        		|| item == MoCreatures.turkeyRaw
+	            	|| item == MoCreatures.ostrichRaw
+	        		|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
+	    			|| oreDictionaryNameArray.contains("listAllmeatraw")
+	    			|| oreDictionaryNameArray.contains("listAllfishraw")
+	    			|| MoCreatures.isGregTech6Loaded &&
+	    				(
+	    					oreDictionaryNameArray.contains("foodScrapmeat")
+	    				)
+	        	);
+        }
+        
+        return false;
     }
 
     @Override
@@ -468,9 +481,9 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     }
 
     @Override
-    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
+    public boolean shouldEntityBeIgnored(Entity entity)
     {
-        return (super.entitiesToIgnoreWhenLookingForAnEntityToAttack(entity)
+        return (super.shouldEntityBeIgnored(entity)
         		|| (entity instanceof MoCEntityKomodo)
         		|| (entity instanceof EntityPlayer)
             	|| (entity instanceof MoCEntityBigCat)

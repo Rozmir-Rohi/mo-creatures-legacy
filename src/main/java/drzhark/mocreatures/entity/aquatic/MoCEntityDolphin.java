@@ -223,7 +223,9 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         if (super.attackEntityFrom(damageSource, damageTaken) && (worldObj.difficultySetting.getDifficultyId() > 0))
         {
             Entity entityThatAttackedThisCreature = damageSource.getEntity();
+            
             if ((riddenByEntity == entityThatAttackedThisCreature) || (ridingEntity == entityThatAttackedThisCreature)) { return true; }
+            
             if (entityThatAttackedThisCreature != this)
             {
                 entityToAttack = entityThatAttackedThisCreature;
@@ -350,7 +352,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         
         
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-        if ((itemstack != null) && (itemstack.getItem() == Items.fish))
+        if ((itemstack != null) && isMyHealFood(itemstack))
         {
             if (--itemstack.stackSize == 0)
             {
@@ -511,10 +513,19 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-    	return itemstack != null && 
-        		(
-        			itemstack.getItem() == Items.fish
+    	if (itemstack != null)
+    	{
+	    	Item item = itemstack.getItem();
+	    	
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+	    	
+	    	return
+	    		(
+	    			(item == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
+        			|| oreDictionaryNameArray.contains("listAllfishraw")
         		);
+    	}
+    	return false;
     }
 
     public boolean ReadyforParenting(MoCEntityDolphin entitydolphin)

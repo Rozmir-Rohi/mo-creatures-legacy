@@ -208,7 +208,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         {
             Entity entity1 = (Entity) list.get(i);
 
-            if (entitiesToIgnore(entity1))
+            if (shouldEntityBeIgnored(entity1))
             {
                 continue;
             }
@@ -223,7 +223,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         return entityLiving;
     }
 
-    public boolean entitiesToIgnore(Entity entity)
+    public boolean shouldEntityBeIgnored(Entity entity)
     {
         return 
         	(

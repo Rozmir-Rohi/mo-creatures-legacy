@@ -106,43 +106,20 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     @Override
     protected void dropFewItems(boolean flag, int x)
     {
-        int i = rand.nextInt(100);
-        if (i < 70)// TODO change! 70
+        int dropChance = rand.nextInt(100);
+        if (dropChance < 70)
         {
             entityDropItem(new ItemStack(Items.fish, 1, 0), 0.0F);
         }
         else
         {
-            int j = rand.nextInt(2);
-            for (int k = 0; k < j; k++)
+            int amountOfEggsToDrop = rand.nextInt(2);
+            for (int index = 0; index < amountOfEggsToDrop; index++)
             {
                 entityDropItem(new ItemStack(MoCreatures.mocegg, 1, getType()), 0.0F);
             }
 
         }
-    }
-
-    // TODO move this
-    public EntityLivingBase FindTarget(Entity entity, double d)
-    {
-        double d1 = -1D;
-        EntityLivingBase entityLiving = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
-        for (int i = 0; i < list.size(); i++)
-        {
-            Entity entity1 = (Entity) list.get(i);
-            if (!(entity1 instanceof EntityLivingBase) || (entity1 instanceof MoCEntityAquatic) || (entity1 instanceof MoCEntityEgg) || (entity1 instanceof MoCEntityEgg) || (entity1 instanceof EntityPlayer) || ((entity1 instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)) || ((entity1 instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)))
-            {
-                continue;
-            }
-            double d2 = entity1.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-            if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLivingBase) entity1).canEntityBeSeen(entity))
-            {
-                d1 = d2;
-                entityLiving = (EntityLivingBase) entity1;
-            }
-        }
-        return entityLiving;
     }
 
     @Override

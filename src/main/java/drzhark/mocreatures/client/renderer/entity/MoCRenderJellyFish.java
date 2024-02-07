@@ -54,8 +54,10 @@ public class MoCRenderJellyFish extends RenderLiving {
     public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
         MoCEntityJellyFish entityjellyfish = (MoCEntityJellyFish) entityLiving;
-        boolean flag = entityjellyfish.isGlowing();
-
+        boolean isGlowing = entityjellyfish.isGlowing();
+        
+        //TODO: fix jellyfish not glowing
+        
         if (!entityjellyfish.isSwimming())
         {
             depth = 0.09F;
@@ -67,7 +69,7 @@ public class MoCRenderJellyFish extends RenderLiving {
         }
         GL11.glPushMatrix();
         GL11.glEnable(3042 /*GL_BLEND*/);
-        if (!flag)
+        if (!isGlowing)
         {
             float transparency = 0.7F;
             GL11.glBlendFunc(770, 771);

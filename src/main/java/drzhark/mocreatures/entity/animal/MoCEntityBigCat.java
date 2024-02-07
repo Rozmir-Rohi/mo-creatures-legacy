@@ -594,9 +594,9 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
+    public boolean shouldEntityBeIgnored(Entity entity)
     {
-        return (super.entitiesToIgnoreWhenLookingForAnEntityToAttack(entity) //including the mobs specified in parent file
+        return (super.shouldEntityBeIgnored(entity) //including the mobs specified in parent file
                     || (entity instanceof MoCEntityBigCat)
                     || (getIsAdult() && (entity.width > 1.3D && entity.height > 1.3D)) // don't try to hunt creature larger than a deer when adult
                     || (!getIsAdult() && (entity.width > 0.5D && entity.height > 0.5D)) // don't try to hunt creature larger than a chicken when child
@@ -809,7 +809,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 	    			item == Items.porkchop
 	    			|| item == Items.beef 
 	    			|| item == Items.chicken
-	    			|| item == Items.fish
+	    			|| (item == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
 	    			|| item == MoCreatures.ostrichRaw
 	    			|| item == MoCreatures.turkeyRaw
 	    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")

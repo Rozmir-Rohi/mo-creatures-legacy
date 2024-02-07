@@ -42,8 +42,8 @@ public class MoCRenderBird extends MoCRenderMoC {
     protected float handleRotationFloat(EntityLivingBase entityLiving, float f)
     {
         MoCEntityBird entitybird = (MoCEntityBird) entityLiving;
-        float f1 = entitybird.winge + ((entitybird.wingb - entitybird.winge) * f);
-        float f2 = entitybird.wingd + ((entitybird.wingc - entitybird.wingd) * f);
+        float f1 = entitybird.wingE + ((entitybird.wingB - entitybird.wingE) * f);
+        float f2 = entitybird.wingD + ((entitybird.wingC - entitybird.wingD) * f);
         return (MathHelper.sin(f1) + 1.0F) * f2;
     }
 

@@ -1169,7 +1169,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
 	        {
 	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
 	
-	            if (entitiesToIgnore(entityNearby))
+	            if (shouldEntityBeIgnored(entityNearby))
 	            {
 	                continue;
 	            }
@@ -1186,7 +1186,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         return entityLiving;
     }
 
-    public boolean entitiesToIgnore(Entity entity)
+    public boolean shouldEntityBeIgnored(Entity entity)
     {
         return (
 	        		!(entity instanceof EntityLiving)

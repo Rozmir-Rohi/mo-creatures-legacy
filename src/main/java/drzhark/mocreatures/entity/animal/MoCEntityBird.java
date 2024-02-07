@@ -22,12 +22,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityBird extends MoCEntityTameableAnimal {
-    public boolean fleeing;
-    public float wingb;
-    public float wingc;
-    public float wingd;
-    public float winge;
-    public float wingh;
+    public boolean isFleeing;
+    public float wingB;
+    public float wingC;
+    public float wingD;
+    public float wingE;
+    public float wingH;
     public boolean textureSet;
     private boolean isPicked;
 
@@ -38,10 +38,10 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         super(world);
         setSize(0.4F, 0.3F);
         isCollidedVertically = true;
-        wingb = 0.0F;
-        wingc = 0.0F;
-        wingh = 1.0F;
-        fleeing = false;
+        wingB = 0.0F;
+        wingC = 0.0F;
+        wingH = 1.0F;
+        isFleeing = false;
         textureSet = false;
         setTamed(false);
     }
@@ -149,14 +149,16 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         return (new int[] { 0, 0, 0 });
     }
 
-    public boolean FlyToNextEntity(Entity entity)
+    public boolean flyToNextEntity(Entity entity)
     {
         if (entity != null)
         {
             int entityPosX = MathHelper.floor_double(entity.posX);
             int entityPosY = MathHelper.floor_double(entity.posY);
             int entityPosZ = MathHelper.floor_double(entity.posZ);
+            
             faceLocation(entityPosX, entityPosY, entityPosZ, 30F);
+            
             if (MathHelper.floor_double(posY) < entityPosY)
             {
                 motionY += 0.14999999999999999D;
@@ -171,24 +173,24 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
             }
             else
             {
-                double d1 = posX - entity.posX;
-                if (d1 > 0.5D)
+                double xDistance = posX - entity.posX;
+                if (xDistance > 0.5D)
                 {
                     motionX -= 0.050000000000000003D;
                 }
             }
             if (posZ < entity.posZ)
             {
-                double d2 = entity.posZ - posZ;
-                if (d2 > 0.5D)
+                double zDistance = entity.posZ - posZ;
+                if (zDistance > 0.5D)
                 {
                     motionZ += 0.050000000000000003D;
                 }
             }
             else
             {
-                double d3 = posZ - entity.posZ;
-                if (d3 > 0.5D)
+                double zDistance = posZ - entity.posZ;
+                if (zDistance > 0.5D)
                 {
                     motionZ -= 0.050000000000000003D;
                 }
@@ -203,50 +205,52 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
 
     private boolean FlyToNextTree()
     {
-        int ai[] = ReturnNearestMaterialCoord(this, Material.leaves, Double.valueOf(20D));
-        int ai1[] = FindTreeTop(ai[0], ai[1], ai[2]);
-        if (ai1[1] != 0)
+        int coordinatesOfLeaves[] = ReturnNearestMaterialCoord(this, Material.leaves, Double.valueOf(20D));
+        int coordinatesOfTreeTop[] = FindTreeTop(coordinatesOfLeaves[0], coordinatesOfLeaves[1], coordinatesOfLeaves[2]);
+        if (coordinatesOfTreeTop[1] != 0)
         {
-            int i = ai1[0];
-            int j = ai1[1];
-            int k = ai1[2];
-            faceLocation(i, j, k, 30F);
-            if ((j - MathHelper.floor_double(posY)) > 2)
+            int xCoordinate = coordinatesOfTreeTop[0];
+            int yCoordinate = coordinatesOfTreeTop[1];
+            int zCoordinate = coordinatesOfTreeTop[2];
+            faceLocation(xCoordinate, yCoordinate, zCoordinate, 30F);
+            if ((yCoordinate - MathHelper.floor_double(posY)) > 2)
             {
                 motionY += 0.14999999999999999D;
             }
-            int l = 0;
-            int i1 = 0;
-            if (posX < i)
+            int xDistance = 0;
+            int zDistance = 0;
+            if (posX < xCoordinate)
             {
-                l = i - MathHelper.floor_double(posX);
+                xDistance = xCoordinate - MathHelper.floor_double(posX);
                 motionX += 0.050000000000000003D;
             }
             else
             {
-                l = MathHelper.floor_double(posX) - i;
+                xDistance = MathHelper.floor_double(posX) - xCoordinate;
                 motionX -= 0.050000000000000003D;
             }
-            if (posZ < k)
+            if (posZ < zCoordinate)
             {
-                i1 = k - MathHelper.floor_double(posZ);
+                zDistance = zCoordinate - MathHelper.floor_double(posZ);
                 motionZ += 0.050000000000000003D;
             }
             else
             {
-                i1 = MathHelper.floor_double(posX) - k;
+                zDistance = MathHelper.floor_double(posX) - zCoordinate;
                 motionZ -= 0.050000000000000003D;
             }
-            double d = l + i1;
-            if (d < 3D) { return true; }
+            
+            double overallDistance = xDistance + zDistance;
+            
+            if (overallDistance < 3D) { return true; }
         }
         return false;
     }
 
     @Override
-    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
+    public boolean shouldEntityBeIgnored(Entity entity)
     {
-        return (entity instanceof MoCEntityBird) || ((entity.height <= this.height) && (entity.width <= this.width)) || super.entitiesToIgnoreWhenLookingForAnEntityToAttack(entity);
+        return (entity instanceof MoCEntityBird) || ((entity.height <= this.height) && (entity.width <= this.width)) || super.shouldEntityBeIgnored(entity);
     }
 
     @Override
@@ -379,31 +383,31 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
             }
         }
 
-        winge = wingb;
-        wingd = wingc;
+        wingE = wingB;
+        wingD = wingC;
         
-        //wingc controls whether the bird flaps it's wings or not
-        wingc = (float) (wingc + (((onGround && !fleeing) || (this.ridingEntity != null && this.ridingEntity.motionY >= -0.08) ? -1 : 4) * 0.29999999999999999D));
+        //wingC controls whether the bird flaps it's wings or not
+        wingC = (float) (wingC + (((onGround && !isFleeing) || (this.ridingEntity != null && this.ridingEntity.motionY >= -0.08) ? -1 : 4) * 0.29999999999999999D));
        
         
-        if (wingc < 0.0F)
+        if (wingC < 0.0F)
         {
-            wingc = 0.0F;
+            wingC = 0.0F;
         }
-        if (wingc > 1.0F)
+        if (wingC > 1.0F)
         {
-            wingc = 1.0F;
+            wingC = 1.0F;
         }
-        if (!onGround && (wingh < 1.0F))
+        if (!onGround && (wingH < 1.0F))
         {
-            wingh = 1.0F;
+            wingH = 1.0F;
         }
-        wingh = (float) (wingh * 0.90000000000000002D);
+        wingH = (float) (wingH * 0.90000000000000002D);
         if (!onGround && (motionY < 0.0D))
         {
             motionY *= 0.80000000000000004D;
         }
-        wingb += wingh * 2.0F;
+        wingB += wingH * 2.0F;
 
         //check added to avoid duplicating behavior on client / server
         if (MoCreatures.isServer())
@@ -411,31 +415,31 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
             EntityLivingBase entityLiving = getScaryEntity(5D);
             if (rand.nextInt(10) == 0 && (entityLiving != null) && !getIsTamed() && !getPreTamed() && canEntityBeSeen(entityLiving))
             {
-                fleeing = true;
+                isFleeing = true;
             }
             if (rand.nextInt(200) == 0)
             {
-                fleeing = true;
+                isFleeing = true;
             }
-            if (fleeing)
+            if (isFleeing)
             {
                 if (FlyToNextTree())
                 {
-                    fleeing = false;
+                    isFleeing = false;
                 }
-                int ai[] = ReturnNearestMaterialCoord(this, Material.leaves, Double.valueOf(16D));
-                if (ai[0] == -1)
+                int coordinatesOfLeaves[] = ReturnNearestMaterialCoord(this, Material.leaves, Double.valueOf(16D));
+                if (coordinatesOfLeaves[0] == -1)
                 {
-                    for (int i = 0; i < 2; i++)
+                    for (int index = 0; index < 2; index++)
                     {
                         WingFlap();
                     }
 
-                    fleeing = false;
+                    isFleeing = false;
                 }
                 if (rand.nextInt(50) == 0)
                 {
-                    fleeing = false;
+                    isFleeing = false;
                 }
             }
             if (rand.nextInt(10) == 0 && isInsideOfMaterial(Material.water))
@@ -456,7 +460,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
          	   return false;
             }
         	
-        	if (!fleeing) {fleeing = true;}
+        	if (!isFleeing) {isFleeing = true;}
         }
         
         return super.attackEntityFrom(damageSource, damageTaken);
@@ -527,7 +531,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
                 }
             }
         }
-        if (!fleeing || !getPicked())
+        if (!isFleeing || !getPicked())
         {
             super.updateEntityActionState();
         }

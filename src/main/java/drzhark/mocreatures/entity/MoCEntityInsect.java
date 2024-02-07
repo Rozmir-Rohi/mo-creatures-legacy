@@ -84,28 +84,34 @@ public class MoCEntityInsect extends MoCEntityAmbient {
             
             if (!getIsFlying() && entityToAttack == null && rand.nextInt(getFlyingFreq()) == 0)
             {
-                List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4D, 4D, 4D));
-                for (int i = 0; i < list.size(); i++)
+                List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4D, 4D, 4D));
+	            
+                int iterationLength = entitiesNearbyList.size();
+                
+                if (iterationLength > 0)
                 {
-                    Entity entity1 = (Entity) list.get(i);
-                    if (!(entity1 instanceof EntityLivingBase))
-                    {
-                        continue;
-                    }
-                    if (((EntityLivingBase) entity1).width >= 0.4F && ((EntityLivingBase) entity1).height >= 0.4F && canEntityBeSeen(entity1))
-                    {
-                        this.motionY += 0.3D;
-                        setIsFlying(true);
-                    }
+                	for (int index = 0; index < iterationLength; index++)
+	                {
+	                    Entity entityNearby = (Entity) entitiesNearbyList.get(index);
+	                    if (!(entityNearby instanceof EntityLivingBase))
+	                    {
+	                        continue;
+	                    }
+	                    if (((EntityLivingBase) entityNearby).width >= 0.4F && ((EntityLivingBase) entityNearby).height >= 0.4F && canEntityBeSeen(entityNearby))
+	                    {
+	                        this.motionY += 0.3D;
+	                        setIsFlying(true);
+	                    }
+	                }
                 }
             }
 
             if (isAttractedToLight() && rand.nextInt(50) == 0)
             {
-                int ai[] = MoCTools.ReturnNearestBlockCoord(this, Blocks.torch, 8D);
-                if (ai[0] > -1000)
+                int torchCoordinates[] = MoCTools.ReturnNearestBlockCoord(this, Blocks.torch, 8D);
+                if (torchCoordinates[0] > -1000)
                 {
-                    PathEntity pathEntity = worldObj.getEntityPathToXYZ(this,ai[0], ai[1], ai[2], 24F, true, false, false, true);
+                    PathEntity pathEntity = worldObj.getEntityPathToXYZ(this,torchCoordinates[0], torchCoordinates[1], torchCoordinates[2], 24F, true, false, false, true);
                     if (pathEntity != null)
                     {
                         this.setPathToEntity(pathEntity);

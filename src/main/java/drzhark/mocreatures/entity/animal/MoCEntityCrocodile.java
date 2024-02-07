@@ -34,11 +34,11 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     // TODO
-    // fix floating so it moves faster if it's deep and caughts prey underneath
+    // Fix floating so it moves faster if it's deep to better catch prey underneath
 
-    // for later?
-    // birds to clean their mouths?
-    // implement taming? (pick up small crocs to insta tame them)
+    // For Later? :
+    // birds to clean their mouths (new bird: egyptian plover to do this)?
+    // implement taming? (obtain croc eggs and hatch them to tame baby crocs)?
 
     public float biteProgress;
     public float spin;
@@ -394,7 +394,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     @Override
     public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-    	if (this.getIsResting()) {this.setIsResting(false);} // TODO: Here marker
+    	if (this.getIsResting()) {this.setIsResting(false);}
     	
         if (riddenByEntity != null)
         {
@@ -447,35 +447,25 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
         {
             double attackDistance = 6D;
             
-            EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, attackDistance); 
-            if((entityPlayer != null) && getIsAdult()) 
+            EntityPlayer closestEntityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, attackDistance); 
+            if((closestEntityPlayer != null) && getIsAdult()) 
             {
-                 return entityPlayer; 
+                 return closestEntityPlayer; 
             }
             
-            EntityLivingBase entityLiving = getClosestEntityLiving(this, attackDistance);
-            if (entityLiving instanceof MoCEntityAquatic || entityLiving instanceof MoCEntityTameableAquatic) // don't go and hunt fish if they are in the ocean
-            	{
-                	int x = MathHelper.floor_double(entityLiving.posX);
-                    int y = MathHelper.floor_double(entityLiving.posY);
-                    int z = MathHelper.floor_double(entityLiving.posZ);
-
-                    BiomeGenBase biomeThatPreyIsIn = MoCTools.Biomekind(worldObj, x, y, z);
-
-                    if (BiomeDictionary.isBiomeOfType(biomeThatPreyIsIn, Type.OCEAN) || BiomeDictionary.isBiomeOfType(biomeThatPreyIsIn, Type.BEACH))
-                    {
-                    	 return null;
-                    }
-            	}
-                
-            else {return entityLiving;}
+            EntityLivingBase closestEntityLiving = getClosestEntityLiving(this, attackDistance);
+            
+            if (closestEntityLiving != null && !MoCTools.isEntityAFishThatIsInTheOcean(closestEntityLiving))
+            {
+            	return closestEntityLiving;
+            }
         }
         return null;
     }
 
     
     @Override
-    public boolean entitiesToIgnoreWhenLookingForAnEntityToAttack(Entity entity)
+    public boolean shouldEntityBeIgnored(Entity entity)
     {
         return ((!(entity instanceof EntityLiving)) 
                 || (entity instanceof IMob || entity instanceof MoCEntityMob) //don't hunt the creature if it is a mob 
