@@ -14,6 +14,7 @@ import drzhark.mocreatures.entity.animal.MoCEntityOstrich;
 import drzhark.mocreatures.entity.animal.MoCEntityWyvern;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -78,59 +79,40 @@ public class MoCItemWhip extends MoCItem {
     public boolean onItemUse(ItemStack itemstack, EntityPlayer entityPlayer, World world, int x, int y, int z, int l, float f1, float f2, float f3)
     {
         Block block = world.getBlock(x, y, z);
-        Block block1 = world.getBlock(x, y + 1, z);
+        Block blockAbove = world.getBlock(x, y + 1, z);
         
-        if ((l != 0) && (block != null) && (block1 == Blocks.air) && (block != Blocks.air)&& (block != Blocks.standing_sign))
+        if ((l != 0) && (block != null) && (blockAbove == Blocks.air) && (block != Blocks.air)&& (block != Blocks.standing_sign))
         {
-            this.whipFX(world, x, y, z);
+            whipFX(world, x, y, z);
             
             world.playSoundAtEntity(entityPlayer, "mocreatures:whip", 0.5F, 0.4F / ((itemRand.nextFloat() * 0.4F) + 0.8F));
             
             itemstack.damageItem(1, entityPlayer);
             
-            List listOfEntitiesNearPlayer = world.getEntitiesWithinAABBExcludingEntity(entityPlayer, entityPlayer.boundingBox.expand(5D, 5D, 5D));
+	            
+            MoCEntityAnimal closestWhippableEntityToPlayer = findClosestWhippableEntityNearPlayer(entityPlayer);
             
             
-            if (!(listOfEntitiesNearPlayer.isEmpty()))
+            if (closestWhippableEntityToPlayer != null) 
             {
-	            List<MoCEntityAnimal> whippableEntityList = new ArrayList<>();
-	            
-	            List<Double> whippableEntityDistanceToPlayerList = new ArrayList<>();
-	            
-	            int iterationLength = listOfEntitiesNearPlayer.size();
-	            
-	            findWhippableEntitiesNearPlayer(entityPlayer, listOfEntitiesNearPlayer, whippableEntityList, whippableEntityDistanceToPlayerList, iterationLength);
-	            
-	            
-	            if (!(whippableEntityDistanceToPlayerList.isEmpty()) && !(whippableEntityList.isEmpty())) 
-	            {
-	            	int indexOfClosestWhippableEntityNearby = whippableEntityDistanceToPlayerList.indexOf(Collections.min(whippableEntityDistanceToPlayerList));
-	            	
-	            	
-		            if ((indexOfClosestWhippableEntityNearby >= 0))
-		            {
-		            
-		            	MoCEntityAnimal closestWhippableEntityToPlayer = whippableEntityList.get(indexOfClosestWhippableEntityNearby);    
-			            
-		            	//if the player using the whip is not the owner
-				        if (
-				        		closestWhippableEntityToPlayer.getOwnerName() != null 
-				        		&& !closestWhippableEntityToPlayer.getOwnerName().equals("") 
-				        		&& !(entityPlayer.getCommandSenderName().equals(closestWhippableEntityToPlayer.getOwnerName())) 
-				        	) 
-				        { 
-				        	if (closestWhippableEntityToPlayer.isPredator() && closestWhippableEntityToPlayer.riddenByEntity == null)
-				        	{
-				        		closestWhippableEntityToPlayer.setTarget(entityPlayer); 
-				        	}
-				        }
-		            	
-				        else
-				        {
-				        	performWhipActionOnWhippableEntity(entityPlayer, closestWhippableEntityToPlayer, world); 
-				        }	
-			        }
-	            }
+            	
+            	//if the player using the whip is not the owner
+		        if (
+		        		closestWhippableEntityToPlayer.getOwnerName() != null 
+		        		&& (closestWhippableEntityToPlayer.getOwnerName().length() > 0)
+		        		&& !(entityPlayer.getCommandSenderName().equals(closestWhippableEntityToPlayer.getOwnerName())) 
+		        	) 
+		        { 
+		        	if (closestWhippableEntityToPlayer.isPredator() && closestWhippableEntityToPlayer.riddenByEntity == null)
+		        	{
+		        		closestWhippableEntityToPlayer.setTarget(entityPlayer); 
+		        	}
+		        }
+            	
+		        else
+		        {
+		        	performWhipActionOnWhippableEntity(entityPlayer, closestWhippableEntityToPlayer, world); 
+		        }
             }
         }
         return true; //always true to play the item swing on use animation
@@ -138,42 +120,61 @@ public class MoCItemWhip extends MoCItem {
     
     
 
-	private void findWhippableEntitiesNearPlayer(EntityPlayer entityPlayer, List listOfEntitiesNearPlayer, List<MoCEntityAnimal> whippableEntityList, List<Double> whippableEntityDistanceToPlayerList, int iterationLength)
+	private MoCEntityAnimal findClosestWhippableEntityNearPlayer(EntityPlayer entityPlayer)
 	{
-		for (int index = 0; index < iterationLength; index++)
-		{
-		    Entity entityNearPlayer = (Entity) listOfEntitiesNearPlayer.get(index);
-		    
-		    if (entityNearPlayer instanceof MoCEntityAnimal)
-		    {
-		        MoCEntityAnimal animalNearPlayer = (MoCEntityAnimal) entityNearPlayer;
-		        
-		        if (
-		        		animalNearPlayer instanceof MoCEntityBigCat
-		            	|| animalNearPlayer instanceof MoCEntityHorse
-		            	|| animalNearPlayer instanceof MoCEntityKitty
-		            	|| animalNearPlayer instanceof MoCEntityWyvern
-		            	|| animalNearPlayer instanceof MoCEntityOstrich
-		            	|| animalNearPlayer instanceof MoCEntityElephant
+        double currentMinimumDistance = -1D;
+        
+        double distance = 8.0D;
+
+        MoCEntityAnimal entityAnimal = null;
+
+        List entitiesNearbyList = entityPlayer.worldObj.getEntitiesWithinAABBExcludingEntity(entityPlayer, entityPlayer.boundingBox.expand(distance, distance, distance));
+
+        int iterationLength = entitiesNearbyList.size();
+
+        if (iterationLength > 0)
+        {
+	        for (int index = 0; index < iterationLength; index++)
+	        {
+	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
+
+	            if (!(entityNearby instanceof MoCEntityAnimal))
+	            {
+	                continue;
+	            }
+	            
+	            if (
+		        		entityNearby instanceof MoCEntityBigCat
+		            	|| entityNearby instanceof MoCEntityHorse
+		            	|| entityNearby instanceof MoCEntityKitty
+		            	|| entityNearby instanceof MoCEntityWyvern
+		            	|| entityNearby instanceof MoCEntityOstrich
+		            	|| entityNearby instanceof MoCEntityElephant
 		        	)
-		        {
-		        	whippableEntityList.add(animalNearPlayer);
-		        	whippableEntityDistanceToPlayerList.add(entityPlayer.getDistanceSq(animalNearPlayer.posX, animalNearPlayer.posY, animalNearPlayer.posZ));
-		        }
-		    }
-		    else {continue;}
-		}
-	}
+	            {
+		            double overallDistanceSquared = entityNearby.getDistanceSq(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
+	
+		            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)) && ((EntityLivingBase) entityNearby).canEntityBeSeen(entityPlayer))
+		            {
+		                currentMinimumDistance = overallDistanceSquared;
+		                entityAnimal = (MoCEntityAnimal) entityNearby;
+		            }
+	            }
+	        }
+        }
+
+        return entityAnimal;
+    }
 
 	
     
-	private void performWhipActionOnWhippableEntity(EntityPlayer entityPlayer, MoCEntityAnimal closestWhippableEntityToPlayer, World world)
+	private void performWhipActionOnWhippableEntity(EntityPlayer entityPlayer, MoCEntityAnimal entityAnimal, World world)
 	{
-		if (closestWhippableEntityToPlayer != null)
+		if (entityAnimal != null)
 		{		
-		    if (closestWhippableEntityToPlayer instanceof MoCEntityBigCat)
+		    if (entityAnimal instanceof MoCEntityBigCat)
 		    {
-		        MoCEntityBigCat entityBigcat = (MoCEntityBigCat) closestWhippableEntityToPlayer;
+		        MoCEntityBigCat entityBigcat = (MoCEntityBigCat) entityAnimal;
 		        if (entityBigcat.getIsTamed())
 		        {
 		            entityBigcat.setSitting(!entityBigcat.getIsSitting());
@@ -191,9 +192,9 @@ public class MoCItemWhip extends MoCItem {
 		    }
 		    
 		    
-		    if (closestWhippableEntityToPlayer instanceof MoCEntityHorse)
+		    if (entityAnimal instanceof MoCEntityHorse)
 		    {
-		        MoCEntityHorse entityHorse = (MoCEntityHorse) closestWhippableEntityToPlayer;
+		        MoCEntityHorse entityHorse = (MoCEntityHorse) entityAnimal;
 		        if (entityHorse.getIsTamed())
 		        {
 		            if (entityHorse.riddenByEntity == null)
@@ -208,20 +209,20 @@ public class MoCItemWhip extends MoCItem {
 		            {
 		                entityHorse.sprintCounter = 1;
 		                
-		                if (entityHorse.isUndead()) {world.playSoundAtEntity(closestWhippableEntityToPlayer, "mocreatures:horsemadundead", 1.0F, 1.0F + 0.2F);}
+		                if (entityHorse.isUndead()) {world.playSoundAtEntity(entityAnimal, "mocreatures:horsemadundead", 1.0F, 1.0F + 0.2F);}
 		                
-		                else if (entityHorse.isGhost()) {world.playSoundAtEntity(closestWhippableEntityToPlayer, "mocreatures:horsemadghost", 1.0F, 1.0F + 0.2F);}
+		                else if (entityHorse.isGhost()) {world.playSoundAtEntity(entityAnimal, "mocreatures:horsemadghost", 1.0F, 1.0F + 0.2F);}
 		                
-		                else {world.playSoundAtEntity(closestWhippableEntityToPlayer, "mocreatures:horsemad", 1.0F, 1.0F + 0.2F);}
+		                else {world.playSoundAtEntity(entityAnimal, "mocreatures:horsemad", 1.0F, 1.0F + 0.2F);}
 		                
 		            }
 		        }
 		    }
 		    
 		    
-		    if ((closestWhippableEntityToPlayer instanceof MoCEntityKitty))
+		    if ((entityAnimal instanceof MoCEntityKitty))
 		    {
-		        MoCEntityKitty entityKitty = (MoCEntityKitty) closestWhippableEntityToPlayer;
+		        MoCEntityKitty entityKitty = (MoCEntityKitty) entityAnimal;
 		        if ((entityKitty.getKittyState() > 2) && entityKitty.whipeable())
 		        {
 		            entityKitty.setSitting(!entityKitty.getIsSitting());
@@ -229,9 +230,9 @@ public class MoCItemWhip extends MoCItem {
 		    }
 		    
 		    
-		    if ((closestWhippableEntityToPlayer instanceof MoCEntityWyvern))
+		    if ((entityAnimal instanceof MoCEntityWyvern))
 		    {
-		        MoCEntityWyvern entityWyvern = (MoCEntityWyvern) closestWhippableEntityToPlayer;
+		        MoCEntityWyvern entityWyvern = (MoCEntityWyvern) entityAnimal;
 		        if (entityWyvern.getIsTamed() && !entityWyvern.isOnAir())
 		        {
 		            entityWyvern.setSitting(!entityWyvern.getIsSitting());
@@ -239,15 +240,15 @@ public class MoCItemWhip extends MoCItem {
 		    }
 		    
 		    
-		    if (closestWhippableEntityToPlayer instanceof MoCEntityOstrich)
+		    if (entityAnimal instanceof MoCEntityOstrich)
 		    {
-		        MoCEntityOstrich entityOstrich = (MoCEntityOstrich) closestWhippableEntityToPlayer;
+		        MoCEntityOstrich entityOstrich = (MoCEntityOstrich) entityAnimal;
 
 		        //makes ridden ostrich sprint
 		        if (entityOstrich.riddenByEntity != null && entityOstrich.sprintCounter == 0)
 		        {
 		            entityOstrich.sprintCounter = 1;
-		            world.playSoundAtEntity(closestWhippableEntityToPlayer, "mocreatures:ostrichhurt", 1.0F, 1.0F + 0.2F);
+		            world.playSoundAtEntity(entityAnimal, "mocreatures:ostrichhurt", 1.0F, 1.0F + 0.2F);
 		        }
 
 		        //toggles hiding of tamed ostriches
@@ -258,15 +259,15 @@ public class MoCItemWhip extends MoCItem {
 		    }
 		    
 		    
-		    if (closestWhippableEntityToPlayer instanceof MoCEntityElephant)
+		    if (entityAnimal instanceof MoCEntityElephant)
 		    {
-		        MoCEntityElephant entityElephant = (MoCEntityElephant) closestWhippableEntityToPlayer;
+		        MoCEntityElephant entityElephant = (MoCEntityElephant) entityAnimal;
 
 		        //makes ridden elephants charge
 		        if (entityElephant.riddenByEntity != null && entityElephant.sprintCounter == 0)
 		        {
 		            entityElephant.sprintCounter = 1;
-		            world.playSoundAtEntity(closestWhippableEntityToPlayer, "mocreatures:elephantgrunt", 1.0F, 1.0F + 0.2F);
+		            world.playSoundAtEntity(entityAnimal, "mocreatures:elephantgrunt", 1.0F, 1.0F + 0.2F);
 		        }
 		    }
 		}

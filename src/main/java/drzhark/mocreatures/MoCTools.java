@@ -350,25 +350,26 @@ public class MoCTools {
 
     public static TileEntityJukebox nearJukeBoxRecord(Entity entity, Double dist)
     {
-        AxisAlignedBB axisalignedbb = entity.boundingBox.expand(dist, dist / 2D, dist);
-        int i = MathHelper.floor_double(axisalignedbb.minX);
-        int j = MathHelper.floor_double(axisalignedbb.maxX + 1.0D);
-        int k = MathHelper.floor_double(axisalignedbb.minY);
-        int l = MathHelper.floor_double(axisalignedbb.maxY + 1.0D);
-        int i1 = MathHelper.floor_double(axisalignedbb.minZ);
-        int j1 = MathHelper.floor_double(axisalignedbb.maxZ + 1.0D);
-        for (int k1 = i; k1 < j; k1++)
+        AxisAlignedBB axisAlignedBoundingBox = entity.boundingBox.expand(dist, dist / 2D, dist);
+        int xMin = MathHelper.floor_double(axisAlignedBoundingBox.minX);
+        int xMax = MathHelper.floor_double(axisAlignedBoundingBox.maxX + 1.0D);
+        int yMin = MathHelper.floor_double(axisAlignedBoundingBox.minY);
+        int yMax = MathHelper.floor_double(axisAlignedBoundingBox.maxY + 1.0D);
+        int zMin = MathHelper.floor_double(axisAlignedBoundingBox.minZ);
+        int zNax = MathHelper.floor_double(axisAlignedBoundingBox.maxZ + 1.0D);
+        for (int x = xMin; x < xMax; x++)
         {
-            for (int l1 = k; l1 < l; l1++)
+            for (int y = yMin; y < yMax; y++)
             {
-                for (int i2 = i1; i2 < j1; i2++)
+                for (int z = zMin; z < zNax; z++)
                 {
-                    Block block = entity.worldObj.getBlock(k1, l1, i2);
-                    if (!entity.worldObj.isAirBlock(k1, l1, i2))
+                    Block block = entity.worldObj.getBlock(x, y, z);
+                    
+                    if (!entity.worldObj.isAirBlock(x, y, z))
                     {
                         if (block instanceof BlockJukebox)
                         {
-                            TileEntityJukebox juky = (TileEntityJukebox) entity.worldObj.getTileEntity(k1, l1, i2);
+                            TileEntityJukebox juky = (TileEntityJukebox) entity.worldObj.getTileEntity(x, y, z);
                             return juky;
                         }
                     }

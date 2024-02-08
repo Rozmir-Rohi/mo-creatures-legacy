@@ -774,3 +774,13 @@ Wyverns now accept harvestcraft raw rabbit as a food item.
 
 
 Fixed the land predators that are supposed to hunt fish not hunting fish if they are in rivers.
+
+
+Slightly simplified the code for whip item. Also slightly increased the whip interaction distance.
+
+
+Fixed zebra shuffle!
+Tamed zebras now only dance when a zebra record is put in a jukebox nearby.
+Also readded feature of other MoC Horses nodding their head when the zebra record is played nearby.
+If you remove the zebra record before it has finished playing or if you change the record in the jukebox to another record before it has finished, shuffling for horses will still continue for a 1-3 minutes, afterwards the horse will still return to normal.
+If you want to instantly stop the horse shuffling without waiting for the zebra record to finish, you can break the jukebox and it will stop all shuffling horses nearby.

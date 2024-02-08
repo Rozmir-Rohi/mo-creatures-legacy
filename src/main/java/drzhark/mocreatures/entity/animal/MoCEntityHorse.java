@@ -55,7 +55,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
     private float transparencyFloat = 0.2F;
 
-    public MoCAnimalChest localhorsechest;
+    public MoCAnimalChest localHorseChest;
     public boolean hasEatenPumpkin;
 
     private boolean hasReproduced;
@@ -1820,14 +1820,14 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	        if ((item == MoCreatures.key) && getChestedHorse())
 	        {
 	            // if first time opening horse chest, we must initialize it
-	            if (localhorsechest == null)
+	            if (localHorseChest == null)
 	            {
-	                localhorsechest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.HorseChest"), getInventorySize());// , new
+	                localHorseChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.HorseChest"), getInventorySize());// , new
 	            }
 	            // only open this chest on server side
 	            if (!worldObj.isRemote)
 	            {
-	                entityPlayer.displayGUIChest(localhorsechest);
+	                entityPlayer.displayGUIChest(localHorseChest);
 	            }
 	            return true;
 	
@@ -1957,7 +1957,14 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     @Override
     protected boolean isMovementCeased()
     {
-        return getEating() || (riddenByEntity != null) || this.standCounter != 0 || this.shuffleCounter != 0 || this.getVanishC() != 0;
+        return 
+        		(
+	        		getEating()
+	        		|| (riddenByEntity != null)
+	        		|| standCounter != 0
+	        		|| shuffleCounter != 0
+	        		|| getVanishC() != 0
+        		);
     }
 
     /**
@@ -2055,35 +2062,18 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         }
     }
 
-    private boolean isNearJukeboxThatIsPlayingMusicDisc()
+    private void checkShufflingForTimeOut()
     {
-        /**The old method of this function used to use func_145856_a() from TileEntityJukebox.java to specifically detect
-        * if a Zebra Shuffle disc is playing but the func_145856_a() is not included in this version of the function 
-        * as it caused shuffleCounter to only be callable from inside MoCEntityHorse.java, calling the field outside
-        * MoCEntityHorse.java used to always return 0 even when it was greater than 0 in MoCEntityHorse.java.
-        * This stopped the Zebra shuffling animations to stop working.
-        * To fix the issue above, func_145856_a() was removed from this function.
-    	*/
-
-        TileEntityJukebox jukeboxNearby = MoCTools.nearJukeBoxRecord(this, 6D);
-        if (jukeboxNearby != null)
-        {	
-        	boolean doesJukeboxNearbyHaveMusicDisc = worldObj.getBlockMetadata(jukeboxNearby.xCoord, jukeboxNearby.yCoord, jukeboxNearby.zCoord) != 0;
-        	
-            if (shuffleCounter > 1000)
-            {
-                shuffleCounter = 0;
-               	BlockJukebox blockJukebox = (BlockJukebox) worldObj.getBlock(jukeboxNearby.xCoord, jukeboxNearby.yCoord, jukeboxNearby.zCoord);
-                if (blockJukebox != null)
-                {//take out the music disc from the jukebox
-                    blockJukebox.func_149925_e(worldObj, jukeboxNearby.xCoord, jukeboxNearby.yCoord, jukeboxNearby.zCoord);
-                }
-                return false;
-            }
-
-        	return doesJukeboxNearbyHaveMusicDisc;
-        }
-        return false;
+    	if (shuffleCounter > 0)
+    	{
+	    	TileEntityJukebox jukeboxNearby = MoCTools.nearJukeBoxRecord(this, 8D);
+    	
+	    	
+	    	if (shuffleCounter > 1000 || jukeboxNearby == null)
+        	{
+        		shuffleCounter = 0;
+        	}
+    	}
     }
 
     // changed to public since we need to send this info to server
@@ -2223,17 +2213,6 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
             }
 
         }
-        
-        /**
-         * Shuffling from "Party Rock Anthem" by LMFAO!
-         */
-        if (rand.nextInt(50) == 0 && isNearJukeboxThatIsPlayingMusicDisc() && shuffleCounter == 0)
-        {
-        	if (this.getType() == 60 && getIsTamed())
-            {
-            	shuffle();
-            }
-        }
 
         super.onLivingUpdate();
 
@@ -2275,10 +2254,10 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                 {
                     setAdult(true);
                     setBred(false);
-                    MoCEntityHorse mommy = getClosestMommy(this, 16D);
-                    if (mommy != null)
+                    MoCEntityHorse mommyHorse = getClosestMommy(this, 16D);
+                    if (mommyHorse != null)
                     {
-                        mommy.setBred(false);
+                        mommyHorse.setBred(false);
                     }
                 }
             }
@@ -2304,7 +2283,6 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                 MoCEntityHorse mommy = getClosestMommy(this, 16D);
                 if ((mommy != null) && (MoCTools.getSqDistanceTo(mommy, this.posX, this.posY, this.posZ) > 4D))
                 {
-                    // System.out.println("following mommy!");
                     PathEntity pathEntity = worldObj.getPathEntityToEntity(this, mommy, 16F, true, false, false, true);
                     setPathToEntity(pathEntity);
                 }
@@ -2327,6 +2305,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
             if (i > 1) { return; }
             List list1 = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4D, 2D, 4D));
+            
             for (int k = 0; k < list1.size(); k++)
             {
                 Entity horsemate = (Entity) list1.get(k);
@@ -2360,9 +2339,9 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                 {
                     continue;
                 }
-                MoCEntityHorse baby = new MoCEntityHorse(worldObj);
-                baby.setPosition(posX, posY, posZ);
-                worldObj.spawnEntityInWorld(baby);
+                MoCEntityHorse babyHorse = new MoCEntityHorse(worldObj);
+                babyHorse.setPosition(posX, posY, posZ);
+                worldObj.spawnEntityInWorld(babyHorse);
                 hasEatenPumpkin = false;
                 gestationTime = 0;
                 this.setBred(true);
@@ -2381,15 +2360,15 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                 int type = HorseGenetics(this.getType(), horsemateType);
                 
                 
-                baby.setOwner(this.getOwnerName());
-                baby.setTamed(true);
-                baby.setBred(true);
-                baby.setAdult(false);
+                babyHorse.setOwner(this.getOwnerName());
+                babyHorse.setTamed(true);
+                babyHorse.setBred(true);
+                babyHorse.setAdult(false);
                 EntityPlayer owner = worldObj.getPlayerEntityByName(this.getOwnerName());
                 
                 if (owner != null)
                 {
-                    MoCTools.tameWithName(owner, baby);
+                    MoCTools.tameWithName(owner, babyHorse);
                 }
                
                 
@@ -2422,10 +2401,10 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                 	owner.addStat(MoCAchievements.zorse, 1);
                 }
                 
-                baby.setType(type);
+                babyHorse.setType(type);
                 
-                baby.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth()); //set max health to the new type
-                baby.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getCustomSpeed()); //set speed to new type
+                babyHorse.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth()); //set max health to the new type
+                babyHorse.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getCustomSpeed()); //set speed to new type
                 
                 break;
             }
@@ -2478,21 +2457,19 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         {
             ++shuffleCounter;
             
-            if (!MoCreatures.isServer() && this.shuffleCounter % 20 == 0)
+            if (!MoCreatures.isServer() && getType() == 60 && shuffleCounter % 20 == 0) //spawns note particles for tamed zebras when shuffling
             {
-                double var2 = this.rand.nextGaussian() * 0.5D;
-                double var4 = this.rand.nextGaussian() * -0.1D;
-                double var6 = this.rand.nextGaussian() * 0.02D;
-                this.worldObj.spawnParticle("note", this.posX + this.rand.nextFloat() * this.width * 2.0F - this.width, this.posY + 0.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0F - this.width, var2, var4, var6);
+                double xVelocity = rand.nextGaussian() * 0.5D;
+                double yVelocity = rand.nextGaussian() * -0.1D;
+                double zVelocity = rand.nextGaussian() * 0.02D;
+                
+                worldObj.spawnParticle("note", posX + rand.nextFloat() * width * 2.0F - width, posY + 0.5D + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0F - width, xVelocity, yVelocity, zVelocity);
             }
-
-            if (!isNearJukeboxThatIsPlayingMusicDisc() && shuffleCounter > 0)
-            {
-                shuffleCounter = 0;
-            }
-            
         }
-
+        
+        checkShufflingForTimeOut();
+        
+        
         if (mouthCounter > 0 && ++mouthCounter > 30)
         {
             mouthCounter = 0;
@@ -2826,7 +2803,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
         if (this.isBagger())
         {
-            MoCTools.dropInventory(this, this.localhorsechest);
+            MoCTools.dropInventory(this, this.localHorseChest);
             dropBags();
         }
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
@@ -2844,7 +2821,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         MoCTools.dropSaddle(this, worldObj); 
         if (this.isBagger())
         {
-            MoCTools.dropInventory(this, this.localhorsechest);
+            MoCTools.dropInventory(this, this.localHorseChest);
             dropBags();
         }
     }
@@ -2872,13 +2849,13 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         nbtTagCompound.setBoolean("DisplayName", getDisplayName());
         nbtTagCompound.setInteger("ArmorType", getArmorType());
 
-        if (getChestedHorse() && localhorsechest != null)
+        if (getChestedHorse() && localHorseChest != null)
         {
             NBTTagList nbttaglist = new NBTTagList();
-            for (int index = 0; index < localhorsechest.getSizeInventory(); index++)
+            for (int index = 0; index < localHorseChest.getSizeInventory(); index++)
             {
                 // grab the current item stack
-                localItemstack = localhorsechest.getStackInSlot(index);
+                localItemstack = localHorseChest.getStackInSlot(index);
                 if (localItemstack != null)
                 {
                     NBTTagCompound nbtTagCompound1 = new NBTTagCompound();
@@ -2905,15 +2882,15 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         if (getChestedHorse())
         {
             NBTTagList nbttaglist = nbtTagCompound.getTagList("Items", 10);
-            localhorsechest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.HorseChest"), getInventorySize());
+            localHorseChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.HorseChest"), getInventorySize());
 
             for (int index = 0; index < nbttaglist.tagCount(); index++)
             {
-                ItemStack itemstack = localhorsechest.getStackInSlot(index);
+                ItemStack itemstack = localHorseChest.getStackInSlot(index);
 
                 if (itemstack != null)
                 {
-                    localhorsechest.setInventorySlotContents(index, itemstack.copy());
+                    localHorseChest.setInventorySlotContents(index, itemstack.copy());
                 }
             }
         }
