@@ -72,7 +72,7 @@ public class MoCEntityAnt extends MoCEntityInsect{
         
         if (getHasFood())
         {
-            if (this.riddenByEntity == null)
+            if (riddenByEntity == null)
             {
                 EntityItem entityItem = getClosestFood(this, 2D);
                 if (entityItem != null && entityItem.ridingEntity == null)
@@ -94,7 +94,7 @@ public class MoCEntityAnt extends MoCEntityInsect{
     {
         EntityItem cargo = new EntityItem(worldObj, posX, posY+0.2D, posZ, entityItem.getEntityItem());
         entityItem.setDead();
-        if (MoCreatures.isServer()) this.worldObj.spawnEntityInWorld(cargo);
+        if (MoCreatures.isServer()) worldObj.spawnEntityInWorld(cargo);
     }
     @Override
     public boolean getIsFlying()

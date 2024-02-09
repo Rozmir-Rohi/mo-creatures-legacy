@@ -31,8 +31,8 @@ public class MoCBlockLeaf extends BlockLeavesBase
     {
         super(Material.leaves, true);
         setTickRandomly(true);
-        this.setCreativeTab(MoCreatures.tabMoC);
-        this.setBlockName(name);
+        setCreativeTab(MoCreatures.tabMoC);
+        setBlockName(name);
         GameRegistry.registerBlock(this, MultiItemBlock.class, name);
     }
 
@@ -49,7 +49,7 @@ public class MoCBlockLeaf extends BlockLeavesBase
     @Override
     public boolean isOpaqueCube()
     {
-        return !this.field_150121_P;
+        return !field_150121_P;
     }
 
     @Override
@@ -178,7 +178,7 @@ public class MoCBlockLeaf extends BlockLeavesBase
 
     private void removeLeaves(World par1World, int par2, int par3, int par4)
     {
-        this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
+        dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
         par1World.setBlockToAir(par2, par3, par4);
     }
 

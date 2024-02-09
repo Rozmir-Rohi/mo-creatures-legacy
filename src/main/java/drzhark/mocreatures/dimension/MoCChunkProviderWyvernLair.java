@@ -48,21 +48,21 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
 
     public MoCChunkProviderWyvernLair(World par1World, long par2)
     {
-        this.worldObj = par1World;
-        this.RNGa = new Random(par2);
-        this.noiseGen1 = new NoiseGeneratorOctaves(this.RNGa, 16);
-        this.noiseGen2 = new NoiseGeneratorOctaves(this.RNGa, 16);
-        this.noiseGen3 = new NoiseGeneratorOctaves(this.RNGa, 8);
-        this.noiseGen4 = new NoiseGeneratorOctaves(this.RNGa, 10);
-        this.noiseGen5 = new NoiseGeneratorOctaves(this.RNGa, 16);
+        worldObj = par1World;
+        RNGa = new Random(par2);
+        noiseGen1 = new NoiseGeneratorOctaves(RNGa, 16);
+        noiseGen2 = new NoiseGeneratorOctaves(RNGa, 16);
+        noiseGen3 = new NoiseGeneratorOctaves(RNGa, 8);
+        noiseGen4 = new NoiseGeneratorOctaves(RNGa, 10);
+        noiseGen5 = new NoiseGeneratorOctaves(RNGa, 16);
 
         NoiseGenerator[] noiseGens = {noiseGen1, noiseGen2, noiseGen3, noiseGen4, noiseGen5};
-        noiseGens = TerrainGen.getModdedNoiseGenerators(par1World, this.RNGa, noiseGens);
-        this.noiseGen1 = (NoiseGeneratorOctaves)noiseGens[0];
-        this.noiseGen2 = (NoiseGeneratorOctaves)noiseGens[1];
-        this.noiseGen3 = (NoiseGeneratorOctaves)noiseGens[2];
-        this.noiseGen4 = (NoiseGeneratorOctaves)noiseGens[3];
-        this.noiseGen5 = (NoiseGeneratorOctaves)noiseGens[4];
+        noiseGens = TerrainGen.getModdedNoiseGenerators(par1World, RNGa, noiseGens);
+        noiseGen1 = (NoiseGeneratorOctaves)noiseGens[0];
+        noiseGen2 = (NoiseGeneratorOctaves)noiseGens[1];
+        noiseGen3 = (NoiseGeneratorOctaves)noiseGens[2];
+        noiseGen4 = (NoiseGeneratorOctaves)noiseGens[3];
+        noiseGen5 = (NoiseGeneratorOctaves)noiseGens[4];
    }
 
     /**
@@ -87,7 +87,7 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
         int var6 = var5 + 1;
         byte var7 = 33;
         int var8 = var5 + 1;
-        this.densities = this.initializeNoiseField(this.densities, par1 * var5, 0, par2 * var5, var6, var7, var8);
+        densities = initializeNoiseField(densities, par1 * var5, 0, par2 * var5, var6, var7, var8);
 
         for (int var9 = 0; var9 < var5; ++var9)
         {
@@ -96,14 +96,14 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
                 for (int var11 = 0; var11 < 32; ++var11)
                 {
                     double var12 = 0.25D;
-                    double var14 = this.densities[((var9 + 0) * var8 + var10 + 0) * var7 + var11 + 0];
-                    double var16 = this.densities[((var9 + 0) * var8 + var10 + 1) * var7 + var11 + 0];
-                    double var18 = this.densities[((var9 + 1) * var8 + var10 + 0) * var7 + var11 + 0];
-                    double var20 = this.densities[((var9 + 1) * var8 + var10 + 1) * var7 + var11 + 0];
-                    double var22 = (this.densities[((var9 + 0) * var8 + var10 + 0) * var7 + var11 + 1] - var14) * var12;
-                    double var24 = (this.densities[((var9 + 0) * var8 + var10 + 1) * var7 + var11 + 1] - var16) * var12;
-                    double var26 = (this.densities[((var9 + 1) * var8 + var10 + 0) * var7 + var11 + 1] - var18) * var12;
-                    double var28 = (this.densities[((var9 + 1) * var8 + var10 + 1) * var7 + var11 + 1] - var20) * var12;
+                    double var14 = densities[((var9 + 0) * var8 + var10 + 0) * var7 + var11 + 0];
+                    double var16 = densities[((var9 + 0) * var8 + var10 + 1) * var7 + var11 + 0];
+                    double var18 = densities[((var9 + 1) * var8 + var10 + 0) * var7 + var11 + 0];
+                    double var20 = densities[((var9 + 1) * var8 + var10 + 1) * var7 + var11 + 0];
+                    double var22 = (densities[((var9 + 0) * var8 + var10 + 0) * var7 + var11 + 1] - var14) * var12;
+                    double var24 = (densities[((var9 + 0) * var8 + var10 + 1) * var7 + var11 + 1] - var16) * var12;
+                    double var26 = (densities[((var9 + 1) * var8 + var10 + 0) * var7 + var11 + 1] - var18) * var12;
+                    double var28 = (densities[((var9 + 1) * var8 + var10 + 1) * var7 + var11 + 1] - var20) * var12;
 
                     for (int var30 = 0; var30 < 4; ++var30)
                     {
@@ -213,7 +213,7 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
      */
     public Chunk loadChunk(int par1, int par2)
     {
-        return this.provideChunk(par1, par2);
+        return provideChunk(par1, par2);
     }
 
     /**
@@ -222,21 +222,21 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
      */
     public Chunk provideChunk(int par1, int par2)
     {
-        this.RNGa.setSeed((long)par1 * 341873128712L + (long)par2 * 132897987541L);
+        RNGa.setSeed((long)par1 * 341873128712L + (long)par2 * 132897987541L);
         Block[] var3 = new Block[32768];
-        this.biomesForGeneration = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(this.biomesForGeneration, par1 * 16, par2 * 16, 16, 16);
-        this.func_147420_a(par1, par2, var3, this.biomesForGeneration);
-        this.func_147421_b(par1, par2, var3, this.biomesForGeneration);
+        biomesForGeneration = worldObj.getWorldChunkManager().loadBlockGeneratorData(biomesForGeneration, par1 * 16, par2 * 16, 16, 16);
+        func_147420_a(par1, par2, var3, biomesForGeneration);
+        func_147421_b(par1, par2, var3, biomesForGeneration);
         
         //to add metadata specific dimension info, used to reduce the number of block IDs with multiBLocks
         //changed constructor to add metadata
-        Chunk var4 = new Chunk(this.worldObj, var3, metadat, par1, par2);
+        Chunk var4 = new Chunk(worldObj, var3, metadat, par1, par2);
         
         byte[] var5 = var4.getBiomeArray();
 
         for (int var6 = 0; var6 < var5.length; ++var6)
         {
-            var5[var6] = (byte)this.biomesForGeneration[var6].biomeID;
+            var5[var6] = (byte)biomesForGeneration[var6].biomeID;
         }
 
         var4.generateSkylightMap();
@@ -260,12 +260,12 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
 
         double var8 = 684.412D;
         double var10 = 684.412D;
-        this.noiseData4 = this.noiseGen4.generateNoiseOctaves(this.noiseData4, par2, par4, par5, par7, 1.121D, 1.121D, 0.5D);
-        this.noiseData5 = this.noiseGen5.generateNoiseOctaves(this.noiseData5, par2, par4, par5, par7, 200.0D, 200.0D, 0.5D);
+        noiseData4 = noiseGen4.generateNoiseOctaves(noiseData4, par2, par4, par5, par7, 1.121D, 1.121D, 0.5D);
+        noiseData5 = noiseGen5.generateNoiseOctaves(noiseData5, par2, par4, par5, par7, 200.0D, 200.0D, 0.5D);
         var8 *= 2.0D;
-        this.noiseData1 = this.noiseGen3.generateNoiseOctaves(this.noiseData1, par2, par3, par4, par5, par6, par7, var8 / 80.0D, var10 / 160.0D, var8 / 80.0D);
-        this.noiseData2 = this.noiseGen1.generateNoiseOctaves(this.noiseData2, par2, par3, par4, par5, par6, par7, var8, var10, var8);
-        this.noiseData3 = this.noiseGen2.generateNoiseOctaves(this.noiseData3, par2, par3, par4, par5, par6, par7, var8, var10, var8);
+        noiseData1 = noiseGen3.generateNoiseOctaves(noiseData1, par2, par3, par4, par5, par6, par7, var8 / 80.0D, var10 / 160.0D, var8 / 80.0D);
+        noiseData2 = noiseGen1.generateNoiseOctaves(noiseData2, par2, par3, par4, par5, par6, par7, var8, var10, var8);
+        noiseData3 = noiseGen2.generateNoiseOctaves(noiseData3, par2, par3, par4, par5, par6, par7, var8, var10, var8);
         int var12 = 0;
         int var13 = 0;
 
@@ -273,14 +273,14 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
         {
             for (int var15 = 0; var15 < par7; ++var15)
             {
-                double var16 = (this.noiseData4[var13] + 256.0D) / 512.0D;
+                double var16 = (noiseData4[var13] + 256.0D) / 512.0D;
 
                 if (var16 > 1.0D)
                 {
                     var16 = 1.0D;
                 }
 
-                double var18 = this.noiseData5[var13] / 8000.0D;
+                double var18 = noiseData5[var13] / 8000.0D;
 
                 if (var18 < 0.0D)
                 {
@@ -330,9 +330,9 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
                         var28 *= -1.0D;
                     }
 
-                    double var30 = this.noiseData2[var12] / 512.0D;
-                    double var32 = this.noiseData3[var12] / 512.0D;
-                    double var34 = (this.noiseData1[var12] / 10.0D + 1.0D) / 2.0D;
+                    double var30 = noiseData2[var12] / 512.0D;
+                    double var32 = noiseData3[var12] / 512.0D;
+                    double var34 = (noiseData1[var12] / 10.0D + 1.0D) / 2.0D;
 
                     if (var34 < 0.0D)
                     {
@@ -405,41 +405,41 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
         
         int var4 = par2 * 16;
         int var5 = par3 * 16;
-        BiomeGenBase var6 = this.worldObj.getBiomeGenForCoords(var4 + 16, var5 + 16);
+        BiomeGenBase var6 = worldObj.getBiomeGenForCoords(var4 + 16, var5 + 16);
 
-        long var7 = this.RNGa.nextLong() / 2L * 2L + 1L;
-        long var9 = this.RNGa.nextLong() / 2L * 2L + 1L;
+        long var7 = RNGa.nextLong() / 2L * 2L + 1L;
+        long var9 = RNGa.nextLong() / 2L * 2L + 1L;
         boolean var11 = false;
 
         int var12;
         int var13;
         int var14;
 
-        if (!var11 && this.RNGa.nextInt(2) == 0)
+        if (!var11 && RNGa.nextInt(2) == 0)
         {
-            var12 = var4 + this.RNGa.nextInt(16) + 8;
-            var13 = this.RNGa.nextInt(128);
-            var14 = var5 + this.RNGa.nextInt(16) + 8;
-            (new WorldGenLakes(Blocks.water)).generate(this.worldObj, this.RNGa, var12, var13, var14);
+            var12 = var4 + RNGa.nextInt(16) + 8;
+            var13 = RNGa.nextInt(128);
+            var14 = var5 + RNGa.nextInt(16) + 8;
+            (new WorldGenLakes(Blocks.water)).generate(worldObj, RNGa, var12, var13, var14);
         }
 
-        if (!var11 && this.RNGa.nextInt(8) == 0)
+        if (!var11 && RNGa.nextInt(8) == 0)
         {
-            var12 = var4 + this.RNGa.nextInt(16) + 8;
-            var13 = this.RNGa.nextInt(this.RNGa.nextInt(120) + 8);
-            var14 = var5 + this.RNGa.nextInt(16) + 8;
+            var12 = var4 + RNGa.nextInt(16) + 8;
+            var13 = RNGa.nextInt(RNGa.nextInt(120) + 8);
+            var14 = var5 + RNGa.nextInt(16) + 8;
 
-            if (var13 < 63 || this.RNGa.nextInt(10) == 0)
+            if (var13 < 63 || RNGa.nextInt(10) == 0)
             {
-                (new WorldGenLakes(Blocks.lava)).generate(this.worldObj, this.RNGa, var12, var13, var14);
+                (new WorldGenLakes(Blocks.lava)).generate(worldObj, RNGa, var12, var13, var14);
             }
         }
 
-        var6.decorate(this.worldObj, this.RNGa, var4, var5);
+        var6.decorate(worldObj, RNGa, var4, var5);
 
         if (par2 == 0 && par3 == 0 && !portalDone) 
         {
-            createPortal(this.worldObj, this.RNGa);
+            createPortal(worldObj, RNGa);
         }
 
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(par1IChunkProvider, worldObj, worldObj.rand, par2, par3, false));
@@ -503,7 +503,7 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
      */
     public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int par2, int par3, int par4)
     {
-        BiomeGenBase var5 = this.worldObj.getBiomeGenForCoords(par2, par4);
+        BiomeGenBase var5 = worldObj.getBiomeGenForCoords(par2, par4);
         return var5 == null ? null : var5.getSpawnableList(par1EnumCreatureType);
     }
 

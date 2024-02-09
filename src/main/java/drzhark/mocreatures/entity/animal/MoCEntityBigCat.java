@@ -69,7 +69,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     @Override
     protected boolean canDespawn()
     {
-        return !getIsTamed() && this.ticksExisted > 2400;
+        return !getIsTamed() && ticksExisted > 2400;
     }
 
     /**
@@ -86,10 +86,10 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         	setType(1);
         }
 
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
         
-        this.setHealth(this.getMaxHealth());
+        setHealth(getMaxHealth());
     }
 
     @Override
@@ -369,7 +369,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 
         }
 
-        if (this.attackTime <= 0 && (distanceToEntity < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        if (attackTime <= 0 && (distanceToEntity < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), getAttackStrength());
@@ -392,7 +392,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
             {
                 entityToAttack = entityThatAttackedThisCreature;
                 
-                if (!(this.getIsAdult()) && (entityThatAttackedThisCreature != null) && !(this.getIsTamed()))
+                if (!(getIsAdult()) && (entityThatAttackedThisCreature != null) && !(getIsTamed()))
             	{
         			
         			List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(10D, 10D, 10D));
@@ -404,7 +404,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     	                	MoCEntityBigCat bigCatEntityNearBy = (MoCEntityBigCat) entity1;
     	                	if (bigCatEntityNearBy.getIsAdult());
     	                	{	
-    	                		if (!(bigCatEntityNearBy.getIsTamed()) && (bigCatEntityNearBy.getType() == this.getType()))
+    	                		if (!(bigCatEntityNearBy.getIsTamed()) && (bigCatEntityNearBy.getType() == getType()))
     	                		{
     	                			bigCatEntityNearBy.entityToAttack = damageSource.getEntity();
     	                		}
@@ -470,9 +470,9 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         
         if (MoCreatures.proxy.specialPetsDefendOwner)
     	{
-	        if (this.getIsTamed()) //defend owner if they are attacked by an entity
+	        if (getIsTamed()) //defend owner if they are attacked by an entity
 	    	{
-	    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(getOwnerName());
 	    		
 	    		if (ownerOfEntityThatIsOnline != null)
 	    		{
@@ -721,7 +721,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     @Override
     public int nameYOffset()
     {
-        if (getIsAdult() && this.getType() == 2) //tamed male lions need a slightly higher name y offset because of their manes
+        if (getIsAdult() && getType() == 2) //tamed male lions need a slightly higher name y offset because of their manes
         {
             return -80;
         }
@@ -736,7 +736,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         {
             if (getIsTamed())
             {
-                MoCTools.dropCustomItem(this, this.worldObj, new ItemStack(MoCreatures.medallion, 1));
+                MoCTools.dropCustomItem(this, worldObj, new ItemStack(MoCreatures.medallion, 1));
             }
         }
         super.onDeath(damageSource);
@@ -748,10 +748,10 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 
         super.onLivingUpdate();
 
-        if ((rand.nextInt(300) == 0) && (this.getHealth() <= getMaxHealth()) && (deathTime == 0) && !worldObj.isRemote)
+        if ((rand.nextInt(300) == 0) && (getHealth() <= getMaxHealth()) && (deathTime == 0) && !worldObj.isRemote)
         {
             //health++;
-            this.setHealth(getHealth() + 1);
+            setHealth(getHealth() + 1);
         }
         if (!getIsAdult() && (rand.nextInt(250) == 0))
         {
@@ -769,10 +769,10 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
                 		setType(typeThatBabyLionGrowsUpToBe);
                 		
                 		
-                		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
-                        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
+                		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
+                        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
                         
-                        this.setHealth(this.getMaxHealth());
+                        setHealth(getMaxHealth());
                 	}
                 }
             }

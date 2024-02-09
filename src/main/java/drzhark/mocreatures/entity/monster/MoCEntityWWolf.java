@@ -101,7 +101,7 @@ public class MoCEntityWWolf extends MoCEntityMob {
         {
             openMouth();
             attackTime = 20;
-            this.attackEntityAsMob(entity);
+            attackEntityAsMob(entity);
         }
     }
 

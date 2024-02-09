@@ -48,7 +48,7 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(5D); // setMaxHealth
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(5D); // setMaxHealth
     }
 
     @Override
@@ -173,7 +173,7 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
     {
         if (MoCreatures.isServer())
         {
-        	this.entityDropItem(new ItemStack(MoCreatures.kittybed, 1, getSheetColor()), 0F);
+        	entityDropItem(new ItemStack(MoCreatures.kittybed, 1, getSheetColor()), 0F);
         }
     }
 
@@ -222,7 +222,7 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
         else if (itemstack == null)
         {
             rotationYaw = entityPlayer.rotationYaw;
-            if ((this.ridingEntity == null) && (entityPlayer.ridingEntity == null))
+            if ((ridingEntity == null) && (entityPlayer.ridingEntity == null))
             {
                 if (MoCreatures.isServer())
                 {
@@ -233,7 +233,7 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
             {
                 if (MoCreatures.isServer())
                 {
-                    this.mountEntity(null);
+                    mountEntity(null);
                 }
             }
             return true;

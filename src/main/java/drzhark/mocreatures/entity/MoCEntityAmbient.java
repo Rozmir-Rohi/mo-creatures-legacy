@@ -62,8 +62,8 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(getMaxHealth());
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(getMaxHealth());
     }
     
     @Override
@@ -134,7 +134,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
     @Override
     public String getName()
     {
-        return this.dataWatcher.getWatchableObjectString(17);
+        return dataWatcher.getWatchableObjectString(17);
     }
 
     /**
@@ -413,8 +413,8 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         float xzAngleInDegreesToNewFacingLocation = (float) (Math.atan2(zDistanceToNewFacingLocation, xDistanceToNewFacingLocation) * 180.0D / Math.PI) - 90.0F;
         float yAngleInDegreesToNewFacingLocation = (float) (-(Math.atan2(yDistanceToNewFacingLocation, overallDistanceToNewFacingLocationSquared) * 180.0D / Math.PI));
         
-        this.rotationPitch = -this.updateRotation(rotationPitch, yAngleInDegreesToNewFacingLocation, f);
-        this.rotationYaw = this.updateRotation(rotationYaw, xzAngleInDegreesToNewFacingLocation, f);
+        rotationPitch = -updateRotation(rotationPitch, yAngleInDegreesToNewFacingLocation, f);
+        rotationYaw = updateRotation(rotationYaw, xzAngleInDegreesToNewFacingLocation, f);
     }
 
     /**
@@ -571,7 +571,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
     @Override
     public boolean getCanSpawnHere()
     {
-        if (MoCreatures.entityMap.get(this.getClass()).getFrequency() <= 0) {return false;}
+        if (MoCreatures.entityMap.get(getClass()).getFrequency() <= 0) {return false;}
         
         int xCoordinate = MathHelper.floor_double(posX);
         int yCoordinate = MathHelper.floor_double(boundingBox.minY);
@@ -586,15 +586,15 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
 
     public boolean getCanSpawnHereJungle()
     {
-        if (this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty() && !this.worldObj.isAnyLiquid(this.boundingBox))
+        if (worldObj.checkNoEntityCollision(boundingBox) && worldObj.getCollidingBoundingBoxes(this, boundingBox).isEmpty() && !worldObj.isAnyLiquid(boundingBox))
         {
-            int xCoordinate = MathHelper.floor_double(this.posX);
-            int yCoordinate = MathHelper.floor_double(this.boundingBox.minY);
-            int zCoordinate = MathHelper.floor_double(this.posZ);
+            int xCoordinate = MathHelper.floor_double(posX);
+            int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+            int zCoordinate = MathHelper.floor_double(posZ);
 
             if (yCoordinate < 63) { return false; }
 
-            Block block = this.worldObj.getBlock(xCoordinate, yCoordinate - 1, zCoordinate);
+            Block block = worldObj.getBlock(xCoordinate, yCoordinate - 1, zCoordinate);
 
             if (
             		block == Blocks.grass
@@ -637,7 +637,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
     public void moveEntityWithHeading(float strafeMovement, float forwardMovement)
     {
         //If the entity is not ridden by entityPlayer, then execute the normal Entityliving code
-        if (!isFlyer() && (!rideableEntity() || this.riddenByEntity == null))
+        if (!isFlyer() && (!rideableEntity() || riddenByEntity == null))
         {
             super.moveEntityWithHeading(strafeMovement, forwardMovement);
             return;
@@ -668,7 +668,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
                     riddenByEntity.motionY += 0.3D;
                     riddenByEntity.motionZ -= 0.3D;
                     riddenByEntity.mountEntity(null);
-                    this.riddenByEntity = null;
+                    riddenByEntity = null;
                 }
             }
             double yCoordinate = posY;
@@ -707,7 +707,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
                     riddenByEntity.motionY += 0.3D;
                     riddenByEntity.motionZ -= 0.3D;
                     riddenByEntity.mountEntity(null);
-                    this.riddenByEntity = null;
+                    riddenByEntity = null;
                 }
             }
             double yCoordinate1 = posY;
@@ -768,7 +768,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
                     riddenByEntity.motionY += 0.9D;
                     riddenByEntity.motionZ -= 0.3D;
                     riddenByEntity.mountEntity(null);
-                    this.riddenByEntity = null;
+                    riddenByEntity = null;
                 }
             }
             if ((riddenByEntity != null) && getIsTamed())
@@ -814,14 +814,14 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
                 
                 if (isOnAir())
                 {
-                    double xVelocity = 0.05F * Math.cos((MoCTools.realAngle(this.rotationYaw - 90F)) / 57.29578F);
-                    double zVelocity = 0.05F * Math.sin((MoCTools.realAngle(this.rotationYaw - 90F)) / 57.29578F);
-                    this.motionX -= xVelocity;
-                    this.motionZ -= zVelocity;
+                    double xVelocity = 0.05F * Math.cos((MoCTools.realAngle(rotationYaw - 90F)) / 57.29578F);
+                    double zVelocity = 0.05F * Math.sin((MoCTools.realAngle(rotationYaw - 90F)) / 57.29578F);
+                    motionX -= xVelocity;
+                    motionZ -= zVelocity;
                 }
             }
 
-            if (isFlyer() && riddenByEntity == null && entityToAttack != null && entityToAttack.posY < this.posY && rand.nextInt(30) == 0)
+            if (isFlyer() && riddenByEntity == null && entityToAttack != null && entityToAttack.posY < posY && rand.nextInt(30) == 0)
             {
                 motionY = -0.25D;
             }
@@ -837,7 +837,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
                 motionY *= 0.98000001907348633D;
             }
             
-            if (this.riddenByEntity != null && isOnAir())
+            if (riddenByEntity != null && isOnAir())
             {
                 movement = flyerFriction();
                 
@@ -846,7 +846,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
             motionZ *= movement;
         }
         
-        this.prevLimbSwingAmount = this.limbSwingAmount;
+        prevLimbSwingAmount = limbSwingAmount;
         
         double xDistanceTravelled = posX - prevPosX;
         double zDistanceTravelled = posZ - prevPosZ;
@@ -857,8 +857,8 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
             overallHorizontalDistanceTravelledSquared = 1.0F;
         }
 
-        this.limbSwingAmount += (overallHorizontalDistanceTravelledSquared - this.limbSwingAmount) * 0.4F;
-        this.limbSwing += this.limbSwingAmount;
+        limbSwingAmount += (overallHorizontalDistanceTravelledSquared - limbSwingAmount) * 0.4F;
+        limbSwing += limbSwingAmount;
     }
 
     /**
@@ -1124,13 +1124,13 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
     @Override
     public String getOwnerName()
     {
-        return this.dataWatcher.getWatchableObjectString(20);
+        return dataWatcher.getWatchableObjectString(20);
     }
 
     @Override
     public void setOwner(String par1Str)
     {
-        this.dataWatcher.updateObject(20, par1Str);
+        dataWatcher.updateObject(20, par1Str);
     }
 
     @Override
@@ -1142,7 +1142,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
 
         if (MoCreatures.isServer() && getIsTamed())
         {
-            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHealth(this.getEntityId(),  this.getHealth()), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHealth(getEntityId(),  getHealth()), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
         }
         return super.attackEntityFrom(damageSource, damageTaken);
     }
@@ -1191,13 +1191,13 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         return (
 	        		!(entity instanceof EntityLiving)
 	                || (entity instanceof EntityMob) 
-	                || (entity instanceof EntityPlayer && this.getIsTamed()) 
+	                || (entity instanceof EntityPlayer && getIsTamed()) 
 	                || (entity instanceof MoCEntityKittyBed) 
 	                || (entity instanceof MoCEntityLitterBox) 
-	                || (this.getIsTamed() && (entity instanceof MoCEntityAnimal && ((MoCEntityAnimal) entity).getIsTamed())) 
+	                || (getIsTamed() && (entity instanceof MoCEntityAnimal && ((MoCEntityAnimal) entity).getIsTamed())) 
 	                || ((entity instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)) 
 	                || ((entity instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)) 
-	                || (entity.width > this.width && entity.height > this.height)
+	                || (entity.width > width && entity.height > height)
 	                || (entity instanceof MoCEntityEgg)
 	            );
     }
@@ -1343,6 +1343,6 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
     @Override
     public void riderIsDisconnecting(boolean flag)
     {
-        this.riderIsDisconnecting = true;
+        riderIsDisconnecting = true;
     }
 }

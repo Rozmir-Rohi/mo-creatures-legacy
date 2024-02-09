@@ -13,11 +13,11 @@ public class MoCItem extends Item
     public MoCItem(String name)
     {	
     	GameRegistry.registerItem(this, name);
-    	this.setUnlocalizedName(name);
+    	setUnlocalizedName(name);
     	
     	if (!(name.contains("achievement_icon_"))) //do not add the achievement icons as items in the creative tab
     	{
-        	this.setCreativeTab(MoCreatures.tabMoC);	
+        	setCreativeTab(MoCreatures.tabMoC);	
     	}
     }
     
@@ -31,6 +31,6 @@ public class MoCItem extends Item
     @Override
     public void registerIcons(IIconRegister par1IconRegister)
     {
-        this.itemIcon = par1IconRegister.registerIcon("mocreatures"+ this.getUnlocalizedName().replaceFirst("item.", ":"));
+        itemIcon = par1IconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":"));
     }
 }

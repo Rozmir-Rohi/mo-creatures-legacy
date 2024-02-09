@@ -41,7 +41,7 @@ public class MoCRenderWerewolf extends RenderLiving {
 
         if (!entitywerewolf.getIsHumanForm())
         {
-            this.bindTexture(MoCreatures.proxy.getTexture("wereblank.png"));
+            bindTexture(MoCreatures.proxy.getTexture("wereblank.png"));
         }
         else
         {
@@ -49,19 +49,19 @@ public class MoCRenderWerewolf extends RenderLiving {
             {
 
             case 1:
-                this.bindTexture(MoCreatures.proxy.getTexture("weredude.png"));
+                bindTexture(MoCreatures.proxy.getTexture("weredude.png"));
                 break;
             case 2:
-                this.bindTexture(MoCreatures.proxy.getTexture("werehuman.png"));
+                bindTexture(MoCreatures.proxy.getTexture("werehuman.png"));
                 break;
             case 3:
-                this.bindTexture(MoCreatures.proxy.getTexture("wereoldie.png"));
+                bindTexture(MoCreatures.proxy.getTexture("wereoldie.png"));
                 break;
             case 4:
-                this.bindTexture(MoCreatures.proxy.getTexture("werewoman.png"));
+                bindTexture(MoCreatures.proxy.getTexture("werewoman.png"));
                 break;
             default:
-                this.bindTexture(MoCreatures.proxy.getTexture("wereoldie.png"));
+                bindTexture(MoCreatures.proxy.getTexture("wereoldie.png"));
             }
 
         }

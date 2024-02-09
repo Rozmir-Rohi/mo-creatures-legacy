@@ -68,7 +68,7 @@ public class MoCItemFishBowl extends MoCItem {
         double var7 = entityPlayer.prevPosY + (entityPlayer.posY - entityPlayer.prevPosY) * (double) var4 + 1.62D - (double) entityPlayer.yOffset;
         double var9 = entityPlayer.prevPosZ + (entityPlayer.posZ - entityPlayer.prevPosZ) * (double) var4;
 
-        MovingObjectPosition movingObjectPos = this.getMovingObjectPositionFromPlayer(worldObj, entityPlayer, true);//fishBowlType == 0);
+        MovingObjectPosition movingObjectPos = getMovingObjectPositionFromPlayer(worldObj, entityPlayer, true);//fishBowlType == 0);
 
         if (movingObjectPos == null)
         {

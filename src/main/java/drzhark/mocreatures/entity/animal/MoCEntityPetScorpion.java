@@ -44,13 +44,13 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         setMoCAge(20);
         roper = null;
         setHasBabies(false);
-        this.stepHeight = 20.0F;
+        stepHeight = 20.0F;
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
     }
     
     @Override
@@ -145,7 +145,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     {
         if (flag && MoCreatures.isServer())
         {
-            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 0), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 0), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
         }
         isPoisoning = flag;
     }
@@ -188,6 +188,14 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     @Override
     public void onLivingUpdate()
     {
+    	if (entityToAttack != null && entityToAttack == riddenByEntity)
+    	{
+    		if (!(riddenByEntity instanceof EntityPlayer && riddenByEntity.getCommandSenderName().equals(getOwnerName()))) //if not the owner of this entity
+    		{
+    			riddenByEntity.mountEntity(null); //forcefully make the entity that is riding this entity dismount
+    		}
+    	}
+    	
         if (!onGround && (ridingEntity != null))
         {
             rotationYaw = ridingEntity.rotationYaw;
@@ -235,11 +243,11 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             }
         }
         
-        if (this.ridingEntity instanceof EntityPlayer)
+        if (ridingEntity instanceof EntityPlayer)
         {
-        	if (((EntityPlayer) this.ridingEntity).inventory.getCurrentItem() != null)
+        	if (((EntityPlayer) ridingEntity).inventory.getCurrentItem() != null)
         	{
-        		this.mountEntity(null);
+        		mountEntity(null);
         		setPicked(false);
         	}
         }
@@ -253,8 +261,8 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     	
     	if (MoCreatures.isServer())
         {
-        	if (this.ridingEntity != null && 
-        			(damageSource.getEntity() == this.ridingEntity || DamageSource.inWall.equals(damageSource)))
+        	if (ridingEntity != null && 
+        			(damageSource.getEntity() == ridingEntity || DamageSource.inWall.equals(damageSource)))
             {
          	   return false;
             }
@@ -302,9 +310,9 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         
         if (MoCreatures.proxy.specialPetsDefendOwner)
         {
-	        if (this.getIsTamed() && this.riddenByEntity == null && this.ridingEntity == null) //defend owner if they are attacked by an entity
+	        if (getIsTamed() && riddenByEntity == null && ridingEntity == null) //defend owner if they are attacked by an entity
 	    	{
-	    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(getOwnerName());
 	    		
 	    		if (ownerOfEntityThatIsOnline != null)
 	    		{
@@ -323,7 +331,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     @Override
     public boolean shouldEntityBeIgnored(Entity entity)
     {
-        return ((super.shouldEntityBeIgnored(entity)) || (this.getIsTamed() && entity instanceof MoCEntityScorpion && ((MoCEntityScorpion) entity).getIsTamed()));
+        return ((super.shouldEntityBeIgnored(entity)) || (getIsTamed() && entity instanceof MoCEntityScorpion && ((MoCEntityScorpion) entity).getIsTamed()));
     }
 
     @Override
@@ -350,18 +358,10 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
                 setPoisoning(true);
                 if (getType() <= 2)// regular scorpions
                 {
-                    if (isEntityToAttackInstanceOfPlayer)
-                    {
-                        MoCreatures.poisonPlayer((EntityPlayer) entity);
-                    }
                     ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 70, 0));
                 }
                 else if (getType() == 4)// frost scorpions
                 {
-                    if (isEntityToAttackInstanceOfPlayer)
-                    {
-                        MoCreatures.freezePlayer((EntityPlayer) entity);
-                    }
                     ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 70, 0));
 
                 }
@@ -369,7 +369,6 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
                 {
                     if (isEntityToAttackInstanceOfPlayer && MoCreatures.isServer() && !worldObj.provider.isHellWorld)
                     {
-                        MoCreatures.burnPlayer((EntityPlayer) entity);
                         ((EntityLivingBase) entity).setFire(15);
 
                     }
@@ -389,7 +388,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     {
         if (MoCreatures.isServer())
         {
-            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 1), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 1), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
         }
     }
 
@@ -444,7 +443,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     {
         if (MoCreatures.isServer())
         {
-            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 3), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 3), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
         }
 
         return "mocreatures:scorpiongrunt";
@@ -495,7 +494,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && this.getIsTamed() && itemstack.getItem() == MoCreatures.essenceUndead)
+        if ((itemstack != null) && getIsTamed() && itemstack.getItem() == MoCreatures.essenceUndead)
         {
             if (--itemstack.stackSize == 0)
             {
@@ -509,7 +508,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && this.getIsTamed() && itemstack.getItem() == MoCreatures.essenceDarkness)
+        if ((itemstack != null) && getIsTamed() && itemstack.getItem() == MoCreatures.essenceDarkness)
         {
             if (--itemstack.stackSize == 0)
             {
@@ -519,8 +518,8 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             {
                 entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
             }
-            this.setHealth(getMaxHealth());
-            if (MoCreatures.isServer() && this.getIsAdult())
+            setHealth(getMaxHealth());
+            if (MoCreatures.isServer() && getIsAdult())
             {
                 int eggType = getType() + 40;
                 MoCEntityEgg entityEgg = new MoCEntityEgg(worldObj, eggType);
@@ -532,7 +531,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             }
             return true;
         }
-        if (itemstack == null && this.ridingEntity == null && getMoCAge() < 60)
+        if (itemstack == null && ridingEntity == null && getMoCAge() < 60)
         {
             rotationYaw = entityPlayer.rotationYaw;
             if (MoCreatures.isServer() && (entityPlayer.ridingEntity == null))
@@ -547,12 +546,12 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
                 entityPlayer.addStat(MoCAchievements.tame_scorpion, 1);
             }
         }
-        else if (itemstack == null && this.ridingEntity != null && getIsPicked())
+        else if (itemstack == null && ridingEntity != null && getIsPicked())
         {
             setPicked(false);
             if (MoCreatures.isServer())
             {
-                this.mountEntity(null);
+                mountEntity(null);
             }
             motionX = entityPlayer.motionX * 5D;
             motionY = (entityPlayer.motionY / 2D) + 0.5D;

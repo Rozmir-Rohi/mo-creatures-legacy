@@ -56,7 +56,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
     {
         if (flag && MoCreatures.isServer())
         {
-            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 0), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 0), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
         }
         isPoisoning = flag;
     }
@@ -173,7 +173,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
      */
     protected void findSunLightShelter()
     {
-        Vec3 vectorThreeDimensionalToPossibleShelter = this.findPossibleShelter();
+        Vec3 vectorThreeDimensionalToPossibleShelter = findPossibleShelter();
         if (vectorThreeDimensionalToPossibleShelter == null)
         {
             hideCounter++;
@@ -181,12 +181,12 @@ public class MoCEntityScorpion extends MoCEntityMob {
             {
                 hideCounter = 0;
             }
-            this.updateWanderPath();
+            updateWanderPath();
             return;// false;
         }
         else
         {
-            this.getNavigator().tryMoveToXYZ(vectorThreeDimensionalToPossibleShelter.xCoord, vectorThreeDimensionalToPossibleShelter.yCoord, vectorThreeDimensionalToPossibleShelter.zCoord, this.getMoveSpeed() / 2F);
+            getNavigator().tryMoveToXYZ(vectorThreeDimensionalToPossibleShelter.xCoord, vectorThreeDimensionalToPossibleShelter.yCoord, vectorThreeDimensionalToPossibleShelter.zCoord, getMoveSpeed() / 2F);
         }
     }
 
@@ -288,7 +288,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
                 if ((rand.nextInt(80) == 0))
                 {
                     EntityLivingBase entityLiving = getClosestEntityLiving(this, 10D);
-                if (entityLiving != null && !(entityLiving instanceof EntityPlayer) && this.canEntityBeSeen(entityLiving)) // blood - add LoS requirement
+                if (entityLiving != null && !(entityLiving instanceof EntityPlayer) && canEntityBeSeen(entityLiving)) // blood - add LoS requirement
                     return entityLiving;
                 }
             }
@@ -302,7 +302,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
         return 
         		(
         			(super.shouldEntityBeIgnored(entity))
-        			|| (this.getIsTamed() && entity instanceof MoCEntityScorpion && ((MoCEntityScorpion) entity).getIsTamed())
+        			|| (getIsTamed() && entity instanceof MoCEntityScorpion && ((MoCEntityScorpion) entity).getIsTamed())
         		);
     }
 
@@ -324,32 +324,23 @@ public class MoCEntityScorpion extends MoCEntityMob {
         else if (attackTime <= 0 && (distanceToEntity < 3.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
-            boolean flag = (entity instanceof EntityPlayer);
+            boolean isEntityPlayer = (entity instanceof EntityPlayer);
             if (!getIsPoisoning() && rand.nextInt(5) == 0 && entity instanceof EntityLivingBase)
             {
                 setPoisoning(true);
                 if (getType() <= 2)// regular scorpions
                 {
-                    if (flag)
-                    {
-                        MoCreatures.poisonPlayer((EntityPlayer) entity);
-                    }
                     ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 70, 0));
                 }
                 else if (getType() == 4)// blue scorpions
                 {
-                    if (flag)
-                    {
-                        MoCreatures.freezePlayer((EntityPlayer) entity);
-                    }
                     ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 70, 0));
 
                 }
                 else if (getType() == 3)// red scorpions
                 {
-                    if (flag && MoCreatures.isServer() && !worldObj.provider.isHellWorld)
+                    if (isEntityPlayer && MoCreatures.isServer() && !worldObj.provider.isHellWorld)
                     {
-                        MoCreatures.burnPlayer((EntityPlayer) entity);
                         ((EntityLivingBase) entity).setFire(15);
                     }
                 }
@@ -366,7 +357,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
     {
         if (MoCreatures.isServer())
         {
-            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 1), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 1), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
         }
     }
 
@@ -418,7 +409,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
     {
         if (MoCreatures.isServer())
         {
-            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 3), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 3), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
         }
         return "mocreatures:scorpiongrunt";
     }
@@ -453,13 +444,13 @@ public class MoCEntityScorpion extends MoCEntityMob {
     protected void dropFewItems(boolean flag, int x)
     {
         if (!flag) return;
-        Item item = this.getDropItem();
+        Item item = getDropItem();
 
         if (item != null)
         {
             if (rand.nextInt(3) == 0)
             {
-                this.dropItem(item, 1);
+                dropItem(item, 1);
             }
         }
 
@@ -468,7 +459,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
     @Override
     public boolean getCanSpawnHere()
     {
-        return (isValidLightLevel() && MoCreatures.entityMap.get(this.getClass()).getFrequency() > 0) && getCanSpawnHereLiving() && getCanSpawnHereCreature();
+        return (isValidLightLevel() && MoCreatures.entityMap.get(getClass()).getFrequency() > 0) && getCanSpawnHereLiving() && getCanSpawnHereCreature();
     }
 
     @Override

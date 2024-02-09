@@ -34,16 +34,16 @@ public class MoCItemWeapon extends ItemSword {
     {
         super(toolMaterial);
         
-        this.setCreativeTab(MoCreatures.tabMoC);
-        this.setUnlocalizedName(name);
+        setCreativeTab(MoCreatures.tabMoC);
+        setUnlocalizedName(name);
         GameRegistry.registerItem(this, name);
         
         this.toolMaterial = toolMaterial;
-        this.maxStackSize = 1;
-        this.setMaxDamage(toolMaterial.getMaxUses());
-        this.attackDamage = 4 + toolMaterial.getDamageVsEntity();
+        maxStackSize = 1;
+        setMaxDamage(toolMaterial.getMaxUses());
+        attackDamage = 4 + toolMaterial.getDamageVsEntity();
         
-        this.maxStackSize = 1;
+        maxStackSize = 1;
         
       //the operations below set the repair item for the tool material
         
@@ -61,13 +61,13 @@ public class MoCItemWeapon extends ItemSword {
     @Override
     public void registerIcons(IIconRegister par1IconRegister)
     {
-        this.itemIcon = par1IconRegister.registerIcon("mocreatures"+ this.getUnlocalizedName().replaceFirst("item.", ":"));
+        itemIcon = par1IconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":"));
     }
     
     @Override
     public boolean getIsRepairable(ItemStack itemstack_weapon, ItemStack itemstack_in_anvil)
     {    	
-    	ItemStack repair_material = this.toolMaterial.getRepairItemStack();
+    	ItemStack repair_material = toolMaterial.getRepairItemStack();
     	
         if (repair_material != null && OreDictionary.itemMatches(repair_material, itemstack_in_anvil, false))
         {
@@ -96,8 +96,8 @@ public class MoCItemWeapon extends ItemSword {
     public MoCItemWeapon(String name, ToolMaterial toolMaterial, int damageType, boolean fragile)
     {
         this(name, toolMaterial);
-        this.specialWeaponType = damageType;
-        this.breakable = fragile;
+        specialWeaponType = damageType;
+        breakable = fragile;
     }
 
     /**
@@ -189,7 +189,7 @@ public class MoCItemWeapon extends ItemSword {
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
     {
-        player.setItemInUse(itemStack, this.getMaxItemUseDuration(itemStack));
+        player.setItemInUse(itemStack, getMaxItemUseDuration(itemStack));
         return itemStack;
     }
 
@@ -209,12 +209,12 @@ public class MoCItemWeapon extends ItemSword {
     @Override
     public int getItemEnchantability()
     {
-        return this.toolMaterial.getEnchantability();
+        return toolMaterial.getEnchantability();
     }
     
     public Multimap func_111205_h() {
         final Multimap multimap = super.getItemAttributeModifiers();
-        multimap.put((Object)SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), (Object)new AttributeModifier(MoCItemWeapon.field_111210_e, "Weapon modifier", (double)this.attackDamage, 0));
+        multimap.put((Object)SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), (Object)new AttributeModifier(MoCItemWeapon.field_111210_e, "Weapon modifier", (double)attackDamage, 0));
         return multimap;
     }
 }

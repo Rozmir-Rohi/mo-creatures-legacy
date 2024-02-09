@@ -15,7 +15,7 @@ public class MoCRenderSmallFish extends MoCRenderMoC {
 
 	public MoCRenderSmallFish(MoCModelSmallFish modelbase, float f) {
 		super(modelbase, f);
-		this.setRenderPassModel(new MoCModelSmallFish());
+		setRenderPassModel(new MoCModelSmallFish());
 	}
 	
 	protected int shouldRenderPass(MoCEntitySmallFish p_77032_1_, int p_77032_2_, float p_77032_3_) //controls emissive textures for anglerfish
@@ -27,7 +27,7 @@ public class MoCRenderSmallFish extends MoCRenderMoC {
         }
         else
         {
-            this.bindTexture(anglerfishGlowingTextures);
+            bindTexture(anglerfishGlowingTextures);
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
 
@@ -52,7 +52,7 @@ public class MoCRenderSmallFish extends MoCRenderMoC {
 	@Override
 	protected int shouldRenderPass(EntityLivingBase p_77032_1_, int p_77032_2_, float p_77032_3_)
     {
-        return this.shouldRenderPass((MoCEntitySmallFish)p_77032_1_, p_77032_2_, p_77032_3_);
+        return shouldRenderPass((MoCEntitySmallFish)p_77032_1_, p_77032_2_, p_77032_3_);
     }
 
 }

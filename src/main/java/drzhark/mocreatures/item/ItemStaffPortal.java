@@ -146,23 +146,23 @@ public class ItemStaffPortal extends MoCItem
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World par2World, EntityPlayer par3EntityPlayer)
     {
-        par3EntityPlayer.setItemInUse(itemstack, this.getMaxItemUseDuration(itemstack));
+        par3EntityPlayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
         return itemstack;
     }
 
     public void readFromNBT(NBTTagCompound nbt)
     {
-        this.portalPosX = nbt.getInteger("portalPosX");
-        this.portalPosY = nbt.getInteger("portalPosY");
-        this.portalPosZ = nbt.getInteger("portalPosZ");
-        this.portalDimension = nbt.getInteger("portalDimension");
+        portalPosX = nbt.getInteger("portalPosX");
+        portalPosY = nbt.getInteger("portalPosY");
+        portalPosZ = nbt.getInteger("portalPosZ");
+        portalDimension = nbt.getInteger("portalDimension");
     }
 
     public void writeToNBT(NBTTagCompound nbt)
     {
-        nbt.setInteger("portalPosX", this.portalPosX);
-        nbt.setInteger("portalPosY", this.portalPosY);
-        nbt.setInteger("portalPosZ", this.portalPosZ);
-        nbt.setInteger("portalDimension", this.portalDimension);
+        nbt.setInteger("portalPosX", portalPosX);
+        nbt.setInteger("portalPosY", portalPosY);
+        nbt.setInteger("portalPosZ", portalPosZ);
+        nbt.setInteger("portalDimension", portalDimension);
     }
 }

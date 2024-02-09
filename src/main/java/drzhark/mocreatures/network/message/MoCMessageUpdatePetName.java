@@ -40,7 +40,7 @@ public class MoCMessageUpdatePetName implements IMessage, IMessageHandler<MoCMes
     {
     	int byteLength = 0;
     	
-    	char[] characterArray = this.name.toCharArray();
+    	char[] characterArray = name.toCharArray();
     	
     	for (char character : characterArray) //this loop goes through each character in the string and assigns them the amount of bytes they need
     	{	
@@ -96,10 +96,10 @@ public class MoCMessageUpdatePetName implements IMessage, IMessageHandler<MoCMes
         buffer.writeInt(byteLength);
         
         
-        buffer.writeBytes(StandardCharsets.UTF_8.encode(this.name)); //encodes to UTF-8 before writeBytes to properly process special characters
+        buffer.writeBytes(StandardCharsets.UTF_8.encode(name)); //encodes to UTF-8 before writeBytes to properly process special characters
 
         
-        buffer.writeInt(this.entityId);
+        buffer.writeInt(entityId);
     }
 
     @Override
@@ -107,9 +107,9 @@ public class MoCMessageUpdatePetName implements IMessage, IMessageHandler<MoCMes
     {
         int nameLength = buffer.readInt();
         
-        this.name = new String(buffer.readBytes(nameLength).array(), StandardCharsets.UTF_8); //set the encoding to UTF-8 within the string to properly output special characters
+        name = new String(buffer.readBytes(nameLength).array(), StandardCharsets.UTF_8); //set the encoding to UTF-8 within the string to properly output special characters
         
-        this.entityId = buffer.readInt();
+        entityId = buffer.readInt();
     }
 
     @Override
@@ -151,6 +151,6 @@ public class MoCMessageUpdatePetName implements IMessage, IMessageHandler<MoCMes
     @Override
     public String toString()
     {
-        return String.format("MoCMessageUpdatePetName - entityId:%s, name:%s", this.entityId, this.name);
+        return String.format("MoCMessageUpdatePetName - entityId:%s, name:%s", entityId, name);
     }
 }

@@ -60,7 +60,7 @@ public class MoCGUIEntityNamer extends GuiScreen {
     protected void actionPerformed(GuiButton guiButton)
     {
         if (!guiButton.enabled) { return; }
-        if ((guiButton.id == 0) && (this.nameToSet != null) && (!this.nameToSet.equals("")))
+        if ((guiButton.id == 0) && (nameToSet != null) && (!nameToSet.equals("")))
         {
             updateName();
         }

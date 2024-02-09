@@ -26,15 +26,15 @@ public class MoCMessageAnimation implements IMessage, IMessageHandler<MoCMessage
     @Override
     public void toBytes(ByteBuf buffer)
     {
-        buffer.writeInt(this.entityId);
-        buffer.writeInt(this.animationType);
+        buffer.writeInt(entityId);
+        buffer.writeInt(animationType);
     }
 
     @Override
     public void fromBytes(ByteBuf buffer)
     {
-        this.entityId = buffer.readInt();
-        this.animationType = buffer.readInt();
+        entityId = buffer.readInt();
+        animationType = buffer.readInt();
     }
 
     @Override
@@ -55,6 +55,6 @@ public class MoCMessageAnimation implements IMessage, IMessageHandler<MoCMessage
     @Override
     public String toString()
     {
-        return String.format("MoCMessageAnimation - entityId:%s, animationType:%s", this.entityId, this.animationType);
+        return String.format("MoCMessageAnimation - entityId:%s, animationType:%s", entityId, animationType);
     }
 }

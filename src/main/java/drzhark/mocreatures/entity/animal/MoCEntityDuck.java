@@ -1,14 +1,10 @@
 package drzhark.mocreatures.entity.animal;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityAnimal;
-import drzhark.mocreatures.entity.MoCEntityInsect;
-import drzhark.mocreatures.entity.ambient.MoCEntityMaggot;
-import drzhark.mocreatures.entity.ambient.MoCEntitySnail;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 public class MoCEntityDuck extends MoCEntityAnimal//EntityChicken
@@ -67,8 +63,22 @@ public class MoCEntityDuck extends MoCEntityAnimal//EntityChicken
     }
 
     @Override
-    protected Item getDropItem()
-    {
-        return Items.feather;
+    protected void dropFewItems(boolean hasEntityBeenHitByPlayer, int levelOfLootingEnchantmentUsedToKillThisEntity)
+    {   
+        int randomAmount = rand.nextInt(3);
+
+        dropItem(Items.feather, randomAmount);
+        
+    	if (MoCreatures.isExoticBirdsLoaded)
+    	{
+    		if (isBurning())
+    		{
+    			dropItem(GameRegistry.findItem("exoticbirds", "cooked_birdmeat_small"), 1);
+    		}
+    		else 
+    		{
+    			dropItem(GameRegistry.findItem("exoticbirds", "birdmeat_small"), 1);
+    		}
+    	}
     }
 }

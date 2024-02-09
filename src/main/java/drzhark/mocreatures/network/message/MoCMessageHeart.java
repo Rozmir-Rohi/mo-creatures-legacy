@@ -24,13 +24,13 @@ public class MoCMessageHeart implements IMessage, IMessageHandler<MoCMessageHear
     @Override
     public void toBytes(ByteBuf buffer)
     {
-        buffer.writeInt(this.entityId);
+        buffer.writeInt(entityId);
     }
 
     @Override
     public void fromBytes(ByteBuf buffer)
     {
-        this.entityId = buffer.readInt();
+        entityId = buffer.readInt();
     }
 
     @Override
@@ -51,6 +51,6 @@ public class MoCMessageHeart implements IMessage, IMessageHandler<MoCMessageHear
     @Override
     public String toString()
     {
-        return String.format("MoCMessageHeart - entityId:%s", this.entityId);
+        return String.format("MoCMessageHeart - entityId:%s", entityId);
     }
 }

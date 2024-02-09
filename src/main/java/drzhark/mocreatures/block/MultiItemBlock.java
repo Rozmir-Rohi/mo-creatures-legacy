@@ -12,7 +12,7 @@ public class MultiItemBlock extends ItemBlock {
         super(block);
         setHasSubtypes(true);
         //setItemName("multiBlock"); //TODO
-        this.setUnlocalizedName("multiBlock");
+        setUnlocalizedName("multiBlock");
     }
 
     @Override

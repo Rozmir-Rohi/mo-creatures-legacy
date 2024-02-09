@@ -4,10 +4,8 @@ import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.IMoCEntity;
 import drzhark.mocreatures.entity.MoCEntityAmbient;
-import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.MoCEntityMob;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
-import drzhark.mocreatures.entity.MoCEntityTameableAquatic;
 import drzhark.mocreatures.entity.aquatic.MoCEntityJellyFish;
 import drzhark.mocreatures.entity.aquatic.MoCEntityRay;
 import drzhark.mocreatures.entity.aquatic.MoCEntityShark;
@@ -28,9 +26,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     // TODO
@@ -62,7 +57,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(25.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(25.0D);
     }
     
     @Override
@@ -83,7 +78,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     @Override
     protected boolean canDespawn()
     {
-        return !getIsTamed() && this.ticksExisted > 2400;
+        return !getIsTamed() && ticksExisted > 2400;
     }
 
     public boolean getIsBiting()
@@ -193,7 +188,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
         }
         else
         {
-            if (MoCreatures.isServer() && (rand.nextInt(500) == 0) && entityToAttack == null && !getHasCaughtPrey() && !(this.isInWater()))
+            if (MoCreatures.isServer() && (rand.nextInt(500) == 0) && entityToAttack == null && !getHasCaughtPrey() && !(isInWater()))
             {
                 setIsResting(true);
                 setPathToEntity(null);
@@ -359,7 +354,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     @Override
     protected void attackEntity(Entity entity, float distanceToEntity)
     {
-    	if (this.getIsResting()) {this.setIsResting(false);}
+    	if (getIsResting()) {setIsResting(false);}
     	
         if (entity instanceof EntityPlayer)
         {
@@ -394,7 +389,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     @Override
     public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-    	if (this.getIsResting()) {this.setIsResting(false);}
+    	if (getIsResting()) {setIsResting(false);}
     	
         if (riddenByEntity != null)
         {
@@ -471,7 +466,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
                 || (entity instanceof IMob || entity instanceof MoCEntityMob) //don't hunt the creature if it is a mob 
                 || (entity instanceof EntityPlayer) 
                 || (entity instanceof MoCEntityKittyBed || entity instanceof MoCEntityLitterBox) 
-                || (this.getIsTamed() && (entity instanceof IMoCEntity && ((IMoCEntity) entity).getIsTamed())) 
+                || (getIsTamed() && (entity instanceof IMoCEntity && ((IMoCEntity) entity).getIsTamed())) 
                 || ((entity instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)) 
                 || (entity instanceof MoCEntityHorse && !(MoCreatures.proxy.attackHorses)) 
                 || (entity instanceof MoCEntityEgg)
@@ -505,8 +500,8 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
             direction = 1;
         }
 
-        ((EntityLivingBase) riddenByEntity).renderYawOffset = this.rotationYaw * direction;
-        ((EntityLivingBase) riddenByEntity).prevRenderYawOffset = this.rotationYaw * direction;
+        ((EntityLivingBase) riddenByEntity).renderYawOffset = rotationYaw * direction;
+        ((EntityLivingBase) riddenByEntity).prevRenderYawOffset = rotationYaw * direction;
     }
 
     @Override

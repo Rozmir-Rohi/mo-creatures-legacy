@@ -25,153 +25,153 @@ public class MoCEntityData {
 
     public MoCEntityData(String name,  int maxchunk, EnumCreatureType type, SpawnListEntry spawnListEntry, List<Type> biomeTypes)
     {
-        this.entityName = name;
-        this.typeOfCreature = type;
+        entityName = name;
+        typeOfCreature = type;
         this.biomeTypes = biomeTypes;
-        this.frequency = spawnListEntry.itemWeight;
-        this.minGroup = spawnListEntry.minGroupCount;
-        this.maxGroup = spawnListEntry.maxGroupCount;
-        this.maxSpawnInChunk = maxchunk;
+        frequency = spawnListEntry.itemWeight;
+        minGroup = spawnListEntry.minGroupCount;
+        maxGroup = spawnListEntry.maxGroupCount;
+        maxSpawnInChunk = maxchunk;
         this.spawnListEntry = spawnListEntry;
         MoCreatures.entityMap.put(spawnListEntry.entityClass, this);
     }
 
     public MoCEntityData(String name, int id, int maxchunk, EnumCreatureType type, SpawnListEntry spawnListEntry, List<Type> biomeTypes)
     {
-        this.entityId = id;
-        this.entityName = name;
-        this.typeOfCreature = type;
+        entityId = id;
+        entityName = name;
+        typeOfCreature = type;
         this.biomeTypes = biomeTypes;
-        this.frequency = spawnListEntry.itemWeight;
-        this.minGroup = spawnListEntry.minGroupCount;
-        this.maxGroup = spawnListEntry.maxGroupCount;
-        this.maxSpawnInChunk = maxchunk;
+        frequency = spawnListEntry.itemWeight;
+        minGroup = spawnListEntry.minGroupCount;
+        maxGroup = spawnListEntry.maxGroupCount;
+        maxSpawnInChunk = maxchunk;
         this.spawnListEntry = spawnListEntry;
         MoCreatures.entityMap.put(spawnListEntry.entityClass, this);
     }
 
     public Class<? extends EntityLiving> getEntityClass()
     {
-        return this.spawnListEntry.entityClass;
+        return spawnListEntry.entityClass;
     }
 
     public EnumCreatureType getType()
     {
-        if (this.typeOfCreature != null)
-            return this.typeOfCreature;
+        if (typeOfCreature != null)
+            return typeOfCreature;
         return null;
     }
 
     public void setType(EnumCreatureType type)
     {
-        this.typeOfCreature = type;
+        typeOfCreature = type;
     }
 
     public List<Type> getBiomeTypes()
     {
-        return this.biomeTypes;
+        return biomeTypes;
     }
 
     public int getEntityID()
     {
-        return this.entityId;
+        return entityId;
     }
 
     public void setEntityID(int id)
     {
-        this.entityId = id;
+        entityId = id;
     }
 
     public int getFrequency()
     {
-        return this.frequency;
+        return frequency;
     }
 
     public void setFrequency(int freq)
     {
         if (freq <= 0)
         {
-            this.frequency = 0;
+            frequency = 0;
         }
         else 
         {
-            this.frequency = freq;
+            frequency = freq;
         }
     }
 
     public int getMinSpawn()
     {
-        return this.minGroup;
+        return minGroup;
     }
 
     public void setMinSpawn(int min)
     {
         if (min <= 0)
         {
-            this.minGroup = 0;
+            minGroup = 0;
         }
         else 
         {
-            this.minGroup = min;
+            minGroup = min;
         }
     }
 
     public int getMaxSpawn()
     {
-        return this.maxGroup;
+        return maxGroup;
     }
 
     public void setMaxSpawn(int max)
     {
         if (max <= 0)
         {
-            this.maxGroup = 0;
+            maxGroup = 0;
         }
         else 
         {
-            this.maxGroup = max;
+            maxGroup = max;
         }
     }
 
     public int getMaxInChunk()
     {
-        return this.maxSpawnInChunk;
+        return maxSpawnInChunk;
     }
 
     public void setMaxInChunk(int max)
     {
         if (max <= 0)
         {
-            this.maxSpawnInChunk = 0;
+            maxSpawnInChunk = 0;
         }
         else 
         {
-            this.maxSpawnInChunk = max;
+            maxSpawnInChunk = max;
         }
     }
 
     public String getEntityName()
     {
-        return this.entityName;
+        return entityName;
     }
 
     public void setEntityName(String name)
     {
-        this.entityName = name;
+        entityName = name;
     }
 
     public void setCanSpawn(boolean flag)
     {
-        this.canSpawn = flag;
+        canSpawn = flag;
     }
 
     public boolean getCanSpawn()
     {
-        return this.canSpawn;
+        return canSpawn;
     }
 
     public SpawnListEntry getSpawnListEntry()
     {
-        return this.spawnListEntry;
+        return spawnListEntry;
     }
 }

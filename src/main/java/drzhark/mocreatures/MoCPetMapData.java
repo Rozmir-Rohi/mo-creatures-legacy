@@ -24,7 +24,7 @@ public class MoCPetMapData extends WorldSavedData
     public MoCPetMapData(String par1Str)
     {
         super(par1Str);
-        this.markDirty();
+        markDirty();
     }
 
     /**
@@ -42,11 +42,11 @@ public class MoCPetMapData extends WorldSavedData
 
     public boolean removeOwnerPet(IMoCTameable pet, int petId)
     {
-        if (this.petMap.get(pet.getOwnerName()) != null) // required since getInteger will always return 0 if no key is found
+        if (petMap.get(pet.getOwnerName()) != null) // required since getInteger will always return 0 if no key is found
         {
-           if (this.petMap.get(pet.getOwnerName()).removePet(petId))
+           if (petMap.get(pet.getOwnerName()).removePet(petId))
            {
-               this.markDirty();
+               markDirty();
                pet.setOwnerPetId(-1);
                return true;
            }
@@ -56,7 +56,7 @@ public class MoCPetMapData extends WorldSavedData
 
     public void updateOwnerPet(IMoCTameable pet, NBTTagCompound petNBT)
     {
-        this.markDirty();
+        markDirty();
         if (pet.getOwnerPetId() == -1 || petMap.get(pet.getOwnerName()) == null)
         {
             String owner = MoCreatures.isServer() ? pet.getOwnerName() : Minecraft.getMinecraft().thePlayer.getCommandSenderName();
@@ -79,7 +79,7 @@ public class MoCPetMapData extends WorldSavedData
         {
             // update pet data
             String owner = pet.getOwnerName();
-            MoCPetData petData = this.getPetData(owner);
+            MoCPetData petData = getPetData(owner);
             NBTTagCompound rootNBT = petData.getOwnerRootNBT();
             NBTTagList tag = rootNBT.getTagList("TamedList", 10);
             int id = -1;
@@ -95,7 +95,7 @@ public class MoCPetMapData extends WorldSavedData
                     double posY = Math.round(petNBT.getTagList("Pos", 6).func_150309_d(1));
                     double posZ = Math.round(petNBT.getTagList("Pos", 6).func_150309_d(2));
                     // Update what we need for commands
-                    nbt.setTag("Pos", this.newDoubleNBTList(new double[] {posX, posY + (double)((Entity)pet).ySize, posZ}));
+                    nbt.setTag("Pos", newDoubleNBTList(new double[] {posX, posY + (double)((Entity)pet).ySize, posZ}));
                     nbt.setInteger("ChunkX", ((Entity)pet).chunkCoordX);
                     nbt.setInteger("ChunkY", ((Entity)pet).chunkCoordY);
                     nbt.setInteger("ChunkZ", ((Entity)pet).chunkCoordZ);
@@ -154,7 +154,7 @@ public class MoCPetMapData extends WorldSavedData
                     if (file1 != null)
                     {
                         NBTTagCompound nbtTagCompound = new NBTTagCompound();
-                        this.writeToNBT(nbtTagCompound);
+                        writeToNBT(nbtTagCompound);
                         NBTTagCompound nbtTagCompound1 = new NBTTagCompound();
                         nbtTagCompound1.setTag("data", nbtTagCompound);
                         FileOutputStream fileoutputstream = new FileOutputStream(file1);
@@ -181,9 +181,9 @@ public class MoCPetMapData extends WorldSavedData
             String s = (String)iterator.next();
             NBTTagCompound nbt = (NBTTagCompound)par1NBTTagCompound.getTag(s);
 
-            if (!this.petMap.containsKey(s))
+            if (!petMap.containsKey(s))
             {
-                this.petMap.put(s, new MoCPetData(nbt, s));
+                petMap.put(s, new MoCPetData(nbt, s));
             }
         }
     }

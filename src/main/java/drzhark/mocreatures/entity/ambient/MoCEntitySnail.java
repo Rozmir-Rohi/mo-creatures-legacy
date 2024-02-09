@@ -107,7 +107,7 @@ public class MoCEntitySnail extends MoCEntityAmbient
             /**
              * snails without a shell won't hide
              */
-            if (getIsHiding() && this.getType() > 4)
+            if (getIsHiding() && getType() > 4)
             {
                 setIsHiding(false);
             }

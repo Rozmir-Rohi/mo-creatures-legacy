@@ -19,7 +19,7 @@ public class MoCRenderFirefly extends MoCRenderInsect {
     public MoCRenderFirefly(ModelBase modelbase)
     {
         super(modelbase);
-        this.setRenderPassModel(new MoCModelFirefly());
+        setRenderPassModel(new MoCModelFirefly());
     }
 
     /**
@@ -28,7 +28,7 @@ public class MoCRenderFirefly extends MoCRenderInsect {
     @Override
     protected int shouldRenderPass(EntityLivingBase entityLiving, int par2, float par3)
     {
-        return this.setTailBrightness((MoCEntityFirefly) entityLiving, par2, par3);
+        return setTailBrightness((MoCEntityFirefly) entityLiving, par2, par3);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class MoCRenderFirefly extends MoCRenderInsect {
         }
         else
         {
-            this.bindTexture(MoCreatures.proxy.getTexture("fireflyglow.png"));
+            bindTexture(MoCreatures.proxy.getTexture("fireflyglow.png"));
             float var4 = 1.0F;
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glDisable(GL11.GL_ALPHA_TEST);

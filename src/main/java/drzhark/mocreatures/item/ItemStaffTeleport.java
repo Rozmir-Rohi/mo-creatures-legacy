@@ -85,7 +85,7 @@ public class ItemStaffTeleport extends MoCItem
             }
         }
 
-        entityPlayer.setItemInUse(itemstack, this.getMaxItemUseDuration(itemstack));
+        entityPlayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
         return itemstack;
     }
 }

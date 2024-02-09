@@ -13,8 +13,8 @@ public class MoCItemFood extends ItemFood
     public MoCItemFood(String name, int j)
     {
         super(j, 0.6F, false);
-        this.setCreativeTab(MoCreatures.tabMoC);
-        this.setUnlocalizedName(name);
+        setCreativeTab(MoCreatures.tabMoC);
+        setUnlocalizedName(name);
         GameRegistry.registerItem(this, name);
         maxStackSize = 32;
     }
@@ -22,14 +22,14 @@ public class MoCItemFood extends ItemFood
     public MoCItemFood(String name, int j, float f, boolean flag)
     {
         super(j, f, flag);
-        this.setCreativeTab(MoCreatures.tabMoC);
-        this.setUnlocalizedName(name);
+        setCreativeTab(MoCreatures.tabMoC);
+        setUnlocalizedName(name);
         GameRegistry.registerItem(this, name);
     }
 
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister par1IconRegister)
     {
-        this.itemIcon = par1IconRegister.registerIcon("mocreatures"+ this.getUnlocalizedName().replaceFirst("item.", ":"));
+        itemIcon = par1IconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":"));
     }
 }

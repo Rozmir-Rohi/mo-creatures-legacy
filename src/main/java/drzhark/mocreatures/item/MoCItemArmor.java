@@ -18,8 +18,8 @@ public class MoCItemArmor extends ItemArmor
     {
         super(enumarmormaterial, j, k);
         
-        this.setCreativeTab(MoCreatures.tabMoC);
-        this.setUnlocalizedName(name);
+        setCreativeTab(MoCreatures.tabMoC);
+        setUnlocalizedName(name);
         GameRegistry.registerItem(this, name);
         
         
@@ -138,7 +138,7 @@ public class MoCItemArmor extends ItemArmor
     @Override
     public void registerIcons(IIconRegister par1IconRegister)
     {
-        this.itemIcon = par1IconRegister.registerIcon("mocreatures"+ this.getUnlocalizedName().replaceFirst("item.", ":"));
+        itemIcon = par1IconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":"));
     }
 
     /**

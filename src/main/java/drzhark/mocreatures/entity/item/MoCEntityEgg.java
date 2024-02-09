@@ -63,7 +63,7 @@ public class MoCEntityEgg extends EntityLiving {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D); // setMaxHealth
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D); // setMaxHealth
     }
 
     @Override
@@ -101,12 +101,12 @@ public class MoCEntityEgg extends EntityLiving {
     {
         if (worldObj.handleMaterialAcceleration(boundingBox, Material.water, this))
         {
-            this.inWater = true;
+            inWater = true;
             return true;
         }
         else
         {
-            this.inWater = false;
+            inWater = false;
             return false;
         }
     }
@@ -158,7 +158,7 @@ public class MoCEntityEgg extends EntityLiving {
                 EntityPlayer entityPlayer1 = worldObj.getClosestPlayerToEntity(this, 24D);
                 if (entityPlayer1 == null)
                 {
-                    this.setDead();
+                    setDead();
                 }
             }
 
@@ -368,7 +368,7 @@ public class MoCEntityEgg extends EntityLiving {
         EntityPlayer closestPlayer = worldObj.getClosestPlayerToEntity(this, 24D);
         if (closestPlayer != null)
         {
-            closestPlayer.addChatMessage(new ChatComponentTranslation("notify.MoCreatures.egg_hatching", new Object[] {(int)this.posX, (int)this.posY, (int)this.posZ}));
+            closestPlayer.addChatMessage(new ChatComponentTranslation("notify.MoCreatures.egg_hatching", new Object[] {(int)posX, (int)posY, (int)posZ}));
         }
     }
     public int getSize()

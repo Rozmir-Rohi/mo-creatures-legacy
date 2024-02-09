@@ -277,7 +277,7 @@ public class MoCClientProxy extends MoCProxy {
     //public EntityClientPlayerMP getPlayer()
     public EntityPlayer getPlayer()
     {
-        return this.mc.thePlayer;
+        return mc.thePlayer;
     }
 
     /**

@@ -39,7 +39,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16.0D);
     }
     
     @Override
@@ -84,7 +84,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     @Override
     public ResourceLocation getTexture()
     {
-        if (this.getIsHumanForm()) { return MoCreatures.proxy.getTexture("wereblank.png"); }
+        if (getIsHumanForm()) { return MoCreatures.proxy.getTexture("wereblank.png"); }
 
         switch (getType())
         {
@@ -169,7 +169,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             {
                 attackTime = 20;
                 entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
-                if (this.getType() == 4)
+                if (getType() == 4)
                 {
                     ((EntityLivingBase) entity).setFire(10);
                 }
@@ -525,10 +525,10 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             
             if (getMaxHealth() != 40F)
             {
-            	this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D);
+            	getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D);
             }
             
-            this.setHealth(getMaxHealth());
+            setHealth(getMaxHealth());
             isTransforming = false;
         }
         else
@@ -539,11 +539,11 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             
             if (getMaxHealth() != 16F)
             {
-            	this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16.0D);
+            	getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16.0D);
             }
             
             
-            this.setHealth(healthForHumanForm);
+            setHealth(healthForHumanForm);
             isTransforming = false;
         }
     }

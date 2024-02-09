@@ -29,8 +29,8 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
     }
 
     @Override
@@ -107,7 +107,7 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
         {
         	if (MoCreatures.isPalmsHarvestLoaded)
         	{
-        		if (this.isBurning())
+        		if (isBurning())
         		{
         			dropItem(GameRegistry.findItem("harvestcraft", "venisoncookedItem"), randomAmount);
         		}
@@ -119,7 +119,7 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
         	
         	else if (MoCreatures.isTwilightForestLoaded)
         	{
-        		if (this.isBurning())
+        		if (isBurning())
         		{
         			dropItem(GameRegistry.findItem("TwilightForest", "item.venisonCooked"), randomAmount);
         		}
@@ -186,18 +186,18 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
                     isRunning = true;
 
                     
-                    this.fleeingTick = 200; //run away
+                    fleeingTick = 200; //run away
                     //MoCTools.runLikeHell(this, scaryEntityNearby);
 
                 }
                 else if ((scaryEntityNearby == null) && (isRunning || fleeingTick > 0))
                 {
                     isRunning = false;
-                    this.fleeingTick = 0;
+                    fleeingTick = 0;
                 }
             }
             
-            if ((isRunning) && !this.isInWater()) // increase running speed
+            if ((isRunning) && !isInWater()) // increase running speed
             {
             	if (motionX != 0) {motionX = getMoveSpeed() * 0.08 * Math.signum(motionX);}
             	
@@ -219,7 +219,7 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
         if (super.attackEntityFrom(damageSource, damageTaken))
         {
         	isRunning = true;
-        	this.fleeingTick = 200;
+        	fleeingTick = 200;
         }
         return true;
     }

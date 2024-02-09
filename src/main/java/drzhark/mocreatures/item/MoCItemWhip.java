@@ -1,7 +1,6 @@
 package drzhark.mocreatures.item;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import drzhark.mocreatures.achievements.MoCAchievements;

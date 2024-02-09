@@ -57,7 +57,7 @@ public class MoCRenderKittyBed extends RenderLiving {
 
     protected int shouldRenderPass(MoCEntityKittyBed entityLiving, int i)
     {
-        this.bindTexture(MoCreatures.proxy.getTexture("kittybed_model.png"));
+        bindTexture(MoCreatures.proxy.getTexture("kittybed_model.png"));
         float alpha = 0.5F;    // alpha value (opacity of color overlaid to default texture)
         int fleeceColorTable_row = MoCTools.colorize(mycolor);
         

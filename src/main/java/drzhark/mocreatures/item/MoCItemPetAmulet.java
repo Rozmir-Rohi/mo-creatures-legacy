@@ -49,7 +49,7 @@ public class MoCItemPetAmulet extends MoCItem
     public MoCItemPetAmulet(String name, int type) 
     {
         this(name);
-        this.amuletType = type;
+        amuletType = type;
     }
     
     @Override
@@ -72,7 +72,7 @@ public class MoCItemPetAmulet extends MoCItem
             double newPosZ = entityPlayer.posZ - (dist * Math.sin((MoCTools.realAngle(entityPlayer.rotationYaw - 90F)) / 57.29578F));
 
             ItemStack emptyAmulet = new ItemStack(MoCreatures.fishNet, 1, 0);
-            if (this.amuletType == 1)
+            if (amuletType == 1)
             {
                 emptyAmulet = new ItemStack(MoCreatures.petAmulet, 1, 0);
             }
@@ -149,26 +149,26 @@ public class MoCItemPetAmulet extends MoCItem
 
     public void readFromNBT(NBTTagCompound nbt)
     {
-        this.PetId = nbt.getInteger("PetId");
-        this.creatureType = nbt.getInteger("CreatureType");
-        this.health = nbt.getFloat("Health");
-        this.age = nbt.getInteger("Age");
-        this.name = nbt.getString("Name");
-        this.spawnClass = nbt.getString("SpawnClass");
-        this.adult = nbt.getBoolean("Adult");
-        this.ownerName = nbt.getString("OwnerName");
+        PetId = nbt.getInteger("PetId");
+        creatureType = nbt.getInteger("CreatureType");
+        health = nbt.getFloat("Health");
+        age = nbt.getInteger("Age");
+        name = nbt.getString("Name");
+        spawnClass = nbt.getString("SpawnClass");
+        adult = nbt.getBoolean("Adult");
+        ownerName = nbt.getString("OwnerName");
     }
 
     public void writeToNBT(NBTTagCompound nbt)
     {
-        nbt.setInteger("PetID", this.PetId);
-        nbt.setInteger("CreatureType", this.creatureType);
-        nbt.setFloat("Health", this.health);
-        nbt.setInteger("Age", this.age);
-        nbt.setString("Name", this.name);
-        nbt.setString("SpawnClass", this.spawnClass);
-        nbt.setBoolean("Adult", this.adult);
-        nbt.setString("OwnerName", this.ownerName);
+        nbt.setInteger("PetID", PetId);
+        nbt.setInteger("CreatureType", creatureType);
+        nbt.setFloat("Health", health);
+        nbt.setInteger("Age", age);
+        nbt.setString("Name", name);
+        nbt.setString("SpawnClass", spawnClass);
+        nbt.setBoolean("Adult", adult);
+        nbt.setString("OwnerName", ownerName);
     }
 
     @SideOnly(Side.CLIENT)
@@ -176,17 +176,17 @@ public class MoCItemPetAmulet extends MoCItem
     public void registerIcons(IIconRegister par1IconRegister)
     {
         icons = new IIcon[4];
-        icons[0] = par1IconRegister.registerIcon("mocreatures"+ this.getUnlocalizedName().replaceFirst("item.", ":")); //empty fishnet
-        icons[1] = par1IconRegister.registerIcon("mocreatures"+ this.getUnlocalizedName().replaceFirst("item.", ":") + "full"); //fishnet with generic fish
-        icons[2] = par1IconRegister.registerIcon("mocreatures"+ this.getUnlocalizedName().replaceFirst("item.", ":")); //empty superamulet
-        icons[3] = par1IconRegister.registerIcon("mocreatures"+ this.getUnlocalizedName().replaceFirst("item.", ":") + "full"); //full superamulet
+        icons[0] = par1IconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":")); //empty fishnet
+        icons[1] = par1IconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":") + "full"); //fishnet with generic fish
+        icons[2] = par1IconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":")); //empty superamulet
+        icons[3] = par1IconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":") + "full"); //full superamulet
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public IIcon getIconFromDamage(int par1)
     {
-        if (this.amuletType == 1)
+        if (amuletType == 1)
         {
             if (par1 < 1)
             {
@@ -211,9 +211,9 @@ public class MoCItemPetAmulet extends MoCItem
     public void addInformation(ItemStack itemstack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
         initAndReadNBT(itemstack);
-        if (spawnClass != "") par3List.add(EnumChatFormatting.AQUA + StatCollector.translateToLocal("entity.MoCreatures." + this.spawnClass + ".name"));  //Writes the name of the entity type to item desc
-        if (name != "")    par3List.add(EnumChatFormatting.BLUE + this.name); //writes the pet name to item desc
-        if (ownerName != "") par3List.add(EnumChatFormatting.DARK_BLUE + ((new ChatComponentTranslation("amulet_and_fishnet_desc.MoCreatures.ownedBy", new Object[] {this.ownerName})).getUnformattedTextForChat())); //writes "owned by OWNER" (dependent on lang files)in item desc
+        if (spawnClass != "") par3List.add(EnumChatFormatting.AQUA + StatCollector.translateToLocal("entity.MoCreatures." + spawnClass + ".name"));  //Writes the name of the entity type to item desc
+        if (name != "")    par3List.add(EnumChatFormatting.BLUE + name); //writes the pet name to item desc
+        if (ownerName != "") par3List.add(EnumChatFormatting.DARK_BLUE + ((new ChatComponentTranslation("amulet_and_fishnet_desc.MoCreatures.ownedBy", new Object[] {ownerName})).getUnformattedTextForChat())); //writes "owned by OWNER" (dependent on lang files)in item desc
     }
     
     private void initAndReadNBT(ItemStack itemstack)

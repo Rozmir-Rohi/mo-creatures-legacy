@@ -129,8 +129,8 @@ public class CommandMoCPets extends CommandBase {
      */
     protected List getSortedPossibleCommands(ICommandSender par1ICommandSender)
     {
-        Collections.sort(this.commands);
-        return this.commands;
+        Collections.sort(commands);
+        return commands;
     }
 
     public boolean teleportLoadedPet(WorldServer world, EntityPlayerMP player, int petId, String petName, ICommandSender par1ICommandSender)

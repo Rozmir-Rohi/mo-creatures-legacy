@@ -37,7 +37,7 @@ public class MoCEntityBee extends MoCEntityInsect
             
             if (closestPlayerNearby != null && getIsFlying() && --soundCount == -1)
             {
-                MoCTools.playCustomSound(this, getMySound(), this.worldObj);
+                MoCTools.playCustomSound(this, getMySound(), worldObj);
                 soundCount = 20;
             }
 
@@ -126,7 +126,7 @@ public class MoCEntityBee extends MoCEntityInsect
     protected void attackEntity(Entity entity, float distanceToEntity)
     {
 
-        if (this.attackTime <= 0 && (distanceToEntity < 2.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
+        if (attackTime <= 0 && (distanceToEntity < 2.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);

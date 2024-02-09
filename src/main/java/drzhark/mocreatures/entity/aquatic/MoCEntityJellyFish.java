@@ -189,7 +189,7 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     @Override
     public int pitchRotationOffset()
     {
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             return 90;
         }
@@ -211,7 +211,7 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     @Override
     public float getAdjustedZOffset()
     {
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             return -0.6F;
         }
@@ -221,7 +221,7 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     @Override
     public float getAdjustedYOffset()
     {
-        if (!this.isInsideOfMaterial(Material.water))// && this.health > 0)
+        if (!isInsideOfMaterial(Material.water))// && health > 0)
         {
             return -0.3F;
         }
@@ -232,9 +232,9 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     public float getSizeFactor() 
     {  
         float pulseSize = 0F;
-        if (this.isInsideOfMaterial(Material.water))
+        if (isInsideOfMaterial(Material.water))
         {
-            pulseSize = this.pulsingSize;
+            pulseSize = pulsingSize;
             if (pulseSize > 0.2F)
             {
                 pulseSize = 0.2F - (pulseSize - 0.2F);

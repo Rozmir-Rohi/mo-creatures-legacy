@@ -78,9 +78,9 @@ public class MoCEntityButterfly extends MoCEntityInsect
      */
     public float renderHeightAdjustmentWhenFlying()
     {
-        if (++this.renderHeightAdjustmentCounter > 1000)
+        if (++renderHeightAdjustmentCounter > 1000)
         {
-            this.renderHeightAdjustmentCounter = 0;
+            renderHeightAdjustmentCounter = 0;
         }
 
         return MathHelper.cos((renderHeightAdjustmentCounter * 0.1F)) * 0.2F;

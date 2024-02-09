@@ -11,7 +11,7 @@ public class MoCRenderPlatform extends Render {
 
     public MoCRenderPlatform()
     {
-        this.shadowSize = 0.0F;
+        shadowSize = 0.0F;
     }
 
     @Override

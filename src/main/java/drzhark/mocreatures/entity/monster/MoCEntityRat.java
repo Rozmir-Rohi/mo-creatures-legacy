@@ -27,7 +27,7 @@ public class MoCEntityRat extends MoCEntityMob {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
     }
 
     @Override
@@ -146,7 +146,7 @@ public class MoCEntityRat extends MoCEntityMob {
         {
             EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
             
-            return entityPlayer != null && this.canEntityBeSeen(entityPlayer) ? entityPlayer : null;
+            return entityPlayer != null && canEntityBeSeen(entityPlayer) ? entityPlayer : null;
         }
         return null;
     }

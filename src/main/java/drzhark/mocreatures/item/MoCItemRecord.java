@@ -9,7 +9,6 @@ import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemRecord;
@@ -24,8 +23,8 @@ public class MoCItemRecord extends ItemRecord
     public MoCItemRecord(String string)
     {
         super(string);
-        this.setCreativeTab(MoCreatures.tabMoC);
-        this.setUnlocalizedName(string);
+        setCreativeTab(MoCreatures.tabMoC);
+        setUnlocalizedName(string);
         GameRegistry.registerItem(this, string);
     }
     
@@ -80,13 +79,13 @@ public class MoCItemRecord extends ItemRecord
      */
     public String getRecordTitle()
     {
-        return "MoC - " + this.recordName;
+        return "MoC - " + recordName;
     }
 
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister)
     {
-        this.itemIcon = iconRegister.registerIcon("mocreatures:recordshuffle");
+        itemIcon = iconRegister.registerIcon("mocreatures:recordshuffle");
     }
 
     public ResourceLocation getRecordResource(String name)

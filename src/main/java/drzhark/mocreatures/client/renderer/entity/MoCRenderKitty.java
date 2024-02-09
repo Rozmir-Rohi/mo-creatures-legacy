@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderKitty extends RenderBiped {
 
-    public MoCModelKitty pussy1;
+    public MoCModelKitty kitty1;
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityKitty)par1Entity).getTexture();
@@ -27,7 +27,7 @@ public class MoCRenderKitty extends RenderBiped {
     public MoCRenderKitty(MoCModelKitty modelkitty, float f)
     {
         super(modelkitty, f);
-        pussy1 = modelkitty;
+        kitty1 = modelkitty;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class MoCRenderKitty extends RenderBiped {
             if (f4 < 12F)
             {
                 float f5 = 0.2F;
-                if (pussy1.isSitting)
+                if (kitty1.isSitting)
                 {
                     f5 = 0.4F;
                 }
@@ -63,7 +63,7 @@ public class MoCRenderKitty extends RenderBiped {
                 byte byte0 = -48;
                 if (flag2 && ((MoCEntityKitty) entityLiving).getIsEmo())
                 {
-                    this.bindTexture(((MoCEntityKitty) entityLiving).getEmoteIcon());
+                    bindTexture(((MoCEntityKitty) entityLiving).getEmoteIcon());
 
                     int i = -83;
                     if (!flag)
@@ -160,6 +160,8 @@ public class MoCRenderKitty extends RenderBiped {
     protected void onPlayersBack(EntityLivingBase entityLiving)
     {
         GL11.glRotatef(90F, 0F, 0.0F, -1F);
+        
+        GL11.glRotatef(55F, -1.0F, 0.0F, 0F);
 
         if (!entityLiving.worldObj.isRemote && (entityLiving.ridingEntity != null))
         {
@@ -175,31 +177,32 @@ public class MoCRenderKitty extends RenderBiped {
     protected void onTheSide(EntityLivingBase entityLiving)
     {
         GL11.glRotatef(90F, 0.0F, 0.0F, -1F);
+        
         GL11.glTranslatef(0.2F, 0.0F, -0.2F);
     }
 
     @Override
     protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityKitty entitykitty = (MoCEntityKitty) entityLiving;
-        pussy1.isSitting = entitykitty.getIsSitting();
-        pussy1.isSleeping = entitykitty.getKittyState() == 12; //TODO
-        pussy1.isSwinging = entitykitty.getIsSwinging();
-        pussy1.swingProgress = entitykitty.swingProgress;
-        pussy1.kittystate = entitykitty.getKittyState();
-        if (entitykitty.getKittyState() == 20)
+        MoCEntityKitty entityKitty = (MoCEntityKitty) entityLiving;
+        kitty1.isSitting = entityKitty.getIsSitting();
+        kitty1.isSleeping = entityKitty.getKittyState() == 12; //TODO
+        kitty1.isSwinging = entityKitty.getIsSwinging();
+        kitty1.swingProgress = entityKitty.swingProgress;
+        kitty1.kittystate = entityKitty.getKittyState();
+        if (entityKitty.getKittyState() == 20)
         {
             onTheSide(entityLiving);
         }
-        if (entitykitty.climbingTree())
+        if (entityKitty.climbingTree())
         {
             rotateAnimal(entityLiving);
         }
-        if (entitykitty.upsideDown())
+        if (entityKitty.upsideDown())
         {
             upsideDown(entityLiving);
         }
-        if (entitykitty.onMaBack())
+        if (entityKitty.onPlayersBack())
         {
             onPlayersBack(entityLiving);
         }

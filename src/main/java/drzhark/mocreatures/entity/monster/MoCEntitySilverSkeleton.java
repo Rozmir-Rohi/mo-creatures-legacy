@@ -46,13 +46,13 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob
                 setSprinting(true);
             }
 
-            if (this.worldObj.isDaytime())
+            if (worldObj.isDaytime())
             {
                 float brightness = getBrightness(1.0F);
 
-                if (brightness > 0.5F && this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) && this.rand.nextFloat() * 30.0F < (brightness - 0.4F) * 2.0F)
+                if (brightness > 0.5F && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && rand.nextFloat() * 30.0F < (brightness - 0.4F) * 2.0F)
                 {
-                    this.setFire(8);
+                    setFire(8);
                 }
             }
         }
@@ -107,22 +107,22 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob
                 if (willAttackWithLeftArm)
                 {
                     attackCounterLeftArm = 1;
-                    MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 1), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+                    MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 1), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
                 }else
                 {
                     attackCounterRightArm = 1;
-                    MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 2), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+                    MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 2), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
                 }
             }
         }
 
         protected void attackEntity(Entity entity, float distanceToEntity)
         {
-            if (this.attackTime <= 0 && distanceToEntity < 2.0F && entity.boundingBox.maxY > this.boundingBox.minY && entity.boundingBox.minY < this.boundingBox.maxY)
+            if (attackTime <= 0 && distanceToEntity < 2.0F && entity.boundingBox.maxY > boundingBox.minY && entity.boundingBox.minY < boundingBox.maxY)
             {
-                this.attackTime = 20;
+                attackTime = 20;
                 startAttackAnimation();
-                this.attackEntityAsMob(entity);
+                attackEntityAsMob(entity);
             }
         }
     public float getMoveSpeed()
@@ -160,6 +160,6 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob
     @Override
     protected void func_145780_a(int par1, int par2, int par3, Block block)
     {
-        this.playSound("mob.skeleton.step", 0.15F, 1.0F);
+        playSound("mob.skeleton.step", 0.15F, 1.0F);
     }
 }

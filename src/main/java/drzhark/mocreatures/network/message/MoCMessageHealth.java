@@ -26,15 +26,15 @@ public class MoCMessageHealth implements IMessage, IMessageHandler<MoCMessageHea
     @Override
     public void toBytes(ByteBuf buffer)
     {
-        buffer.writeInt(this.entityId);
+        buffer.writeInt(entityId);
         buffer.writeFloat(health);
     }
 
     @Override
     public void fromBytes(ByteBuf buffer)
     {
-        this.entityId = buffer.readInt();
-        this.health = buffer.readFloat();
+        entityId = buffer.readInt();
+        health = buffer.readFloat();
     }
 
     @Override
@@ -55,6 +55,6 @@ public class MoCMessageHealth implements IMessage, IMessageHandler<MoCMessageHea
     @Override
     public String toString()
     {
-        return String.format("MoCMessageHealth - entityId:%s, health:%s", this.entityId, this.health);
+        return String.format("MoCMessageHealth - entityId:%s, health:%s", entityId, health);
     }
 }

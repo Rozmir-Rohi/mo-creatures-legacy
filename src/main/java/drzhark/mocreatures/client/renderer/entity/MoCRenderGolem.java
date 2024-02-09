@@ -43,13 +43,13 @@ public class MoCRenderGolem extends MoCRenderMoC {
             if (par2 == 1)
             {
                 float var4 = (float) par1Entity.ticksExisted + par3;
-                this.bindTexture(effectTexture);
+                bindTexture(effectTexture);
                 GL11.glMatrixMode(GL11.GL_TEXTURE);
                 GL11.glLoadIdentity();
                 float var5 = var4 * 0.01F;
                 float var6 = var4 * 0.01F;
                 GL11.glTranslatef(var5, var6, 0.0F);
-                this.setRenderPassModel(this.MoCModelG);
+                setRenderPassModel(MoCModelG);
                 GL11.glMatrixMode(GL11.GL_MODELVIEW);
                 GL11.glEnable(GL11.GL_BLEND);
                 float var7 = 0.5F;
@@ -78,7 +78,7 @@ public class MoCRenderGolem extends MoCRenderMoC {
     @Override
     protected int shouldRenderPass(EntityLivingBase entityLiving, int par2, float par3)
     {
-        return this.renderGPassModel((MoCEntityGolem) entityLiving, par2, par3);
+        return renderGPassModel((MoCEntityGolem) entityLiving, par2, par3);
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {

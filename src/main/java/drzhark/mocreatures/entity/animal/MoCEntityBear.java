@@ -5,9 +5,7 @@ import java.util.List;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
-import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
-import drzhark.mocreatures.entity.MoCEntityTameableAquatic;
 import drzhark.mocreatures.entity.aquatic.MoCEntityJellyFish;
 import drzhark.mocreatures.entity.aquatic.MoCEntityRay;
 import drzhark.mocreatures.entity.aquatic.MoCEntityShark;
@@ -65,13 +63,13 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     protected void entityInit()
     {
         super.entityInit();
-        this.dataWatcher.addObject(23, Byte.valueOf((byte)0));
+        dataWatcher.addObject(23, Byte.valueOf((byte)0));
     }
     
     @Override
     protected boolean canDespawn()
     {
-        return !getIsTamed() && this.ticksExisted > 2400;
+        return !getIsTamed() && ticksExisted > 2400;
     }
 
     /**
@@ -108,14 +106,14 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             }
         }
         
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
-        this.setHealth(getMaxHealth());
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
+        setHealth(getMaxHealth());
     }
     
     @Override
     public boolean isPredator()
     {
-    	return this.getType() != 3; //not a panda
+    	return getType() != 3; //not a panda
     }
 
     @Override
@@ -259,7 +257,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     {
     	if (super.attackEntityFrom(damageSource, damageTaken))
         {
-    		if (!(this.getIsAdult()) && (damageSource.getEntity() != null))
+    		if (!(getIsAdult()) && (damageSource.getEntity() != null))
         	{
     			if (getBearState() == 2) //if sitting
     			{
@@ -282,7 +280,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
 		                	MoCEntityBear bearNearby = (MoCEntityBear) entityNearby;
 		                	if (bearNearby.getIsAdult());
 		                	{	
-		                		if (!(bearNearby.getIsTamed()) && (bearNearby.getType() == this.getType()))
+		                		if (!(bearNearby.getIsTamed()) && (bearNearby.getType() == getType()))
 		                		{
 		                			if (bearNearby.getBearState() == 2) //if sitting
 		                			{
@@ -361,12 +359,12 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         if (worldObj.difficultySetting.getDifficultyId() > 0)
         {
             float brightness = getBrightness(1.0F);
-            if (brightness < 0.0F && this.getType() == 1 || this.getType() == 4)
+            if (brightness < 0.0F && getType() == 1 || getType() == 4)
             {
                 EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, getAttackRange());
                 if (entityPlayer != null) { return entityPlayer; }
             }
-            if (rand.nextInt(80) == 0 && this.getType() != 3)
+            if (rand.nextInt(80) == 0 && getType() != 3)
             {
                 EntityLivingBase closestEntityLiving = getClosestEntityLiving(this, 10D);
                 
@@ -480,8 +478,8 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     @Override
     protected String getDeathSound()
     {
-    	if (getType() == 3 && !(this.getIsAdult())) {return "mocreatures:pandacubdeath";}
-    	else if (getType() == 3 && (this.getIsAdult())) {return "mocreatures:pandaadultdeath";}
+    	if (getType() == 3 && !(getIsAdult())) {return "mocreatures:pandacubdeath";}
+    	else if (getType() == 3 && (getIsAdult())) {return "mocreatures:pandaadultdeath";}
     	else {return "mocreatures:beardying";}
     }
 
@@ -489,8 +487,8 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     protected String getHurtSound()
     {
         openMouth();
-        if (getType() == 3 && !(this.getIsAdult())) {return "mocreatures:pandacubhurt";}
-    	else if (getType() == 3 && (this.getIsAdult())) {return "mocreatures:pandaadulthurt";}
+        if (getType() == 3 && !(getIsAdult())) {return "mocreatures:pandacubhurt";}
+    	else if (getType() == 3 && (getIsAdult())) {return "mocreatures:pandaadulthurt";}
     	else {return "mocreatures:bearhurt";}
     }
 
@@ -499,8 +497,8 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     {
         openMouth();
         
-        if (getType() == 3 && !(this.getIsAdult())) {return "mocreatures:pandacubgrunt";}
-    	else if (getType() == 3 && (this.getIsAdult())) {return "mocreatures:pandaadultgrunt";}
+        if (getType() == 3 && !(getIsAdult())) {return "mocreatures:pandacubgrunt";}
+    	else if (getType() == 3 && (getIsAdult())) {return "mocreatures:pandaadultgrunt";}
     	else {return "mocreatures:beargrunt";}
     }
 
@@ -559,7 +557,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     @Override
     public double roperYOffset()
     {
-        if (this.getIsAdult())
+        if (getIsAdult())
         {
             return 0D;
         }
@@ -573,7 +571,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     @Override
     public boolean isMyFollowFood(ItemStack itemstack)
     {
-    	return this.getType() == 3 && itemstack != null && (isItemstackPandaFoodItem(itemstack)); 
+    	return getType() == 3 && itemstack != null && (isItemstackPandaFoodItem(itemstack)); 
     }
 
     @Override
@@ -581,7 +579,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     {
         if (itemstack != null) 
         {
-        	if (this.getType() == 3) //panda
+        	if (getType() == 3) //panda
         	{
         		return (isItemstackPandaFoodItem(itemstack));
         	}

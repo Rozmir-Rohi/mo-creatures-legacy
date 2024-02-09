@@ -31,7 +31,7 @@ public class MoCEntityMouse extends MoCEntityAnimal
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(4.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(4.0D);
     }
 
     public void selectType()
@@ -129,7 +129,7 @@ public class MoCEntityMouse extends MoCEntityAnimal
         int yCoordinate = MathHelper.floor_double(boundingBox.minY);
         int zCoordinate = MathHelper.floor_double(posZ);
         return ( 
-	                (MoCreatures.entityMap.get(this.getClass()).getFrequency() > 0) &&
+	                (MoCreatures.entityMap.get(getClass()).getFrequency() > 0) &&
 	                worldObj.checkNoEntityCollision(boundingBox) 
 	                && (worldObj.getCollidingBoundingBoxes(this, boundingBox).size() == 0) 
 	                && !worldObj.isAnyLiquid(boundingBox) 
@@ -195,7 +195,7 @@ public class MoCEntityMouse extends MoCEntityAnimal
         {
         	rotationYaw = entityPlayer.rotationYaw;
         
-	        if (this.ridingEntity == null)
+	        if (ridingEntity == null)
 	        {
 	            if ((MoCreatures.isServer()) && (entityPlayer.ridingEntity == null))
 	            {
@@ -206,7 +206,7 @@ public class MoCEntityMouse extends MoCEntityAnimal
 	        else
 	        {
 	            setPicked(false);
-	            if (MoCreatures.isServer()) this.mountEntity(null);
+	            if (MoCreatures.isServer()) mountEntity(null);
 	            return false;
 	        }
 	        motionX = entityPlayer.motionX * 5D;
@@ -243,11 +243,11 @@ public class MoCEntityMouse extends MoCEntityAnimal
             {
                 rotationYaw = ridingEntity.rotationYaw;
             }
-            if (this.ridingEntity instanceof EntityPlayer)
+            if (ridingEntity instanceof EntityPlayer)
             {
-            	if (((EntityPlayer) this.ridingEntity).inventory.getCurrentItem() != null)
+            	if (((EntityPlayer) ridingEntity).inventory.getCurrentItem() != null)
             	{
-            		this.mountEntity(null);
+            		mountEntity(null);
             		setPicked(false);
             	}
             }
@@ -259,8 +259,8 @@ public class MoCEntityMouse extends MoCEntityAnimal
     {
         if (MoCreatures.isServer())
         {
-        	if (this.ridingEntity != null && 
-        			(damageSource.getEntity() == this.ridingEntity || DamageSource.inWall.equals(damageSource)))
+        	if (ridingEntity != null && 
+        			(damageSource.getEntity() == ridingEntity || DamageSource.inWall.equals(damageSource)))
             {
          	   return false;
             }

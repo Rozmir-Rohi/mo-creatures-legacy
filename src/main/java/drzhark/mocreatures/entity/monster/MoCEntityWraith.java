@@ -24,8 +24,8 @@ public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(worldObj.difficultySetting.getDifficultyId() == 1 ? 2.0D : 3.0D); // setAttackStrength
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
+        getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(worldObj.difficultySetting.getDifficultyId() == 1 ? 2.0D : 3.0D); // setAttackStrength
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
     }
 
     public boolean d2()
@@ -68,16 +68,16 @@ public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
                 if ((brightness > 0.5F) && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && ((rand.nextFloat() * 30F) < ((brightness - 0.4F) * 2.0F)))
                 {
                     //fire = 300;
-                    this.setFire(15);
+                    setFire(15);
                 }
             }
             
-            if (this.getEntityToAttack() != null)  //this is a path finding helper to attack other entities when flying
+            if (getEntityToAttack() != null)  //this is a path finding helper to attack other entities when flying
             {
 	        	
-	        	double xDistance = this.getEntityToAttack().posX - this.posX;
-	            double yDistance = this.getEntityToAttack().posY - this.posY;
-	            double zDistance = this.getEntityToAttack().posZ - this.posZ;
+	        	double xDistance = getEntityToAttack().posX - posX;
+	            double yDistance = getEntityToAttack().posY - posY;
+	            double zDistance = getEntityToAttack().posZ - posZ;
 	            double overallDistanceSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
 	        	
 	            double flySpeed = getMoveSpeed();
@@ -85,16 +85,16 @@ public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
 	            
 	            if (yDistance > 0) //fly up to player
 	        	{
-	        		 this.motionY += (yDistance / overallDistanceSquared) * 0.3D;
+	        		 motionY += (yDistance / overallDistanceSquared) * 0.3D;
 	        	}
 		            
-	        	if (this.isOnAir() && overallDistanceSquared > 8) //chase player through air
+	        	if (isOnAir() && overallDistanceSquared > 8) //chase player through air
 	        	{
-			        this.faceEntity(this.getEntityToAttack(), 10F, 10F);
+			        faceEntity(getEntityToAttack(), 10F, 10F);
 
-            		this.motionX = xDistance / overallDistanceSquared * flySpeed;
+            		motionX = xDistance / overallDistanceSquared * flySpeed;
             		
-                    this.motionZ = zDistance / overallDistanceSquared * flySpeed;
+                    motionZ = zDistance / overallDistanceSquared * flySpeed;
 	        	}
             }
         }

@@ -25,7 +25,7 @@ public class MoCEntityPlatform extends Entity {
         mastersID = ID;
         yOffset = yOff;
         zOffset = zOff;
-        this.setSize(0.1F, 0.1F);
+        setSize(0.1F, 0.1F);
     }
 
     public MoCEntityPlatform(World world)
@@ -84,24 +84,24 @@ public class MoCEntityPlatform extends Entity {
     public void onUpdate()
     {
         EntityLivingBase master = getMaster();
-        if (master == null || this.riddenByEntity == null)
+        if (master == null || riddenByEntity == null)
         {
             if (MoCreatures.isServer())
             {
-                this.setDead();
+                setDead();
             }
             return;
         }
 
-        if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer && ((EntityPlayer)riddenByEntity).isSneaking() && ++mountCount > 10)
+        if (riddenByEntity != null && riddenByEntity instanceof EntityPlayer && ((EntityPlayer)riddenByEntity).isSneaking() && ++mountCount > 10)
         {
             riddenByEntity.mountEntity(null);
-            this.riddenByEntity = null;
-            this.setDead();
+            riddenByEntity = null;
+            setDead();
            
         }
         yOffset = master.getMountedYOffset() * 0.7D;//1.8D;
-        this.rotationYaw = master.renderYawOffset;
+        rotationYaw = master.renderYawOffset;
         double newPosX = master.posX + (zOffset * Math.cos((MoCTools.realAngle(master.renderYawOffset - 90F)) / 57.29578F));
         double newPosZ = master.posZ + (zOffset * Math.sin((MoCTools.realAngle(master.renderYawOffset - 90F)) / 57.29578F));
         setLocationAndAngles(newPosX, master.posY + yOffset, newPosZ, master.rotationYaw, master.rotationPitch);
@@ -109,12 +109,12 @@ public class MoCEntityPlatform extends Entity {
 
     public void setYOffset(double yOff)
     {
-        this.yOffset = yOff;
+        yOffset = yOff;
     }
 
     public void setZOffset(double zOff)
     {
-        this.zOffset = zOff;
+        zOffset = zOff;
     }
 
     @Override
@@ -125,12 +125,12 @@ public class MoCEntityPlatform extends Entity {
     @Override
     public void updateRiderPosition()
     {
-        if (this.riddenByEntity != null)
+        if (riddenByEntity != null)
         {
-            double var1 = Math.cos((double) this.rotationYaw * Math.PI / 180.0D) * 0.4D;
-            double var3 = Math.sin((double) this.rotationYaw * Math.PI / 180.0D) * 0.4D;
-            this.riddenByEntity.setPosition(this.posX, this.posY + this.getMountedYOffset() + this.riddenByEntity.getYOffset(), this.posZ);
-            this.riddenByEntity.rotationYaw = this.rotationYaw;
+            double var1 = Math.cos((double) rotationYaw * Math.PI / 180.0D) * 0.4D;
+            double var3 = Math.sin((double) rotationYaw * Math.PI / 180.0D) * 0.4D;
+            riddenByEntity.setPosition(posX, posY + getMountedYOffset() + riddenByEntity.getYOffset(), posZ);
+            riddenByEntity.rotationYaw = rotationYaw;
         }
     }
 

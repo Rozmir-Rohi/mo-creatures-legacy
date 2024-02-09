@@ -36,6 +36,8 @@ Removed 16x texture for small fish.
 
 Fixed Head, Helmets, & Wings : Ostrich
 
+Removed unused parts of texture: wwolf.
+
 Fixed some textures being fake PNGs.
 
 Fixed wings: pegasus and dark pegasus.

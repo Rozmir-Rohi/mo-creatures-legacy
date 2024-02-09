@@ -164,8 +164,8 @@ public class MoCModelRay extends ModelBase {
     {
         super.render(entity, f, f1, f2, f3, f4, f5);
         MoCEntityRay ray = (MoCEntityRay)entity;
-        this.attacking = ray.isPoisoning();
-        this.typeInt = ray.getType();
+        attacking = ray.isPoisoning();
+        typeInt = ray.getType();
         
         setRotationAngles(f, f1, f2, f3, f4, f5);
         Tail.render(f5);

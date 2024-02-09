@@ -38,7 +38,7 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(5D); // setMaxHealth
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(5D); // setMaxHealth
     }
     
     @Override
@@ -78,7 +78,7 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
     {
     	if (MoCreatures.isServer() && !getUsedLitter())
     		{
-    			this.entityDropItem(new ItemStack(MoCreatures.litterbox), 0F);
+    			entityDropItem(new ItemStack(MoCreatures.litterbox), 0F);
     		}
     }
 
@@ -174,7 +174,7 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
         else if ((itemstack == null))
         {
             rotationYaw = entityPlayer.rotationYaw;
-            if ((itemstack == null) && (this.ridingEntity == null) && (entityPlayer.ridingEntity == null))
+            if ((itemstack == null) && (ridingEntity == null) && (entityPlayer.ridingEntity == null))
             {
                 if (MoCreatures.isServer())
                 {
@@ -185,7 +185,7 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
             {
                 if (MoCreatures.isServer())
                 {
-                    this.mountEntity(null);
+                    mountEntity(null);
                 }
             }
             return true;

@@ -227,7 +227,7 @@ public abstract class MoCEntityFlyerMob extends MoCEntityMob {
             float angleInDegreesToNewLocation = (float) ((Math.atan2(vectorDistanceZ, vectorDistanceX) * 180D) / Math.PI) - 90F;
             float amountOfDegreesToChangeRotationYawBy = angleInDegreesToNewLocation - rotationYaw;
             
-            moveForward = (float)this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+            moveForward = (float)getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();
             
             for (; amountOfDegreesToChangeRotationYawBy < -180F; amountOfDegreesToChangeRotationYawBy += 360F)
             {

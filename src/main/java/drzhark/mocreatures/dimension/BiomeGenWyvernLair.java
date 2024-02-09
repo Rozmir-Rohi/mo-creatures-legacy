@@ -31,12 +31,12 @@ public class BiomeGenWyvernLair extends BiomeGenBase
         spawnableCreatureList.add(new SpawnListEntry(MoCEntityWyvern.class, 10, 1, 4));
         topBlock = MoCreatures.mocGrass;
         fillerBlock = MoCreatures.mocDirt;
-        this.rootHeight = 0.3F;
-        this.heightVariation = 1.5F;
-        this.biomeName = "WyvernBiome";
-        this.wyvernGenBigTree = new MoCWorldGenBigTree(false, MoCreatures.mocLog, 0, MoCreatures.mocLeaf, 0, 2, 30, 10);
-        this.worldGenShrub = new WorldGenShrub(3, 0);
-        this.theBiomeDecorator = new BiomeWyvernDecorator();
+        rootHeight = 0.3F;
+        heightVariation = 1.5F;
+        biomeName = "WyvernBiome";
+        wyvernGenBigTree = new MoCWorldGenBigTree(false, MoCreatures.mocLog, 0, MoCreatures.mocLeaf, 0, 2, 30, 10);
+        worldGenShrub = new WorldGenShrub(3, 0);
+        theBiomeDecorator = new BiomeWyvernDecorator();
     }
 
     /**
@@ -47,11 +47,11 @@ public class BiomeGenWyvernLair extends BiomeGenBase
     {
         if (par1Random.nextInt(10) == 0)
         {
-            return this.wyvernGenBigTree;
+            return wyvernGenBigTree;
         }
         else
         {
-            return this.worldGenShrub;
+            return worldGenShrub;
         }
     }
 

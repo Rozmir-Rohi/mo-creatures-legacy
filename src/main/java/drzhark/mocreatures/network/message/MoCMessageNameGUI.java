@@ -27,13 +27,13 @@ public class MoCMessageNameGUI implements IMessage, IMessageHandler<MoCMessageNa
     @Override
     public void toBytes(ByteBuf buffer)
     {
-        buffer.writeInt(this.entityId);
+        buffer.writeInt(entityId);
     }
 
     @Override
     public void fromBytes(ByteBuf buffer)
     {
-        this.entityId = buffer.readInt();
+        entityId = buffer.readInt();
     }
 
     @Override
@@ -63,6 +63,6 @@ public class MoCMessageNameGUI implements IMessage, IMessageHandler<MoCMessageNa
     @Override
     public String toString()
     {
-        return String.format("MoCMessageNameGUI - entityId:%s", this.entityId);
+        return String.format("MoCMessageNameGUI - entityId:%s", entityId);
     }
 }

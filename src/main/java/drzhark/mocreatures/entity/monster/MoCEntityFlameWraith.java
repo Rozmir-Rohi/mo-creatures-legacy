@@ -62,14 +62,14 @@ public class MoCEntityFlameWraith extends MoCEntityWraith implements IMob {
         {
             if (rand.nextInt(40) == 0)
             {
-                this.setFire(2);
+                setFire(2);
             }
             if (worldObj.isDaytime())
             {
                 float brightness = getBrightness(1.0F);
                 if ((brightness > 0.5F) && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && ((rand.nextFloat() * 30F) < ((brightness - 0.4F) * 2.0F)))
                 {
-                    this.setHealth(getHealth() - 2);
+                    setHealth(getHealth() - 2);
                 }
             }
         }

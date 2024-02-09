@@ -113,7 +113,7 @@ public class MoCProxy implements IGuiHandler {
     public void resetAllData()
     {
         //registerEntities();
-        this.readGlobalConfigValues();
+        readGlobalConfigValues();
     }
 
     //----------------CONFIG INITIALIZATION
@@ -125,7 +125,7 @@ public class MoCProxy implements IGuiHandler {
         mocSettingsConfig.load();
         mocEntityConfig.load();
         //registerEntities();
-        this.readGlobalConfigValues();
+        readGlobalConfigValues();
         if (debug) MoCLog.logger.info("Initializing MoCreatures Config File at " + event.getSuggestedConfigurationFile().getParent() + "MoC_General_Settings.cfg");
     }
 

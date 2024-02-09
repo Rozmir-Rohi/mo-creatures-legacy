@@ -27,29 +27,29 @@ public class MoCEntityItemPlaceable extends EntityLiving {
         if (MoCreatures.isServer()) {
            if (DamageSource.outOfWorld.equals(source))
            {
-              this.setDead();
+              setDead();
               return false;
            }
            
-           else if (this.isEntityInvulnerable()) {return false;}
+           else if (isEntityInvulnerable()) {return false;}
            
            else if (source.isExplosion())
            {
-              this.dropItemEntity();
-              this.setDead();
+              dropItemEntity();
+              setDead();
               return false;
            }
            else if (DamageSource.inFire.equals(source))
            {
         	   
-              if (!this.isBurning()) {this.setFire(5);} 
-              else {this.damageItemEntity(0.15F);}
+              if (!isBurning()) {setFire(5);} 
+              else {damageItemEntity(0.15F);}
 
               return false;
            }
-           else if (DamageSource.onFire.equals(source) && this.getHealth() > 0.5F)
+           else if (DamageSource.onFire.equals(source) && getHealth() > 0.5F)
            {
-              this.damageItemEntity(4.0F);
+              damageItemEntity(4.0F);
               return false;
            }
            else
@@ -73,20 +73,20 @@ public class MoCEntityItemPlaceable extends EntityLiving {
                  else if (source.getEntity() instanceof EntityPlayer
                 		 && ((EntityPlayer)source.getEntity()).capabilities.isCreativeMode)
                  {
-                    this.setDead();
+                    setDead();
                     return false;
                  }
                  else
                  {
-                    long i = this.worldObj.getTotalWorldTime();
+                    long i = worldObj.getTotalWorldTime();
                     if (i - punchCooldown > 5L && !flag)
                     {
                        punchCooldown = i;
                     }
                     else
                     {
-                       this.dropItemEntity();
-                       this.setDead();
+                       dropItemEntity();
+                       setDead();
                     }
                     return false;
                  }
@@ -98,12 +98,12 @@ public class MoCEntityItemPlaceable extends EntityLiving {
 	
 	 
 	 private void damageItemEntity(float decrease_health_amount) {
-	        float item_entity_health = this.getHealth();
+	        float item_entity_health = getHealth();
 	        item_entity_health -= decrease_health_amount;
 	        if (item_entity_health <= 0.5F) {
-	           this.setDead();
+	           setDead();
 	        } else {
-	           this.setHealth(item_entity_health);
+	           setHealth(item_entity_health);
 	        }
 
 	     }
@@ -112,7 +112,7 @@ public class MoCEntityItemPlaceable extends EntityLiving {
 	public void dropItemEntity() {
 		if (MoCreatures.isServer())
 	    {
-			this.entityDropItem(new ItemStack(Items.stick), 0F);   // <--- Default drop as placeholder, this is ment to be overridden by the child classes
+			entityDropItem(new ItemStack(Items.stick), 0F);   // <--- Default drop as placeholder, this is ment to be overridden by the child classes
 	    }
 	}
 

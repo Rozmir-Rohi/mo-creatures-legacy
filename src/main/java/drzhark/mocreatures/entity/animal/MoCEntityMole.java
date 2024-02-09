@@ -38,7 +38,7 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
 
     public boolean isOnDirt()
     {
-        Block block = worldObj.getBlock(MathHelper.floor_double(posX), MathHelper.floor_double(this.boundingBox.minY - 0.5D), MathHelper.floor_double(posZ));
+        Block block = worldObj.getBlock(MathHelper.floor_double(posX), MathHelper.floor_double(boundingBox.minY - 0.5D), MathHelper.floor_double(posZ));
         return isDiggableBlock(Block.getIdFromBlock(block));//(j == 2 | j == 3 | j == 12);
     }
 
@@ -54,16 +54,16 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
     private void digForward()
     {
         double coordY = posY;
-        double coordZ = this.posZ;
-        double coordX = this.posX;
+        double coordZ = posZ;
+        double coordX = posX;
         int x = 1;
-        double newPosY = coordY - Math.cos( (this.rotationPitch- 90F) / 57.29578F) * x;
-        double newPosX = coordX + Math.cos((MoCTools.realAngle(this.rotationYaw- 90F) / 57.29578F)) * (Math.sin( (this.rotationPitch- 90F) / 57.29578F) * x );
-        double newPosZ = coordZ + Math.sin((MoCTools.realAngle(this.rotationYaw- 90F) / 57.29578F)) * (Math.sin( (this.rotationPitch- 90F) / 57.29578F) * x );
-        Block block = this.worldObj.getBlock( MathHelper.floor_double(newPosX),  MathHelper.floor_double(newPosY),  MathHelper.floor_double(newPosZ)); 
+        double newPosY = coordY - Math.cos( (rotationPitch- 90F) / 57.29578F) * x;
+        double newPosX = coordX + Math.cos((MoCTools.realAngle(rotationYaw- 90F) / 57.29578F)) * (Math.sin( (rotationPitch- 90F) / 57.29578F) * x );
+        double newPosZ = coordZ + Math.sin((MoCTools.realAngle(rotationYaw- 90F) / 57.29578F)) * (Math.sin( (rotationPitch- 90F) / 57.29578F) * x );
+        Block block = worldObj.getBlock( MathHelper.floor_double(newPosX),  MathHelper.floor_double(newPosY),  MathHelper.floor_double(newPosZ)); 
         if (isDiggableBlock(Block.getIdFromBlock(block)))
         {
-            this.setPosition(newPosX, newPosY, newPosZ);   
+            setPosition(newPosX, newPosY, newPosZ);   
         }
     }
 

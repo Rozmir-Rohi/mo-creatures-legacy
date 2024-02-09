@@ -18,7 +18,7 @@ public class WorldProviderWyvernEnd extends WorldProviderSurface
      */
     public void registerWorldChunkManager()
     {
-        this.worldChunkMgr = new WorldChunkManagerWyvernLair(MoCreatures.WyvernLairBiome, 0.5F, 0.0F);
+        worldChunkMgr = new WorldChunkManagerWyvernLair(MoCreatures.WyvernLairBiome, 0.5F, 0.0F);
         setDimension(MoCreatures.wyvernLairDimensionID);
         setCustomSky();
     }
@@ -28,7 +28,7 @@ public class WorldProviderWyvernEnd extends WorldProviderSurface
      */
     public IChunkProvider createChunkGenerator()
     {
-        return new MoCChunkProviderWyvernLair(this.worldObj, this.worldObj.getSeed(), 0);
+        return new MoCChunkProviderWyvernLair(worldObj, worldObj.getSeed(), 0);
     }
     
    
@@ -119,7 +119,7 @@ public class WorldProviderWyvernEnd extends WorldProviderSurface
      */
     public boolean canCoordinateBeSpawn(int par1, int par2)
     {
-        return this.worldObj.getTopBlock(par1, par2).getMaterial().blocksMovement();
+        return worldObj.getTopBlock(par1, par2).getMaterial().blocksMovement();
     }
 
     /**

@@ -55,7 +55,7 @@ public class MoCEntityDragonfly extends MoCEntityInsect
             EntityPlayer entityPlayer = worldObj.getClosestPlayerToEntity(this, 5D);
             if (entityPlayer != null && getIsFlying() && --soundCount == -1)
             {
-                MoCTools.playCustomSound(this, "dragonfly", this.worldObj);
+                MoCTools.playCustomSound(this, "dragonfly", worldObj);
                 soundCount = 20;
             }
 

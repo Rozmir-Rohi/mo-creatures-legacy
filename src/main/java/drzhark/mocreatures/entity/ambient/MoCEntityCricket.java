@@ -107,12 +107,12 @@ public class MoCEntityCricket extends MoCEntityInsect
                 setIsFlying(false);
             }
 
-            if (getIsFlying() || !this.onGround)
+            if (getIsFlying() || !onGround)
             {
                 EntityPlayer entityPlayer = worldObj.getClosestPlayerToEntity(this, 5D);
                 if (entityPlayer != null && --soundCounter == -1)
                 {
-                    MoCTools.playCustomSound(this, "cricketfly", this.worldObj);
+                    MoCTools.playCustomSound(this, "cricketfly", worldObj);
                     soundCounter = 10;
                 }
             }
@@ -121,7 +121,7 @@ public class MoCEntityCricket extends MoCEntityInsect
                 EntityPlayer entityPlayer = worldObj.getClosestPlayerToEntity(this, 12D);
                 if (entityPlayer != null && --soundCounter == -1)
                 {
-                    MoCTools.playCustomSound(this, "cricket", this.worldObj);
+                    MoCTools.playCustomSound(this, "cricket", worldObj);
                     soundCounter = 20;
                 }
             }

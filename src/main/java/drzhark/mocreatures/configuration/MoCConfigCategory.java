@@ -46,13 +46,13 @@ public class MoCConfigCategory implements Map<String, MoCProperty> {
   public boolean equals(Object obj) {
     if (obj instanceof MoCConfigCategory) {
       MoCConfigCategory cat = (MoCConfigCategory)obj;
-      return (this.name.equals(cat.name) && this.children.equals(cat.children));
+      return (name.equals(cat.name) && children.equals(cat.children));
     } 
     return false;
   }
   
   public String getQualifiedName() {
-    return getQualifiedName(this.name, this.parent);
+    return getQualifiedName(name, parent);
   }
   
   public static String getQualifiedName(String name, MoCConfigCategory parent) {
@@ -60,15 +60,15 @@ public class MoCConfigCategory implements Map<String, MoCProperty> {
   }
   
   public MoCConfigCategory getFirstParent() {
-    return (this.parent == null) ? this : this.parent.getFirstParent();
+    return (parent == null) ? this : parent.getFirstParent();
   }
   
   public boolean isChild() {
-    return (this.parent != null);
+    return (parent != null);
   }
   
   public Map<String, MoCProperty> getValues() {
-    return this.properties;
+    return properties;
   }
   
   public void setComment(String comment) {
@@ -76,15 +76,15 @@ public class MoCConfigCategory implements Map<String, MoCProperty> {
   }
   
   public boolean containsKey(String key) {
-    return this.properties.containsKey(key);
+    return properties.containsKey(key);
   }
   
   public MoCProperty get(String key) {
-    return this.properties.get(key);
+    return properties.get(key);
   }
   
   public void set(String key, MoCProperty value) {
-    this.properties.put(key, value);
+    properties.put(key, value);
   }
   
   private void write(BufferedWriter out, String... data) throws IOException {
@@ -105,19 +105,19 @@ public class MoCConfigCategory implements Map<String, MoCProperty> {
     String pad1 = getIndent(indent + 1);
     String pad2 = getIndent(indent + 2);
     write(out, new String[] { pad0, "####################" });
-    write(out, new String[] { pad0, "# ", this.name });
-    if (this.comment != null) {
+    write(out, new String[] { pad0, "# ", name });
+    if (comment != null) {
       write(out, new String[] { pad0, "#===================" });
       Splitter splitter = Splitter.onPattern("\r?\n");
-      for (String line : splitter.split(this.comment)) {
+      for (String line : splitter.split(comment)) {
         write(out, new String[] { pad0, "# ", line });
       } 
     } 
     write(out, new String[] { pad0, "####################", MoCConfiguration.NEW_LINE });
-    if (!MoCConfiguration.allowedProperties.matchesAllOf(this.name))
-      this.name = '"' + this.name + '"'; 
-    write(out, new String[] { pad0, this.name, " {" });
-    MoCProperty[] props = (MoCProperty[])this.properties.values().toArray((Object[])new MoCProperty[this.properties.size()]);
+    if (!MoCConfiguration.allowedProperties.matchesAllOf(name))
+      name = '"' + name + '"'; 
+    write(out, new String[] { pad0, name, " {" });
+    MoCProperty[] props = (MoCProperty[])properties.values().toArray((Object[])new MoCProperty[properties.size()]);
     for (int x = 0; x < props.length; x++) {
       MoCProperty prop = props[x];
       if (prop.comment != null) {
@@ -150,7 +150,7 @@ public class MoCConfigCategory implements Map<String, MoCProperty> {
         write(out, new String[] { pad1, String.valueOf(type), ":", propName, "=", prop.getString() });
       } 
     } 
-    for (MoCConfigCategory child : this.children)
+    for (MoCConfigCategory child : children)
       child.write(out, indent + 1); 
     write(out, new String[] { pad0, "}", MoCConfiguration.NEW_LINE });
   }
@@ -163,9 +163,9 @@ public class MoCConfigCategory implements Map<String, MoCProperty> {
   }
   
   public boolean hasChanged() {
-    if (this.changed)
+    if (changed)
       return true; 
-    for (MoCProperty prop : this.properties.values()) {
+    for (MoCProperty prop : properties.values()) {
       if (prop.hasChanged())
         return true; 
     } 
@@ -173,71 +173,71 @@ public class MoCConfigCategory implements Map<String, MoCProperty> {
   }
   
   void resetChangedState() {
-    this.changed = false;
-    for (MoCProperty prop : this.properties.values())
+    changed = false;
+    for (MoCProperty prop : properties.values())
       prop.resetChangedState(); 
   }
   
   public int size() {
-    return this.properties.size();
+    return properties.size();
   }
   
   public boolean isEmpty() {
-    return this.properties.isEmpty();
+    return properties.isEmpty();
   }
   
   public boolean containsKey(Object key) {
-    return this.properties.containsKey(key);
+    return properties.containsKey(key);
   }
   
   public boolean containsValue(Object value) {
-    return this.properties.containsValue(value);
+    return properties.containsValue(value);
   }
   
   public MoCProperty get(Object key) {
-    return this.properties.get(key);
+    return properties.get(key);
   }
   
   public MoCProperty put(String key, MoCProperty value) {
-    this.changed = true;
-    return this.properties.put(key, value);
+    changed = true;
+    return properties.put(key, value);
   }
   
   public MoCProperty remove(Object key) {
-    this.changed = true;
-    return this.properties.remove(key);
+    changed = true;
+    return properties.remove(key);
   }
   
   public void putAll(Map<? extends String, ? extends MoCProperty> m) {
-    this.changed = true;
-    this.properties.putAll(m);
+    changed = true;
+    properties.putAll(m);
   }
   
   public void clear() {
-    this.changed = true;
-    this.properties.clear();
+    changed = true;
+    properties.clear();
   }
   
   public Set<String> keySet() {
-    return this.properties.keySet();
+    return properties.keySet();
   }
   
   public Collection<MoCProperty> values() {
-    return this.properties.values();
+    return properties.values();
   }
   
   public Set<Map.Entry<String, MoCProperty>> entrySet() {
-    return (Set<Map.Entry<String, MoCProperty>>)ImmutableSet.copyOf(this.properties.entrySet());
+    return (Set<Map.Entry<String, MoCProperty>>)ImmutableSet.copyOf(properties.entrySet());
   }
   
   public Set<MoCConfigCategory> getChildren() {
-    return (Set<MoCConfigCategory>)ImmutableSet.copyOf(this.children);
+    return (Set<MoCConfigCategory>)ImmutableSet.copyOf(children);
   }
   
   public void removeChild(MoCConfigCategory child) {
-    if (this.children.contains(child)) {
-      this.children.remove(child);
-      this.changed = true;
+    if (children.contains(child)) {
+      children.remove(child);
+      changed = true;
     } 
   }
 }

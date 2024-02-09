@@ -6,10 +6,8 @@ import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
-import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.MoCEntityMob;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
-import drzhark.mocreatures.entity.MoCEntityTameableAquatic;
 import drzhark.mocreatures.entity.aquatic.MoCEntityJellyFish;
 import drzhark.mocreatures.entity.aquatic.MoCEntityRay;
 import drzhark.mocreatures.entity.item.MoCEntityKittyBed;
@@ -36,9 +34,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class MoCEntityKitty extends MoCEntityTameableAnimal {
 
@@ -67,7 +62,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
     }
 
     @Override
@@ -301,7 +296,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     {
         return 
         		(
-        			entity.getClass() != this.getClass()
+        			entity.getClass() != getClass()
         			&& entity instanceof EntityLivingBase
         			&& ((entity.width >= 0.5D) || (entity.height >= 0.5D))
         			&& !(entity instanceof MoCEntityDeer)
@@ -535,14 +530,14 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         {
             if (getKittyState() == 10) { return (yOffset - 1.1F); }
             if (upsideDown()) { return (yOffset - 1.7F); }
-            if (onMaBack()) { return (yOffset - 1.5F); }
+            if (onPlayersBack()) { return (yOffset - 1.5F); }
         }
 
         if ((ridingEntity instanceof EntityPlayer) && !MoCreatures.isServer())
         {
             if (getKittyState() == 10) { return (yOffset + 0.3F); }
             if (upsideDown()) { return (yOffset - 0.1F); }
-            if (onMaBack()) { return (yOffset + 0.1F); }
+            if (onPlayersBack()) { return (yOffset + 0.1F); }
         }
 
         return yOffset;
@@ -724,7 +719,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                 }
             }
             
-            if (this.getIsTamed() && isNight() && (this.ridingEntity == null) && !getIsSitting()) //find kittybed to sleep in else sleep on the spot
+            if (getIsTamed() && isNight() && (ridingEntity == null) && !getIsSitting()) //find kittybed to sleep in else sleep on the spot
             {
             	MoCEntityKittyBed entityKittyBed = (MoCEntityKittyBed) getKittyStuff(this, 18D, false);
             	
@@ -749,7 +744,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                 }
             }
             
-            if (this.getIsTamed() && !isNight() && (getKittyState() == 12))
+            if (getIsTamed() && !isNight() && (getKittyState() == 12))
             {
             	changeKittyStateTo(10);
             }
@@ -1486,7 +1481,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                for (int l2 = 0; l2 < i2; l2++)
 	                {
 	                    MoCEntityKitty entitykitty1 = new MoCEntityKitty(worldObj);
-	                    int babytype = this.getType();
+	                    int babytype = getType();
 	                    if (rand.nextInt(2) == 0)
 	                    {
 	                        babytype = (rand.nextInt(8)+1);
@@ -1555,7 +1550,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         }
     }
 
-    public boolean onMaBack()
+    public boolean onPlayersBack()
     {
         return getKittyState() == 15;
     }
@@ -1620,7 +1615,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         //to synchronize, uses the packet handler to invoke the same method in the clients
         if (MoCreatures.isServer())
         {
-            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 0), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 0), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
         }
 
         if (!getIsSwinging())
@@ -1685,7 +1680,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         {
             if (getIsTamed())
             {
-                MoCTools.dropCustomItem(this, this.worldObj, new ItemStack(MoCreatures.medallion, 1));
+                MoCTools.dropCustomItem(this, worldObj, new ItemStack(MoCreatures.medallion, 1));
             }
         }
         super.onDeath(damageSource);

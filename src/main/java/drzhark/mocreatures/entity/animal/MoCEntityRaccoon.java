@@ -25,7 +25,7 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0D);
     }
     
     @Override
@@ -43,7 +43,7 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     @Override
     protected boolean canDespawn()
     {
-        return !getIsTamed() && this.ticksExisted > 2400;
+        return !getIsTamed() && ticksExisted > 2400;
     }
 
     @Override

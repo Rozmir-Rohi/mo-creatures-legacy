@@ -53,7 +53,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
     }
     
     @Override
@@ -143,12 +143,12 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     @Override
     protected boolean canDespawn()
     {
-        return !getIsTamed() && this.ticksExisted > 2400;
+        return !getIsTamed() && ticksExisted > 2400;
     }
 
     public boolean pickedUp()
     {
-        return (this.ridingEntity != null);
+        return (ridingEntity != null);
     }
 
     @Override
@@ -176,7 +176,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         if (itemstack == null)
         {
 	        rotationYaw = entityPlayer.rotationYaw;
-	        if (this.ridingEntity == null)
+	        if (ridingEntity == null)
 	        {
 	            if (MoCreatures.isServer() && (entityPlayer.ridingEntity == null))
 	            {
@@ -187,7 +187,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 	        {
 	            if (MoCreatures.isServer())
 	            {
-	                this.mountEntity(null);
+	                mountEntity(null);
 	            }
 	        }
 	        motionX = entityPlayer.motionX * 5D;
@@ -202,7 +202,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     public boolean isNotScared()
     {
         // TODO depending on size!
-        if ((getType() > 2 && getMoCAge() > 50) || this.getType()== 7) { return true; }
+        if ((getType() > 2 && getMoCAge() > 50) || getType()== 7) { return true; }
         else {return false;}
     }
 
@@ -246,7 +246,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     public void setNearPlayer(boolean flag)
     {
         isNearPlayer = flag;
-        if (flag == false) {this.rattleState = 0;}
+        if (flag == false) {rattleState = 0;}
     }
 
     /*@Override
@@ -303,7 +303,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             factor = 1.5F;
         }
 
-        return this.getMoCAge() * 0.01F * factor;// */
+        return getMoCAge() * 0.01F * factor;// */
     }
 
     @Override
@@ -383,13 +383,13 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             }
         }
         
-        if ((this.getType() == 7) && getRattleState() != 0 && !getIsTamed()) //rattling
+        if ((getType() == 7) && getRattleState() != 0 && !getIsTamed()) //rattling
         {
-        	this.rattleState += 1;
+        	rattleState += 1;
         	
         	setPissed(true);
                 
-            if (this.rattleState % 20 == 0 )
+            if (rattleState % 20 == 0 )
             {
             	worldObj.playSoundAtEntity(this, "mocreatures:snakerattle", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             }
@@ -519,12 +519,12 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             
             if (isNotScared())
             {
-            	if (this.getType() == 7 && playerDistanceToSnake <= 8D)  //distance for rattle snake to only rattle as a warning to player
+            	if (getType() == 7 && playerDistanceToSnake <= 8D)  //distance for rattle snake to only rattle as a warning to player
             	{
             		setNearPlayer(true);
-            		this.faceEntity(entityPlayer1, 8F, 8F); //stare at player
+            		faceEntity(entityPlayer1, 8F, 8F); //stare at player
             	}
-            	else if (this.getType() != 7 && playerDistanceToSnake <= 5D) {setNearPlayer(true);}
+            	else if (getType() != 7 && playerDistanceToSnake <= 5D) {setNearPlayer(true);}
                 else {setNearPlayer(false);}
 
                 if (entityPlayer1.riddenByEntity != null && (entityPlayer1.riddenByEntity instanceof MoCEntityMouse || entityPlayer1.riddenByEntity instanceof MoCEntityBird))
@@ -538,7 +538,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             else
             {
                 setNearPlayer(false);
-                if (playerDistanceToSnake < 2D && !getIsTamed() && this.getType() != 7)
+                if (playerDistanceToSnake < 2D && !getIsTamed() && getType() != 7)
                 {
                     fleeingTick = 40;
                 }
@@ -573,7 +573,6 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             // venom!
             if (rand.nextInt(2) == 0 && entity instanceof EntityPlayer && getType() > 2 && getType() < 8)
             {
-                MoCreatures.poisonPlayer((EntityPlayer) entity);
                 ((EntityPlayer) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 120, 0));
             }
 
@@ -596,9 +595,9 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     {
         if (flag && MoCreatures.isServer())
         {
-            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 0), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 0), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
         }
-        this.isBiting = flag;
+        isBiting = flag;
     }
 
     public boolean isPissed()
@@ -616,8 +615,8 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     {
     	if (MoCreatures.isServer())
         {
-        	if (this.ridingEntity != null && 
-        			(damageSource.getEntity() == this.ridingEntity || DamageSource.inWall.equals(damageSource)))
+        	if (ridingEntity != null && 
+        			(damageSource.getEntity() == ridingEntity || DamageSource.inWall.equals(damageSource)))
             {
          	   return false;
             }
@@ -669,9 +668,9 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         
         if (MoCreatures.proxy.specialPetsDefendOwner)
         {
-	        if (this.getIsTamed() && this.ridingEntity == null) //defend owner if they are attacked by an entity
+	        if (getIsTamed() && ridingEntity == null) //defend owner if they are attacked by an entity
 	    	{
-	    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(getOwnerName());
 	    		
 	    		if (ownerOfEntityThatIsOnline != null)
 	    		{

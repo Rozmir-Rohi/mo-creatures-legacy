@@ -34,7 +34,7 @@ public class MoCEntityFly extends MoCEntityInsect
             EntityPlayer entityPlayer = worldObj.getClosestPlayerToEntity(this, 5D);
             if (entityPlayer != null && getIsFlying() && --soundCount == -1)
             {
-                MoCTools.playCustomSound(this, "fly", this.worldObj);
+                MoCTools.playCustomSound(this, "fly", worldObj);
                 soundCount = 55;
             }
         }

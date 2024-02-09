@@ -30,7 +30,7 @@ public class MoCPetData {
         ownerData = nbt;
         tamedList = nbt.getTagList("TamedList", 10);
         ownerName = owner;
-        this.loadPetDataMap(nbt.getCompoundTag("PetIdData"));
+        loadPetDataMap(nbt.getCompoundTag("PetIdData"));
     }
 
     public int addPet(IMoCTameable pet, NBTTagCompound petNBT)
@@ -57,16 +57,16 @@ public class MoCPetData {
 
     public boolean removePet(int id)
     {
-        for (int i = 0; i < this.tamedList.tagCount(); i++)
+        for (int i = 0; i < tamedList.tagCount(); i++)
         {
-            NBTTagCompound nbt = (NBTTagCompound)this.tamedList.getCompoundTagAt(i);
+            NBTTagCompound nbt = (NBTTagCompound)tamedList.getCompoundTagAt(i);
             if (nbt.hasKey("PetId") && nbt.getInteger("PetId") == id)
             {
-                this.tamedList.removeTag(i);
-                this.usedPetIds.remove(new Integer(id));
-                this.IDMap.clear(id); // clear bit so it can be reused again
-                if (this.usedPetIds.size() == 0)
-                    this.IDMap.clear(); // fixes bug with ID 0 not able to be used again
+                tamedList.removeTag(i);
+                usedPetIds.remove(new Integer(id));
+                IDMap.clear(id); // clear bit so it can be reused again
+                if (usedPetIds.size() == 0)
+                    IDMap.clear(); // fixes bug with ID 0 not able to be used again
                 ownerData.setTag("PetIdData", savePetDataMap());
                 return true;
             }
@@ -78,9 +78,9 @@ public class MoCPetData {
     {
         if (tamedList != null)
         {
-            for (int i = 0; i < this.tamedList.tagCount(); i++)
+            for (int i = 0; i < tamedList.tagCount(); i++)
             {
-                NBTTagCompound nbt = (NBTTagCompound)this.tamedList.getCompoundTagAt(i);
+                NBTTagCompound nbt = (NBTTagCompound)tamedList.getCompoundTagAt(i);
                 if (nbt.hasKey("PetId") && nbt.getInteger("PetId") == id)
                 {
                     return nbt;

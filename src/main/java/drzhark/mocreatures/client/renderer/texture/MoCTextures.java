@@ -24,12 +24,12 @@ public class MoCTextures {
 
     public void loadTextures() {
         try {
-            TEXTURE_RESOURCES.put(MoCreatures.proxy.ARMOR_TEXTURE, getResourceListing(this.getClass(), "assets/mocreatures/textures/armor/"));
-            TEXTURE_RESOURCES.put(MoCreatures.proxy.BLOCK_TEXTURE, getResourceListing(this.getClass(), "assets/mocreatures/textures/blocks/"));
-            TEXTURE_RESOURCES.put(MoCreatures.proxy.GUI_TEXTURE, getResourceListing(this.getClass(), "assets/mocreatures/textures/gui/"));
-            TEXTURE_RESOURCES.put(MoCreatures.proxy.ITEM_TEXTURE, getResourceListing(this.getClass(), "assets/mocreatures/textures/items/"));
-            TEXTURE_RESOURCES.put(MoCreatures.proxy.MISC_TEXTURE, getResourceListing(this.getClass(), "assets/mocreatures/textures/misc/"));
-            TEXTURE_RESOURCES.put(MoCreatures.proxy.MODEL_TEXTURE, getResourceListing(this.getClass(), "assets/mocreatures/textures/models/"));
+            TEXTURE_RESOURCES.put(MoCreatures.proxy.ARMOR_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/armor/"));
+            TEXTURE_RESOURCES.put(MoCreatures.proxy.BLOCK_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/blocks/"));
+            TEXTURE_RESOURCES.put(MoCreatures.proxy.GUI_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/gui/"));
+            TEXTURE_RESOURCES.put(MoCreatures.proxy.ITEM_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/items/"));
+            TEXTURE_RESOURCES.put(MoCreatures.proxy.MISC_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/misc/"));
+            TEXTURE_RESOURCES.put(MoCreatures.proxy.MODEL_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/models/"));
         } catch (URISyntaxException e) {
             e.printStackTrace();
         } catch (IOException e) {

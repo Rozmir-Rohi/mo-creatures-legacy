@@ -166,6 +166,7 @@ public class MoCreatures {
     public static boolean isPalmsHarvestLoaded;
     public static boolean isTwilightForestLoaded;
     public static boolean isFoodExpansionLoaded;
+    public static boolean isExoticBirdsLoaded;
     public static boolean isImprovingMinecraftLoaded;
     public static final GameProfile MOCFAKEPLAYER = new GameProfile(UUID.fromString("6E379B45-1111-2222-3333-2FE1A88BCD66"), "[MoCreatures]");
 
@@ -399,8 +400,8 @@ public class MoCreatures {
         MinecraftForge.EVENT_BUS.register(new MoCEventHooks());
         proxy.ConfigInit(event);
         proxy.initTextures();
-        this.InitItems();
-        this.AddRecipes();
+        InitItems();
+        AddRecipes();
         proxy.registerRenderers();
         proxy.registerRenderInformation();
         if (!isServer())
@@ -426,19 +427,21 @@ public class MoCreatures {
         
         MoCAchievements.initilization();
         
-        this.isThaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
+        isThaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
         
-        this.isBiomesOPlentyLoaded = Loader.isModLoaded("BiomesOPlenty");
+        isBiomesOPlentyLoaded = Loader.isModLoaded("BiomesOPlenty");
         
-        this.isGregTech6Loaded = Loader.isModLoaded("gregtech");
+        isGregTech6Loaded = Loader.isModLoaded("gregtech");
         
-        this.isPalmsHarvestLoaded = Loader.isModLoaded("harvestcraft");
+        isPalmsHarvestLoaded = Loader.isModLoaded("harvestcraft");
         
-        this.isTwilightForestLoaded = Loader.isModLoaded("TwilightForest");
+        isTwilightForestLoaded = Loader.isModLoaded("TwilightForest");
         
-        this.isFoodExpansionLoaded = GameRegistry.findItem("FoodExpansion", "ItemHorseMeat") != null; //have to use this method over the normal way to detect the Food Expansion mod since it's mod ID is not properly registered
+        isFoodExpansionLoaded = GameRegistry.findItem("FoodExpansion", "ItemHorseMeat") != null; //have to use this method over the normal way to detect the Food Expansion mod since it's mod ID is not properly registered
         
-        this.isImprovingMinecraftLoaded = Loader.isModLoaded("imc");
+        isExoticBirdsLoaded = Loader.isModLoaded("exoticbirds");
+        
+        isImprovingMinecraftLoaded = Loader.isModLoaded("imc");
         
         if (isThaumcraftLoaded) {MoCThaumcraftAspects.addThaumcraftAspects();};
     }
@@ -446,16 +449,15 @@ public class MoCreatures {
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-        //ForgeChunkManager.setForcedChunkLoadingCallback(instance, new MoCloadCallback());
         DimensionManager.registerDimension(wyvernLairDimensionID, wyvernLairDimensionID);
         // ***MUST REGISTER BIOMES AT THIS POINT TO MAKE SURE OUR ENTITIES GET ALL BIOMES FROM DICTIONARY****
-        this.WyvernLairBiome = new BiomeGenWyvernLair(MoCreatures.proxy.wyvernBiomeID);
-        this.defaultBiomeSupport.add("biomesop");
-        this.defaultBiomeSupport.add("extrabiomes");
-        this.defaultBiomeSupport.add("highlands");
-        this.defaultBiomeSupport.add("ted80");
-        this.defaultBiomeSupport.add("etfuturum");
-        this.defaultBiomeSupport.add("minecraft");
+        WyvernLairBiome = new BiomeGenWyvernLair(MoCreatures.proxy.wyvernBiomeID);
+        defaultBiomeSupport.add("biomesop");
+        defaultBiomeSupport.add("extrabiomes");
+        defaultBiomeSupport.add("highlands");
+        defaultBiomeSupport.add("ted80");
+        defaultBiomeSupport.add("etfuturum");
+        defaultBiomeSupport.add("minecraft");
         registerEntities();
     }
 
@@ -479,19 +481,6 @@ public class MoCreatures {
     public void serverStarted(FMLServerStartedEvent event)
     {
     }
-
-    /*
-    public class MoCloadCallback implements ForgeChunkManager.OrderedLoadingCallback {
-
-        @Override
-        public void ticketsLoaded(List<Ticket> tickets, World world) {
-        }
-
-        @Override
-        public List<Ticket> ticketsLoaded(List<Ticket> tickets, World world, int maxTicketCount) {
-            return tickets;
-        }
-    }*/
 
     public void registerEntities()
     {
@@ -557,14 +546,29 @@ public class MoCreatures {
         registerEntity(MoCEntityMole.class, "Mole", 14020607, 16711680);
         
         /**
-         * fucsia 16711680 orange curuba 14772545 gris claro 9141102 gris medio
-         * 9013643 rosado 15631086 rosado claro 12623485 azul oscuro 2037680
-         * azul mas oscuro 205 amarillo 15656192 marron claro 13749760
+         * NAMES OF COLORS USED AND THIER DECIMAL COLOUR VALUES
          * 
-         * verde claro esmeralda 65407 azul oscuro 30091 azul oscuro 2 2372490
-         * blanco azulado 14020607 azul oscuro 16622 marron claro rosado
-         * 12623485 azul bse huevos acuaticos 5665535 azul brillane 33023 morado
-         * fucsia 9320590 lila 7434694 morado lila 6053069
+         * fucsia  - 16711680
+         * orange curuba  - 14772545
+         * gris claro  - 9141102
+         * gris medio  - 9013643
+         * rosado  - 15631086
+         * rosado claro  - 12623485
+         * azul oscuro  - 2037680
+         * azul mas oscuro - 205
+         * amarillo - 15656192
+         * marron claro - 13749760
+         * verde claro esmeralda - 65407
+         * azul oscuro - 30091 
+         * azul oscuro 2  - 2372490
+         * blanco azulado  - 14020607
+         * azul oscuro  - 16622
+         * marron claro rosado - 12623485
+         * azul bse huevos acuaticos - 5665535
+         * azul brillane - 33023
+         * morado fucsia - 9320590
+         * lila - 7434694
+         * morado lila - 6053069
          */
 
         // ambients
@@ -829,7 +833,7 @@ public class MoCreatures {
 
         crabRaw = new MoCItemFood("crabraw", 2, 0.3F, false).setPotionEffect(Potion.hunger.id, 30, 0, 0.8F);
         crabCooked = new MoCItemFood("crabcooked", 6, 0.6F, false);
-        silverSword = new MoCItemWeapon("silversword", this.SILVER_WEAPON);
+        silverSword = new MoCItemWeapon("silversword", SILVER_WEAPON);
 
         multiBlockNames.add ("WyvernLair");
         multiBlockNames.add("OgreLair");
@@ -947,7 +951,6 @@ public class MoCreatures {
         Character.valueOf('g'), new ItemStack(Items.dye, 1, 10)
         });
 
-        //Items.dye.itemID
         GameRegistry.addRecipe(new ItemStack(ratBurger, 1), new Object[] { "SB ", "GRG", " B ", Character.valueOf('R'), ratCooked, Character.valueOf('B'), Items.bread, Character.valueOf('S'), Items.pumpkin_seeds, Character.valueOf('G'), Items.wheat_seeds });
 
         GameRegistry.addRecipe(new ItemStack(scorpPlateFrost, 1), new Object[] { "X X", "XXX", "XXX", Character.valueOf('X'), chitinFrost });
@@ -991,12 +994,6 @@ public class MoCreatures {
         GameRegistry.addRecipe(new ItemStack(bootsHide, 1), new Object[] { "X X", "X X", Character.valueOf('X'), hide });
 
         GameRegistry.addRecipe(new ItemStack(horseArmorCrystal, 1), new Object[] { "  D", "CDC", "DCD", Character.valueOf('D'), Items.diamond, Character.valueOf('C'), Blocks.glass });
-
-        //GameRegistry.addRecipe(new ItemStack(horsearmormetal, 1), new Object[] { "  X", "XYX", "XXX", Character.valueOf('X'), Item.ingotIron, Character.valueOf('Y'), new ItemStack(Blocks.wool, 1, 15) });
-
-        //GameRegistry.addRecipe(new ItemStack(horsearmorgold, 1), new Object[] { "  X", "XYX", "XXX", Character.valueOf('X'), Item.ingotGold, Character.valueOf('Y'), new ItemStack(Blocks.wool, 1, 14) });
-
-        //GameRegistry.addRecipe(new ItemStack(horsearmordiamond, 1), new Object[] { "  X", "XYX", "XXX", Character.valueOf('X'), Item.diamond, Character.valueOf('Y'), new ItemStack(Blocks.wool, 1, 11) });
 
         GameRegistry.addShapelessRecipe(new ItemStack(essenceLight, 1), new Object[] { new ItemStack(essenceUndead, 1), new ItemStack(essenceFire, 1), new ItemStack(essenceDarkness, 1)});
 
@@ -1091,35 +1088,6 @@ public class MoCreatures {
         GameRegistry.addRecipe(new ItemStack(staffPortal, 1), new Object[] { "  E", " U ", "R  ", Character.valueOf('E'), Items.ender_eye, Character.valueOf('U'), unicornHorn, Character.valueOf('R'), Items.blaze_rod });
         
         GameRegistry.addRecipe(new ItemStack(staffPortal, 1), new Object[] { "  E", " U ", "R  ", Character.valueOf('E'), Items.ender_eye, Character.valueOf('U'), essenceLight, Character.valueOf('R'), Items.blaze_rod });
-    }
-
-    public static void burnPlayer(EntityPlayer player)
-    {
-        //TODO 4FIX
-        //if (!mc.theWorld.isRemote)
-        //{
-        //    inst.burned = true;
-        //}
-    }
-
-    public static void freezePlayer(EntityPlayer player)
-    {
-        //TODO 4FIX
-        //if (!mc.theWorld.isRemote)
-        //{
-        //    inst.freezed = true;
-        //    inst.freezedcounter = 0;
-        //}
-    }
-
-    public static void poisonPlayer(EntityPlayer player)
-    {
-        //TODO 4FIX
-        //if (!mc.theWorld.isRemote)
-        //{
-        //    inst.poisoned = true;
-        //    inst.poisonCounter = 0;
-        //}
     }
 
     public static void showCreaturePedia(EntityPlayer player, String s)

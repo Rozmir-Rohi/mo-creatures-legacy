@@ -3,9 +3,7 @@ package drzhark.mocreatures.entity.animal;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.IMoCEntity;
-import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
-import drzhark.mocreatures.entity.MoCEntityTameableAquatic;
 import drzhark.mocreatures.entity.aquatic.MoCEntityJellyFish;
 import drzhark.mocreatures.entity.aquatic.MoCEntityRay;
 import net.minecraft.entity.Entity;
@@ -39,7 +37,7 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
     }
     
     @Override
@@ -57,7 +55,7 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     @Override
     protected boolean canDespawn()
     {
-        return !getIsTamed() && this.ticksExisted > 2400;
+        return !getIsTamed() && ticksExisted > 2400;
     }
 
     @Override

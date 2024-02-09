@@ -38,7 +38,7 @@ public class MoCEntityOgre extends MoCEntityMob{
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(getType() > 4 ? 50.0D : 35.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(getType() > 4 ? 50.0D : 35.0D);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class MoCEntityOgre extends MoCEntityMob{
         if (worldObj.provider.isHellWorld)
         {
             setType(rand.nextInt(2)+3);
-            this.setHealth(getMaxHealth());
-            this.isImmuneToFire = true;
+            setHealth(getMaxHealth());
+            isImmuneToFire = true;
 
         }else
         {
@@ -72,14 +72,14 @@ public class MoCEntityOgre extends MoCEntityMob{
                 else if (typeChance >= (100 - fireOgreChance))
                 {
                     setType(rand.nextInt(2)+3);
-                    this.isImmuneToFire = true;
+                    isImmuneToFire = true;
                 }
                 else
                 {
                     setType(rand.nextInt(2)+1);
                 }
 
-                this.setHealth(getMaxHealth());
+                setHealth(getMaxHealth());
             }
         }
     }
@@ -109,7 +109,7 @@ public class MoCEntityOgre extends MoCEntityMob{
         if (attackTime <= 0 && (distanceToEntity < 2.5F) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY) && (worldObj.difficultySetting.getDifficultyId() > 0))
         {
             attackTime = 20;
-            this.attackEntityAsMob(entity);
+            attackEntityAsMob(entity);
         }
     }
 
@@ -134,7 +134,7 @@ public class MoCEntityOgre extends MoCEntityMob{
 
     public void DestroyingOgre()
     {
-        if (this.deathTime > 0) { return; }
+        if (deathTime > 0) { return; }
         MoCTools.DestroyBlast(this, posX, posY + 1.0D, posZ, getDestroyForce(), getOgreFire());
     }
 
@@ -191,7 +191,7 @@ public class MoCEntityOgre extends MoCEntityMob{
     {
         if(getType() == 3 || getType() == 4)
         {
-            this.isImmuneToFire = true;
+            isImmuneToFire = true;
             return true;
         }
         return false;
@@ -230,7 +230,7 @@ public class MoCEntityOgre extends MoCEntityMob{
             {
                 isPendingSmashAttack = false;
                 DestroyingOgre();
-                MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageExplode(this.getEntityId()), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+                MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageExplode(getEntityId()), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
             }
 
             if (getType() > 2)
@@ -242,7 +242,7 @@ public class MoCEntityOgre extends MoCEntityMob{
                     float brightness = getBrightness(1.0F);
                     if ((brightness > 0.5F) && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && ((rand.nextFloat() * 30F) < ((brightness - 0.4F) * 2.0F)))
                     {
-                        this.setHealth(getHealth() - 5);
+                        setHealth(getHealth() - 5);
                     }
                 }
             }
@@ -274,12 +274,12 @@ public class MoCEntityOgre extends MoCEntityMob{
             if (leftArmW)
             {
                 attackCounterLeftArm = 1;
-                MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 1), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+                MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 1), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
             }
             else
             {
                 attackCounterRightArm = 1;
-                MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 2), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+                MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 2), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
             }
         }
     }

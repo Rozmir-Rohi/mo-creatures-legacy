@@ -24,7 +24,7 @@ public class MoCSounds {
         String[] sounds = null;
 
         try {
-            sounds = getResourceListing(this.getClass(), "assets/mocreatures/sound/");
+            sounds = getResourceListing(getClass(), "assets/mocreatures/sound/");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (URISyntaxException e) {

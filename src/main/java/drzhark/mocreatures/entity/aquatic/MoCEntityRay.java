@@ -120,7 +120,7 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
             {
                 if (MoCTools.findClosestPlayerAndPoisonThem(this, true))
                 {
-                    MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 1), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+                    MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 1), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
                     poisonCounter = 0;
                 }
             }
@@ -214,7 +214,7 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
     @Override
     public double getMountedYOffset()
     {
-        return (double)this.height * 0.15D * getSizeFactor();
+        return (double)height * 0.15D * getSizeFactor();
     }
 
     @Override

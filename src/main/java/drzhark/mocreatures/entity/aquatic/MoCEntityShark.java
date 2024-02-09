@@ -56,7 +56,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     @Override
     protected boolean canDespawn()
     {
-        return !getIsTamed() && this.ticksExisted > 2400;
+        return !getIsTamed() && ticksExisted > 2400;
     }
 
     @Override
@@ -143,9 +143,9 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
         
         if (MoCreatures.proxy.specialPetsDefendOwner)
         {
-	        if (this.getIsTamed()) //defend owner if they are attacked by an entity
+	        if (getIsTamed()) //defend owner if they are attacked by an entity
 	    	{
-	    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(getOwnerName());
 	    		
 	    		if (ownerOfEntityThatIsOnline != null)
 	    		{

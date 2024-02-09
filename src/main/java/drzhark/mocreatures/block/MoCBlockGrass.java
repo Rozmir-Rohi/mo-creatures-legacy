@@ -35,7 +35,7 @@ public class MoCBlockGrass extends MoCBlock
 
         if (par1World.getBlockLightValue(par2, par3 + 1, par4) < 4 && par1World.getBlock(par2, par3 + 1, par4).getLightOpacity() > 2)
         {
-            par1World.setBlock(par2, par3, par4, MoCreatures.mocDirt, this.getDamageValue(par1World, par2, par3, par4), 3);
+            par1World.setBlock(par2, par3, par4, MoCreatures.mocDirt, getDamageValue(par1World, par2, par3, par4), 3);
         }
         else if (par1World.getBlockLightValue(par2, par3 + 1, par4) >= 9)
         {
@@ -48,7 +48,7 @@ public class MoCBlockGrass extends MoCBlock
 
                 if (par1World.getBlock(j, k, l) == MoCreatures.mocDirt && par1World.getBlockLightValue(j, k + 1, l) >= 4 && block.getLightOpacity() <= 2)
                 {
-                    par1World.setBlock(j, k, l, MoCreatures.mocGrass, this.getDamageValue(par1World, j, k, l), 3);
+                    par1World.setBlock(j, k, l, MoCreatures.mocGrass, getDamageValue(par1World, j, k, l), 3);
                 }
             }
         }

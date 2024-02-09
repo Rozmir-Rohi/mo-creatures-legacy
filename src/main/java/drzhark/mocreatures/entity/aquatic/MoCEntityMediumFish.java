@@ -116,7 +116,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
         int i = rand.nextInt(100);
         if (i < 70)
         {
-        	if (this.getType() == 4) //red salmon
+        	if (getType() == 4) //red salmon
         	{
         		entityDropItem(new ItemStack(Items.fish, 1, 1), 0.0F); //drops salmon
         	}
@@ -179,7 +179,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
         	setType(4);
         }
         
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             prevRenderYawOffset = renderYawOffset = rotationYaw = prevRotationYaw;
             rotationPitch = prevRotationPitch;
@@ -195,7 +195,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
     @Override
     public float getAdjustedYOffset()
     {
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             return -0.1F;
         }
@@ -212,7 +212,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
     @Override
     public int yawRotationOffset()
     {
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             return 90;
         }
@@ -239,7 +239,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
     @Override
     public int rollRotationOffset()
     {
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             return -90;
         }
@@ -267,7 +267,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
     @Override
     public float getAdjustedXOffset()
     {
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             return -0.8F;
         }

@@ -9,7 +9,7 @@ public class EntityCreeperExtension extends EntityCreeper{
 
 	public EntityCreeperExtension(World world) {
 		super(world);
-		this.tasks.addTask(3, new EntityAIAvoidEntity(this, MoCEntityKitty.class, 6.0F, 1.0D, 1.2D));
+		tasks.addTask(3, new EntityAIAvoidEntity(this, MoCEntityKitty.class, 6.0F, 1.0D, 1.2D));
 	}
 
 }

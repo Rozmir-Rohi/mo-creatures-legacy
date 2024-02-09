@@ -24,13 +24,13 @@ public class MoCMessageExplode implements IMessage, IMessageHandler<MoCMessageEx
     @Override
     public void toBytes(ByteBuf buffer)
     {
-        buffer.writeInt(this.entityId);
+        buffer.writeInt(entityId);
     }
 
     @Override
     public void fromBytes(ByteBuf buffer)
     {
-        this.entityId = buffer.readInt();
+        entityId = buffer.readInt();
     }
 
     @Override
@@ -51,6 +51,6 @@ public class MoCMessageExplode implements IMessage, IMessageHandler<MoCMessageEx
     @Override
     public String toString()
     {
-        return String.format("MoCMessageExplode - entityId:%s", this.entityId);
+        return String.format("MoCMessageExplode - entityId:%s", entityId);
     }
 }

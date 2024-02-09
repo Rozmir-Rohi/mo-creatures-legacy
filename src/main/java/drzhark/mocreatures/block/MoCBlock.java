@@ -18,8 +18,8 @@ public class MoCBlock extends Block
     public MoCBlock(String name, Material material)
     {
         super(material);
-        this.setBlockName(name);
-        this.setCreativeTab(MoCreatures.tabMoC);
+        setBlockName(name);
+        setCreativeTab(MoCreatures.tabMoC);
         GameRegistry.registerBlock(this, MultiItemBlock.class, name);
     }
 

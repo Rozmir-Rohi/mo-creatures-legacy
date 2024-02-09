@@ -23,15 +23,15 @@ public class MoCMessageAttachedEntity implements IMessage, IMessageHandler<MoCMe
     @Override
     public void toBytes(ByteBuf buffer)
     {
-        buffer.writeInt(this.sourceEntityId);
-        buffer.writeInt(this.targetEntityId);
+        buffer.writeInt(sourceEntityId);
+        buffer.writeInt(targetEntityId);
     }
 
     @Override
     public void fromBytes(ByteBuf buffer)
     {
-        this.sourceEntityId = buffer.readInt();
-        this.targetEntityId = buffer.readInt();
+        sourceEntityId = buffer.readInt();
+        targetEntityId = buffer.readInt();
     }
 
     @Override
@@ -50,6 +50,6 @@ public class MoCMessageAttachedEntity implements IMessage, IMessageHandler<MoCMe
     @Override
     public String toString()
     {
-        return String.format("MoCMessageAttachedEntity - sourceEntityId:%s, targetEntityId:%s", this.sourceEntityId, this.targetEntityId);
+        return String.format("MoCMessageAttachedEntity - sourceEntityId:%s, targetEntityId:%s", sourceEntityId, targetEntityId);
     }
 }

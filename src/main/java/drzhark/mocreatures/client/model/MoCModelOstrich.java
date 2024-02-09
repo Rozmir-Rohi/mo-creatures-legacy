@@ -489,8 +489,8 @@ public class MoCModelOstrich extends ModelBase {
     /*public void setLivingAnimations(EntityLiving entityLiving, float par2, float par3, float par4)
     {
         super.setLivingAnimations(entityLiving, par2, par3, par4);
-        this.Head.rotationPointY = 6.0F + ((EntitySheep)entityLiving).func_44003_c(par4) * 9.0F;
-        this.field_44016_o = ((EntitySheep)entityLiving).func_44002_d(par4);
+        Head.rotationPointY = 6.0F + ((EntitySheep)entityLiving).func_44003_c(par4) * 9.0F;
+        field_44016_o = ((EntitySheep)entityLiving).func_44002_d(par4);
     }*/
 
     @Override

@@ -50,11 +50,11 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
             }
             if (MoCreatures.isServer())
             {
-                if (this.getOwnerPetId() != -1) // required since getInteger will always return 0 if no key is found
+                if (getOwnerPetId() != -1) // required since getInteger will always return 0 if no key is found
                 {
-                    MoCreatures.instance.mapData.removeOwnerPet(this, this.getOwnerPetId());//this.getOwnerPetId());
+                    MoCreatures.instance.mapData.removeOwnerPet(this, getOwnerPetId());//getOwnerPetId());
                 }
-                this.setOwner("");
+                setOwner("");
                 
             }
             return true;
@@ -85,14 +85,14 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
             }
             if (MoCreatures.isServer())
             {
-                if (this.getOwnerPetId() != -1) // required since getInteger will always return 0 if no key is found
+                if (getOwnerPetId() != -1) // required since getInteger will always return 0 if no key is found
                 {
-                    MoCreatures.instance.mapData.removeOwnerPet(this, this.getOwnerPetId());//this.getOwnerPetId());
+                    MoCreatures.instance.mapData.removeOwnerPet(this, getOwnerPetId());//getOwnerPetId());
                 }
-                this.setOwner("");
-                this.setName("");
-                this.dropMyStuff();
-                this.setTamed(false);
+                setOwner("");
+                setName("");
+                dropMyStuff();
+                setTamed(false);
             }
 
             return true;
@@ -108,11 +108,11 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
             }
             if (MoCreatures.isServer())
             {
-                if (this.getOwnerPetId() != -1) // required since getInteger will always return 0 if no key is found
+                if (getOwnerPetId() != -1) // required since getInteger will always return 0 if no key is found
                 {
-                    MoCreatures.instance.mapData.removeOwnerPet(this, this.getOwnerPetId());//this.getOwnerPetId());
+                    MoCreatures.instance.mapData.removeOwnerPet(this, getOwnerPetId());//getOwnerPetId());
                 }
-                this.setOwner("");
+                setOwner("");
             }
             return true;
         }
@@ -132,7 +132,7 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
         }
         
         //stores in fishnet
-        if (itemstack != null && itemstack.getItem() == MoCreatures.fishNet && itemstack.getItemDamage() == 0 && this.canBeTrappedInNet()) 
+        if (itemstack != null && itemstack.getItem() == MoCreatures.fishNet && itemstack.getItemDamage() == 0 && canBeTrappedInNet()) 
         {
         	//if the player using the amulet is not the owner
 	        if (getOwnerName().length() > 0 && !(getOwnerName().equals(entityPlayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
@@ -142,17 +142,17 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
         	
             if (MoCreatures.isServer())
             {
-                MoCPetData petData = MoCreatures.instance.mapData.getPetData(this.getOwnerName());
+                MoCPetData petData = MoCreatures.instance.mapData.getPetData(getOwnerName());
                 if (petData != null)
                 {
-                    petData.setInAmulet(this.getOwnerPetId(), true);
+                    petData.setInAmulet(getOwnerPetId(), true);
                 }
             }
             entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             if (MoCreatures.isServer())
             {
                 MoCTools.dropAmulet(this, 1);
-                this.isDead = true;
+                isDead = true;
             }
 
             return true;
@@ -164,7 +164,7 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
     @Override
     public void setDead()
     {
-        if (MoCreatures.isServer() && getIsTamed() && getHealth() > 0 && !this.riderIsDisconnecting)
+        if (MoCreatures.isServer() && getIsTamed() && getHealth() > 0 && !riderIsDisconnecting)
         {
             return;
         }
@@ -185,10 +185,10 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
 
         for (int index = 0; index < 7; ++index)
         {
-            double xVelocity = this.rand.nextGaussian() * 0.02D;
-            double yVelocity = this.rand.nextGaussian() * 0.02D;
-            double zVelocity = this.rand.nextGaussian() * 0.02D;
-            this.worldObj.spawnParticle(particle_name, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 0.5D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, xVelocity, yVelocity, zVelocity);
+            double xVelocity = rand.nextGaussian() * 0.02D;
+            double yVelocity = rand.nextGaussian() * 0.02D;
+            double zVelocity = rand.nextGaussian() * 0.02D;
+            worldObj.spawnParticle(particle_name, posX + (double)(rand.nextFloat() * width * 2.0F) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2.0F) - (double)width, xVelocity, yVelocity, zVelocity);
         }
     }
 
@@ -197,7 +197,7 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
     {
         super.writeEntityToNBT(nbtTagCompound);
         if (getOwnerPetId() != -1)
-            nbtTagCompound.setInteger("PetId", this.getOwnerPetId());
+            nbtTagCompound.setInteger("PetId", getOwnerPetId());
         if (this instanceof IMoCTameable && getIsTamed() && MoCreatures.instance.mapData != null)
         {
             MoCreatures.instance.mapData.updateOwnerPet((IMoCTameable)this, nbtTagCompound);
@@ -210,9 +210,9 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
         super.readEntityFromNBT(nbtTagCompound);
         if (nbtTagCompound.hasKey("PetId"))
             setOwnerPetId(nbtTagCompound.getInteger("PetId"));
-        if (this.getIsTamed() && nbtTagCompound.hasKey("PetId"))
+        if (getIsTamed() && nbtTagCompound.hasKey("PetId"))
         {
-            MoCPetData petData = MoCreatures.instance.mapData.getPetData(this.getOwnerName());
+            MoCPetData petData = MoCreatures.instance.mapData.getPetData(getOwnerName());
             if (petData != null)
             {
                 NBTTagList tag = petData.getOwnerRootNBT().getTagList("TamedList", 10);
@@ -228,15 +228,15 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
                         {
                             // entity was cloned
                             nbt.removeTag("Cloned"); // clear flag
-                            this.setTamed(false);
-                            this.setDead();
+                            setTamed(false);
+                            setDead();
                         }
                     }
                 }
             }
             else // no pet data was found, mocreatures.dat could of been deleted so reset petId to -1
             {
-                this.setOwnerPetId(-1);
+                setOwnerPetId(-1);
             }
         }
     }
@@ -248,7 +248,7 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
      * @return if the entity should be dismounted when under water
      */
     public boolean shouldDismountInWater(Entity rider){
-        return !this.getIsTamed();
+        return !getIsTamed();
     }
 
     public boolean isBreedingItem(ItemStack itemstack)
@@ -262,16 +262,16 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
     {
         if (par1 == 2)
         {
-            this.limbSwingAmount = 1.5F;
-            this.hurtResistantTime = this.maxHurtResistantTime;
-            this.hurtTime = (this.maxHurtTime = 10);
-            this.attackedAtYaw = 0.0F;
-            playSound(getHurtSound(), getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+            limbSwingAmount = 1.5F;
+            hurtResistantTime = maxHurtResistantTime;
+            hurtTime = (maxHurtTime = 10);
+            attackedAtYaw = 0.0F;
+            playSound(getHurtSound(), getSoundVolume(), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
             attackEntityFrom(DamageSource.generic, 0.0F);
         }
         else if (par1 == 3)
         {
-            playSound(getDeathSound(), getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+            playSound(getDeathSound(), getSoundVolume(), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
             setHealth(0.0F);
             onDeath(DamageSource.generic);
         }
@@ -279,11 +279,11 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
 
     @Override
     public float getPetHealth() {
-        return this.getHealth();
+        return getHealth();
     }
 
     @Override
     public boolean isRiderDisconnecting() {
-        return this.riderIsDisconnecting;
+        return riderIsDisconnecting;
     }
 }

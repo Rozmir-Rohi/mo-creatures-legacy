@@ -147,7 +147,7 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
                heal(1);
             }
         }
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             prevRenderYawOffset = renderYawOffset = rotationYaw = prevRotationYaw;
             rotationPitch = prevRotationPitch;
@@ -183,7 +183,7 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
     @Override
     public float getAdjustedYOffset()
     {
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             return -0.1F;
         }
@@ -200,7 +200,7 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
     @Override
     public int yawRotationOffset()
     {
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             return 90;
         }
@@ -225,7 +225,7 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
     @Override
     public int rollRotationOffset()
     {
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             return -90;
         }
@@ -247,7 +247,7 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
     @Override
     public float getAdjustedXOffset()
     {
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             return -0.6F;
         }

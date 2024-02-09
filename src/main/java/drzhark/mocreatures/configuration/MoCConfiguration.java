@@ -79,9 +79,9 @@ public class MoCConfiguration {
     String path = file.getAbsolutePath().replace(File.separatorChar, '/').replace("/./", "/").replace(basePath, "");
     if (PARENT != null) {
       PARENT.setChild(path, this);
-      this.isChild = true;
+      isChild = true;
     } else {
-      this.fileName = path;
+      fileName = path;
       load();
     } 
   }
@@ -196,7 +196,7 @@ public class MoCConfiguration {
   }
   
   public MoCProperty get(String category, String key, String defaultValue, String comment, MoCProperty.Type type) {
-    if (!this.caseSensitiveCustomCategories)
+    if (!caseSensitiveCustomCategories)
       category = category.toLowerCase(Locale.ENGLISH); 
     MoCConfigCategory cat = getCategory(category);
     if (cat.containsKey(key)) {
@@ -219,7 +219,7 @@ public class MoCConfiguration {
   }
   
   public MoCProperty get(String category, String key, List<String> defaultValue, String comment, MoCProperty.Type type) {
-    if (!this.caseSensitiveCustomCategories)
+    if (!caseSensitiveCustomCategories)
       category = category.toLowerCase(Locale.ENGLISH); 
     MoCConfigCategory cat = getCategory(category);
     if (cat.containsKey(key)) {
@@ -241,11 +241,11 @@ public class MoCConfiguration {
   }
   
   public boolean hasCategory(String category) {
-    return (this.categories.get(category) != null);
+    return (categories.get(category) != null);
   }
   
   public boolean hasKey(String category, String key) {
-    MoCConfigCategory cat = this.categories.get(category);
+    MoCConfigCategory cat = categories.get(category);
     return (cat != null && cat.containsKey(key));
   }
   
@@ -255,13 +255,13 @@ public class MoCConfiguration {
     BufferedReader buffer = null;
     UnicodeInputStreamReader input = null;
     try {
-      if (this.file.getParentFile() != null)
-        this.file.getParentFile().mkdirs(); 
-      if (!this.file.exists() && !this.file.createNewFile())
+      if (file.getParentFile() != null)
+        file.getParentFile().mkdirs(); 
+      if (!file.exists() && !file.createNewFile())
         return; 
-      if (this.file.canRead()) {
-        input = new UnicodeInputStreamReader(new FileInputStream(this.file), this.defaultEncoding);
-        this.defaultEncoding = input.getEncoding();
+      if (file.canRead()) {
+        input = new UnicodeInputStreamReader(new FileInputStream(file), defaultEncoding);
+        defaultEncoding = input.getEncoding();
         buffer = new BufferedReader(input);
         MoCConfigCategory currentCat = null;
         MoCProperty.Type type = null;
@@ -276,15 +276,15 @@ public class MoCConfiguration {
           Matcher start = CONFIG_START.matcher(line);
           Matcher end = CONFIG_END.matcher(line);
           if (start.matches()) {
-            this.fileName = start.group(1);
-            this.categories = new TreeMap<String, MoCConfigCategory>();
+            fileName = start.group(1);
+            categories = new TreeMap<String, MoCConfigCategory>();
             continue;
           } 
           if (end.matches()) {
-            this.fileName = end.group(1);
+            fileName = end.group(1);
             MoCConfiguration child = new MoCConfiguration();
-            child.categories = this.categories;
-            this.children.put(this.fileName, child);
+            child.categories = categories;
+            children.put(fileName, child);
             continue;
           } 
           int nameStart = -1, nameEnd = -1;
@@ -313,10 +313,10 @@ public class MoCConfiguration {
                 case '{':
                   name = line.substring(nameStart, nameEnd + 1);
                   qualifiedName = MoCConfigCategory.getQualifiedName(name, currentCat);
-                  cat = this.categories.get(qualifiedName);
+                  cat = categories.get(qualifiedName);
                   if (cat == null) {
                     currentCat = new MoCConfigCategory(name, currentCat);
-                    this.categories.put(qualifiedName, currentCat);
+                    categories.put(qualifiedName, currentCat);
                   } else {
                     currentCat = cat;
                   } 
@@ -324,13 +324,13 @@ public class MoCConfiguration {
                   break;
                 case '}':
                   if (currentCat == null)
-                    throw new RuntimeException(String.format("Config file corrupt, attepted to close to many categories '%s:%d'", new Object[] { this.fileName, Integer.valueOf(lineNum) })); 
+                    throw new RuntimeException(String.format("Config file corrupt, attepted to close to many categories '%s:%d'", new Object[] { fileName, Integer.valueOf(lineNum) })); 
                   currentCat = currentCat.parent;
                   break;
                 case '=':
                   name = line.substring(nameStart, nameEnd + 1);
                   if (currentCat == null)
-                    throw new RuntimeException(String.format("'%s' has no scope in '%s:%d'", new Object[] { name, this.fileName, Integer.valueOf(lineNum) })); 
+                    throw new RuntimeException(String.format("'%s' has no scope in '%s:%d'", new Object[] { name, fileName, Integer.valueOf(lineNum) })); 
                   prop = new MoCProperty(name, line.substring(i + 1), type, true);
                   i = line.length();
                   currentCat.set(name, prop);
@@ -341,10 +341,10 @@ public class MoCConfiguration {
                   break;
                 case '<':
                   if (tmpList != null)
-                    throw new RuntimeException(String.format("Malformed list MoCProperty \"%s:%d\"", new Object[] { this.fileName, Integer.valueOf(lineNum) })); 
+                    throw new RuntimeException(String.format("Malformed list MoCProperty \"%s:%d\"", new Object[] { fileName, Integer.valueOf(lineNum) })); 
                   name = line.substring(nameStart, nameEnd + 1);
                   if (currentCat == null)
-                    throw new RuntimeException(String.format("'%s' has no scope in '%s:%d'", new Object[] { name, this.fileName, Integer.valueOf(lineNum) })); 
+                    throw new RuntimeException(String.format("'%s' has no scope in '%s:%d'", new Object[] { name, fileName, Integer.valueOf(lineNum) })); 
                   tmpList = new ArrayList<String>();
                   if (line.length() > i + 1) {
                     if (line.charAt(i + 1) == '>') {
@@ -362,19 +362,19 @@ public class MoCConfiguration {
                   } 
                 case '>':
                   if (tmpList == null)
-                    throw new RuntimeException(String.format("Malformed list MoCProperty \"%s:%d\"", new Object[] { this.fileName, Integer.valueOf(lineNum) })); 
+                    throw new RuntimeException(String.format("Malformed list MoCProperty \"%s:%d\"", new Object[] { fileName, Integer.valueOf(lineNum) })); 
                   currentCat.set(name, new MoCProperty(name, tmpList, type));
                   name = null;
                   tmpList = null;
                   type = null;
                   break;
                 default:
-                  throw new RuntimeException(String.format("Unknown character '%s' in '%s:%d'", new Object[] { Character.valueOf(line.charAt(i)), this.fileName, Integer.valueOf(lineNum) }));
+                  throw new RuntimeException(String.format("Unknown character '%s' in '%s:%d'", new Object[] { Character.valueOf(line.charAt(i)), fileName, Integer.valueOf(lineNum) }));
               } 
             } 
           } 
           if (quoted)
-            throw new RuntimeException(String.format("Unmatched quote in '%s:%d'", new Object[] { this.fileName, Integer.valueOf(lineNum) })); 
+            throw new RuntimeException(String.format("Unmatched quote in '%s:%d'", new Object[] { fileName, Integer.valueOf(lineNum) })); 
           if (tmpList != null && !skip)
             tmpList.add(line.trim()); 
         } 
@@ -400,18 +400,18 @@ public class MoCConfiguration {
       return;
     } 
     try {
-      if (this.file.getParentFile() != null)
-        this.file.getParentFile().mkdirs(); 
-      if (!this.file.exists() && !this.file.createNewFile())
+      if (file.getParentFile() != null)
+        file.getParentFile().mkdirs(); 
+      if (!file.exists() && !file.createNewFile())
         return; 
-      if (this.file.canWrite()) {
-        FileOutputStream fos = new FileOutputStream(this.file);
-        BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(fos, this.defaultEncoding));
+      if (file.canWrite()) {
+        FileOutputStream fos = new FileOutputStream(file);
+        BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(fos, defaultEncoding));
         buffer.write("# MoC Settings" + NEW_LINE + NEW_LINE);
-        if (this.children.isEmpty()) {
+        if (children.isEmpty()) {
           save(buffer);
         } else {
-          for (Map.Entry<String, MoCConfiguration> entry : this.children.entrySet()) {
+          for (Map.Entry<String, MoCConfiguration> entry : children.entrySet()) {
             buffer.write("START: \"" + (String)entry.getKey() + "\"" + NEW_LINE);
             ((MoCConfiguration)entry.getValue()).save(buffer);
             buffer.write("END: \"" + (String)entry.getKey() + "\"" + NEW_LINE + NEW_LINE);
@@ -426,7 +426,7 @@ public class MoCConfiguration {
   }
   
   private void save(BufferedWriter out) throws IOException {
-    for (MoCConfigCategory cat : this.categories.values()) {
+    for (MoCConfigCategory cat : categories.values()) {
       if (!cat.isChild()) {
         cat.write(out, 0);
         out.newLine();
@@ -435,31 +435,31 @@ public class MoCConfiguration {
   }
   
   public MoCConfigCategory getCategory(String category) {
-    MoCConfigCategory ret = this.categories.get(category.toLowerCase());
+    MoCConfigCategory ret = categories.get(category.toLowerCase());
     if (ret == null)
       if (category.contains(".")) {
         String[] hierarchy = category.split("\\.");
-        MoCConfigCategory parent = this.categories.get(hierarchy[0]);
+        MoCConfigCategory parent = categories.get(hierarchy[0]);
         if (parent == null) {
           parent = new MoCConfigCategory(hierarchy[0]);
-          this.categories.put(parent.getQualifiedName(), parent);
-          this.changed = true;
+          categories.put(parent.getQualifiedName(), parent);
+          changed = true;
         } 
         for (int i = 1; i < hierarchy.length; i++) {
           String name = MoCConfigCategory.getQualifiedName(hierarchy[i], parent);
-          MoCConfigCategory child = this.categories.get(name);
+          MoCConfigCategory child = categories.get(name);
           if (child == null) {
             child = new MoCConfigCategory(hierarchy[i], parent);
-            this.categories.put(name, child);
-            this.changed = true;
+            categories.put(name, child);
+            changed = true;
           } 
           ret = child;
           parent = child;
         } 
       } else {
         ret = new MoCConfigCategory(category);
-        this.categories.put(category, ret);
-        this.changed = true;
+        categories.put(category, ret);
+        changed = true;
       }  
     return ret;
   }
@@ -467,26 +467,26 @@ public class MoCConfiguration {
   public void removeCategory(MoCConfigCategory category) {
     for (MoCConfigCategory child : category.getChildren())
       removeCategory(child); 
-    if (this.categories.containsKey(category.getQualifiedName())) {
-      this.categories.remove(category.getQualifiedName());
+    if (categories.containsKey(category.getQualifiedName())) {
+      categories.remove(category.getQualifiedName());
       if (category.parent != null)
         category.parent.removeChild(category); 
-      this.changed = true;
+      changed = true;
     } 
   }
   
   public void addCustomCategoryComment(String category, String comment) {
-    if (!this.caseSensitiveCustomCategories)
+    if (!caseSensitiveCustomCategories)
       category = category.toLowerCase(Locale.ENGLISH); 
     getCategory(category).setComment(comment);
   }
   
   private void setChild(String name, MoCConfiguration child) {
-    if (!this.children.containsKey(name)) {
-      this.children.put(name, child);
-      this.changed = true;
+    if (!children.containsKey(name)) {
+      children.put(name, child);
+      changed = true;
     } else {
-      MoCConfiguration old = this.children.get(name);
+      MoCConfiguration old = children.get(name);
       child.categories = old.categories;
       child.fileName = old.fileName;
       old.changed = true;
@@ -504,7 +504,7 @@ public class MoCConfiguration {
     private final String defaultEnc;
     
     public UnicodeInputStreamReader(InputStream source, String encoding) throws IOException {
-      this.defaultEnc = encoding;
+      defaultEnc = encoding;
       String enc = encoding;
       byte[] data = new byte[4];
       PushbackInputStream pbStream = new PushbackInputStream(source, data.length);
@@ -531,30 +531,30 @@ public class MoCConfiguration {
       } 
       if (size < read)
         pbStream.unread(data, size, read - size); 
-      this.input = new InputStreamReader(pbStream, enc);
+      input = new InputStreamReader(pbStream, enc);
     }
     
     public String getEncoding() {
-      return this.input.getEncoding();
+      return input.getEncoding();
     }
     
     public int read(char[] cbuf, int off, int len) throws IOException {
-      return this.input.read(cbuf, off, len);
+      return input.read(cbuf, off, len);
     }
     
     public void close() throws IOException {
-      this.input.close();
+      input.close();
     }
   }
   
   public boolean hasChanged() {
-    if (this.changed)
+    if (changed)
       return true; 
-    for (MoCConfigCategory cat : this.categories.values()) {
+    for (MoCConfigCategory cat : categories.values()) {
       if (cat.hasChanged())
         return true; 
     } 
-    for (MoCConfiguration child : this.children.values()) {
+    for (MoCConfiguration child : children.values()) {
       if (child.hasChanged())
         return true; 
     } 
@@ -562,27 +562,27 @@ public class MoCConfiguration {
   }
   
   private void resetChangedState() {
-    this.changed = false;
-    for (MoCConfigCategory cat : this.categories.values())
+    changed = false;
+    for (MoCConfigCategory cat : categories.values())
       cat.resetChangedState(); 
-    for (MoCConfiguration child : this.children.values())
+    for (MoCConfiguration child : children.values())
       child.resetChangedState(); 
   }
   
   public Set<String> getCategoryNames() {
-    return (Set<String>)ImmutableSet.copyOf(this.categories.keySet());
+    return (Set<String>)ImmutableSet.copyOf(categories.keySet());
   }
   
   public String getFileName() {
-    if (this.file != null) {
-      String fullName = this.file.getName();
+    if (file != null) {
+      String fullName = file.getName();
       return fullName.substring(0, fullName.indexOf('.'));
     } 
     return "undefined";
   }
   
   public File getFile() {
-    return this.file;
+    return file;
   }
   
   public MoCConfiguration() {}

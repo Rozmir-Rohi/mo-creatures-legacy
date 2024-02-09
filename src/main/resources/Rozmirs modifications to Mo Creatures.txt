@@ -784,3 +784,46 @@ Tamed zebras now only dance when a zebra record is put in a jukebox nearby.
 Also readded feature of other MoC Horses nodding their head when the zebra record is played nearby.
 If you remove the zebra record before it has finished playing or if you change the record in the jukebox to another record before it has finished, shuffling for horses will still continue for a 1-3 minutes, afterwards the horse will still return to normal.
 If you want to instantly stop the horse shuffling without waiting for the zebra record to finish, you can break the jukebox and it will stop all shuffling horses nearby.
+
+
+Fixed jukebox not timing out by itself if it is playing the zebra record and there are shuffling horses nearby.
+
+
+Fixed kitty rotation when picked up by players on the players shoulders.
+
+
+If any of the following creatures are attacked by a player that is not the owner of that creature, and that player then tries to mount that creature. The following creatures will now drop that player off their back:
+ - Horse (special horses only)
+ - Elephant
+ - Komodo Dragon
+ - Pet Scorpion
+ - Wyvern
+
+
+Fixed following texture:
+ - Lioness neck
+ - Panda eyes
+ - Silver Skeleton blades
+ - Dire Wolf lips
+ - Werewolf lips
+
+
+Tweaked the textures of the following achievement icons:
+ - Bird Tamer
+ - Nightmare Horse
+ - Fairy Horse
+ - Pegasus
+ - Dark Pegasus
+
+
+Added drops for following creatures (only if Exotic Birds mod is Installed):
+	Bird: small bird meat
+
+	Duck small bird meat
+
+
+Players can now only use scrolls on a tamed creature if they are the owner of that creature or if they are opped on the server.
+
+
+
+Code clean up of "this." operator.

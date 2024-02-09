@@ -20,9 +20,9 @@ public class WorldChunkManagerWyvernLair extends WorldChunkManager
 
     public WorldChunkManagerWyvernLair(BiomeGenBase par1BiomeGenBase, float par2, float par3)
     {
-        this.biomeGenerator = par1BiomeGenBase;
-        this.hellTemperature = par2;
-        this.rainfall = par3;
+        biomeGenerator = par1BiomeGenBase;
+        hellTemperature = par2;
+        rainfall = par3;
     }
 
     /**
@@ -30,7 +30,7 @@ public class WorldChunkManagerWyvernLair extends WorldChunkManager
      */
     public BiomeGenBase getBiomeGenAt(int par1, int par2)
     {
-        return this.biomeGenerator;
+        return biomeGenerator;
     }
 
     /**
@@ -38,7 +38,7 @@ public class WorldChunkManagerWyvernLair extends WorldChunkManager
      */
     public BiomeGenBase[] getBiomesForGeneration(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
     {
-       return new BiomeGenBase[] {this.biomeGenerator};
+       return new BiomeGenBase[] {biomeGenerator};
     }
 
     /**
@@ -51,7 +51,7 @@ public class WorldChunkManagerWyvernLair extends WorldChunkManager
             par1ArrayOfFloat = new float[par4 * par5];
         }
 
-        Arrays.fill(par1ArrayOfFloat, 0, par4 * par5, this.hellTemperature);
+        Arrays.fill(par1ArrayOfFloat, 0, par4 * par5, hellTemperature);
         return par1ArrayOfFloat;
     }
 
@@ -65,7 +65,7 @@ public class WorldChunkManagerWyvernLair extends WorldChunkManager
             par1ArrayOfFloat = new float[par4 * par5];
         }
 
-        Arrays.fill(par1ArrayOfFloat, 0, par4 * par5, this.rainfall);
+        Arrays.fill(par1ArrayOfFloat, 0, par4 * par5, rainfall);
         return par1ArrayOfFloat;
     }
 
@@ -80,7 +80,7 @@ public class WorldChunkManagerWyvernLair extends WorldChunkManager
             par1ArrayOfBiomeGenBase = new BiomeGenBase[par4 * par5];
         }
 
-        Arrays.fill(par1ArrayOfBiomeGenBase, 0, par4 * par5, this.biomeGenerator);
+        Arrays.fill(par1ArrayOfBiomeGenBase, 0, par4 * par5, biomeGenerator);
         return par1ArrayOfBiomeGenBase;
     }
 
@@ -90,7 +90,7 @@ public class WorldChunkManagerWyvernLair extends WorldChunkManager
      */
     public BiomeGenBase[] getBiomeGenAt(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5, boolean par6)
     {
-        return new BiomeGenBase[] {this.biomeGenerator};
+        return new BiomeGenBase[] {biomeGenerator};
     }
 
     /**
@@ -99,7 +99,7 @@ public class WorldChunkManagerWyvernLair extends WorldChunkManager
      */
     public ChunkPosition findBiomePosition(int par1, int par2, int par3, List par4List, Random par5Random)
     {
-        return par4List.contains(this.biomeGenerator) ? new ChunkPosition(par1 - par3 + par5Random.nextInt(par3 * 2 + 1), 0, par2 - par3 + par5Random.nextInt(par3 * 2 + 1)) : null;
+        return par4List.contains(biomeGenerator) ? new ChunkPosition(par1 - par3 + par5Random.nextInt(par3 * 2 + 1), 0, par2 - par3 + par5Random.nextInt(par3 * 2 + 1)) : null;
     }
 
     /**
@@ -107,6 +107,6 @@ public class WorldChunkManagerWyvernLair extends WorldChunkManager
      */
     public boolean areBiomesViable(int par1, int par2, int par3, List par4List)
     {
-        return par4List.contains(this.biomeGenerator);
+        return par4List.contains(biomeGenerator);
     }
 }

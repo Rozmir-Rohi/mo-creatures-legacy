@@ -23,19 +23,19 @@ public class MoCEntityFXVanish extends EntityFX {
     {
         super(par1World, par2, par4, par6, 0.0D, 0.0D, 0.0D);
 
-        this.particleRed = red;
-        this.particleGreen = green;
-        this.particleBlue = blue;
-        this.motionX = par8;
-        this.motionY = par10 * 5D;
-        this.motionZ = par12;
-        this.portalPosX = this.posX = par2;
-        this.portalPosY = this.posY = par4;// + 0.7D;
-        this.portalPosZ = this.posZ = par6;
-        this.noClip = true;
-        this.portalParticleScale = this.particleScale = this.rand.nextFloat() * 0.3F + 0.5F;
-        this.implode = flag;
-        this.particleMaxAge = (int) (Math.random() * 10.0D) + 70;
+        particleRed = red;
+        particleGreen = green;
+        particleBlue = blue;
+        motionX = par8;
+        motionY = par10 * 5D;
+        motionZ = par12;
+        portalPosX = posX = par2;
+        portalPosY = posY = par4;// + 0.7D;
+        portalPosZ = posZ = par6;
+        noClip = true;
+        portalParticleScale = particleScale = rand.nextFloat() * 0.3F + 0.5F;
+        implode = flag;
+        particleMaxAge = (int) (Math.random() * 10.0D) + 70;
     }
 
     /**
@@ -53,29 +53,29 @@ public class MoCEntityFXVanish extends EntityFX {
     @Override
     public void onUpdate()
     {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
 
         int speeder = 0;
         float sizeExp = 2.0F;
         if (implode)
         {
-            speeder = (this.particleMaxAge / 2);
+            speeder = (particleMaxAge / 2);
             sizeExp = 5.0F;
         }
 
-        float var1 = (float) (this.particleAge + speeder) / (float) this.particleMaxAge;
+        float var1 = (float) (particleAge + speeder) / (float) particleMaxAge;
         float var2 = var1;
         var1 = -var1 + var1 * var1 * sizeExp;//5 insteaf of 2 makes an explosion
         var1 = 1.0F - var1;
-        this.posX = this.portalPosX + this.motionX * (double) var1;
-        this.posY = this.portalPosY + this.motionY * (double) var1 + (double) (1.0F - var2);
-        this.posZ = this.portalPosZ + this.motionZ * (double) var1;
+        posX = portalPosX + motionX * (double) var1;
+        posY = portalPosY + motionY * (double) var1 + (double) (1.0F - var2);
+        posZ = portalPosZ + motionZ * (double) var1;
 
-        if (this.particleAge++ >= this.particleMaxAge)
+        if (particleAge++ >= particleMaxAge)
         {
-            this.setDead();
+            setDead();
         }
     }
 
@@ -83,12 +83,12 @@ public class MoCEntityFXVanish extends EntityFX {
     public void renderParticle(Tessellator par1Tessellator, float par2, float par3, float par4, float par5, float par6, float par7)
     {
         FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation("mocreatures", MoCreatures.proxy.MISC_TEXTURE + "fxvanish.png"));
-        float scale = 0.1F * this.particleScale;
-        float xPos = (float) (this.prevPosX + (this.posX - this.prevPosX) * (double) par2 - interpPosX);
-        float yPos = (float) (this.prevPosY + (this.posY - this.prevPosY) * (double) par2 - interpPosY);
-        float zPos = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * (double) par2 - interpPosZ);
+        float scale = 0.1F * particleScale;
+        float xPos = (float) (prevPosX + (posX - prevPosX) * (double) par2 - interpPosX);
+        float yPos = (float) (prevPosY + (posY - prevPosY) * (double) par2 - interpPosY);
+        float zPos = (float) (prevPosZ + (posZ - prevPosZ) * (double) par2 - interpPosZ);
         float colorIntensity = 1.0F;
-        par1Tessellator.setColorOpaque_F(this.particleRed * colorIntensity, this.particleGreen * colorIntensity, this.particleBlue * colorIntensity);//, 1.0F);
+        par1Tessellator.setColorOpaque_F(particleRed * colorIntensity, particleGreen * colorIntensity, particleBlue * colorIntensity);//, 1.0F);
         par1Tessellator.addVertexWithUV((double) (xPos - par3 * scale - par6 * scale), (double) (yPos - par4 * scale), (double) (zPos - par5 * scale - par7 * scale), 0D, 1D);
         par1Tessellator.addVertexWithUV((double) (xPos - par3 * scale + par6 * scale), (double) (yPos + par4 * scale), (double) (zPos - par5 * scale + par7 * scale), 1D, 1D);
         par1Tessellator.addVertexWithUV((double) (xPos + par3 * scale + par6 * scale), (double) (yPos + par4 * scale), (double) (zPos + par5 * scale + par7 * scale), 1D, 0D);

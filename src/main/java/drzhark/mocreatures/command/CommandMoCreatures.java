@@ -355,7 +355,7 @@ public class CommandMoCreatures extends CommandBase {
                         }
                         catch(NumberFormatException ex)
                         {
-                            this.sendCommandHelp(par1ICommandSender);
+                            sendCommandHelp(par1ICommandSender);
                         }
                     }
                 }
@@ -376,7 +376,7 @@ public class CommandMoCreatures extends CommandBase {
                         }
                         catch(NumberFormatException ex)
                         {
-                            this.sendCommandHelp(par1ICommandSender);
+                            sendCommandHelp(par1ICommandSender);
                         }
                     }
                 }
@@ -397,7 +397,7 @@ public class CommandMoCreatures extends CommandBase {
                         }
                         catch(NumberFormatException ex)
                         {
-                            this.sendCommandHelp(par1ICommandSender);
+                            sendCommandHelp(par1ICommandSender);
                         }
                     }
                 }
@@ -418,7 +418,7 @@ public class CommandMoCreatures extends CommandBase {
                         }
                         catch(NumberFormatException ex)
                         {
-                            this.sendCommandHelp(par1ICommandSender);
+                            sendCommandHelp(par1ICommandSender);
                         }
                     }
                 }
@@ -534,7 +534,7 @@ public class CommandMoCreatures extends CommandBase {
         // START HELP COMMAND
         if (command.equalsIgnoreCase("help"))
         {
-            List<String> list = this.getSortedPossibleCommands(par1ICommandSender);
+            List<String> list = getSortedPossibleCommands(par1ICommandSender);
             byte b0 = 10;
             int i = (list.size() - 1) / b0;
             boolean flag = false;
@@ -581,8 +581,8 @@ public class CommandMoCreatures extends CommandBase {
      */
     protected List getSortedPossibleCommands(ICommandSender par1ICommandSender)
     {
-        Collections.sort(this.commands);
-        return this.commands;
+        Collections.sort(commands);
+        return commands;
     }
 
     public boolean teleportLoadedPet(WorldServer world, EntityPlayerMP player, int petId, String petName, ICommandSender par1ICommandSender)

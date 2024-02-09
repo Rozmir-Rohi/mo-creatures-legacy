@@ -41,7 +41,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(4.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(4.0D);
     }
 
     @Override
@@ -189,7 +189,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
                 	MoCTools.tameWithName(entityPlayer, this);
             	}
             
-            	if (this.getIsTamed() && !getHasEaten())
+            	if (getIsTamed() && !getHasEaten())
             	{
             		setHasEaten(true);
             	}
@@ -206,7 +206,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         	if (getIsTamed())
         	{
         		rotationYaw = entityPlayer.rotationYaw;
-        		if ((this.ridingEntity == null) && (entityPlayer.ridingEntity == null))
+        		if ((ridingEntity == null) && (entityPlayer.ridingEntity == null))
         		{
         			// This is required since the server will send a Packet39AttachEntity which informs the client to mount
         			if (MoCreatures.isServer())
@@ -217,12 +217,12 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         			return true;
         		}
         		
-        		else if (this.ridingEntity == entityPlayer)
+        		else if (ridingEntity == entityPlayer)
         		{
         			worldObj.playSoundAtEntity(this, "mocreatures:rabbitlift", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
         			if (MoCreatures.isServer())
         			{
-        				this.mountEntity(null);
+        				mountEntity(null);
         				motionX = entityPlayer.motionX * 5D;
             			motionY = (entityPlayer.motionY / 2D) + 0.5D;
                 		motionZ = entityPlayer.motionZ * 5D;
@@ -268,7 +268,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
             }
             else
             {
-                /*int k = worldObj.countEntities(this.getClass());
+                /*int k = worldObj.countEntities(getClass());
                 if (k > MoCreatures.proxy.bunnyBreedThreshold)
                 {
                     proceed();
@@ -292,7 +292,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
                     MoCEntityBunny entitybunny1 = new MoCEntityBunny(worldObj);
                     entitybunny1.setPosition(posX, posY, posZ);
                     entitybunny1.setAdult(false);
-                    int babytype = this.getType();
+                    int babytype = getType();
                     if (rand.nextInt(2) == 0)
                     {
                         babytype = entitybunny.getType();
@@ -326,7 +326,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         {
             super.updateEntityActionState();
         }
-        else if (onGround && this.ridingEntity == null)
+        else if (onGround && ridingEntity == null)
         {
             isPickedUp = false;
             //System.out.println("pickedOff");
@@ -375,8 +375,8 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
     {
         if (MoCreatures.isServer())
         {
-        	if (this.ridingEntity != null && 
-        			(damageSource.getEntity() == this.ridingEntity || DamageSource.inWall.equals(damageSource)))
+        	if (ridingEntity != null && 
+        			(damageSource.getEntity() == ridingEntity || DamageSource.inWall.equals(damageSource)))
             {
          	   return false;
             }

@@ -43,7 +43,7 @@ public class MoCEntityFishBowl extends MoCEntityItemPlaceable {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(5.0D); // setMaxHealth
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(5.0D); // setMaxHealth
     }
 
     @Override
@@ -121,43 +121,43 @@ public class MoCEntityFishBowl extends MoCEntityItemPlaceable {
         	switch (getType())
         	{
         		case 0:
-        			this.entityDropItem(new ItemStack(MoCreatures.fishbowlEmpty, 1, 0), 0F);
+        			entityDropItem(new ItemStack(MoCreatures.fishbowlEmpty, 1, 0), 0F);
         			break;
 	        	case 1:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy1, 1, 1), 0F);
+	        		entityDropItem(new ItemStack(MoCreatures.fishbowlFishy1, 1, 1), 0F);
 	        		break;
 	        	case 2:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy2, 1, 2), 0F);
+	        		entityDropItem(new ItemStack(MoCreatures.fishbowlFishy2, 1, 2), 0F);
 	        		break;
 	        	case 3:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy3, 1, 3), 0F);
+	        		entityDropItem(new ItemStack(MoCreatures.fishbowlFishy3, 1, 3), 0F);
 	        		break;
 	        	case 4:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy4, 1, 4), 0F);
+	        		entityDropItem(new ItemStack(MoCreatures.fishbowlFishy4, 1, 4), 0F);
 	        		break;
 	        	case 5:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy5, 1, 5), 0F);
+	        		entityDropItem(new ItemStack(MoCreatures.fishbowlFishy5, 1, 5), 0F);
 	        		break;
 	        	case 6:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy6, 1, 6), 0F);
+	        		entityDropItem(new ItemStack(MoCreatures.fishbowlFishy6, 1, 6), 0F);
 	        		break;
 	        	case 7:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy7, 1, 7), 0F);
+	        		entityDropItem(new ItemStack(MoCreatures.fishbowlFishy7, 1, 7), 0F);
 	        		break;
 	        	case 8:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy8, 1, 8), 0F);
+	        		entityDropItem(new ItemStack(MoCreatures.fishbowlFishy8, 1, 8), 0F);
 	        		break;
 	        	case 9:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy9, 1, 9), 0F);
+	        		entityDropItem(new ItemStack(MoCreatures.fishbowlFishy9, 1, 9), 0F);
 	        		break;
 	        	case 10:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlFishy10, 1, 10), 0F);
+	        		entityDropItem(new ItemStack(MoCreatures.fishbowlFishy10, 1, 10), 0F);
 	        		break;
 	        	case 11:
-	        		this.entityDropItem(new ItemStack(MoCreatures.fishbowlWater, 1, 11), 0F);
+	        		entityDropItem(new ItemStack(MoCreatures.fishbowlWater, 1, 11), 0F);
 	        		break;
 	        	default:
-        			this.entityDropItem(new ItemStack(MoCreatures.fishbowlEmpty, 1, 0), 0F);
+        			entityDropItem(new ItemStack(MoCreatures.fishbowlEmpty, 1, 0), 0F);
         	}
         }
     }
@@ -263,14 +263,14 @@ public class MoCEntityFishBowl extends MoCEntityItemPlaceable {
         
         if (itemstack == null)
         {
-	        if ((this.ridingEntity == null) && (entityPlayer.ridingEntity == null) && (MoCreatures.isServer()))
+	        if ((ridingEntity == null) && (entityPlayer.ridingEntity == null) && (MoCreatures.isServer()))
 	        {
 	            rotationYaw = entityPlayer.rotationYaw;
 	            mountEntity(entityPlayer);
 	        }
 	        else
 	        {
-	            this.mountEntity(null);
+	            mountEntity(null);
 	            motionX = entityPlayer.motionX * 5D;
 	            motionY = (entityPlayer.motionY / 2D) + 0.2D;
 	            motionZ = entityPlayer.motionZ * 5D;

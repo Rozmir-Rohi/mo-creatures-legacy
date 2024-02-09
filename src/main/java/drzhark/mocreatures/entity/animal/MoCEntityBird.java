@@ -1,5 +1,6 @@
 package drzhark.mocreatures.entity.animal;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
@@ -250,7 +251,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     @Override
     public boolean shouldEntityBeIgnored(Entity entity)
     {
-        return (entity instanceof MoCEntityBird) || ((entity.height <= this.height) && (entity.width <= this.width)) || super.shouldEntityBeIgnored(entity);
+        return (entity instanceof MoCEntityBird) || ((entity.height <= height) && (entity.width <= width)) || super.shouldEntityBeIgnored(entity);
     }
 
     @Override
@@ -260,9 +261,23 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     }
 
     @Override
-    protected Item getDropItem()
-    {
-        return Items.feather;
+    protected void dropFewItems(boolean hasEntityBeenHitByPlayer, int levelOfLootingEnchantmentUsedToKillThisEntity)
+    {   
+        int randomAmount = rand.nextInt(3);
+
+        dropItem(Items.feather, randomAmount);
+        
+    	if (MoCreatures.isExoticBirdsLoaded)
+    	{
+    		if (isBurning())
+    		{
+    			dropItem(GameRegistry.findItem("exoticbirds", "cooked_birdmeat_small"), 1);
+    		}
+    		else 
+    		{
+    			dropItem(GameRegistry.findItem("exoticbirds", "birdmeat_small"), 1);
+    		}
+    	}
     }
 
     @Override
@@ -338,7 +353,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         	if (getIsTamed())
         	{
         		rotationYaw = entityPlayer.rotationYaw;
-        		if ((this.ridingEntity == null) && (entityPlayer.ridingEntity == null))
+        		if ((ridingEntity == null) && (entityPlayer.ridingEntity == null))
         		{
         			if (MoCreatures.isServer())
         			{
@@ -348,11 +363,11 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         			}
         		}
     
-        		if ((this.ridingEntity == entityPlayer))
+        		if ((ridingEntity == entityPlayer))
         		{
         			if (MoCreatures.isServer())
         			{
-        				this.mountEntity(null);
+        				mountEntity(null);
         				motionX = entityPlayer.motionX * 5D;
         		        motionY = (entityPlayer.motionY / 2D) + 0.5D;
         		        motionZ = entityPlayer.motionZ * 5D;
@@ -387,7 +402,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         wingD = wingC;
         
         //wingC controls whether the bird flaps it's wings or not
-        wingC = (float) (wingC + (((onGround && !isFleeing) || (this.ridingEntity != null && this.ridingEntity.motionY >= -0.08) ? -1 : 4) * 0.29999999999999999D));
+        wingC = (float) (wingC + (((onGround && !isFleeing) || (ridingEntity != null && ridingEntity.motionY >= -0.08) ? -1 : 4) * 0.29999999999999999D));
        
         
         if (wingC < 0.0F)
@@ -454,8 +469,8 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     {
         if (MoCreatures.isServer())
         {
-        	if (this.ridingEntity != null && 
-        			(damageSource.getEntity() == this.ridingEntity || DamageSource.inWall.equals(damageSource)))
+        	if (ridingEntity != null && 
+        			(damageSource.getEntity() == ridingEntity || DamageSource.inWall.equals(damageSource)))
             {
          	   return false;
             }
@@ -495,7 +510,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     @Override
     public void setDead()
     {
-        if (MoCreatures.isServer() && getIsTamed() && (this.getHealth() > 0))
+        if (MoCreatures.isServer() && getIsTamed() && (getHealth() > 0))
         {
             return;
         }

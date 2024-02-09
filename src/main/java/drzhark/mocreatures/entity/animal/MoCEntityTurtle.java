@@ -37,7 +37,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
     }
 
     @Override
@@ -142,7 +142,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
             {
                 if (MoCreatures.isServer())
                 {
-                    this.mountEntity(null);
+                    mountEntity(null);
                 }
                 motionX = entityPlayer.motionX * 5D;
                 motionY = (entityPlayer.motionY / 2D) + 0.2D;
@@ -312,7 +312,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     @Override
     public boolean shouldEntityBeIgnored(Entity entity)
     {
-        return (entity instanceof MoCEntityTurtle) || ((entity.height <= this.height) && (entity.width <= this.width)) || super.shouldEntityBeIgnored(entity);
+        return (entity instanceof MoCEntityTurtle) || ((entity.height <= height) && (entity.width <= width)) || super.shouldEntityBeIgnored(entity);
     }
 
     @Override

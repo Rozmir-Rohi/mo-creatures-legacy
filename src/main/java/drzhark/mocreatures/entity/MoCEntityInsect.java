@@ -28,7 +28,7 @@ public class MoCEntityInsect extends MoCEntityAmbient {
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(2.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(2.0D);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class MoCEntityInsect extends MoCEntityAmbient {
         {
             if (isOnLadder() && !onGround)
             {
-                MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 1), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+                MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 1), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
             }
             
             if (!getIsFlying() && entityToAttack == null && rand.nextInt(getFlyingFreq()) == 0)
@@ -99,7 +99,7 @@ public class MoCEntityInsect extends MoCEntityAmbient {
 	                    }
 	                    if (((EntityLivingBase) entityNearby).width >= 0.4F && ((EntityLivingBase) entityNearby).height >= 0.4F && canEntityBeSeen(entityNearby))
 	                    {
-	                        this.motionY += 0.3D;
+	                        motionY += 0.3D;
 	                        setIsFlying(true);
 	                    }
 	                }
@@ -114,7 +114,7 @@ public class MoCEntityInsect extends MoCEntityAmbient {
                     PathEntity pathEntity = worldObj.getEntityPathToXYZ(this,torchCoordinates[0], torchCoordinates[1], torchCoordinates[2], 24F, true, false, false, true);
                     if (pathEntity != null)
                     {
-                        this.setPathToEntity(pathEntity);
+                        setPathToEntity(pathEntity);
                     }
                 }
             }

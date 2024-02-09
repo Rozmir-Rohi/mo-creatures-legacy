@@ -58,8 +58,8 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(6.0D);
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(6.0D);
     }
 
     public ResourceLocation getTexture()
@@ -111,7 +111,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     @Override
     public String getName()
     {
-        return this.dataWatcher.getWatchableObjectString(17);
+        return dataWatcher.getWatchableObjectString(17);
     }
 
     @Override
@@ -321,7 +321,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     @Override
     public void makeEntityJump()
     {
-        this.jumpPending = true;
+        jumpPending = true;
     }
 
     @Override
@@ -371,7 +371,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
                 riddenByEntity.motionY += 0.9D;
                 riddenByEntity.motionZ -= 0.3D;
                 riddenByEntity.mountEntity(null);
-                this.ridingEntity = null;
+                ridingEntity = null;
             }
             if (onGround)
             {
@@ -395,8 +395,8 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         {
             motionX += riddenByEntity.motionX * (getCustomSpeed() / 5.0D);
             motionZ += riddenByEntity.motionZ * (getCustomSpeed() / 5.0D);
-            movementSideways = ((EntityLivingBase)this.riddenByEntity).moveStrafing * 0.5F;
-            movementForward = ((EntityLivingBase)this.riddenByEntity).moveForward;
+            movementSideways = ((EntityLivingBase)riddenByEntity).moveStrafing * 0.5F;
+            movementForward = ((EntityLivingBase)riddenByEntity).moveForward;
 
             if (jumpPending)
             {
@@ -425,7 +425,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             }
         }
 
-        this.prevLimbSwingAmount = this.limbSwingAmount;
+        prevLimbSwingAmount = limbSwingAmount;
         double xDistanceTravelled = posX - prevPosX;
         double zDistanceTravelled = posZ - prevPosZ;
         float overallHorizontalDistanceTravelledSquared = MathHelper.sqrt_double((xDistanceTravelled * xDistanceTravelled) + (zDistanceTravelled * zDistanceTravelled)) * 4.0F;
@@ -434,8 +434,8 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             overallHorizontalDistanceTravelledSquared = 1.0F;
         }
 
-        this.limbSwingAmount += (overallHorizontalDistanceTravelledSquared - this.limbSwingAmount) * 0.4F;
-        this.limbSwing += this.limbSwingAmount;
+        limbSwingAmount += (overallHorizontalDistanceTravelledSquared - limbSwingAmount) * 0.4F;
+        limbSwing += limbSwingAmount;
     }
 
     protected boolean MoveToNextEntity(Entity entity)
@@ -625,7 +625,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     {
         if (MoCreatures.isServer())
         {
-            if (this.riddenByEntity != null)
+            if (riddenByEntity != null)
             {
                 Riding();
                 mountCount = 1;
@@ -643,7 +643,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             {
             	if (MoCreatures.proxy.destroyDrops) //destroy the drops of the prey
             	{
-	            	List entitiesNearbyList = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(3, 3, 3));
+	            	List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(3, 3, 3));
 	
 	            	int iterationLength = entitiesNearbyList.size();
 	            	
@@ -723,12 +723,12 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 		                	
 		                	
 		                	
-		                	EntityItem entityItem = new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, itemstackToBeFished);
+		                	EntityItem entityItem = new EntityItem(worldObj, posX, posY, posZ, itemstackToBeFished);
 		                    double xDistance = playerThatHookedThisFish.posX - hookThatThisFishIsHookedTo.posX;
 		                    double yDistance = playerThatHookedThisFish.posY - hookThatThisFishIsHookedTo.posY;
 		                    double zDistance = playerThatHookedThisFish.posZ - hookThatThisFishIsHookedTo.posZ;
 		                    
-		                    this.setDead();
+		                    setDead();
 		                    
 		                    double overallDistanceSquared = (double) MathHelper.sqrt_double(xDistance * xDistance + yDistance * yDistance + zDistance * zDistance);
 		                    double distanceOffset = 0.1D;
@@ -789,15 +789,15 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         {
             floatOnWater();
             outOfWater = 0;
-            this.setAir(300);
+            setAir(300);
         }
         else
         {
-            if (this.riddenByEntity != null)
+            if (riddenByEntity != null)
             {
-                if (this.riddenByEntity.isSneaking())
+                if (riddenByEntity.isSneaking())
                 {
-                    this.riddenByEntity.mountEntity(null);
+                    riddenByEntity.mountEntity(null);
                 }
             }
 
@@ -906,23 +906,23 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     @Override
     protected void despawnEntity()
     {
-        EntityPlayer distanceToPlayer = this.worldObj.getClosestPlayerToEntity(this, -1.0D);
+        EntityPlayer distanceToPlayer = worldObj.getClosestPlayerToEntity(this, -1.0D);
         if (distanceToPlayer != null)
         {
-            double xDistance = distanceToPlayer.posX - this.posX;
-            double yDistance = distanceToPlayer.posY - this.posY;
-            double zDistance = distanceToPlayer.posZ - this.posZ;
+            double xDistance = distanceToPlayer.posX - posX;
+            double yDistance = distanceToPlayer.posY - posY;
+            double zDistance = distanceToPlayer.posZ - posZ;
             
             double overallDistanceSquared = xDistance * xDistance + yDistance * yDistance + zDistance * zDistance;
 
-            if (this.canDespawn() && overallDistanceSquared > 16384.0D)
+            if (canDespawn() && overallDistanceSquared > 16384.0D)
             {
-                this.setDead();
+                setDead();
             }
             //changed from 600
             if (entityAge > 1800 && rand.nextInt(800) == 0 && overallDistanceSquared > 1024.0D && canDespawn())
             {
-                this.setDead();
+                setDead();
             }
             else if (overallDistanceSquared < 1024.0D)
             {
@@ -975,7 +975,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     @Override
     public void makeEntityDive()
     {
-        this.divePending = true;
+        divePending = true;
     }
 
     @Override
@@ -997,19 +997,19 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     @Override
     public boolean getCanSpawnHere()
     {
-        return MoCreatures.entityMap.get(this.getClass()).getFrequency() > 0 && this.worldObj.checkNoEntityCollision(this.boundingBox);
+        return MoCreatures.entityMap.get(getClass()).getFrequency() > 0 && worldObj.checkNoEntityCollision(boundingBox);
     }
 
     @Override
     public String getOwnerName()
     {
-        return this.dataWatcher.getWatchableObjectString(21);
+        return dataWatcher.getWatchableObjectString(21);
     }
 
     @Override
     public void setOwner(String par1Str)
     {
-        this.dataWatcher.updateObject(21, par1Str);
+        dataWatcher.updateObject(21, par1Str);
     }
 
     @Override
@@ -1043,7 +1043,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         }
         /*if (MoCreatures.isServer() && getIsTamed())
         {
-            //MoCServerPacketHandler.sendHealth(this.getEntityId(), this.worldObj.provider.dimensionId, this.getHealth());
+            //MoCServerPacketHandler.sendHealth(getEntityId(), worldObj.provider.dimensionId, getHealth());
         }*/
 
         return super.attackEntityFrom(damageSource, damageTaken);
@@ -1078,10 +1078,10 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     @Override
     public void dismountEntity() 
     {
-        if (MoCreatures.isServer() && this.riddenByEntity != null)
+        if (MoCreatures.isServer() && riddenByEntity != null)
         {
-            this.riddenByEntity.mountEntity(null);
-            this.riddenByEntity = null;
+            riddenByEntity.mountEntity(null);
+            riddenByEntity = null;
         }
     }
 
@@ -1207,7 +1207,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
      */
     public boolean entitiesThatAreScary(Entity entity)
     {
-        return ( (entity.getClass() != this.getClass()) && (entity instanceof EntityLivingBase) && ((entity.width >= 0.5D) || (entity.height >= 0.5D)));
+        return ( (entity.getClass() != getClass()) && (entity instanceof EntityLivingBase) && ((entity.width >= 0.5D) || (entity.height >= 0.5D)));
     }
 
     public boolean isNotScared()
@@ -1218,6 +1218,6 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     @Override
     public void riderIsDisconnecting(boolean flag)
     {
-        this.riderIsDisconnecting = true;
+        riderIsDisconnecting = true;
     }
 }

@@ -58,8 +58,8 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.oredict.OreDictionary;
@@ -1731,7 +1731,6 @@ public class MoCTools {
             }
             else
             {
-                MoCreatures.poisonPlayer(entityPlayerTarget);
                 entityPlayerTarget.addPotionEffect(new PotionEffect(Potion.poison.id, 120, 0));
                 return true;
             }

@@ -5,17 +5,13 @@ import java.util.List;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
-import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.MoCEntityTameableAquatic;
-import drzhark.mocreatures.entity.animal.MoCEntityHorse;
-import drzhark.mocreatures.entity.item.MoCEntityEgg;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageHeart;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -127,7 +123,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     {
         super.onLivingUpdate();
         
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             prevRenderYawOffset = renderYawOffset = rotationYaw = prevRotationYaw;
             rotationPitch = prevRotationPitch;
@@ -180,7 +176,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
                     continue;
                 }
                 MoCEntityFishy entityfishy = (MoCEntityFishy) entity1;
-                if (!ReadyforParenting(this) || !ReadyforParenting(entityfishy) || (this.getType() != entityfishy.getType()))
+                if (!ReadyforParenting(this) || !ReadyforParenting(entityfishy) || (getType() != entityfishy.getType()))
                 {
                     continue;
                 }
@@ -188,9 +184,9 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
                 {
                     gestationTime++;
                 }
-                if (this.gestationTime % 3 == 0)
+                if (gestationTime % 3 == 0)
                 {
-                    MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHeart(this.getEntityId()), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+                    MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHeart(getEntityId()), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
                 }
                 if (gestationTime <= 50)
                 {
@@ -271,7 +267,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     @Override
     public int rollRotationOffset()
     {
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             return -90;
         }
@@ -281,7 +277,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     @Override
     public float getAdjustedYOffset()
     {
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             return -0.1F;
         }
@@ -291,7 +287,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     @Override
     public float getAdjustedXOffset()
     {
-        if (!this.isInsideOfMaterial(Material.water))
+        if (!isInsideOfMaterial(Material.water))
         {
             return -0.2F;
         }

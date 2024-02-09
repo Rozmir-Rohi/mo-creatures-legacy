@@ -69,7 +69,7 @@ public class MoCEntityCrab extends MoCEntityTameableAmbient
         {
             if (fleeingTick == 3)
             {
-                MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 1), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+                MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 1), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
             }
         }
     }
@@ -84,7 +84,7 @@ public class MoCEntityCrab extends MoCEntityTameableAmbient
     {
         if (animationType == 1) //fleeing animation finishes
         {
-            this.fleeingTick = 0;
+            fleeingTick = 0;
         }
     }
 
@@ -125,7 +125,7 @@ public class MoCEntityCrab extends MoCEntityTameableAmbient
     
     public boolean isFleeing()
     {
-        return this.fleeingTick != 0;
+        return fleeingTick != 0;
     }
     
     /**

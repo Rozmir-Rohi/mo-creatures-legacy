@@ -116,8 +116,8 @@ public class CommandMoCSpawn extends CommandBase {
      */
     protected List getSortedPossibleCommands(ICommandSender par1ICommandSender)
     {
-        Collections.sort(this.commands);
-        return this.commands;
+        Collections.sort(commands);
+        return commands;
     }
 
     public void sendCommandHelp(ICommandSender sender)

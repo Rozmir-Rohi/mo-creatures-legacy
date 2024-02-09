@@ -32,7 +32,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityKomodo extends MoCEntityTameableAnimal
 {
@@ -48,7 +47,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         texture = "komododragon.png";
         setTamed(false);
         setAdult(false);
-        this.stepHeight = 1.0F;
+        stepHeight = 1.0F;
 
         if(rand.nextInt(6) == 0)
         {
@@ -63,7 +62,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
     }
     
     @Override
@@ -88,7 +87,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     @Override
     protected boolean canDespawn()
     {
-        return !getIsTamed() && this.ticksExisted > 2400;
+        return !getIsTamed() && ticksExisted > 2400;
     }
    
     public void setRideable(boolean flag)
@@ -140,6 +139,14 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     public void onLivingUpdate()
     {
         super.onLivingUpdate();
+        
+        if (entityToAttack != null && entityToAttack == riddenByEntity)
+    	{
+    		if (!(riddenByEntity instanceof EntityPlayer && riddenByEntity.getCommandSenderName().equals(getOwnerName()))) //if not the owner of this entity
+    		{
+    			riddenByEntity.mountEntity(null); //forcefully make the entity that is riding this entity dismount
+    		}
+    	}
 
         if (tailCounter > 0 && ++tailCounter > 30)
         {
@@ -199,7 +206,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         sitCounter = 1;
         if (MoCreatures.isServer())
         {
-            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 0), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), 0), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
         }
         setPathToEntity(null);
     }
@@ -271,7 +278,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         
         if (getIsRideable() && getIsTamed() && getMoCAge() > 90 && (riddenByEntity == null))
         {
-            if (MoCreatures.isServer() && (itemstack == null) && (this.riddenByEntity == null))
+            if (MoCreatures.isServer() && (itemstack == null) && (riddenByEntity == null))
             {
             	entityPlayer.rotationYaw = rotationYaw;
                 entityPlayer.rotationPitch = rotationPitch;
@@ -356,9 +363,9 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         }
         if (getIsAdult())
         {
-            return (double) (yOff + (this.height) );
+            return (double) (yOff + (height) );
         }
-        return (double) (this.height * (120/getMoCAge()) );
+        return (double) (height * (120/getMoCAge()) );
     }
 
     @Override
@@ -369,10 +376,6 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         {
             attackTime = 20;
             boolean isEntityToAttackInstanceOfPlayer = (entity instanceof EntityPlayer);
-            if (isEntityToAttackInstanceOfPlayer)
-            {
-                MoCreatures.poisonPlayer((EntityPlayer) entity);
-            }
             ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 150, 0));
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
         }
@@ -423,9 +426,9 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         
         if (MoCreatures.proxy.specialPetsDefendOwner)
         {
-	        if (this.getIsTamed() && this.riddenByEntity == null) //defend owner if they are attacked by an entity
+	        if (getIsTamed() && riddenByEntity == null) //defend owner if they are attacked by an entity
 	    	{
-	    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(this.getOwnerName());
+	    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(getOwnerName());
 	    		
 	    		if (ownerOfEntityThatIsOnline != null)
 	    		{

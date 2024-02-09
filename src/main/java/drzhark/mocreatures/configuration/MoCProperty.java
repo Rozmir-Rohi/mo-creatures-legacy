@@ -43,9 +43,9 @@ public class MoCProperty {
   private boolean changed = false;
   
   public MoCProperty() {
-    this.wasRead = false;
-    this.type = null;
-    this.isList = false;
+    wasRead = false;
+    type = null;
+    isList = false;
   }
   
   public MoCProperty(String name, String value, Type type) {
@@ -61,8 +61,8 @@ public class MoCProperty {
     setName(name);
     this.value = value;
     this.type = type;
-    this.wasRead = read;
-    this.isList = false;
+    wasRead = read;
+    isList = false;
   }
   
   public MoCProperty(String name, List<String> values, Type type) {
@@ -77,13 +77,13 @@ public class MoCProperty {
   MoCProperty(String name, List<String> values, Type type, boolean read) {
     setName(name);
     this.type = type;
-    this.valueList = values;
-    this.wasRead = read;
-    this.isList = true;
+    valueList = values;
+    wasRead = read;
+    isList = true;
   }
   
   public String getString() {
-    return this.value;
+    return value;
   }
   
   public int getInt() {
@@ -92,7 +92,7 @@ public class MoCProperty {
   
   public int getInt(int _default) {
     try {
-      return Integer.parseInt(this.value);
+      return Integer.parseInt(value);
     } catch (NumberFormatException e) {
       return _default;
     } 
@@ -100,7 +100,7 @@ public class MoCProperty {
   
   public boolean isIntValue() {
     try {
-      Integer.parseInt(this.value);
+      Integer.parseInt(value);
       return true;
     } catch (NumberFormatException e) {
       return false;
@@ -109,17 +109,17 @@ public class MoCProperty {
   
   public boolean getBoolean(boolean _default) {
     if (isBooleanValue())
-      return Boolean.parseBoolean(this.value); 
+      return Boolean.parseBoolean(value); 
     return _default;
   }
   
   public boolean isBooleanValue() {
-    return ("true".equals(this.value.toLowerCase()) || "false".equals(this.value.toLowerCase()));
+    return ("true".equals(value.toLowerCase()) || "false".equals(value.toLowerCase()));
   }
   
   public boolean isDoubleValue() {
     try {
-      Double.parseDouble(this.value);
+      Double.parseDouble(value);
       return true;
     } catch (NumberFormatException e) {
       return false;
@@ -128,19 +128,19 @@ public class MoCProperty {
   
   public double getDouble(double _default) {
     try {
-      return Double.parseDouble(this.value);
+      return Double.parseDouble(value);
     } catch (NumberFormatException e) {
       return _default;
     } 
   }
   
   public List<String> getStringList() {
-    return this.valueList;
+    return valueList;
   }
   
   public int[] getIntList() {
     ArrayList<Integer> nums = new ArrayList<Integer>();
-    for (String value : this.valueList) {
+    for (String value : valueList) {
       try {
         nums.add(Integer.valueOf(Integer.parseInt(value)));
       } catch (NumberFormatException e) {}
@@ -152,7 +152,7 @@ public class MoCProperty {
   }
   
   public boolean isIntList() {
-    for (String value : this.valueList) {
+    for (String value : valueList) {
       try {
         Integer.parseInt(value);
       } catch (NumberFormatException e) {
@@ -164,7 +164,7 @@ public class MoCProperty {
   
   public boolean[] getBooleanList() {
     ArrayList<Boolean> tmp = new ArrayList<Boolean>();
-    for (String value : this.valueList) {
+    for (String value : valueList) {
       try {
         tmp.add(Boolean.valueOf(Boolean.parseBoolean(value)));
       } catch (NumberFormatException e) {}
@@ -176,7 +176,7 @@ public class MoCProperty {
   }
   
   public boolean isBooleanList() {
-    for (String value : this.valueList) {
+    for (String value : valueList) {
       if (!"true".equalsIgnoreCase(value) && !"false".equalsIgnoreCase(value))
         return false; 
     } 
@@ -185,7 +185,7 @@ public class MoCProperty {
   
   public double[] getDoubleList() {
     ArrayList<Double> tmp = new ArrayList<Double>();
-    for (String value : this.valueList) {
+    for (String value : valueList) {
       try {
         tmp.add(Double.valueOf(Double.parseDouble(value)));
       } catch (NumberFormatException e) {}
@@ -197,7 +197,7 @@ public class MoCProperty {
   }
   
   public boolean isDoubleList() {
-    for (String value : this.valueList) {
+    for (String value : valueList) {
       try {
         Double.parseDouble(value);
       } catch (NumberFormatException e) {
@@ -208,7 +208,7 @@ public class MoCProperty {
   }
   
   public String getName() {
-    return this.name;
+    return name;
   }
   
   public void setName(String name) {
@@ -216,37 +216,37 @@ public class MoCProperty {
   }
   
   public void setValueList(List<String> list) {
-    this.valueList = list;
+    valueList = list;
   }
   
   public boolean wasRead() {
-    return this.wasRead;
+    return wasRead;
   }
   
   public Type getType() {
-    return this.type;
+    return type;
   }
   
   public boolean isList() {
-    return this.isList;
+    return isList;
   }
   
   public boolean hasChanged() {
-    return this.changed;
+    return changed;
   }
   
   void resetChangedState() {
-    this.changed = false;
+    changed = false;
   }
   
   public void set(String value) {
     this.value = value;
-    this.changed = true;
+    changed = true;
   }
   
   public void set(List<String> values) {
-    this.valueList = values;
-    this.changed = true;
+    valueList = values;
+    changed = true;
   }
   
   public void set(int value) {

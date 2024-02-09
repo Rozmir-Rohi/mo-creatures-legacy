@@ -54,9 +54,9 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
-        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(getAttackStrength());
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
+        getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(getAttackStrength());
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
     }
 
     @Override
@@ -128,7 +128,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     @Override
     public String getName()
     {
-        return this.dataWatcher.getWatchableObjectString(17);
+        return dataWatcher.getWatchableObjectString(17);
     }
 
     public int getMoCAge()
@@ -177,7 +177,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     @Override
     public boolean getCanSpawnHere()
     {
-        return (MoCreatures.entityMap.get(this.getClass()).getFrequency() > 0 && super.getCanSpawnHere());
+        return (MoCreatures.entityMap.get(getClass()).getFrequency() > 0 && super.getCanSpawnHere());
     }
 
     public boolean getCanSpawnHereMob()
@@ -230,9 +230,9 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         		(!(entity instanceof EntityLiving)) 
                 || (entity instanceof EntityMob)
                 || (entity instanceof MoCEntityEgg)
-                || (entity instanceof EntityPlayer && this.getIsTamed()) 
+                || (entity instanceof EntityPlayer && getIsTamed()) 
                 || (entity instanceof MoCEntityKittyBed) || (entity instanceof MoCEntityLitterBox) 
-                || (this.getIsTamed() && (entity instanceof MoCEntityAnimal && ((MoCEntityAnimal) entity).getIsTamed())) 
+                || (getIsTamed() && (entity instanceof MoCEntityAnimal && ((MoCEntityAnimal) entity).getIsTamed())) 
                 || ((entity instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)) 
                 || ((entity instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses))
                 || (entity instanceof MoCEntityAnimal || entity instanceof MoCEntityAmbient)
@@ -272,14 +272,14 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
 
         if (MoCreatures.isServer() && getIsTamed() && rand.nextInt(200) == 0)
         {
-            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHealth(this.getEntityId(), this.getHealth()), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHealth(getEntityId(), getHealth()), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
         }
         
         if (isPredator() && hasKilledPrey) 
         {
         	if (MoCreatures.proxy.destroyDrops) //destroy the drops of the prey
         	{
-            	List entitiesNearbyList = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(3, 3, 3));
+            	List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(3, 3, 3));
 
             	int iterationLength = entitiesNearbyList.size();
             	
@@ -317,7 +317,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     {
         if (MoCreatures.isServer() && getIsTamed())
         {
-            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHealth(this.getEntityId(), this.getHealth()), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHealth(getEntityId(), getHealth()), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
         }
         return super.attackEntityFrom(damageSource, damageTaken);
     }
@@ -458,12 +458,12 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
             {
                 motionY = 0.20000000000000001D;
             }
-            if (entityToAttack != null && entityToAttack.posY < this.posY && rand.nextInt(30) == 0)
+            if (entityToAttack != null && entityToAttack.posY < posY && rand.nextInt(30) == 0)
             {
                 motionY = -0.25D;
             }
         }
-        this.prevLimbSwingAmount = this.limbSwingAmount;
+        prevLimbSwingAmount = limbSwingAmount;
         double d2 = posX - prevPosX;
         double d3 = posZ - prevPosZ;
         float f4 = MathHelper.sqrt_double((d2 * d2) + (d3 * d3)) * 4.0F;
@@ -472,8 +472,8 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
             f4 = 1.0F;
         }
 
-        this.limbSwingAmount += (f4 - this.limbSwingAmount) * 0.4F;
-        this.limbSwing += this.limbSwingAmount;
+        limbSwingAmount += (f4 - limbSwingAmount) * 0.4F;
+        limbSwing += limbSwingAmount;
     }
 
     @Override
@@ -577,7 +577,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
             double d3 = vectorThreeDimensional.yCoord - i;
             float angleInDegreesToNewLocation = (float) ((Math.atan2(d2, d1) * 180D) / Math.PI) - 90F;
             float amountOfDegreesToChangeRotationYawBy = angleInDegreesToNewLocation - rotationYaw;
-            moveForward = (float)this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+            moveForward = (float)getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();
             for (; amountOfDegreesToChangeRotationYawBy < -180F; amountOfDegreesToChangeRotationYawBy += 360F)
             {
             }
@@ -677,15 +677,15 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
 
     protected Vec3 findPossibleShelter()
     {
-        Random var1 = this.getRNG();
+        Random var1 = getRNG();
 
         for (int var2 = 0; var2 < 10; ++var2)
         {
-            int var3 = MathHelper.floor_double(this.posX + (double) var1.nextInt(20) - 10.0D);
-            int var4 = MathHelper.floor_double(this.boundingBox.minY + (double) var1.nextInt(6) - 3.0D);
-            int var5 = MathHelper.floor_double(this.posZ + (double) var1.nextInt(20) - 10.0D);
+            int var3 = MathHelper.floor_double(posX + (double) var1.nextInt(20) - 10.0D);
+            int var4 = MathHelper.floor_double(boundingBox.minY + (double) var1.nextInt(6) - 3.0D);
+            int var5 = MathHelper.floor_double(posZ + (double) var1.nextInt(20) - 10.0D);
 
-            if (!this.worldObj.canBlockSeeTheSky(var3, var4, var5) && this.getBlockPathWeight(var3, var4, var5) < 0.0F) { return Vec3.createVectorHelper((double) var3, (double) var4, (double) var5); }
+            if (!worldObj.canBlockSeeTheSky(var3, var4, var5) && getBlockPathWeight(var3, var4, var5) < 0.0F) { return Vec3.createVectorHelper((double) var3, (double) var4, (double) var5); }
         }
 
         return null;
@@ -700,7 +700,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     @Override
     public void makeEntityDive()
     {
-        this.divePending = true;
+        divePending = true;
     }
 
     @Override
@@ -811,6 +811,6 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     @Override
     public void riderIsDisconnecting(boolean flag)
     {
-        this.riderIsDisconnecting = true;
+        riderIsDisconnecting = true;
     }
 }

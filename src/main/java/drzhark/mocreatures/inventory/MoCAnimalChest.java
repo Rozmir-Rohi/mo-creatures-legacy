@@ -16,9 +16,9 @@ public class MoCAnimalChest extends InventoryBasic {
     {
         int var2;
 
-        for (var2 = 0; var2 < this.getSizeInventory(); ++var2)
+        for (var2 = 0; var2 < getSizeInventory(); ++var2)
         {
-            this.setInventorySlotContents(var2, (ItemStack) null);
+            setInventorySlotContents(var2, (ItemStack) null);
         }
 
         for (var2 = 0; var2 < par1NBTTagList.tagCount(); ++var2)
@@ -26,9 +26,9 @@ public class MoCAnimalChest extends InventoryBasic {
             NBTTagCompound var3 = (NBTTagCompound) par1NBTTagList.getCompoundTagAt(var2);
             int var4 = var3.getByte("Slot") & 255;
 
-            if (var4 >= 0 && var4 < this.getSizeInventory())
+            if (var4 >= 0 && var4 < getSizeInventory())
             {
-                this.setInventorySlotContents(var4, ItemStack.loadItemStackFromNBT(var3));
+                setInventorySlotContents(var4, ItemStack.loadItemStackFromNBT(var3));
             }
         }
     }
@@ -37,9 +37,9 @@ public class MoCAnimalChest extends InventoryBasic {
     {
         NBTTagList var1 = new NBTTagList();
 
-        for (int var2 = 0; var2 < this.getSizeInventory(); ++var2)
+        for (int var2 = 0; var2 < getSizeInventory(); ++var2)
         {
-            ItemStack var3 = this.getStackInSlot(var2);
+            ItemStack var3 = getStackInSlot(var2);
 
             if (var3 != null)
             {

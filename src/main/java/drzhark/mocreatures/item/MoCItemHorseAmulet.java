@@ -143,30 +143,30 @@ public class MoCItemHorseAmulet extends MoCItem {
 
     public void readFromNBT(NBTTagCompound nbt)
     {
-        this.PetId = nbt.getInteger("PetId");
-        this.creatureType = nbt.getInteger("CreatureType");
-        this.health = nbt.getFloat("Health");
-        this.age = nbt.getInteger("Age");
-        this.name = nbt.getString("Name");
-        this.spawnClass = nbt.getInteger("SpawnClass");
-        this.rideable = nbt.getBoolean("Rideable");
-        this.armor = nbt.getByte("Armor");
-        this.adult = nbt.getBoolean("Adult");
-        this.ownerName = nbt.getString("OwnerName");
+        PetId = nbt.getInteger("PetId");
+        creatureType = nbt.getInteger("CreatureType");
+        health = nbt.getFloat("Health");
+        age = nbt.getInteger("Age");
+        name = nbt.getString("Name");
+        spawnClass = nbt.getInteger("SpawnClass");
+        rideable = nbt.getBoolean("Rideable");
+        armor = nbt.getByte("Armor");
+        adult = nbt.getBoolean("Adult");
+        ownerName = nbt.getString("OwnerName");
     }
     
     public void writeToNBT(NBTTagCompound nbt)
     {
-        nbt.setInteger("PetID", this.PetId);
-        nbt.setInteger("CreatureType", this.creatureType);
-        nbt.setFloat("Health", this.health);
-        nbt.setInteger("Age", this.age);
-        nbt.setString("Name", this.name);
-        nbt.setInteger("SpawnClass", this.spawnClass);
-        nbt.setBoolean("Rideable", this.rideable);
-        nbt.setByte("Armor", this.armor);
-        nbt.setBoolean("Adult", this.adult);
-        nbt.setString("OwnerName", this.ownerName);
+        nbt.setInteger("PetID", PetId);
+        nbt.setInteger("CreatureType", creatureType);
+        nbt.setFloat("Health", health);
+        nbt.setInteger("Age", age);
+        nbt.setString("Name", name);
+        nbt.setInteger("SpawnClass", spawnClass);
+        nbt.setBoolean("Rideable", rideable);
+        nbt.setByte("Armor", armor);
+        nbt.setBoolean("Adult", adult);
+        nbt.setString("OwnerName", ownerName);
     }
     
     @SideOnly(Side.CLIENT)
@@ -179,8 +179,8 @@ public class MoCItemHorseAmulet extends MoCItem {
     {
         initAndReadNBT(itemstack);
         if (name != "") par3List.add(EnumChatFormatting.AQUA + StatCollector.translateToLocal("entity.MoCreatures.WildHorse.name")); //Writes the name of the entity type to item desc
-        if (name != "") par3List.add(EnumChatFormatting.BLUE + this.name); //writes the pet name to item desc
-        if (ownerName != "") par3List.add(EnumChatFormatting.DARK_BLUE + ((new ChatComponentTranslation("amulet_and_fishnet_desc.MoCreatures.ownedBy", new Object[] {this.ownerName})).getUnformattedTextForChat())); //writes "owned by OWNER" (dependent on lang files)in item desc
+        if (name != "") par3List.add(EnumChatFormatting.BLUE + name); //writes the pet name to item desc
+        if (ownerName != "") par3List.add(EnumChatFormatting.DARK_BLUE + ((new ChatComponentTranslation("amulet_and_fishnet_desc.MoCreatures.ownedBy", new Object[] {ownerName})).getUnformattedTextForChat())); //writes "owned by OWNER" (dependent on lang files)in item desc
     }
     
     private void initAndReadNBT(ItemStack itemstack)

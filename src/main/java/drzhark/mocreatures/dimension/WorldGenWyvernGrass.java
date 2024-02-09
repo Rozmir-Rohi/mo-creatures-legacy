@@ -16,8 +16,8 @@ public class WorldGenWyvernGrass extends WorldGenerator
 
     public WorldGenWyvernGrass(Block block, int par2)
     {
-        this.tallGrass = block;
-        this.tallGrassMetadata = par2;
+        tallGrass = block;
+        tallGrassMetadata = par2;
     }
 
     public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5)
@@ -42,7 +42,7 @@ public class WorldGenWyvernGrass extends WorldGenerator
             int var10 = par5 + par2Random.nextInt(8) - par2Random.nextInt(8);
             if (par1World.isAirBlock(var8, var9, var10) && tallGrass.canBlockStay(par1World, var8, var9, var10))
             {
-                par1World.setBlock(var8, var9, var10, this.tallGrass, this.tallGrassMetadata, 3);
+                par1World.setBlock(var8, var9, var10, tallGrass, tallGrassMetadata, 3);
             }
         }
 

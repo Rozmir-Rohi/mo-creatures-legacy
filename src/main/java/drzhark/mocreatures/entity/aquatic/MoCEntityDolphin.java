@@ -68,7 +68,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
                 setType(6);
             }
             
-            this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getCustomSpeed()); //set speed according to type
+            getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getCustomSpeed()); //set speed according to type
         }
     }
 
@@ -467,9 +467,9 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
                 {
                     gestationTime++;
                 }
-                if (this.gestationTime % 3 == 0)
+                if (gestationTime % 3 == 0)
                 {
-                    MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHeart(this.getEntityId()), new TargetPoint(this.worldObj.provider.dimensionId, this.posX, this.posY, this.posZ, 64));
+                    MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHeart(getEntityId()), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
                 }
                 if (gestationTime <= 50)
                 {
@@ -491,10 +491,10 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
                     
                     babyDolphin.setAdult(false);
                     
-                    babyDolphin.setOwner(this.getOwnerName());
+                    babyDolphin.setOwner(getOwnerName());
                     babyDolphin.setTamed(true);
                     
-                    EntityPlayer entityPlayer = worldObj.getPlayerEntityByName(this.getOwnerName());
+                    EntityPlayer entityPlayer = worldObj.getPlayerEntityByName(getOwnerName());
                     
                     if (entityPlayer != null)
                     {
@@ -503,7 +503,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
                     
                     babyDolphin.setTypeInt(typeToSet);
                     
-                    this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getCustomSpeed()); //set speed according to type
+                    getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getCustomSpeed()); //set speed according to type
                     break;
                 }
             }

@@ -26,7 +26,7 @@ public class MoCEntityFirefly extends MoCEntityInsect
             EntityPlayer entityPlayer = worldObj.getClosestPlayerToEntity(this, 5D);
             if (entityPlayer != null && getIsFlying() && --soundCount == -1)
             {
-                MoCTools.playCustomSound(this, "cricketfly", this.worldObj);
+                MoCTools.playCustomSound(this, "cricketfly", worldObj);
                 soundCount = 20;
             }
 

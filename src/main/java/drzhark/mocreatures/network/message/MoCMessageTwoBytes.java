@@ -26,17 +26,17 @@ public class MoCMessageTwoBytes implements IMessage, IMessageHandler<MoCMessageT
     @Override
     public void toBytes(ByteBuf buffer)
     {
-        buffer.writeInt(this.entityId);
-        buffer.writeByte(this.slot);
-        buffer.writeByte(this.value);
+        buffer.writeInt(entityId);
+        buffer.writeByte(slot);
+        buffer.writeByte(value);
     }
 
     @Override
     public void fromBytes(ByteBuf buffer)
     {
-        this.entityId = buffer.readInt();
-        this.slot = buffer.readByte();
-        this.value = buffer.readByte();
+        entityId = buffer.readInt();
+        slot = buffer.readByte();
+        value = buffer.readByte();
     }
 
     @Override
@@ -53,6 +53,6 @@ public class MoCMessageTwoBytes implements IMessage, IMessageHandler<MoCMessageT
     @Override
     public String toString()
     {
-        return String.format("MoCMessageTwoBytes - entityId:%s, slot:%s, value:%s", this.entityId, this.slot, this.value);
+        return String.format("MoCMessageTwoBytes - entityId:%s, slot:%s, value:%s", entityId, slot, value);
     }
 }

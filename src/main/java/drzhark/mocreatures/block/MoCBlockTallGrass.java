@@ -31,9 +31,9 @@ public class MoCBlockTallGrass extends BlockBush implements IShearable
     {
         super(Material.vine);
         float var3 = 0.4F;
-        this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, 0.8F, 0.5F + var3);
-        this.setCreativeTab(MoCreatures.tabMoC);
-        this.setBlockName(name);
+        setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, 0.8F, 0.5F + var3);
+        setCreativeTab(MoCreatures.tabMoC);
+        setBlockName(name);
         GameRegistry.registerBlock(this, MultiItemBlock.class, name);
     }
 
@@ -42,7 +42,7 @@ public class MoCBlockTallGrass extends BlockBush implements IShearable
         this(name);
         if (lighted)
         {
-            this.setLightLevel(0.8F);
+            setLightLevel(0.8F);
         }
     }
 
