@@ -203,7 +203,7 @@ item.unicornhorn.name=独角兽角
 item.whip.name=鞭子
 item.woolball.name=羊毛球
 
-entity.MoCreatures.CreeperExtension.name=苦力怕
+entity.CreeperExtension.name=苦力怕
 entity.MoCreatures.Ant.name=蚂蚁
 entity.MoCreatures.Bear.name=熊
 entity.MoCreatures.Bee.name=蜜蜂

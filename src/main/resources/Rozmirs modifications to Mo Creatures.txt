@@ -829,3 +829,6 @@ Made the Creeper Extension entity be under the the vanilla minecraft mobs label.
 
 
 Fixed Thaumcraft aspects for creeper extension.
+
+
+Fixed creeper extension header in zh.CN.lang.
