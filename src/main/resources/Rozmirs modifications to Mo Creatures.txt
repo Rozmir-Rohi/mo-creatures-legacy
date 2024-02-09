@@ -826,3 +826,6 @@ Code clean up of "this." operator.
 
 
 Made the Creeper Extension entity be under the the vanilla minecraft mobs label.
+
+
+Fixed Thaumcraft aspects for creeper extension.

@@ -229,7 +229,7 @@ ThaumcraftApi.registerObjectTag(new ItemStack(MoCreatures.staffPortal), new Aspe
 
 if (MoCreatures.proxy.replaceVanillaCreepers)
 {
-	ThaumcraftApi.registerEntityTag("MoCreatures.CreeperExtension", new AspectList().add(Aspect.PLANT, 2).add(Aspect.FIRE, 2)); 
+	ThaumcraftApi.registerEntityTag("CreeperExtension", new AspectList().add(Aspect.PLANT, 2).add(Aspect.FIRE, 2)); 
 }
 	
 // Water Animals ------------------------------------------------------------------------------------
