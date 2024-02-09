@@ -822,8 +822,7 @@ Added drops for following creatures (only if Exotic Birds mod is Installed):
 	Duck small bird meat
 
 
-Players can now only use scrolls on a tamed creature if they are the owner of that creature or if they are opped on the server.
-
-
-
 Code clean up of "this." operator.
+
+
+Made the Creeper Extension entity be under the the vanilla minecraft mobs label.

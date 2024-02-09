@@ -422,7 +422,7 @@ public class MoCreatures {
         if (MoCreatures.proxy.replaceVanillaCreepers)
         {
         	int ModEntityID = EntityRegistry.findGlobalUniqueEntityId();
-            EntityRegistry.registerModEntity(EntityCreeperExtension.class, "CreeperExtension", ModEntityID++, (Object)this, 50, 2, true);
+            EntityList.addMapping(EntityCreeperExtension.class, "CreeperExtension", ModEntityID++, 50, 2);
         }
         
         MoCAchievements.initilization();

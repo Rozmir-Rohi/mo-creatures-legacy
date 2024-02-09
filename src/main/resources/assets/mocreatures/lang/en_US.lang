@@ -205,7 +205,7 @@ item.whip.name=Whip
 item.woolball.name=Wool Ball
 
 
-entity.MoCreatures.CreeperExtension.name=Creeper
+entity.CreeperExtension.name=Creeper
 entity.MoCreatures.Ant.name=Ant
 entity.MoCreatures.Bear.name=Bear
 entity.MoCreatures.Bee.name=Bee
