@@ -1033,8 +1033,7 @@
 		"sounds" : [
 			"werewolfgrunt1",
 			"werewolfgrunt2",
-			"werewolfgrunt3",
-			"werewolfgrunt4"
+			"werewolfgrunt3"
 		]
 	},
 	"werewolfhurt" : {
@@ -1042,6 +1041,12 @@
 		"sounds" : [
 			"werewolfhurt1",
 			"werewolfhurt2"
+		]
+	},
+	"werewolfhowl" : {
+		"category" : "hostile",
+		"sounds" : [
+			"werewolfgrunt3"
 		]
 	},
 	"whip" : {

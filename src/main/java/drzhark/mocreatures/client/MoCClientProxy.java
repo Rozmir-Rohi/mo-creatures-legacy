@@ -106,6 +106,8 @@ import drzhark.mocreatures.client.renderer.entity.MoCRenderThrowableBlockForGole
 import drzhark.mocreatures.client.renderer.entity.MoCRenderTurtle;
 import drzhark.mocreatures.client.renderer.entity.MoCRenderWWolf;
 import drzhark.mocreatures.client.renderer.entity.MoCRenderWerewolf;
+import drzhark.mocreatures.client.renderer.entity.MoCRenderWerewolfPlayerDummyWitchery;
+import drzhark.mocreatures.client.renderer.entity.MoCRenderWerewolfWitchery;
 import drzhark.mocreatures.client.renderer.entity.MoCRenderWraith;
 import drzhark.mocreatures.client.renderer.texture.MoCTextures;
 import drzhark.mocreatures.entity.IMoCEntity;
@@ -169,6 +171,8 @@ import drzhark.mocreatures.entity.monster.MoCEntitySilverSkeleton;
 import drzhark.mocreatures.entity.monster.MoCEntityWWolf;
 import drzhark.mocreatures.entity.monster.MoCEntityWerewolf;
 import drzhark.mocreatures.entity.monster.MoCEntityWraith;
+import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfPlayerDummyWitchery;
+import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfWitchery;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.particle.EntitySpellParticleFX;
@@ -228,6 +232,8 @@ public class MoCClientProxy extends MoCProxy {
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityWraith.class, new MoCRenderWraith(new MoCModelWraith(), 0.5F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityFlameWraith.class, new MoCRenderWraith(new MoCModelWraith(), 0.5F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityWerewolf.class, new MoCRenderWerewolf(new MoCModelWereHuman(), new MoCModelWere(), 0.7F));
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityWerewolfWitchery.class, new MoCRenderWerewolfWitchery(new MoCModelWereHuman(), new MoCModelWere(), 0.7F));
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityWerewolfPlayerDummyWitchery.class, new MoCRenderWerewolfPlayerDummyWitchery(new MoCModelWereHuman(), new MoCModelWere(), 0.7F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityFox.class, new MoCRenderMoC(new MoCModelFox(), 0.5F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityShark.class, new MoCRenderShark(new MoCModelShark(), 0.6F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityDolphin.class, new MoCRenderDolphin(new MoCModelDolphin(), 0.6F));

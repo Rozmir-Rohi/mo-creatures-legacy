@@ -273,7 +273,7 @@ public class MoCItemWhip extends MoCItem {
 	}
 
 	
-    public void whipFX(World world, int x, int y, int z)
+    public static void whipFX(World world, int x, int y, int z)
     {
         double particleBasePositionX = x + 0.5F;
         double particleBasePositionY = y + 1.0F;

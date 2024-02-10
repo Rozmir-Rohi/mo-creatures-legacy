@@ -832,3 +832,6 @@ Fixed Thaumcraft aspects for creeper extension.
 
 
 Fixed creeper extension header in zh.CN.lang.
+
+
+Added WIP witchery werewolf replacement integration.

@@ -1,11 +1,10 @@
-package drzhark.mocreatures.entity.monster;
+package drzhark.mocreatures.entity.witchery_integration;
 
 import java.util.List;
 
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.MoCEntityMob;
-import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfVillagerWitchery;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -21,26 +20,33 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-public class MoCEntityWerewolf extends MoCEntityMob {
+public class MoCEntityWerewolfWitchery extends MoCEntityMob {
     private boolean isTransforming;
     private boolean isHunched;
     private int transformCounter;
-    private int textureCounter;
+    private int villagerProfession = 0;
 
-    public MoCEntityWerewolf(World world)
+    public MoCEntityWerewolfWitchery(World world)
     {
         super(world);
-        //texture = MoCreatures.proxy.MODEL_TEXTURE + "werehuman.png";
         setSize(0.9F, 1.6F);
         isTransforming = false;
         transformCounter = 0;
-        setHumanForm(true);
+    }
+    
+    public MoCEntityWerewolfWitchery(World world, int villagerProfession)
+    {
+        super(world);
+        setSize(0.9F, 1.6F);
+        isTransforming = false;
+        transformCounter = 0;
+        this.villagerProfession = villagerProfession;
     }
 
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16.0D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D);
     }
     
     @Override
@@ -53,7 +59,6 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     protected void entityInit()
     {
         super.entityInit();
-        dataWatcher.addObject(22, Byte.valueOf((byte) 0)); // isHumanForm - 0 false 1 true
         dataWatcher.addObject(23, Byte.valueOf((byte) 0)); //hunched
     }
     
@@ -62,74 +67,23 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     {
         if (getType() == 0)
         {
-            int chance = rand.nextInt(100);
-            if (chance <= 28)
-            {
-                setType(1);
-            }
-            else if (chance <= 56)
-            {
-                setType(2);
-            }
-            else if (chance <= 85)
-            {
-                setType(3);
-            }
-            else
-            {
-                setType(4);
-            }
+            setType(1);
         }
     }
 
     @Override
     public ResourceLocation getTexture()
-    {
-        if (getIsHumanForm()) { return MoCreatures.proxy.getTexture("wereblank.png"); }
-
-        switch (getType())
-        {
-        case 1:
-            return MoCreatures.proxy.getTexture("wolfblack.png");
-        case 2:
-            return MoCreatures.proxy.getTexture("wolfbrown.png");
-        case 3:
-            return MoCreatures.proxy.getTexture("wolftimber.png");
-        case 4:
-            if (!MoCreatures.proxy.getAnimateTextures()) { return MoCreatures.proxy.getTexture("wolffire1.png"); }
-            
-            if (rand.nextInt(3)== 0) {textureCounter++;} //animation speed
-            
-            if (textureCounter < 10)
-            {
-                textureCounter = 10;
-            }
-            
-            if (textureCounter > 39)
-            {
-                textureCounter = 10;
-            }
-            
-            String NTA = "wolffire";
-            String NTB = "" + textureCounter;
-            NTB = NTB.substring(0, 1);
-            String NTC = ".png";
-
-            return MoCreatures.proxy.getTexture(NTA + NTB + NTC);
-        default:
-            return MoCreatures.proxy.getTexture("wolfbrown.png");
-        }
+    { 
+       return MoCreatures.proxy.getTexture("wolftimber.png");
     }
 
     public boolean getIsHumanForm()
     {
-        return (dataWatcher.getWatchableObjectByte(22) == 1);
+        return false;
     }
 
     public void setHumanForm(boolean flag)
     {
-        byte input = (byte) (flag ? 1 : 0);
-        dataWatcher.updateObject(22, Byte.valueOf(input));
     }
 
     public boolean getIsHunched()
@@ -146,11 +100,6 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     @Override
     protected void attackEntity(Entity entity, float distanceToEntity)
     {
-        if (getIsHumanForm())
-        {
-            entityToAttack = null;
-            return;
-        }
         if ((distanceToEntity > 2.0F) && (distanceToEntity < 6F) && (rand.nextInt(15) == 0))
         {
             if (onGround)
@@ -182,7 +131,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     public boolean attackEntityFrom(DamageSource damageSource, float damageDealtToWerewolf)
     {
         Entity entityThatAttackedThisCreature = damageSource.getEntity();
-        if (!getIsHumanForm() && (entityThatAttackedThisCreature != null) && (entityThatAttackedThisCreature instanceof EntityPlayer))
+        if ((entityThatAttackedThisCreature != null) && (entityThatAttackedThisCreature instanceof EntityPlayer))
         {
             EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
             ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
@@ -249,7 +198,6 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     @Override
     protected Entity findPlayerToAttack()
     {
-        if (getIsHumanForm()) { return null; }
         
         EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
         
@@ -307,41 +255,13 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     @Override
     protected String getDeathSound()
     {
-        if (getIsHumanForm())
-        {
-            return "mocreatures:werehumandying";
-        }
-        else
-        {
-            return "mocreatures:werewolfdying";
-        }
+        return "mocreatures:werewolfdying";
     }
 
     @Override
     protected Item getDropItem()
     {
         int randomNumber = rand.nextInt(12);
-        if (getIsHumanForm())
-        {
-            switch (randomNumber)
-            {
-	            case 0: // '\0'
-	                return Items.wooden_shovel;
-	
-	            case 1: // '\001'
-	                return Items.wooden_axe;
-	
-	            case 2: // '\002'
-	                return Items.wooden_sword;
-	
-	            case 3: // '\003'
-	                return Items.wooden_hoe;
-	
-	            case 4: // '\004'
-	                return Items.wooden_pickaxe;
-            }
-            return Items.stick;
-        }
         
         switch (randomNumber)
         {
@@ -381,14 +301,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     @Override
     protected String getHurtSound()
     {
-        if (getIsHumanForm())
-        {
-            return "mocreatures:werehumanhurt";
-        }
-        else
-        {
-            return "mocreatures:werewolfhurt";
-        }
+    	return "mocreatures:werewolfhurt";
     }
 
     public boolean getIsUndead()
@@ -399,14 +312,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     @Override
     protected String getLivingSound()
     {
-        if (getIsHumanForm())
-        {
-            return null;
-        }
-        else
-        {
-            return "mocreatures:werewolfgrunt";
-        }
+        return "mocreatures:werewolfgrunt";
     }
 
     public boolean IsNight()
@@ -417,7 +323,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     @Override
     public void moveEntityWithHeading(float f, float f1)
     {
-        if (!getIsHumanForm() && onGround)
+        if (onGround)
         {
             motionX *= 1.2D;
             motionZ *= 1.2D;
@@ -439,7 +345,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         }
         
 
-        if ((damageSource.getEntity() != null) && (damageSource.getEntity() instanceof EntityPlayer) && !(getIsHumanForm()))
+        if ((damageSource.getEntity() != null) && (damageSource.getEntity() instanceof EntityPlayer))
         {
         	EntityPlayer player = (EntityPlayer)damageSource.getEntity();
             if (player != null) {player.addStat(MoCAchievements.kill_werewolf, 1);}
@@ -465,15 +371,11 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         super.onLivingUpdate();
         if (!worldObj.isRemote)
         {
-            if (((IsNight() && getIsHumanForm()) || (!IsNight() && !getIsHumanForm())) && (rand.nextInt(250) == 0))
+            if (!IsNight() && (rand.nextInt(250) == 0) && !isTransforming)
             {
                 isTransforming = true;
             }
-            if (getIsHumanForm() && (entityToAttack != null))
-            {
-                entityToAttack = null;
-            }
-            if ((entityToAttack != null) && !getIsHumanForm() && ((entityToAttack.posX - posX) > 3D) && ((entityToAttack.posZ - posZ) > 3D))
+            if ((entityToAttack != null) && ((entityToAttack.posX - posX) > 3D) && ((entityToAttack.posZ - posZ) > 3D))
             {
                 setHunched(true);
             }
@@ -493,10 +395,6 @@ public class MoCEntityWerewolf extends MoCEntityMob {
                 if ((transformCounter % 2) != 0)
                 {
                     posX -= 0.29999999999999999D;
-                }
-                if (transformCounter == 10)
-                {
-                    worldObj.playSoundAtEntity(this, "mocreatures:weretransform", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
                 }
                 if (transformCounter > 30)
                 {
@@ -520,33 +418,18 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     {
         if (deathTime > 0) { return; }
 
-        if (getIsHumanForm())
-        {
-            setHumanForm(false);
-            
-            if (getMaxHealth() != 40F)
-            {
-            	getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D);
-            }
-            
-            setHealth(getMaxHealth());
-            isTransforming = false;
-        }
-        else
-        {
-            setHumanForm(true);
-            
-            float healthForHumanForm = Math.round((getHealth() / getMaxHealth()) * 16.0D);
-            
-            if (getMaxHealth() != 16F)
-            {
-            	getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16.0D);
-            }
-            
-            
-            setHealth(healthForHumanForm);
-            isTransforming = false;
-        }
+        
+        float healthForHumanForm = Math.round((getHealth() / getMaxHealth()) * 20.0D);
+        
+        isTransforming = false;
+        
+        MoCEntityWerewolfVillagerWitchery werewolfVillager = new MoCEntityWerewolfVillagerWitchery(this.worldObj);
+        werewolfVillager.copyLocationAndAnglesFrom((Entity) this);
+        werewolfVillager.setProfession(villagerProfession);
+        setDead();
+        
+        werewolfVillager.setHealth(healthForHumanForm);
+        werewolfVillager.worldObj.spawnEntityInWorld((Entity) werewolfVillager); 
     }
 
     @Override

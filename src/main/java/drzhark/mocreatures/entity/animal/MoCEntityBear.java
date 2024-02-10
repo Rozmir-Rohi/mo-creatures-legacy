@@ -599,10 +599,10 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
 		if (
 				item == Items.reeds
 				|| item == Items.sugar
-            	|| (((item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:bamboo")))
-            	|| (((item.itemRegistry).getNameForObject(item).equals("etfuturum:bamboo")))
-            	|| (((item.itemRegistry).getNameForObject(item).equals("tropicraft:bambooChute")))
-            	|| (((item.itemRegistry).getNameForObject(item).equals("harvestcraft:bambooshootItem")))
+            	|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:bamboo")
+            	|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:bamboo")
+            	|| (item.itemRegistry).getNameForObject(item).equals("tropicraft:bambooChute")
+            	|| (item.itemRegistry).getNameForObject(item).equals("harvestcraft:bambooshootItem")
             ) {return true;}
 		
 		return false;

@@ -44,8 +44,13 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
     {
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         //before ownership check 
-        if ((itemstack != null) && getIsTamed() && ((itemstack.getItem() == MoCreatures.scrollOfOwner)) 
-                && MoCreatures.proxy.enableResetOwnership && MoCTools.isThisPlayerAnOP(entityPlayer))
+        if (
+        		itemstack != null
+        		&& getIsTamed()
+        		&& itemstack.getItem() == MoCreatures.scrollOfOwner 
+                && MoCreatures.proxy.enableResetOwnership
+                && MoCTools.isThisPlayerAnOP(entityPlayer)
+        	)
         {
             if (--itemstack.stackSize == 0)
             {
@@ -79,8 +84,16 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
         }
         
         //sets it free, untamed
-        if ((itemstack != null) && getIsTamed() 
-                && ((itemstack.getItem() == MoCreatures.scrollFreedom)))
+        if (
+        		itemstack != null
+        		&& getIsTamed() 
+                && itemstack.getItem() == MoCreatures.scrollFreedom
+                && getOwnerName().length() > 0
+                && (
+                		entityPlayer.getCommandSenderName().equals(getOwnerName())
+                		|| MoCTools.isThisPlayerAnOP(entityPlayer)
+                	)
+        	)
         {
             if (--itemstack.stackSize == 0)
             {
@@ -102,8 +115,16 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
         }
 
         //removes owner, any other player can claim it by renaming it
-        if ((itemstack != null) && getIsTamed() 
-                    && ((itemstack.getItem() == MoCreatures.scrollOfSale)))
+        if (
+        		itemstack != null
+        		&& getIsTamed() 
+                && itemstack.getItem() == MoCreatures.scrollOfSale
+                && getOwnerName().length() > 0
+                && (
+                		entityPlayer.getCommandSenderName().equals(getOwnerName())
+                		|| MoCTools.isThisPlayerAnOP(entityPlayer)
+                	)
+           )
         {
             if (--itemstack.stackSize == 0)
             {

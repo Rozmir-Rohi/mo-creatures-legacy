@@ -103,6 +103,9 @@ import drzhark.mocreatures.entity.monster.MoCEntityWWolf;
 import drzhark.mocreatures.entity.monster.MoCEntityWerewolf;
 import drzhark.mocreatures.entity.monster.MoCEntityWraith;
 import drzhark.mocreatures.entity.vanilla_mc_extension.EntityCreeperExtension;
+import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfPlayerDummyWitchery;
+import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfVillagerWitchery;
+import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfWitchery;
 import drzhark.mocreatures.item.ItemBuilderHammer;
 import drzhark.mocreatures.item.ItemStaffPortal;
 import drzhark.mocreatures.item.ItemStaffTeleport;
@@ -164,6 +167,7 @@ public class MoCreatures {
     public static boolean isBiomesOPlentyLoaded;
     public static boolean isGregTech6Loaded;
     public static boolean isPalmsHarvestLoaded;
+    public static boolean isWitcheryLoaded;
     public static boolean isTwilightForestLoaded;
     public static boolean isFoodExpansionLoaded;
     public static boolean isExoticBirdsLoaded;
@@ -422,7 +426,14 @@ public class MoCreatures {
         if (MoCreatures.proxy.replaceVanillaCreepers)
         {
         	int ModEntityID = EntityRegistry.findGlobalUniqueEntityId();
+        	
             EntityList.addMapping(EntityCreeperExtension.class, "CreeperExtension", ModEntityID++, 50, 2);
+            
+            EntityRegistry.registerModEntity((Class) MoCEntityWerewolfWitchery.class, "WerewolfWitchery", ModEntityID++, (Object)this, 50, 2, true);
+            
+            EntityList.addMapping(MoCEntityWerewolfVillagerWitchery.class, "WerewolfVillagerWitchery", ModEntityID++, 50, 2);
+            
+            EntityRegistry.registerModEntity((Class) MoCEntityWerewolfPlayerDummyWitchery.class, "WerewolfPlayerDummyWitchery", ModEntityID++, (Object)this, 50, 2, true);
         }
         
         MoCAchievements.initilization();
@@ -434,6 +445,8 @@ public class MoCreatures {
         isGregTech6Loaded = Loader.isModLoaded("gregtech");
         
         isPalmsHarvestLoaded = Loader.isModLoaded("harvestcraft");
+        
+        isWitcheryLoaded = Loader.isModLoaded("witchery");
         
         isTwilightForestLoaded = Loader.isModLoaded("TwilightForest");
         
@@ -821,6 +834,7 @@ public class MoCreatures {
 
         scrollFreedom = new MoCItem("scrolloffreedom");
         scrollOfSale = new MoCItem("scrollofsale");
+        scrollOfOwner = new MoCItem("scrollofowner");
 
         tusksWood = new MoCItemWeapon("tuskswood", ToolMaterial.WOOD);
         tusksIron = new MoCItemWeapon("tusksiron", ToolMaterial.IRON);
@@ -840,7 +854,6 @@ public class MoCreatures {
 
         staffPortal = new ItemStaffPortal("staffportal");
         staffTeleport = new ItemStaffTeleport("staffteleport");
-        scrollOfOwner = new MoCItem("scrollofowner");
         petAmulet = new MoCItemPetAmulet("petamulet", 1);
         
         achievementIconKillWraith = new MoCItem("achievement_icon_kill_wraith");

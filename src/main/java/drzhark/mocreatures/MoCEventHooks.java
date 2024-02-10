@@ -1,5 +1,6 @@
 package drzhark.mocreatures;
 
+import java.util.List;
 import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -8,13 +9,22 @@ import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.ambient.MoCEntityBee;
 import drzhark.mocreatures.entity.animal.MoCEntityBigCat;
 import drzhark.mocreatures.entity.animal.MoCEntityElephant;
+import drzhark.mocreatures.entity.animal.MoCEntityHorse;
 import drzhark.mocreatures.entity.animal.MoCEntityTurkey;
 import drzhark.mocreatures.entity.monster.MoCEntityScorpion;
 import drzhark.mocreatures.entity.vanilla_mc_extension.EntityCreeperExtension;
+import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfPlayerDummyWitchery;
+import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfVillagerWitchery;
+import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfWitchery;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
@@ -90,6 +100,71 @@ public class MoCEventHooks {
         		{
         			event.entityLiving.setDead();
         		}
+        	}
+        	
+        	if (MoCreatures.isWitcheryLoaded)
+        	{
+	        	if (event.entity instanceof EntityMob && EntityList.getEntityString(event.entity).equals("witchery.wolfman"))
+	        	{
+	        		Random rand = new Random();
+	        		
+	        		MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(event.entity.worldObj, rand.nextInt(5)); //the random number from 0-4 sets a random vanilla minecraft villager profession
+		            werewolf.copyLocationAndAnglesFrom((Entity) event.entity);
+		            event.entity.setDead();
+		            werewolf.worldObj.spawnEntityInWorld((Entity) werewolf); 
+	        	}
+	        	
+	        	if (event.entity instanceof EntityVillager && EntityList.getEntityString(event.entity).equals("witchery.werevillager"))
+	        	{
+	        		EntityVillager oldVillager = (EntityVillager) event.entity;
+	        		
+	        		int professionToSet = oldVillager.getProfession();
+	        		
+	        		
+	        		
+	        		MoCEntityWerewolfVillagerWitchery werewolfVillager = new MoCEntityWerewolfVillagerWitchery(event.entity.worldObj);
+		            werewolfVillager.copyLocationAndAnglesFrom((Entity) event.entity);
+		            werewolfVillager.setProfession(professionToSet);
+		            event.entity.setDead();
+		            werewolfVillager.worldObj.spawnEntityInWorld((Entity) werewolfVillager); 
+	        	}
+	        	
+	        	if (event.entity instanceof EntityPlayer)
+	        	{
+	        		EntityPlayer player = (EntityPlayer) event.entity;
+	        		
+	        		//detects if player is in werewolf form
+	        		if (40 <= player.getMaxHealth() && player.getMaxHealth() <= 60) 
+	        		{
+	        			if (!player.isInvisible())
+	        			{
+	        				player.setInvisible(true);
+	        			}
+
+        	    	    if (!(player.riddenByEntity instanceof MoCEntityWerewolfPlayerDummyWitchery))
+        	    	    {
+    	    	    		MoCEntityWerewolfPlayerDummyWitchery werewolfPlayerDummy = new MoCEntityWerewolfPlayerDummyWitchery(player.worldObj, player, false);
+				        	werewolfPlayerDummy.copyLocationAndAnglesFrom((Entity) player);
+				        	werewolfPlayerDummy.worldObj.spawnEntityInWorld((Entity) werewolfPlayerDummy);
+				        	
+				        	MoCEntityWerewolfPlayerDummyWitchery werewolfPlayerDummy1 = new MoCEntityWerewolfPlayerDummyWitchery(player.worldObj, player, true);
+				        	werewolfPlayerDummy1.copyLocationAndAnglesFrom((Entity) player);
+				        	werewolfPlayerDummy1.worldObj.spawnEntityInWorld((Entity) werewolfPlayerDummy1);
+				        	werewolfPlayerDummy1.mountEntity(player);
+    	    	    	}
+	        		}
+	        		
+	        		else if 
+	        		(// make player visable again
+	        			player.isInvisible()
+	        			&& !(40 <= player.getMaxHealth() && player.getMaxHealth() <= 60)
+	        			&& !player.isPotionActive(Potion.invisibility)	
+	        		)
+	        		{
+	        			player.setInvisible(false);
+	        		}
+	        		
+	        	} 
         	}
         	
         	if (MoCreatures.isBiomesOPlentyLoaded)
