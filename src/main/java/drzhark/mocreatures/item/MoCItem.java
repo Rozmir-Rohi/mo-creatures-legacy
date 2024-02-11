@@ -39,13 +39,15 @@ public class MoCItem extends Item
         
         if (itemstack.getItem() == MoCreatures.scrollFreedom)
         {
-        	loreList.add(StatCollector.translateToLocal("item.scrolloffreedom.desc"));
+        	loreList.add(StatCollector.translateToLocal("item.scrolloffreedom.desc.line1"));
+        	loreList.add(StatCollector.translateToLocal("item.scrolloffreedom.desc.line2"));
         }
         
         if (itemstack.getItem() == MoCreatures.scrollOfSale)
         {
         	loreList.add(StatCollector.translateToLocal("item.scrollofsale.desc.line1"));
         	loreList.add(StatCollector.translateToLocal("item.scrollofsale.desc.line2"));
+        	loreList.add(StatCollector.translateToLocal("item.scrollofsale.desc.line3"));
         }
         
         if (itemstack.getItem() == MoCreatures.scrollOfOwner)

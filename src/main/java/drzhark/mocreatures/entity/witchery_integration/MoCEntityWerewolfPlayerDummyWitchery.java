@@ -1,11 +1,15 @@
 package drzhark.mocreatures.entity.witchery_integration;
 
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityMob;
+import drzhark.mocreatures.network.MoCMessageHandler;
+import drzhark.mocreatures.network.message.MoCMessageHealth;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,10 +18,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-public class MoCEntityWerewolfPlayerDummyWitchery extends MoCEntityMob {
-    private boolean isTransforming = false;
+public class MoCEntityWerewolfPlayerDummyWitchery extends EntityCreature {
     private boolean isHunched;
-    private int textureCounter;
     private EntityPlayer playerToMirror;
     public boolean noClip = true;
     private boolean isMountedOnPlayer = false;
@@ -52,17 +54,7 @@ public class MoCEntityWerewolfPlayerDummyWitchery extends MoCEntityMob {
         super.entityInit();
         dataWatcher.addObject(23, Byte.valueOf((byte) 0)); //hunched
     }
-    
-    @Override
-    public void selectType()
-    {
-        if (getType() == 0)
-        {
-            setType(1);
-        }
-    }
-
-    @Override
+  
     public ResourceLocation getTexture()
     { 
        return MoCreatures.proxy.getTexture("wolftimber.png");
@@ -75,7 +67,7 @@ public class MoCEntityWerewolfPlayerDummyWitchery extends MoCEntityMob {
 
     public boolean isMountedOnPlayer()
     {
-        return (isMountedOnPlayer);
+        return (this.ridingEntity instanceof EntityPlayer);
     }
 
     public void setHumanForm(boolean flag)
@@ -99,9 +91,21 @@ public class MoCEntityWerewolfPlayerDummyWitchery extends MoCEntityMob {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damageSource, float damageDealtToWerewolf)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-        return false;
+    	if (damageSource.isProjectile())
+    	{
+    		if (playerToMirror != null) //transfers projectile damage from werewolf dummy to the player
+    		{
+    			float damageReduced = damageTaken / 3;
+    			
+	    		playerToMirror.attackEntityFrom(DamageSource.generic, damageReduced);
+	    		
+	    		return true;
+    		}
+    	}
+    	
+    	return false;
     }
 
     @Override
@@ -170,6 +174,7 @@ public class MoCEntityWerewolfPlayerDummyWitchery extends MoCEntityMob {
         			setHealth(playerToMirror.getHealth());
         		}
         		
+        		
 	        	if (rotationYawHead != playerToMirror.rotationYawHead)
 	        	{
 	        		rotationYawHead = playerToMirror.rotationYawHead;
@@ -182,23 +187,31 @@ public class MoCEntityWerewolfPlayerDummyWitchery extends MoCEntityMob {
 	        	
 	        	
 	        	
-	        	
-	        	if (!isMountedOnPlayer && posX != playerToMirror.posX)
+	        	if (!isMountedOnPlayer)
 	        	{
-	        		posX = playerToMirror.posX;
+		        	if (posX != playerToMirror.posX)
+		        	{
+		        		posX = playerToMirror.posX;
+		        	}
+		        	
+		        	if (posY != playerToMirror.posY)
+		        	{
+		        		posY = playerToMirror.posY;
+		        	}
+		        	
+		        	if (posZ != playerToMirror.posZ)
+		        	{
+		        		posZ = playerToMirror.posZ;
+		        	}
 	        	}
 	        	
-	        	if (!isMountedOnPlayer && posY != playerToMirror.posY)
+	        	if (!isInvisible())
 	        	{
-	        		posY = playerToMirror.posY;
+	        		if (deathTime != playerToMirror.deathTime)
+	        		{
+	        			deathTime = playerToMirror.deathTime;
+	        		}
 	        	}
-	        	
-	        	if (!isMountedOnPlayer && posZ != playerToMirror.posZ)
-	        	{
-	        		posZ = playerToMirror.posZ;
-	        	}
-	        	
-	        	
 	        	
 	        	
 	        	if (playerToMirror.isSprinting() && !getIsHunched())

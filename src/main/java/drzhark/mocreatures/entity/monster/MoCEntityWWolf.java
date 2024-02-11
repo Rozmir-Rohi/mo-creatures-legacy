@@ -4,11 +4,17 @@ import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.entity.MoCEntityAmbient;
+import drzhark.mocreatures.entity.MoCEntityAnimal;
 import drzhark.mocreatures.entity.MoCEntityMob;
 import drzhark.mocreatures.entity.animal.MoCEntityBear;
 import drzhark.mocreatures.entity.animal.MoCEntityBigCat;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
+import drzhark.mocreatures.entity.item.MoCEntityEgg;
+import drzhark.mocreatures.entity.item.MoCEntityKittyBed;
+import drzhark.mocreatures.entity.item.MoCEntityLitterBox;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityCow;
@@ -143,75 +149,48 @@ public class MoCEntityWWolf extends MoCEntityMob {
         
         if (entityPlayer != null)
         {
-        	return entityPlayer;
+        	if (MoCTools.isPlayerInWerewolfForm(entityPlayer)) //don't hunt player if in werewolf form
+        	{	
+        		return null;
+        	}
+        	else {return entityPlayer;}
         }
         
         else if (rand.nextInt(80) == 0)
         {
-            EntityLivingBase entityLiving = getClosestTarget(this, 10D);
-            return entityLiving;
+            EntityLivingBase entityLiving = getClosestEntityLiving(this, 10D);
+            if (entityLiving != null && !(entityLiving instanceof EntityPlayer) && canEntityBeSeen(entityLiving))
+            {
+            	return entityLiving;
+            }
         }
         
-        else
-        {
-            return null;
-        }
+        return null;
+    }
+    
+    @Override
+    public boolean shouldEntityBeIgnored(Entity entity)
+    {
+        return 
+        	(
+        		(!(entity instanceof EntityLiving)) 
+                || entity instanceof EntityMob
+                || entity instanceof MoCEntityEgg
+                || (entity instanceof EntityPlayer) 
+                || (entity instanceof MoCEntityKittyBed) || (entity instanceof MoCEntityLitterBox) 
+                || (entity instanceof MoCEntityAnimal && ((MoCEntityAnimal) entity).getIsTamed()) 
+                || ((entity instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)) 
+                || ((entity instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses))
+                || (entity instanceof MoCEntityAnimal || entity instanceof MoCEntityAmbient)
+                || entity instanceof MoCEntityBigCat
+        		|| entity instanceof MoCEntityBear
+        	);
     }
 
     @Override
     public boolean getCanSpawnHere()
     {
         return checkSpawningBiome() && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && super.getCanSpawnHere();
-    }
-
-    //TODO move this
-    public EntityLivingBase getClosestTarget(Entity entity, double distance)
-    {
-        double currentMinimumDistance = -1D;
-        EntityLivingBase entityLiving = null;
-        
-        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
-        
-        int iterationLength = entitiesNearbyList.size();
-        
-        if (iterationLength > 0)
-        {
-	        for (int index = 0; index < iterationLength; index++)
-	        {
-	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-	            
-	            if (//don't hunt the following entities below
-	            		!(entityNearby instanceof EntityLivingBase)
-	            		|| entityNearby == entity
-	            		|| entityNearby == entity.riddenByEntity
-	            		|| entityNearby == entity.ridingEntity
-	            		|| entityNearby instanceof EntityPlayer
-	            		|| entityNearby instanceof EntityMob
-	            		|| entityNearby instanceof MoCEntityBigCat
-	            		|| entityNearby instanceof MoCEntityBear
-	            		|| entityNearby instanceof EntityCow
-	            		|| (
-	            				(entityNearby instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)
-	            			)
-	            		|| (
-	            				(entityNearby instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)
-	            			)
-	            	)
-	            {
-	                continue;
-	            }
-	            
-	            double overallDistanceSquared = entityNearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-	            
-	            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)) && ((EntityLivingBase) entityNearby).canEntityBeSeen(entity))
-	            {
-	                currentMinimumDistance = overallDistanceSquared;
-	                entityLiving = (EntityLivingBase) entityNearby;
-	            }
-	        }
-        }
-
-        return entityLiving;
     }
 
     @Override

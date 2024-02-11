@@ -312,7 +312,6 @@ panther.png
 mediumfish_bass.png
 mediumfish_cod.png
 mediumfish_salmon.png
-mediumfish_salmon1.png
 
 mole.png
 

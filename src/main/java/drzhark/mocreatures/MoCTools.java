@@ -119,6 +119,20 @@ public class MoCTools {
 		}
 		return oreDictionaryNameArray;
 	}
+    
+    
+    public static boolean isPlayerInWerewolfForm(EntityPlayer player)
+    {
+    	if (MoCreatures.isWitcheryLoaded)
+    	{
+    		if(40 <= player.getMaxHealth() && player.getMaxHealth() <= 60)
+    		{
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+    }
 
     
     /**

@@ -228,8 +228,8 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         return 
         	(
         		(!(entity instanceof EntityLiving)) 
-                || (entity instanceof EntityMob)
-                || (entity instanceof MoCEntityEgg)
+                || entity instanceof EntityMob
+                || entity instanceof MoCEntityEgg
                 || (entity instanceof EntityPlayer && getIsTamed()) 
                 || (entity instanceof MoCEntityKittyBed) || (entity instanceof MoCEntityLitterBox) 
                 || (getIsTamed() && (entity instanceof MoCEntityAnimal && ((MoCEntityAnimal) entity).getIsTamed())) 

@@ -19,7 +19,7 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
 
-    public static final String fishNames[] = { "Salmon", "Cod", "Bass", "Red Salmon"};
+    public static final String fishNames[] = { "Salmon", "Cod", "Bass"};
 
     private int lateralMoveCounter;
     
@@ -68,8 +68,8 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
         if (BiomeDictionary.isBiomeOfType(currentBiome, Type.RIVER))
         {
             if (typeChance <= 40)
-    			{ //red salmon
-            		setType(4);
+    			{ 
+            		setType(1); //salmon
             		setMoCAge(110); //sets as adult on spawn since salmon only go into freshwater in real life when they are adults and ready to breed
     			} 
             
@@ -81,7 +81,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
         if (BiomeDictionary.isBiomeOfType(currentBiome, Type.OCEAN))
         {
         	if (typeChance <= 50)
-			{setType(1);} //blue salmon
+			{setType(1);} //salmon
         
         	else {setType(2);} //cod
         
@@ -102,10 +102,6 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
             return MoCreatures.proxy.getTexture("mediumfish_cod.png");
         case 3:
             return MoCreatures.proxy.getTexture("mediumfish_bass.png");
-        case 4:
-        	if (!(MoCreatures.proxy.useOriginalMoCreaturesTextures)) {return MoCreatures.proxy.getTexture("mediumfish_salmon1.png");}
-        	
-        	else {return MoCreatures.proxy.getTexture("mediumfish_salmon.png");}
         default:
             return MoCreatures.proxy.getTexture("mediumfish_salmon.png");
         }
@@ -122,20 +118,12 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
         }
         else
         {
-        	if (getIsAdult() && getType() != 1) //not a blue salmon - because salmon only lay eggs when they go to fresh water and become red
+        	if (getIsAdult())
         	{
 	            int amountOfEggsToDrop = rand.nextInt(2);
 	            for (int index = 0; index < amountOfEggsToDrop; index++)
 	            {
-	            	if (getType() == 4) //red salmon
-	            	{
-	            		entityDropItem(new ItemStack(MoCreatures.mocegg, 1, 1 + 69), 0.0F); //drop salmon egg
-	            	}
-	            	
-	            	else
-	            	{
-	            		entityDropItem(new ItemStack(MoCreatures.mocegg, 1, getType() + 69), 0.0F);
-	            	}
+	            	entityDropItem(new ItemStack(MoCreatures.mocegg, 1, getType() + 69), 0.0F);
 	            }
         	}
         }
@@ -167,10 +155,6 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
             {
                 heal(1);
             }
-        }
-        if (getType() == 1 && getIsTamed() && getIsAdult()) //turns tamed blue salmon into red salmon when they become adults
-        {
-        	setType(4);
         }
         
         if (!isInsideOfMaterial(Material.water))

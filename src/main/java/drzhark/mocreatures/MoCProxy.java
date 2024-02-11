@@ -35,7 +35,9 @@ public class MoCProxy implements IGuiHandler {
     public boolean displayPetName;
     public boolean displayPetIcons;
     public boolean animateTextures;
+    public boolean useOriginalMoCreaturesTextures;
 
+    //Server
     public boolean attackDolphins;
     public boolean attackWolves;
     public boolean attackHorses;
@@ -51,7 +53,10 @@ public class MoCProxy implements IGuiHandler {
     public boolean elephantBulldozer;
     
     public boolean replaceVanillaCreepers;
-    public boolean useOriginalMoCreaturesTextures;
+    
+    //mod integration options
+    public boolean replaceWitcheryWerewolves;
+    public boolean replaceWitcheryPlayerWerewolf;
 
     // griefing options
     public boolean golemDestroyBlocks;
@@ -75,6 +80,7 @@ public class MoCProxy implements IGuiHandler {
     public int wyvernEggDropChance;
     public int motherWyvernEggDropChance;
     public int particleFX;
+    
     // defaults
     public int frequency = 6;
     public int minGroup = 1;
@@ -101,6 +107,7 @@ public class MoCProxy implements IGuiHandler {
     protected File configFile;
 
     protected static final String CATEGORY_MOC_GENERAL_SETTINGS = "global-settings";
+    protected static final String CATEGORY_MOC_MOD_INTEGRATION_SETTINGS = "mod-integration-settings";
     protected static final String CATEGORY_MOC_CREATURE_GENERAL_SETTINGS = "creature-general-settings";
     protected static final String CATEGORY_MOC_MONSTER_GENERAL_SETTINGS = "monster-general-settings";
     protected static final String CATEGORY_MOC_WATER_CREATURE_GENERAL_SETTINGS = "water-mob-general-settings";
@@ -277,47 +284,57 @@ public class MoCProxy implements IGuiHandler {
         displayPetName = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "displayPetName", true, "Shows pet name.").getBoolean(true);
         displayPetIcons = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "displayPetIcons", true, "Shows pet emotes.").getBoolean(true);
         animateTextures = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "animateTextures", true, "Animate the textures for entities that have animated textures.").getBoolean(true);
+        useOriginalMoCreaturesTextures = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "useOriginalMoCreaturesTextures", false, "If true: uses the the original Mo' Creatures textures instead of the 16x Mo' Creatures textures. This works on the client side, meaning that if you are a player in a server you can set this to any mode you wish without affecting that server. Setting this to true allows resourcepacks for the original Mo' Creatures mod to work with Mo' Creatures Legacy.").getBoolean(false);
+        
         // general
-        itemID = mocSettingsConfig.get(CATEGORY_MOC_ID_SETTINGS, "ItemID", 8772, "The starting ID used for MoCreatures items. Each item will increment this number by 1 for its ID.").getInt();
         debug = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "debug", false, "Turns on verbose logging.").getBoolean(false);
+        replaceVanillaCreepers = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "replaceVanillaCreepers", true, "THIS MAY BE INCOMPATIBLE WITH OTHER MODS THAT DO THINGS WITH CREEPERS - If true: will replace vanilla creepers in worlds with own extension of creeper code. This is used to make creepers scared of kitty. If this is causing problems with other mods set this to false to turn it off.").getBoolean(true);
+        enableMoCPetDeathMessages =  mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "enableMoCPetDeathMessages", true, "If true: the owner of a pet will recieve a message in chat when their pet dies, the message will also include how the pet died. No other players than the owner will get the message.").getBoolean(true); 
+        particleFX = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "particleFX", 3).getInt();
+        
+        itemID = mocSettingsConfig.get(CATEGORY_MOC_ID_SETTINGS, "itemID", 8772, "The starting ID used for MoCreatures items. Each item will increment this number by 1 for its ID.").getInt();
+        wyvernDimension = mocSettingsConfig.get(CATEGORY_MOC_ID_SETTINGS, "wyvernLairDimensionID", -17).getInt();
+        wyvernBiomeID = mocSettingsConfig.get(CATEGORY_MOC_ID_SETTINGS, "wyvernLairBiomeID", 207).getInt();
+        
         maxTamed = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "maxTamedPerPlayer", 10, "Max tamed creatures a player can have. Requires enableStrictOwnership to be set to true.").getInt();
         maxOPTamed = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "maxTamedPerOP", 20, "Max tamed creatures an op can have. Requires enableStrictOwnership to be set to true.").getInt();
         enableStrictOwnership = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "enableStrictOwnership", false, "If true: only the owner of a pet can interact with the them. This also adds a limit to the amount of tamed creatures a player can have (see 'maxTamedPerPlayer' and 'maxTamedPerOP').").getBoolean(false);
-        easyBreeding = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "EasyBreeding", false, "Makes horse breeding simpler.").getBoolean(true);
-        elephantBulldozer = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "ElephantBulldozer", true, "Allows tamed elephants to break logs and leaves when ramming.").getBoolean(true);
-        ostrichEggDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "OstrichEggDropChance", 3, "A value of 3 means ostriches have a 3% chance to drop an egg.").getInt();
-        staticBed = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "StaticBed", true, "If true: kitty bed cannot be pushed.").getBoolean(true);
-        staticLitter = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "StaticLitter", true, "If true: kitty litter box cannot be pushed.").getBoolean(true);
-        particleFX = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "particleFX", 3).getInt();
-        attackDolphins = mocSettingsConfig.get(CATEGORY_MOC_WATER_CREATURE_GENERAL_SETTINGS, "AttackDolphins", false, "Allows aquatic predator creatures to hunt dolphins.").getBoolean(false);
-        attackHorses = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "AttackHorses", true, "Allows predator creatures to hunt horses.").getBoolean(true);
+        
+        easyBreeding = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "easyBreeding", false, "Makes horse breeding simpler.").getBoolean(true);
+        elephantBulldozer = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "elephantBulldozer", true, "Allows tamed elephants to break logs and leaves when ramming.").getBoolean(true);
+        ostrichEggDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "ostrichEggDropChance", 3, "A value of 3 means ostriches have a 3% chance to drop an egg.").getInt();
+        staticBed = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "staticBed", true, "If true: kitty bed cannot be pushed.").getBoolean(true);
+        staticLitter = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "staticLitter", true, "If true: kitty litter box cannot be pushed.").getBoolean(true);
+        
+        attackHorses = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "attackHorses", true, "Allows predator creatures to hunt horses.").getBoolean(true);
         specialHorsesFightBack = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "specialHorsesFightBack", true, "If true: tamed horses made from essences will fight back if attacked (except if attacked by players) when not mounted.").getBoolean(true);
         specialPetsDefendOwner = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "specialPetsDefendOwner", true, "If true: tamed elephants and tamed predator creatures like big cats will defend their owner if their owner is attacked by an entity.").getBoolean(true);
-        enableMoCPetDeathMessages =  mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "enableMoCPetDeathMessages", true, "If true: the owner of a pet will recieve a message in chat when their pet dies, the message will also include how the pet died. No other players than the owner will get the message.").getBoolean(true); 
-        attackWolves = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "AttackWolves", false, "Allows predator creatures to hunt wolves.").getBoolean(false);
-        destroyDrops = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "DestroyDrops", true, "If true: predator creatures will destroy the drops of their prey and heal themselves when they kill thier prey. Predator creatures will not destroy items dropped from player deaths.").getBoolean(true);
-        rareItemDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "RareItemDropChance", 25, "A value of 25 means Horses/Ostriches/Scorpions/etc. have a 25% chance to drop a rare item such as a heart of darkness, unicorn horn, ect. when killed. Raise the value if you want higher drop rates.").getInt();
-        wyvernEggDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "WyvernEggDropChance", 10, "A value of 10 means wyverns have a 10% chance to drop an egg.").getInt();
-        motherWyvernEggDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "MotherWyvernEggDropChance", 33, "A value of 33 means mother wyverns have a 33% chance to drop an egg.").getInt();
+        attackWolves = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "attackWolves", false, "Allows predator creatures to hunt wolves.").getBoolean(false);
+        destroyDrops = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "destroyDrops", true, "If true: predator creatures will destroy the drops of their prey and heal themselves when they kill thier prey. Predator creatures will not destroy items dropped from player deaths.").getBoolean(true);
+        rareItemDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "rareItemDropChance", 25, "A value of 25 means Horses/Ostriches/Scorpions/etc. have a 25% chance to drop a rare item such as a heart of darkness, unicorn horn, ect. when killed. Raise the value if you want higher drop rates.").getInt();
+        wyvernEggDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "wyvernEggDropChance", 10, "A value of 10 means wyverns have a 10% chance to drop an egg.").getInt();
+        motherWyvernEggDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "motherWyvernEggDropChance", 33, "A value of 33 means mother wyverns have a 33% chance to drop an egg.").getInt();
 
-        ogreStrength = Float.parseFloat(mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "OgreStrength", 2.5F, "The block destruction radius of green Ogres.").getString());
-        caveOgreStrength = Float.parseFloat(mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "CaveOgreStrength", 3.0F, "The block destruction radius of Cave Ogres.").getString());
-        fireOgreStrength = Float.parseFloat(mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "FireOgreStrength", 2.0F, "The block destruction radius of Fire Ogres.").getString());
-        ogreAttackRange = (short) mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "OgreAttackRange", 12, "The block radius where ogres 'smell' players.").getInt();
-        fireOgreChance = (short) mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "FireOgreChance", 25, "The chance percentage of spawning Fire ogres in the Overworld.").getInt();
-        caveOgreChance = (short) mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "CaveOgreChance", 75, "The chance percentage of spawning Cave ogres at depth of 50 in the Overworld.").getInt();
+        attackDolphins = mocSettingsConfig.get(CATEGORY_MOC_WATER_CREATURE_GENERAL_SETTINGS, "attackDolphins", false, "Allows aquatic predator creatures to hunt dolphins.").getBoolean(false);        
+        
+        ogreStrength = Float.parseFloat(mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "ogreStrength", 2.5F, "The block destruction radius of green Ogres.").getString());
+        caveOgreStrength = Float.parseFloat(mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "caveOgreStrength", 3.0F, "The block destruction radius of Cave Ogres.").getString());
+        fireOgreStrength = Float.parseFloat(mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "fireOgreStrength", 2.0F, "The block destruction radius of Fire Ogres.").getString());
+        ogreAttackRange = (short) mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "ogreAttackRange", 12, "The block radius where ogres 'smell' players.").getInt();
+        fireOgreChance = (short) mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "fireOgreChance", 25, "The chance percentage of spawning Fire ogres in the Overworld.").getInt();
+        caveOgreChance = (short) mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "caveOgreChance", 75, "The chance percentage of spawning Cave ogres at depth of 50 in the Overworld.").getInt();
         golemDestroyBlocks = mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "golemDestroyBlocks", true, "Allows Big Golems to break blocks.").getBoolean(true);
-        wyvernDimension = mocSettingsConfig.get(CATEGORY_MOC_ID_SETTINGS, "wyvernLairDimensionID", -17).getInt();
-        wyvernBiomeID = mocSettingsConfig.get(CATEGORY_MOC_ID_SETTINGS, "WyvernLairBiomeID", 207).getInt();
-        replaceVanillaCreepers = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "ReplaceVanillaCreepers", true, "THIS MAY BE INCOMPATIBLE WITH OTHER MODS THAT DO THINGS WITH CREEPERS - If true: will replace vanilla creepers in worlds with own extension of creeper code. This is used to make creepers scared of kitty. If this is causing problems with other mods set this to false to turn it off.").getBoolean(true);
-        useOriginalMoCreaturesTextures = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "useOriginalMoCreaturesTextures", false, "If true: uses the the original Mo' Creatures textures instead of the 16x Mo' Creatures textures. This works on the client side, meaning that if you are a player in a server you can set this to any mode you wish without affecting that server. Setting this to true allows resourcepacks for the original Mo' Creatures mod to work with Mo' Creatures Legacy").getBoolean(false);
+        
+        replaceWitcheryWerewolves = mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "replaceWitcheryWerewolves", true, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED. Replaces the werewolves from the Witchery mod with Witchery integration werewolves from Mo' Creatures Legacy. This will also consequently disables gaining lycanthropy from the wolf altar ritual. Instead, lycanthropy will only be gained through the Curse of the Wolf witch coven ritual.").getBoolean(true);
+        replaceWitcheryPlayerWerewolf = mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "replaceWitcheryPlayerWerewolf", true, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED. THIS IS NOT COMPATIBLE WITH ANY OTHER MODS THAT CAN PERMANENTLY CHANGE THE PLAYER'S MAX HEALTH. Replaces the Witchery player werewolf model with the Mo' Creatures werewolf model.").getBoolean(true);
+        
         mocSettingsConfig.save();
         
         if (useOriginalMoCreaturesTextures)
         {
         	MODEL_TEXTURE = "textures/models/";
         	
-        	MISC_TEXTURE = "textures/misc_16x/";
+        	MISC_TEXTURE = "textures/misc/";
         }
     }
 

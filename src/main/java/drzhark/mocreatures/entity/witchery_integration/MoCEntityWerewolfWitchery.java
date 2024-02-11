@@ -2,6 +2,7 @@ package drzhark.mocreatures.entity.witchery_integration;
 
 import java.util.List;
 
+import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.MoCEntityMob;
@@ -144,14 +145,18 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
         
         EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
         
-        EntityLivingBase entityLiving = getClosestTarget(this, 16D);
+        EntityLivingBase entityLiving = getClosestEntityLiving(this, 16D);
         
         if ((entityPlayer != null) && canEntityBeSeen(entityPlayer))
         {
-            return entityPlayer;
+        	if (MoCTools.isPlayerInWerewolfForm(entityPlayer)) //don't hunt player if in werewolf form
+        	{
+        		return null;
+        	}
+        	else {return entityPlayer;}
         }
         
-        else if ((entityLiving != null) && canEntityBeSeen(entityLiving))
+        else if ((entityLiving != null) && !(entityLiving instanceof EntityPlayer) && canEntityBeSeen(entityLiving))
         {
         	return entityLiving;
         }
@@ -162,37 +167,13 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
         }
     }
     
-    public EntityLivingBase getClosestTarget(Entity entity, double distance)
+    @Override
+    public boolean shouldEntityBeIgnored(Entity entity)
     {
-        double currentMinimumDistance = -1D;
-        
-        EntityLivingBase entityLiving = null;
-        
-        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
-        
-        int iterationLength = entitiesNearbyList.size();
-        
-        if (iterationLength > 0)
-        {
-	        for (int index = 0; index < iterationLength; index++)
-	        {
-	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-	            
-	           
-	            if (entityNearby instanceof EntityVillager && !(entityNearby instanceof MoCEntityWerewolfVillagerWitchery))
-	            {
-		            double overallDistanceSquared = entityNearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-		            
-		            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)) && ((EntityLivingBase) entityNearby).canEntityBeSeen(entity))
-		            {
-		                currentMinimumDistance = overallDistanceSquared;
-		                entityLiving = (EntityLivingBase) entityNearby;
-		            }
-	            }
-	        }
-        }
-
-        return entityLiving;
+        return 
+        	(
+        		!((entity instanceof EntityVillager) && !(entity instanceof MoCEntityWerewolfVillagerWitchery))
+        	);
     }
 
     @Override

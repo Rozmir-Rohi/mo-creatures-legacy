@@ -279,10 +279,12 @@ keyBind.MoCreatures.dive=MoCreatures Dive/Fly Down
 amulet_and_fishnet_desc.MoCreatures.ownedBy=Owned by %1$s
 
 
-item.scrolloffreedom.desc=Unames and untames the pet.
+item.scrolloffreedom.desc.line1=Unames and untames the pet.
+item.scrolloffreedom.desc.line2=Usable by pet owner and Op only.
 
 item.scrollofsale.desc.line1=Removes ownership from the pet.
 item.scrollofsale.desc.line2=Allows reclaiming by medallions.
+item.scrollofsale.desc.line3=Usable by pet owner and Op only.
 
 item.scrollofowner.desc.line1=Removes ownership from the pet.
 item.scrollofowner.desc.line2=Usable by Opped players only.

@@ -101,67 +101,77 @@ public class MoCEventHooks {
         	
         	if (MoCreatures.isWitcheryLoaded)
         	{
-	        	if (event.entity instanceof EntityMob && EntityList.getEntityString(event.entity).equals("witchery.wolfman"))
-	        	{
-	        		Random rand = new Random();
-	        		
-	        		MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(event.entity.worldObj, rand.nextInt(5)); //the random number from 0-4 sets a random vanilla minecraft villager profession
-		            werewolf.copyLocationAndAnglesFrom((Entity) event.entity);
-		            event.entity.setDead();
-		            werewolf.worldObj.spawnEntityInWorld((Entity) werewolf); 
-	        	}
-	        	
-	        	if (event.entity instanceof EntityVillager && EntityList.getEntityString(event.entity).equals("witchery.werevillager"))
-	        	{
-	        		EntityVillager oldVillager = (EntityVillager) event.entity;
-	        		
-	        		int professionToSet = oldVillager.getProfession();
-	        		
-	        		
-	        		
-	        		MoCEntityWerewolfVillagerWitchery werewolfVillager = new MoCEntityWerewolfVillagerWitchery(event.entity.worldObj);
-		            werewolfVillager.copyLocationAndAnglesFrom((Entity) event.entity);
-		            werewolfVillager.setProfession(professionToSet);
-		            event.entity.setDead();
-		            werewolfVillager.worldObj.spawnEntityInWorld((Entity) werewolfVillager); 
-	        	}
-	        	
-	        	if (event.entity instanceof EntityPlayer)
-	        	{
-	        		EntityPlayer player = (EntityPlayer) event.entity;
-	        		
-	        		//detects if player is in werewolf form
-	        		if (40 <= player.getMaxHealth() && player.getMaxHealth() <= 60) 
-	        		{
-	        			if (!player.isInvisible())
-	        			{
-	        				player.setInvisible(true);
-	        			}
-
-        	    	    if (!(player.riddenByEntity instanceof MoCEntityWerewolfPlayerDummyWitchery))
-        	    	    {
-    	    	    		MoCEntityWerewolfPlayerDummyWitchery werewolfPlayerDummy = new MoCEntityWerewolfPlayerDummyWitchery(player.worldObj, player, false);
-				        	werewolfPlayerDummy.copyLocationAndAnglesFrom((Entity) player);
-				        	werewolfPlayerDummy.worldObj.spawnEntityInWorld((Entity) werewolfPlayerDummy);
-				        	
-				        	MoCEntityWerewolfPlayerDummyWitchery werewolfPlayerDummy1 = new MoCEntityWerewolfPlayerDummyWitchery(player.worldObj, player, true);
-				        	werewolfPlayerDummy1.copyLocationAndAnglesFrom((Entity) player);
-				        	werewolfPlayerDummy1.worldObj.spawnEntityInWorld((Entity) werewolfPlayerDummy1);
-				        	werewolfPlayerDummy1.mountEntity(player);
-    	    	    	}
-	        		}
-	        		
-	        		else if 
-	        		(// make player visable again
-	        			player.isInvisible()
-	        			&& !(40 <= player.getMaxHealth() && player.getMaxHealth() <= 60)
-	        			&& !player.isPotionActive(Potion.invisibility)	
-	        		)
-	        		{
-	        			player.setInvisible(false);
-	        		}
-	        		
-	        	} 
+        		if (MoCreatures.proxy.replaceWitcheryWerewolves)
+        		{
+		        	if (event.entity instanceof EntityMob && EntityList.getEntityString(event.entity).equals("witchery.wolfman"))
+		        	{
+		        		Random rand = new Random();
+		        		
+		        		MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(event.entity.worldObj, rand.nextInt(5)); //the random number from 0-4 sets a random vanilla minecraft villager profession
+			            werewolf.copyLocationAndAnglesFrom((Entity) event.entity);
+			            event.entity.setDead();
+			            werewolf.worldObj.spawnEntityInWorld((Entity) werewolf); 
+		        	}
+		        	
+		        	if (event.entity instanceof EntityVillager && EntityList.getEntityString(event.entity).equals("witchery.werevillager"))
+		        	{
+		        		EntityVillager oldVillager = (EntityVillager) event.entity;
+		        		
+		        		int professionToSet = oldVillager.getProfession();
+		        		
+		        		
+		        		
+		        		MoCEntityWerewolfVillagerWitchery werewolfVillager = new MoCEntityWerewolfVillagerWitchery(event.entity.worldObj);
+			            werewolfVillager.copyLocationAndAnglesFrom((Entity) event.entity);
+			            werewolfVillager.setProfession(professionToSet);
+			            event.entity.setDead();
+			            werewolfVillager.worldObj.spawnEntityInWorld((Entity) werewolfVillager); 
+		        	}
+        		}
+        		
+        		if (MoCreatures.proxy.replaceWitcheryPlayerWerewolf)
+        		{
+		        	if (event.entity instanceof EntityPlayer)
+		        	{
+		        		EntityPlayer player = (EntityPlayer) event.entity;
+		        		
+		        		//detects if player is in werewolf form
+		        		if (
+		        				40 <= player.getMaxHealth() && player.getMaxHealth() <= 60 
+		        				&& player.isPotionActive(Potion.nightVision)
+		        				&& !(player.isPotionActive(Potion.field_76434_w)) //is health boost potion effect not active
+		        			) 
+		        		{
+		        			if (!player.isInvisible())
+		        			{
+		        				player.setInvisible(true);
+		        			}
+	
+	        	    	    if (!(player.riddenByEntity instanceof MoCEntityWerewolfPlayerDummyWitchery) && !(player.isDead))
+	        	    	    {
+	    	    	    		MoCEntityWerewolfPlayerDummyWitchery werewolfPlayerDummy = new MoCEntityWerewolfPlayerDummyWitchery(player.worldObj, player, false);
+					        	werewolfPlayerDummy.copyLocationAndAnglesFrom((Entity) player);
+					        	werewolfPlayerDummy.worldObj.spawnEntityInWorld((Entity) werewolfPlayerDummy);
+					        	
+					        	MoCEntityWerewolfPlayerDummyWitchery werewolfPlayerDummy1 = new MoCEntityWerewolfPlayerDummyWitchery(player.worldObj, player, true);
+					        	werewolfPlayerDummy1.copyLocationAndAnglesFrom((Entity) player);
+					        	werewolfPlayerDummy1.worldObj.spawnEntityInWorld((Entity) werewolfPlayerDummy1);
+					        	werewolfPlayerDummy1.mountEntity(player);
+	    	    	    	}
+		        		}
+		        		
+		        		else if 
+		        		(// make player visible again
+		        			player.isInvisible()
+		        			&& !(40 <= player.getMaxHealth() && player.getMaxHealth() <= 60)
+		        			&& !player.isPotionActive(Potion.invisibility)	
+		        		)
+		        		{
+		        			player.setInvisible(false);
+		        		}
+		        		
+		        	}
+        		}
         	}
         	
         	if (MoCreatures.isBiomesOPlentyLoaded)
