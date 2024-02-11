@@ -847,3 +847,9 @@ Fixed descriptions for scrolls not being dependent on lang files.
 
 
 Removed config option for using scroll of reset owner since only opped players can use this item.
+
+
+Added config option to control whether to use 16x Mo' Creatures textures or the original Mo' Creatures textures. This feature works on the client side, allowing players to customize this setting for themselves regardless of whether they are the owner of the world/server without affecting that world/server.
+
+
+To maximize compatability with the config option to control textures, the red salmon variety now drops raw fish instead of raw salmon.

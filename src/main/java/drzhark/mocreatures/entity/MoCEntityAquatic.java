@@ -701,26 +701,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 	                	if (playerThatHookedThisFish.inventory.getCurrentItem().getItem() == Items.fishing_rod)
 	                	{
 		                	
-		                	ItemStack itemstackToBeFished;
-		                	
-		                	if (this instanceof MoCEntityMediumFish)
-		                	{
-		                		MoCEntityMediumFish mediumFish = (MoCEntityMediumFish) this;
-		                		
-		                		if (mediumFish.getType() == 4) //red salmon
-		                		{
-		                			itemstackToBeFished = new ItemStack(Items.fish, 1, 1);
-		                		}
-		                		else
-		                    	{
-		                    		itemstackToBeFished = new ItemStack(Items.fish, 1, 0);
-		                    	}
-		                	}
-		                	else
-		                	{
-		                		itemstackToBeFished = new ItemStack(Items.fish, 1, 0);
-		                	}
-		                	
+		                	ItemStack itemstackToBeFished = new ItemStack(Items.fish, 1, 0);
 		                	
 		                	
 		                	EntityItem entityItem = new EntityItem(worldObj, posX, posY, posZ, itemstackToBeFished);

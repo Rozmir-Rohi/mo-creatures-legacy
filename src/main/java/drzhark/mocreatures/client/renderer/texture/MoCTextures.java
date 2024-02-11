@@ -23,16 +23,30 @@ public class MoCTextures {
     private static final Map<String, String[]> TEXTURE_RESOURCES = Maps.newHashMap();
 
     public void loadTextures() {
-        try {
+        try
+        {
             TEXTURE_RESOURCES.put(MoCreatures.proxy.ARMOR_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/armor/"));
             TEXTURE_RESOURCES.put(MoCreatures.proxy.BLOCK_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/blocks/"));
             TEXTURE_RESOURCES.put(MoCreatures.proxy.GUI_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/gui/"));
             TEXTURE_RESOURCES.put(MoCreatures.proxy.ITEM_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/items/"));
-            TEXTURE_RESOURCES.put(MoCreatures.proxy.MISC_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/misc/"));
-            TEXTURE_RESOURCES.put(MoCreatures.proxy.MODEL_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/models/"));
-        } catch (URISyntaxException e) {
+            
+            if (MoCreatures.proxy.useOriginalMoCreaturesTextures)
+            {
+            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MODEL_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/models/"));
+            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MISC_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/misc/"));
+            }
+            else 
+            {
+            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MODEL_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/models_16x/"));
+            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MISC_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/misc_16x/"));
+            }
+            
+        }
+        catch (URISyntaxException e)
+        {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
         for (Map.Entry<String, String[]> textureEntry : TEXTURE_RESOURCES.entrySet())

@@ -89,9 +89,9 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
         case 3:
             return MoCreatures.proxy.getTexture("smallfish_goldfish.png");
         case 4:
-            return MoCreatures.proxy.getTexture("smallfish_anglerfish.png");
+            return MoCreatures.proxy.getTexture("smallfish_angler.png");
         case 5:
-            return MoCreatures.proxy.getTexture("smallfish_mandarin.png");
+            return MoCreatures.proxy.getTexture("smallfish_manderin.png");
         default:
         	return MoCreatures.proxy.getTexture("smallfish_anchovy.png");
         }

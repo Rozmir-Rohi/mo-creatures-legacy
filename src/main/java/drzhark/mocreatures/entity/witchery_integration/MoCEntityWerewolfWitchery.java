@@ -5,6 +5,7 @@ import java.util.List;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.MoCEntityMob;
+import drzhark.mocreatures.entity.monster.MoCEntityWerewolf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -118,11 +119,7 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
             if (attackTime <= 0 && (distanceToEntity < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
             {
                 attackTime = 20;
-                entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
-                if (getType() == 4)
-                {
-                    ((EntityLivingBase) entity).setFire(10);
-                }
+                entity.attackEntityFrom(DamageSource.causeMobDamage(this), MoCEntityWerewolf.attackDamage);
             }
         }
     }
@@ -135,62 +132,8 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
         {
             EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
             ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
-            if (itemstack != null)
-            {
-                damageDealtToWerewolf = 1;
-                
-                Item itemHeldByPlayer = itemstack.getItem();
-                
-                if (damageSource.isProjectile())
-                {
-                	if (!(itemHeldByPlayer instanceof ItemBow))
-                	{
-                		damageDealtToWerewolf = 0;
-                	}
-                }
-                
-                if (itemHeldByPlayer == Items.golden_shovel)
-                {
-                    damageDealtToWerewolf = 3;
-                }	
-                	
-                if (
-                		itemHeldByPlayer == Items.golden_hoe
-                		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("BiomesOPlenty:scytheGold")))
-                		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:dagger.gold")))
-                		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:waraxe.gold"))) // 8 is the actual damage dealt to werewolf using golden war axe in-game because of the item's armor penetration ability 
-                	)
-                {
-                    damageDealtToWerewolf = 6;
-                }
-                
-                if (
-                		itemHeldByPlayer == Items.golden_pickaxe
-                	) 
-                {
-                	damageDealtToWerewolf = 7;
-                }
-                
-                if (
-                		itemHeldByPlayer == Items.golden_axe
-                		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:mace.gold")))
-                		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:spear.gold")))
-                	)
-                {
-                    damageDealtToWerewolf = 8;
-                }
-                
-                if (
-                		itemHeldByPlayer == Items.golden_sword
-                		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("witchery:silversword")))
-                	)
-                {
-                	damageDealtToWerewolf = 9;
-                }
-                
-                if (itemHeldByPlayer == MoCreatures.silverSword) {damageDealtToWerewolf = 10;}
-                
-            }
+            
+            damageDealtToWerewolf = MoCEntityWerewolf.calculateWerewolfDamageTaken(damageSource, damageDealtToWerewolf, itemstack);
         }
         return super.attackEntityFrom(damageSource, damageDealtToWerewolf);
     }

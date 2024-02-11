@@ -25,9 +25,9 @@ public class MoCProxy implements IGuiHandler {
     public static String ARMOR_TEXTURE = "textures/armor/";
     public static String BLOCK_TEXTURE = "textures/blocks/";
     public static String ITEM_TEXTURE = "textures/items/";
-    public static String MODEL_TEXTURE = "textures/models/";
+    public static String MODEL_TEXTURE = "textures/models_16x/";
     public static String GUI_TEXTURE = "textures/gui/";
-    public static String MISC_TEXTURE = "textures/misc/";
+    public static String MISC_TEXTURE = "textures/misc_16x/";
 
     //CONFIG VARIABLES
     // Client Only
@@ -51,6 +51,7 @@ public class MoCProxy implements IGuiHandler {
     public boolean elephantBulldozer;
     
     public boolean replaceVanillaCreepers;
+    public boolean useOriginalMoCreaturesTextures;
 
     // griefing options
     public boolean golemDestroyBlocks;
@@ -309,7 +310,15 @@ public class MoCProxy implements IGuiHandler {
         wyvernDimension = mocSettingsConfig.get(CATEGORY_MOC_ID_SETTINGS, "wyvernLairDimensionID", -17).getInt();
         wyvernBiomeID = mocSettingsConfig.get(CATEGORY_MOC_ID_SETTINGS, "WyvernLairBiomeID", 207).getInt();
         replaceVanillaCreepers = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "ReplaceVanillaCreepers", true, "THIS MAY BE INCOMPATIBLE WITH OTHER MODS THAT DO THINGS WITH CREEPERS - If true: will replace vanilla creepers in worlds with own extension of creeper code. This is used to make creepers scared of kitty. If this is causing problems with other mods set this to false to turn it off.").getBoolean(true);
+        useOriginalMoCreaturesTextures = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "useOriginalMoCreaturesTextures", false, "If true: uses the the original Mo' Creatures textures instead of the 16x Mo' Creatures textures. This works on the client side, meaning that if you are a player in a server you can set this to any mode you wish without affecting that server. Setting this to true allows resourcepacks for the original Mo' Creatures mod to work with Mo' Creatures Legacy").getBoolean(false);
         mocSettingsConfig.save();
+        
+        if (useOriginalMoCreaturesTextures)
+        {
+        	MODEL_TEXTURE = "textures/models/";
+        	
+        	MISC_TEXTURE = "textures/misc_16x/";
+        }
     }
 
     // Client stuff

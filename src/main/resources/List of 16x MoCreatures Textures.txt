@@ -1,6 +1,6 @@
 LIST OF 16x MOCREATURES TEXTURES 
 
-------------(Location: mocreatures/textures/models)------------
+------------(Location: mocreatures/textures/models_16x)------------
 ant.png
 
 bearblack.png
@@ -396,7 +396,7 @@ wyvernundead.png
 
 
 
-------------(Location: mocreatures/textures/misc)------------
+------------(Location: mocreatures/textures/misc_16x)------------
 emoticon.png
 emoticon1.png
 emoticon3.png

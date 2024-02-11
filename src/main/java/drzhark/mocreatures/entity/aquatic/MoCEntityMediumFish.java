@@ -103,7 +103,9 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
         case 3:
             return MoCreatures.proxy.getTexture("mediumfish_bass.png");
         case 4:
-            return MoCreatures.proxy.getTexture("mediumfish_salmon1.png");
+        	if (!(MoCreatures.proxy.useOriginalMoCreaturesTextures)) {return MoCreatures.proxy.getTexture("mediumfish_salmon1.png");}
+        	
+        	else {return MoCreatures.proxy.getTexture("mediumfish_salmon.png");}
         default:
             return MoCreatures.proxy.getTexture("mediumfish_salmon.png");
         }
@@ -116,15 +118,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
         int i = rand.nextInt(100);
         if (i < 70)
         {
-        	if (getType() == 4) //red salmon
-        	{
-        		entityDropItem(new ItemStack(Items.fish, 1, 1), 0.0F); //drops salmon
-        	}
-        	
-        	else
-            {
-        		entityDropItem(new ItemStack(Items.fish, 1, 0), 0.0F);
-            }
+        	entityDropItem(new ItemStack(Items.fish, 1, 0), 0.0F);
         }
         else
         {
