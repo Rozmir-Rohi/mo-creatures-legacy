@@ -1,6 +1,5 @@
 package drzhark.mocreatures;
 
-import java.util.List;
 import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -9,7 +8,6 @@ import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.ambient.MoCEntityBee;
 import drzhark.mocreatures.entity.animal.MoCEntityBigCat;
 import drzhark.mocreatures.entity.animal.MoCEntityElephant;
-import drzhark.mocreatures.entity.animal.MoCEntityHorse;
 import drzhark.mocreatures.entity.animal.MoCEntityTurkey;
 import drzhark.mocreatures.entity.monster.MoCEntityScorpion;
 import drzhark.mocreatures.entity.vanilla_mc_extension.EntityCreeperExtension;
@@ -24,7 +22,6 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;

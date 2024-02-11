@@ -834,4 +834,10 @@ Fixed Thaumcraft aspects for creeper extension.
 Fixed creeper extension header in zh.CN.lang.
 
 
+Now only the owner of the pet or an Opped player can use a scroll on a tamed creature.
+
+
 Added WIP witchery werewolf replacement integration.
+
+
+Fixed spawning biome spawning integration with Netherlicious!

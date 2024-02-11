@@ -470,6 +470,7 @@ public class MoCreatures {
         defaultBiomeSupport.add("highlands");
         defaultBiomeSupport.add("ted80");
         defaultBiomeSupport.add("etfuturum");
+        defaultBiomeSupport.add("Netherlicious");
         defaultBiomeSupport.add("minecraft");
         registerEntities();
     }
@@ -654,6 +655,7 @@ public class MoCreatures {
                     boolean match = false;
                     for (String allowedBiomeMod : defaultBiomeSupport)
                     {
+                    	
                         if (biome.getClass().getName().contains(allowedBiomeMod))
                         {
                             match = true;

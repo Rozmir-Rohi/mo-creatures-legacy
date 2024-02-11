@@ -7,7 +7,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.client.model.MoCModelWere;
 import drzhark.mocreatures.client.model.MoCModelWereHuman;
-import drzhark.mocreatures.entity.animal.MoCEntityMouse;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfPlayerDummyWitchery;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
