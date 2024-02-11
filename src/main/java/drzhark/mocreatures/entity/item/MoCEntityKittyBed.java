@@ -23,7 +23,6 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
         super(world);
         setSize(1.0F, 0.3F);
         milkLevel = 0.0F;
-        //texture = MoCreatures.proxy.MODEL_TEXTURE + "kittybed.png";
     }
 
     public MoCEntityKittyBed(World world, double d, double d1, double d2)
@@ -31,7 +30,6 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
         super(world);
         setSize(1.0F, 0.3F);
         milkLevel = 0.0F;
-        //texture = MoCreatures.proxy.MODEL_TEXTURE + "kittybed.png";
     }
 
     public MoCEntityKittyBed(World world, int sheetColour)
@@ -42,7 +40,7 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
 
     public ResourceLocation getTexture()
     {
-        return MoCreatures.proxy.getTexture("kittybed_model.png");
+        return new ResourceLocation("mocreatures" + ":" + MoCreatures.proxy.MODEL_TEXTURE + "kittybed.png");
     }
 
     protected void applyEntityAttributes()

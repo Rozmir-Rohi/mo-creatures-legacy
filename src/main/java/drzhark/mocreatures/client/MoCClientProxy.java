@@ -100,7 +100,6 @@ import drzhark.mocreatures.client.renderer.entity.MoCRenderPlatform;
 import drzhark.mocreatures.client.renderer.entity.MoCRenderRat;
 import drzhark.mocreatures.client.renderer.entity.MoCRenderScorpion;
 import drzhark.mocreatures.client.renderer.entity.MoCRenderShark;
-import drzhark.mocreatures.client.renderer.entity.MoCRenderSmallFish;
 import drzhark.mocreatures.client.renderer.entity.MoCRenderSnake;
 import drzhark.mocreatures.client.renderer.entity.MoCRenderThrowableBlockForGolem;
 import drzhark.mocreatures.client.renderer.entity.MoCRenderTurtle;
@@ -273,7 +272,7 @@ public class MoCClientProxy extends MoCProxy {
         RenderingRegistry.registerEntityRenderingHandler(MoCEntitySilverSkeleton.class, new MoCRenderMoC(new MoCModelSilverSkeleton(), 0.6F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityAnt.class, new MoCRenderInsect(new MoCModelAnt()));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityMediumFish.class, new MoCRenderMoC(new MoCModelMediumFish(), 0.2F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntitySmallFish.class, new MoCRenderSmallFish(new MoCModelSmallFish(), 0.1F));
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntitySmallFish.class, new MoCRenderMoC(new MoCModelSmallFish(), 0.1F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityPiranha.class, new MoCRenderMoC(new MoCModelSmallFish(), 0.1F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityMole.class, new MoCRenderMoC(new MoCModelMole(), 0.3F));
         

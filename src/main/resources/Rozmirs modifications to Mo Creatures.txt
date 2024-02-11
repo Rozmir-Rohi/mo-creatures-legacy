@@ -856,3 +856,9 @@ Players that are in werewolf form from the witchery mod can now no longer intera
 
 
 Tidied up the code for generating config files.
+
+
+Put the kitty bed texture back in it's original place.
+
+
+Removed emissive texture for anglerfish to maximize compatibility with both Mo'Creatures texture packs and the option to switch between the 16x and original Mo' Creatures textures.

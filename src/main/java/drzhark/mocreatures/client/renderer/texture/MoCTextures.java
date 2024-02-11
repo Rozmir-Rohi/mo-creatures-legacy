@@ -32,13 +32,13 @@ public class MoCTextures {
             
             if (MoCreatures.proxy.useOriginalMoCreaturesTextures)
             {
-            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MODEL_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/models/"));
-            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MISC_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/misc/"));
+            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MODEL_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/models_original/"));
+            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MISC_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/misc_original/"));
             }
             else 
             {
-            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MODEL_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/models_16x/"));
-            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MISC_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/misc_16x/"));
+            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MODEL_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/models/"));
+            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MISC_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/misc/"));
             }
             
         }

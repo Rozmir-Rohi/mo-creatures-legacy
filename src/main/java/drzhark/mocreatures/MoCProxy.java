@@ -25,9 +25,9 @@ public class MoCProxy implements IGuiHandler {
     public static String ARMOR_TEXTURE = "textures/armor/";
     public static String BLOCK_TEXTURE = "textures/blocks/";
     public static String ITEM_TEXTURE = "textures/items/";
-    public static String MODEL_TEXTURE = "textures/models_16x/";
+    public static String MODEL_TEXTURE = "textures/models/";
     public static String GUI_TEXTURE = "textures/gui/";
-    public static String MISC_TEXTURE = "textures/misc_16x/";
+    public static String MISC_TEXTURE = "textures/misc/";
 
     //CONFIG VARIABLES
     // Client Only
@@ -284,7 +284,7 @@ public class MoCProxy implements IGuiHandler {
         displayPetName = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "displayPetName", true, "Shows pet name.").getBoolean(true);
         displayPetIcons = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "displayPetIcons", true, "Shows pet emotes.").getBoolean(true);
         animateTextures = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "animateTextures", true, "Animate the textures for entities that have animated textures.").getBoolean(true);
-        useOriginalMoCreaturesTextures = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "useOriginalMoCreaturesTextures", false, "If true: uses the the original Mo' Creatures textures instead of the 16x Mo' Creatures textures. This works on the client side, meaning that if you are a player in a server you can set this to any mode you wish without affecting that server. Setting this to true allows resourcepacks for the original Mo' Creatures mod to work with Mo' Creatures Legacy.").getBoolean(false);
+        useOriginalMoCreaturesTextures = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "useOriginalMoCreaturesTextures", false, "If true: uses the the original Mo' Creatures textures instead of the 16x Mo' Creatures textures. This works on the client side, meaning you can set this to any mode you wish without affecting worlds/servers. Setting this to true also disables resourcepack effects on Mo' Creatures entities and emoticons.").getBoolean(false);
         
         // general
         debug = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "debug", false, "Turns on verbose logging.").getBoolean(false);
@@ -325,16 +325,16 @@ public class MoCProxy implements IGuiHandler {
         caveOgreChance = (short) mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "caveOgreChance", 75, "The chance percentage of spawning Cave ogres at depth of 50 in the Overworld.").getInt();
         golemDestroyBlocks = mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "golemDestroyBlocks", true, "Allows Big Golems to break blocks.").getBoolean(true);
         
-        replaceWitcheryWerewolves = mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "replaceWitcheryWerewolves", true, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED. Replaces the werewolves from the Witchery mod with Witchery integration werewolves from Mo' Creatures Legacy. This will also consequently disables gaining lycanthropy from the wolf altar ritual. Instead, lycanthropy will only be gained through the Curse of the Wolf witch coven ritual.").getBoolean(true);
+        replaceWitcheryWerewolves = mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "replaceWitcheryWerewolves", true, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED. Replaces the werewolves from the Witchery mod with Witchery integration werewolves from Mo' Creatures Legacy. This will also consequently disable the method of gaining lycanthropy from the wolf altar ritual. Instead, lycanthropy will only be gained through the Curse of the Wolf witch coven ritual.").getBoolean(true);
         replaceWitcheryPlayerWerewolf = mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "replaceWitcheryPlayerWerewolf", true, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED. THIS IS NOT COMPATIBLE WITH ANY OTHER MODS THAT CAN PERMANENTLY CHANGE THE PLAYER'S MAX HEALTH. Replaces the Witchery player werewolf model with the Mo' Creatures werewolf model.").getBoolean(true);
         
         mocSettingsConfig.save();
         
         if (useOriginalMoCreaturesTextures)
         {
-        	MODEL_TEXTURE = "textures/models/";
+        	MODEL_TEXTURE = "textures/models_original/";
         	
-        	MISC_TEXTURE = "textures/misc/";
+        	MISC_TEXTURE = "textures/misc_original/";
         }
     }
 
