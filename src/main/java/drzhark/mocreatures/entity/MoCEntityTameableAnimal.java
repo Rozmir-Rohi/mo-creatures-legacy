@@ -45,7 +45,6 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
         		itemstack != null
         		&& getIsTamed()
         		&& itemstack.getItem() == MoCreatures.scrollOfOwner
-                && MoCreatures.proxy.enableResetOwnership
                 && MoCTools.isThisPlayerAnOP(entityPlayer)
            )
         {

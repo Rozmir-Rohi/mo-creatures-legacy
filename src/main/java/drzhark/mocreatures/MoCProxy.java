@@ -48,7 +48,6 @@ public class MoCProxy implements IGuiHandler {
     public boolean easyBreeding;
     public boolean destroyDrops;
     public boolean enableStrictOwnership;
-    public boolean enableResetOwnership;
     public boolean elephantBulldozer;
     
     public boolean replaceVanillaCreepers;
@@ -283,7 +282,6 @@ public class MoCProxy implements IGuiHandler {
         maxTamed = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "maxTamedPerPlayer", 10, "Max tamed creatures a player can have. Requires enableStrictOwnership to be set to true.").getInt();
         maxOPTamed = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "maxTamedPerOP", 20, "Max tamed creatures an op can have. Requires enableStrictOwnership to be set to true.").getInt();
         enableStrictOwnership = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "enableStrictOwnership", false, "If true: only the owner of a pet can interact with the them. This also adds a limit to the amount of tamed creatures a player can have (see 'maxTamedPerPlayer' and 'maxTamedPerOP').").getBoolean(false);
-        enableResetOwnership = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "enableResetOwnerScroll", false, "Allows Opped players of a server to reset the owenership of any tamed creatures using the 'Scroll of Reset Owner' item. Using this item on a creature essentially untames it.").getBoolean(false);
         easyBreeding = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "EasyBreeding", false, "Makes horse breeding simpler.").getBoolean(true);
         elephantBulldozer = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "ElephantBulldozer", true, "Allows tamed elephants to break logs and leaves when ramming.").getBoolean(true);
         ostrichEggDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "OstrichEggDropChance", 3, "A value of 3 means ostriches have a 3% chance to drop an egg.").getInt();

@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 public class MoCItem extends Item
 {
@@ -38,19 +39,19 @@ public class MoCItem extends Item
         
         if (itemstack.getItem() == MoCreatures.scrollFreedom)
         {
-        	loreList.add("Unames and untames the pet.");
+        	loreList.add(StatCollector.translateToLocal("item.scrolloffreedom.desc"));
         }
         
         if (itemstack.getItem() == MoCreatures.scrollOfSale)
         {
-        	loreList.add("Removes ownership from the pet.");
-        	loreList.add("Allows reclaiming by medallions.");
+        	loreList.add(StatCollector.translateToLocal("item.scrollofsale.desc.line1"));
+        	loreList.add(StatCollector.translateToLocal("item.scrollofsale.desc.line2"));
         }
         
         if (itemstack.getItem() == MoCreatures.scrollOfOwner)
         {
-        	loreList.add("Removes ownership from the pet.");
-        	loreList.add("Usable by Opped players only.");
+        	loreList.add(StatCollector.translateToLocal("item.scrollofowner.desc.line1"));
+        	loreList.add(StatCollector.translateToLocal("item.scrollofowner.desc.line2"));
         }
     }
 

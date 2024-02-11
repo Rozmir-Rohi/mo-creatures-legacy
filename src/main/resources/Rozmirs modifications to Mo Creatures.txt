@@ -841,3 +841,9 @@ Added WIP witchery werewolf replacement integration.
 
 
 Fixed spawning biome spawning integration with Netherlicious!
+
+
+Fixed descriptions for scrolls not being dependent on lang files.
+
+
+Removed config option for using scroll of reset owner since only opped players can use this item.

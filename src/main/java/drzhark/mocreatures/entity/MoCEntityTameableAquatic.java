@@ -45,7 +45,6 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
         		itemstack != null
         		&& getIsTamed() &&
         		itemstack.getItem() == MoCreatures.scrollOfOwner
-                && MoCreatures.proxy.enableResetOwnership
                 && MoCTools.isThisPlayerAnOP(entityPlayer)
         	)
         {

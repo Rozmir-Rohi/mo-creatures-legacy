@@ -48,7 +48,6 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
         		itemstack != null
         		&& getIsTamed()
         		&& itemstack.getItem() == MoCreatures.scrollOfOwner 
-                && MoCreatures.proxy.enableResetOwnership
                 && MoCTools.isThisPlayerAnOP(entityPlayer)
         	)
         {
