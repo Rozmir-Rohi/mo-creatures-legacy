@@ -276,6 +276,15 @@ keyBind.MoCreatures.dive=MoCreatures Dive/Fly Down
 
 amulet_and_fishnet_desc.MoCreatures.ownedBy=%1$s的所有物品
 
+
+item.scrolloffreedom.desc=驯服和放生宠物。
+
+item.scrollofsale.desc.line1=取消对宠物的所有权。
+item.scrollofsale.desc.line2=可以通过勋章重新认领。
+
+item.scrollofowner.desc.line1=取消对宠物的所有权。
+item.scrollofowner.desc.line2=仅限被授权的玩家使用。
+
 gui_namer.MoCreatures.chooseName=选择你的宠物的名字：
 gui_namer.MoCreatures.done=完成
 
