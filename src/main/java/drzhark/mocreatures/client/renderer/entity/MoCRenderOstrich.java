@@ -14,9 +14,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderOstrich extends MoCRenderMoC {
 
-    public MoCRenderOstrich(ModelBase modelbase, float f)
+    public MoCRenderOstrich(ModelBase modelBase, float f)
     {
-        super(modelbase, 0.5F);
+        super(modelBase, 0.5F);
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {

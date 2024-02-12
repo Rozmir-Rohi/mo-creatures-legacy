@@ -15,10 +15,10 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderSnake extends MoCRenderMoC {
 
-    public MoCRenderSnake(ModelBase modelbase, float f)
+    public MoCRenderSnake(ModelBase modelBase, float f)
     {
-        super(modelbase, 0.0F);
-        //tempSnake = (MoCModelSnake) modelbase;
+        super(modelBase, 0.0F);
+        //tempSnake = (MoCModelSnake) modelBase;
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {

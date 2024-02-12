@@ -13,9 +13,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderHellRat extends MoCRenderRat {
 
-    public MoCRenderHellRat(ModelBase modelbase, float f)
+    public MoCRenderHellRat(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     @Override

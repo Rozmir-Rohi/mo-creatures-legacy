@@ -14,9 +14,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderNewHorse extends MoCRenderMoC {
 
-    public MoCRenderNewHorse(MoCModelNewHorse modelbase)
+    public MoCRenderNewHorse(MoCModelNewHorse modelBase)
     {
-        super(modelbase, 0.5F);
+        super(modelBase, 0.5F);
 
     }
 

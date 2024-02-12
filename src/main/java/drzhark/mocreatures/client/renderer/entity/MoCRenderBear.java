@@ -13,9 +13,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderBear extends MoCRenderMoC {
 
-    public MoCRenderBear(MoCModelBear modelbase, float f)
+    public MoCRenderBear(MoCModelBear modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     @Override

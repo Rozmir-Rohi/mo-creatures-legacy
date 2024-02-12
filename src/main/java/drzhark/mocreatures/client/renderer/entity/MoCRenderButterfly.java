@@ -15,9 +15,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderButterfly extends MoCRenderInsect {
 
-    public MoCRenderButterfly(ModelBase modelbase)
+    public MoCRenderButterfly(ModelBase modelBase)
     {
-        super(modelbase);
+        super(modelBase);
 
     }
 

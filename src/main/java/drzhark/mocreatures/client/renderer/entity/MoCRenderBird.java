@@ -19,9 +19,9 @@ public class MoCRenderBird extends MoCRenderMoC {
         return ((MoCEntityBird)par1Entity).getTexture();
     }
 
-    public MoCRenderBird(ModelBase modelbase, float f)
+    public MoCRenderBird(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     @Override

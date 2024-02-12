@@ -24,10 +24,10 @@ public class MoCRenderGoat extends RenderLiving {
         return ((MoCEntityGoat)par1Entity).getTexture();
     }
 
-    public MoCRenderGoat(ModelBase modelbase, float f)
+    public MoCRenderGoat(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
-        tempGoat = (MoCModelGoat) modelbase;
+        super(modelBase, f);
+        tempGoat = (MoCModelGoat) modelBase;
     }
 
     @Override

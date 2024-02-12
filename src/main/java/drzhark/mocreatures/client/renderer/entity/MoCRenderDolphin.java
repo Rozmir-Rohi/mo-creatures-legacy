@@ -18,9 +18,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderDolphin extends RenderLiving {
 
-    public MoCRenderDolphin(ModelBase modelbase, float f)
+    public MoCRenderDolphin(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     @Override

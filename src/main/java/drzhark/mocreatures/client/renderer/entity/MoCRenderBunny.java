@@ -18,9 +18,9 @@ public class MoCRenderBunny extends MoCRenderMoC {
         return ((MoCEntityBunny)par1Entity).getTexture();
     }
 
-    public MoCRenderBunny(ModelBase modelbase, float f)
+    public MoCRenderBunny(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     @Override

@@ -11,9 +11,9 @@ import net.minecraft.entity.EntityLivingBase;
 
 @SideOnly(Side.CLIENT)
 public class MoCRenderInsect extends MoCRenderMoC {
-    public MoCRenderInsect(ModelBase modelbase)
+    public MoCRenderInsect(ModelBase modelBase)
     {
-        super(modelbase, 0.0F);
+        super(modelBase, 0.0F);
 
     }
 

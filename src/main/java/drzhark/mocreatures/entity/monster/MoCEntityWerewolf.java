@@ -37,7 +37,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         transformCounter = 0;
         setHumanForm(true);
     }
-
+    
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
@@ -79,6 +79,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             else
             {
                 setType(4);
+                isImmuneToFire = true; //fire werewolf is immune to fire
             }
         }
     }
@@ -152,6 +153,15 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             entityToAttack = null;
             return;
         }
+        
+        if (MoCreatures.isWitcheryLoaded && entity instanceof EntityPlayer)
+        {
+        	if (MoCTools.isPlayerInWolfForm((EntityPlayer) entity) || MoCTools.isPlayerInWerewolfForm((EntityPlayer) entity)) //don't hunt player if is in wolf or werewolf form
+        	{	
+        		entityToAttack = null;
+        		return;
+        	}
+        }
         if ((distanceToEntity > 2.0F) && (distanceToEntity < 6F) && (rand.nextInt(15) == 0))
         {
             if (onGround)
@@ -180,23 +190,31 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damageSource, float damageDealtToWerewolf)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
         Entity entityThatAttackedThisCreature = damageSource.getEntity();
         if (!getIsHumanForm() && (entityThatAttackedThisCreature != null) && (entityThatAttackedThisCreature instanceof EntityPlayer))
         {
+        	if (
+        			(MoCTools.isPlayerInWerewolfForm((EntityPlayer) entityThatAttackedThisCreature))
+        			|| (MoCTools.isPlayerInWolfForm((EntityPlayer) entityThatAttackedThisCreature))
+        		)
+        	{
+        		damageSource = DamageSource.generic; //don't fight back if attacked by a player werewolf
+        	}
+        	
             EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
             ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
-            damageDealtToWerewolf = calculateWerewolfDamageTaken(damageSource, damageDealtToWerewolf, itemstack);
+            damageTaken = calculateWerewolfDamageTaken(damageSource, damageTaken, itemstack);
         }
-        return super.attackEntityFrom(damageSource, damageDealtToWerewolf);
+        return super.attackEntityFrom(damageSource, damageTaken);
     }
 
-	public static float calculateWerewolfDamageTaken(DamageSource damageSource, float damageDealtToWerewolf, ItemStack itemstack)
+	public static float calculateWerewolfDamageTaken(DamageSource damageSource, float damageTaken, ItemStack itemstack)
 	{
 		if (itemstack != null)
 		{
-		    damageDealtToWerewolf = 1;
+		    damageTaken = 1;
 		    
 		    Item itemHeldByPlayer = itemstack.getItem();
 		    
@@ -204,13 +222,13 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    {
 		    	if (!(itemHeldByPlayer instanceof ItemBow))
 		    	{
-		    		damageDealtToWerewolf = 0;
+		    		damageTaken = 0;
 		    	}
 		    }
 		    
 		    if (itemHeldByPlayer == Items.golden_shovel)
 		    {
-		        damageDealtToWerewolf = 3;
+		        damageTaken = 3;
 		    }	
 		    	
 		    if (
@@ -220,14 +238,14 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:waraxe.gold"))) // 8 is the actual damage dealt to werewolf using golden war axe in-game because of the item's armor penetration ability 
 		    	)
 		    {
-		        damageDealtToWerewolf = 6;
+		        damageTaken = 6;
 		    }
 		    
 		    if (
 		    		itemHeldByPlayer == Items.golden_pickaxe
 		    	) 
 		    {
-		    	damageDealtToWerewolf = 7;
+		    	damageTaken = 7;
 		    }
 		    
 		    if (
@@ -236,7 +254,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:spear.gold")))
 		    	)
 		    {
-		        damageDealtToWerewolf = 8;
+		        damageTaken = 8;
 		    }
 		    
 		    if (
@@ -244,13 +262,13 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("witchery:silversword")))
 		    	)
 		    {
-		    	damageDealtToWerewolf = 9;
+		    	damageTaken = 9;
 		    }
 		    
-		    if (itemHeldByPlayer == MoCreatures.silverSword) {damageDealtToWerewolf = 10;}
+		    if (itemHeldByPlayer == MoCreatures.silverSword) {damageTaken = 10;}
 		    
 		}
-		return damageDealtToWerewolf;
+		return damageTaken;
 	}
 
     @Override
@@ -264,8 +282,21 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         
         if ((entityPlayer != null) && canEntityBeSeen(entityPlayer))
         {
-        	if (MoCTools.isPlayerInWerewolfForm(entityPlayer)) //don't hunt player if in werewolf form
-        	{
+        	if (MoCTools.isPlayerInWolfForm(entityPlayer) || MoCTools.isPlayerInWerewolfForm(entityPlayer)) //don't hunt player if is in wolf or werewolf form
+        	{	
+        		if (
+            			(MoCTools.isPlayerInWerewolfForm(entityPlayer) && entityPlayer.getMaxHealth() == 60) //checks for max level werewolf
+            			|| (MoCTools.isPlayerInWolfForm(entityPlayer) && entityPlayer.getMaxHealth() == 32) //checks for max level werewolf
+            		)
+            	{
+            		EntityLivingBase entityThatAttackedMaxLevelWerewolfPlayer = entityPlayer.getAITarget();
+        			
+        			if (entityThatAttackedMaxLevelWerewolfPlayer != null)
+        			{
+        				return entityThatAttackedMaxLevelWerewolfPlayer; //defend the max level werewolf player from the entity that attacked them
+        			}
+            	}
+        		
         		return null;
         	}
         	else {return entityPlayer;}

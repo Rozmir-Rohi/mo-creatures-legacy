@@ -13,9 +13,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderCricket extends MoCRenderMoC {
 
-    public MoCRenderCricket(ModelBase modelbase)
+    public MoCRenderCricket(ModelBase modelBase)
     {
-        super(modelbase, 0.0F);
+        super(modelBase, 0.0F);
     }
 
     @Override

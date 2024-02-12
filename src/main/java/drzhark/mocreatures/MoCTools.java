@@ -121,6 +121,24 @@ public class MoCTools {
 	}
     
     
+    public static boolean isPlayerInWolfForm(EntityPlayer player)
+    {
+    	if (MoCreatures.isWitcheryLoaded)
+    	{
+    		if (
+    				24 <= player.getMaxHealth() && player.getMaxHealth() <= 32
+    				&& !(player.isPotionActive(Potion.field_76434_w)) //if heal bost potion effect is not active
+    				&& player.isPotionActive(Potion.nightVision)
+    			)
+    		{
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+    }
+    
+    
     public static boolean isPlayerInWerewolfForm(EntityPlayer player)
     {
     	if (MoCreatures.isWitcheryLoaded)

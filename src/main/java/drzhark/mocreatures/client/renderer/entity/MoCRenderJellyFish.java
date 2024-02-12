@@ -17,9 +17,9 @@ public class MoCRenderJellyFish extends RenderLiving {
 
     float depth = 0F;
 
-    public MoCRenderJellyFish(ModelBase modelbase, float f)
+    public MoCRenderJellyFish(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     @Override

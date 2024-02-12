@@ -15,9 +15,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderRat extends RenderLiving {
 
-    public MoCRenderRat(ModelBase modelbase, float f)
+    public MoCRenderRat(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     @Override

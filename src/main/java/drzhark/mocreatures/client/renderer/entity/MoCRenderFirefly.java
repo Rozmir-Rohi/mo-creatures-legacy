@@ -16,9 +16,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderFirefly extends MoCRenderInsect {
 
-    public MoCRenderFirefly(ModelBase modelbase)
+    public MoCRenderFirefly(ModelBase modelBase)
     {
-        super(modelbase);
+        super(modelBase);
         setRenderPassModel(new MoCModelFirefly());
     }
 

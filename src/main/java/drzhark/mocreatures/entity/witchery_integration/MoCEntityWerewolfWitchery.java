@@ -101,6 +101,15 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
     {
         if ((distanceToEntity > 2.0F) && (distanceToEntity < 6F) && (rand.nextInt(15) == 0))
         {
+        	if (MoCreatures.isWitcheryLoaded && entity instanceof EntityPlayer)
+            {
+            	if (MoCTools.isPlayerInWolfForm((EntityPlayer) entity) || MoCTools.isPlayerInWerewolfForm((EntityPlayer) entity)) //don't hunt player if is in wolf or werewolf form
+            	{	
+            		entityToAttack = null;
+            		return;
+            	}
+            }
+        	
             if (onGround)
             {
                 setHunched(true);
@@ -123,17 +132,25 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damageSource, float damageDealtToWerewolf)
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
         Entity entityThatAttackedThisCreature = damageSource.getEntity();
         if ((entityThatAttackedThisCreature != null) && (entityThatAttackedThisCreature instanceof EntityPlayer))
         {
+        	if (
+        			(MoCTools.isPlayerInWerewolfForm((EntityPlayer) entityThatAttackedThisCreature))
+        			|| (MoCTools.isPlayerInWolfForm((EntityPlayer) entityThatAttackedThisCreature))
+        		)
+        	{
+        		damageSource = DamageSource.generic; //don't fight back if attacked by a player werewolf
+        	}
+        	
             EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
             ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
             
-            damageDealtToWerewolf = MoCEntityWerewolf.calculateWerewolfDamageTaken(damageSource, damageDealtToWerewolf, itemstack);
+            damageTaken = MoCEntityWerewolf.calculateWerewolfDamageTaken(damageSource, damageTaken, itemstack);
         }
-        return super.attackEntityFrom(damageSource, damageDealtToWerewolf);
+        return super.attackEntityFrom(damageSource, damageTaken);
     }
 
     @Override
@@ -146,8 +163,21 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
         
         if ((entityPlayer != null) && canEntityBeSeen(entityPlayer))
         {
-        	if (MoCTools.isPlayerInWerewolfForm(entityPlayer)) //don't hunt player if in werewolf form
-        	{
+        	if (MoCTools.isPlayerInWolfForm(entityPlayer) || MoCTools.isPlayerInWerewolfForm(entityPlayer)) //don't hunt player if is in wolf or werewolf form
+        	{	
+        		if (
+            			(MoCTools.isPlayerInWerewolfForm(entityPlayer) && entityPlayer.getMaxHealth() == 60) //checks for max level werewolf
+            			|| (MoCTools.isPlayerInWolfForm(entityPlayer) && entityPlayer.getMaxHealth() == 32) //checks for max level werewolf
+            		)
+            	{
+            		EntityLivingBase entityThatAttackedMaxLevelWerewolfPlayer = entityPlayer.getAITarget();
+        			
+        			if (entityThatAttackedMaxLevelWerewolfPlayer != null)
+        			{
+        				return entityThatAttackedMaxLevelWerewolfPlayer; //defend the max level werewolf player from the entity that attacked them
+        			}
+            	}
+        		
         		return null;
         	}
         	else {return entityPlayer;}

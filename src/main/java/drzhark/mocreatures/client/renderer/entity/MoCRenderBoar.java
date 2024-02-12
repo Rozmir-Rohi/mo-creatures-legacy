@@ -17,9 +17,9 @@ public class MoCRenderBoar extends MoCRenderMoC {
         return ((MoCEntityBoar)par1Entity).getTexture();
     }
 
-    public MoCRenderBoar(MoCModelBoar modelbase, float f)
+    public MoCRenderBoar(MoCModelBoar modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     @Override

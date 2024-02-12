@@ -55,8 +55,10 @@ public class MoCProxy implements IGuiHandler {
     public boolean replaceVanillaCreepers;
     
     //mod integration options
-    public boolean replaceWitcheryWerewolves;
+    public boolean replaceWitcheryWerewolfEntities;
+    public boolean replaceWitcheryPlayerWolf;
     public boolean replaceWitcheryPlayerWerewolf;
+    public int colorForWitcheryPlayerWolfAndWerewolf;
 
     // griefing options
     public boolean golemDestroyBlocks;
@@ -284,7 +286,7 @@ public class MoCProxy implements IGuiHandler {
         displayPetName = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "displayPetName", true, "Shows pet name.").getBoolean(true);
         displayPetIcons = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "displayPetIcons", true, "Shows pet emotes.").getBoolean(true);
         animateTextures = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "animateTextures", true, "Animate the textures for entities that have animated textures.").getBoolean(true);
-        useOriginalMoCreaturesTextures = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "useOriginalMoCreaturesTextures", false, "If true: uses the the original Mo' Creatures textures instead of the 16x Mo' Creatures textures. This works on the client side, meaning you can set this to any mode you wish without affecting worlds/servers. Setting this to true also disables resourcepack effects on Mo' Creatures entities and emoticons.").getBoolean(false);
+        useOriginalMoCreaturesTextures = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "useOriginalMoCreaturesTextures", false, "If true: uses the the original Mo' Creatures textures instead of the 16x Mo' Creatures textures. This works on the client side, meaning you can set this to any mode you wish without affecting worlds/servers. Setting this to true also disables texture pack effects on Mo' Creatures entity and emoticon textures.").getBoolean(false);
         
         // general
         debug = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "debug", false, "Turns on verbose logging.").getBoolean(false);
@@ -325,8 +327,11 @@ public class MoCProxy implements IGuiHandler {
         caveOgreChance = (short) mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "caveOgreChance", 75, "The chance percentage of spawning Cave ogres at depth of 50 in the Overworld.").getInt();
         golemDestroyBlocks = mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "golemDestroyBlocks", true, "Allows Big Golems to break blocks.").getBoolean(true);
         
-        replaceWitcheryWerewolves = mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "replaceWitcheryWerewolves", true, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED. Replaces the werewolves from the Witchery mod with Witchery integration werewolves from Mo' Creatures Legacy. This will also consequently disable the method of gaining lycanthropy from the wolf altar ritual. Instead, lycanthropy will only be gained through the Curse of the Wolf witch coven ritual.").getBoolean(true);
+        replaceWitcheryWerewolfEntities = mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "replaceWitcheryWerewolfEntities", true, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED. Replaces the werewolves from the Witchery mod with Witchery integration werewolves from Mo' Creatures Legacy. This will also consequently disable the method of gaining lycanthropy from the wolf altar ritual. Instead, lycanthropy will only be gained through the Curse of the Wolf witch coven ritual or by contracting it from a werewolf player.").getBoolean(true);
+        replaceWitcheryPlayerWolf = mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "replaceWitcheryPlayerWolf", true, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED. THIS IS NOT COMPATIBLE WITH ANY OTHER MODS THAT CAN PERMANENTLY CHANGE THE PLAYER'S MAX HEALTH. Replaces the Witchery player wolf model with the Mo' Creatures dire wolf model for player werewolves that are level 7 and above.").getBoolean(true);
         replaceWitcheryPlayerWerewolf = mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "replaceWitcheryPlayerWerewolf", true, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED. THIS IS NOT COMPATIBLE WITH ANY OTHER MODS THAT CAN PERMANENTLY CHANGE THE PLAYER'S MAX HEALTH. Replaces the Witchery player werewolf model with the Mo' Creatures werewolf model.").getBoolean(true);
+        colorForWitcheryPlayerWolfAndWerewolf = (short) mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "colorForWitcheryPlayerWolfAndWerewolf", 1, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED and if either replaceWitcheryPlayerWolf or replaceWitcheryPlayerWerewolf is true. This setting applies to all players in a world/server. Colors: (0 = black | 1 = white | 2 = brown).").getInt();
+        
         
         mocSettingsConfig.save();
         

@@ -19,9 +19,9 @@ public class MoCRenderDeer extends RenderLiving {
         return ((MoCEntityDeer)par1Entity).getTexture();
     }
 
-    public MoCRenderDeer(ModelBase modelbase, float f)
+    public MoCRenderDeer(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     @Override

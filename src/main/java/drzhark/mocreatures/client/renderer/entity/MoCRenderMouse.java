@@ -14,9 +14,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderMouse extends MoCRenderMoC {
 
-    public MoCRenderMouse(ModelBase modelbase, float f)
+    public MoCRenderMouse(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     @Override

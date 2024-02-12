@@ -5,7 +5,9 @@ import java.util.Random;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import drzhark.mocreatures.client.model.MoCModelWere;
 import drzhark.mocreatures.client.model.MoCModelWereHuman;
-import drzhark.mocreatures.client.renderer.entity.MoCRenderWerewolfPlayerDummyWitchery;
+import drzhark.mocreatures.client.model.MoCModelWolf;
+import drzhark.mocreatures.client.renderer.entity.MoCRenderWerewolfPlayerWitchery;
+import drzhark.mocreatures.client.renderer.entity.MoCRenderWolfPlayerWitchery;
 import drzhark.mocreatures.entity.IMoCTameable;
 import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.ambient.MoCEntityBee;
@@ -24,6 +26,7 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.Potion;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
@@ -102,32 +105,61 @@ public class MoCEventHooks {
         		}
         	}
         	
-        	if (MoCreatures.isWitcheryLoaded && MoCreatures.proxy.replaceWitcheryWerewolves)
+        	if (MoCreatures.isWitcheryLoaded)
         	{
-	        	if (event.entity instanceof EntityMob && EntityList.getEntityString(event.entity).equals("witchery.wolfman"))
-	        	{
-	        		Random rand = new Random();
-	        		
-	        		MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(event.entity.worldObj, rand.nextInt(5)); //the random number from 0-4 sets a random vanilla minecraft villager profession
-		            werewolf.copyLocationAndAnglesFrom((Entity) event.entity);
-		            event.entity.setDead();
-		            werewolf.worldObj.spawnEntityInWorld((Entity) werewolf); 
-	        	}
-	        	
-	        	if (event.entity instanceof EntityVillager && EntityList.getEntityString(event.entity).equals("witchery.werevillager"))
-	        	{
-	        		EntityVillager oldVillager = (EntityVillager) event.entity;
-	        		
-	        		int professionToSet = oldVillager.getProfession();
-	        		
-	        		
-	        		
-	        		MoCEntityWerewolfVillagerWitchery werewolfVillager = new MoCEntityWerewolfVillagerWitchery(event.entity.worldObj);
-		            werewolfVillager.copyLocationAndAnglesFrom((Entity) event.entity);
-		            werewolfVillager.setProfession(professionToSet);
-		            event.entity.setDead();
-		            werewolfVillager.worldObj.spawnEntityInWorld((Entity) werewolfVillager); 
-	        	}
+        		if (MoCreatures.proxy.replaceWitcheryWerewolfEntities)
+        		{
+		        	if (event.entity instanceof EntityMob && EntityList.getEntityString(event.entity).equals("witchery.wolfman"))
+		        	{
+		        		Random rand = new Random();
+		        		
+		        		MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(event.entity.worldObj, rand.nextInt(5)); //the random number from 0-4 sets a random vanilla minecraft villager profession
+			            werewolf.copyLocationAndAnglesFrom((Entity) event.entity);
+			            event.entity.setDead();
+			            werewolf.worldObj.spawnEntityInWorld((Entity) werewolf); 
+		        	}
+		        	
+		        	if (event.entity instanceof EntityVillager && EntityList.getEntityString(event.entity).equals("witchery.werevillager"))
+		        	{
+		        		EntityVillager oldVillager = (EntityVillager) event.entity;
+		        		
+		        		int professionToSet = oldVillager.getProfession();
+		        		
+		        		MoCEntityWerewolfVillagerWitchery werewolfVillager = new MoCEntityWerewolfVillagerWitchery(event.entity.worldObj);
+			            werewolfVillager.copyLocationAndAnglesFrom((Entity) event.entity);
+			            werewolfVillager.setProfession(professionToSet);
+			            event.entity.setDead();
+			            werewolfVillager.worldObj.spawnEntityInWorld((Entity) werewolfVillager); 
+		        	}
+        		}
+        		
+        		if (
+        				(MoCreatures.proxy.replaceWitcheryPlayerWolf || MoCreatures.proxy.replaceWitcheryPlayerWerewolf)
+        				&& event.entity instanceof EntityPlayer
+        			)
+        		{
+        			EntityPlayer entityPlayer = (EntityPlayer) event.entity;
+        			
+        			if (
+        					!(entityPlayer.isInvisible())
+        					&& (
+        							(MoCTools.isPlayerInWolfForm(entityPlayer) && MoCreatures.proxy.replaceWitcheryPlayerWolf) 
+        							|| (MoCTools.isPlayerInWerewolfForm(entityPlayer) && MoCreatures.proxy.replaceWitcheryPlayerWerewolf)
+        						)
+        				)
+        			{
+        				entityPlayer.setInvisible(true); //Makes the player hand, player model, witchery player wolf model, and witchery player werewolf model invisible. Have to do this instead of canceling RenderPlayerEvent.Pre event to disable both the vanilla minecraft player model and Witchery models
+        			}
+        			else if (
+        						entityPlayer.isInvisible()
+        						&& !(entityPlayer.isPotionActive(Potion.invisibility))
+        						&& !MoCTools.isPlayerInWolfForm(entityPlayer)
+        						&& !MoCTools.isPlayerInWerewolfForm(entityPlayer)
+        					)
+        			{
+        				entityPlayer.setInvisible(false); //Makes the player model visible again
+        			}
+        		}
         	}
         	
         	if (MoCreatures.isBiomesOPlentyLoaded)
@@ -155,20 +187,24 @@ public class MoCEventHooks {
         }
     }
     
-    final Render renderCustomModel = new MoCRenderWerewolfPlayerDummyWitchery(new MoCModelWereHuman(), new MoCModelWere(), 0.7F);
+    final Render renderPlayerWolf = new MoCRenderWolfPlayerWitchery(new MoCModelWolf(), 0.7F);
+    final Render renderPlayerWerewolf = new MoCRenderWerewolfPlayerWitchery(new MoCModelWereHuman(), new MoCModelWere(), 0.7F);
     
     @SubscribeEvent
 	public void onRenderPlayerPre(RenderPlayerEvent.Pre event)
     {
-    	if (MoCreatures.isWitcheryLoaded && MoCreatures.proxy.replaceWitcheryPlayerWerewolf)
+    	if (MoCreatures.isWitcheryLoaded)
     	{
-    		if (MoCTools.isPlayerInWerewolfForm(event.entityPlayer))
+    		float modelYOffset = -1.625F;
+    		
+    		if (MoCreatures.proxy.replaceWitcheryPlayerWerewolf && MoCTools.isPlayerInWerewolfForm(event.entityPlayer))
     		{
-    			float modelYOffset = -1.625F;
-			
-				event.entityPlayer.setInvisible(true); //have to do this to make both the player model and the normal witchery werewolf model invisible
-			
-				renderCustomModel.doRender(event.entity, 0F, modelYOffset, 0F, 0F, 0.0625F);
+				renderPlayerWerewolf.doRender(event.entity, 0F, modelYOffset, 0F, 0F, 0.0625F);
+    		}
+    		
+    		if (MoCreatures.proxy.replaceWitcheryPlayerWolf && MoCTools.isPlayerInWolfForm(event.entityPlayer))
+    		{
+				renderPlayerWolf.doRender(event.entity, 0F, modelYOffset, 0F, 0F, 0.0625F);
     		}
     	}
 

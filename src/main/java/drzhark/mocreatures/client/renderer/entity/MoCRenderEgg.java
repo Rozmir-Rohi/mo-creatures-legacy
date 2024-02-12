@@ -14,9 +14,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderEgg extends RenderLiving {
 
-    public MoCRenderEgg(ModelBase modelbase, float f)
+    public MoCRenderEgg(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     @Override

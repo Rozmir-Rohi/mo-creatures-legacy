@@ -15,9 +15,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderFishy extends RenderLiving {
 
-    public MoCRenderFishy(ModelBase modelbase, float f)
+    public MoCRenderFishy(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     @Override

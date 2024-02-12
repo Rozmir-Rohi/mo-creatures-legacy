@@ -15,9 +15,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderHorseMob extends RenderLiving {
 
-    public MoCRenderHorseMob(MoCModelNewHorseMob modelbase)
+    public MoCRenderHorseMob(MoCModelNewHorseMob modelBase)
     {
-        super(modelbase, 0.5F);
+        super(modelBase, 0.5F);
 
     }
 

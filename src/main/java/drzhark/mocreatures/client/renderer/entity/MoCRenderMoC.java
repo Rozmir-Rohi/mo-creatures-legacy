@@ -19,9 +19,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderMoC extends RenderLiving {
 
-    public MoCRenderMoC(ModelBase modelbase, float f)
+    public MoCRenderMoC(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
 
     }
 

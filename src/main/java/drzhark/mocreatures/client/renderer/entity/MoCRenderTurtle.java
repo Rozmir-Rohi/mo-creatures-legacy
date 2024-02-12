@@ -17,10 +17,10 @@ public class MoCRenderTurtle extends MoCRenderMoC {
 
     public MoCModelTurtle turtly;
 
-    public MoCRenderTurtle(MoCModelTurtle modelbase, float f)
+    public MoCRenderTurtle(MoCModelTurtle modelBase, float f)
     {
-        super(modelbase, f);
-        turtly = modelbase;
+        super(modelBase, f);
+        turtly = modelBase;
     }
 
     @Override

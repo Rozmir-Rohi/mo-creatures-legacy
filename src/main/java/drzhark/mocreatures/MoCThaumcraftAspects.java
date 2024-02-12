@@ -365,6 +365,12 @@ ThaumcraftApi.registerEntityTag("MoCreatures.SilverSkeleton", new AspectList().a
 
 ThaumcraftApi.registerEntityTag("MoCreatures.Werewolf", new AspectList().add(Aspect.MAN, 3).add(Aspect.EXCHANGE, 2).add(Aspect.DARKNESS, 4).add(Aspect.BEAST, 4)); 
 
+if (MoCreatures.proxy.replaceWitcheryWerewolfEntities)
+{
+	ThaumcraftApi.registerEntityTag("MoCreatures.WerewolfWitchery", new AspectList().add(Aspect.MAN, 3).add(Aspect.EXCHANGE, 2).add(Aspect.DARKNESS, 4).add(Aspect.BEAST, 4)); 
+	ThaumcraftApi.registerEntityTag("WerewolfVillagerWitchery", new AspectList().add(Aspect.MAN, 3).add(Aspect.EXCHANGE, 2).add(Aspect.DARKNESS, 4).add(Aspect.BEAST, 4));
+}
+
 ThaumcraftApi.registerEntityTag("MoCreatures.Wraith", new AspectList().add(Aspect.SOUL, 3).add(Aspect.MAN, 1).add(Aspect.UNDEAD, 3));
 ThaumcraftApi.registerEntityTag("MoCreatures.FlameWraith", new AspectList().add(Aspect.FIRE, 3).add(Aspect.SOUL, 3).add(Aspect.MAN, 1).add(Aspect.UNDEAD, 3));  
 

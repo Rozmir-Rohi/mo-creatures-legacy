@@ -11,9 +11,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderWWolf extends RenderLiving {
 
-    public MoCRenderWWolf(ModelBase modelbase, float f)
+    public MoCRenderWWolf(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {

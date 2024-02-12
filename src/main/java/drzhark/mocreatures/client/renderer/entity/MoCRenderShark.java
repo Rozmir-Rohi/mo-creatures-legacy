@@ -18,9 +18,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderShark extends RenderLiving {
 
-    public MoCRenderShark(ModelBase modelbase, float f)
+    public MoCRenderShark(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     @Override

@@ -22,15 +22,15 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.common.MinecraftForge;
 
 @SideOnly(Side.CLIENT)
-public class MoCRenderWerewolfPlayerDummyWitchery extends RendererLivingEntity {
+public class MoCRenderWerewolfPlayerWitchery extends RendererLivingEntity {
 
     private final MoCModelWere tempWerewolf;
 
-    public MoCRenderWerewolfPlayerDummyWitchery(MoCModelWereHuman modelwerehuman, ModelBase modelbase, float f)
+    public MoCRenderWerewolfPlayerWitchery(MoCModelWereHuman werehumanModel, ModelBase modelBase, float f)
     {
-        super(modelbase, f);
-        setRenderPassModel(modelwerehuman);
-        tempWerewolf = (MoCModelWere) modelbase;
+        super(modelBase, f);
+        setRenderPassModel(werehumanModel);
+        tempWerewolf = (MoCModelWere) modelBase;
         
         this.renderManager = RenderManager.instance;
     }    
@@ -47,7 +47,6 @@ public class MoCRenderWerewolfPlayerDummyWitchery extends RendererLivingEntity {
     	EntityPlayer player = (EntityPlayer) entityLivingBase;
         tempWerewolf.hunched = player.isSprinting();
     	
-        //System.out.println("doing normal render");
         
         GL11.glPushMatrix();
         GL11.glDisable(GL11.GL_CULL_FACE);
@@ -285,9 +284,6 @@ public class MoCRenderWerewolfPlayerDummyWitchery extends RendererLivingEntity {
         return 1;
     }
     
-    
-    //TODO: problem is rendermodel isn't even being reached
-    
     //renders the model even if player is invisible
     @Override
     protected void renderModel(EntityLivingBase p_77036_1_, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float p_77036_7_)
@@ -311,6 +307,20 @@ public class MoCRenderWerewolfPlayerDummyWitchery extends RendererLivingEntity {
 
 
     protected ResourceLocation getEntityTexture(Entity entity) {
-        return (MoCreatures.proxy.getTexture("wolftimber.png"));
+    	
+    	switch (MoCreatures.proxy.colorForWitcheryPlayerWolfAndWerewolf)
+    	{
+	    	case 0:
+	    		return MoCreatures.proxy.getTexture("wolfblack.png");
+	    		
+	        case 1:
+	        	return MoCreatures.proxy.getTexture("wolftimber.png");
+	        	
+	        case 2:
+	        	return MoCreatures.proxy.getTexture("wolfbrown.png");
+	        	
+	        default:
+	        	return MoCreatures.proxy.getTexture("wolftimber.png");
+        }
     }
 }

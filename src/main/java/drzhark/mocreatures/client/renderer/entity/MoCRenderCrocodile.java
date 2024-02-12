@@ -18,10 +18,10 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderCrocodile extends RenderLiving {
 
-    public MoCRenderCrocodile(MoCModelCrocodile modelbase, float f)
+    public MoCRenderCrocodile(MoCModelCrocodile modelBase, float f)
     {
-        super(modelbase, f);
-        croc = modelbase;
+        super(modelBase, f);
+        croc = modelBase;
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {

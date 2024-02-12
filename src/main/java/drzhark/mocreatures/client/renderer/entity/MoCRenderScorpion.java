@@ -15,9 +15,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderScorpion extends MoCRenderMoC {
 
-    public MoCRenderScorpion(MoCModelScorpion modelbase, float f)
+    public MoCRenderScorpion(MoCModelScorpion modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     @Override

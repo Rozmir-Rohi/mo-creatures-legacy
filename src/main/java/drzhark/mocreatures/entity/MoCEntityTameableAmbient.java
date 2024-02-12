@@ -72,8 +72,8 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
             return true; 
         }
         
-        //Do not interact with player if the player is in werewolf from the Witchery mod
-        if (MoCTools.isPlayerInWerewolfForm(entityPlayer)) 
+        //Do not interact with player if the player is in wolf or werewolf from the Witchery mod
+        if (MoCTools.isPlayerInWolfForm(entityPlayer) || MoCTools.isPlayerInWerewolfForm(entityPlayer))   
         {
             return true; 
         }

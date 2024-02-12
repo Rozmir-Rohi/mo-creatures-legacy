@@ -18,6 +18,8 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -55,7 +57,7 @@ public class MoCEntityWWolf extends MoCEntityMob {
     	
         if (getType() == 0) //if type is still zero, make it a random wolf
         {
-            setType(rand.nextInt(4)+1);
+            setType(rand.nextInt(5)+1);
         }
     }
     
@@ -88,8 +90,10 @@ public class MoCEntityWWolf extends MoCEntityMob {
         case 3:
             return MoCreatures.proxy.getTexture("wolftimber.png"); //snow wolf
         case 4:
-            return MoCreatures.proxy.getTexture("wolfdark.png");
+            return MoCreatures.proxy.getTexture("wolfbrown.png");
         case 5:
+            return MoCreatures.proxy.getTexture("wolfdark.png");
+        case 6:
             return MoCreatures.proxy.getTexture("wolfbright.png");
 
         default:
@@ -102,6 +106,15 @@ public class MoCEntityWWolf extends MoCEntityMob {
     {
         if (attackTime <= 0 && (distanceToEntity < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
+        	if (MoCreatures.isWitcheryLoaded && entity instanceof EntityPlayer)
+            {
+            	if (MoCTools.isPlayerInWolfForm((EntityPlayer) entity) || MoCTools.isPlayerInWerewolfForm((EntityPlayer) entity)) //don't hunt player if is in wolf or werewolf form
+            	{	
+            		entityToAttack = null;
+            		return;
+            	}
+            }
+        	
             openMouth();
             attackTime = 20;
             attackEntityAsMob(entity);
@@ -146,10 +159,24 @@ public class MoCEntityWWolf extends MoCEntityMob {
         
         if (entityPlayer != null)
         {
-        	if (MoCTools.isPlayerInWerewolfForm(entityPlayer)) //don't hunt player if in werewolf form
+        	if (MoCTools.isPlayerInWolfForm(entityPlayer) || MoCTools.isPlayerInWerewolfForm(entityPlayer)) //don't hunt player if is in wolf or werewolf form
         	{	
+        		if (
+            			(MoCTools.isPlayerInWerewolfForm(entityPlayer) && entityPlayer.getMaxHealth() == 60) //checks for max level werewolf
+            			|| (MoCTools.isPlayerInWolfForm(entityPlayer) && entityPlayer.getMaxHealth() == 32) //checks for max level werewolf
+            		)
+            	{
+            		EntityLivingBase entityThatAttackedMaxLevelWerewolfPlayer = entityPlayer.getAITarget();
+        			
+        			if (entityThatAttackedMaxLevelWerewolfPlayer != null)
+        			{
+        				return entityThatAttackedMaxLevelWerewolfPlayer; //defend the max level werewolf player from the entity that attacked them
+        			}
+            	}
+        		
         		return null;
         	}
+        	
         	else {return entityPlayer;}
         }
         
@@ -182,6 +209,24 @@ public class MoCEntityWWolf extends MoCEntityMob {
                 || entity instanceof MoCEntityBigCat
         		|| entity instanceof MoCEntityBear
         	);
+    }
+    
+    @Override
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
+    {
+        Entity entityThatAttackedThisCreature = damageSource.getEntity();
+        if ((entityThatAttackedThisCreature != null) && (entityThatAttackedThisCreature instanceof EntityPlayer))
+        {
+        	if (
+        			(MoCTools.isPlayerInWerewolfForm((EntityPlayer) entityThatAttackedThisCreature))
+        			|| (MoCTools.isPlayerInWolfForm((EntityPlayer) entityThatAttackedThisCreature))
+        		)
+        	{
+        		damageSource = DamageSource.generic; //don't fight back if attacked by a player werewolf
+        	}
+        	
+        }
+        return super.attackEntityFrom(damageSource, damageTaken);
     }
 
     @Override

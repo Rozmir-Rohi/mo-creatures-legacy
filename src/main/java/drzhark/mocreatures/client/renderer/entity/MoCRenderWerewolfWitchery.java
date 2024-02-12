@@ -16,21 +16,21 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderWerewolfWitchery extends RenderLiving {
 
-    private final MoCModelWere tempWerewolf;
+    private final MoCModelWere werewolfModel;
 
-    public MoCRenderWerewolfWitchery(MoCModelWereHuman modelwerehuman, ModelBase modelbase, float f)
+    public MoCRenderWerewolfWitchery(MoCModelWereHuman werehumanModel, ModelBase modelBase, float f)
     {
-        super(modelbase, f);
-        setRenderPassModel(modelwerehuman);
-        //tempWerewolf = (MoCModelWerewolf) modelbase;
-        tempWerewolf = (MoCModelWere) modelbase;
+        super(modelBase, f);
+        setRenderPassModel(werehumanModel);
+        //tempWerewolf = (MoCModelWerewolf) modelBase;
+        werewolfModel = (MoCModelWere) modelBase;
     }
 
     @Override
     public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
         MoCEntityWerewolfWitchery entitywerewolf = (MoCEntityWerewolfWitchery) entityLiving;
-        tempWerewolf.hunched = entitywerewolf.getIsHunched();
+        werewolfModel.hunched = entitywerewolf.getIsHunched();
         super.doRender(entityLiving, d, d1, d2, f, f1);
 
     }

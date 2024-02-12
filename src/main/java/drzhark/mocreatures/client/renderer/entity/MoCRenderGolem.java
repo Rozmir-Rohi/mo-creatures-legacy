@@ -16,9 +16,9 @@ public class MoCRenderGolem extends MoCRenderMoC {
 
     private final ModelBase MoCModelG = new MoCModelGolem();
 
-    public MoCRenderGolem(ModelBase modelbase, float f)
+    public MoCRenderGolem(ModelBase modelBase, float f)
     {
-        super(modelbase, f);
+        super(modelBase, f);
     }
 
     /**

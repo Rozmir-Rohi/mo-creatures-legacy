@@ -293,19 +293,23 @@ public class MoCModelWolf extends ModelBase {
 
     }
 
+    public boolean openMouth = false;
+    boolean moveTail = false;
+    
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
     {
-        //super.render(entity, f, f1, f2, f3, f4, f5);
 
-        MoCEntityWWolf entitywolf = (MoCEntityWWolf) entity;
-        //super.render(entity, f, f1, f2, f3, f4, f5);
-
-        //int type = entitywolf.type;
-
-        //boolean standing = (entityhorse.standCounter != 0 && entityhorse.riddenByEntity == null);
-        boolean openMouth = (entitywolf.mouthCounter != 0);
-        boolean moveTail = (entitywolf.tailCounter != 0);
+    	if (entity instanceof MoCEntityWWolf)
+    	{
+    		MoCEntityWWolf entitywolf = (MoCEntityWWolf) entity;
+    		
+    		openMouth = (entitywolf.mouthCounter != 0);
+    		
+    		moveTail = (entitywolf.tailCounter != 0);
+    	}
+        
+       
 
         setRotationAngles(f, f1, f2, f3, f4, f5, moveTail);
         Head.render(f5);
