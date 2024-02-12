@@ -904,3 +904,40 @@ The following creatures now have attack damages that change with the world diffi
 
 
 Witchery integration werewolves now have the following varients: white, black, and brown.
+
+
+Added Russian language file. Thanks to Hudhand for the translation.
+
+
+Returned elephants' bulldozer ability to it's original state from Mo' Creatures.
+
+
+Added the following items from the following mods as food & tame items for panda:
+	Growthcraft: Bamboo
+
+	Plant Mega Pack: All bamboo variants
+
+
+Added config option to control whether wraiths go through walls.
+
+
+Added config option to control whether maggots, snails, and jellyfish drop slimeballs.
+
+
+Added config option to control pet health display modes:
+	0 = Do not show health bar for pets
+	1 = Always show health bar for pets
+	2 = Only show health bar for pets if they are hurt
+
+
+Added config option to control whether creatures can be mounted or picked up only with a free hand or with items in hand as well.
+
+
+Readded ability for players to ride a non-flying mount with a creature picked up or on their head. You will first need to pickup the pickable creature and then mount the mountable creature. This maybe a bit tricky to do for pickable creatures that are in the player's hand or on the player's shoulder.
+
+
+Fixed black and brown bears only hunting player during night.
+
+
+Added rare giant panda variants as a config option.
+	

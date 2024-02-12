@@ -27,7 +27,7 @@ public class MoCItemArmor extends ItemArmor
         {
 	        if (name.contains("reptile"))
 	        {
-	        	enumarmormaterial.customCraftingMaterial = MoCreatures.hideCroc;
+	        	enumarmormaterial.customCraftingMaterial = MoCreatures.hideReptile;
 	        }
 	        
 	        if (name.contains("fur"))
@@ -68,11 +68,11 @@ public class MoCItemArmor extends ItemArmor
     public String getArmorTexture(ItemStack itemstack, Entity entity, int slot, String layer)
     {
         String tempArmorTexture = "croc_1.png";;
-        if ((itemstack.getItem() == MoCreatures.helmetCroc) || (itemstack.getItem() == MoCreatures.plateCroc) || (itemstack.getItem() == MoCreatures.bootsCroc))
+        if ((itemstack.getItem() == MoCreatures.helmetReptile) || (itemstack.getItem() == MoCreatures.plateReptile) || (itemstack.getItem() == MoCreatures.bootsReptile))
         {
             tempArmorTexture = "croc_1.png";
         }
-        if (itemstack.getItem() == MoCreatures.legsCroc)
+        if (itemstack.getItem() == MoCreatures.legsReptile)
         {
             tempArmorTexture = "croc_2.png";
         }

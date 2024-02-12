@@ -197,7 +197,15 @@ public class MoCEntityMouse extends MoCEntityAnimal
         
 	        if (ridingEntity == null)
 	        {
-	            if ((MoCreatures.isServer()) && (entityPlayer.ridingEntity == null))
+	            if (
+	            		MoCreatures.isServer()
+	            		&&
+	            			(
+	                			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+	                			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+	                		)
+	                		&& !(entityPlayer.isSneaking()) && (entityPlayer.ridingEntity == null)
+	                )
 	            {
 	            	mountEntity(entityPlayer);
 	            	setPicked(true);

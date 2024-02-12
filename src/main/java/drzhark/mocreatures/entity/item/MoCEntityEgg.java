@@ -4,7 +4,7 @@ import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.IMoCTameable;
-import drzhark.mocreatures.entity.animal.MoCEntityKomodo;
+import drzhark.mocreatures.entity.animal.MoCEntityKomodoDragon;
 import drzhark.mocreatures.entity.animal.MoCEntityOstrich;
 import drzhark.mocreatures.entity.animal.MoCEntityPetScorpion;
 import drzhark.mocreatures.entity.animal.MoCEntitySnake;
@@ -312,7 +312,7 @@ public class MoCEntityEgg extends EntityLiving {
 
                     if (getEggType() == 33) // Komodo
                     {
-                        MoCEntityKomodo entityspawn = new MoCEntityKomodo(worldObj);
+                        MoCEntityKomodoDragon entityspawn = new MoCEntityKomodoDragon(worldObj);
 
                         entityspawn.setPosition(posX, posY, posZ);
                         entityspawn.setMoCAge(30);

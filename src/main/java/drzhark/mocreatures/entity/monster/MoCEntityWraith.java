@@ -1,5 +1,6 @@
 package drzhark.mocreatures.entity.monster;
 
+import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.MoCEntityMob;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -10,8 +11,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
+public class MoCEntityWraith extends MoCEntityMob
 {
+	
     public MoCEntityWraith(World world)
     {
         super(world);
@@ -19,6 +21,7 @@ public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
         texture = "wraith.png";
         setSize(1.5F, 1.5F);
         isImmuneToFire = false;
+        noClip = MoCreatures.proxy.wraithsCanGoThroughWalls;
     }
 
     protected void applyEntityAttributes()
@@ -28,7 +31,7 @@ public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
     }
 
-    public boolean d2()
+    public boolean canSpawnHere()
     {
         return super.getCanSpawnHere();
     }
@@ -104,6 +107,20 @@ public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
     public boolean isOnAir()
     {
         return worldObj.isAirBlock(MathHelper.floor_double(posX), MathHelper.floor_double(posY - 0.2D), MathHelper.floor_double(posZ));
+    }
+    
+    @Override
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
+    {
+        if (MoCreatures.isServer())
+        {
+        	if (noClip && DamageSource.inWall.equals(damageSource))
+            {
+         	   return false;
+            }
+        }
+        
+        return super.attackEntityFrom(damageSource, damageTaken);
     }
     
     public void onDeath(DamageSource damageSource)

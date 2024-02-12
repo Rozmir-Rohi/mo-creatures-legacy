@@ -276,8 +276,8 @@ public static void initilization()
 	get_hide = new Achievement("achievement.get_hide", "get_hide", 1, -5, new ItemStack(MoCreatures.hide), AchievementList.buildSword).registerStat();
 	hide_armor = new Achievement("achievement.hide_armor", "hide_armor", 1, -7, new ItemStack(MoCreatures.helmetHide), get_hide).registerStat(); 
 	
-	get_reptile_hide = new Achievement("achievement.get_reptile_hide", "get_reptile_hide", -1, -5, new ItemStack(MoCreatures.hideCroc), AchievementList.buildSword).registerStat(); 
-	reptile_armor = new Achievement("achievement.reptile_armor", "reptile_armor", -1, -7, new ItemStack(MoCreatures.helmetCroc), get_reptile_hide).registerStat(); 
+	get_reptile_hide = new Achievement("achievement.get_reptile_hide", "get_reptile_hide", -1, -5, new ItemStack(MoCreatures.hideReptile), AchievementList.buildSword).registerStat(); 
+	reptile_armor = new Achievement("achievement.reptile_armor", "reptile_armor", -1, -7, new ItemStack(MoCreatures.helmetReptile), get_reptile_hide).registerStat(); 
 	
 	
 	get_scorpion_material = new Achievement("achievement.get_scorpion_material", "get_scorpion_material", -3, -5, new ItemStack(MoCreatures.chitin), AchievementList.buildSword).registerStat();

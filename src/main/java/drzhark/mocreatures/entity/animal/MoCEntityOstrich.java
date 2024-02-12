@@ -817,7 +817,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
                 {
                     helmetType = 6;
                 }
-                else if (itemstack.getItem() == MoCreatures.helmetCroc)
+                else if (itemstack.getItem() == MoCreatures.helmetReptile)
                 {
                     helmetType = 7;
                 }
@@ -854,7 +854,13 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
                
             }
         }
-        if ((itemstack == null) && getIsRideable() && getIsAdult() && (riddenByEntity == null))
+        if (
+        		(
+        			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+    				|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+        		)
+        		&& !(entityPlayer.isSneaking()) && getIsRideable() && getIsAdult() && (riddenByEntity == null)
+        	)
         {
             entityPlayer.rotationYaw = rotationYaw;
             entityPlayer.rotationPitch = rotationPitch;
@@ -1094,7 +1100,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
                 entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.helmetFur, 1));
                 break;
             case 7:
-                entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.helmetCroc, 1));
+                entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.helmetReptile, 1));
                 break;
             case 9:
                 entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.scorpHelmetDirt, 1));

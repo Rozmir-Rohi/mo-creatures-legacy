@@ -217,7 +217,13 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
             entityPlayer.addStat(MoCAchievements.pet_food, 1);
             return true;
         }
-        else if (itemstack == null)
+        if (
+        		(
+        			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+        			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+        		)
+        		&& !(entityPlayer.isSneaking())
+        	)
         {
             rotationYaw = entityPlayer.rotationYaw;
             if ((ridingEntity == null) && (entityPlayer.ridingEntity == null))

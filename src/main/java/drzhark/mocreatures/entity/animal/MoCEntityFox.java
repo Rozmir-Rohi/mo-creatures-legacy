@@ -171,7 +171,7 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
         			super.shouldEntityBeIgnored(entity) //including the mobs specified in parent file
         			|| (entity instanceof MoCEntityFox)
         			|| ((entity.width > 0.5D) && (entity.height > 0.5D)) //don't try to hunt creatures larger than a chicken
-        			|| (entity instanceof MoCEntityKomodo)
+        			|| (entity instanceof MoCEntityKomodoDragon)
         			|| (entity instanceof MoCEntityJellyFish || entity instanceof MoCEntityRay || entity instanceof EntitySquid)
         			|| (getIsTamed() && (entity instanceof IMoCEntity) && ((IMoCEntity)entity).getIsTamed() ) 
         		);

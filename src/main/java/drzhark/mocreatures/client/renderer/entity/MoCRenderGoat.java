@@ -53,7 +53,7 @@ public class MoCRenderGoat extends RenderLiving {
 
         super.doRender(entitygoat, d, d1, d2, f, f1);
         boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entitygoat.getName()).isEmpty();
-        boolean flag1 = MoCreatures.proxy.getDisplayPetHealth(entityLiving);
+        boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         //boolean flag2 = MoCreatures.proxy.getdisplayPetIcons();
         if (entitygoat.renderName())
         {

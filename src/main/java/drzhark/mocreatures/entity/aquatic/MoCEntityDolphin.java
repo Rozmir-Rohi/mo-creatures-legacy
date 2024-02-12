@@ -391,7 +391,13 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
             worldObj.playSoundAtEntity(this, "mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             return true;
         }
-        if (riddenByEntity == null)
+        if (
+        		(
+        			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+        			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+        		)
+        		&& !(entityPlayer.isSneaking()) && riddenByEntity == null
+        	)
         {
             entityPlayer.rotationYaw = rotationYaw;
             entityPlayer.rotationPitch = rotationPitch;

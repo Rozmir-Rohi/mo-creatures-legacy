@@ -66,7 +66,7 @@ import drzhark.mocreatures.entity.animal.MoCEntityFox;
 import drzhark.mocreatures.entity.animal.MoCEntityGoat;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
 import drzhark.mocreatures.entity.animal.MoCEntityKitty;
-import drzhark.mocreatures.entity.animal.MoCEntityKomodo;
+import drzhark.mocreatures.entity.animal.MoCEntityKomodoDragon;
 import drzhark.mocreatures.entity.animal.MoCEntityMole;
 import drzhark.mocreatures.entity.animal.MoCEntityMouse;
 import drzhark.mocreatures.entity.animal.MoCEntityOstrich;
@@ -219,11 +219,11 @@ public class MoCreatures {
     public static Item petFood;
     
     
-    public static Item hideCroc;
-    public static Item plateCroc;
-    public static Item helmetCroc;
-    public static Item legsCroc;
-    public static Item bootsCroc;
+    public static Item hideReptile;
+    public static Item plateReptile;
+    public static Item helmetReptile;
+    public static Item legsReptile;
+    public static Item bootsReptile;
     
     public static Item fishbowlEmpty;
     public static Item fishbowlWater;
@@ -542,7 +542,7 @@ public class MoCreatures {
         registerEntity(MoCEntityPetScorpion.class, "PetScorpion");
         registerEntity(MoCEntityPlatform.class, "MoCPlatform");
         registerEntity(MoCEntityElephant.class, "Elephant", 14772545, 23423);
-        registerEntity(MoCEntityKomodo.class, "KomodoDragon", 16711680, 23423);
+        registerEntity(MoCEntityKomodoDragon.class, "KomodoDragon", 16711680, 23423);
         registerEntity(MoCEntityWyvern.class, "Wyvern", 14772545, 65407);
         registerEntity(MoCEntityRoach.class, "Roach", 65407, 13749760);
         registerEntity(MoCEntityMaggot.class, "Maggot", 65407, 9141102);
@@ -607,7 +607,7 @@ public class MoCreatures {
         mocEntityMap.put("Fox", new MoCEntityData("Fox", 2, EnumCreatureType.creature, new SpawnListEntry(MoCEntityFox.class, 2, 1, 1), new ArrayList(Arrays.asList(Type.FOREST, Type.SNOWY))));
         mocEntityMap.put("Goat", new MoCEntityData("Goat", 2, EnumCreatureType.creature, new SpawnListEntry(MoCEntityGoat.class, 8, 1, 3), new ArrayList(Arrays.asList(Type.MOUNTAIN))));
         mocEntityMap.put("Kitty", new MoCEntityData("Kitty", 3, EnumCreatureType.creature, new SpawnListEntry(MoCEntityKitty.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST))));
-        mocEntityMap.put("KomodoDragon", new MoCEntityData("KomodoDragon", 2, EnumCreatureType.creature, new SpawnListEntry(MoCEntityKomodo.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.SWAMP))));
+        mocEntityMap.put("KomodoDragon", new MoCEntityData("KomodoDragon", 2, EnumCreatureType.creature, new SpawnListEntry(MoCEntityKomodoDragon.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.SWAMP))));
         mocEntityMap.put("Mole", new MoCEntityData("Mole", 3, EnumCreatureType.creature, new SpawnListEntry(MoCEntityMole.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.PLAINS))));
         mocEntityMap.put("Mouse", new MoCEntityData("Mouse", 2, EnumCreatureType.creature, new SpawnListEntry(MoCEntityMouse.class, 5, 1, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.HILLS, Type.PLAINS))));
         mocEntityMap.put("Ostrich", new MoCEntityData("Ostrich", 3, EnumCreatureType.creature, new SpawnListEntry(MoCEntityOstrich.class, 4, 1, 1), new ArrayList(Arrays.asList(Type.SAVANNA))));
@@ -724,11 +724,11 @@ public class MoCreatures {
         petFood = new MoCItem("petfood");
         builderHammer = new ItemBuilderHammer("builderhammer");
 
-        hideCroc = new MoCItem("reptilehide");
-        helmetCroc = new MoCItemArmor("reptilehelmet", CROC_ARMOR, 4, 0);
-        plateCroc = new MoCItemArmor("reptileplate", CROC_ARMOR, 4, 1);
-        legsCroc = new MoCItemArmor("reptilelegs", CROC_ARMOR, 4, 2);
-        bootsCroc = new MoCItemArmor("reptileboots", CROC_ARMOR, 4, 3);
+        hideReptile = new MoCItem("reptilehide");
+        helmetReptile = new MoCItemArmor("reptilehelmet", CROC_ARMOR, 4, 0);
+        plateReptile = new MoCItemArmor("reptileplate", CROC_ARMOR, 4, 1);
+        legsReptile = new MoCItemArmor("reptilelegs", CROC_ARMOR, 4, 2);
+        bootsReptile = new MoCItemArmor("reptileboots", CROC_ARMOR, 4, 3);
         
         fishbowlEmpty = new MoCItemFishBowl("bowlempty", 0);
         fishbowlWater = new MoCItemFishBowl("bowlwater", 11);
@@ -1075,13 +1075,13 @@ public class MoCreatures {
 
         GameRegistry.addRecipe(new ItemStack(Items.chainmail_boots, 1), new Object[] { "X X", "X X", Character.valueOf('X'), sharkTeeth });
 
-        GameRegistry.addRecipe(new ItemStack(plateCroc, 1), new Object[] { "X X", "XXX", "XXX", Character.valueOf('X'), hideCroc });
+        GameRegistry.addRecipe(new ItemStack(plateReptile, 1), new Object[] { "X X", "XXX", "XXX", Character.valueOf('X'), hideReptile });
 
-        GameRegistry.addRecipe(new ItemStack(helmetCroc, 1), new Object[] { "XXX", "X X", Character.valueOf('X'), hideCroc });
+        GameRegistry.addRecipe(new ItemStack(helmetReptile, 1), new Object[] { "XXX", "X X", Character.valueOf('X'), hideReptile });
 
-        GameRegistry.addRecipe(new ItemStack(legsCroc, 1), new Object[] { "XXX", "X X", "X X", Character.valueOf('X'), hideCroc });
+        GameRegistry.addRecipe(new ItemStack(legsReptile, 1), new Object[] { "XXX", "X X", "X X", Character.valueOf('X'), hideReptile });
 
-        GameRegistry.addRecipe(new ItemStack(bootsCroc, 1), new Object[] { "X X", "X X", Character.valueOf('X'), hideCroc });
+        GameRegistry.addRecipe(new ItemStack(bootsReptile, 1), new Object[] { "X X", "X X", Character.valueOf('X'), hideReptile });
 
         for (int i = 0; i < 16; i++)
         {

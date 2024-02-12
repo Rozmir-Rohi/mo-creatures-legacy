@@ -113,7 +113,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     @Override
     public boolean isPredator()
     {
-    	return getType() != 3; //not a panda
+    	return (getType() != 3 && getType() != 5); //not a panda or giant panda
     }
 
     @Override
@@ -130,6 +130,8 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             return MoCreatures.proxy.getTexture("bearpanda.png");
         case 4:
             return MoCreatures.proxy.getTexture("bearpolar.png");
+        case 5:
+            return MoCreatures.proxy.getTexture("bearpanda.png");
 
         default:
             return MoCreatures.proxy.getTexture("bearbrowm.png");
@@ -154,6 +156,8 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             return 0.8F;
         case 4:
             return 1.4F;
+        case 5:
+            return 1.2F;
 
         default:
             return 1.0F;
@@ -172,6 +176,8 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
 	            return 15;
 	        case 4:
 	            return 25;
+	        case 5:
+	            return 20;
 	
 	        default:
 	            return 20;
@@ -201,6 +207,8 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             return 1D;
         case 4:
             return 8D * factor;
+        case 5:
+            return 3D;
 
         default:
             return 8D;
@@ -226,6 +234,8 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             return 1;
         case 4:
             return 3 * worldDifficulty;
+        case 5:
+            return 2 * worldDifficulty;
 
         default:
             return 2;
@@ -358,13 +368,10 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     {
         if (worldObj.difficultySetting.getDifficultyId() > 0)
         {
-            float brightness = getBrightness(1.0F);
-            if (brightness < 0.0F && getType() == 1 || getType() == 4)
-            {
-                EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, getAttackRange());
-                if (entityPlayer != null) { return entityPlayer; }
-            }
-            if (rand.nextInt(80) == 0 && getType() != 3)
+        	EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, getAttackRange());
+           	if (entityPlayer != null) { return entityPlayer; }
+           
+           	else if (rand.nextInt(80) == 0 && getType() != 3)
             {
                 EntityLivingBase closestEntityLiving = getClosestEntityLiving(this, 10D);
                 
@@ -404,7 +411,11 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         /**
          * panda bears and cubs will sit down every now and then if they are not walking somewhere, not in water and if there isn't an attack target
          */
-        if (MoCreatures.isServer() && getBearState() != 2 && !hasPath() && !isInWater() && entityToAttack == null && (getType() == 3 || (!getIsAdult() && getMoCAge() < 60)) && (rand.nextInt(300) == 0))
+        if (
+        		MoCreatures.isServer() && getBearState() != 2 && !hasPath() && !isInWater() && entityToAttack == null
+        		&& (getType() == 3 || getType() == 5 || (!getIsAdult() && getMoCAge() < 60))
+        		&& (rand.nextInt(300) == 0)
+        	)
         {
             setBearState(2);
         }
@@ -421,7 +432,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
          * Adult non panda bears will stand on hind legs if close to player
          */
 
-        if ((MoCreatures.isServer()) && standingCounter == 0 && getBearState() != 2 && getIsAdult() && getType() != 3 && (rand.nextInt(500) == 0))
+        if ((MoCreatures.isServer()) && standingCounter == 0 && getBearState() != 2 && getIsAdult() && getType() != 3 && getType() != 5 && (rand.nextInt(500) == 0))
         {
             standingCounter = 1;
             EntityPlayer closestPlayer = worldObj.getClosestPlayerToEntity(this, 8D);
@@ -443,7 +454,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     {
         if (super.interact(entityPlayer)) { return false; }
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-        if ((itemstack != null) && (getType() == 3) && (isItemstackPandaFoodItem(itemstack)))
+        if ((itemstack != null) && (getType() == 3 || getType() == 5) && (isItemstackPandaFoodItem(itemstack)))
         {
         	
             if (--itemstack.stackSize == 0)
@@ -479,7 +490,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     protected String getDeathSound()
     {
     	if (getType() == 3 && !(getIsAdult())) {return "mocreatures:pandacubdeath";}
-    	else if (getType() == 3 && (getIsAdult())) {return "mocreatures:pandaadultdeath";}
+    	else if ((getType() == 3 && getIsAdult()) || getType() == 5) {return "mocreatures:pandaadultdeath";}
     	else {return "mocreatures:beardying";}
     }
 
@@ -488,7 +499,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     {
         openMouth();
         if (getType() == 3 && !(getIsAdult())) {return "mocreatures:pandacubhurt";}
-    	else if (getType() == 3 && (getIsAdult())) {return "mocreatures:pandaadulthurt";}
+    	else if ((getType() == 3 && getIsAdult()) || getType() == 5) {return "mocreatures:pandaadulthurt";}
     	else {return "mocreatures:bearhurt";}
     }
 
@@ -498,7 +509,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         openMouth();
         
         if (getType() == 3 && !(getIsAdult())) {return "mocreatures:pandacubgrunt";}
-    	else if (getType() == 3 && (getIsAdult())) {return "mocreatures:pandaadultgrunt";}
+    	else if ((getType() == 3 && getIsAdult()) || getType() == 5) {return "mocreatures:pandaadultgrunt";}
     	else {return "mocreatures:beargrunt";}
     }
 
@@ -520,6 +531,13 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         if (BiomeDictionary.isBiomeOfType(currentBiome, Type.JUNGLE) || currentBiome.biomeName.toLowerCase().contains("bamboo"))  // also adds Biome's O Plenty and Et Futurum Requiem "Bamboo Forest" compatibility
         {
             setType(3);//panda
+            
+            if(MoCreatures.proxy.enableRareGiantPandaVariant && rand.nextInt(100) <= 10) //10 percent chance if enabled
+            {
+            	setType(5);// giant panda
+            	setMoCAge(100);
+            }
+            
             return true;
         }		
         
@@ -571,7 +589,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     @Override
     public boolean isMyFollowFood(ItemStack itemstack)
     {
-    	return getType() == 3 && itemstack != null && (isItemstackPandaFoodItem(itemstack)); 
+    	return (getType() == 3 || getType() == 5) && itemstack != null && (isItemstackPandaFoodItem(itemstack)); 
     }
 
     @Override
@@ -579,7 +597,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     {
         if (itemstack != null) 
         {
-        	if (getType() == 3) //panda
+        	if (getType() == 3 || getType() == 5) //panda and giant panda
         	{
         		return (isItemstackPandaFoodItem(itemstack));
         	}
@@ -603,6 +621,17 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             	|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:bamboo")
             	|| (item.itemRegistry).getNameForObject(item).equals("tropicraft:bambooChute")
             	|| (item.itemRegistry).getNameForObject(item).equals("harvestcraft:bambooshootItem")
+            	|| (item.itemRegistry).getNameForObject(item).equals("Growthcraft|Bamboo:grc.bamboo")
+            	
+            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooFargesiaRobusta")
+            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooShortTassled")
+            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooTimorBlack")
+            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooGolden")
+            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooWetForest")
+            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooAsper")
+            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooTropicalBlue")
+            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooMoso")
+            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooGiantTimber")
             ) {return true;}
 		
 		return false;
@@ -613,7 +642,9 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     {
         if (getIsAdult())
         {
-            return (-55);
+        	if (getType() == 3) {return -55;}
+        	
+        	else {return -70;}
         }
         return (int) ((100/getMoCAge()) * (-40));
 

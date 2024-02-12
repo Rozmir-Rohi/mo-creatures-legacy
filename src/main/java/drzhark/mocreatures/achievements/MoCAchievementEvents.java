@@ -48,7 +48,7 @@ public class MoCAchievementEvents {
 		
 		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.hide)) {event.player.addStat(MoCAchievements.get_hide, 1);}
 		
-		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.hideCroc)) {event.player.addStat(MoCAchievements.get_reptile_hide, 1);}
+		if (event.pickedUp.getEntityItem().getItem().equals(MoCreatures.hideReptile)) {event.player.addStat(MoCAchievements.get_reptile_hide, 1);}
 		
 		if (
 				event.pickedUp.getEntityItem().getItem() == MoCreatures.chitin
@@ -130,17 +130,17 @@ public class MoCAchievementEvents {
 			) {event.player.addStat(MoCAchievements.hide_armor, 1);}
 		
 		if (
-				event.crafting.getItem() == MoCreatures.helmetCroc
-				|| event.crafting.getItem() == MoCreatures.plateCroc
-				|| event.crafting.getItem() == MoCreatures.legsCroc
-				|| event.crafting.getItem() == MoCreatures.bootsCroc
+				event.crafting.getItem() == MoCreatures.helmetReptile
+				|| event.crafting.getItem() == MoCreatures.plateReptile
+				|| event.crafting.getItem() == MoCreatures.legsReptile
+				|| event.crafting.getItem() == MoCreatures.bootsReptile
 			) {event.player.addStat(MoCAchievements.reptile_armor, 1);}
 		
 		if (
-				event.crafting.getItem() == MoCreatures.helmetCroc
-				|| event.crafting.getItem() == MoCreatures.plateCroc
-				|| event.crafting.getItem() == MoCreatures.legsCroc
-				|| event.crafting.getItem() == MoCreatures.bootsCroc
+				event.crafting.getItem() == MoCreatures.helmetReptile
+				|| event.crafting.getItem() == MoCreatures.plateReptile
+				|| event.crafting.getItem() == MoCreatures.legsReptile
+				|| event.crafting.getItem() == MoCreatures.bootsReptile
 			) {event.player.addStat(MoCAchievements.reptile_armor, 1);}
 		
 		if (

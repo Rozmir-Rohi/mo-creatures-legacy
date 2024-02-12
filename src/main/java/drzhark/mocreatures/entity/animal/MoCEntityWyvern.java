@@ -501,7 +501,14 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             }
         }
 
-        if ((itemstack == null) && getIsRideable() && getMoCAge() > 90 && (riddenByEntity == null))
+        if (
+        		(
+        			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+        			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+        		)
+        		&& !(entityPlayer.isSneaking()) && getIsRideable() && getMoCAge() > 90 && (riddenByEntity == null)
+        		&& entityPlayer.riddenByEntity == null //stops players from riding a wyvern with a creature picked up or on their head. This fixes the flying speed glitch.
+        	)
         {
             if (MoCreatures.isServer())
             {

@@ -1,7 +1,10 @@
 package drzhark.mocreatures.entity.ambient;
 
+import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityAmbient;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 public class MoCEntityMaggot extends MoCEntityAmbient
@@ -44,5 +47,16 @@ public class MoCEntityMaggot extends MoCEntityAmbient
     @Override
     public void jump()
     {
+    }
+    
+    @Override
+    protected void dropFewItems(boolean hasEntityBeenHitByPlayer, int levelOfLootingEnchantmentUsedToKillThisEntity)
+    {  
+        if (MoCreatures.proxy.slimyInsectsAndJellyfishDropSlimeballs)
+        {
+        	int randomAmount = rand.nextInt(2);
+        	
+        	dropItem(Items.slime_ball, randomAmount);
+        }
     }
 }

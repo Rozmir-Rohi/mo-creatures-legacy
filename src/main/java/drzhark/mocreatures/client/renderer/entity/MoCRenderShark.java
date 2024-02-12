@@ -29,7 +29,7 @@ public class MoCRenderShark extends RenderLiving {
         MoCEntityShark entityshark = (MoCEntityShark) entityLiving;
         super.doRender(entityshark, d, d1, d2, f, f1);
         boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityshark.getName()).isEmpty();
-        boolean flag1 = MoCreatures.proxy.getDisplayPetHealth(entityLiving);
+        boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         boolean flag2 = MoCreatures.proxy.getDisplayPetIcons();
         if (entityshark.renderName())
         {
@@ -139,7 +139,7 @@ public class MoCRenderShark extends RenderLiving {
                 tessellator.addVertex(-i - 1, 8 + byte0, 0.0D);
                 tessellator.addVertex(i + 1, 8 + byte0, 0.0D);
                 tessellator.addVertex(i + 1, -1 + byte0, 0.0D);
-                if (MoCreatures.proxy.getDisplayPetHealth(entityLiving))
+                if (MoCreatures.proxy.getDisplayPetHealthMode(entityLiving))
                 {
                     float f5 = entityshark.getHealth();
                     float f6 = entityshark.getMaxHealth();

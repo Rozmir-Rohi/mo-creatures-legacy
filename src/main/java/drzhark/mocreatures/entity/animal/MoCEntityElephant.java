@@ -312,7 +312,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                     {
                         height = 3;
                     }
-                    int dmg = MoCTools.destroyTreeBlocksInFront(this, 2D, getTusks(), height);
+                    int dmg = MoCTools.destroyBlocksInFront(this, 2D, getTusks(), height);
                     checkTusks(dmg);
                 
             }
@@ -693,7 +693,12 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
             }
         }
         
-        if (itemstack == null && getIsTamed() && getIsAdult() && getArmorType() >= 1 && sitCounter != 0)
+        if (
+        		(
+        			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+        			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+        		)
+        		&& getIsTamed() && getIsAdult() && getArmorType() >= 1 && sitCounter != 0)
         {
             entityPlayer.rotationYaw = rotationYaw;
             entityPlayer.rotationPitch = rotationPitch;

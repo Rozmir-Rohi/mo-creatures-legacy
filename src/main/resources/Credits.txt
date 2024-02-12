@@ -78,6 +78,8 @@ Language File Translations:
 	Omgise - Chinese (Simplified) (zh_CN.lang)
 	
 
+	Hudhand - Russian (ru_RU.lang)
+
 
 
 Code for Multilingual Pet Naming:

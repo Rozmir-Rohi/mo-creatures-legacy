@@ -348,35 +348,39 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         	}
         }
 
-        else
-        {
-        	if (getIsTamed())
-        	{
-        		rotationYaw = entityPlayer.rotationYaw;
-        		if ((ridingEntity == null) && (entityPlayer.ridingEntity == null))
-        		{
-        			if (MoCreatures.isServer())
-        			{
-        				mountEntity(entityPlayer);
-        				setPicked(true);
-        				return true;
-        			}
-        		}
-    
-        		if ((ridingEntity == entityPlayer))
-        		{
-        			if (MoCreatures.isServer())
-        			{
-        				mountEntity(null);
-        				motionX = entityPlayer.motionX * 5D;
-        		        motionY = (entityPlayer.motionY / 2D) + 0.5D;
-        		        motionZ = entityPlayer.motionZ * 5D;
-        		        return true;
-        			}
-        		}
-        	}
+        if (
+        		getIsTamed()
+        		&& 
+        			(
+        				(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+        				|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+        			)
+        	)
+    	{
+    		rotationYaw = entityPlayer.rotationYaw;
+    		if ((ridingEntity == null) && (entityPlayer.ridingEntity == null))
+    		{
+    			if (MoCreatures.isServer())
+    			{
+    				mountEntity(entityPlayer);
+    				setPicked(true);
+    				return true;
+    			}
+    		}
+
+    		if ((ridingEntity == entityPlayer))
+    		{
+    			if (MoCreatures.isServer())
+    			{
+    				mountEntity(null);
+    				motionX = entityPlayer.motionX * 5D;
+    		        motionY = (entityPlayer.motionY / 2D) + 0.5D;
+    		        motionZ = entityPlayer.motionZ * 5D;
+    		        return true;
+    			}
+    		}
+    	}
         
-        }
         return false;
     }
 

@@ -201,37 +201,42 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         	}
         }
         	
-        else
-        {
-        	if (getIsTamed())
-        	{
-        		rotationYaw = entityPlayer.rotationYaw;
-        		if ((ridingEntity == null) && (entityPlayer.ridingEntity == null))
-        		{
-        			// This is required since the server will send a Packet39AttachEntity which informs the client to mount
-        			if (MoCreatures.isServer())
-        			{
-        				mountEntity(entityPlayer);
-        			}
-        			isPickedUp = true;
-        			return true;
-        		}
-        		
-        		else if (ridingEntity == entityPlayer)
-        		{
-        			worldObj.playSoundAtEntity(this, "mocreatures:rabbitlift", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
-        			if (MoCreatures.isServer())
-        			{
-        				mountEntity(null);
-        				motionX = entityPlayer.motionX * 5D;
-            			motionY = (entityPlayer.motionY / 2D) + 0.5D;
-                		motionZ = entityPlayer.motionZ * 5D;
-        			}
-        			isPickedUp = false;
-            		return true;
-        		}
-        	}
-        }        
+        if (
+        		getIsTamed()
+        		&&
+        			(
+        				(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+        				|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+        			)
+        		&& !(entityPlayer.isSneaking())
+        	)
+    	{
+    		rotationYaw = entityPlayer.rotationYaw;
+    		if ((ridingEntity == null) && (entityPlayer.ridingEntity == null))
+    		{
+    			// This is required since the server will send a Packet39AttachEntity which informs the client to mount
+    			if (MoCreatures.isServer())
+    			{
+    				mountEntity(entityPlayer);
+    			}
+    			isPickedUp = true;
+    			return true;
+    		}
+    		
+    		else if (ridingEntity == entityPlayer)
+    		{
+    			worldObj.playSoundAtEntity(this, "mocreatures:rabbitlift", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
+    			if (MoCreatures.isServer())
+    			{
+    				mountEntity(null);
+    				motionX = entityPlayer.motionX * 5D;
+        			motionY = (entityPlayer.motionY / 2D) + 0.5D;
+            		motionZ = entityPlayer.motionZ * 5D;
+    			}
+    			isPickedUp = false;
+        		return true;
+    		}
+    	}       
         return true;
     }
 

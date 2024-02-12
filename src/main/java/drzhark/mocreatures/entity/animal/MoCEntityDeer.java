@@ -86,7 +86,7 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
         		|| entity instanceof MoCEntityBear
         		|| entity instanceof MoCEntityBigCat
         		|| entity instanceof MoCEntityCrocodile
-        		|| entity instanceof MoCEntityKomodo
+        		|| entity instanceof MoCEntityKomodoDragon
         		|| entity instanceof MoCEntityWyvern);
     }
 

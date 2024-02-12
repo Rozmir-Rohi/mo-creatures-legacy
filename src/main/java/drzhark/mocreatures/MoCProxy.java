@@ -31,7 +31,7 @@ public class MoCProxy implements IGuiHandler {
 
     //CONFIG VARIABLES
     // Client Only
-    public boolean displayPetHealth;
+    public int displayPetHealthMode;
     public boolean displayPetName;
     public boolean displayPetIcons;
     public boolean animateTextures;
@@ -50,7 +50,10 @@ public class MoCProxy implements IGuiHandler {
     public boolean easyBreeding;
     public boolean destroyDrops;
     public boolean enableStrictOwnership;
+    public boolean emptyHandMountAndPickUpOnly;
     public boolean elephantBulldozer;
+    
+    public boolean enableRareGiantPandaVariant;
     
     public boolean replaceVanillaCreepers;
     
@@ -79,6 +82,7 @@ public class MoCProxy implements IGuiHandler {
     public int maxOPTamed;
     public int ostrichEggDropChance;
     public int rareItemDropChance;
+    public boolean slimyInsectsAndJellyfishDropSlimeballs;
     public int wyvernEggDropChance;
     public int motherWyvernEggDropChance;
     public int particleFX;
@@ -97,6 +101,8 @@ public class MoCProxy implements IGuiHandler {
     public short ogreAttackRange;
     public short fireOgreChance;
     public short caveOgreChance;
+    
+    public boolean wraithsCanGoThroughWalls;
 
     public boolean debug = false;
     public boolean allowInstaSpawn;
@@ -177,20 +183,28 @@ public class MoCProxy implements IGuiHandler {
         return displayPetIcons;
     }
 
-    public boolean getDisplayPetHealth(EntityLiving entityLiving)
+    public boolean getDisplayPetHealthMode(EntityLiving entityLiving)
     {
-    	if (displayPetHealth == true)
+    	switch(displayPetHealthMode)
     	{
-	        if (entityLiving.getHealth() == entityLiving.getMaxHealth())
-	        {
-	        	return false;
-	        }
-	        else
-	        {
-	        	return true;
-	        }
+    		case 0:
+    			return false;
+    			
+    		case 1:
+    			return true;
+    			
+    		case 2:
+    			if (entityLiving.getHealth() == entityLiving.getMaxHealth())
+    	        {
+    	        	return false;
+    	        }
+    	        else
+    	        {
+    	        	return true;
+    	        }
+    		default:
+    			return true;
     	}
-    	else {return false;}
     }
 
     public int getParticleFX()
@@ -282,7 +296,7 @@ public class MoCProxy implements IGuiHandler {
     public void readGlobalConfigValues() 
     {
         // client-side only
-        displayPetHealth = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "displayPetHealth", true, "Shows health bar for pets if they are hurt.").getBoolean(true);
+        displayPetHealthMode = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "displayPetHealthMode", 2, "Modes: (0 = Do not show health bar for pets | 1 = Always show health bar for pets | 2 = Only show health bar for pets if they are hurt).").getInt();
         displayPetName = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "displayPetName", true, "Shows pet name.").getBoolean(true);
         displayPetIcons = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "displayPetIcons", true, "Shows pet emotes.").getBoolean(true);
         animateTextures = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "animateTextures", true, "Animate the textures for entities that have animated textures.").getBoolean(true);
@@ -303,7 +317,9 @@ public class MoCProxy implements IGuiHandler {
         enableStrictOwnership = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "enableStrictOwnership", false, "If true: only the owner of a pet can interact with the them. This also adds a limit to the amount of tamed creatures a player can have (see 'maxTamedPerPlayer' and 'maxTamedPerOP').").getBoolean(false);
         
         easyBreeding = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "easyBreeding", false, "Makes horse breeding simpler.").getBoolean(true);
-        elephantBulldozer = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "elephantBulldozer", true, "Allows tamed elephants to break logs and leaves when ramming.").getBoolean(true);
+        elephantBulldozer = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "elephantBulldozer", true, "Allows tamed elephants to break blocks in front when ramming.").getBoolean(true);
+        emptyHandMountAndPickUpOnly = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "emptyHandMountAndPickUpOnly", true, "If true: creatures that can be mounted can only be mounted with an empty hand, creatures that can be picked up can only be picked up with an empty hand, if a player switches to an item while holding a creature in their hand they will drop that creature.").getBoolean(true);
+        enableRareGiantPandaVariant = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "enableRareGiantPandaVariant", false, "If true: pandas that spawn will have a 10% to be a giant panda.").getBoolean(false);
         ostrichEggDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "ostrichEggDropChance", 3, "A value of 3 means ostriches have a 3% chance to drop an egg.").getInt();
         staticBed = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "staticBed", true, "If true: kitty bed cannot be pushed.").getBoolean(true);
         staticLitter = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "staticLitter", true, "If true: kitty litter box cannot be pushed.").getBoolean(true);
@@ -314,11 +330,14 @@ public class MoCProxy implements IGuiHandler {
         attackWolves = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "attackWolves", false, "Allows predator creatures to hunt wolves.").getBoolean(false);
         destroyDrops = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "destroyDrops", true, "If true: predator creatures will destroy the drops of their prey and heal themselves when they kill thier prey. Predator creatures will not destroy items dropped from player deaths.").getBoolean(true);
         rareItemDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "rareItemDropChance", 25, "A value of 25 means Horses/Ostriches/Scorpions/etc. have a 25% chance to drop a rare item such as a heart of darkness, unicorn horn, ect. when killed. Raise the value if you want higher drop rates.").getInt();
+        slimyInsectsAndJellyfishDropSlimeballs = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "slimyInsectsAndJellyfishDropSlimeballs", false, "If true: maggots, snails, and jellyfish will drop slimeballs on death.").getBoolean(false);
         wyvernEggDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "wyvernEggDropChance", 10, "A value of 10 means wyverns have a 10% chance to drop an egg.").getInt();
         motherWyvernEggDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "motherWyvernEggDropChance", 33, "A value of 33 means mother wyverns have a 33% chance to drop an egg.").getInt();
 
         attackDolphins = mocSettingsConfig.get(CATEGORY_MOC_WATER_CREATURE_GENERAL_SETTINGS, "attackDolphins", false, "Allows aquatic predator creatures to hunt dolphins.").getBoolean(false);        
         
+        
+        wraithsCanGoThroughWalls = mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "wraithsCanGoThroughWalls", false, "If true: wraiths and flame wraiths will be able to go through walls.").getBoolean(false);
         ogreStrength = Float.parseFloat(mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "ogreStrength", 2.5F, "The block destruction radius of green Ogres.").getString());
         caveOgreStrength = Float.parseFloat(mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "caveOgreStrength", 3.0F, "The block destruction radius of Cave Ogres.").getString());
         fireOgreStrength = Float.parseFloat(mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "fireOgreStrength", 2.0F, "The block destruction radius of Fire Ogres.").getString());
@@ -330,7 +349,7 @@ public class MoCProxy implements IGuiHandler {
         replaceWitcheryWerewolfEntities = mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "replaceWitcheryWerewolfEntities", true, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED. Replaces the werewolves from the Witchery mod with Witchery integration werewolves from Mo' Creatures Legacy. This will also consequently disable the method of gaining lycanthropy from the wolf altar ritual. Instead, lycanthropy will only be gained through the Curse of the Wolf witch coven ritual or by contracting it from a werewolf player.").getBoolean(true);
         replaceWitcheryPlayerWolf = mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "replaceWitcheryPlayerWolf", true, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED. THIS IS NOT COMPATIBLE WITH ANY OTHER MODS THAT CAN PERMANENTLY CHANGE THE PLAYER'S MAX HEALTH. Replaces the Witchery player wolf model with the Mo' Creatures dire wolf model for player werewolves that are level 7 and above.").getBoolean(true);
         replaceWitcheryPlayerWerewolf = mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "replaceWitcheryPlayerWerewolf", true, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED. THIS IS NOT COMPATIBLE WITH ANY OTHER MODS THAT CAN PERMANENTLY CHANGE THE PLAYER'S MAX HEALTH. Replaces the Witchery player werewolf model with the Mo' Creatures werewolf model.").getBoolean(true);
-        colorForWitcheryPlayerWolfAndWerewolf = (short) mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "colorForWitcheryPlayerWolfAndWerewolf", 1, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED and if either replaceWitcheryPlayerWolf or replaceWitcheryPlayerWerewolf is true. This setting applies to all players in a world/server. Colors: (0 = black | 1 = white | 2 = brown).").getInt();
+        colorForWitcheryPlayerWolfAndWerewolf = (short) mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "colorForWitcheryPlayerWolfAndWerewolf", 1, "ONLY HAS AN EFFECT IF THE WITCHERY MOD IS INSTALLED and if either replaceWitcheryPlayerWolf or replaceWitcheryPlayerWerewolf is true. This setting affects how the wolf and werewolf textures for all players are rendered only in your view. Colors: (0 = black | 1 = white | 2 = brown).").getInt();
         
         
         mocSettingsConfig.save();

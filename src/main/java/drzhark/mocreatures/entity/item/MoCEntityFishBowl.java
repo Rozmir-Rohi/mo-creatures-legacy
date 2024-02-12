@@ -261,7 +261,13 @@ public class MoCEntityFishBowl extends MoCEntityItemPlaceable {
             return true;
         }
         
-        if (itemstack == null)
+        if (
+	        	(
+	    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+	    			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+	    		)
+	    		&& !(entityPlayer.isSneaking())
+    		)
         {
 	        if ((ridingEntity == null) && (entityPlayer.ridingEntity == null) && (MoCreatures.isServer()))
 	        {

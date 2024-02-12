@@ -254,11 +254,11 @@ public class MoCRenderWolfPlayerWitchery extends RendererLivingEntity {
      * to interpolate, par3 is probably a float between 0.0 and 1.0 that tells us where "between" the two angles we are.
      * Example: par1 = 30, par2 = 50, par3 = 0.5, then return = 40
      */
-    private float interpolateRotation(float p_77034_1_, float p_77034_2_, float p_77034_3_)
+    private float interpolateRotation(float par1, float par2, float par3)
     {
         float f3;
 
-        for (f3 = p_77034_2_ - p_77034_1_; f3 < -180.0F; f3 += 360.0F)
+        for (f3 = par2 - par1; f3 < -180.0F; f3 += 360.0F)
         {
             ;
         }
@@ -268,22 +268,22 @@ public class MoCRenderWolfPlayerWitchery extends RendererLivingEntity {
             f3 -= 360.0F;
         }
 
-        return p_77034_1_ + p_77034_3_ * f3;
+        return par1 + par3 * f3;
     }
     
     //renders the model even if player is invisible
     @Override
-    protected void renderModel(EntityLivingBase p_77036_1_, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float p_77036_7_)
+    protected void renderModel(EntityLivingBase entityLivingBase, float f, float f1, float f2, float f3, float f4, float f5)
     {
-        this.bindEntityTexture(p_77036_1_);
+        bindEntityTexture(entityLivingBase);
 
-        this.mainModel.render(p_77036_1_, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, p_77036_7_);
+        mainModel.render(entityLivingBase, f, f1, f2, f3, f4, f5);
     }
     
     @Override
-    protected boolean func_110813_b(EntityLivingBase p_110813_1_)
+    protected boolean func_110813_b(EntityLivingBase entityLivingBase)
     {
-        return Minecraft.isGuiEnabled() && p_110813_1_ != this.renderManager.livingPlayer && p_110813_1_.riddenByEntity == null;
+        return Minecraft.isGuiEnabled() && entityLivingBase != this.renderManager.livingPlayer && entityLivingBase.riddenByEntity == null;
     }
 
 

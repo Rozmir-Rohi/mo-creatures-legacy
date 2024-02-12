@@ -174,7 +174,13 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
         else if ((itemstack == null))
         {
             rotationYaw = entityPlayer.rotationYaw;
-            if ((itemstack == null) && (ridingEntity == null) && (entityPlayer.ridingEntity == null))
+            if (
+            		(
+                		(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+                		|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+                	)
+                	&& !(entityPlayer.isSneaking()) && (ridingEntity == null) && (entityPlayer.ridingEntity == null)
+                )
             {
                 if (MoCreatures.isServer())
                 {

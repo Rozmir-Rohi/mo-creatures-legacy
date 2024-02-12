@@ -1405,7 +1405,7 @@ public class MoCTools {
      * @param height:  how many rows of blocks are destroyed in front of the entity
      * @return the count of blocks destroyed
      */
-    public static int destroyTreeBlocksInFront(Entity entity, double distance, int strength, int height)
+    public static int destroyBlocksInFront(Entity entity, double distance, int strength, int height)
     {
         if (strength == 0) { return 0; }
         int count = 0;
@@ -1422,11 +1422,7 @@ public class MoCTools {
         for (int index = 0; index < height; index++)
         {
             Block block = entity.worldObj.getBlock(x, y + index, z);
-            if (block != Blocks.air && (
-            		(block == Blocks.log)
-            		|| (block == Blocks.log2)
-            		|| (block == Blocks.leaves)
-            		|| (block == Blocks.leaves2)))
+            if (block != Blocks.air && block != Blocks.bedrock)
             {
                 int metadata = entity.worldObj.getBlockMetadata(x, y + index, z);
                 BlockEvent.BreakEvent event = null;

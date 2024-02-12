@@ -178,7 +178,15 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 	        rotationYaw = entityPlayer.rotationYaw;
 	        if (ridingEntity == null)
 	        {
-	            if (MoCreatures.isServer() && (entityPlayer.ridingEntity == null))
+	            if (
+	            		MoCreatures.isServer()
+	            		&&
+	            		(
+	                		(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+	                		|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+	                	)
+	                	&& !(entityPlayer.isSneaking()) && (entityPlayer.ridingEntity == null)
+	                )
 	            {
 	                mountEntity(entityPlayer);
 	            }

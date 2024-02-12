@@ -1,13 +1,13 @@
 package drzhark.mocreatures.client.model;
 
-import drzhark.mocreatures.entity.animal.MoCEntityKomodo;
+import drzhark.mocreatures.entity.animal.MoCEntityKomodoDragon;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 
 
-public class MoCModelKomodo extends ModelBase
+public class MoCModelKomodoDragon extends ModelBase
 {
 
 
@@ -48,7 +48,7 @@ public class MoCModelKomodo extends ModelBase
  ModelRenderer SaddleB;
  private float radianF = 57.29578F;
  
-public MoCModelKomodo()
+public MoCModelKomodoDragon()
 {
  textureWidth = 64;
  textureHeight = 64;
@@ -222,7 +222,7 @@ public MoCModelKomodo()
 
 public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
 {
-    MoCEntityKomodo komodo = (MoCEntityKomodo) entity;
+    MoCEntityKomodoDragon komodo = (MoCEntityKomodoDragon) entity;
     //int type = komodo.getType();
     //byte harness = komodo.getHarness();
     //byte storage = komodo.getStorage();

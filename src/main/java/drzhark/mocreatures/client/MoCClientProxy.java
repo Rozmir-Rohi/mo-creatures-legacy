@@ -41,7 +41,7 @@ import drzhark.mocreatures.client.model.MoCModelJellyFish;
 import drzhark.mocreatures.client.model.MoCModelKitty;
 import drzhark.mocreatures.client.model.MoCModelKittyBed;
 import drzhark.mocreatures.client.model.MoCModelKittyBed2;
-import drzhark.mocreatures.client.model.MoCModelKomodo;
+import drzhark.mocreatures.client.model.MoCModelKomodoDragon;
 import drzhark.mocreatures.client.model.MoCModelLitterBox;
 import drzhark.mocreatures.client.model.MoCModelMaggot;
 import drzhark.mocreatures.client.model.MoCModelMediumFish;
@@ -133,7 +133,7 @@ import drzhark.mocreatures.entity.animal.MoCEntityFox;
 import drzhark.mocreatures.entity.animal.MoCEntityGoat;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
 import drzhark.mocreatures.entity.animal.MoCEntityKitty;
-import drzhark.mocreatures.entity.animal.MoCEntityKomodo;
+import drzhark.mocreatures.entity.animal.MoCEntityKomodoDragon;
 import drzhark.mocreatures.entity.animal.MoCEntityMole;
 import drzhark.mocreatures.entity.animal.MoCEntityMouse;
 import drzhark.mocreatures.entity.animal.MoCEntityOstrich;
@@ -258,7 +258,7 @@ public class MoCClientProxy extends MoCProxy {
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityPetScorpion.class, new MoCRenderPetScorpion(new MoCModelPetScorpion(), 0.6F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityPlatform.class, new MoCRenderPlatform());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityElephant.class, new MoCRenderMoC(new MoCModelElephant(), 0.7F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityKomodo.class, new MoCRenderMoC(new MoCModelKomodo(), 0.3F));
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityKomodoDragon.class, new MoCRenderMoC(new MoCModelKomodoDragon(), 0.3F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityWyvern.class, new MoCRenderMoC(new MoCModelWyvern(), 0.5F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityOgre.class, new MoCRenderMoC(new MoCModelOgre(), 0.6F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityRoach.class, new MoCRenderInsect(new MoCModelRoach()));
@@ -516,20 +516,28 @@ public class MoCClientProxy extends MoCProxy {
         return displayPetIcons;
     }
 
-    public boolean getDisplayPetHealth(EntityLiving entityLiving)
+    public boolean getDisplayPetHealthMode(EntityLiving entityLiving)
     {
-    	if (displayPetHealth == true)
+    	switch(displayPetHealthMode)
     	{
-	        if (entityLiving.getHealth() == entityLiving.getMaxHealth())
-	        {
-	        	return false;
-	        }
-	        else
-	        {
-	        	return true;
-	        }
+    		case 0:
+    			return false;
+    			
+    		case 1:
+    			return true;
+    			
+    		case 2:
+    			if (entityLiving.getHealth() == entityLiving.getMaxHealth())
+    	        {
+    	        	return false;
+    	        }
+    	        else
+    	        {
+    	        	return true;
+    	        }
+    		default:
+    			return true;
     	}
-    	else {return false;}
     }
 
     @Override

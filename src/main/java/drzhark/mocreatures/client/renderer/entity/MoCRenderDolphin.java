@@ -29,7 +29,7 @@ public class MoCRenderDolphin extends RenderLiving {
         MoCEntityDolphin entitydolphin = (MoCEntityDolphin) entityLiving;
         super.doRender(entitydolphin, d, d1, d2, f, f1);
         boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entitydolphin.getName()).isEmpty();
-        boolean flag1 = MoCreatures.proxy.getDisplayPetHealth(entityLiving);
+        boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         //boolean flag2 = MoCreatures.proxy.getdisplayPetIcons();
         if (entitydolphin.renderName())
         {
@@ -140,7 +140,7 @@ public class MoCRenderDolphin extends RenderLiving {
                 tessellator.addVertex(-i - 1, 8 + byte0, 0.0D);
                 tessellator.addVertex(i + 1, 8 + byte0, 0.0D);
                 tessellator.addVertex(i + 1, -1 + byte0, 0.0D);
-                if (MoCreatures.proxy.getDisplayPetHealth(entityLiving))
+                if (MoCreatures.proxy.getDisplayPetHealthMode(entityLiving))
                 {
                     float f5 = entitydolphin.getHealth();
                     float f6 = entitydolphin.getMaxHealth();

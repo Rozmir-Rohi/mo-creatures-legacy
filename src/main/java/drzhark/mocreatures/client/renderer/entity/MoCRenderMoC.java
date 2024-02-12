@@ -38,7 +38,7 @@ public class MoCRenderMoC extends RenderLiving {
         IMoCEntity entityMoC = (IMoCEntity) entity;
 
         boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityMoC.getName()).isEmpty();
-        boolean flag1 = MoCreatures.proxy.getDisplayPetHealth((EntityLiving) entity);
+        boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode((EntityLiving) entity);
         boolean flag2 = MoCreatures.proxy.getDisplayPetIcons();
         if (entityMoC.renderName())
         {

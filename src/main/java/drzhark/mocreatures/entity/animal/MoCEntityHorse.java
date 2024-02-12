@@ -1870,7 +1870,14 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	        }
         }
 
-        else if (getIsRideable() && getIsAdult() && (riddenByEntity == null) && (entityPlayer.riddenByEntity == null)) 
+        if (
+	        	(
+	    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+	    			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+	    		)
+	        	&& !(entityPlayer.isSneaking()) && getIsRideable() && getIsAdult() && (riddenByEntity == null)
+	        	&& !(isFlyer() && entityPlayer.riddenByEntity != null) //stops players from riding a flying horse with a creature picked up or on their head. This fixes the flying speed glitch.
+        	) 
         {
             entityPlayer.rotationYaw = rotationYaw;
             entityPlayer.rotationPitch = rotationPitch;

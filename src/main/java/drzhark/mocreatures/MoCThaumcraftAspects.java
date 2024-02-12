@@ -143,11 +143,11 @@ ThaumcraftApi.registerObjectTag(new ItemStack(MoCreatures.petFood), new AspectLi
 
 ThaumcraftApi.registerObjectTag(new ItemStack(MoCreatures.recordShuffle), new AspectList().add( Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.BEAST, 4).add(Aspect.GREED, 4));
 
-ThaumcraftApi.registerObjectTag(new ItemStack(MoCreatures.hideCroc), new AspectList().add( Aspect.ARMOR, 2).add(Aspect.BEAST, 2).add(Aspect.CLOTH, 2));
-ThaumcraftApi.registerObjectTag(new ItemStack(MoCreatures.helmetCroc), new AspectList().add(Aspect.CLOTH, 3).add(Aspect.BEAST, 2).add(Aspect.ARMOR, 2));
-ThaumcraftApi.registerObjectTag(new ItemStack(MoCreatures.plateCroc), new AspectList().add(Aspect.CLOTH, 6).add(Aspect.BEAST, 6).add(Aspect.ARMOR, 6));
-ThaumcraftApi.registerObjectTag(new ItemStack(MoCreatures.legsCroc), new AspectList().add(Aspect.CLOTH, 5).add(Aspect.BEAST, 5).add(Aspect.ARMOR, 5));
-ThaumcraftApi.registerObjectTag(new ItemStack(MoCreatures.bootsCroc), new AspectList().add(Aspect.CLOTH, 3).add( Aspect.BEAST, 2).add(Aspect.ARMOR, 2));
+ThaumcraftApi.registerObjectTag(new ItemStack(MoCreatures.hideReptile), new AspectList().add( Aspect.ARMOR, 2).add(Aspect.BEAST, 2).add(Aspect.CLOTH, 2));
+ThaumcraftApi.registerObjectTag(new ItemStack(MoCreatures.helmetReptile), new AspectList().add(Aspect.CLOTH, 3).add(Aspect.BEAST, 2).add(Aspect.ARMOR, 2));
+ThaumcraftApi.registerObjectTag(new ItemStack(MoCreatures.plateReptile), new AspectList().add(Aspect.CLOTH, 6).add(Aspect.BEAST, 6).add(Aspect.ARMOR, 6));
+ThaumcraftApi.registerObjectTag(new ItemStack(MoCreatures.legsReptile), new AspectList().add(Aspect.CLOTH, 5).add(Aspect.BEAST, 5).add(Aspect.ARMOR, 5));
+ThaumcraftApi.registerObjectTag(new ItemStack(MoCreatures.bootsReptile), new AspectList().add(Aspect.CLOTH, 3).add( Aspect.BEAST, 2).add(Aspect.ARMOR, 2));
 
 ThaumcraftApi.registerObjectTag(new ItemStack(MoCreatures.sai), new AspectList().add(Aspect.WEAPON, 3).add(Aspect.METAL, 6));
 

@@ -33,14 +33,14 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class MoCEntityKomodo extends MoCEntityTameableAnimal
+public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
 {
     public int sitCounter;
     public int tailCounter;
     public int tongueCounter;
     public int mouthCounter;
 
-    public MoCEntityKomodo(World world)
+    public MoCEntityKomodoDragon(World world)
     {
         super(world);
         setSize(1.6F, 0.5F);
@@ -237,7 +237,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
        else
        {
        
-        entityDropItem(new ItemStack(MoCreatures.hideCroc, 1, 0), 0.0F);
+        entityDropItem(new ItemStack(MoCreatures.hideReptile, 1, 0), 0.0F);
        }
     }
 
@@ -278,7 +278,15 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
         
         if (getIsRideable() && getIsTamed() && getMoCAge() > 90 && (riddenByEntity == null))
         {
-            if (MoCreatures.isServer() && (itemstack == null) && (riddenByEntity == null))
+            if (
+            		MoCreatures.isServer()
+            		&&
+            			(
+            				(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+            				|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+            			)
+            		&& !(entityPlayer.isSneaking()) && (riddenByEntity == null)
+            	)
             {
             	entityPlayer.rotationYaw = rotationYaw;
                 entityPlayer.rotationPitch = rotationPitch;
@@ -487,7 +495,7 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal
     public boolean shouldEntityBeIgnored(Entity entity)
     {
         return (super.shouldEntityBeIgnored(entity)
-        		|| (entity instanceof MoCEntityKomodo)
+        		|| (entity instanceof MoCEntityKomodoDragon)
         		|| (entity instanceof EntityPlayer)
             	|| (entity instanceof MoCEntityBigCat)
             	|| (entity instanceof MoCEntityShark)

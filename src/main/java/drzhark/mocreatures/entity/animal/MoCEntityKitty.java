@@ -644,12 +644,24 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             setSitting(!getIsSitting());
             return true;
         }
-        if ((itemstack == null) && (getKittyState() == 10) && (ridingEntity != null))
+        if (
+        		(
+	    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+	    			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+        		)
+        		&& !(entityPlayer.isSneaking()) && (getKittyState() == 10) && (ridingEntity != null)
+        	)
         {
             ridingEntity = null;
             return true;
         }
-        if ((itemstack == null) && (getKittyState() > 2) && pickable() && (entityPlayer.ridingEntity == null))
+        if (
+	        	(
+	    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+	    			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+	    		)
+	        	&& !(entityPlayer.isSneaking()) && (getKittyState() > 2) && pickable() && (entityPlayer.ridingEntity == null)
+	        )
         {
             changeKittyStateTo(15);
             if (MoCreatures.isServer())
@@ -658,7 +670,13 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             }
             return true;
         }
-        if ((itemstack == null) && (getKittyState() == 15))
+        if (
+        		(
+        				(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+        				|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+        		)
+        		&& !(entityPlayer.isSneaking()) && (getKittyState() == 15)
+        	)
         {
             changeKittyStateTo(7);
             return true;

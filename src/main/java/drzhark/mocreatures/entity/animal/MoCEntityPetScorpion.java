@@ -531,7 +531,13 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             }
             return true;
         }
-        if (itemstack == null && ridingEntity == null && getMoCAge() < 60)
+        if (
+        		(
+    	    		(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+    	    		|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+    	    	)
+    	        && !(entityPlayer.isSneaking()) && ridingEntity == null && getMoCAge() < 60
+        	)
         {
             rotationYaw = entityPlayer.rotationYaw;
             if (MoCreatures.isServer() && (entityPlayer.ridingEntity == null))

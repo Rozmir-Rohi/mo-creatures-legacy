@@ -548,7 +548,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     @Override
     protected Item getDropItem()
     {
-        return MoCreatures.hideCroc;
+        return MoCreatures.hideReptile;
     }
 
     public boolean isSpinning()
