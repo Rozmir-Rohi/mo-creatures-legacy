@@ -24,6 +24,7 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
     private boolean isHunched;
     private int transformCounter;
     private int villagerProfession = 0;
+    private int attackDamage = worldObj.difficultySetting.getDifficultyId() + 3;
 
     public MoCEntityWerewolfWitchery(World world)
     {
@@ -33,13 +34,14 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
         transformCounter = 0;
     }
     
-    public MoCEntityWerewolfWitchery(World world, int villagerProfession)
+    public MoCEntityWerewolfWitchery(World world, int villagerProfession, int werewolfType)
     {
         super(world);
         setSize(0.9F, 1.6F);
         isTransforming = false;
         transformCounter = 0;
         this.villagerProfession = villagerProfession;
+        setType(werewolfType);
     }
 
     protected void applyEntityAttributes()
@@ -64,16 +66,38 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
     @Override
     public void selectType()
     {
-        if (getType() == 0)
-        {
-            setType(1);
-        }
+    	if (getType() == 0)
+    	{	
+            int chance = rand.nextInt(100);
+            if (chance <= 28)
+            {
+            	setType(1);
+            }
+            else if (chance <= 56)
+            {
+            	setType(2);
+            }
+            else
+            {
+            	setType(3);
+            }
+    	}
     }
 
     @Override
     public ResourceLocation getTexture()
-    { 
-       return MoCreatures.proxy.getTexture("wolftimber.png");
+    {
+    	switch (getType())
+        {
+	        case 1:
+	            return MoCreatures.proxy.getTexture("wolfblack.png");
+	        case 2:
+	            return MoCreatures.proxy.getTexture("wolfbrown.png");
+	        case 3:
+	            return MoCreatures.proxy.getTexture("wolftimber.png");
+	        default:
+	            return MoCreatures.proxy.getTexture("wolfbrown.png");
+        }
     }
 
     public boolean getIsHumanForm()
@@ -126,7 +150,7 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
             if (attackTime <= 0 && (distanceToEntity < 2.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
             {
                 attackTime = 20;
-                entity.attackEntityFrom(DamageSource.causeMobDamage(this), MoCEntityWerewolf.attackDamage);
+                entity.attackEntityFrom(DamageSource.causeMobDamage(this), attackDamage);
             }
         }
     }
@@ -374,7 +398,7 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
         
         isTransforming = false;
         
-        MoCEntityWerewolfVillagerWitchery werewolfVillager = new MoCEntityWerewolfVillagerWitchery(this.worldObj);
+        MoCEntityWerewolfVillagerWitchery werewolfVillager = new MoCEntityWerewolfVillagerWitchery(worldObj, getType());
         werewolfVillager.copyLocationAndAnglesFrom((Entity) this);
         werewolfVillager.setProfession(villagerProfession);
         setDead();

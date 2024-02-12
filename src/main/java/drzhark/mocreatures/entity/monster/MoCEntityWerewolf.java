@@ -26,7 +26,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     private int transformCounter;
     private int textureCounter;
     
-    public static int attackDamage = 2;
+    private int attackDamage = worldObj.difficultySetting.getDifficultyId() + 3;
 
     public MoCEntityWerewolf(World world)
     {

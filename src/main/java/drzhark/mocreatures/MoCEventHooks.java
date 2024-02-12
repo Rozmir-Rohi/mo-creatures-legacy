@@ -113,7 +113,7 @@ public class MoCEventHooks {
 		        	{
 		        		Random rand = new Random();
 		        		
-		        		MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(event.entity.worldObj, rand.nextInt(5)); //the random number from 0-4 sets a random vanilla minecraft villager profession
+		        		MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(event.entity.worldObj, rand.nextInt(5), rand.nextInt(2) + 1); //the random number from 0-4 sets a random vanilla minecraft villager profession, the random integar from 1-3 sets the werewolf type
 			            werewolf.copyLocationAndAnglesFrom((Entity) event.entity);
 			            event.entity.setDead();
 			            werewolf.worldObj.spawnEntityInWorld((Entity) werewolf); 

@@ -14,11 +14,11 @@ import drzhark.mocreatures.entity.item.MoCEntityLitterBox;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -31,11 +31,14 @@ public class MoCEntityWWolf extends MoCEntityMob {
 
     public int mouthCounter;
     public int tailCounter;
+    private int attackDamage = worldObj.difficultySetting.getDifficultyId() + 1;
 
     public MoCEntityWWolf(World world)
     {
         super(world);
         setSize(0.9F, 1.3F);
+        
+        getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(attackDamage);
     }
     
     @Override

@@ -867,7 +867,7 @@ Removed emissive texture for anglerfish to maximize compatibility with both Mo'C
 Added proper replacement of Witchery player werewolf model with Mo'Creatures werewolf model.
 
 
-Added replacement for Witchert player wolf forms (only applies to player werewolves that are level 7 and above). Also added a config option to control this.
+Added replacement for Witchery player wolf forms (only applies to player werewolves that are level 7 and above). Also added a config option to control this.
 
 
 Added brown variant for dire wolves.
@@ -885,7 +885,7 @@ Dire wolves, werewolves, and Mo' Creatures integration werewolves now defend max
 Fixed fire werewolf not being immune to fire.
 
 
-Dire wolves, werewolves, and Mo' Creatures integration werewolves will now longer not fight back if attacked by a werewolf player (if the player is in wolf or werewolf form).
+Dire wolves, werewolves, and Mo' Creatures integration werewolves will now no longer fight back if attacked by a werewolf player (if the player is in wolf or werewolf form).
 
 
 NOTE: Dire wolves, werewolves, and Mo' Creatures integration werewolves will attack the player if they are in wolf form and are below level 7. They will never attack a player that is in werewolf form or if a player is in wolf form and they are level 7 or above.
@@ -895,3 +895,12 @@ Fixed dire wolves, Werewolves, and Mo' Creatures integration werewolves continui
 
 
 Werewolves that attack a max level werewolf player before they turn to wolf or werewolf form will suffer the death of shame. ( If a werewolf that attacks a max level werewolf player before they turn into wolf or werewolf form, and that player then turns to wolf or werewolf form, the werewolf that attacked that max level werewolf player will kill themselves ).
+
+
+The following creatures now have attack damages that change with the world difficulty:
+- Dire wolf
+- Werewolf
+- Witchery integration werewolf 
+
+
+Witchery integration werewolves now have the following varients: white, black, and brown.

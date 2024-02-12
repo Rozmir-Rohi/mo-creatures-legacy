@@ -14,11 +14,40 @@ public class MoCEntityWerewolfVillagerWitchery extends EntityVillager {
 
 	private boolean isTransforming;
 	private int transformCounter;
+	private int werewolfType = 0;
 	
 	public MoCEntityWerewolfVillagerWitchery(World world)
 	{
 		super(world);
+		selectType();
 	}
+	
+	public MoCEntityWerewolfVillagerWitchery(World world, int werewolfType)
+	{
+		super(world);
+		this.werewolfType = werewolfType;
+		selectType(); //this is here just in-case the inputed werwolfType goes wrong
+	}
+	
+    public void selectType()
+    {
+    	if (werewolfType == 0)
+    	{
+    		int chance = rand.nextInt(100);
+            if (chance <= 28)
+            {
+            	werewolfType = 1;
+            }
+            else if (chance <= 56)
+            {
+            	werewolfType = 2;
+            }
+            else
+            {
+            	werewolfType = 3;
+            }
+    	}
+    }
 	
 	@Override
     public boolean interact(EntityPlayer entityPlayer)
@@ -86,7 +115,7 @@ public class MoCEntityWerewolfVillagerWitchery extends EntityVillager {
         
         isTransforming = false;
         
-        MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(worldObj, getProfession());
+        MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(worldObj, getProfession(), werewolfType);
         werewolf.copyLocationAndAnglesFrom((Entity) this);
         setDead();
         werewolf.worldObj.spawnEntityInWorld((Entity) werewolf); 
