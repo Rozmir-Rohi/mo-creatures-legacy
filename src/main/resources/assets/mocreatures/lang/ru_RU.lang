@@ -1,0 +1,565 @@
+itemGroup.MoCreaturesTab=MoCreatures
+
+
+tile.MoCGrass.WyvernLair.name=Трава логова виверны
+tile.MoCGrass.OgreLair.name=Трава логова огра
+tile.MoCStone.WyvernLair.name=Камень логова виверны
+tile.MoCStone.OgreLair.name=Камень логова огра
+tile.MoCDirt.WyvernLair.name=Земля логова виверны
+tile.MoCDirt.OgreLair.name=Земля логова огра
+tile.MoCLeaves.WyvernLair.name=Листва логова виверны
+tile.MoCLeaves.OgreLair.name=Листва логова огра
+tile.MoCLog.WyvernLair.name=Древесина логова виверны
+tile.MoCLog.OgreLair.name=Древесина логова огра
+tile.MoCTallGrass.WyvernLair.name=Высокая трава логова виверны
+tile.MoCTallGrass.OgreLair.name=Высокая трава логова огра
+tile.MoCWoodPlank.WyvernLair.name=Доски логова виверны
+tile.MoCWoodPlank.OgreLair.name=Доски логова огра
+
+
+item.amuletbone.name=Костный амулет
+item.amuletbonefull.name=Костный амулет с существом
+item.amuletfairy.name=Амулет феи
+item.amuletfairyfull.name=Амулет феи с существом
+item.amuletghost.name=Призрачный амулет
+item.amuletghostfull.name=Призрачный амулет с существом
+item.amuletpegasus.name=Небесный амулет
+item.amuletpegasusfull.name=Небесный амулет с существом
+item.bigcatclaw.name=Коготь большой кошки
+item.bo.name=Бо
+item.bowlempty.name=Пустой аквариум
+item.bowlfish1.name=Аквариум
+item.bowlfish2.name=Аквариум
+item.bowlfish3.name=Аквариум
+item.bowlfish4.name=Аквариум
+item.bowlfish5.name=Аквариум
+item.bowlfish6.name=Аквариум
+item.bowlfish7.name=Аквариум
+item.bowlfish8.name=Аквариум
+item.bowlfish9.name=Аквариум
+item.bowlfish10.name=Аквариум
+item.bowlwater.name=Заполненный аквариум
+item.builderhammer.name=Молот строителя
+item.chitin.name=Хитин
+item.chitinblack.name=Чёрный хитин
+item.chitinfrost.name=Морозный хитин
+item.chitinnether.name=Хитин Нижнего мира
+item.crabraw.name=Сырой краб
+item.crabcooked.name=Приготовленный краб
+item.elephantchest.name=Сундук слона
+item.elephantgarment.name=Одеяние слона
+item.elephantharness.name=Упряжь слона
+item.elephanthowdah.name=Паланкин слона
+item.essencedarkness.name=Эссенция тьмы
+item.essencefire.name=Эссенция огня
+item.essencelight.name=Эссенция света
+item.essenceundead.name=Эссенция нежити
+item.fishnet.name=Рыболовная сеть
+item.fur.name=Пушнина
+item.furboots.name=Меховые ботинки
+item.furhelmet.name=Меховой капюшон
+item.furlegs.name=Меховые штаны
+item.furchest.name=Меховая туника
+item.haystack.name=Стог сена
+item.heartdarkness.name=Сердце тьмы
+item.heartfire.name=Сердце огня
+item.heartundead.name=Сердце нежити
+item.hide.name=Шкура
+item.hideboots.name=Ботинки из шкуры
+item.hidehelmet.name=Кепка из шкуры
+item.hidelegs.name=Штаны из шкуры
+item.hidechest.name=Шаль из шкуры
+item.horsearmorcrystal.name=Кристальная конская броня
+item.horsesaddle.name=Рукотворное седло
+item.katana.name=Катана
+item.key.name=Ключ
+item.kittybed.black.name=Чёрная кровать для кисы
+item.kittybed.red.name=Красная кровать для кисы
+item.kittybed.green.name=Зелёная кровать для кисы
+item.kittybed.brown.name=Коричневая кровать для кисы
+item.kittybed.blue.name=Синяя кровать для кисы
+item.kittybed.purple.name=Фиолетовая кровать для кисы
+item.kittybed.cyan.name=Бирюзовая кровать для кисы
+item.kittybed.silver.name=Светло-серая кровать для кисы
+item.kittybed.gray.name=Серая кровать для кисы
+item.kittybed.pink.name=Розовая кровать для кисы
+item.kittybed.lime.name=Лаймовая кровать для кисы
+item.kittybed.yellow.name=Жёлтая кровать для кисы
+item.kittybed.lightBlue.name=Голубая кровать для кисы
+item.kittybed.magenta.name=Пурпурная кровать для кисы
+item.kittybed.orange.name=Оранжевая кровать для кисы
+item.kittybed.white.name=Белая кровать для кисы
+item.kittylitter.name=Лоток для кисы
+item.mammothplatform.name=Платформа для мамонта
+item.medallion.name=Медальон
+item.mocegg.name=Испорченное яйцо
+item.mocegg.0.name=Синяя рыбья икра
+item.mocegg.1.name=Оранжевая рыбья икра
+item.mocegg.2.name=Бирюзовая рыбья икра
+item.mocegg.3.name=Лаймовая рыбья икра
+item.mocegg.4.name=Зелёная рыбья икра
+item.mocegg.5.name=Фиолетовая рыбья икра
+item.mocegg.6.name=Жёлтая рыбья икра
+item.mocegg.7.name=Полосатая рыбья икра
+item.mocegg.8.name=Желтоватая рыбья икра
+item.mocegg.9.name=Чёрная рыбья икра
+item.mocegg.10.name=Красная рыбья икра
+item.mocegg.11.name=Яйцо акулы
+item.mocegg.21.name=Тёмное змеиное яйцо
+item.mocegg.22.name=Пятнистое змеиное яйцо
+item.mocegg.23.name=Оранжевое змеиное яйцо
+item.mocegg.24.name=Зелёное змеиное яйцо
+item.mocegg.25.name=Коралловое змеиное яйцо
+item.mocegg.26.name=Яйцо кобры
+item.mocegg.27.name=Яйцо гремучей змеи
+item.mocegg.28.name=Яйцо питона
+item.mocegg.30.name=Яйцо страуса
+item.mocegg.31.name=Яйцо страуса
+item.mocegg.33.name=Яйцо комодского варана
+item.mocegg.41.name=Яйцо земляного скорпиона
+item.mocegg.42.name=Яйцо пещерного скорпиона
+item.mocegg.43.name=Яйцо скорпиона Нижнего мира
+item.mocegg.44.name=Яйцо морозного скорпиона
+item.mocegg.45.name=Яйцо скорпиона-нежити
+item.mocegg.50.name=Яйцо тропической виверны
+item.mocegg.51.name=Яйцо болотной виверны
+item.mocegg.52.name=Яйцо виверны саванны
+item.mocegg.53.name=Яйцо песчаной виверны
+item.mocegg.54.name=Яйцо виверны-матери
+item.mocegg.55.name=Яйцо виверны-нежити
+item.mocegg.56.name=Яйцо светлой виверны
+item.mocegg.57.name=Яйцо тёмной виверны
+item.mocegg.58.name=Яйцо арктической виверны
+item.mocegg.59.name=Яйцо пещерной виверны
+item.mocegg.60.name=Яйцо горной виверны
+item.mocegg.61.name=Яйцо морской виверны
+item.mocegg.70.name=Икра лосося
+item.mocegg.71.name=Икра трески
+item.mocegg.72.name=Икра окуня
+item.mocegg.80.name=Икра анчоуса
+item.mocegg.81.name=Икра рыбы-ангела
+item.mocegg.84.name=Икра золотой рыбки
+item.mocegg.82.name=Икра морского чёрта
+item.mocegg.84.name=Икра рыбы мандаринки
+item.mocegg.90.name=Икра пираньи
+item.nunchaku.name=Нунчаки
+item.omelet.name=Омлет
+item.ostrichcooked.name=Приготовленный страус
+item.ostrichraw.name=Сырой страус
+item.petamulet.name=Амулет питомца
+item.petamuletfull.name=Амулет питомца
+item.petfood.name=Корм для кисы
+item.ratburger.name=Крысбургер
+item.ratcooked.name=Приготовленная крыса
+item.ratraw.name=Сырая крыса
+item.recordshuffle.name=Пластинка зебры
+item.record.recordshuffle.desc=Shuffling
+item.reptileboots.name=Ботинки из шкуры рептилии
+item.reptilehelmet.name=Шлем из шкуры рептилии
+item.reptilehide.name=Шкура рептилии
+item.reptilelegs.name=Поножи из шкуры рептилии
+item.reptileplate.name=Нагрудник из шкуры рептилии
+item.sai.name=Сай
+item.scorpbootsdirt.name=Ботинки земляного скорпиона
+item.scorpbootscave.name=Ботинки пещерного скорпиона
+item.scorpbootsfrost.name=Ботинки морозного скорпиона
+item.scorpbootsnether.name=Ботинки скорпиона Нижнего мира
+item.scorphelmetdirt.name=Шлем земляного скорпиона
+item.scorphelmetcave.name=Шлем пещерного скорпиона
+item.scorphelmetfrost.name=Шлем морозного скорпиона
+item.scorphelmetnether.name=Шлем скорпиона Нижнего мира
+item.scorplegsdirt.name=Поножи земляного скорпиона
+item.scorplegscave.name=Поножи пещерного скорпиона
+item.scorplegsfrost.name=Поножи морозного скорпиона
+item.scorplegsnether.name=Поножи скорпиона Нижнего мира
+item.scorpplatedirt.name=Нагрудник земляного скорпиона
+item.scorpplatecave.name=Нагрудник пещерного скорпиона
+item.scorpplatefrost.name=Нагрудник морозного скорпиона
+item.scorpplatenether.name=Нагрудник скорпиона Нижнего мира
+item.scorpstingdirt.name=Жало земляного скорпиона
+item.scorpstingcave.name=Жало пещерного скорпиона
+item.scorpstingfrost.name=Жало морозного скорпиона
+item.scorpstingnether.name=Жало скорпиона Нижнего мира
+item.scorpsworddirt.name=Меч земляного скорпиона
+item.scorpswordcave.name=Меч пещерного скорпиона
+item.scorpswordfrost.name=Меч морозного скорпиона
+item.scrolloffreedom.name=Свиток свободы
+item.scrollofowner.name=Свиток сброса владельца
+item.scrollofsale.name=Свиток продажи
+item.sharksword.name=Акулий меч
+item.sharkteeth.name=Акулий зуб
+item.staffportal.name=Посох портала виверны
+item.staffteleport.name=Посох телепортации
+item.sugarlump.name=Кубики сахара
+item.scorpswordnether.name=Меч скорпиона Нижнего мира
+item.silversword.name=Серебрянный меч
+item.turkeycooked.name=Приготовленный индюк
+item.turkeyraw.name=Сырой индюк
+item.turtleraw.name=Сырая черепаха
+item.turtlesoup.name=Суп из черепахи
+item.tusksdiamond.name=Алмазные бивни
+item.tusksiron.name=Железные бивни
+item.tuskswood.name=Деревянные бивни
+item.unicornhorn.name=Рог единорога
+item.whip.name=Кнут
+item.woolball.name=Клубок шерсти
+
+
+entity.CreeperExtension.name=Крипер
+entity.WerewolfVillagerWitchery.name=Житель
+entity.MoCreatures.WerewolfWitchery.name=Оборотень
+entity.MoCreatures.WerewolfPlayerDummyWitchery.name=Оборотень
+
+entity.MoCreatures.Ant.name=Муравей
+entity.MoCreatures.Bear.name=Медведь
+entity.MoCreatures.Bee.name=Пчела
+entity.MoCreatures.BigCat.name=Большая кошка
+entity.MoCreatures.BigGolem.name=Большой голем
+entity.MoCreatures.Bird.name=Птичка
+entity.MoCreatures.Boar.name=Кабан
+entity.MoCreatures.Bunny.name=Кролик
+entity.MoCreatures.ButterFly.name=Бабочка
+entity.MoCreatures.Crab.name=Краб
+entity.MoCreatures.Cricket.name=Сверчок
+entity.MoCreatures.Crocodile.name=Крокодил
+entity.MoCreatures.Deer.name=Олень
+entity.MoCreatures.Dolphin.name=Дельфин
+entity.MoCreatures.DragonFly.name=Стрекоза
+entity.MoCreatures.Duck.name=Утка
+entity.MoCreatures.Egg.name=Яйцо
+entity.MoCreatures.Elephant.name=Слон
+entity.MoCreatures.Firefly.name=Светлячок
+entity.MoCreatures.FishBowl.name=Аквариум
+entity.MoCreatures.Fishy.name=Рыбка
+entity.MoCreatures.FlameWraith.name=Пламенный призрак
+entity.MoCreatures.Fly.name=Муха
+entity.MoCreatures.Fox.name=Лиса
+entity.MoCreatures.Goat.name=Козёл
+entity.MoCreatures.HellRat.name=Адская крыса
+entity.MoCreatures.HorseMob.name=Враждебная лошадь
+entity.MoCreatures.JellyFish.name=Медуза
+entity.MoCreatures.Kitty.name=Киса
+entity.MoCreatures.KittyBed.name=Кровать для кисы
+entity.MoCreatures.LitterBox.name=Лоток для кисы
+entity.MoCreatures.KomodoDragon.name=Комодский варан
+entity.MoCreatures.Maggot.name=Личинка
+entity.MoCreatures.MediumFish.name=Средняя рыбка
+entity.MoCreatures.MiniGolem.name=Мини-голем
+entity.MoCreatures.Mole.name=Крот
+entity.MoCreatures.Mouse.name=Мышь
+entity.MoCreatures.Ogre.name=Огр
+entity.MoCreatures.Ostrich.name=Страус
+entity.MoCreatures.PetScorpion.name=Скорпион-питомец
+entity.MoCreatures.Piranha.name=Пиранья
+entity.MoCreatures.Raccoon.name=Енот
+entity.MoCreatures.Rat.name=Крыса
+entity.MoCreatures.Ray.name=Скат
+entity.MoCreatures.Roach.name=Таракан
+entity.MoCreatures.Scorpion.name=Скорпион
+entity.MoCreatures.Shark.name=Акула
+entity.MoCreatures.SilverSkeleton.name=Серебряный скелет
+entity.MoCreatures.SmallFish.name=Маленькая рыбка
+entity.MoCreatures.Snail.name=Улитка
+entity.MoCreatures.Snake.name=Змея
+entity.MoCreatures.ThrowableBlockForGolem.name=Блок голема
+entity.MoCreatures.Turkey.name=Индюк
+entity.MoCreatures.Turtle.name=Черепаха
+entity.MoCreatures.Werewolf.name=Оборотень
+entity.MoCreatures.WildHorse.name=Лошадь
+entity.MoCreatures.Wraith.name=Призрак
+entity.MoCreatures.WWolf.name=Ужасный волк
+entity.MoCreatures.Wyvern.name=Виверна
+
+
+
+
+keyBind.MoCreatures.dive=MoCreatures погрузится/опуститься
+
+
+amulet_and_fishnet_desc.MoCreatures.ownedBy=Владелец: %1$s
+
+
+item.scrolloffreedom.desc.line1=Стирает имя и отвязывает питомца от его владельца.
+item.scrolloffreedom.desc.line2=Могут использовать только владельцы питомцев и игроки с правами администратора.
+
+item.scrollofsale.desc.line1=Отвязывает питомца от его владельца.
+item.scrollofsale.desc.line2=Можно привязать обратно при помощи медальона.
+item.scrollofsale.desc.line3=Могут использовать только владельцы питомцев и игроки с правами администратора.
+
+item.scrollofowner.desc.line1=Отвязывает питомца от его владельца.
+item.scrollofowner.desc.line2=Могут использовать только игроки с правами администратора.
+
+
+gui_namer.MoCreatures.chooseName=Введите имя вашего питомца:
+gui_namer.MoCreatures.done=Готово
+
+
+container.MoCreatures.HorseChest=Cундук лошади
+container.MoCreatures.ElephantChest=Cундук слона
+container.MoCreatures.OstrichChest=Cундук страуса
+container.MoCreatures.WyvernChest=Cундук виверны
+
+notify.MoCreatures.egg_hatching=Скоро вылупится яйцо! НЕ ОТХОДИТЕ ДАЛЕКО! Вылупившееся существо, находящееся на @ %1$s, %2$s, %3$s, потеряется, если вы покинете эту область
+
+notify.MoCreatures.max_pet_count_reached=Невозможно приручить больше существ. Вы достигли лимита в %1$s прирученных существ, установленного владельцем сервера
+
+
+death.MoCreatures.attack.dehydration=%1$s умер от обезвоживания
+
+
+
+
+achievements.MoCreaturesTab=Mo' Creatures
+
+achievement.craft_saddle=Седельник
+achievement.craft_saddle.desc=Создайте рукотворное седло. Наденьте его на ездового питомца, чтобы прокатиться на нём верхом. Вы также можете снять седло или другое снаряжение с питомца, использовав на нём ножницы.
+
+achievement.tier2_horse=Лошадь 2-го уровня
+achievement.tier2_horse.desc=Приручите обычную лошадь из  Mo' Creatures с помощью яблока.
+
+achievement.tier3_horse=Лошадь 3-го уровня
+achievement.tier3_horse.desc=Сведите лошадь 2-го уровня из mo'creatures с соответствующей лошадью из майнкрафта, используя тыкву, торт или тушёные грибы.
+
+achievement.tier4_horse=Лошадь 4-го уровня
+achievement.tier4_horse.desc=Сведите лошадь 3-го уровня из mo'creatures с соответствующей лошадью из майнкрафта, используя тыкву, торт или тушёные грибы.
+
+achievement.zebra=Укротитель зебр
+achievement.zebra.desc=Приблизьтесь к зебре верхом на лошади 4-го уровня, а затем покормите её яблоком, чтобы приручить. Зебр можно встретить в биомах типа "savannah".
+
+achievement.zorse=Зебролошадь
+achievement.zorse.desc=Cведите прирученную зебру с любой другой лошадью, используя тыкву, торт или тушёные грибы.
+
+achievement.heart_undead=Сердце нежити
+achievement.heart_undead.desc=Добудьте сердце нежити из мёртвой враждебной лошади.
+
+achievement.essence_undead=Эссенция нежити
+achievement.essence_undead.desc=Создайте эссенцию нежити.
+
+achievement.undead_horse=Лошадь-нежить
+achievement.undead_horse.desc=Получите лошадь-нежить, скормив зебролошади, либо особой лошади эссенцию нежити.Здоровье такой лошади может восстановить только эссенция нежити.
+
+achievement.amulet_bone=Хранилище для лошади-скелета
+achievement.amulet_bone.desc=Создайте костный амулет.
+
+
+achievement.ghost_horse=Призрачная лошадь
+achievement.ghost_horse.desc=Заполучите призрачную лошадь. Иногда лошадь 3+ уровня может стать призрачной после смерти. Здоровье такой лошади может восстановить только эссенция нежити.
+
+achievement.amulet_ghost=Хранилище призрачной лошади
+achievement.amulet_ghost.desc=Создайте призрачный амулет.
+
+achievement.heart_fire=Сердце огня
+achievement.heart_fire.desc=Добудьте сердце огня из враждебной кошмарной лошади.
+
+achievement.essence_fire=Эссенция огня
+achievement.essence_fire.desc=Создайте эссенцию огня.
+
+achievement.nightmare_horse=Кошмарная лошадь
+achievement.nightmare_horse.desc=Получите кошмарную лошадь, скормив зебролошади эссенцию огня. Эта лошадь огнестойкая. Здоровье такой лошади может восстановить только эссенция огня.
+
+achievement.heart_darkness=Сердце тьмы
+achievement.heart_darkness.desc=Добудьте сердце тьмы из враждебной летучей лошади.
+
+achievement.essence_darkness=Эссенция тьмы
+achievement.essence_darkness.desc=Создайте эссенцию тьмы.
+
+achievement.bat_horse=Летучая лошадь
+achievement.bat_horse.desc=Получите летучую лошадь, скормив зебролошади эссенцию тьмы. Здоровье такой лошади может восстановить только эссенция тьмы.
+
+achievement.crystal_horse_armor=Кристальная конская броня
+achievement.crystal_horse_armor.desc=Создайте кристальную конскую броню. Это крепчайшая конская броня, её можно экипировать только на особых лошадей.
+
+achievement.essence_light=Эссенция света
+achievement.essence_light.desc=Создайте эссенцию света при помощи трёх основных эссенций.
+
+achievement.pegasus=Пегас
+achievement.pegasus.desc=Получите пегаса, покормив летучую лошадь эссенцией света на высоте более 150 по Y. Эта лошадь может летать и носить сундук. Здоровье такой лошади может восстановить только эссенция света.
+
+achievement.unicorn=Единорог
+achievement.unicorn.desc=Получите единорога, покормив кошмарную лошадь эссенцией света. Эта лошадь может таранить и парить. Здоровье такой лошади может восстановить только эссенция света.
+
+achievement.amulet_sky=Хранилище пегаса
+achievement.amulet_sky.desc=Создайте небесный амулет. Огонь для создания амулета можно выбить из адских крыс.
+
+achievement.dark_pegasus=Тёмный пегас
+achievement.dark_pegasus.desc=Получите тёмного пегаса, покормив прирученного пегаса эссенцией тьмы. Эта сильнейшая лошадь, она огнестойкая, может летать, а также иметь сундук. Здоровье такой лошади может восстановить только эссенция света.
+
+achievement.fairy_horse=Лошадь-фея!
+achievement.fairy_horse.desc=Получите лошадь-фею сведя пегаса с единорогом при помощи эссенции света. Это самая быстрая летающая лошадь, она поможет носить сундук, а также таранить мобов, будучи на земле. Накормите эту лошадь красителем, чтобы безвозвратно изменить тип лошади. Здоровье такой лошади-феи можно восстановить только эссенцией света.
+
+achievement.amulet_fairy=Хранилище феи-лошади
+achievement.amulet_fairy.desc=Создайте амулет феи. Огонь для создания амулета можно выбить из адских крыс.
+
+achievement.wyvern_portal_staff=Там, где обитают виверны
+achievement.wyvern_portal_staff.desc=Создайте посох портала виверны and отправьтесь в логово виверн.
+
+achievement.wyvern_egg=Самая быстрая из всех
+achievement.wyvern_egg.desc=Заполучите яйцо виверны от матери виверн. После вылупления виверны-питомцы любят есть сырую крысу и сырого кролика.
+
+achievement.tame_elephant=Укротитель слонов
+achievement.tame_elephant.desc=Приручите детёныша слона, либо мамонта, скормив ему много кусочков сахара.
+
+achievement.mount_elephant=Всадник на слоне
+achievement.mount_elephant.desc=Оседлайте взрослого прирученного слона или мамонта с помощью упряжи слона. Слон или мамонт должен сесть, чтобы вы смогли на него забраться. Нажмите правой кнопкой мыши на слоне или мамонте в присяди, чтобы тот сел на короткое время.
+
+achievement.mammoth_platform=Платформа для двоих
+achievement.mammoth_platform.desc=Прикрепите платформу мамонта на мамонта с одеянием слона. На платформе может находится до двух игроков. Второй игрок сможет взобраться на платформу, нажав правую кнопку мыши в присяди.
+
+achievement.elephant_garment=Мода азиатских слонов
+achievement.elephant_garment.desc=Наденьте слоновье одеяние на азиатского слона.
+
+achievement.elephant_tusks=К бою готов
+achievement.elephant_tusks.desc=Экипируйте слона, либо мамонта любым бивнем. При помощи кнута слона/мамонта можно ускорить, тем самым снося деревья на своём пути. Эффективность ломания блоков зависит от типа слона и экипированных бивней. Эта возможность отключена в мультиплеере.
+
+achievement.elephant_chest=Слоновий багаж
+achievement.elephant_chest.desc=Прикрепите слоновий сундук к слону, либо мамонту, на котором имеется слоновья упряжь. Слоны и мамонты могут удержать до двух сундуков. Их можно открыть ключом.
+
+achievement.elephant_howdah=Ваше Высочество
+achievement.elephant_howdah.desc=Наденьте паланкин на азиатского слона со слоновьим одеянием.
+
+achievement.craft_medallion=Многоразовая бирка для питомцев
+achievement.craft_medallion.desc=Создайте медальон. Вы сможете использовать его, чтобы изменять имена прирученных существ.
+
+achievement.tame_kitty=Укротитель кис
+achievement.tame_kitty.desc=Чтобы приручить кису, бросьте рядом с ней приготовленную рыбу, дождитесь пока она её съесть, и затем наденьте на кису медальон.
+
+achievement.kitty_litter_box=Туалет для кисы
+achievement.kitty_litter_box.desc=Создайте лоток для кисы.
+
+achievement.kitty_litter=Уборка за кисой
+achievement.kitty_litter.desc=Очистите лоток для кисы самостоятельно, используя песок. Вы можете автоматизировать этот процесс при помощи раздатчика.
+
+achievement.kitty_bed=Кровать для кисы
+achievement.kitty_bed.desc=Создайте кровать для кисы (любого цвета).
+
+achievement.pet_food=Кормление кисы
+achievement.pet_food.desc=Заполните миску в кровати кисы молоком, либо кормом для кис. Вы можете автоматизировать этот процесс при помощи раздатчика.
+
+achievement.wool_ball=Пора поиграть с кисой
+achievement.wool_ball.desc=Создайте шерстяной клубок.
+
+achievement.tame_big_cat=Укротитель хищных кошачих
+achievement.tame_big_cat.desc=Приручите детёныша большой кошки, бросив неподалёку некоторое количество сырого мяса. Убедитесь что он съел достаточное количество мяса, после чего повесьте медальон на котёнка.
+
+achievement.big_cat_claw=Охотник на хищных кошачих
+achievement.big_cat_claw.desc=Добудьте коготь большой кошки.
+
+achievement.craft_whip=:Жестокий инструмент
+achievement.craft_whip.desc=Создайте кнут. Используйте его, чтобы заставить любое прирученное существо сидеть. При использовании во время катания на любом существе ускоряет передвижение. При использовании во время катания на кошмарной лошади, единороге, страусе-единороге и слоне даёт особые эффекты.
+
+achievement.indiana=Прямо как Индиана Джонс
+achievement.indiana.desc=Используйте кнут на прирученной большой кошке более шести раз.
+
+achievement.shark_tooth=Акула-боксёр
+achievement.shark_tooth.desc=Добудьте акулий зуб.
+
+achievement.fish_net=Ловись рыбка...
+achievement.fish_net.desc=Создайте рыболовную сеть. Используйте её, чтобы поймать и приручить большинство водных созданий. Вы также можете держать в ней любого водного питомца.
+
+achievement.shark_sword=Довольно зубастый меч
+achievement.shark_sword.desc=Создайте акулий меч.
+
+achievement.catch_fish_in_fish_bowl=Аквариумная рыбка
+achievement.catch_fish_in_fish_bowl.desc=Поймайте рыбку в аквариум.
+
+achievement.tame_bird=Укротитель птичек
+achievement.tame_bird.desc=Чтобы приручить птичку, разбросайте любые семена рядом с ней и дождитесь, пока она съест ваше угощение, после чего дайте ей ещё семян, но уже с рук. Если вы посадите прирученную птичку себе на голову, то она сможет замедлить падение с высоких мест.
+
+achievement.feed_snake_with_live_mouse=Живое кормление
+achievement.feed_snake_with_live_mouse.desc=Скормите живую мышь прирученной взрослой змее. Нажмите правую кнопку мыши в присяди на прирученной взрослой змее с живой мышью в руке.
+
+achievement.tame_panda=Укротитель панд
+achievement.tame_panda.desc=Приручите детёныша панды с помощью сахарного тростника или бамбука.
+
+achievement.tame_scorpion=Укротитель скорпионов
+achievement.tame_scorpion.desc=Приручите детёныша скорпиона, погладив его свободной рукой. Когда детёныш повзрослеет, вы сможете верхом на нём взбираться по стенам. Взрослый скорпион отложит яйцо, если дать ему эссенцию тьмы.
+
+achievement.ostrich_egg=Вор яиц
+achievement.ostrich_egg.desc=Сведите дикую страусиную пару с помощью семян арбуза, а затем украдите у них яйцо. Страусы-питомцы станут ездовыми как только вырастут. Они могут быть трансформированы при помощи эссенций.
+
+achievement.ostrich_helmet=Защитное снаряжение
+achievement.ostrich_helmet.desc=Наденьте любой ванильный/mo'creatures шлем на взрослого прирученного страуса.
+
+achievement.ostrich_chest=Страусиный багаж
+achievement.ostrich_chest.desc=Прикрепите сундук к взрослому питомцу-страусу. Вы сможете открыть сундук ключом.
+
+achievement.ostrich_flag=Знаменосец
+achievement.ostrich_flag.desc=Поместите любой блок шерсти на страуса с сундуком.
+
+achievement.pet_amulet=Хранилище питомцев
+achievement.pet_amulet.desc=Создайте амулет питомца. Создайте амулет питомца. Вы сможете хранит в нём практически любое прирученное существо.
+
+achievement.cook_omelette=Глазунья
+achievement.cook_omelette.desc=Приготовьте любое яйцо.
+
+achievement.cook_turkey=Начинки больше, чем в курице
+achievement.cook_turkey.desc=Приготовьте сырого индюка.
+
+achievement.cook_ostrich=На вкус как говядина
+achievement.cook_ostrich.desc=Приготовьте мясо сырого страуса.
+
+achievement.cook_rat=На вкус как курица
+achievement.cook_rat.desc=Приготовьте мясо сырой крысы.
+
+achievement.rat_burger=Крыса-гурман
+achievement.rat_burger.desc=Создайте крысбургер.
+
+achievement.cook_crab=Традиционный морепродукт
+achievement.cook_crab.desc=Приготовьте сырого краба.
+
+achievement.cook_turtle=Сомнительный деликатес
+achievement.cook_turtle.desc=Создайте черепаший суп.
+
+achievement.kill_wraith=Охотник за привидениями
+achievement.kill_wraith.desc=Избавьтесь от призрака.
+
+achievement.kill_ogre=Убийца огров
+achievement.kill_ogre.desc=Убейте огра.
+
+achievement.kill_werewolf=Убийца оборотней
+achievement.kill_werewolf.desc=Убейте оборотня в его волчьей форме.
+
+achievement.kill_big_golem=Убийца големов
+achievement.kill_big_golem.desc=Убейте большого голема и заполучите его центральный блок.
+
+achievement.leonardo=Леонардо
+achievement.leonardo.desc=Заполучите катану от черепашки Леонардо.
+
+achievement.raphael=Рафаэль
+achievement.raphael.desc=Заполучите сай от черепашки Рафаэля.
+
+achievement.donatello=Донателло
+achievement.donatello.desc=Заполучите бо от черепашки Донателло.
+
+achievement.michelangelo=Микеланджело
+achievement.michelangelo.desc=Заполучите нунчаки от черепашки Микеланджело.
+
+achievement.silver_sword=Проклятие оборотней
+achievement.silver_sword.desc=Добудьте серебряный меч из серебряного скелета.
+
+achievement.get_fur=Траппер
+achievement.get_fur.desc=Добудьте пушнину.
+
+achievement.fur_armor=Одежда чукчей
+achievement.fur_armor.desc=Создайте из пушнины любую часть меховой брони.
+
+achievement.get_hide=Охотник
+achievement.get_hide.desc=Добудьте шкуру.
+
+achievement.hide_armor=Выбор охотника
+achievement.hide_armor.desc=Создайте любую часть брони из шкуры.
+
+achievement.get_reptile_hide=Охотник на рептилий
+achievement.get_reptile_hide.desc=Добудьте шкуру рептилии.
+
+achievement.reptile_armor=Крепкий, как железо
+achievement.reptile_armor.desc=Создайте любую часть брони из кожи рептилии.
+
+achievement.get_scorpion_material=Охотник на скорпионов
+achievement.get_scorpion_material.desc=Добудьте хитин или жало из скорпиона. любого типа.
+
+achievement.scorpion_sword=Скорпионий клинок
+achievement.scorpion_sword.desc=Создайте меч скорпиона любого типа. Эти мечи могут быть починены на наковальне с помощью алмазов.
+
+achievement.scorpion_armor=Воин-скорпион
+achievement.scorpion_armor.desc=Создайте любую часть брони скорпиона. Wear a full set of the same type for a set bonus. Броня скорпиона может быть починена на наковальне с помощью хитина скорпиона соответствующего типа.
