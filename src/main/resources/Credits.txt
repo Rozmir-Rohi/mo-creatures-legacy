@@ -19,6 +19,9 @@ WildBamaBoy - Horse achievement icon textures were directly based of the Coocone
 ganymedes01 - Code for proper damaging and item dropping for kitty litter box, kitty bed, and fish bowl was sourced from EntityArmourStand.class from the etfuturum mod. This asset was used under the Public Domain license.
 
 
+Thornack - Provide the code for replacing the Witchery werewolf player model with the Mo Creatures werewolf model (https://forums.minecraftforge.net/topic/28566-1710-how-to-change-player-model-and-texture/).
+
+
 TheAetherTeam - The AchievementsAether.class and Aether.class code from the 1.7.10 Aether Mod helped me understand how to add an achievements class that is seperate to the main mod class file. This asset was used under the GNU Lesser General Public License v3.0 through the custom license condition of The Aether mod "The source code of The Aether mod for Minecraft 1.7+ is under the LGPL v3.0 license".
 The different custom license of this project is permitted under the GNU Lesser General Public License v3.0 from the following sections:
 

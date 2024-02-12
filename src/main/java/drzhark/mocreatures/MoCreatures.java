@@ -103,7 +103,6 @@ import drzhark.mocreatures.entity.monster.MoCEntityWWolf;
 import drzhark.mocreatures.entity.monster.MoCEntityWerewolf;
 import drzhark.mocreatures.entity.monster.MoCEntityWraith;
 import drzhark.mocreatures.entity.vanilla_mc_extension.EntityCreeperExtension;
-import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfPlayerDummyWitchery;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfVillagerWitchery;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfWitchery;
 import drzhark.mocreatures.item.ItemBuilderHammer;
@@ -432,8 +431,6 @@ public class MoCreatures {
             EntityRegistry.registerModEntity((Class) MoCEntityWerewolfWitchery.class, "WerewolfWitchery", ModEntityID++, (Object)this, 50, 2, true);
             
             EntityList.addMapping(MoCEntityWerewolfVillagerWitchery.class, "WerewolfVillagerWitchery", ModEntityID++, 50, 2);
-            
-            EntityRegistry.registerModEntity((Class) MoCEntityWerewolfPlayerDummyWitchery.class, "WerewolfPlayerDummyWitchery", ModEntityID++, (Object)this, 50, 2, true);
         }
         
         MoCAchievements.initilization();

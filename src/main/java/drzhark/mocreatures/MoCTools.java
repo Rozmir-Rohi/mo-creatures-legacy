@@ -125,7 +125,11 @@ public class MoCTools {
     {
     	if (MoCreatures.isWitcheryLoaded)
     	{
-    		if(40 <= player.getMaxHealth() && player.getMaxHealth() <= 60)
+    		if (
+    				40 <= player.getMaxHealth() && player.getMaxHealth() <= 60
+    				&& !(player.isPotionActive(Potion.field_76434_w)) //if heal bost potion effect is not active
+    				&& player.isPotionActive(Potion.nightVision)
+    			)
     		{
     			return true;
     		}

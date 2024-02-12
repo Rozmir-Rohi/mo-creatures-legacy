@@ -862,3 +862,6 @@ Put the kitty bed texture back in it's original place.
 
 
 Removed emissive texture for anglerfish to maximize compatibility with both Mo'Creatures texture packs and the option to switch between the 16x and original Mo' Creatures textures.
+
+
+Added proper replacement of Witchery player werewolf model with Mo'Creatures werewolf model.
