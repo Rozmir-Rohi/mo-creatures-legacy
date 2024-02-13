@@ -197,12 +197,12 @@ public class MoCEventHooks {
     	{
     		float modelYOffset = -1.625F;
     		
-    		if (MoCreatures.proxy.replaceWitcheryPlayerWerewolf && MoCTools.isPlayerInWerewolfForm(event.entityPlayer))
+    		if (MoCreatures.proxy.replaceWitcheryPlayerWerewolf && MoCTools.isPlayerInWerewolfForm(event.entityPlayer) && !(event.entityPlayer.isPotionActive(Potion.invisibility)))
     		{
 				renderPlayerWerewolf.doRender(event.entity, 0F, modelYOffset, 0F, 0F, 0.0625F);
     		}
     		
-    		if (MoCreatures.proxy.replaceWitcheryPlayerWolf && MoCTools.isPlayerInWolfForm(event.entityPlayer))
+    		if (MoCreatures.proxy.replaceWitcheryPlayerWolf && MoCTools.isPlayerInWolfForm(event.entityPlayer) && !(event.entityPlayer.isPotionActive(Potion.invisibility)))
     		{
 				renderPlayerWolf.doRender(event.entity, 0F, modelYOffset, 0F, 0F, 0.0625F);
     		}

@@ -943,4 +943,9 @@ Added rare giant panda variants as a config option.
 
 
 Removed unused entry in lang files.
-	
+
+
+Fixed player werewolf and wolf form replacements for Witchery mod still rendering even if player has used an invisibility potion.
+
+
+Added werewolf weakness damage from Witchery silver bolt silver for werewolves and Witchery integration werewolves. This will only work if the player has silver bolts in their inventory without any other types of bolts in their inventory.

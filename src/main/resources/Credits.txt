@@ -94,6 +94,14 @@ Code for Multilingual Pet Naming:
 
 
 
+Special Thanks:
+	Omgise - For identifying multiple bugs with the beta versions and timely responding to all my requests to update the chinese simplified language file.
+
+	The Camping Rusher - If I hadn't watched his Mo' Creatures let's play as a kid, I never would have gotten into the Mo' Creatures mod, and I never would have known all the problems with the original Mo' Creatures mod for 1.7.10. Link to his let's play: https://www.youtube.com/playlist?list=PLDzzbNR8UfN0cWzzCLucxJSII_86G9BuE .
+
+
+
+
 ===========================================================================
 	   ORIGINAL MO'CREATURES CONTRIBUTER CREDITS
 	------------------------------------------------

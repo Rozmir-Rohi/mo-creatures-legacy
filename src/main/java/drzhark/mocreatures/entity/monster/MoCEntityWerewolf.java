@@ -1,5 +1,8 @@
 package drzhark.mocreatures.entity.monster;
 
+import java.lang.reflect.Array;
+
+import cpw.mods.fml.common.registry.GameRegistry;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
@@ -220,9 +223,21 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    
 		    if (damageSource.isProjectile())
 		    {
-		    	if (!(itemHeldByPlayer instanceof ItemBow))
+		    	if (itemHeldByPlayer instanceof ItemBow)
 		    	{
-		    		damageTaken = 0;
+		    		if (MoCreatures.isWitcheryLoaded && damageSource.getEntity() instanceof EntityPlayer)
+			    	{
+			    		EntityPlayer playerThatShotThisWerewolf = (EntityPlayer) damageSource.getEntity();
+			    		
+			    		if (isPlayerHoldingWitcheryCrossbowAndHasSilverBoltsAndNoOtherTypesOfBoltsInTheirInventory(itemHeldByPlayer, playerThatShotThisWerewolf))
+			    		{
+			    			damageTaken = 5;
+			    		}
+			    	}
+		    	}
+		    	else
+		    	{
+		    		damageTaken = 0; //damage for snowballs and eggs
 		    	}
 		    }
 		    
@@ -269,6 +284,59 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    
 		}
 		return damageTaken;
+	}
+
+	public static boolean isPlayerHoldingWitcheryCrossbowAndHasSilverBoltsAndNoOtherTypesOfBoltsInTheirInventory(Item item, EntityPlayer player)
+	{
+		ItemStack[] inventoryOfPlayerThatShotThisWerewolf = player.inventory.mainInventory;
+		
+		if ((item.itemRegistry).getNameForObject(item).equals("witchery:handbow")) //checks if player is holding witchery crossbow 
+		{
+			boolean doesPlayerHaveSilverBoltsInInventory = false;
+			
+			boolean doesPlayerHaveOtherTypesOfBoltsInInventory = false;
+			
+			int iterationLength = inventoryOfPlayerThatShotThisWerewolf.length;
+			
+			if (iterationLength > 0)
+			{
+				for (int index = 0; index < iterationLength; index++)
+				{
+					ItemStack itemstackInInventorySlot = inventoryOfPlayerThatShotThisWerewolf[index];
+					
+					if (itemstackInInventorySlot != null)
+					{
+						Item itemInInventorySlot = itemstackInInventorySlot.getItem();
+						String stringNameForItemInInventorySlot = (itemInInventorySlot.itemRegistry).getNameForObject(itemInInventorySlot);
+						
+						if (stringNameForItemInInventorySlot.equals("witchery:ingredient"))
+						{	
+							if (itemstackInInventorySlot.getItemDamage() == 155) //silver bolt 
+							{
+								doesPlayerHaveSilverBoltsInInventory = true;
+								
+							}
+							
+							if (
+									itemstackInInventorySlot.getItemDamage() == 132 //wooden bolt
+									|| itemstackInInventorySlot.getItemDamage() == 133 //nullifying bolt
+									|| itemstackInInventorySlot.getItemDamage() == 134 //bone bolt
+									|| itemstackInInventorySlot.getItemDamage() == 135 //splitting bolt
+								)
+							{
+								doesPlayerHaveOtherTypesOfBoltsInInventory = true;
+							}
+						}
+					}
+				}
+			}
+			
+			if (doesPlayerHaveSilverBoltsInInventory && !doesPlayerHaveOtherTypesOfBoltsInInventory)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
     @Override
