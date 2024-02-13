@@ -208,7 +208,6 @@ item.woolball.name=Wool Ball
 entity.CreeperExtension.name=Creeper
 entity.WerewolfVillagerWitchery.name=Villager
 entity.MoCreatures.WerewolfWitchery.name=Werewolf
-entity.MoCreatures.WerewolfPlayerDummyWitchery.name=Werewolf
 
 entity.MoCreatures.Ant.name=Ant
 entity.MoCreatures.Bear.name=Bear

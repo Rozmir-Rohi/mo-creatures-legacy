@@ -940,4 +940,7 @@ Fixed black and brown bears only hunting player during night.
 
 
 Added rare giant panda variants as a config option.
+
+
+Removed unused entry in lang files.
 	
