@@ -36,21 +36,17 @@ public class MoCModelMaggot extends ModelBase
         Tailtip.setRotationPoint(0F, 23F, 4F);
     }
 
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+    public void render(Entity entity, float f, float movementSpeed, float timer, float f3, float f4, float f5)
     {
-        //super.render(entity, f, f1, f2, f3, f4, f5);
-        setRotationAngles(f, f1, f2, f3, f4, f5);
+        setRotationAngles(f, movementSpeed, timer, f3, f4, f5);
         
-        //f1 = movement speed!
-        //f2 = timer!
-        //System.out.println("f2 = " + f2);
         
         GL11.glPushMatrix();
         GL11.glEnable(3042 /*GL_BLEND*/);
-        //float transparency = 0.9F;
         GL11.glBlendFunc(770, 771);
-        //GL11.glColor4f(1.2F, 1.2F, 1.2F, transparency);
-        GL11.glScalef(1.0F, 1.0F, 1.0F + (f1*3F));
+        
+        GL11.glScalef(1.0F, 1.0F, (float) (1.0F + (movementSpeed > 0.15 ? 0.15 * 3F : movementSpeed * 3F))); //modulus in if/else form:     if (movementSpeed > 0.15) {return 0.15 * 3F} else {return movementSpeed * 3F}
+        
         Head.render(f5);
         Body.render(f5);
         Tail.render(f5);

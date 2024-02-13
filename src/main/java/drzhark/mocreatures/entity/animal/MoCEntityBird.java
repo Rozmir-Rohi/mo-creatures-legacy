@@ -353,7 +353,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         		&& 
         			(
         				(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
-        				|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+        				|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
         			)
         	)
     	{

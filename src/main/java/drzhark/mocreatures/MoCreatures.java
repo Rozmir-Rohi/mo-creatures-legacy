@@ -34,6 +34,7 @@ import drzhark.mocreatures.block.MoCBlockPlanks;
 import drzhark.mocreatures.block.MoCBlockRock;
 import drzhark.mocreatures.block.MoCBlockTallGrass;
 import drzhark.mocreatures.client.MoCClientTickHandler;
+import drzhark.mocreatures.client.MoCClientWitcheryPlayerWolfAndWerewolfReplacement;
 import drzhark.mocreatures.client.MoCCreativeTabs;
 import drzhark.mocreatures.client.handlers.MoCKeyHandler;
 import drzhark.mocreatures.command.CommandMoCPets;
@@ -411,6 +412,7 @@ public class MoCreatures {
         {
             FMLCommonHandler.instance().bus().register(new MoCClientTickHandler());
             FMLCommonHandler.instance().bus().register(new MoCKeyHandler());
+            MinecraftForge.EVENT_BUS.register(new MoCClientWitcheryPlayerWolfAndWerewolfReplacement());
         }
         FMLCommonHandler.instance().bus().register(new MoCPlayerTracker());
     }

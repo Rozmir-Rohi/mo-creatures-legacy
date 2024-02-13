@@ -1263,7 +1263,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
             
             else if (!(getIsAdult()) && (damageSource.getEntity() != null))
         	{
-    			MoCTools.runLikeHell(this, damageSource.getEntity()); //child runs away from attacking entity
+    			MoCTools.runAway(this, damageSource.getEntity()); //child runs away from attacking entity
     			
     			List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(10D, 10D, 10D));
     			for (int index = 0; index < entitiesNearbyList.size(); index++)

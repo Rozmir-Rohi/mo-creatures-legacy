@@ -245,7 +245,9 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         
         if (ridingEntity instanceof EntityPlayer)
         {
-        	if (((EntityPlayer) ridingEntity).inventory.getCurrentItem() != null)
+        	if (
+        			MoCreatures.proxy.emptyHandMountAndPickUpOnly && ((EntityPlayer) ridingEntity).inventory.getCurrentItem() != null
+        		)
         	{
         		mountEntity(null);
         		setPicked(false);
@@ -534,7 +536,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         if (
         		(
     	    		(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
-    	    		|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+    	    		|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
     	    	)
     	        && !(entityPlayer.isSneaking()) && ridingEntity == null && getMoCAge() < 60
         	)
@@ -552,7 +554,10 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
                 entityPlayer.addStat(MoCAchievements.tame_scorpion, 1);
             }
         }
-        else if (itemstack == null && ridingEntity != null && getIsPicked())
+        else if (
+	        		((MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null) || !(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
+		    		&& ridingEntity != null && getIsPicked()
+	    		)
         {
             setPicked(false);
             if (MoCreatures.isServer())

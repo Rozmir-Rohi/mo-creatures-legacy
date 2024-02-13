@@ -394,7 +394,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         if (
         		(
         			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
-        			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+        			|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
         		)
         		&& !(entityPlayer.isSneaking()) && riddenByEntity == null
         	)

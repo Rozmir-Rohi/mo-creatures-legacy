@@ -1703,7 +1703,7 @@ public class MoCTools {
      * @param runningEntity
      * @param scaryEntity
      */
-    public static void runLikeHell(EntityCreature runningEntity, Entity scaryEntity)
+    public static void runAway(EntityCreature runningEntity, Entity scaryEntity)
     {
         double xDistanceBetweenEntities = runningEntity.posX - scaryEntity.posX;
         double zDistanceBetweenEntities = runningEntity.posZ - scaryEntity.posZ;

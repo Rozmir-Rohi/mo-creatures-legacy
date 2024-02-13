@@ -948,4 +948,41 @@ Removed unused entry in lang files.
 Fixed player werewolf and wolf form replacements for Witchery mod still rendering even if player has used an invisibility potion.
 
 
-Added werewolf weakness damage from Witchery silver bolt silver for werewolves and Witchery integration werewolves. This will only work if the player has silver bolts in their inventory without any other types of bolts in their inventory.
+Added werewolf weakness damage from Witchery silver bolt for werewolves and Witchery integration werewolves. This will only work if the player has silver bolts in their inventory without any other types of bolts in their inventory.
+
+
+Improved readability of interact code for horse by seperating it into multiple functions.
+
+
+Kitties that have been bred now only spawn one baby kitty. Baby kitties that are created from breeding will now prompt the owner to name them.
+
+
+Bright green snakes no longer spawn in swamps, the spawns for these in swamps have been replaced with the dark brown/green snake.
+
+
+Fixed kitty rotation and position for when kitty is on kitty bed and giving birth.
+
+
+Fixed maggot model stretching out too much when hit.
+
+
+Kitties now no longer attack the player if they haven't been fed too often. Kitties will still attack the player if they have been fed and can't find an unused litter box or if the player attacks them or if the player attacks a baby kitty. Kitties can still be pacified if angry by feeding them cooked fish.
+
+
+Ostriches now no longer spawn in the outback biome from Biomes O' Plenty.
+
+
+Increased dark pegasus speed to now only be slighty under the speed of a fairy horse. The original Mo' Creatures dark pegasus was as fast as a fairy horse.
+I've decided to keep the fairy horse as the fastest horse in it's original Mo' Creatures speed since it is harder to obtain than a dark pegasus (needing to sacrifice both a pure unicorn and pure pegasus to get it).
+
+
+Fixed remove turkey if spawned in blacklisted biome event.
+
+
+Fixed crash on server relating to Witchery player wolf form and player werewolf form replacement.
+
+
+NOTE: Witchery player wolf form and player werewolf form replacements only works in single player. If used on servers it makes any werewolf players other than yourself be invisible when they are in wolf or werewolf form.
+
+
+Fixed bunny rotation when picked up by player.

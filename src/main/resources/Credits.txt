@@ -2,7 +2,7 @@
                    CREDITS & ASSETS USED
              -----------------------------------
 
-DrZhark, Bloodshot, BlockDaddy and remaining Original Mo' Creatures contributers - This project is a modified version of DrZhark's Mo' Creatures Mod v6.3.1 for Minecraft 1.7.10 and is licensed through the GNU Genral Public License Version 3 as per the conditions of the original project's license.
+DrZhark, Bloodshot, BlockDaddy and remaining Original Mo' Creatures contributers - This project is a modified version of DrZhark's Mo' Creatures Mod v6.3.1 for Minecraft 1.7.10 and is licensed under the "GNU General Public License v3.0 and Further Conditions" custom license which satisfies the GNU Genral Public License Version 3 as per the conditions of the original project's license.
 	DrZhark's Mo' Creatures Mod Original Forum Post:  http://www.minecraftforum.net/viewtopic.php?f=25&t=86929
 
 
@@ -19,7 +19,7 @@ WildBamaBoy - Horse achievement icon textures were directly based of the Coocone
 ganymedes01 - Code for proper damaging and item dropping for kitty litter box, kitty bed, and fish bowl was sourced from EntityArmourStand.class from the etfuturum mod. This asset was used under the Public Domain license.
 
 
-Thornack - Provide the code for replacing the Witchery werewolf player model with the Mo Creatures werewolf model (https://forums.minecraftforge.net/topic/28566-1710-how-to-change-player-model-and-texture/).
+Thornack - Provided the code for replacing the Witchery player wolf and player werewolf models with the Mo Creatures dire wolf and werewolf models (https://forums.minecraftforge.net/topic/28566-1710-how-to-change-player-model-and-texture/).
 
 
 TheAetherTeam - The AchievementsAether.class and Aether.class code from the 1.7.10 Aether Mod helped me understand how to add an achievements class that is seperate to the main mod class file. This asset was used under the GNU Lesser General Public License v3.0 through the custom license condition of The Aether mod "The source code of The Aether mod for Minecraft 1.7+ is under the LGPL v3.0 license".
@@ -64,7 +64,6 @@ Sounds Only:
 
 		Panda Cub Hurt & Death: https://www.youtube.com/watch?v=YRmGZIENeq4&ab_channel=audiofreeHD 
 
-
 		Panda Cub Hurt: https://www.youtube.com/watch?v=AyY70jPsZcc&ab_channel=nosoundeffects
 
 		Panda Adult Grunt: https://www.youtube.com/watch?v=4TANecQTYPY&ab_channel=SFX-SoundEffectsForContentCreators
@@ -90,14 +89,6 @@ Code for Multilingual Pet Naming:
 	Tino Didriksen - Their answer in StackOverflow taught how many bytes a character requires depending on the language that it is from (https://stackoverflow.com/questions/14485589/utf-8-how-many-bytes-are-used-by-languages-to-represent-a-visible-character).
 
 	Joshua Engel - Their post taught me how to encode a string of non-ASCII characters to UTF-8 so that they can be properly processed in the code (https://www.quora.com/How-do-I-convert-a-string-to-UTF-8-in-Java).
-
-
-
-
-Special Thanks:
-	Omgise - For identifying multiple bugs with the beta versions and timely responding to all my requests to update the chinese simplified language file.
-
-	The Camping Rusher - If I hadn't watched his Mo' Creatures let's play as a kid, I never would have gotten into the Mo' Creatures mod, and I never would have known all the problems with the original Mo' Creatures mod for 1.7.10. Link to his let's play: https://www.youtube.com/playlist?list=PLDzzbNR8UfN0cWzzCLucxJSII_86G9BuE .
 
 
 
@@ -140,4 +131,11 @@ Special Thanks:
 
 ===========================================================================
 
+
+
+
+Special Thanks:
+	Omgise - For identifying multiple bugs with the beta versions and timely responding to all my requests to update the Chinese (Simplified) language file.
+
+	The Camping Rusher - If I hadn't watched his Mo' Creatures let's play as a kid, I never would have gotten into the Mo' Creatures mod, and I never would have known all the problems with the original Mo' Creatures mod for 1.7.10. Link to the playlist of his let's play: https://www.youtube.com/playlist?list=PLDzzbNR8UfN0cWzzCLucxJSII_86G9BuE .
 

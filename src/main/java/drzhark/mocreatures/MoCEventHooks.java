@@ -3,22 +3,17 @@ package drzhark.mocreatures;
 import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import drzhark.mocreatures.client.model.MoCModelWere;
-import drzhark.mocreatures.client.model.MoCModelWereHuman;
-import drzhark.mocreatures.client.model.MoCModelWolf;
-import drzhark.mocreatures.client.renderer.entity.MoCRenderWerewolfPlayerWitchery;
-import drzhark.mocreatures.client.renderer.entity.MoCRenderWolfPlayerWitchery;
 import drzhark.mocreatures.entity.IMoCTameable;
 import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.ambient.MoCEntityBee;
 import drzhark.mocreatures.entity.animal.MoCEntityBigCat;
 import drzhark.mocreatures.entity.animal.MoCEntityElephant;
+import drzhark.mocreatures.entity.animal.MoCEntityOstrich;
 import drzhark.mocreatures.entity.animal.MoCEntityTurkey;
 import drzhark.mocreatures.entity.monster.MoCEntityScorpion;
 import drzhark.mocreatures.entity.vanilla_mc_extension.EntityCreeperExtension;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfVillagerWitchery;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfWitchery;
-import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.IEntityLivingData;
@@ -30,7 +25,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -85,21 +79,21 @@ public class MoCEventHooks {
         		}
 	        }
         	
-        	if (event.entityLiving instanceof MoCEntityTurkey) //remove newly spawned Turkeys from biomes that they are not supposed to spawn in
+        	if (event.entityLiving instanceof MoCEntityTurkey) //remove newly spawned Turkeys from biomes that they are not supposed to spawn in (mainly savannas)
         	{
         		MoCEntityTurkey turkey = (MoCEntityTurkey) event.entityLiving;
         		
-        		if (!turkey.checkSpawningBiome() && !turkey.getIsTamed())
+        		if (!turkey.getIsTamed() && turkey.ticksExisted < 3 && !turkey.checkSpawningBiome())
         		{
         			event.entityLiving.setDead();
         		}
         	}
         	
-        	if (event.entityLiving instanceof MoCEntityScorpion) //remove newly spawned Scorpions from biomes that they are not supposed to spawn in
+        	if (event.entityLiving instanceof MoCEntityScorpion) //remove newly spawned Scorpions from biomes that they are not supposed to spawn in (mainly beaches)
         	{
         		MoCEntityScorpion scorpion = (MoCEntityScorpion) event.entityLiving;
         		
-        		if (!scorpion.checkSpawningBiome() && scorpion.getType() == 0)
+        		if (scorpion.getType() == 0 && !scorpion.checkSpawningBiome())
         		{
         			event.entityLiving.setDead();
         		}
@@ -166,9 +160,9 @@ public class MoCEventHooks {
         	{
 	        	if (event.entityLiving instanceof MoCEntityBigCat) //remove newly spawned Big Cats from biomes that they are not supposed to spawn in
 	        	{
-	        		MoCEntityBigCat big_cat = (MoCEntityBigCat) event.entityLiving;
+	        		MoCEntityBigCat bigCat = (MoCEntityBigCat) event.entityLiving;
 	        		
-	        		if ((big_cat.getType() == 0) && !big_cat.checkSpawningBiome() && !big_cat.getIsTamed())
+	        		if (bigCat.getType() == 0 && !bigCat.checkSpawningBiome() && !bigCat.getIsTamed())
 	        		{
 	        			event.entityLiving.setDead();
 	        		}
@@ -178,7 +172,17 @@ public class MoCEventHooks {
 	        	{
 	        		MoCEntityElephant elephant = (MoCEntityElephant) event.entityLiving;
 	        		
-	        		if ((elephant.getType() == 0) && !elephant.checkSpawningBiome() && !elephant.getIsTamed())
+	        		if (elephant.getType() == 0 && !elephant.checkSpawningBiome() && !elephant.getIsTamed())
+	        		{
+	        			event.entityLiving.setDead();
+	        		}
+	        	}
+	        	
+	        	if (event.entityLiving instanceof MoCEntityOstrich) //remove newly spawned Ostriches from biomes that they are not supposed to spawn in
+	        	{
+	        		MoCEntityOstrich ostrich = (MoCEntityOstrich) event.entityLiving;
+	        		
+	        		if (ostrich.getType() == 0 && !ostrich.checkSpawningBiome())
 	        		{
 	        			event.entityLiving.setDead();
 	        		}
@@ -186,29 +190,6 @@ public class MoCEventHooks {
         	}
         }
     }
-    
-    final Render renderPlayerWolf = new MoCRenderWolfPlayerWitchery(new MoCModelWolf(), 0.7F);
-    final Render renderPlayerWerewolf = new MoCRenderWerewolfPlayerWitchery(new MoCModelWereHuman(), new MoCModelWere(), 0.7F);
-    
-    @SubscribeEvent
-	public void onRenderPlayerPre(RenderPlayerEvent.Pre event)
-    {
-    	if (MoCreatures.isWitcheryLoaded)
-    	{
-    		float modelYOffset = -1.625F;
-    		
-    		if (MoCreatures.proxy.replaceWitcheryPlayerWerewolf && MoCTools.isPlayerInWerewolfForm(event.entityPlayer) && !(event.entityPlayer.isPotionActive(Potion.invisibility)))
-    		{
-				renderPlayerWerewolf.doRender(event.entity, 0F, modelYOffset, 0F, 0F, 0.0625F);
-    		}
-    		
-    		if (MoCreatures.proxy.replaceWitcheryPlayerWolf && MoCTools.isPlayerInWolfForm(event.entityPlayer) && !(event.entityPlayer.isPotionActive(Potion.invisibility)))
-    		{
-				renderPlayerWolf.doRender(event.entity, 0F, modelYOffset, 0F, 0F, 0.0625F);
-    		}
-    	}
-
-	}
     
     @SubscribeEvent
     public void BreakEvent(BlockEvent.BreakEvent event) 
@@ -262,62 +243,62 @@ public class MoCEventHooks {
                     {
                     
 	                    //get the owner of the entity by their username 
-	                    EntityPlayer owner_of_moc_entity_that_is_online = MinecraftServer.getServer().getConfigurationManager().func_152612_a(mocEntity.getOwnerName());
+	                    EntityPlayer ownerOfMocEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(mocEntity.getOwnerName());
 	                    
 	                    Entity attacker = event.source.getEntity();
 	                    
-	                    String attacker_string_name = null;
+	                    String attackerStringName = null;
 	                    
-	                    DamageSource last_damage_before_death = event.source;
+	                    DamageSource lastDamageBeforeDeath = event.source;
 	                    
-	                    if (owner_of_moc_entity_that_is_online != null)
+	                    if (ownerOfMocEntityThatIsOnline != null)
 	                    {
 	                    	if (attacker != null)
 	                    	{
-	                    		if (attacker instanceof IMoCTameable && ((IMoCTameable) attacker).getIsTamed()) {attacker_string_name = ((IMoCTameable) attacker).getName();}
-	                    		else {attacker_string_name = attacker.getCommandSenderName();}
+	                    		if (attacker instanceof IMoCTameable && ((IMoCTameable) attacker).getIsTamed()) {attackerStringName = ((IMoCTameable) attacker).getName();}
+	                    		else {attackerStringName = attacker.getCommandSenderName();}
 	                    		
-	                    		if (last_damage_before_death.isProjectile()) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.arrow", new Object[] {mocEntity.getName(), attacker_string_name}));}
+	                    		if (lastDamageBeforeDeath.isProjectile()) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.arrow", new Object[] {mocEntity.getName(), attackerStringName}));}
 	                    			
-	                    		else if (last_damage_before_death.isMagicDamage()) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.indirectMagic", new Object[] {mocEntity.getName(), attacker_string_name}));}
+	                    		else if (lastDamageBeforeDeath.isMagicDamage()) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.indirectMagic", new Object[] {mocEntity.getName(), attackerStringName}));}
 	                    		
-	                    		else if (last_damage_before_death.isExplosion()) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.explosion.player", new Object[] {mocEntity.getName(), attacker_string_name}));}
+	                    		else if (lastDamageBeforeDeath.isExplosion()) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.explosion.player", new Object[] {mocEntity.getName(), attackerStringName}));}
 	                    		
-	                    		else {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.mob", new Object[] {mocEntity.getName(), attacker_string_name}));}
+	                    		else {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.mob", new Object[] {mocEntity.getName(), attackerStringName}));}
 	                    	}
 	                    
 	                    	if (attacker == null)
 	                    	{
-	                    		if (((last_damage_before_death == DamageSource.onFire) || (last_damage_before_death == DamageSource.inFire)) && (last_damage_before_death != DamageSource.lava)) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.onFire", new Object[] {mocEntity.getName()}));}
+	                    		if (((lastDamageBeforeDeath == DamageSource.onFire) || (lastDamageBeforeDeath == DamageSource.inFire)) && (lastDamageBeforeDeath != DamageSource.lava)) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.onFire", new Object[] {mocEntity.getName()}));}
 	                    	
-	                    		else if (last_damage_before_death == DamageSource.lava) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.lava", new Object[] {mocEntity.getName()}));}
+	                    		else if (lastDamageBeforeDeath == DamageSource.lava) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.lava", new Object[] {mocEntity.getName()}));}
 	                    	
-	                    		else if (last_damage_before_death == DamageSource.inWall) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.inWall", new Object[] {mocEntity.getName()}));}
+	                    		else if (lastDamageBeforeDeath == DamageSource.inWall) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.inWall", new Object[] {mocEntity.getName()}));}
 	                    	
-	                    		else if (last_damage_before_death == DamageSource.drown)
+	                    		else if (lastDamageBeforeDeath == DamageSource.drown)
 	                    		{
-	                    			if (mocEntity instanceof MoCEntityAquatic) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.MoCreatures.attack.dehydration", new Object[] {mocEntity.getName()}));}
+	                    			if (mocEntity instanceof MoCEntityAquatic) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.MoCreatures.attack.dehydration", new Object[] {mocEntity.getName()}));}
 	                    			
-	                    			else {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.drown", new Object[] {mocEntity.getName()}));}
+	                    			else {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.drown", new Object[] {mocEntity.getName()}));}
 	                    		}
 	                    	
-	                    		else if (last_damage_before_death == DamageSource.cactus) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.cactus", new Object[] {mocEntity.getName()}));}
+	                    		else if (lastDamageBeforeDeath == DamageSource.cactus) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.cactus", new Object[] {mocEntity.getName()}));}
 	                    	
-	                    		else if (last_damage_before_death.isExplosion()) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.explosion", new Object[] {mocEntity.getName()}));}
+	                    		else if (lastDamageBeforeDeath.isExplosion()) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.explosion", new Object[] {mocEntity.getName()}));}
 	                    		
-	                    		else if (last_damage_before_death == DamageSource.magic) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.magic", new Object[] {mocEntity.getName()}));}
+	                    		else if (lastDamageBeforeDeath == DamageSource.magic) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.magic", new Object[] {mocEntity.getName()}));}
 	                    		
-	                    		else if (last_damage_before_death == DamageSource.fall) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.fell.accident.generic", new Object[] {mocEntity.getName()}));}
+	                    		else if (lastDamageBeforeDeath == DamageSource.fall) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.fell.accident.generic", new Object[] {mocEntity.getName()}));}
 	                    	
-	                    		else if (last_damage_before_death == DamageSource.outOfWorld) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.outOfWorld", new Object[] {mocEntity.getName()}));}
+	                    		else if (lastDamageBeforeDeath == DamageSource.outOfWorld) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.outOfWorld", new Object[] {mocEntity.getName()}));}
 	                    		
-	                    		else if (last_damage_before_death == DamageSource.wither) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.wither", new Object[] {mocEntity.getName()}));}
+	                    		else if (lastDamageBeforeDeath == DamageSource.wither) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.wither", new Object[] {mocEntity.getName()}));}
 	                    		
-	                    		else if (last_damage_before_death == DamageSource.anvil) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.anvil", new Object[] {mocEntity.getName()}));}
+	                    		else if (lastDamageBeforeDeath == DamageSource.anvil) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.anvil", new Object[] {mocEntity.getName()}));}
 	                    	
-	                    		else if (last_damage_before_death == DamageSource.fallingBlock) {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.fallingBlock", new Object[] {mocEntity.getName()}));}
+	                    		else if (lastDamageBeforeDeath == DamageSource.fallingBlock) {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.fallingBlock", new Object[] {mocEntity.getName()}));}
 	                    	
-	                    		else {owner_of_moc_entity_that_is_online.addChatMessage(new ChatComponentTranslation("death.attack.generic", new Object[] {mocEntity.getName()}));}
+	                    		else {ownerOfMocEntityThatIsOnline.addChatMessage(new ChatComponentTranslation("death.attack.generic", new Object[] {mocEntity.getName()}));}
 	                    	}
                     
 	                    }

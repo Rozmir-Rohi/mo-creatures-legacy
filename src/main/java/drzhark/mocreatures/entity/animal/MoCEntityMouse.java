@@ -191,7 +191,10 @@ public class MoCEntityMouse extends MoCEntityAnimal
     {   
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         
-        if (itemstack == null)
+        if (	
+        		(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+	    		|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
+	    	)
         {
         	rotationYaw = entityPlayer.rotationYaw;
         
@@ -199,12 +202,7 @@ public class MoCEntityMouse extends MoCEntityAnimal
 	        {
 	            if (
 	            		MoCreatures.isServer()
-	            		&&
-	            			(
-	                			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
-	                			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
-	                		)
-	                		&& !(entityPlayer.isSneaking()) && (entityPlayer.ridingEntity == null)
+	            		&& !(entityPlayer.isSneaking()) && (entityPlayer.ridingEntity == null)
 	                )
 	            {
 	            	mountEntity(entityPlayer);
@@ -243,7 +241,7 @@ public class MoCEntityMouse extends MoCEntityAnimal
                 EntityLivingBase entityLiving = getScaryEntity(6D);
                 if(entityLiving != null)
                 {
-                    MoCTools.runLikeHell(this, entityLiving);
+                    MoCTools.runAway(this, entityLiving);
 
                 }
             }
@@ -253,7 +251,7 @@ public class MoCEntityMouse extends MoCEntityAnimal
             }
             if (ridingEntity instanceof EntityPlayer)
             {
-            	if (((EntityPlayer) ridingEntity).inventory.getCurrentItem() != null)
+            	if (MoCreatures.proxy.emptyHandMountAndPickUpOnly && ((EntityPlayer) ridingEntity).inventory.getCurrentItem() != null)
             	{
             		mountEntity(null);
             		setPicked(false);

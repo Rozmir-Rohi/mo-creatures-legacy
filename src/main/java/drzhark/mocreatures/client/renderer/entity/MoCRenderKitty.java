@@ -177,8 +177,9 @@ public class MoCRenderKitty extends RenderBiped {
     protected void onTheSide(EntityLivingBase entityLiving)
     {
         GL11.glRotatef(90F, 0.0F, 0.0F, -1F);
+        GL11.glRotatef(165F, -1.0F, 0.0F, 0F);
         
-        GL11.glTranslatef(0.2F, 0.0F, -0.2F);
+        GL11.glTranslatef(0.2F, 0.3F, -0.2F);
     }
 
     @Override

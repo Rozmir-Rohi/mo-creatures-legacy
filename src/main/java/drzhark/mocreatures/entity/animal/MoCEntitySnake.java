@@ -183,7 +183,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 	            		&&
 	            		(
 	                		(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
-	                		|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+	                		|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
 	                	)
 	                	&& !(entityPlayer.isSneaking()) && (entityPlayer.ridingEntity == null)
 	                )
@@ -751,12 +751,12 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         String biomeName = MoCTools.BiomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
         BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
-        int l = rand.nextInt(10);
+        int typeChance = rand.nextInt(10);
 
 
         if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SANDY))
         {
-            if (l < 5)
+            if (typeChance < 5)
             {
                 setType(7); // rattlesnake
             }
@@ -769,7 +769,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 
         if (BiomeDictionary.isBiomeOfType(currentBiome, Type.FOREST))
         {
-            if (l < 4)
+            if (typeChance < 4)
             {
                 setType(4); //bright green snake
             }
@@ -782,11 +782,11 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         
         if (BiomeDictionary.isBiomeOfType(currentBiome, Type.JUNGLE))
         {
-            if (l < 4)
+            if (typeChance < 4)
             {
                 setType(3); //bright orange snake
             }
-            else if (l < 7)
+            else if (typeChance < 7)
             {
                 setType(4); //bright green snake
             }
@@ -798,14 +798,13 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         
         if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SWAMP))
         {
-            // python or bright green bright orange
-            if (l < 4)
+            if (typeChance < 4)
             {
                 setType(8); //python
             }
-            else if (l < 8)
+            else if (typeChance < 8)
             {
-                setType(4); //bright green snake
+                setType(2); // dark green/brown snake
             }
             else
             {

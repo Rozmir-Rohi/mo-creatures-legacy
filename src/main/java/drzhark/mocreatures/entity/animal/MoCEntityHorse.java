@@ -549,7 +549,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         
         else if (horseType == 40) //dark pegasus
         {
-        	horseSpeed = 1.1;
+        	horseSpeed = 1.25;
         }
         
         else if (horseType > 40 && horseType < 60) // fairies
@@ -1382,340 +1382,43 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	            return true;
 	        }
 	        
+	        List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+	        
+	        
+	        if (interactIfThisHorseIsANormalHorseAndItemstackIsHealFood(entityPlayer, horseType, itemstack, item, oreDictionaryNameArray)) {return true;};
+	        
+	        if (interactIfThisHorseIsANormalHorseAndItemstackIsBreedingFood(entityPlayer, itemstack, item)) {return true;};
+	        
 	        if (getIsTamed())
 	        {
-	       
-		
-		        if (canWearRegularArmor() && (
-		        		item == Items.iron_horse_armor
-		        		|| item == Items.golden_horse_armor
-		        		|| item == Items.diamond_horse_armor
-		        	))
+	        	if (interactIfItemstackIsAmulet(entityPlayer, horseType, item)) {return true;};
+	        	
+	        	if ((item == MoCreatures.key) && getChestedHorse())
 		        {
-		            if (getArmorType() == 0) {MoCTools.playCustomSound(this, "armorput", worldObj);}
-		            
-		            dropArmor();
-		            
-		            byte regularArmorType = 0;
-		            
-		            if (item == Items.iron_horse_armor) {regularArmorType = 1;}
-		            if (item == Items.golden_horse_armor) {regularArmorType = 2;}
-	        		if (item == Items.diamond_horse_armor) {regularArmorType = 3;}
-		            
-		            setArmorType(regularArmorType);
-		            
-		            if (--itemstack.stackSize == 0)
+		            // if first time opening horse chest, we must initialize it
+		            if (localHorseChest == null)
 		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		                localHorseChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.HorseChest"), getInventorySize());// , new
 		            }
-		            
-		            return true;
-		        }
-		
-		        if ((item == MoCreatures.horseArmorCrystal) && isMagicHorse())
-		        {
-		            if (getArmorType() == 0) {MoCTools.playCustomSound(this, "armorput", worldObj);}
-		            
-		            dropArmor();
-		            
-		            setArmorType((byte) 4);
-		            
-		            if (--itemstack.stackSize == 0)
+		            // only open this chest on server side
+		            if (!worldObj.isRemote)
 		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		                entityPlayer.displayGUIChest(localHorseChest);
 		            }
 		            return true;
-		        }
-		
-		        // transform to undead, or heal undead horse
-		        if (item == MoCreatures.essenceUndead)
-		        {
-		            if (--itemstack.stackSize == 0)
-		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-		            }
-		            else
-		            {
-		                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-		            }
-		
-		            if (isUndead() || isGhost())
-		            {
-		                setHealth(getMaxHealth());
-		
-		            }
-		            
-		            else
-		            {
-		       		 	if (owner != null) {owner.addStat(MoCAchievements.undead_horse, 1);};
-		            }
-		            
-		            
-		
-		            // pegasus, dark pegasus, or bat horse
-		            if (horseType == 39 || horseType == 32 || horseType == 40)
-		            {
-		
-		                // transformType = 25; //undead pegasus
-		                transform(25);
-		
-		            }
-		            else if (horseType == 36 || (horseType > 47 && horseType < 60)) // unicorn or fairies
-		            {
-		
-		                // transformType = 24; //undead unicorn
-		                transform(24);
-		            }
-		            else if (horseType < 21 || horseType == 60 || horseType == 61) // regular horses or zebras
-		            {
-		
-		                // transformType = 23; //undead
-		                transform(23);
-		            }
-		
-		            drinkingHorse();
-		            return true;
-		        }
-		
-		        // to transform to nightmares: only pure breeds
-		        if (item == MoCreatures.essenceFire)
-		        {
-		            if (--itemstack.stackSize == 0)
-		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-		            }
-		            else
-		            {
-		                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-		            }
-		
-		            if (isNightmare())
-		            {
-		                if (getIsAdult() && getHealth() == getMaxHealth())
-		                {
-		                    hasEatenPumpkin = true;
-		                }
-		                setHealth(getMaxHealth());
-		
-		            }
-		            if (horseType == 61)
-		            {
-		                //nightmare
-		                transform(38);
-		                isImmuneToFire = true;
-		                
-		       		 	if (owner != null) {owner.addStat(MoCAchievements.nightmare_horse, 1);};
-		            }
-		            
-		            drinkingHorse();
-		            return true;
-		        }
-		
-		        // transform to dark pegasus
-		        if (item == MoCreatures.essenceDarkness)
-		        {
-		            if (--itemstack.stackSize == 0)
-		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-		            }
-		            else
-		            {
-		                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-		            }
-		
-		            if (horseType == 32)
-		            {
-		                if (getIsAdult() && getHealth() == getMaxHealth())
-		                {
-		                    hasEatenPumpkin = true;
-		                }
-		                setHealth(getMaxHealth());
-		            }
-		
-		            if (horseType == 61)
-		            {
-		                //bat horse
-		                transform(32);
-		       		 	if (owner != null) {owner.addStat(MoCAchievements.bat_horse, 1);};
-		            }
-		
-		            if (horseType == 39) // pegasus to darkpegasus
-		            {
-		                //darkpegasus
-		                transform(40);
-		                isImmuneToFire = true;
-		                
-		       		 	if (owner != null) {owner.addStat(MoCAchievements.dark_pegasus, 1);};
-		            }
-		            drinkingHorse();
-		            return true;
-		        }
-		
-		        if (item == MoCreatures.essenceLight)
-		        {
-		            if (--itemstack.stackSize == 0)
-		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-		            }
-		            else
-		            {
-		                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-		            }
-		
-		            if (isMagicHorse())
-		            {
-		                if (getIsAdult() && getHealth() == getMaxHealth())
-		                {
-		                    hasEatenPumpkin = true;
-		                }
-		                setHealth(getMaxHealth());
-		            }
-		
-		            if (isNightmare())
-		            {
-		                // unicorn
-		                transform(36);
-		                
-		       		 	if (owner != null) {owner.addStat(MoCAchievements.unicorn, 1);};
-		            }
-		            if (horseType == 32 && posY > 128D) // bathorse to pegasus
-		            {
-		                // pegasus
-		                transform(39);
-		                
-		                if (owner != null) {owner.addStat(MoCAchievements.pegasus, 1);};
-		            }
-		            // to return undead horses to pristine conditions
-		            if (isUndead() && getIsAdult() && MoCreatures.isServer())
-		            {
-		                setMoCAge(10);
-		                if (horseType > 26)
-		                {
-		                    setType(horseType - 3);
-		                }
-		            }
-		            drinkingHorse();
-		            return true;
-		        }
-		
-		        if (isAmuletHorse())
-		        {
-		            if ((horseType == 26 || horseType == 27 || horseType == 28) && item == MoCreatures.amuletBone)
-		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
-		                vanishHorse();
-		                return true;
-		            }
-		
-		            if ((horseType > 47 && horseType < 60) && item == MoCreatures.amuletFairy)
-		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
-		                vanishHorse();
-		                return true;
-		            }
-		
-		            if ((horseType == 39 || horseType == 40) && (item == MoCreatures.amuletPegasus))
-		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
-		                vanishHorse();
-		                return true;
-		            }
-		
-		            if ((horseType == 21 || horseType == 22) && (item == MoCreatures.amuletGhost))
-		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
-		                vanishHorse();
-		                return true;
-		            }
 		
 		        }
+	        	
+		        if (interactIfItemstackIsHorseArmor(entityPlayer, itemstack, item)) {return true;};
 		
-		        if ((item == Items.dye) && (horseType == 50)) //set color of fairy horse based on dye player is interacting with
-		        {
-		
-		            int colorInt = BlockColored.func_150031_c(itemstack.getItemDamage());
-		            switch (colorInt)
-		            {
-		            case 1: //orange
-		                transform(59);
-		                break;
-		            case 2: //magenta TODO
-		                //transform(46);
-		                break;
-		            case 3: //light blue
-		                transform(51);
-		                break;
-		            case 4: //yellow
-		                transform(48);
-		                break;
-		            case 5: //light green
-		                transform(53);
-		                break;
-		            case 6: //pink
-		                transform(52);
-		                break;
-		            case 7: //gray TODO
-		                //transform(50);
-		                break;
-		            case 8: //light gray TODO
-		                //transform(50);
-		                break;
-		            case 9: //cyan
-		                transform(57);
-		                break;
-		            case 10: //purple
-		                transform(49);
-		                break;
-		            case 11: //dark blue
-		                transform(56);
-		                break;
-		            case 12: //brown TODO
-		                //transform(50);
-		                break;
-		            case 13: //green
-		                transform(58);
-		                break;
-		            case 14: //red
-		                transform(55);
-		                break;
-		            case 15: //black
-		                transform(54);
-		                break;
-		            
-		            }
-		            
-		            if (--itemstack.stackSize == 0)
-		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
-		            }
-		            eatingHorse();
-		            return true;
-		        }
-		
-		        // zebra easter egg
-		        if ((horseType == 60) && (
-		        		item == Items.record_11)
-		        		|| (item == Items.record_13)
-		        		|| (item == Items.record_cat)
-		        		|| (item == Items.record_chirp)
-		        		|| (item == Items.record_far)
-		        		||(item == Items.record_mall)
-		        		|| (item == Items.record_mellohi)
-		        		|| (item == Items.record_stal)
-		        		|| (item == Items.record_strad)
-		        		|| (item == Items.record_ward))
-		        {
-		            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
-		            if (MoCreatures.isServer())
-		            {
-		                EntityItem entityItem1 = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.recordShuffle, 1));
-		                entityItem1.delayBeforeCanPickup = 20;
-		                worldObj.spawnEntityInWorld(entityItem1);
-		            }
-		            eatingHorse();
-		            return true;
-		        }
+		        if (interactIfItemstackIsEssenceOfDarkness(entityPlayer, horseType, itemstack, owner, item)) {return true;};
 		        
+		        if (interactIfItemstackisEssenceOfFire(entityPlayer, horseType, itemstack, owner, item)) {return true;};
+		
+		        if (interactIfItemstackIsEssenceOfLight(entityPlayer, horseType, itemstack, owner, item)) {return true;};
+		        
+		        if (interactIfItemstackIsEssenceOfUndead(entityPlayer, horseType, itemstack, owner, item)) {return true;};
+		
 		        if (item == Item.getItemFromBlock(Blocks.chest) && (isBagger()))
 		        {
 		            if (getChestedHorse()) { return false; }
@@ -1728,149 +1431,14 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		            setChestedHorse(true);
 		            return true;
 		        }
-	        
+		        
+		        if (interactIfThisHorseIsAZebraAndItemstackIsRecord(entityPlayer, horseType, item)) {return true;};
+		        
+		        if (interactIfThisHorseIsAFairyAndItemstackIsDye(entityPlayer, horseType, itemstack, item)) {return true;};
         	}
-	        
-	        
-	        List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
-	        
-	        
-	        if (!isUndead() && !isMagicHorse() && 
-	        		( 
-	        			//food items for normal horses
-	        			item == Items.wheat
-	        			|| item == MoCreatures.sugarLump
-	        			|| item == Items.bread
-	        			|| item == Items.apple
-	        			|| item == Items.golden_apple
-	        			|| item == MoCreatures.haystack
-	        			|| oreDictionaryNameArray.size() > 0 && 
-	        				(
-	        					oreDictionaryNameArray.contains("listAllwheats") //GregTech6 wheat items
-	        					|| oreDictionaryNameArray.contains("listAllgrain") //Palm's Harvest wheat items
-	        					
-	        					|| MoCreatures.isGregTech6Loaded &&
-	        						(
-	        							oreDictionaryNameArray.contains("itemGrass")
-	        							|| oreDictionaryNameArray.contains("itemGrassDry")
-	        							|| oreDictionaryNameArray.contains("cropGrain")
-	        						)
-	        				)
-	        		)
-	        	)
-	        {
-	        	int temperIncrease = 0;
-	        	int healAmount = 0;
-	        	int ageIncrease = 0;
-	
-	        	if (
-	        			item == Items.wheat 
-	        			|| oreDictionaryNameArray.contains("listAllwheats")
-	        			|| oreDictionaryNameArray.contains("itemGrass")
-	        			|| oreDictionaryNameArray.contains("itemGrassDry")
-	        			|| oreDictionaryNameArray.contains("cropGrain")
-	        			|| oreDictionaryNameArray.contains("listAllgrain")
-	        			
-	        		) {temperIncrease = 25; healAmount = 5; ageIncrease = 1;}
-	        	
-	        	if (item == MoCreatures.sugarLump) {temperIncrease = 25; healAmount = 10; ageIncrease = 2;}
-	        	if (item == Items.bread) {temperIncrease = 100; healAmount = 20; ageIncrease = 3;}
-	        	if (item == Items.apple || item == Items.golden_apple) {temperIncrease = 0; healAmount = 25; ageIncrease = 1;}
-	        	if (item == MoCreatures.haystack) {temperIncrease = 0; healAmount = 25; ageIncrease = 1;}
-	
-	
-	        	if (--itemstack.stackSize == 0)
-	        	{
-	        		entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
-	        	}
-	
-	
-	        	if (MoCreatures.isServer())
-	            {
-	        		setTemper(getTemper() + temperIncrease);
-	                if (getTemper() > getMaxTemper())
-	                {
-	                	setTemper(getMaxTemper() - 5);
-	                }
-	            }
-	        	
-	        	if ((item == MoCreatures.haystack) && !isMagicHorse() && !isUndead()) {setEating(true);} //eating haystack
-	
-	        	heal(healAmount);
-	        		
-	
-	        	eatingHorse(); //play eating sound
-	
-	
-	            if (!getIsAdult() && (getMoCAge() < 100))
-	            {
-	            	setMoCAge(getMoCAge() + ageIncrease);
-	            }
-	
-	
-	
-	        	 if (MoCreatures.isServer() && !(getIsTamed()) && (item == Items.apple || item == Items.golden_apple))
-	             {
-	        		 MoCTools.tameWithName(entityPlayer, this);
-	        		 
-	        		 if (entityPlayer != null && (horseType > 5 && horseType < 11)) //tier 2
-	        		 {
-	        			 entityPlayer.addStat(MoCAchievements.tier2_horse, 1);
-	        		 }
-	        		 else if (entityPlayer != null && (horseType == 60)) //zebra
-	        		 {
-	        			 entityPlayer.addStat(MoCAchievements.zebra, 1);
-	        		 }
-	             }
-	
-	
-	        	 return true;
-	        }
-	        
-	        if ((item == MoCreatures.key) && getChestedHorse())
-	        {
-	            // if first time opening horse chest, we must initialize it
-	            if (localHorseChest == null)
-	            {
-	                localHorseChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.HorseChest"), getInventorySize());// , new
-	            }
-	            // only open this chest on server side
-	            if (!worldObj.isRemote)
-	            {
-	                entityPlayer.displayGUIChest(localHorseChest);
-	            }
-	            return true;
-	
-	        }
-	        if (item == Item.getItemFromBlock(Blocks.pumpkin)  //normal horse breeding items
-	        		|| item == Items.mushroom_stew
-	        		|| item == Items.cake)
-	        {
-	            if (!getIsAdult() || isMagicHorse() || isUndead()) { return false; }
-	            
-	            if (item == Items.mushroom_stew)
-	            {
-	                if (--itemstack.stackSize == 0)
-	                {
-	                    entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.bowl));
-	                }
-	                else
-	                {
-	                    entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.bowl));
-	                }
-	            }
-	            else if (--itemstack.stackSize == 0)
-	            {
-	                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
-	            }
-	            hasEatenPumpkin = true;
-	            heal(25);
-	            eatingHorse();
-	            return true;
-	        }
         }
-
-        if (
+        
+        if (	//try to mount player on horse - THIS MUST TO BE AT THE VERY LAST OF THE INTERACT FUNCTION so that any interactable items are used first before the player mounts the horse
 	        	(
 	    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
 	    			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
@@ -1890,13 +1458,523 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         return false;
     }
 
+	private boolean interactIfThisHorseIsANormalHorseAndItemstackIsBreedingFood(EntityPlayer entityPlayer, ItemStack itemstack, Item item)
+	{
+		if (
+				item == Item.getItemFromBlock(Blocks.pumpkin)  //normal horse breeding items
+				|| item == Items.mushroom_stew
+				|| item == Items.cake
+			)
+		{
+		    if (!getIsAdult() || isMagicHorse() || isUndead()) { return false; }
+		    
+		    if (item == Items.mushroom_stew)
+		    {
+		        if (--itemstack.stackSize == 0)
+		        {
+		            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.bowl));
+		        }
+		        else
+		        {
+		            entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.bowl));
+		        }
+		    }
+		    else if (--itemstack.stackSize == 0)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		    }
+		    hasEatenPumpkin = true;
+		    heal(25);
+		    eatingHorse();
+		    return true;
+		}
+		return false;
+	}
+
+	private boolean interactIfThisHorseIsANormalHorseAndItemstackIsHealFood(EntityPlayer entityPlayer, int horseType, ItemStack itemstack, Item item, List<String> oreDictionaryNameArray)
+	{
+		if (
+				!isUndead() && !isMagicHorse() && 
+					( 
+						//food items for normal horses
+						item == Items.wheat
+						|| item == MoCreatures.sugarLump
+						|| item == Items.bread
+						|| item == Items.apple
+						|| item == Items.golden_apple
+						|| item == MoCreatures.haystack
+						|| oreDictionaryNameArray.size() > 0 && 
+							(
+								oreDictionaryNameArray.contains("listAllwheats") //GregTech6 wheat items
+								|| oreDictionaryNameArray.contains("listAllgrain") //Palm's Harvest wheat items
+								
+								|| MoCreatures.isGregTech6Loaded &&
+									(
+										oreDictionaryNameArray.contains("itemGrass")
+										|| oreDictionaryNameArray.contains("itemGrassDry")
+										|| oreDictionaryNameArray.contains("cropGrain")
+									)
+							)
+					)
+			)
+		{
+			int temperIncrease = 0;
+			int healAmount = 0;
+			int ageIncrease = 0;
+
+			if (
+					item == Items.wheat 
+					|| oreDictionaryNameArray.contains("listAllwheats")
+					|| oreDictionaryNameArray.contains("itemGrass")
+					|| oreDictionaryNameArray.contains("itemGrassDry")
+					|| oreDictionaryNameArray.contains("cropGrain")
+					|| oreDictionaryNameArray.contains("listAllgrain")
+					
+				)
+			{
+				temperIncrease = 25; healAmount = 5; ageIncrease = 1;
+			}
+			
+			if (item == MoCreatures.sugarLump) {temperIncrease = 25; healAmount = 10; ageIncrease = 2;}
+			if (item == Items.bread) {temperIncrease = 100; healAmount = 20; ageIncrease = 3;}
+			if (item == Items.apple || item == Items.golden_apple) {temperIncrease = 0; healAmount = 25; ageIncrease = 1;}
+			if (item == MoCreatures.haystack) {temperIncrease = 0; healAmount = 25; ageIncrease = 1;}
+
+
+			if (--itemstack.stackSize == 0)
+			{
+				entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+			}
+
+
+			if (MoCreatures.isServer())
+		    {
+				setTemper(getTemper() + temperIncrease);
+		        if (getTemper() > getMaxTemper())
+		        {
+		        	setTemper(getMaxTemper() - 5);
+		        }
+		    }
+			
+			if ((item == MoCreatures.haystack) && !isMagicHorse() && !isUndead()) {setEating(true);} //eating haystack
+
+			heal(healAmount);
+				
+
+			eatingHorse(); //play eating sound
+
+
+		    if (!getIsAdult() && (getMoCAge() < 100))
+		    {
+		    	setMoCAge(getMoCAge() + ageIncrease);
+		    }
+
+
+
+			 if (MoCreatures.isServer() && !(getIsTamed()) && (item == Items.apple || item == Items.golden_apple))
+		     {
+				 MoCTools.tameWithName(entityPlayer, this);
+				 
+				 if (entityPlayer != null && (horseType > 5 && horseType < 11)) //tier 2
+				 {
+					 entityPlayer.addStat(MoCAchievements.tier2_horse, 1);
+				 }
+				 else if (entityPlayer != null && (horseType == 60)) //zebra
+				 {
+					 entityPlayer.addStat(MoCAchievements.zebra, 1);
+				 }
+		     }
+			 
+			 return true;
+		}
+		return false;
+	}
+
+	private boolean interactIfThisHorseIsAZebraAndItemstackIsRecord(EntityPlayer entityPlayer, int horseType, Item item)
+	{
+		// zebra easter egg
+		if (
+				horseType == 60
+				&& (
+						item == Items.record_11
+						|| item == Items.record_13
+						|| item == Items.record_cat
+						|| item == Items.record_chirp
+						|| item == Items.record_far
+						|| item == Items.record_mall
+						|| item == Items.record_mellohi
+						|| item == Items.record_stal
+						|| item == Items.record_strad
+						|| item == Items.record_ward
+					)
+			)
+		{
+		    entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		    if (MoCreatures.isServer())
+		    {
+		        EntityItem entityItem1 = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(MoCreatures.recordShuffle, 1));
+		        entityItem1.delayBeforeCanPickup = 20;
+		        worldObj.spawnEntityInWorld(entityItem1);
+		    }
+		    eatingHorse();
+		    return true;
+		}
+		return false;
+	}
+
+	private boolean interactIfThisHorseIsAFairyAndItemstackIsDye(EntityPlayer entityPlayer, int horseType, ItemStack itemstack, Item item)
+	{
+		if ((horseType == 50) && (item == Items.dye)) //set color of fairy horse based on dye player is interacting with
+		{
+
+		    int colorInt = BlockColored.func_150031_c(itemstack.getItemDamage());
+		    switch (colorInt)
+		    {
+		    case 1: //orange
+		        transform(59);
+		        break;
+		    case 2: //magenta TODO
+		        //transform(46);
+		        break;
+		    case 3: //light blue
+		        transform(51);
+		        break;
+		    case 4: //yellow
+		        transform(48);
+		        break;
+		    case 5: //light green
+		        transform(53);
+		        break;
+		    case 6: //pink
+		        transform(52);
+		        break;
+		    case 7: //gray TODO
+		        //transform(50);
+		        break;
+		    case 8: //light gray TODO
+		        //transform(50);
+		        break;
+		    case 9: //cyan
+		        transform(57);
+		        break;
+		    case 10: //purple
+		        transform(49);
+		        break;
+		    case 11: //dark blue
+		        transform(56);
+		        break;
+		    case 12: //brown TODO
+		        //transform(50);
+		        break;
+		    case 13: //green
+		        transform(58);
+		        break;
+		    case 14: //red
+		        transform(55);
+		        break;
+		    case 15: //black
+		        transform(54);
+		        break;
+		    
+		    }
+		    
+		    if (--itemstack.stackSize == 0)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		    }
+		    eatingHorse();
+		    return true;
+		}
+		return false;
+	}
+
+	private boolean interactIfItemstackIsAmulet(EntityPlayer entityPlayer, int horseType, Item item)
+	{
+		if (isAmuletHorse())
+		{
+		    if ((horseType == 26 || horseType == 27 || horseType == 28) && item == MoCreatures.amuletBone)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		        vanishHorse();
+		        return true;
+		    }
+
+		    if ((horseType > 47 && horseType < 60) && item == MoCreatures.amuletFairy)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		        vanishHorse();
+		        return true;
+		    }
+
+		    if ((horseType == 39 || horseType == 40) && (item == MoCreatures.amuletPegasus))
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		        vanishHorse();
+		        return true;
+		    }
+
+		    if ((horseType == 21 || horseType == 22) && (item == MoCreatures.amuletGhost))
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		        vanishHorse();
+		        return true;
+		    }
+
+		}
+		return false;
+	}
+
+	private boolean interactIfItemstackIsEssenceOfLight(EntityPlayer entityPlayer, int horseType, ItemStack itemstack, EntityPlayer owner, Item item)
+	{
+		if (item == MoCreatures.essenceLight)
+		{
+		    if (--itemstack.stackSize == 0)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+		    }
+		    else
+		    {
+		        entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+		    }
+
+		    if (isMagicHorse())
+		    {
+		        if (getIsAdult() && getHealth() == getMaxHealth())
+		        {
+		            hasEatenPumpkin = true;
+		        }
+		        setHealth(getMaxHealth());
+		    }
+
+		    if (isNightmare())
+		    {
+		        // unicorn
+		        transform(36);
+		        
+			 	if (owner != null) {owner.addStat(MoCAchievements.unicorn, 1);};
+		    }
+		    if (horseType == 32 && posY > 128D) // bathorse to pegasus
+		    {
+		        // pegasus
+		        transform(39);
+		        
+		        if (owner != null) {owner.addStat(MoCAchievements.pegasus, 1);};
+		    }
+		    // to return undead horses to pristine conditions
+		    if (isUndead() && getIsAdult() && MoCreatures.isServer())
+		    {
+		        setMoCAge(10);
+		        if (horseType > 26)
+		        {
+		            setType(horseType - 3);
+		        }
+		    }
+		    drinkingHorse();
+		    return true;
+		}
+		return false;
+	}
+
+	private boolean interactIfItemstackIsEssenceOfDarkness(EntityPlayer entityPlayer, int horseType, ItemStack itemstack, EntityPlayer owner, Item item)
+	{
+		// transform to dark pegasus
+		if (item == MoCreatures.essenceDarkness)
+		{
+		    if (--itemstack.stackSize == 0)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+		    }
+		    else
+		    {
+		        entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+		    }
+
+		    if (horseType == 32)
+		    {
+		        if (getIsAdult() && getHealth() == getMaxHealth())
+		        {
+		            hasEatenPumpkin = true;
+		        }
+		        setHealth(getMaxHealth());
+		    }
+
+		    if (horseType == 61)
+		    {
+		        //bat horse
+		        transform(32);
+			 	if (owner != null) {owner.addStat(MoCAchievements.bat_horse, 1);};
+		    }
+
+		    if (horseType == 39) // pegasus to darkpegasus
+		    {
+		        //darkpegasus
+		        transform(40);
+		        isImmuneToFire = true;
+		        
+			 	if (owner != null) {owner.addStat(MoCAchievements.dark_pegasus, 1);};
+		    }
+		    drinkingHorse();
+		    return true;
+		}
+		return false;
+	}
+
+	private boolean interactIfItemstackisEssenceOfFire(EntityPlayer entityPlayer, int horseType, ItemStack itemstack, EntityPlayer owner, Item item)
+	{
+		// to transform to nightmares: only pure breeds
+		if (item == MoCreatures.essenceFire)
+		{
+		    if (--itemstack.stackSize == 0)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+		    }
+		    else
+		    {
+		        entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+		    }
+
+		    if (isNightmare())
+		    {
+		        if (getIsAdult() && getHealth() == getMaxHealth())
+		        {
+		            hasEatenPumpkin = true;
+		        }
+		        setHealth(getMaxHealth());
+
+		    }
+		    if (horseType == 61)
+		    {
+		        //nightmare
+		        transform(38);
+		        isImmuneToFire = true;
+		        
+			 	if (owner != null) {owner.addStat(MoCAchievements.nightmare_horse, 1);};
+		    }
+		    
+		    drinkingHorse();
+		    return true;
+		}
+		
+		return false;
+	}
+
+	private boolean interactIfItemstackIsEssenceOfUndead(EntityPlayer entityPlayer, int horseType, ItemStack itemstack, EntityPlayer owner, Item item)
+	{
+		// transform to undead, or heal undead horse
+		if (item == MoCreatures.essenceUndead)
+		{
+		    if (--itemstack.stackSize == 0)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+		    }
+		    else
+		    {
+		        entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+		    }
+
+		    if (isUndead() || isGhost())
+		    {
+		        setHealth(getMaxHealth());
+
+		    }
+		    
+		    else
+		    {
+			 	if (owner != null) {owner.addStat(MoCAchievements.undead_horse, 1);};
+		    }
+		    
+		    
+
+		    // pegasus, dark pegasus, or bat horse
+		    if (horseType == 39 || horseType == 32 || horseType == 40)
+		    {
+
+		        // transformType = 25; //undead pegasus
+		        transform(25);
+
+		    }
+		    else if (horseType == 36 || (horseType > 47 && horseType < 60)) // unicorn or fairies
+		    {
+
+		        // transformType = 24; //undead unicorn
+		        transform(24);
+		    }
+		    else if (horseType < 21 || horseType == 60 || horseType == 61) // regular horses or zebras
+		    {
+
+		        // transformType = 23; //undead
+		        transform(23);
+		    }
+
+		    drinkingHorse();
+		    return true;
+		}
+		return false;
+	}
+
+	private boolean interactIfItemstackIsHorseArmor(EntityPlayer entityPlayer, ItemStack itemstack, Item item) {
+		if (
+				canWearRegularArmor() &&
+				(
+					item == Items.iron_horse_armor
+					|| item == Items.golden_horse_armor
+					|| item == Items.diamond_horse_armor
+				)
+			)
+		{
+		    if (getArmorType() == 0) {MoCTools.playCustomSound(this, "armorput", worldObj);}
+		    
+		    dropArmor();
+		    
+		    byte regularArmorType = 0;
+		    
+		    if (item == Items.iron_horse_armor) {regularArmorType = 1;}
+		    if (item == Items.golden_horse_armor) {regularArmorType = 2;}
+			if (item == Items.diamond_horse_armor) {regularArmorType = 3;}
+		    
+		    setArmorType(regularArmorType);
+		    
+		    if (--itemstack.stackSize == 0)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		    }
+		    
+		    return true;
+		}
+
+		if ((item == MoCreatures.horseArmorCrystal) && isMagicHorse())
+		{
+		    if (getArmorType() == 0) {MoCTools.playCustomSound(this, "armorput", worldObj);}
+		    
+		    dropArmor();
+		    
+		    setArmorType((byte) 4);
+		    
+		    if (--itemstack.stackSize == 0)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		    }
+		    return true;
+		}
+		return false;
+	}
+
     /**
      * Can this horse be trapped in a special amulet?
      */
     public boolean isAmuletHorse()
     {
 
-        return (getType() >= 48 && getType() < 60) || getType() == 40 || getType() == 39 || getType() == 21 || getType() == 22 || getType() == 26 || getType() == 27 || getType() == 28;
+        return (
+        			(getType() >= 48 && getType() < 60)
+	        		|| getType() == 40
+	        		|| getType() == 39
+	        		|| getType() == 21
+	        		|| getType() == 22
+	        		|| getType() == 26
+	        		|| getType() == 27
+	        		|| getType() == 28
+        		);
     }
 
     /**
@@ -2046,7 +2124,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         }
         if (flag)
         {
-            MoCTools.runLikeHell(this, ep1);
+            MoCTools.runAway(this, ep1);
         }
         return flag;
     }

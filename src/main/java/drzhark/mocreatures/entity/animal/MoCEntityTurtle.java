@@ -133,14 +133,20 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
             if (ridingEntity == null)
             {
                 rotationYaw = entityPlayer.rotationYaw;
-                if (MoCreatures.isServer() && (entityPlayer.ridingEntity == null))
+                if (
+                		MoCreatures.isServer() 
+                		&& ((MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null) || (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly)))
+                		&& (entityPlayer.ridingEntity == null)
+                	)
                 {
                     mountEntity(entityPlayer);
                 }
             }
             else
             {
-                if (MoCreatures.isServer())
+                if (	MoCreatures.isServer()
+                		&& ((MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null) || (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly)))
+                	)
                 {
                     mountEntity(null);
                 }

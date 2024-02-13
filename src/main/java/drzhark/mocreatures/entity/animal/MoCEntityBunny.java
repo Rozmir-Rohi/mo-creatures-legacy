@@ -206,7 +206,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         		&&
         			(
         				(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
-        				|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+        				|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
         			)
         		&& !(entityPlayer.isSneaking())
         	)
@@ -327,6 +327,16 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         {
             motionY = 0.45000000000000001D;
         }
+        
+        if (isPickedUp && ridingEntity instanceof EntityPlayer)
+        {
+            EntityPlayer entityPlayer = (EntityPlayer) ridingEntity;
+            if (entityPlayer != null)
+            {
+                rotationYaw = entityPlayer.rotationYaw;
+            }
+        }
+        
         if (!isPickedUp)
         {
             super.updateEntityActionState();

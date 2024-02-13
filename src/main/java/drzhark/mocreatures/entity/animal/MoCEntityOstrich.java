@@ -26,9 +26,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityOstrich extends MoCEntityTameableAnimal {
@@ -67,6 +71,61 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         dataWatcher.addObject(25, Byte.valueOf((byte) 0)); // helmet - 0 none
         dataWatcher.addObject(26, Byte.valueOf((byte) 0)); // flagcolor - 0 white
         dataWatcher.addObject(27, Byte.valueOf((byte) 0)); // bagged - 0 false 1 true
+    }
+    
+    @Override
+    public void selectType()
+    {
+        if (checkSpawningBiome() && getType() == 0)
+        {
+            /**
+             * 1 = chick 2 = female 3 = male 4 = albino male 5 = demon ostrich
+             */
+            int j = rand.nextInt(100);
+            if (j <= (20))
+            {
+                setType(1);
+            }
+            else if (j <= (65))
+            {
+                setType(2);
+            }
+            else if (j <= (95))
+            {
+                setType(3);
+            }
+            else
+            {
+                setType(4);
+            }
+        }
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getCustomSpeed());
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
+        setHealth(getMaxHealth());
+    }
+    
+    
+    @Override
+    public boolean checkSpawningBiome()
+    {
+        int xCoordinate = MathHelper.floor_double(posX);
+        int yCoordinate = MathHelper.floor_double(boundingBox.minY);
+        int zCoordinate = MathHelper.floor_double(posZ);
+
+        BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        String biomeName = MoCTools.BiomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
+
+        int typeChance = rand.nextInt(100);
+
+        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SAVANNA))
+        {
+        	if ((currentBiome.biomeName.toLowerCase().contains("outback")))
+        	{
+        		return false; //don't spawn Ostriches in the outback biome from the Biomes O' Plenty mod. The code for this is continued in MoCEventHooks.java
+        	}
+        }
+        
+        return true;
     }
 
     public boolean getIsRideable()
@@ -254,37 +313,6 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     public boolean canBeCollidedWith()
     {
         return riddenByEntity == null;
-    }
-
-    @Override
-    public void selectType()
-    {
-        if (getType() == 0)
-        {
-            /**
-             * 1 = chick 2 = female 3 = male 4 = albino male 5 = demon ostrich
-             */
-            int j = rand.nextInt(100);
-            if (j <= (20))
-            {
-                setType(1);
-            }
-            else if (j <= (65))
-            {
-                setType(2);
-            }
-            else if (j <= (95))
-            {
-                setType(3);
-            }
-            else
-            {
-                setType(4);
-            }
-        }
-        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getCustomSpeed());
-        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth());
-        setHealth(getMaxHealth());
     }
 
     @Override
@@ -857,7 +885,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         if (
         		(
         			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
-    				|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+    				|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
         		)
         		&& !(entityPlayer.isSneaking()) && getIsRideable() && getIsAdult() && (riddenByEntity == null)
         	)

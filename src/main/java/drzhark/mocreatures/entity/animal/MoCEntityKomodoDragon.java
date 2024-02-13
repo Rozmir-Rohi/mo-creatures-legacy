@@ -283,7 +283,7 @@ public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
             		&&
             			(
             				(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
-            				|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
+            				|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
             			)
             		&& !(entityPlayer.isSneaking()) && (riddenByEntity == null)
             	)

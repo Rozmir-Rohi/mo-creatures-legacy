@@ -274,7 +274,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     				setBearState(0);
     			}
     			
-    			MoCTools.runLikeHell(this, damageSource.getEntity()); //child runs away from attacking entity
+    			MoCTools.runAway(this, damageSource.getEntity()); //child runs away from attacking entity
     			
     			List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(10D, 10D, 10D));
     			

@@ -42,8 +42,10 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
         BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
         String biomeName = MoCTools.BiomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
-        if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SAVANNA)
-        		|| BiomeDictionary.isBiomeOfType(currentBiome, Type.SANDY))
+        if (
+        		BiomeDictionary.isBiomeOfType(currentBiome, Type.SAVANNA)
+        		|| BiomeDictionary.isBiomeOfType(currentBiome, Type.SANDY)
+        	)
         {
         	return false; //do not spawn in savannah or desert biomes (this is mainly fix spawns when Biomes O' Plenty is used). The code for this continues is MoCEventHooks.java
         }
