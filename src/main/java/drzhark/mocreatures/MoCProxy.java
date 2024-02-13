@@ -306,7 +306,7 @@ public class MoCProxy implements IGuiHandler {
         debug = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "debug", false, "Turns on verbose logging.").getBoolean(false);
         replaceVanillaCreepers = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "replaceVanillaCreepers", true, "THIS MAY BE INCOMPATIBLE WITH OTHER MODS THAT DO THINGS WITH CREEPERS - If true: will replace vanilla creepers in worlds with own extension of creeper code. This is used to make creepers scared of kitty. If this is causing problems with other mods set this to false to turn it off.").getBoolean(true);
         enableMoCPetDeathMessages =  mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "enableMoCPetDeathMessages", true, "If true: the owner of a pet will recieve a message in chat when their pet dies, the message will also include how the pet died. No other players than the owner will get the message.").getBoolean(true); 
-        particleFX = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "particleFX", 3, "Determines the amount of particles to be spawned for particle relating to Mo' Creatures").getInt();
+        particleFX = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "particleFX", 3, "Determines the amount of particles to be spawned for particles relating to Mo' Creatures").getInt();
         
         itemID = mocSettingsConfig.get(CATEGORY_MOC_ID_SETTINGS, "itemID", 8772, "The starting ID used for MoCreatures items. Each item will increment this number by 1 for its ID.").getInt();
         wyvernDimension = mocSettingsConfig.get(CATEGORY_MOC_ID_SETTINGS, "wyvernLairDimensionID", -17).getInt();
