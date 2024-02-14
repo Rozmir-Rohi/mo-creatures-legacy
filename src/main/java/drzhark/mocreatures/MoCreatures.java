@@ -424,17 +424,6 @@ public class MoCreatures {
     {
         DimensionManager.registerProviderType(wyvernLairDimensionID, WorldProviderWyvernEnd.class, true);
         
-        if (MoCreatures.proxy.replaceVanillaCreepers)
-        {
-        	int ModEntityID = EntityRegistry.findGlobalUniqueEntityId();
-        	
-            EntityList.addMapping(EntityCreeperExtension.class, "CreeperExtension", ModEntityID++, 50, 2);
-            
-            EntityRegistry.registerModEntity((Class) MoCEntityWerewolfWitchery.class, "WerewolfWitchery", ModEntityID++, (Object)this, 50, 2, true);
-            
-            EntityList.addMapping(MoCEntityWerewolfVillagerWitchery.class, "WerewolfVillagerWitchery", ModEntityID++, 50, 2);
-        }
-        
         MoCAchievements.initilization();
         
         isThaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
@@ -542,6 +531,9 @@ public class MoCreatures {
         registerEntity(MoCEntityThrowableBlockForGolem.class, "ThrowableBlockForGolem");
         registerEntity(MoCEntityGolem.class, "BigGolem", 16711680, 16622);
         registerEntity(MoCEntityPetScorpion.class, "PetScorpion");
+        
+        
+        
         registerEntity(MoCEntityPlatform.class, "MoCPlatform");
         registerEntity(MoCEntityElephant.class, "Elephant", 14772545, 23423);
         registerEntity(MoCEntityKomodoDragon.class, "KomodoDragon", 16711680, 23423);
@@ -557,6 +549,22 @@ public class MoCreatures {
         registerEntity(MoCEntitySmallFish.class, "SmallFish", 33023, 65407);
         registerEntity(MoCEntityPiranha.class, "Piranha", 33023, 16711680);
         registerEntity(MoCEntityMole.class, "Mole", 14020607, 16711680);
+        
+        int uniqueEntityID = 118;
+        
+        if (MoCreatures.proxy.replaceVanillaCreepers)
+        {
+    		EntityList.addMapping(EntityCreeperExtension.class, "CreeperExtension", uniqueEntityID);
+        }
+        
+    	if (MoCreatures.proxy.replaceWitcheryWerewolfEntities)
+        {
+        	registerEntity(MoCEntityWerewolfWitchery.class, "WerewolfWitchery");
+            
+            EntityList.addMapping(MoCEntityWerewolfVillagerWitchery.class, "WerewolfVillagerWitchery", uniqueEntityID + 1);
+        }
+        
+        
         
         /**
          * NAMES OF COLORS USED AND THIER DECIMAL COLOUR VALUES

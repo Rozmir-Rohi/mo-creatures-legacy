@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class MoCEntityWerewolfVillagerWitchery extends EntityVillager {
@@ -66,7 +67,7 @@ public class MoCEntityWerewolfVillagerWitchery extends EntityVillager {
         	{
         		MoCTools.playCustomSound(this, "werewolfhowl", worldObj);
         		
-        		MoCItemWhip.whipFX(this.worldObj, (int) posX, (int) posY, (int) posZ); //reusing this method from whip item to avoid code duplication
+        		MoCItemWhip.whipFX(worldObj, MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)); //reusing this method from whip item to avoid code duplication
         		
         		return true;
         	}

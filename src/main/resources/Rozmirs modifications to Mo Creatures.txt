@@ -986,3 +986,18 @@ NOTE: Witchery player wolf form and player werewolf form replacements only works
 
 
 Fixed bunny rotation when picked up by player.
+
+
+Tweaked texture: nightmare horse achievement icon.
+
+
+Minor code edits: simplification in some areas, and renaming to match Java naming convention in others.
+
+
+Fixed the replaceWitcheryWerewolfEntities config option being dependent on the replaceVanillaCreepers config.
+
+
+Improved location accuracy for spawning fire particles when Witchery integration werewolf is right clicked with wolfsbane. Also improved location accuracy for where golem blocks transform back to solid blocks.
+
+
+Fixed crash from entity id conflict relating to creeper extensions and Witchery integration werewolves. 

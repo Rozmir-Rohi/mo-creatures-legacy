@@ -11,6 +11,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.IFluidBlock;
 
@@ -294,7 +295,7 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
             		||Block.getBlockById(getType()) instanceof IFluidBlock //do not try to transform into solid block if the block is a liquid
             	))
             {
-            	worldObj.setBlock((int) posX,(int) posY,(int) posZ, Block.getBlockById(getType()));
+            	worldObj.setBlock(MathHelper.floor_double(posX),MathHelper.floor_double(posY),MathHelper.floor_double(posZ), Block.getBlockById(getType()));
             }
         }
         setDead();

@@ -56,14 +56,14 @@ public class MoCItemPetAmulet extends MoCItem
     public ItemStack onItemRightClick(ItemStack itemstack, World worldObj, EntityPlayer entityPlayer)
     {	
     	
-    	int amulet_durability = itemstack.getItemDamage();
+    	int amuletDurability = itemstack.getItemDamage();
        
-        if (amulet_durability == 0) //empty fishnet
+        if (amuletDurability == 0) //empty fishnet
         {
             return itemstack;
         }
 
-        if (amulet_durability != 0)
+        if (amuletDurability != 0)
         {
 
             double dist = 1D;
