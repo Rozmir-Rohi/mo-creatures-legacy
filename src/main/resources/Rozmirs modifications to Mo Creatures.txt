@@ -1001,3 +1001,9 @@ Improved location accuracy for spawning fire particles when Witchery integration
 
 
 Fixed crash from entity id conflict relating to creeper extensions and Witchery integration werewolves. 
+
+
+Improved the meaningfulness of some identifiers in render classes.
+
+
+Added WIP feature to make Witchery integration werewolves use human model and Minecraft Comes Alive textures if both Witchery and Minecraft Comes Alive are installed.

@@ -6,8 +6,8 @@ import org.lwjgl.opengl.GL12;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import drzhark.mocreatures.MoCreatures;
-import drzhark.mocreatures.client.model.MoCModelWere;
-import drzhark.mocreatures.client.model.MoCModelWereHuman;
+import drzhark.mocreatures.client.model.MoCModelWerewolf;
+import drzhark.mocreatures.client.model.MoCModelWerewolfHuman;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -24,13 +24,13 @@ import net.minecraftforge.common.MinecraftForge;
 @SideOnly(Side.CLIENT)
 public class MoCRenderWerewolfPlayerWitchery extends RendererLivingEntity {
 
-    private final MoCModelWere tempWerewolf;
+    private final MoCModelWerewolf tempWerewolf;
 
-    public MoCRenderWerewolfPlayerWitchery(MoCModelWereHuman werehumanModel, ModelBase modelBase, float f)
+    public MoCRenderWerewolfPlayerWitchery(MoCModelWerewolfHuman werehumanModel, ModelBase modelBase, float f)
     {
         super(modelBase, f);
         setRenderPassModel(werehumanModel);
-        tempWerewolf = (MoCModelWere) modelBase;
+        tempWerewolf = (MoCModelWerewolf) modelBase;
         
         this.renderManager = RenderManager.instance;
     }    

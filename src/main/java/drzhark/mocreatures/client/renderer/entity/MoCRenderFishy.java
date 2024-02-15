@@ -21,14 +21,14 @@ public class MoCRenderFishy extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
-        MoCEntityFishy entityfishy = (MoCEntityFishy) entityLiving;
-        if (entityfishy.getType() == 0)// && !MoCreatures.mc.isMultiplayerWorld())
+        MoCEntityFishy entityFishy = (MoCEntityFishy) entityLiving;
+        if (entityFishy.getType() == 0)// && !MoCreatures.mc.isMultiplayerWorld())
         {
-            entityfishy.selectType();
+            entityFishy.selectType();
         }
-        super.doRender(entityfishy, d, d1, d2, f, f1);
+        super.doRender(entityFishy, x, y, z, rotationYaw, rotationPitch);
     }
 
     @Override
@@ -40,17 +40,17 @@ public class MoCRenderFishy extends RenderLiving {
     @Override
     protected float handleRotationFloat(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityFishy entityfishy = (MoCEntityFishy) entityLiving;
-        if (!entityfishy.getIsAdult())
+        MoCEntityFishy entityFishy = (MoCEntityFishy) entityLiving;
+        if (!entityFishy.getIsAdult())
         {
-            stretch(entityfishy);
+            stretch(entityFishy);
         }
         return entityLiving.ticksExisted + f;
     }
 
-    protected void stretch(MoCEntityFishy entityfishy)
+    protected void stretch(MoCEntityFishy entityFishy)
     {
-        GL11.glScalef(entityfishy.getMoCAge() * 0.01F, entityfishy.getMoCAge() * 0.01F, entityfishy.getMoCAge() * 0.01F);
+        GL11.glScalef(entityFishy.getMoCAge() * 0.01F, entityFishy.getMoCAge() * 0.01F, entityFishy.getMoCAge() * 0.01F);
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {

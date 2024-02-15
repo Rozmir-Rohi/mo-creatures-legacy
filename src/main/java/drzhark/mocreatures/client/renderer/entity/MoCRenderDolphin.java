@@ -24,26 +24,26 @@ public class MoCRenderDolphin extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
-        MoCEntityDolphin entitydolphin = (MoCEntityDolphin) entityLiving;
-        super.doRender(entitydolphin, d, d1, d2, f, f1);
-        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entitydolphin.getName()).isEmpty();
+        MoCEntityDolphin entityDolphin = (MoCEntityDolphin) entityLiving;
+        super.doRender(entityDolphin, x, y, z, rotationYaw, rotationPitch);
+        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityDolphin.getName()).isEmpty();
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         //boolean flag2 = MoCreatures.proxy.getdisplayPetIcons();
-        if (entitydolphin.renderName())
+        if (entityDolphin.renderName())
         {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
-            float f4 = entitydolphin.getDistanceToEntity(renderManager.livingPlayer);
+            float f4 = entityDolphin.getDistanceToEntity(renderManager.livingPlayer);
             if (f4 < 16F)
             {
                 String s = "";
-                s = (new StringBuilder()).append(s).append(entitydolphin.getName()).toString();
+                s = (new StringBuilder()).append(s).append(entityDolphin.getName()).toString();
                 float f5 = 0.1F;
                 FontRenderer fontrenderer = getFontRendererFromRenderManager();
                 GL11.glPushMatrix();
-                GL11.glTranslatef((float) d + 0.0F, (float) d1 + f5, (float) d2);
+                GL11.glTranslatef((float) x + 0.0F, (float) y + f5, (float) z);
                 GL11.glNormal3f(0.0F, 1.0F, 0.0F);
                 GL11.glRotatef(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
                 GL11.glScalef(-f3, -f3, f3);
@@ -59,9 +59,9 @@ public class MoCRenderDolphin extends RenderLiving {
                     }
                     tessellator.startDrawingQuads();
                     // might break SSP
-                    float f6 = entitydolphin.getHealth();
+                    float f6 = entityDolphin.getHealth();
                     // maxhealth is always 30 for dolphins so we do not need to use a datawatcher
-                    float f7 = entitydolphin.getMaxHealth();
+                    float f7 = entityDolphin.getMaxHealth();
                     float f8 = f6 / f7;
                     float f9 = 40F * f8;
                     tessellator.setColorRGBA_F(0.7F, 0.0F, 0.0F, 1.0F);

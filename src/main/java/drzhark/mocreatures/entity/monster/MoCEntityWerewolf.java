@@ -7,6 +7,7 @@ import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.MoCEntityMob;
+import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfMinecraftComesAliveVillagerWitchery;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfVillagerWitchery;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -386,7 +387,11 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     {
         return 
         	(
-        		!((entity instanceof EntityVillager) && !(entity instanceof MoCEntityWerewolfVillagerWitchery))
+        		!(
+        				(entity instanceof EntityVillager) // only hunt villagers
+        				&& !(entity instanceof MoCEntityWerewolfVillagerWitchery) //don't hunt
+        				&& !(entity instanceof MoCEntityWerewolfMinecraftComesAliveVillagerWitchery) //don't hunt
+        		)
         	);
     }
 

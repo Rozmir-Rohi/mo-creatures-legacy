@@ -208,6 +208,7 @@ item.woolball.name=Клубок шерсти
 entity.CreeperExtension.name=Крипер
 entity.WerewolfVillagerWitchery.name=Житель
 entity.MoCreatures.WerewolfWitchery.name=Оборотень
+entity.WerewolfMinecraftComesAliveVillagerWitchery.name=Житель
 
 entity.MoCreatures.Ant.name=Муравей
 entity.MoCreatures.Bear.name=Медведь

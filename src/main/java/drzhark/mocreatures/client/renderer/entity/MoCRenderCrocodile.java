@@ -29,11 +29,11 @@ public class MoCRenderCrocodile extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
 
-        MoCEntityCrocodile entitycrocodile = (MoCEntityCrocodile) entityLiving;
-        super.doRender(entitycrocodile, d, d1, d2, f, f1);
+        MoCEntityCrocodile entityCrocodile = (MoCEntityCrocodile) entityLiving;
+        super.doRender(entityCrocodile, x, y, z, rotationYaw, rotationPitch);
     }
 
     @Override

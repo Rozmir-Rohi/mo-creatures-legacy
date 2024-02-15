@@ -21,10 +21,10 @@ public class MoCRenderRat extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
-        MoCEntityRat entityrat = (MoCEntityRat) entityLiving;
-        super.doRender(entityrat, d, d1, d2, f, f1);
+        MoCEntityRat entityRat = (MoCEntityRat) entityLiving;
+        super.doRender(entityRat, x, y, z, rotationYaw, rotationPitch);
     }
 
     @Override
@@ -37,8 +37,8 @@ public class MoCRenderRat extends RenderLiving {
     @Override
     protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityRat entityrat = (MoCEntityRat) entityLiving;
-        if (entityrat.climbing())
+        MoCEntityRat entityRat = (MoCEntityRat) entityLiving;
+        if (entityRat.climbing())
         {
             rotateAnimal(entityLiving);
         }

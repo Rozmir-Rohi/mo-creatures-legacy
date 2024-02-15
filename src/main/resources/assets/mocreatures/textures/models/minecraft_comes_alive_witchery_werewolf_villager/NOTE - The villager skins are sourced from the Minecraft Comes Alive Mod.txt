@@ -1,0 +1,2 @@
+All the villager textures in this folder are sourced from the 1.7.10 "Minecraft Comes Alive" mod by WildBamaBoy (https://www.curseforge.com/minecraft/mc-mods/minecraft-comes-alive-mca).
+These assets are used through the GNU General Public License v3.0 as per the conditions of the Minecraft Comes Alive Mod.

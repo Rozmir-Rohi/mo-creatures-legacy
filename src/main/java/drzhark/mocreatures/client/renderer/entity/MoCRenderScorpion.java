@@ -21,33 +21,33 @@ public class MoCRenderScorpion extends MoCRenderMoC {
     }
 
     @Override
-    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
-        MoCEntityScorpion entityscorpion = (MoCEntityScorpion) entityLiving;
-        super.doRender(entityscorpion, d, d1, d2, f, f1);
+        MoCEntityScorpion entityScorpion = (MoCEntityScorpion) entityLiving;
+        super.doRender(entityScorpion, x, y, z, rotationYaw, rotationPitch);
     }
 
     @Override
     protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityScorpion entityscorpion = (MoCEntityScorpion) entityLiving;
+        MoCEntityScorpion entityScorpion = (MoCEntityScorpion) entityLiving;
 
-        if (entityscorpion.climbing())
+        if (entityScorpion.climbing())
         {
-            rotateAnimal(entityscorpion);
+            rotateAnimal(entityScorpion);
         }
 
-        if (!entityscorpion.getIsAdult())
+        if (!entityScorpion.getIsAdult())
         {
-            stretch(entityscorpion);
-            if (entityscorpion.getIsPicked())
+            stretch(entityScorpion);
+            if (entityScorpion.getIsPicked())
             {
-                upsideDown(entityscorpion);
+                upsideDown(entityScorpion);
             }
         }
         else
         {
-            adjustHeight(entityscorpion);
+            adjustHeight(entityScorpion);
         }
     }
 
@@ -78,13 +78,13 @@ public class MoCRenderScorpion extends MoCRenderMoC {
         GL11.glRotatef(90F, -1F, 0.0F, 0.0F);
     }
 
-    protected void stretch(MoCEntityScorpion entityscorpion)
+    protected void stretch(MoCEntityScorpion entityScorpion)
     {
 
         float f = 1.1F;
-        if (!entityscorpion.getIsAdult())
+        if (!entityScorpion.getIsAdult())
         {
-            f = entityscorpion.getMoCAge() * 0.01F;
+            f = entityScorpion.getMoCAge() * 0.01F;
         }
         GL11.glScalef(f, f, f);
     }

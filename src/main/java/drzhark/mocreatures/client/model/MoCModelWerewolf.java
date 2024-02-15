@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 
 @SideOnly(Side.CLIENT)
-public class MoCModelWere extends ModelBase {
+public class MoCModelWerewolf extends ModelBase {
 
     ModelRenderer Head;
     ModelRenderer Nose;
@@ -57,7 +57,7 @@ public class MoCModelWere extends ModelBase {
 
     public boolean hunched;
 
-    public MoCModelWere()
+    public MoCModelWerewolf()
     {
         textureWidth = 64;
         textureHeight = 128;

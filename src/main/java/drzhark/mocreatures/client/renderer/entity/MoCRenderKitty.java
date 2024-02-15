@@ -31,20 +31,20 @@ public class MoCRenderKitty extends RenderBiped {
     }
 
     @Override
-    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
-        MoCEntityKitty entitykitty = (MoCEntityKitty) entityLiving;
-        super.doRender(entitykitty, d, d1, d2, f, f1);
-        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entitykitty.getName()).isEmpty();
+        MoCEntityKitty entityKitty = (MoCEntityKitty) entityLiving;
+        super.doRender(entityKitty, x, y, z, rotationYaw, rotationPitch);
+        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityKitty.getName()).isEmpty();
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         boolean flag2 = MoCreatures.proxy.getDisplayPetIcons();
-        if (entitykitty.renderName())
+        if (entityKitty.renderName())
         {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
             float f4 = entityLiving.getDistanceToEntity(renderManager.livingPlayer);
             String s = "";
-            s = (new StringBuilder()).append(s).append(entitykitty.getName()).toString();
+            s = (new StringBuilder()).append(s).append(entityKitty.getName()).toString();
             if (f4 < 12F)
             {
                 float f5 = 0.2F;
@@ -54,7 +54,7 @@ public class MoCRenderKitty extends RenderBiped {
                 }
                 FontRenderer fontrenderer = getFontRendererFromRenderManager();
                 GL11.glPushMatrix();
-                GL11.glTranslatef((float) d + 0.0F, (float) d1 - f5, (float) d2);
+                GL11.glTranslatef((float) x + 0.0F, (float) y - f5, (float) z);
                 GL11.glNormal3f(0.0F, 1.0F, 0.0F);
                 GL11.glRotatef(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
                 GL11.glScalef(-f3, -f3, f3);
@@ -94,8 +94,8 @@ public class MoCRenderKitty extends RenderBiped {
                     }
                     GL11.glDisable(3553 /* GL_TEXTURE_2D */);
                     tessellator.startDrawingQuads();
-                    float f6 = entitykitty.getHealth();
-                    float f7 = entitykitty.getMaxHealth();
+                    float f6 = entityKitty.getHealth();
+                    float f7 = entityKitty.getMaxHealth();
                     float f8 = f6 / f7;
                     float f10 = 30F * f8;
                     tessellator.setColorRGBA_F(0.7F, 0.0F, 0.0F, 1.0F);
@@ -142,17 +142,17 @@ public class MoCRenderKitty extends RenderBiped {
 
     public void doRender2(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
-        MoCEntityKitty entitykitty = (MoCEntityKitty) entityLiving;
-        super.doRender(entitykitty, d, d1, d2, f, f1);
+        MoCEntityKitty entityKitty = (MoCEntityKitty) entityLiving;
+        super.doRender(entityKitty, d, d1, d2, f, f1);
     }
 
     @Override
     protected float handleRotationFloat(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityKitty entitykitty = (MoCEntityKitty) entityLiving;
-        if (!entitykitty.getIsAdult())
+        MoCEntityKitty entityKitty = (MoCEntityKitty) entityLiving;
+        if (!entityKitty.getIsAdult())
         {
-            stretch(entitykitty);
+            stretch(entityKitty);
         }
         return entityLiving.ticksExisted + f;
     }
@@ -217,9 +217,9 @@ public class MoCRenderKitty extends RenderBiped {
         }
     }
 
-    protected void stretch(MoCEntityKitty entitykitty)
+    protected void stretch(MoCEntityKitty entityKitty)
     {
-        GL11.glScalef(entitykitty.getMoCAge() * 0.01F, entitykitty.getMoCAge() * 0.01F, entitykitty.getMoCAge() * 0.01F);
+        GL11.glScalef(entityKitty.getMoCAge() * 0.01F, entityKitty.getMoCAge() * 0.01F, entityKitty.getMoCAge() * 0.01F);
     }
 
     protected void upsideDown(EntityLivingBase entityLiving)

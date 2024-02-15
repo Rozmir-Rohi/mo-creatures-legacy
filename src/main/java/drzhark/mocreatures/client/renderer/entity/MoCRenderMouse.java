@@ -20,10 +20,10 @@ public class MoCRenderMouse extends MoCRenderMoC {
     }
 
     @Override
-    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
-        MoCEntityMouse entitymouse = (MoCEntityMouse) entityLiving;
-        super.doRender(entitymouse, d, d1, d2, f, f1);
+        MoCEntityMouse entityMouse = (MoCEntityMouse) entityLiving;
+        super.doRender(entityMouse, x, y, z, rotationYaw, rotationPitch);
     }
 
     @Override
@@ -36,13 +36,13 @@ public class MoCRenderMouse extends MoCRenderMoC {
     @Override
     protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityMouse entitymouse = (MoCEntityMouse) entityLiving;
-        if (entitymouse.upsideDown())
+        MoCEntityMouse entityMouse = (MoCEntityMouse) entityLiving;
+        if (entityMouse.upsideDown())
         {
             upsideDown(entityLiving);
 
         }
-        if (entitymouse.climbing())
+        if (entityMouse.climbing())
         {
             rotateAnimal(entityLiving);
         }

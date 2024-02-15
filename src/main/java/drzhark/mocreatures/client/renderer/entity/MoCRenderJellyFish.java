@@ -51,7 +51,7 @@ public class MoCRenderJellyFish extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
         MoCEntityJellyFish entityjellyfish = (MoCEntityJellyFish) entityLiving;
         boolean isGlowing = entityjellyfish.isGlowing();
@@ -80,7 +80,7 @@ public class MoCRenderJellyFish extends RenderLiving {
             GL11.glBlendFunc(770, 1);
             //GL11.glBlendFunc(770, GL11.GL_ONE);
         }
-        super.doRender(entityLiving, d, d1, d2, f, f1);
+        super.doRender(entityLiving, x, y, z, rotationYaw, rotationPitch);
         GL11.glDisable(3042/*GL_BLEND*/);
         GL11.glPopMatrix();
 

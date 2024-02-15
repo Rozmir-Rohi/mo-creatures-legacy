@@ -37,15 +37,15 @@ public class MoCEntityWerewolfVillagerWitchery extends EntityVillager {
     		int chance = rand.nextInt(100);
             if (chance <= 28)
             {
-            	werewolfType = 1;
+            	werewolfType = 1; //black
             }
             else if (chance <= 56)
             {
-            	werewolfType = 2;
+            	werewolfType = 3; //brown
             }
             else
             {
-            	werewolfType = 3;
+            	werewolfType = 2; //white
             }
     	}
     }
@@ -53,6 +53,8 @@ public class MoCEntityWerewolfVillagerWitchery extends EntityVillager {
 	@Override
     public boolean interact(EntityPlayer entityPlayer)
     {
+		if(isTransforming) {return false;}
+		
 		if (super.interact(entityPlayer)) { return false; }
 		
 		ItemStack itemstack = entityPlayer.inventory.getCurrentItem();

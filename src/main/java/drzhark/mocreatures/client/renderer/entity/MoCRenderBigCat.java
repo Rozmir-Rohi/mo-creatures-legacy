@@ -53,12 +53,12 @@ public class MoCRenderBigCat extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
 
         MoCEntityBigCat entitybigcat = (MoCEntityBigCat) entityLiving;
 
-        super.doRender(entitybigcat, d, d1, d2, f, f1);
+        super.doRender(entitybigcat, x, y, z, rotationYaw, rotationPitch);
         boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entitybigcat.getName()).isEmpty();
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         boolean flag2 = MoCreatures.proxy.getDisplayPetIcons();
@@ -74,7 +74,7 @@ public class MoCRenderBigCat extends RenderLiving {
                 float f7 = 0.1F;
                 FontRenderer fontrenderer = getFontRendererFromRenderManager();
                 GL11.glPushMatrix();
-                GL11.glTranslatef((float) d + 0.0F, (float) d1 + f7, (float) d2);
+                GL11.glTranslatef((float) x + 0.0F, (float) y + f7, (float) z);
                 GL11.glNormal3f(0.0F, 1.0F, 0.0F);
                 GL11.glRotatef(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
                 GL11.glScalef(-f3, -f3, f3);
@@ -152,19 +152,19 @@ public class MoCRenderBigCat extends RenderLiving {
             {
                 entitybigcat.setMoCAge(100);
             }
-            d1 -= 0.4D / entitybigcat.getMoCAge() * 0.01F;
-            float f4 = ((entitybigcat.roper.prevRotationYaw + ((entitybigcat.roper.rotationYaw - entitybigcat.roper.prevRotationYaw) * f1 * 0.5F)) * (float) Math.PI) / 180F;
-            float f6 = ((entitybigcat.roper.prevRotationPitch + ((entitybigcat.roper.rotationPitch - entitybigcat.roper.prevRotationPitch) * f1 * 0.5F)) * (float) Math.PI) / 180F;
+            y -= 0.4D / entitybigcat.getMoCAge() * 0.01F;
+            float f4 = ((entitybigcat.roper.prevRotationYaw + ((entitybigcat.roper.rotationYaw - entitybigcat.roper.prevRotationYaw) * rotationPitch * 0.5F)) * (float) Math.PI) / 180F;
+            float f6 = ((entitybigcat.roper.prevRotationPitch + ((entitybigcat.roper.rotationPitch - entitybigcat.roper.prevRotationPitch) * rotationPitch * 0.5F)) * (float) Math.PI) / 180F;
             double d3 = MathHelper.sin(f4);
             double d4 = MathHelper.cos(f4);
             double d5 = MathHelper.sin(f6);
             double d6 = MathHelper.cos(f6);
-            double d7 = (entitybigcat.roper.prevPosX + ((entitybigcat.roper.posX - entitybigcat.roper.prevPosX) * f1)) - (d4 * 0.69999999999999996D) - (d3 * 0.5D * d6);
-            double d8 = (entitybigcat.roper.prevPosY + ((entitybigcat.roper.posY - entitybigcat.roper.prevPosY) * f1)) - (d5 * 0.5D);
-            double d9 = ((entitybigcat.roper.prevPosZ + ((entitybigcat.roper.posZ - entitybigcat.roper.prevPosZ) * f1)) - (d3 * 0.69999999999999996D)) + (d4 * 0.5D * d6);
-            double d10 = entitybigcat.prevPosX + ((entitybigcat.posX - entitybigcat.prevPosX) * f1);
-            double d11 = entitybigcat.prevPosY + ((entitybigcat.posY - entitybigcat.prevPosY) * f1) + 0.25D;
-            double d12 = entitybigcat.prevPosZ + ((entitybigcat.posZ - entitybigcat.prevPosZ) * f1);
+            double d7 = (entitybigcat.roper.prevPosX + ((entitybigcat.roper.posX - entitybigcat.roper.prevPosX) * rotationPitch)) - (d4 * 0.69999999999999996D) - (d3 * 0.5D * d6);
+            double d8 = (entitybigcat.roper.prevPosY + ((entitybigcat.roper.posY - entitybigcat.roper.prevPosY) * rotationPitch)) - (d5 * 0.5D);
+            double d9 = ((entitybigcat.roper.prevPosZ + ((entitybigcat.roper.posZ - entitybigcat.roper.prevPosZ) * rotationPitch)) - (d3 * 0.69999999999999996D)) + (d4 * 0.5D * d6);
+            double d10 = entitybigcat.prevPosX + ((entitybigcat.posX - entitybigcat.prevPosX) * rotationPitch);
+            double d11 = entitybigcat.prevPosY + ((entitybigcat.posY - entitybigcat.prevPosY) * rotationPitch) + 0.25D;
+            double d12 = entitybigcat.prevPosZ + ((entitybigcat.posZ - entitybigcat.prevPosZ) * rotationPitch);
             double d13 = (float) (d7 - d10);
             double d14 = (float) (d8 - d11);
             double d15 = (float) (d9 - d12);
@@ -178,7 +178,7 @@ public class MoCRenderBigCat extends RenderLiving {
                 for (int k = 0; k <= j; k++)
                 {
                     float f12 = (float) k / (float) j;
-                    tessellator.addVertex(d + (d13 * f12) + d16, d1 + (d14 * ((f12 * f12) + f12) * 0.5D) + ((((float) j - (float) k) / (j * 0.75F)) + 0.125F), d2 + (d15 * f12));
+                    tessellator.addVertex(x + (d13 * f12) + d16, y + (d14 * ((f12 * f12) + f12) * 0.5D) + ((((float) j - (float) k) / (j * 0.75F)) + 0.125F), z + (d15 * f12));
                 }
 
                 tessellator.draw();

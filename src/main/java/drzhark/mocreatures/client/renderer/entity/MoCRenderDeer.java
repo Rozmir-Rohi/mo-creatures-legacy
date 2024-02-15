@@ -25,10 +25,10 @@ public class MoCRenderDeer extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
-        MoCEntityDeer entitydeer = (MoCEntityDeer) entityLiving;
-        super.doRender(entitydeer, d, d1, d2, f, f1);
+        MoCEntityDeer entityDeer = (MoCEntityDeer) entityLiving;
+        super.doRender(entityDeer, x, y, z, rotationYaw, rotationPitch);
     }
 
     @Override

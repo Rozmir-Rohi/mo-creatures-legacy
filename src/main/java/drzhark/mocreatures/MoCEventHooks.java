@@ -12,6 +12,7 @@ import drzhark.mocreatures.entity.animal.MoCEntityOstrich;
 import drzhark.mocreatures.entity.animal.MoCEntityTurkey;
 import drzhark.mocreatures.entity.monster.MoCEntityScorpion;
 import drzhark.mocreatures.entity.vanilla_mc_extension.EntityCreeperExtension;
+import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfMinecraftComesAliveVillagerWitchery;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfVillagerWitchery;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfWitchery;
 import net.minecraft.entity.Entity;
@@ -106,24 +107,53 @@ public class MoCEventHooks {
 		        	if (event.entity instanceof EntityMob && EntityList.getEntityString(event.entity).equals("witchery.wolfman"))
 		        	{
 		        		Random rand = new Random();
+		        		if (MoCreatures.isMinecraftComesAliveLoaded && MoCreatures.proxy.useHumanModelAndMinecraftComesAliveVillagerTexturesForWitcheryWerewolfEntities)
+		            	{
+		        			
+		        			int[] villagerInformation = generateRandomDataForMinecraftComesAliveVillagerWerewolf();
+		        			
+        					MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(event.entity.worldObj, villagerInformation[0] + 1, villagerInformation[1], villagerInformation[2]);
+				            werewolf.copyLocationAndAnglesFrom((Entity) event.entity);
+				            event.entity.setDead();
+				            werewolf.worldObj.spawnEntityInWorld((Entity) werewolf);
+        					
+		            	}
 		        		
-		        		MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(event.entity.worldObj, rand.nextInt(5), rand.nextInt(3) + 1); //the random number from 0-4 sets a random vanilla minecraft villager profession, the random integar from 1-3 sets the werewolf type
-			            werewolf.copyLocationAndAnglesFrom((Entity) event.entity);
-			            event.entity.setDead();
-			            werewolf.worldObj.spawnEntityInWorld((Entity) werewolf); 
+		        		else
+		        		{
+			        		MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(event.entity.worldObj, rand.nextInt(5), rand.nextInt(3) + 1); //the random number from 0-4 sets a random vanilla minecraft villager profession, the random integar from 1-3 sets the werewolf type
+				            werewolf.copyLocationAndAnglesFrom((Entity) event.entity);
+				            event.entity.setDead();
+				            werewolf.worldObj.spawnEntityInWorld((Entity) werewolf);
+		        		}
 		        	}
 		        	
 		        	if (event.entity instanceof EntityVillager && EntityList.getEntityString(event.entity).equals("witchery.werevillager"))
 		        	{
 		        		EntityVillager oldVillager = (EntityVillager) event.entity;
 		        		
-		        		int professionToSet = oldVillager.getProfession();
+		        		if (MoCreatures.isMinecraftComesAliveLoaded && MoCreatures.proxy.useHumanModelAndMinecraftComesAliveVillagerTexturesForWitcheryWerewolfEntities)
+		            	{
+        					
+		        			int[] villagerInformation = generateRandomDataForMinecraftComesAliveVillagerWerewolf();
+		        			
+			        		MoCEntityWerewolfMinecraftComesAliveVillagerWitchery werewolfMinecraftComesAliveVillager = new MoCEntityWerewolfMinecraftComesAliveVillagerWitchery(event.entity.worldObj, villagerInformation[0], villagerInformation[1], villagerInformation[2]);
+				            werewolfMinecraftComesAliveVillager.copyLocationAndAnglesFrom((Entity) event.entity);
+				            event.entity.setDead();
+				            werewolfMinecraftComesAliveVillager.worldObj.spawnEntityInWorld((Entity) werewolfMinecraftComesAliveVillager);
+		        			
+		            	}
 		        		
-		        		MoCEntityWerewolfVillagerWitchery werewolfVillager = new MoCEntityWerewolfVillagerWitchery(event.entity.worldObj);
-			            werewolfVillager.copyLocationAndAnglesFrom((Entity) event.entity);
-			            werewolfVillager.setProfession(professionToSet);
-			            event.entity.setDead();
-			            werewolfVillager.worldObj.spawnEntityInWorld((Entity) werewolfVillager); 
+		        		else
+		        		{	
+			        		int professionToSet = oldVillager.getProfession();
+			        		
+			        		MoCEntityWerewolfVillagerWitchery werewolfVillager = new MoCEntityWerewolfVillagerWitchery(event.entity.worldObj);
+				            werewolfVillager.copyLocationAndAnglesFrom((Entity) event.entity);
+				            werewolfVillager.setProfession(professionToSet);
+				            event.entity.setDead();
+				            werewolfVillager.worldObj.spawnEntityInWorld((Entity) werewolfVillager);
+		        		}
 		        	}
         		}
         		
@@ -308,5 +338,91 @@ public class MoCEventHooks {
                 }
             }
         }
+    }
+    
+    private int[] generateRandomDataForMinecraftComesAliveVillagerWerewolf()
+    {
+    	Random rand = new Random();
+		
+		int[] villagerInformation = new int[3]; // indexes: (0 = hairColor | 1 = profession | 2 = skinID)
+    	
+		int hairColor = rand.nextInt(2 + 1); //0-2 (0 = black | 1 = white | 2 = brown)
+		
+		
+		int profession = 0;
+
+		if(hairColor == 0 || hairColor == 2) //0 black hair | 2 brown hair
+		{
+			profession = rand.nextInt(6 + 1); //0-6	
+		}
+		else //1 white hair
+		{
+			profession = rand.nextInt(2 + 1); //0-2
+		}
+		
+		int skinID = generateSkinIdForMinecraftComesAliveVillagerWerewolf(hairColor, profession);
+    	
+		villagerInformation[0] = hairColor;
+		villagerInformation[1] = profession;
+		villagerInformation[2] = skinID;
+		
+		return villagerInformation;
+    }
+    
+    private int generateSkinIdForMinecraftComesAliveVillagerWerewolf(int hairColor, int profession)
+    {
+    	Random rand = new Random();
+    	
+    	if (hairColor == 0) //black hair
+    	{
+    		switch (profession)
+    		{
+    			case 0: //farmer
+    				return rand.nextInt(8 + 1);
+    			case 1: //librarian
+    				return rand.nextInt(2 + 1);
+    			case 2: //priest
+    				return rand.nextInt(1 + 1);
+    			case 3: //smith
+    				return rand.nextInt(3 + 1);
+    			case 4: //butcher
+    				return rand.nextInt(1 + 1);
+    			default:
+    				return 0;
+    		}		
+    	}
+    	if (hairColor == 1) //white hair
+    	{
+    		switch (profession)
+    		{
+    			case 0: //farmer
+    				return rand.nextInt(1+ 1);
+    			case 1: //librarian
+    				return 0;
+    			case 2: //priest
+    				return rand.nextInt(2 + 1);
+    			default:
+    				return 0;
+    		}		
+    	}
+    	if (hairColor == 2) //brown hair
+    	{
+    		switch (profession)
+    		{
+    			case 0: //farmer
+    				return rand.nextInt(14 + 1);
+    			case 1: //librarian
+    				return rand.nextInt(7 + 1);
+    			case 2: //priest
+    				return rand.nextInt(1 + 1);
+    			case 3: //smith
+    				return rand.nextInt(8 + 1);
+    			case 4: //butcher
+    				return rand.nextInt(2 + 1);
+    			default:
+    				return 0;
+    		}		
+    	}
+		return 0;
     }
 }

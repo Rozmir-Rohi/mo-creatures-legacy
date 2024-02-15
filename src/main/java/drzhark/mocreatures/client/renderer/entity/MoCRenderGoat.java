@@ -39,41 +39,41 @@ public class MoCRenderGoat extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
-        MoCEntityGoat entitygoat = (MoCEntityGoat) entityLiving;
-        tempGoat.typeInt = entitygoat.getType();
-        tempGoat.entityAge = entitygoat.getMoCAge() * 0.01F;
-        tempGoat.bleat = entitygoat.getBleating();
-        tempGoat.attacking = entitygoat.getAttacking();
-        tempGoat.legMov = entitygoat.legMovement();
-        tempGoat.earMov = entitygoat.earMovement();
-        tempGoat.tailMov = entitygoat.tailMovement();
-        tempGoat.eatMov = entitygoat.mouthMovement();
+        MoCEntityGoat entityGoat = (MoCEntityGoat) entityLiving;
+        tempGoat.typeInt = entityGoat.getType();
+        tempGoat.entityAge = entityGoat.getMoCAge() * 0.01F;
+        tempGoat.bleat = entityGoat.getBleating();
+        tempGoat.attacking = entityGoat.getAttacking();
+        tempGoat.legMov = entityGoat.legMovement();
+        tempGoat.earMov = entityGoat.earMovement();
+        tempGoat.tailMov = entityGoat.tailMovement();
+        tempGoat.eatMov = entityGoat.mouthMovement();
 
-        super.doRender(entitygoat, d, d1, d2, f, f1);
-        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entitygoat.getName()).isEmpty();
+        super.doRender(entityGoat, x, y, z, rotationYaw, rotationPitch);
+        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityGoat.getName()).isEmpty();
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         //boolean flag2 = MoCreatures.proxy.getdisplayPetIcons();
-        if (entitygoat.renderName())
+        if (entityGoat.renderName())
         {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
-            float f4 = entitygoat.getDistanceToEntity(renderManager.livingPlayer);
+            float f4 = entityGoat.getDistanceToEntity(renderManager.livingPlayer);
             if (f4 < 16F)
             {
                 String s = "";
-                s = (new StringBuilder()).append(s).append(entitygoat.getName()).toString();
+                s = (new StringBuilder()).append(s).append(entityGoat.getName()).toString();
                 float f5 = 0.1F;
                 FontRenderer fontrenderer = getFontRendererFromRenderManager();
                 GL11.glPushMatrix();
-                GL11.glTranslatef((float) d + 0.0F, (float) d1 + f5, (float) d2);
+                GL11.glTranslatef((float) x + 0.0F, (float) y + f5, (float) z);
                 GL11.glNormal3f(0.0F, 1.0F, 0.0F);
                 GL11.glRotatef(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
                 GL11.glScalef(-f3, -f3, f3);
                 GL11.glDisable(2896 /* GL_LIGHTING */);
                 Tessellator tessellator = Tessellator.instance;
-                byte byte0 = (byte) (-15 + (-40 * entitygoat.getMoCAge() * 0.01F));
+                byte byte0 = (byte) (-15 + (-40 * entityGoat.getMoCAge() * 0.01F));
                 if (flag1)
                 {
                     GL11.glDisable(3553 /* GL_TEXTURE_2D */);
@@ -83,9 +83,9 @@ public class MoCRenderGoat extends RenderLiving {
                     }
                     tessellator.startDrawingQuads();
                     // might break SSP
-                    float f6 = entitygoat.getHealth();
+                    float f6 = entityGoat.getHealth();
                     // maxhealth is always 30 for dolphins so we do not need to use a datawatcher
-                    float f7 = entitygoat.getMaxHealth();
+                    float f7 = entityGoat.getMaxHealth();
                     float f8 = f6 / f7;
                     float f9 = 40F * f8;
                     tessellator.setColorRGBA_F(0.7F, 0.0F, 0.0F, 1.0F);
@@ -128,22 +128,22 @@ public class MoCRenderGoat extends RenderLiving {
                 GL11.glPopMatrix();
             }
         }
-        if (entitygoat.roper != null)
+        if (entityGoat.roper != null)
         {
-            d1 -= 0.5D / entitygoat.getMoCAge() * 0.01F;
+            y -= 0.5D / entityGoat.getMoCAge() * 0.01F;
             Tessellator tessellator = Tessellator.instance;
-            float f4 = ((entitygoat.roper.prevRotationYaw + ((entitygoat.roper.rotationYaw - entitygoat.roper.prevRotationYaw) * f1 * 0.5F)) * (float) Math.PI) / 180F;
-            float f6 = ((entitygoat.roper.prevRotationPitch + ((entitygoat.roper.rotationPitch - entitygoat.roper.prevRotationPitch) * f1 * 0.5F)) * (float) Math.PI) / 180F;
+            float f4 = ((entityGoat.roper.prevRotationYaw + ((entityGoat.roper.rotationYaw - entityGoat.roper.prevRotationYaw) * rotationPitch * 0.5F)) * (float) Math.PI) / 180F;
+            float f6 = ((entityGoat.roper.prevRotationPitch + ((entityGoat.roper.rotationPitch - entityGoat.roper.prevRotationPitch) * rotationPitch * 0.5F)) * (float) Math.PI) / 180F;
             double d3 = MathHelper.sin(f4);
             double d4 = MathHelper.cos(f4);
             double d5 = MathHelper.sin(f6);
             double d6 = MathHelper.cos(f6);
-            double d7 = (entitygoat.roper.prevPosX + ((entitygoat.roper.posX - entitygoat.roper.prevPosX) * f1)) - (d4 * 0.69999999999999996D) - (d3 * 0.5D * d6);
-            double d8 = (entitygoat.roper.prevPosY + ((entitygoat.roper.posY - entitygoat.roper.prevPosY) * f1)) - (d5 * 0.5D);
-            double d9 = ((entitygoat.roper.prevPosZ + ((entitygoat.roper.posZ - entitygoat.roper.prevPosZ) * f1)) - (d3 * 0.69999999999999996D)) + (d4 * 0.5D * d6);
-            double d10 = entitygoat.prevPosX + ((entitygoat.posX - entitygoat.prevPosX) * f1);
-            double d11 = entitygoat.prevPosY + ((entitygoat.posY - entitygoat.prevPosY) * f1) + 0.25D;
-            double d12 = entitygoat.prevPosZ + ((entitygoat.posZ - entitygoat.prevPosZ) * f1);
+            double d7 = (entityGoat.roper.prevPosX + ((entityGoat.roper.posX - entityGoat.roper.prevPosX) * rotationPitch)) - (d4 * 0.69999999999999996D) - (d3 * 0.5D * d6);
+            double d8 = (entityGoat.roper.prevPosY + ((entityGoat.roper.posY - entityGoat.roper.prevPosY) * rotationPitch)) - (d5 * 0.5D);
+            double d9 = ((entityGoat.roper.prevPosZ + ((entityGoat.roper.posZ - entityGoat.roper.prevPosZ) * rotationPitch)) - (d3 * 0.69999999999999996D)) + (d4 * 0.5D * d6);
+            double d10 = entityGoat.prevPosX + ((entityGoat.posX - entityGoat.prevPosX) * rotationPitch);
+            double d11 = entityGoat.prevPosY + ((entityGoat.posY - entityGoat.prevPosY) * rotationPitch) + 0.25D;
+            double d12 = entityGoat.prevPosZ + ((entityGoat.posZ - entityGoat.prevPosZ) * rotationPitch);
             double d13 = (float) (d7 - d10);
             double d14 = (float) (d8 - d11);
             double d15 = (float) (d9 - d12);
@@ -157,7 +157,7 @@ public class MoCRenderGoat extends RenderLiving {
                 for (int k = 0; k <= j; k++)
                 {
                     float f12 = (float) k / (float) j;
-                    tessellator.addVertex(d + (d13 * f12) + d16, d1 + (d14 * ((f12 * f12) + f12) * 0.5D) + ((((float) j - (float) k) / (j * 0.75F)) + 0.125F), d2 + (d15 * f12));
+                    tessellator.addVertex(x + (d13 * f12) + d16, y + (d14 * ((f12 * f12) + f12) * 0.5D) + ((((float) j - (float) k) / (j * 0.75F)) + 0.125F), z + (d15 * f12));
                 }
 
                 tessellator.draw();
@@ -168,9 +168,9 @@ public class MoCRenderGoat extends RenderLiving {
         }
     }
 
-    protected void stretch(MoCEntityGoat entitygoat)
+    protected void stretch(MoCEntityGoat entityGoat)
     {
-        GL11.glScalef(entitygoat.getMoCAge() * 0.01F, entitygoat.getMoCAge() * 0.01F, entitygoat.getMoCAge() * 0.01F);
+        GL11.glScalef(entityGoat.getMoCAge() * 0.01F, entityGoat.getMoCAge() * 0.01F, entityGoat.getMoCAge() * 0.01F);
     }
 
     private final MoCModelGoat tempGoat;

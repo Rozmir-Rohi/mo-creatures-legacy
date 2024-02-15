@@ -5,11 +5,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBiped;
 
 @SideOnly(Side.CLIENT)
-public class MoCModelWereHuman extends ModelBiped {
+public class MoCModelWerewolfHuman extends ModelBiped {
 
-    public MoCModelWereHuman()
+    public MoCModelWerewolfHuman()
     {
-        //TODO 4.1 FIX
         super(0.0F, 0.0F, 64, 32);
     }
 }

@@ -104,6 +104,7 @@ import drzhark.mocreatures.entity.monster.MoCEntityWWolf;
 import drzhark.mocreatures.entity.monster.MoCEntityWerewolf;
 import drzhark.mocreatures.entity.monster.MoCEntityWraith;
 import drzhark.mocreatures.entity.vanilla_mc_extension.EntityCreeperExtension;
+import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfMinecraftComesAliveVillagerWitchery;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfVillagerWitchery;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfWitchery;
 import drzhark.mocreatures.item.ItemBuilderHammer;
@@ -168,6 +169,7 @@ public class MoCreatures {
     public static boolean isGregTech6Loaded;
     public static boolean isPalmsHarvestLoaded;
     public static boolean isWitcheryLoaded;
+    public static boolean isMinecraftComesAliveLoaded;
     public static boolean isTwilightForestLoaded;
     public static boolean isFoodExpansionLoaded;
     public static boolean isExoticBirdsLoaded;
@@ -436,6 +438,8 @@ public class MoCreatures {
         
         isWitcheryLoaded = Loader.isModLoaded("witchery");
         
+        isMinecraftComesAliveLoaded = Loader.isModLoaded("MCA");
+        
         isTwilightForestLoaded = Loader.isModLoaded("TwilightForest");
         
         isFoodExpansionLoaded = GameRegistry.findItem("FoodExpansion", "ItemHorseMeat") != null; //have to use this method over the normal way to detect the Food Expansion mod since it's mod ID is not properly registered
@@ -452,7 +456,7 @@ public class MoCreatures {
     {
         DimensionManager.registerDimension(wyvernLairDimensionID, wyvernLairDimensionID);
         // ***MUST REGISTER BIOMES AT THIS POINT TO MAKE SURE OUR ENTITIES GET ALL BIOMES FROM DICTIONARY****
-        WyvernLairBiome = new BiomeGenWyvernLair(MoCreatures.proxy.wyvernBiomeID);
+        WyvernLairBiome = new BiomeGenWyvernLair(proxy.wyvernBiomeID);
         defaultBiomeSupport.add("biomesop");
         defaultBiomeSupport.add("extrabiomes");
         defaultBiomeSupport.add("highlands");
@@ -550,18 +554,25 @@ public class MoCreatures {
         registerEntity(MoCEntityPiranha.class, "Piranha", 33023, 16711680);
         registerEntity(MoCEntityMole.class, "Mole", 14020607, 16711680);
         
-        int uniqueEntityID = 118;
+        int uniqueGlobalEntityID = 118;
         
-        if (MoCreatures.proxy.replaceVanillaCreepers)
+        if (proxy.replaceVanillaCreepers)
         {
-    		EntityList.addMapping(EntityCreeperExtension.class, "CreeperExtension", uniqueEntityID);
+    		EntityList.addMapping(EntityCreeperExtension.class, "CreeperExtension", uniqueGlobalEntityID);
         }
         
-    	if (MoCreatures.proxy.replaceWitcheryWerewolfEntities)
+    	if (proxy.replaceWitcheryWerewolfEntities)
         {
         	registerEntity(MoCEntityWerewolfWitchery.class, "WerewolfWitchery");
             
-            EntityList.addMapping(MoCEntityWerewolfVillagerWitchery.class, "WerewolfVillagerWitchery", uniqueEntityID + 1);
+        	if (isMinecraftComesAliveLoaded && proxy.useHumanModelAndMinecraftComesAliveVillagerTexturesForWitcheryWerewolfEntities)
+        	{
+        		EntityList.addMapping(MoCEntityWerewolfMinecraftComesAliveVillagerWitchery.class, "WerewolfMinecraftComesAliveVillagerWitchery", uniqueGlobalEntityID + 1);
+        	}
+        	else
+        	{
+        		EntityList.addMapping(MoCEntityWerewolfVillagerWitchery.class, "WerewolfVillagerWitchery", uniqueGlobalEntityID + 1);
+        	}
         }
         
         

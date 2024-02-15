@@ -24,26 +24,26 @@ public class MoCRenderShark extends RenderLiving {
     }
 
     @Override
-    public void doRender(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
-        MoCEntityShark entityshark = (MoCEntityShark) entityLiving;
-        super.doRender(entityshark, d, d1, d2, f, f1);
-        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityshark.getName()).isEmpty();
+        MoCEntityShark entityShark = (MoCEntityShark) entityLiving;
+        super.doRender(entityShark, x, y, z, rotationYaw, rotationPitch);
+        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityShark.getName()).isEmpty();
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         boolean flag2 = MoCreatures.proxy.getDisplayPetIcons();
-        if (entityshark.renderName())
+        if (entityShark.renderName())
         {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
-            float f4 = entityshark.getDistanceToEntity(renderManager.livingPlayer);
+            float f4 = entityShark.getDistanceToEntity(renderManager.livingPlayer);
             if (f4 < 16F)
             {
                 String s = "";
-                s = (new StringBuilder()).append(s).append(entityshark.getName()).toString();
+                s = (new StringBuilder()).append(s).append(entityShark.getName()).toString();
                 float f5 = 0.1F;
                 FontRenderer fontrenderer = getFontRendererFromRenderManager();
                 GL11.glPushMatrix();
-                GL11.glTranslatef((float) d + 0.0F, (float) d1 + f5, (float) d2);
+                GL11.glTranslatef((float) x + 0.0F, (float) y + f5, (float) z);
                 GL11.glNormal3f(0.0F, 1.0F, 0.0F);
                 GL11.glRotatef(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
                 GL11.glScalef(-f3, -f3, f3);
@@ -59,8 +59,8 @@ public class MoCRenderShark extends RenderLiving {
                     }
                     tessellator.startDrawingQuads();
                     // might break SSP
-                    float f6 = entityshark.getHealth();
-                    float f7 = entityshark.getMaxHealth();
+                    float f6 = entityShark.getHealth();
+                    float f7 = entityShark.getMaxHealth();
                     float f8 = f6 / f7;
                     float f9 = 40F * f8;
                     tessellator.setColorRGBA_F(0.7F, 0.0F, 0.0F, 1.0F);
@@ -107,15 +107,15 @@ public class MoCRenderShark extends RenderLiving {
 
     public void doRender2(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
-        MoCEntityShark entityshark = (MoCEntityShark) entityLiving;
-        super.doRender(entityshark, d, d1, d2, f, f1);
-        if (entityshark.renderName())
+        MoCEntityShark entityShark = (MoCEntityShark) entityLiving;
+        super.doRender(entityShark, d, d1, d2, f, f1);
+        if (entityShark.renderName())
         {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
             float f4 = entityLiving.getDistanceToEntity(renderManager.livingPlayer);
             String s = "";
-            s = (new StringBuilder()).append(s).append(entityshark.getName()).toString();
+            s = (new StringBuilder()).append(s).append(entityShark.getName()).toString();
             if ((f4 < 12F) && (s.length() > 0))
             {
                 FontRenderer fontrenderer = getFontRendererFromRenderManager();
@@ -141,8 +141,8 @@ public class MoCRenderShark extends RenderLiving {
                 tessellator.addVertex(i + 1, -1 + byte0, 0.0D);
                 if (MoCreatures.proxy.getDisplayPetHealthMode(entityLiving))
                 {
-                    float f5 = entityshark.getHealth();
-                    float f6 = entityshark.getMaxHealth();
+                    float f5 = entityShark.getHealth();
+                    float f6 = entityShark.getMaxHealth();
                     float f7 = f5 / f6;
                     float f8 = 40F * f7;
                     tessellator.setColorRGBA_F(0.7F, 0.0F, 0.0F, 1.0F);
@@ -177,9 +177,9 @@ public class MoCRenderShark extends RenderLiving {
         return entityLiving.ticksExisted + f;
     }
 
-    protected void stretch(MoCEntityShark entityshark)
+    protected void stretch(MoCEntityShark entityShark)
     {
-        GL11.glScalef(entityshark.getMoCAge() * 0.01F, entityshark.getMoCAge() * 0.01F, entityshark.getMoCAge() * 0.01F);
+        GL11.glScalef(entityShark.getMoCAge() * 0.01F, entityShark.getMoCAge() * 0.01F, entityShark.getMoCAge() * 0.01F);
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {
