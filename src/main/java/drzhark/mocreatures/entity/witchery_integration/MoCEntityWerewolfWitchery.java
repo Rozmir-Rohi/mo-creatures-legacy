@@ -4,8 +4,10 @@ import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.MoCEntityMob;
+import drzhark.mocreatures.entity.monster.MoCEntitySilverSkeleton;
 import drzhark.mocreatures.entity.monster.MoCEntityWerewolf;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.EntityVillager;
@@ -172,21 +174,41 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
     public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
         Entity entityThatAttackedThisCreature = damageSource.getEntity();
-        if ((entityThatAttackedThisCreature != null) && (entityThatAttackedThisCreature instanceof EntityPlayer))
+        
+        damageTaken = 1;
+        
+        if (entityThatAttackedThisCreature != null)
         {
-        	if (
-        			(MoCTools.isPlayerInWerewolfForm((EntityPlayer) entityThatAttackedThisCreature))
-        			|| (MoCTools.isPlayerInWolfForm((EntityPlayer) entityThatAttackedThisCreature))
-        		)
-        	{
-        		damageSource = DamageSource.generic; //don't fight back if attacked by a player werewolf
-        	}
-        	
-            EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
-            ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
-            
-            damageTaken = MoCEntityWerewolf.calculateWerewolfDamageTaken(damageSource, damageTaken, itemstack);
+	        if (entityThatAttackedThisCreature instanceof EntityPlayer)
+	        {
+	        	if (
+	        			MoCTools.isPlayerInWerewolfForm((EntityPlayer) entityThatAttackedThisCreature)
+	        			|| MoCTools.isPlayerInWolfForm((EntityPlayer) entityThatAttackedThisCreature)
+	        		)
+	        	{
+	        		damageTaken = 5;
+	        		damageSource = DamageSource.generic; //don't fight back if attacked by a player werewolf
+	        	}
+	        	
+	        	else 
+	        	{
+	        		EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
+	        		ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
+	        		damageTaken = MoCEntityWerewolf.calculateWerewolfDamageTakenFromPlayerAttack(damageSource, damageTaken, itemstack);
+	        	}
+	        }
+	        
+	        else if (MoCreatures.isWitcheryLoaded && EntityList.getEntityString(entityThatAttackedThisCreature).equals("witchery.witchhunter"))
+	        {
+	        	damageTaken = 5;
+	        }
+	        
+	        else if (entityThatAttackedThisCreature instanceof MoCEntitySilverSkeleton)
+	        {
+	        	damageTaken = 9;
+	        }
         }
+        
         return super.attackEntityFrom(damageSource, damageTaken);
     }
 
@@ -237,10 +259,10 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
         return 
         	(
         		!(
-        				(entity instanceof EntityVillager) //only hunt villagers
-        				&& !(entity instanceof MoCEntityWerewolfVillagerWitchery) //don't hunt 
+        				(entity instanceof EntityVillager) // only hunt villagers
+        				&& !(entity instanceof MoCEntityWerewolfVillagerWitchery) //don't hunt
         				&& !(entity instanceof MoCEntityWerewolfMinecraftComesAliveVillagerWitchery) //don't hunt
-        			)
+        		)
         	);
     }
 

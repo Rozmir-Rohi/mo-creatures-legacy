@@ -2,8 +2,10 @@ package drzhark.mocreatures.entity.witchery_integration;
 
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.entity.monster.MoCEntitySilverSkeleton;
 import drzhark.mocreatures.item.MoCItemWhip;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;

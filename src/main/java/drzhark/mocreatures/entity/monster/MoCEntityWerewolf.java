@@ -10,10 +10,12 @@ import drzhark.mocreatures.entity.MoCEntityMob;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfMinecraftComesAliveVillagerWitchery;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfVillagerWitchery;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
@@ -196,25 +198,47 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     @Override
     public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
+    	damageTaken = 1;
+    	
         Entity entityThatAttackedThisCreature = damageSource.getEntity();
-        if (!getIsHumanForm() && (entityThatAttackedThisCreature != null) && (entityThatAttackedThisCreature instanceof EntityPlayer))
+        if (!getIsHumanForm())
         {
-        	if (
-        			(MoCTools.isPlayerInWerewolfForm((EntityPlayer) entityThatAttackedThisCreature))
-        			|| (MoCTools.isPlayerInWolfForm((EntityPlayer) entityThatAttackedThisCreature))
-        		)
-        	{
-        		damageSource = DamageSource.generic; //don't fight back if attacked by a player werewolf
-        	}
-        	
-            EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
-            ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
-            damageTaken = calculateWerewolfDamageTaken(damageSource, damageTaken, itemstack);
+	        if (entityThatAttackedThisCreature != null)
+	        {
+		        if (entityThatAttackedThisCreature instanceof EntityPlayer)
+		        {
+		        	if (
+		        			MoCTools.isPlayerInWerewolfForm((EntityPlayer) entityThatAttackedThisCreature)
+		        			|| MoCTools.isPlayerInWolfForm((EntityPlayer) entityThatAttackedThisCreature)
+		        		)
+		        	{
+		        		damageTaken = 5;
+		        		damageSource = DamageSource.generic; //don't fight back if attacked by a player werewolf
+		        	}
+		        	
+		        	else 
+		        	{
+		        		EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
+		        		ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
+		        		damageTaken = calculateWerewolfDamageTakenFromPlayerAttack(damageSource, damageTaken, itemstack);
+		        	}
+		        }
+		        
+		        else if (MoCreatures.isWitcheryLoaded && EntityList.getEntityString(entityThatAttackedThisCreature).equals("witchery.witchhunter"))
+		        {
+		        	damageTaken = 5;
+		        }
+		        
+		        else if (entityThatAttackedThisCreature instanceof MoCEntitySilverSkeleton)
+		        {
+		        	damageTaken = 9;
+		        }
+	        }
         }
         return super.attackEntityFrom(damageSource, damageTaken);
     }
 
-	public static float calculateWerewolfDamageTaken(DamageSource damageSource, float damageTaken, ItemStack itemstack)
+	public static float calculateWerewolfDamageTakenFromPlayerAttack(DamageSource damageSource, float damageTaken, ItemStack itemstack)
 	{
 		if (itemstack != null)
 		{
@@ -224,18 +248,28 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    
 		    if (damageSource.isProjectile())
 		    {
-		    	if (itemHeldByPlayer instanceof ItemBow)
+		    	
+			    if (
+		    			MoCreatures.isWitcheryLoaded
+		    			&& damageSource.getEntity() instanceof EntityPlayer
+		    			&& EntityList.getEntityString(damageSource.getSourceOfDamage()).equals("witchery.bolt")
+		    		)
 		    	{
-		    		if (MoCreatures.isWitcheryLoaded && damageSource.getEntity() instanceof EntityPlayer)
-			    	{
-			    		EntityPlayer playerThatShotThisWerewolf = (EntityPlayer) damageSource.getEntity();
-			    		
-			    		if (isPlayerHoldingWitcheryCrossbowAndHasSilverBoltsAndNoOtherTypesOfBoltsInTheirInventory(itemHeldByPlayer, playerThatShotThisWerewolf))
-			    		{
-			    			damageTaken = 5;
-			    		}
-			    	}
+		    		EntityPlayer playerThatShotThisWerewolf = (EntityPlayer) damageSource.getEntity();
+		    		
+		    		if (doesPlayerHaveSilverBoltsAndNoOtherTypesOfBoltsInTheirInventory(playerThatShotThisWerewolf))
+		    		{
+		    			damageTaken = 5; //silver bolt damage
+		    		}
+		    		else {damageTaken = 1;} //other bolt damage
 		    	}
+		    	
+		    	
+			    else if (damageSource.getSourceOfDamage() instanceof EntityArrow)
+		    	{
+		    		damageTaken = 1;
+		    	}
+		    	
 		    	else
 		    	{
 		    		damageTaken = 0; //damage for snowballs and eggs
@@ -287,56 +321,54 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		return damageTaken;
 	}
 
-	public static boolean isPlayerHoldingWitcheryCrossbowAndHasSilverBoltsAndNoOtherTypesOfBoltsInTheirInventory(Item item, EntityPlayer player)
+	public static boolean doesPlayerHaveSilverBoltsAndNoOtherTypesOfBoltsInTheirInventory(EntityPlayer player)
 	{
 		ItemStack[] inventoryOfPlayerThatShotThisWerewolf = player.inventory.mainInventory;
 		
-		if ((item.itemRegistry).getNameForObject(item).equals("witchery:handbow")) //checks if player is holding witchery crossbow 
+		boolean doesPlayerHaveSilverBoltsInInventory = false;
+		
+		boolean doesPlayerHaveOtherTypesOfBoltsInInventory = false;
+		
+		int iterationLength = inventoryOfPlayerThatShotThisWerewolf.length;
+		
+		if (iterationLength > 0)
 		{
-			boolean doesPlayerHaveSilverBoltsInInventory = false;
-			
-			boolean doesPlayerHaveOtherTypesOfBoltsInInventory = false;
-			
-			int iterationLength = inventoryOfPlayerThatShotThisWerewolf.length;
-			
-			if (iterationLength > 0)
+			for (int index = 0; index < iterationLength; index++) //iterates through all slots of the player's inventory
 			{
-				for (int index = 0; index < iterationLength; index++)
+				ItemStack itemstackInInventorySlot = inventoryOfPlayerThatShotThisWerewolf[index];
+				
+				if (itemstackInInventorySlot != null)
 				{
-					ItemStack itemstackInInventorySlot = inventoryOfPlayerThatShotThisWerewolf[index];
+					Item itemInInventorySlot = itemstackInInventorySlot.getItem();
+					String stringNameForItemInInventorySlot = (itemInInventorySlot.itemRegistry).getNameForObject(itemInInventorySlot);
 					
-					if (itemstackInInventorySlot != null)
-					{
-						Item itemInInventorySlot = itemstackInInventorySlot.getItem();
-						String stringNameForItemInInventorySlot = (itemInInventorySlot.itemRegistry).getNameForObject(itemInInventorySlot);
-						
-						if (stringNameForItemInInventorySlot.equals("witchery:ingredient"))
-						{	
-							if (itemstackInInventorySlot.getItemDamage() == 155) //silver bolt 
-							{
-								doesPlayerHaveSilverBoltsInInventory = true;
-								
-							}
+					if (stringNameForItemInInventorySlot.equals("witchery:ingredient"))
+					{	
+						if (itemstackInInventorySlot.getItemDamage() == 155) //silver bolt 
+						{
+							doesPlayerHaveSilverBoltsInInventory = true;
 							
-							if (
-									itemstackInInventorySlot.getItemDamage() == 132 //wooden bolt
-									|| itemstackInInventorySlot.getItemDamage() == 133 //nullifying bolt
-									|| itemstackInInventorySlot.getItemDamage() == 134 //bone bolt
-									|| itemstackInInventorySlot.getItemDamage() == 135 //splitting bolt
-								)
-							{
-								doesPlayerHaveOtherTypesOfBoltsInInventory = true;
-							}
+						}
+						
+						if (
+								itemstackInInventorySlot.getItemDamage() == 132 //wooden bolt
+								|| itemstackInInventorySlot.getItemDamage() == 133 //nullifying bolt
+								|| itemstackInInventorySlot.getItemDamage() == 134 //bone bolt
+								|| itemstackInInventorySlot.getItemDamage() == 135 //splitting bolt
+							)
+						{
+							doesPlayerHaveOtherTypesOfBoltsInInventory = true;
 						}
 					}
 				}
 			}
-			
-			if (doesPlayerHaveSilverBoltsInInventory && !doesPlayerHaveOtherTypesOfBoltsInInventory)
-			{
-				return true;
-			}
 		}
+		
+		if (doesPlayerHaveSilverBoltsInInventory && !doesPlayerHaveOtherTypesOfBoltsInInventory)
+		{
+			return true;
+		}
+			
 		return false;
 	}
 
