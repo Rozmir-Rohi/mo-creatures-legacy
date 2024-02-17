@@ -192,7 +192,7 @@ public class MoCModelSnake extends ModelBase {
         for (int i = 0; i < bodyparts; i++)
         {
             float sideperf = 1F;
-            float yOff = 0F;
+            float yOffset = 0F;
             //sideperf = 1F;
 
             GL11.glPushMatrix();
@@ -216,8 +216,8 @@ public class MoCModelSnake extends ModelBase {
             //climbing animation
             if (climbing && i < bodyparts / 2)
             {
-                yOff = (i - (bodyparts / 2)) * 0.08F;
-                GL11.glTranslatef(0.0F, yOff / 3.0F, -yOff * 1.2F);
+                yOffset = (i - (bodyparts / 2)) * 0.08F;
+                GL11.glTranslatef(0.0F, yOffset / 3.0F, -yOffset * 1.2F);
             }
             else
 
@@ -226,14 +226,14 @@ public class MoCModelSnake extends ModelBase {
             {
                 if (i < bodyparts / 3)
                 {
-                    yOff = (i - (bodyparts / 3)) * 0.09F;
-                    float zOff = (i - (bodyparts / 3)) * 0.065F;
+                    yOffset = (i - (bodyparts / 3)) * 0.09F;
+                    float zOffset = (i - (bodyparts / 3)) * 0.065F;
                     /*if (picked) 
                     {
-                      yOff = yOff*-1F;
-                      //zOff = zOff*-1F;
+                      yOffset = yOffset*-1F;
+                      //zOffset = zOffset*-1F;
                     }*/
-                    GL11.glTranslatef(0.0F, yOff / 1.5F, -zOff * f6);
+                    GL11.glTranslatef(0.0F, yOffset / 1.5F, -zOffset * f6);
                 }
 
                 if (i < bodyparts / 6)
@@ -254,24 +254,24 @@ public class MoCModelSnake extends ModelBase {
             //raises tail of rattlesnakes
             if (typeI == 7 && nearplayer && i > (5 * bodyparts / 6) && !picked)//&& not picked
             {
-                yOff = 0.55F + ((i - bodyparts)) * 0.08F;
-                GL11.glTranslatef(0.0F, -yOff / 1.5F, 0.0F);
+                yOffset = 0.55F + ((i - bodyparts)) * 0.08F;
+                GL11.glTranslatef(0.0F, -yOffset / 1.5F, 0.0F);
             }
 
             //TODO reactivate once strangling is working
 
             if (picked && i > bodyparts / 2)//&& big to bring down the tail
             {
-                yOff = ((i - (bodyparts / 2))) * 0.08F;
-                GL11.glTranslatef(0.0F, yOff / 1.5F, -yOff);
+                yOffset = ((i - (bodyparts / 2))) * 0.08F;
+                GL11.glTranslatef(0.0F, yOffset / 1.5F, -yOffset);
 
             }
 
             //not working strangling
             /*if (picked && i > bodyparts/3)//&& big to bring down the tail
             {
-              yOff =((i-(bodyparts/3)))*0.08F;
-              GL11.glTranslatef(0.0F, yOff/1.5F, 0.0F);
+              yOffset =((i-(bodyparts/3)))*0.08F;
+              GL11.glTranslatef(0.0F, yOffset/1.5F, 0.0F);
               anglef = (10) * (i+1) ;//works well for small snakes
               
               //anglef = (6) * (i+1) ; //this may work!!

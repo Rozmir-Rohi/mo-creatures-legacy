@@ -397,7 +397,7 @@ achievement.wyvern_portal_staff=Where the Wyverns live
 achievement.wyvern_portal_staff.desc=Craft a wyvern portal staff and travel to the wyvern lair.
 
 achievement.wyvern_egg=The Fastest of Them All
-achievement.wyvern_egg.desc=Obtain a wyvern egg from a mother wyvern. After hatching, pet wyverns like to eat raw rat and raw rabbit. Adult pet wyverns can be ridden, equipped with vanilla minecraft horse armor, and can carry a chest.
+achievement.wyvern_egg.desc=Obtain a wyvern egg from a mother wyvern. After hatching, pet wyverns like to eat raw rat and raw rabbit. Adult pet wyverns can be ridden, equipped with vanilla minecraft horse armor, and can carry a chest. Some wyvern types also have reactions when they are fed with essences.
 
 achievement.tame_elephant=Elephant Tamer
 achievement.tame_elephant.desc=Tame a baby elephant or mammoth using many sugar lumps.
@@ -412,10 +412,10 @@ achievement.elephant_garment=Asian Elephant Fashion
 achievement.elephant_garment.desc=Put an elephant garment on an asian elephant.
 
 achievement.elephant_tusks=Battle Ready
-achievement.elephant_tusks.desc=Equip an elephant or mammoth with any tusks. When equipped with tusks they can ram when whipped and can destroy trees. The effectiveness tree breaking depends on the type of elephant and the tusks it's wearing.
+achievement.elephant_tusks.desc=Equip an elephant or mammoth with any tusks. When equipped with tusks they can ram when whipped and can destroy blocks. The effectiveness of block breaking depends on the type of elephant and the tusks it's wearing.
 
 achievement.elephant_chest=Elephant Luggage
-achievement.elephant_chest.desc=Put an elephant chest on an elephant or mammoth that is wearing an elephant harness. Elephants and mammoths can hold up to two elephant chests. You can open the chests using a key.
+achievement.elephant_chest.desc=Put an elephant chest on an elephant or mammoth that is wearing an elephant harness. Elephants and mammoths can hold up to two elephant chests. When carrying two elephant chests, mammoths can also be equiped with up to two minecraft chest blocks. You can open the chests using a key.
 
 achievement.elephant_howdah=Your Highness
 achievement.elephant_howdah.desc=Put an elephant howdah on an asian elephant that is wearing an elephant garment.

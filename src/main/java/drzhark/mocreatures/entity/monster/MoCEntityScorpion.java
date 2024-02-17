@@ -31,6 +31,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
     public int mouthCounter;
     public int armCounter;
     private int hideCounter;
+    private int attackDamage = worldObj.difficultySetting.getDifficultyId();
 
     public MoCEntityScorpion(World world)
     {
@@ -347,7 +348,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
             }
             else
             {
-                entity.attackEntityFrom(DamageSource.causeMobDamage(this), 1);
+                entity.attackEntityFrom(DamageSource.causeMobDamage(this), attackDamage);
                 swingArm();
             }
         }

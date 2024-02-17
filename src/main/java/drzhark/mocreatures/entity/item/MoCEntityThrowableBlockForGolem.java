@@ -17,14 +17,15 @@ import net.minecraftforge.fluids.IFluidBlock;
 
 public class MoCEntityThrowableBlockForGolem extends Entity {
 
-    /** How long the fuse is */
-    public int fuse;
-    private int masterID;
+    
+    public int timeOutCounterToTransformToSolidBlock;
+    private int masterId;
     public int acceleration = 100;
     private int blockMetadata;
     private double oldPosX;
     private double oldPosY;
     private double oldPosZ;
+    private int attackDamage = worldObj.difficultySetting.getDifficultyId() == 3 ? 3 : 2;
 
     public MoCEntityThrowableBlockForGolem(World world)
     {
@@ -38,7 +39,7 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
     {
         this(world);
         setPosition(x, y, z);
-        fuse = 250;
+        timeOutCounterToTransformToSolidBlock = 250;
         prevPosX = oldPosX = x;
         prevPosY = oldPosY = y;
         prevPosZ = oldPosZ = z;
@@ -129,7 +130,7 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
         {
         	if (getBehavior() != 2 && onGround) {transformToSolidBlock();} //turn to solid if not moving towards it's master and if on ground
         	
-        	if (fuse-- <= 0) {transformToSolidBlock();}
+        	if (timeOutCounterToTransformToSolidBlock-- <= 0) {transformToSolidBlock();}
         }
 
         //held ThrowableBlocks don't need to adjust its position
@@ -166,7 +167,7 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
 	
 	                if (master != null)
 	                {
-	                    entityNearby.attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase) master), 4);
+	                    entityNearby.attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase) master), attackDamage);
 	                }
 	                else
 	                {

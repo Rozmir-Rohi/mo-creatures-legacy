@@ -53,34 +53,6 @@ public class MoCEntityWerewolfVillagerWitchery extends EntityVillager {
     }
 	
 	@Override
-    public boolean interact(EntityPlayer entityPlayer)
-    {
-		if(isTransforming) {return false;}
-		
-		if (super.interact(entityPlayer)) { return false; }
-		
-		ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-        
-        if (itemstack != null)
-        {
-        	Item item = itemstack.getItem();
-        	
-        	
-        	//detects if player is interacting with villager using wolf bane from the Witchery mod
-        	if (entityPlayer.isSneaking() && (item.itemRegistry).getNameForObject(item).equals("witchery:ingredient") && itemstack.getItemDamage() == 156)
-        	{
-        		MoCTools.playCustomSound(this, "werewolfhowl", worldObj);
-        		
-        		MoCItemWhip.whipFX(worldObj, MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)); //reusing this method from whip item to avoid code duplication
-        		
-        		return true;
-        	}
-        }
-        
-        return false;
-    }
-	
-	@Override
     public void onLivingUpdate()
     {
         super.onLivingUpdate();

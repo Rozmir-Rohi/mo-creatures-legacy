@@ -92,7 +92,7 @@ Language File Translations:
 
 
 
-Beta Testers Who Helped Solve Bugs:
+Beta Testers Who Helped Solve Major Bugs:
 	Omgise
 
 	quentin452

@@ -81,16 +81,16 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             /**
              * 1 = chick 2 = female 3 = male 4 = albino male 5 = demon ostrich
              */
-            int j = rand.nextInt(100);
-            if (j <= (20))
+            int typeChance = rand.nextInt(100);
+            if (typeChance <= (20))
             {
                 setType(1);
             }
-            else if (j <= (65))
+            else if (typeChance <= (65))
             {
                 setType(2);
             }
-            else if (j <= (95))
+            else if (typeChance <= (95))
             {
                 setType(3);
             }
@@ -216,32 +216,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         //damage reduction
         if (getIsTamed() && getHelmet() != 0)
         {
-            int damageReduction = 0;
-            switch (getHelmet())
-            {
-	            case 5: // hide helmet
-	            case 6: // fur helmet
-	            case 1:
-	                damageReduction = 1; // leather helmet
-	                break;
-	                
-	            case 7: //croc helmet
-	            case 2: // iron helmet
-	                damageReduction = 2;
-	                break;
-	                
-	            case 3: //gold helmet
-	                damageReduction = 3;
-	                break;
-	                
-	            case 4: //diamond helmet
-	            case 9: //dirt scorpion helmet
-	            case 10: //frost scorpion helmet
-	            case 11: //cave scorpion helmet
-	            case 12: // nether scorpion helmet
-	                damageReduction = 4;
-	                break;
-            }
+            int damageReduction = getDamageReductionFromHelmetWornByOstrich();
             damageTaken -= damageReduction;
             if (damageTaken <= 0) damageTaken = 1;
         }
@@ -269,6 +244,33 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             return false;
         }
     }
+
+	private int getDamageReductionFromHelmetWornByOstrich() 
+	{
+		switch (getHelmet())
+		{
+		    case 5: // hide helmet
+		    case 6: // fur helmet
+		    case 1: // leather helmet
+		        return 1; 
+		        
+		    case 7: //croc helmet
+		    case 2: // iron helmet
+		        return 2;
+		        
+		    case 3: //gold helmet
+		        return 3;
+		        
+		    case 4: //diamond helmet
+		    case 9: //dirt scorpion helmet
+		    case 10: //frost scorpion helmet
+		    case 11: //cave scorpion helmet
+		    case 12: // nether scorpion helmet
+		        return 4;
+		    default:
+		    	return 0;
+		}
+	}
 
     @Override
     public void onDeath(DamageSource damageSource)
@@ -638,251 +640,201 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         );
     }
     
-    public boolean isItemEdible(Item item) //healing foods
+    @Override
+    public boolean isMyHealFood(ItemStack itemstack) //healing foods
     {
-        return (
-        			item instanceof ItemSeeds
-        			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
-        			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
-        			|| OreDictionary.getOreName(OreDictionary.getOreID(new ItemStack(item))) == "listAllseed" //BOP seeds or Palm's Harvest Seeds
-        			|| OreDictionary.getOreName(OreDictionary.getOreID(new ItemStack(item))) == "foodRaisins" //GregTech6 seeds/raisins or Palm's Harvest raisins
-    			);
+    	if (itemstack != null)
+    	{
+    		Item item = itemstack.getItem();
+    		
+    		return (
+        				item instanceof ItemSeeds
+        				|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
+        				|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
+        				|| OreDictionary.getOreName(OreDictionary.getOreID(new ItemStack(item))) == "listAllseed" //BOP seeds or Palm's Harvest Seeds
+        				|| OreDictionary.getOreName(OreDictionary.getOreID(new ItemStack(item))) == "foodRaisins" //GregTech6 seeds/raisins or Palm's Harvest raisins
+    				);
+    	}
+    	
+    	return false;
     }
 
     @Override
     public boolean interact(EntityPlayer entityPlayer)
     {
         if (super.interact(entityPlayer)) { return false; }
+        
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-
-        if (getIsTamed() && (getType() > 1) && (itemstack != null) && !getIsRideable() && (itemstack.getItem() == MoCreatures.craftedSaddle || itemstack.getItem() == Items.saddle))
+        
+        if (itemstack != null)
         {
-            if (--itemstack.stackSize == 0)
-            {
-                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
-            }
-            setRideable(true);
-            return true;
-        }
-
-        if (!getIsTamed() && itemstack != null && getType() == 2 && itemstack.getItem() == Items.melon_seeds) //breeding item
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
-            }
-
-            openMouth();
-            MoCTools.playCustomSound(this, "eating", worldObj);
-            canLayEggs = true;
-            return true;
-        }
-
-        //makes the ostrich stay by hiding their heads
-        if ((itemstack != null) && (itemstack.getItem() == MoCreatures.whip) && getIsTamed() && (riddenByEntity == null))
-        {
-            setHiding(!getHiding());
-            return true;
-        }
-
-        if ((itemstack != null) && getIsTamed() && getType()> 1 && itemstack.getItem() == MoCreatures.essenceDarkness)
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-            }
-            else
-            {
-                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-            }
-            if (getType() == 6)
-            {
-                setHealth(getMaxHealth());
-            }
-            else
-            {
-                transform(6);
-            }
-            MoCTools.playCustomSound(this, "drinking", worldObj);
-            return true;
-        }
-
-        if ((itemstack != null) && getIsTamed() && getType()> 1 && itemstack.getItem() == MoCreatures.essenceUndead)
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-            }
-            else
-            {
-                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-            }
-            if (getType() == 7)
-            {
-                setHealth(getMaxHealth());
-            }
-            else
-            {
-                transform(7);
-            }
-            MoCTools.playCustomSound(this, "drinking", worldObj);
-            return true;
-        }
-
-        if ((itemstack != null) && getIsTamed() && getType()> 1 && itemstack.getItem() == MoCreatures.essenceLight)
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-            }
-            else
-            {
-                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-            }
-            if (getType() == 8)
-            {
-                setHealth(getMaxHealth());
-            }
-            else
-            {
-                transform(8);
-            }
-            MoCTools.playCustomSound(this, "drinking", worldObj);
-            return true;
-        }
-
-        if ((itemstack != null) && getIsTamed() && getType()> 1 && itemstack.getItem() == MoCreatures.essenceFire)
-        {
-            if (--itemstack.stackSize == 0)
-            {
-                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-            }
-            else
-            {
-                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-            }
-            if (getType() == 5)
-            {
-                setHealth(getMaxHealth());
-            }
-            else
-            {
-                transform(5);
-            }
-            MoCTools.playCustomSound(this, "drinking", worldObj);
-            return true;
-        }
-        if (getIsTamed() && getIsChested() && (getType() > 1) && itemstack!= null && itemstack.getItem() == Item.getItemFromBlock(Blocks.wool))
-        {
-            int colorInt = (itemstack.getItemDamage());
-            if (colorInt == 0) colorInt = 16;
-            if (--itemstack.stackSize == 0)
-            {
-                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
-            }
-            dropFlag();
-            setFlagColor((byte)colorInt);
-            entityPlayer.addStat(MoCAchievements.ostrich_flag, 1);
-            return true;
+        	Item item = itemstack.getItem();
+        	
+        	if (getIsTamed() && getType() > 1)
+        	{
+		        if (!getIsRideable() && (item == MoCreatures.craftedSaddle || item == Items.saddle))
+		        {
+		            if (--itemstack.stackSize == 0)
+		            {
+		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		            }
+		            setRideable(true);
+		            return true;
+		        }
+		
+		        if (item == MoCreatures.essenceDarkness)
+		        {
+		            if (--itemstack.stackSize == 0)
+		            {
+		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+		            }
+		            else
+		            {
+		                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+		            }
+		            
+		            if (getType() == 6) //wyvern ostrich
+		            {
+		                setHealth(getMaxHealth());
+		            }
+		            else
+		            {
+		                transform(6);
+		            }
+		            MoCTools.playCustomSound(this, "drinking", worldObj);
+		            return true;
+		        }
+		
+		        if (item == MoCreatures.essenceUndead)
+		        {
+		            if (--itemstack.stackSize == 0)
+		            {
+		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+		            }
+		            else
+		            {
+		                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+		            }
+		            
+		            if (getType() == 7) //undead ostrich
+		            {
+		                setHealth(getMaxHealth());
+		            }
+		            else
+		            {
+		                transform(7);
+		            }
+		            
+		            MoCTools.playCustomSound(this, "drinking", worldObj);
+		            return true;
+		        }
+		
+		        if (item == MoCreatures.essenceLight)
+		        {
+		            if (--itemstack.stackSize == 0)
+		            {
+		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+		            }
+		            else
+		            {
+		                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+		            }
+		            
+		            if (getType() == 8) //unicorn ostrich
+		            {
+		                setHealth(getMaxHealth());
+		            }
+		            else
+		            {
+		                transform(8);
+		            }
+		            
+		            MoCTools.playCustomSound(this, "drinking", worldObj);
+		            return true;
+		        }
+		
+		        if (item == MoCreatures.essenceFire)
+		        {
+		            if (--itemstack.stackSize == 0)
+		            {
+		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+		            }
+		            else
+		            {
+		                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+		            }
+		            
+		            if (getType() == 5) //nether ostrich
+		            {
+		                setHealth(getMaxHealth());
+		            }
+		            else
+		            {
+		                transform(5);
+		            }
+		            
+		            MoCTools.playCustomSound(this, "drinking", worldObj);
+		            return true;
+		        }
+		        if (getIsChested() && item == Item.getItemFromBlock(Blocks.wool))
+		        {
+		            int colorInt = (itemstack.getItemDamage());
+		            if (colorInt == 0) colorInt = 16;
+		            if (--itemstack.stackSize == 0)
+		            {
+		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		            }
+		            dropFlag();
+		            setFlagColor((byte)colorInt);
+		            entityPlayer.addStat(MoCAchievements.ostrich_flag, 1);
+		            return true;
+		        }
+		        
+		        if (!getIsChested() && item == Item.getItemFromBlock(Blocks.chest))
+		        {
+		             if (--itemstack.stackSize == 0)
+		            {
+		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		            }
+		
+		            entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.key));
+		            setIsChested(true);
+		            entityPlayer.addStat(MoCAchievements.ostrich_chest, 1);
+		            return true;
+		        }
+		        
+		        if ((item == MoCreatures.key) && getIsChested())
+		        {
+		            // if first time opening horse chest, we must initialize it
+		            if (localChest == null)
+		            {
+		                localChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.OstrichChest"), 9);
+		            }
+		            // only open this chest on server side
+		            if (MoCreatures.isServer())
+		            {
+		                entityPlayer.displayGUIChest(localChest);
+		            }
+		            return true;
+		        }
+		
+		        if (interactIfPlayerIsHoldingWearableHelmet(entityPlayer, item)) {return true;};
+        	}
+        	else if (getType() == 2 && item == Items.melon_seeds) //breeding item
+	        {
+	            if (--itemstack.stackSize == 0)
+	            {
+	                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+	            }
+	
+	            openMouth();
+	            MoCTools.playCustomSound(this, "eating", worldObj);
+	            canLayEggs = true;
+	            return true;
+	        }
         }
         
-        if ((itemstack != null) && (getType() > 1) && getIsTamed() && !getIsChested() && (itemstack.getItem() == Item.getItemFromBlock(Blocks.chest)))
-        {
-             if (--itemstack.stackSize == 0)
-            {
-                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
-            }
-
-            entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.key));
-            setIsChested(true);
-            entityPlayer.addStat(MoCAchievements.ostrich_chest, 1);
-            return true;
-        }
-        
-        if ((itemstack != null) && (itemstack.getItem() == MoCreatures.key) && getIsChested())
-        {
-            // if first time opening horse chest, we must initialize it
-            if (localChest == null)
-            {
-                localChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.OstrichChest"), 9);
-            }
-            // only open this chest on server side
-            if (MoCreatures.isServer())
-            {
-                entityPlayer.displayGUIChest(localChest);
-            }
-            return true;
-        }
-
-        if (getIsTamed() && (getType() > 1) && itemstack!= null)
-        {
-            
-            Item item = itemstack.getItem();
-            if (item instanceof ItemArmor)
-            {
-                byte helmetType = 0;
-                if (itemstack.getItem() == Items.leather_helmet)
-                {
-                    helmetType = 1;
-                }
-                else if (itemstack.getItem() == Items.iron_helmet)
-                {
-                    helmetType = 2;
-                }
-                else if (itemstack.getItem() == Items.golden_helmet)
-                {
-                    helmetType = 3;
-                }
-                else if (itemstack.getItem() == Items.diamond_helmet)
-                {
-                    helmetType = 4;
-                }
-                else if (itemstack.getItem() == MoCreatures.helmetHide)
-                {
-                    helmetType = 5;
-                }
-                else if (itemstack.getItem() == MoCreatures.helmetFur)
-                {
-                    helmetType = 6;
-                }
-                else if (itemstack.getItem() == MoCreatures.helmetReptile)
-                {
-                    helmetType = 7;
-                }
-                /*else if (itemstack.getItem() == MoCreatures.helmetGreen)
-                {
-                    helmetType = 8;
-                }*/
-                else if (itemstack.getItem() == MoCreatures.scorpHelmetDirt)
-                {
-                    helmetType = 9;
-                }
-                else if (itemstack.getItem() == MoCreatures.scorpHelmetFrost)
-                {
-                    helmetType = 10;
-                }
-                else if (itemstack.getItem() == MoCreatures.scorpHelmetCave)
-                {
-                    helmetType = 11;
-                }
-                else if (itemstack.getItem() == MoCreatures.scorpHelmetNether)
-                {
-                    helmetType = 12;
-                }
-
-                if (helmetType != 0)
-                {
-                    entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
-                    dropArmor();
-                    MoCTools.playCustomSound(this, "armoroff", worldObj);
-                    setHelmet(helmetType);
-                    entityPlayer.addStat(MoCAchievements.ostrich_helmet, 1);
-                    return true;
-                }
-               
-            }
-        }
-        if (
+        if (	//try to mount player on ostrich - THIS MUST TO BE AT THE VERY LAST OF THE INTERACT FUNCTION so that any interactable items are used first before the player mounts the ostrich
         		(
         			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
     				|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
@@ -893,6 +845,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             entityPlayer.rotationYaw = rotationYaw;
             entityPlayer.rotationPitch = rotationPitch;
             setHiding(false);
+            
             if (!worldObj.isRemote && (riddenByEntity == null || riddenByEntity == entityPlayer))
             {
                 entityPlayer.mountEntity(this);
@@ -901,6 +854,70 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         }
         return false;
     }
+
+	private boolean interactIfPlayerIsHoldingWearableHelmet(EntityPlayer entityPlayer, Item item)
+	{
+		if (item instanceof ItemArmor)
+		{
+		    byte helmetType = 0;
+		    if (item == Items.leather_helmet)
+		    {
+		        helmetType = 1;
+		    }
+		    else if (item == Items.iron_helmet)
+		    {
+		        helmetType = 2;
+		    }
+		    else if (item == Items.golden_helmet)
+		    {
+		        helmetType = 3;
+		    }
+		    else if (item == Items.diamond_helmet)
+		    {
+		        helmetType = 4;
+		    }
+		    else if (item == MoCreatures.helmetHide)
+		    {
+		        helmetType = 5;
+		    }
+		    else if (item == MoCreatures.helmetFur)
+		    {
+		        helmetType = 6;
+		    }
+		    else if (item == MoCreatures.helmetReptile)
+		    {
+		        helmetType = 7;
+		    }
+		    else if (item == MoCreatures.scorpHelmetDirt)
+		    {
+		        helmetType = 9;
+		    }
+		    else if (item == MoCreatures.scorpHelmetFrost)
+		    {
+		        helmetType = 10;
+		    }
+		    else if (item == MoCreatures.scorpHelmetCave)
+		    {
+		        helmetType = 11;
+		    }
+		    else if (item == MoCreatures.scorpHelmetNether)
+		    {
+		        helmetType = 12;
+		    }
+
+		    if (helmetType != 0)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+		        dropArmor();
+		        MoCTools.playCustomSound(this, "armoroff", worldObj);
+		        setHelmet(helmetType);
+		        entityPlayer.addStat(MoCAchievements.ostrich_helmet, 1);
+		        return true;
+		    }
+		   
+		}
+		return false;
+	}
 
     /**
      * Drops a block of the color of the flag if carrying one
@@ -1067,12 +1084,6 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     public boolean forceUpdates()
     {
         return getIsTamed();
-    }
-
-    @Override
-    public boolean isMyHealFood(ItemStack itemstack)
-    {
-        return isItemEdible(itemstack.getItem());
     }
 
     @Override

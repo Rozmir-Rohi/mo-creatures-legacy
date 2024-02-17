@@ -1015,7 +1015,59 @@ Fixed werewolves taking too much damage if attacked by an entity that isn't a pl
 Improved werewolf detection of projectile damage (non-damaging projectiles, arrows, and Witchery silver bolts).
 
 
-Fixed Witchery integration werewolves not taking damage in human form when hit by Witchert witch hunters.
+Fixed Witchery integration werewolves not taking damage in human form when hit by Witchery witch hunters.
 
 
 NOTE: Witchery witch hunters can tell the difference between normal villagers, Minecraft Comes Alive villagers, and Witchery integration werewolves. Witchery witch hunters will find and kill Witchery integration werewolves even if they are in their human form. 
+
+
+Added config option to control whether the human form for Mo' Creatures werewolves use realistic human sounds. This is set to false by default.
+
+
+Fixed Mo' Creatures werewolf not taking proper damage in human form.
+
+
+Fixed crash when player tries to hook a Werewolf using a fishing rod.
+
+
+Fixed wolfsbane interaction with Witchery werewolf integration villagers and Witchery werewolf integration Minecraft Comes Alive villagers.
+
+
+Simplified the code for the ostrich interact function.
+
+
+Fixed elephant chest achievement description for all lang files.
+
+
+Simplified the code for wyverns dropping armor.
+
+
+Fixed white werewolf lips. Also removed unused texture.
+
+
+The following creatures now have attack damages that scale with the difficulty:
+	Scorpion
+	Wraith
+	Flame Wraith
+	Golem Block
+	Silver Skeleton <- also increased base attack damage
+
+
+Tweaked thaumcraft aspects for:
+	Wyvern
+	Silver Skeleton
+
+
+The songhua river mammoth can now carry 4 elephant chests just like the regular mammoth.
+
+
+All mammoths can now carry a mammoth platform.
+
+
+Improved meaningulness of identifiers in the code for elephant.
+
+
+Fixed elephants always destroying blocks without being whipped.
+
+
+Fixed elephant tusks not taking damage when breaking blocks.

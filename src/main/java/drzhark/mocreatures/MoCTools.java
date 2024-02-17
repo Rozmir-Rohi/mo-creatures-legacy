@@ -440,7 +440,7 @@ public class MoCTools {
         return Math.sqrt((l * l) + (i1 * i1) + (j1 * j1));
     }
 
-    public static int[] ReturnNearestMaterialCoord(Entity entity, Material material, Double double1, Double yOff)
+    public static int[] ReturnNearestMaterialCoord(Entity entity, Material material, Double double1, Double yOffset)
     {
         double shortestDistance = -1D;
         double distance = 0D;
@@ -448,7 +448,7 @@ public class MoCTools {
         int y = -1;
         int z = -1;
 
-        AxisAlignedBB axisalignedbb = entity.boundingBox.expand(double1.doubleValue(), yOff.doubleValue(), double1.doubleValue());
+        AxisAlignedBB axisalignedbb = entity.boundingBox.expand(double1.doubleValue(), yOffset.doubleValue(), double1.doubleValue());
         int i = MathHelper.floor_double(axisalignedbb.minX);
         int j = MathHelper.floor_double(axisalignedbb.maxX + 1.0D);
         int k = MathHelper.floor_double(axisalignedbb.minY);

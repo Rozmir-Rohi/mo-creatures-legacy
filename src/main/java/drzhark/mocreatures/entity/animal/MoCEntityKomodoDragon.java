@@ -363,15 +363,15 @@ public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
     @Override
     public double getMountedYOffset()
     {
-        double yOff = 0.15F;
+        double yOffset = 0.15F;
         boolean sit = (sitCounter != 0);
         if (sit)
         {
-            //yOff = -0.5F;
+            //yOffset = -0.5F;
         }
         if (getIsAdult())
         {
-            return (double) (yOff + (height) );
+            return (double) (yOffset + (height) );
         }
         return (double) (height * (120/getMoCAge()) );
     }

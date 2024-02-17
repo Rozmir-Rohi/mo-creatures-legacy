@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
@@ -194,11 +195,11 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     @Override
     public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-    	damageTaken = 1;
-    	
         Entity entityThatAttackedThisCreature = damageSource.getEntity();
         if (!getIsHumanForm())
         {
+        	damageTaken = 1;
+        	
 	        if (entityThatAttackedThisCreature != null)
 	        {
 		        if (entityThatAttackedThisCreature instanceof EntityPlayer)
@@ -223,6 +224,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		        else if (MoCreatures.isWitcheryLoaded && EntityList.getEntityString(entityThatAttackedThisCreature).equals("witchery.witchhunter"))
 		        {
 		        	damageTaken = 5;
+		        	damageSource = DamageSource.generic;
 		        }
 		        
 		        else if (entityThatAttackedThisCreature instanceof MoCEntitySilverSkeleton)
@@ -231,6 +233,16 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		        }
 	        }
         }
+        
+        else if (entityThatAttackedThisCreature != null && !(entityThatAttackedThisCreature instanceof EntityPlayer))
+        {		
+	        if (MoCreatures.isWitcheryLoaded && EntityList.getEntityString(entityThatAttackedThisCreature).equals("witchery.witchhunter"))
+	        {
+	        	damageTaken = 5;
+	        	damageSource = DamageSource.generic;
+	        }
+        }
+        
         return super.attackEntityFrom(damageSource, damageTaken);
     }
 
@@ -248,6 +260,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 			    if (
 		    			MoCreatures.isWitcheryLoaded
 		    			&& damageSource.getEntity() instanceof EntityPlayer
+		    			&& !(itemHeldByPlayer instanceof ItemFishingRod)
 		    			&& EntityList.getEntityString(damageSource.getSourceOfDamage()).equals("witchery.bolt")
 		    		)
 		    	{
@@ -424,19 +437,6 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     }
 
     @Override
-    protected String getDeathSound()
-    {
-        if (getIsHumanForm())
-        {
-            return "mocreatures:werehumandying";
-        }
-        else
-        {
-            return "mocreatures:werewolfdying";
-        }
-    }
-
-    @Override
     protected Item getDropItem()
     {
         int randomNumber = rand.nextInt(12);
@@ -501,20 +501,20 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     protected String getHurtSound()
     {
         if (getIsHumanForm())
-        {
-            return "mocreatures:werehumanhurt";
+        {	
+        	if (MoCreatures.proxy.useRealisticHumanSoundsForWerewolf)
+        	{
+        		return "mocreatures:werehumanhurt";
+        	}
+        	
+        	return "game.neutral.hurt";
         }
         else
         {
             return "mocreatures:werewolfhurt";
         }
     }
-
-    public boolean getIsUndead()
-    {
-        return true;
-    }
-
+    
     @Override
     protected String getLivingSound()
     {
@@ -526,6 +526,29 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         {
             return "mocreatures:werewolfgrunt";
         }
+    }
+    
+    @Override
+    protected String getDeathSound()
+    {
+        if (getIsHumanForm())
+        {
+            if (MoCreatures.proxy.useRealisticHumanSoundsForWerewolf)
+            {
+            	return "mocreatures:werehumandying";
+            }
+            
+            return "game.neutral.die";
+        }
+        else
+        {
+            return "mocreatures:werewolfdying";
+        }
+    }
+
+    public boolean getIsUndead()
+    {
+        return true;
     }
 
     public boolean IsNight()
@@ -613,7 +636,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
                 {
                     posX -= 0.29999999999999999D;
                 }
-                if (transformCounter == 10)
+                if (MoCreatures.proxy.useRealisticHumanSoundsForWerewolf && transformCounter == 10)
                 {
                     worldObj.playSoundAtEntity(this, "mocreatures:weretransform", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
                 }

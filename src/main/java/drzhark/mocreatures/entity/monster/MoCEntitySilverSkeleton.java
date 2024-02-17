@@ -30,6 +30,7 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob
     {
       super.applyEntityAttributes();
       getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(25.0D);
+      getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(worldObj.difficultySetting.getDifficultyId() * 3);
     }
 
     @Override
@@ -73,7 +74,7 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob
     @Override
     protected Item getDropItem()
     {
-        if (rand.nextInt(10) == 0)
+        if (rand.nextInt(10) == 0) //10% chance
         {
             return MoCreatures.silverSword;
         }

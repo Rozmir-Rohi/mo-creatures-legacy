@@ -104,6 +104,7 @@ public class MoCProxy implements IGuiHandler {
     public short caveOgreChance;
     
     public boolean wraithsCanGoThroughWalls;
+    public boolean useRealisticHumanSoundsForWerewolf;
 
     public boolean debug = false;
     public boolean allowInstaSpawn;
@@ -339,6 +340,7 @@ public class MoCProxy implements IGuiHandler {
         
         
         wraithsCanGoThroughWalls = mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "wraithsCanGoThroughWalls", false, "If true: wraiths and flame wraiths will be able to go through walls.").getBoolean(false);
+        useRealisticHumanSoundsForWerewolf = mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "useRealisticHumanSoundsForWerewolf", false, "If true: uses realistic man hurt and man screaming sound for the human form of werewolves.").getBoolean(false);
         ogreStrength = Float.parseFloat(mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "ogreStrength", 2.5F, "The block destruction radius of green Ogres.").getString());
         caveOgreStrength = Float.parseFloat(mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "caveOgreStrength", 3.0F, "The block destruction radius of Cave Ogres.").getString());
         fireOgreStrength = Float.parseFloat(mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "fireOgreStrength", 2.0F, "The block destruction radius of Fire Ogres.").getString());

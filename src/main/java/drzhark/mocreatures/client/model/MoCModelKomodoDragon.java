@@ -263,18 +263,18 @@ public void render(Entity entity, float f, float f1, float f2, float f3, float f
      */
     private void AdjustY(float f)
     {
-        float yOff = f;
-        Tail.rotationPointY = yOff + 13F;
-        Head.rotationPointY = yOff + 13F;
-        Chest.rotationPointY = yOff + 13F;
-        LegFrontLeft.rotationPointY = yOff + 17F;
-        LegBackLeft.rotationPointY = yOff + 17F;
-        LegFrontRight.rotationPointY = yOff + 17F;
-        LegBackRight.rotationPointY = yOff + 17F;
-        Abdomen.rotationPointY = yOff + 13F;
-        SaddleA.rotationPointY = yOff + 12F;
-        SaddleB.rotationPointY = yOff + 12F;
-        SaddleC.rotationPointY = yOff + 12F;
+        float yOffset = f;
+        Tail.rotationPointY = yOffset + 13F;
+        Head.rotationPointY = yOffset + 13F;
+        Chest.rotationPointY = yOffset + 13F;
+        LegFrontLeft.rotationPointY = yOffset + 17F;
+        LegBackLeft.rotationPointY = yOffset + 17F;
+        LegFrontRight.rotationPointY = yOffset + 17F;
+        LegBackRight.rotationPointY = yOffset + 17F;
+        Abdomen.rotationPointY = yOffset + 13F;
+        SaddleA.rotationPointY = yOffset + 12F;
+        SaddleB.rotationPointY = yOffset + 12F;
+        SaddleC.rotationPointY = yOffset + 12F;
          
         
     }

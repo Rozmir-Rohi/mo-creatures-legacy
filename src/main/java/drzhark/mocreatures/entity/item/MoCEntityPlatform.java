@@ -18,13 +18,13 @@ public class MoCEntityPlatform extends Entity {
     private double zOffset;
     private int mountCount;
 
-    public MoCEntityPlatform(World world, int ID, double yOff, double zOff)
+    public MoCEntityPlatform(World world, int id, double yOffset, double zOffset)
     {
         this(world);
         isImmuneToFire = true;
-        mastersID = ID;
-        yOffset = yOff;
-        zOffset = zOff;
+        mastersID = id;
+        this.yOffset = yOffset;
+        this.zOffset = zOffset;
         setSize(0.1F, 0.1F);
     }
 
@@ -107,14 +107,14 @@ public class MoCEntityPlatform extends Entity {
         setLocationAndAngles(newPosX, master.posY + yOffset, newPosZ, master.rotationYaw, master.rotationPitch);
     }
 
-    public void setYOffset(double yOff)
+    public void setYOffset(double yOffset)
     {
-        yOffset = yOff;
+        this.yOffset = yOffset;
     }
 
-    public void setZOffset(double zOff)
+    public void setZOffset(double zOffset)
     {
-        zOffset = zOff;
+        this.zOffset = zOffset;
     }
 
     @Override

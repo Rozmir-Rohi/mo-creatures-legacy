@@ -586,7 +586,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     }
 
     /**
-     * List of edible foods
+     * All foods in minecraft
      *
      * @param item
      * @return

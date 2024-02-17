@@ -186,16 +186,16 @@ public class MoCModelGoat extends ModelBase {
 
         if (attacking != 0)
         {
-            // float yOff = f5*((2.0F*attacking)/45F)-1.33333F;
-            // float zOff = f5*(attacking/9F)-3.33333F;
+            // float yOffset = f5*((2.0F*attacking)/45F)-1.33333F;
+            // float zOffset = f5*(attacking/9F)-3.33333F;
 
-            // 0.3! yOff = (3F*attacking/450F) - (3F*3F/45F);
-            // float yOff = 0.3F;
-            // yOff = (3F*attacking/450F) - (3F*3F/45F);
-            float yOff = (attacking / 150F) - (1F / 5F);
-            // float zOff = 0.1F;
-            float zOff = (attacking / 450F) - (1F / 15F);
-            GL11.glTranslatef(0.0F, yOff, -zOff);
+            // 0.3! yOffset = (3F*attacking/450F) - (3F*3F/45F);
+            // float yOffset = 0.3F;
+            // yOffset = (3F*attacking/450F) - (3F*3F/45F);
+            float yOffset = (attacking / 150F) - (1F / 5F);
+            // float zOffset = 0.1F;
+            float zOffset = (attacking / 450F) - (1F / 15F);
+            GL11.glTranslatef(0.0F, yOffset, -zOffset);
         }
         LEar.render(f5);
         REar.render(f5);
