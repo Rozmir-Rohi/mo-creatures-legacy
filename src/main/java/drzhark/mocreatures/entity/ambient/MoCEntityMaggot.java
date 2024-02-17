@@ -4,7 +4,6 @@ import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityAmbient;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 public class MoCEntityMaggot extends MoCEntityAmbient

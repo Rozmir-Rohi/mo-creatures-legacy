@@ -8,7 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -16,7 +15,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.world.World;
-import scala.reflect.internal.Trees.This;
 
 public class MoCEntityWerewolfMinecraftComesAliveVillagerWitchery extends EntityVillager {
 
@@ -107,6 +105,24 @@ public class MoCEntityWerewolfMinecraftComesAliveVillagerWitchery extends Entity
                 isTransforming = false;
             }
         }
+    }
+	
+	@Override
+    public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
+    {
+    	
+        Entity entityThatAttackedThisCreature = damageSource.getEntity();
+        
+        if (entityThatAttackedThisCreature != null && !(entityThatAttackedThisCreature instanceof EntityPlayer))
+        {		
+	        if (MoCreatures.isWitcheryLoaded && EntityList.getEntityString(entityThatAttackedThisCreature).equals("witchery.witchhunter"))
+	        {
+	        	damageTaken = 5;
+	        	damageSource = DamageSource.generic;
+	        }
+        }
+        
+        return super.attackEntityFrom(damageSource, damageTaken);
     }
 	
 	private void Transform()

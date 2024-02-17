@@ -1009,7 +1009,13 @@ Improved the meaningfulness of some identifiers in render classes.
 Added feature to make Witchery integration werewolves use human model and Minecraft Comes Alive textures if both Witchery and Minecraft Comes Alive are installed.
 
 
-Fixed werewolves taking too much damage if attacked by an entity that isn't the player. Also Witchery witch hunters now deal 5 damage to werewolves using their silver bolts. Silver Skeletons now deal 9 damage to werewolves if they end up fighting each other.
+Fixed werewolves taking too much damage if attacked by an entity that isn't a player. Also Witchery witch hunters now deal 5 damage to werewolves using their silver bolts. Silver Skeletons now deal 9 damage to werewolves if they end up fighting each other.
 
 
-Improved werewolf detection of projectile damage (non-damaging projectiles, arrows, and Witchery silver bolts)
+Improved werewolf detection of projectile damage (non-damaging projectiles, arrows, and Witchery silver bolts).
+
+
+Fixed Witchery integration werewolves not taking damage in human form when hit by Witchert witch hunters.
+
+
+NOTE: Witchery witch hunters can tell the difference between normal villagers, Minecraft Comes Alive villagers, and Witchery integration werewolves. Witchery witch hunters will find and kill Witchery integration werewolves even if they are in their human form. 
