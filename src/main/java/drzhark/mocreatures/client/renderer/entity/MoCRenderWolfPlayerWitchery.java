@@ -40,7 +40,7 @@ public class MoCRenderWolfPlayerWitchery extends RendererLivingEntity {
      * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
      */
     @Override
-    public void doRender(EntityLivingBase entityLivingBase, double d, double d1, double d2, float f, float f1)
+    public void doRender(EntityLivingBase entityLivingBase, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
     	EntityPlayer player = (EntityPlayer) entityLivingBase;
         direWolfModel.openMouth = player.isSwingInProgress;
@@ -48,7 +48,7 @@ public class MoCRenderWolfPlayerWitchery extends RendererLivingEntity {
         
         GL11.glPushMatrix();
         GL11.glDisable(GL11.GL_CULL_FACE);
-        this.mainModel.onGround = this.renderSwingProgress(entityLivingBase, f1);
+        this.mainModel.onGround = this.renderSwingProgress(entityLivingBase, rotationPitch);
 
         if (this.renderPassModel != null)
         {
@@ -65,14 +65,14 @@ public class MoCRenderWolfPlayerWitchery extends RendererLivingEntity {
         try
         {  
         	
-            float f2 = this.interpolateRotation(entityLivingBase.prevRenderYawOffset, entityLivingBase.renderYawOffset, f1);
-            float f3 = this.interpolateRotation(entityLivingBase.prevRotationYawHead, entityLivingBase.rotationYawHead, f1);
+            float f2 = this.interpolateRotation(entityLivingBase.prevRenderYawOffset, entityLivingBase.renderYawOffset, rotationPitch);
+            float f3 = this.interpolateRotation(entityLivingBase.prevRotationYawHead, entityLivingBase.rotationYawHead, rotationPitch);
             float f4;
 
             if (entityLivingBase.isRiding() && entityLivingBase.ridingEntity instanceof EntityLivingBase)
             {
                 EntityLivingBase entitylivingbase1 = (EntityLivingBase)entityLivingBase.ridingEntity;
-                f2 = this.interpolateRotation(entitylivingbase1.prevRenderYawOffset, entitylivingbase1.renderYawOffset, f1);
+                f2 = this.interpolateRotation(entitylivingbase1.prevRenderYawOffset, entitylivingbase1.renderYawOffset, rotationPitch);
                 f4 = MathHelper.wrapAngleTo180_float(f3 - f2);
 
                 if (f4 < -85.0F)
@@ -93,17 +93,17 @@ public class MoCRenderWolfPlayerWitchery extends RendererLivingEntity {
                 }
             }
 
-            float f13 = entityLivingBase.prevRotationPitch + (entityLivingBase.rotationPitch - entityLivingBase.prevRotationPitch) * f1;
-            this.renderLivingAt(entityLivingBase, d, d1, d2);
-            f4 = this.handleRotationFloat(entityLivingBase, f1);
-            this.rotateCorpse(entityLivingBase, f4, f2, f1);
+            float f13 = entityLivingBase.prevRotationPitch + (entityLivingBase.rotationPitch - entityLivingBase.prevRotationPitch) * rotationPitch;
+            this.renderLivingAt(entityLivingBase, x, y, z);
+            f4 = this.handleRotationFloat(entityLivingBase, rotationPitch);
+            this.rotateCorpse(entityLivingBase, f4, f2, rotationPitch);
             float f5 = 0.0625F;
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
             GL11.glScalef(-1.0F, -1.0F, 1.0F);
-            this.preRenderCallback(entityLivingBase, f1);
+            this.preRenderCallback(entityLivingBase, rotationPitch);
             GL11.glTranslatef(0.0F, -24.0F * f5 - 0.0078125F, 0.0F);
-            float f6 = entityLivingBase.prevLimbSwingAmount + (entityLivingBase.limbSwingAmount - entityLivingBase.prevLimbSwingAmount) * f1;
-            float f7 = entityLivingBase.limbSwing - entityLivingBase.limbSwingAmount * (1.0F - f1);
+            float f6 = entityLivingBase.prevLimbSwingAmount + (entityLivingBase.limbSwingAmount - entityLivingBase.prevLimbSwingAmount) * rotationPitch;
+            float f7 = entityLivingBase.limbSwing - entityLivingBase.limbSwingAmount * (1.0F - rotationPitch);
 
             if (f6 > 1.0F)
             {
@@ -111,7 +111,7 @@ public class MoCRenderWolfPlayerWitchery extends RendererLivingEntity {
             }
 
             GL11.glEnable(GL11.GL_ALPHA_TEST);
-            this.mainModel.setLivingAnimations(entityLivingBase, f7, f6, f1);
+            this.mainModel.setLivingAnimations(entityLivingBase, f7, f6, rotationPitch);
             
             renderModel(entityLivingBase, f7, f6, f4, f3 - f2, f13, f5);
             
@@ -122,22 +122,22 @@ public class MoCRenderWolfPlayerWitchery extends RendererLivingEntity {
 
             for (int i = 0; i < 4; ++i)
             {
-                j = this.shouldRenderPass(entityLivingBase, i, f1);
+                j = this.shouldRenderPass(entityLivingBase, i, rotationPitch);
 
                 if (j > 0)
                 {
-                    this.renderPassModel.setLivingAnimations(entityLivingBase, f7, f6, f1);
+                    this.renderPassModel.setLivingAnimations(entityLivingBase, f7, f6, rotationPitch);
                     this.renderPassModel.render(entityLivingBase, f7, f6, f4, f3 - f2, f13, f5);
 
                     if ((j & 240) == 16)
                     {
-                        this.func_82408_c(entityLivingBase, i, f1);
+                        this.func_82408_c(entityLivingBase, i, rotationPitch);
                         this.renderPassModel.render(entityLivingBase, f7, f6, f4, f3 - f2, f13, f5);
                     }
 
                     if ((j & 15) == 15)
                     {
-                        f8 = (float)entityLivingBase.ticksExisted + f1;
+                        f8 = (float)entityLivingBase.ticksExisted + rotationPitch;
                         GL11.glEnable(GL11.GL_BLEND);
                         f9 = 0.5F;
                         GL11.glColor4f(f9, f9, f9, 1.0F);
@@ -177,9 +177,9 @@ public class MoCRenderWolfPlayerWitchery extends RendererLivingEntity {
             }
 
             GL11.glDepthMask(true);
-            this.renderEquippedItems(entityLivingBase, f1);
-            float f14 = entityLivingBase.getBrightness(f1);
-            j = this.getColorMultiplier(entityLivingBase, f14, f1);
+            this.renderEquippedItems(entityLivingBase, rotationPitch);
+            float f14 = entityLivingBase.getBrightness(rotationPitch);
+            j = this.getColorMultiplier(entityLivingBase, f14, rotationPitch);
             OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
@@ -199,7 +199,7 @@ public class MoCRenderWolfPlayerWitchery extends RendererLivingEntity {
 
                     for (int l = 0; l < 4; ++l)
                     {
-                        if (this.inheritRenderPass(entityLivingBase, l, f1) >= 0)
+                        if (this.inheritRenderPass(entityLivingBase, l, rotationPitch) >= 0)
                         {
                             GL11.glColor4f(f14, 0.0F, 0.0F, 0.4F);
                             this.renderPassModel.render(entityLivingBase, f7, f6, f4, f3 - f2, f13, f5);
@@ -218,7 +218,7 @@ public class MoCRenderWolfPlayerWitchery extends RendererLivingEntity {
 
                     for (int i1 = 0; i1 < 4; ++i1)
                     {
-                        if (this.inheritRenderPass(entityLivingBase, i1, f1) >= 0)
+                        if (this.inheritRenderPass(entityLivingBase, i1, rotationPitch) >= 0)
                         {
                             GL11.glColor4f(f8, f9, f15, f10);
                             this.renderPassModel.render(entityLivingBase, f7, f6, f4, f3 - f2, f13, f5);
@@ -244,8 +244,8 @@ public class MoCRenderWolfPlayerWitchery extends RendererLivingEntity {
         OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
         GL11.glEnable(GL11.GL_CULL_FACE);
         GL11.glPopMatrix();
-        this.passSpecialRender(entityLivingBase, d, d1, d2);
-        MinecraftForge.EVENT_BUS.post(new RenderLivingEvent.Post(entityLivingBase, this, d, d1, d2));
+        this.passSpecialRender(entityLivingBase, x, y, z);
+        MinecraftForge.EVENT_BUS.post(new RenderLivingEvent.Post(entityLivingBase, this, x, y, z));
     }
     
     

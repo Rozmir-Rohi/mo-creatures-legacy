@@ -1071,3 +1071,6 @@ Fixed elephants always destroying blocks without being whipped.
 
 
 Fixed elephant tusks not taking damage when breaking blocks.
+
+
+Fixed Witchery player werewolf replacement not working on servers - still somewhat glitchy though.
