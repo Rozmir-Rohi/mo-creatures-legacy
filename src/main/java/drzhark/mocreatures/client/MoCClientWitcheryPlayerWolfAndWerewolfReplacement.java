@@ -52,9 +52,10 @@ public class MoCClientWitcheryPlayerWolfAndWerewolfReplacement {
 	    		zPositionForModel = -(playerThatIsOnClientSide.posZ - event.entity.posZ);
 	    		
 	    		//TODO: Try to fix position while moving player
-	    		//TODO: Fix rotation over rotate
 	    		
-	    		rotationYawForModel = -(playerThatIsOnClientSide.rotationYaw - event.entity.rotationYaw);
+	    		//TODO: FIX rotation over rotate for rotationYaw and rotationPitch
+	    		
+	    		rotationYawForModel = event.entity.rotationYaw;
 	    		
 	    		rotationPitchForModel = event.entity.rotationPitch;
     		}

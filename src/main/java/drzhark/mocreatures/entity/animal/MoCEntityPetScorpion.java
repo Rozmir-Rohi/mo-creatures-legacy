@@ -263,8 +263,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     	
     	if (MoCreatures.isServer())
         {
-        	if (ridingEntity != null && 
-        			(damageSource.getEntity() == ridingEntity || DamageSource.inWall.equals(damageSource)))
+        	if (ridingEntity != null && (damageSource.getEntity() == ridingEntity || DamageSource.inWall.equals(damageSource)))
             {
          	   return false;
             }
@@ -272,17 +271,20 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         	else if (super.attackEntityFrom(damageSource, damageTaken))
             {
                 Entity entityThatAttackedThisCreature = damageSource.getEntity();
-                if (entityThatAttackedThisCreature != null && getIsTamed() && (entityThatAttackedThisCreature instanceof EntityPlayer && (entityThatAttackedThisCreature.getCommandSenderName().equals(getOwnerName()))))
-                { 
-                	return false; 
-                }
-
                 
-                if ((entityThatAttackedThisCreature != null) && (entityThatAttackedThisCreature != this) && (worldObj.difficultySetting.getDifficultyId() > 0) && getIsAdult())
-                {
-                    entityToAttack = entityThatAttackedThisCreature;
+                if (entityThatAttackedThisCreature != null)
+                {	
+	                if (getIsTamed() && (entityThatAttackedThisCreature instanceof EntityPlayer && (entityThatAttackedThisCreature.getCommandSenderName().equals(getOwnerName()))))
+	                { 
+	                	return false; 
+	                }
+	                
+	                if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting.getDifficultyId() > 0) && getIsAdult())
+	                {
+	                    entityToAttack = entityThatAttackedThisCreature;
+	                }
+	                return true;
                 }
-                return true;
             }
         }
     	
@@ -416,12 +418,12 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             for (int i = 0; i < k; i++)
             {
 
-                MoCEntityScorpion entityscorpy = new MoCEntityScorpion(worldObj);
-                entityscorpy.setPosition(posX, posY, posZ);
-                entityscorpy.setAdult(false);
-                entityscorpy.setType(getType());
-                entityscorpy.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
-                worldObj.spawnEntityInWorld(entityscorpy);
+                MoCEntityScorpion entityPetScorpion = new MoCEntityScorpion(worldObj);
+                entityPetScorpion.setPosition(posX, posY, posZ);
+                entityPetScorpion.setAdult(false);
+                entityPetScorpion.setType(getType());
+                entityPetScorpion.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
+                worldObj.spawnEntityInWorld(entityPetScorpion);
                 worldObj.playSoundAtEntity(this, "mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
 
             }

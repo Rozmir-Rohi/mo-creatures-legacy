@@ -218,7 +218,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
     @Override
     public void setDead()
     {
-        if (MoCreatures.isServer() && getIsTamed() && getHealth() > 0 && !riderIsDisconnecting)
+        if (MoCreatures.isServer() && getIsTamed() && getHealth() > 0 && !riderIsDisconnecting && !MoCreatures.isMobConfinementLoaded)   // the "!MoCreatures.isMobConfinementLoaded" allows setDead() to work on tamed creatures if the Mob Confinement mod is loaded. This is so that the mob confinement items don't duplicate tamed creatures when they try to store them.
         {
             return;
         }
@@ -230,11 +230,11 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
      */
     public void playTameEffect(boolean par1)
     {
-        String particle_name = "heart";
+        String particleName = "heart";
 
         if (!par1)
         {
-            particle_name = "smoke";
+            particleName = "smoke";
         }
 
         for (int index = 0; index < 7; ++index)
@@ -242,7 +242,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
             double xVelocity = rand.nextGaussian() * 0.02D;
             double yVelocity = rand.nextGaussian() * 0.02D;
             double zVelocity = rand.nextGaussian() * 0.02D;
-            worldObj.spawnParticle(particle_name, posX + (double)(rand.nextFloat() * width * 2.0F) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2.0F) - (double)width, xVelocity, yVelocity, zVelocity);
+            worldObj.spawnParticle(particleName, posX + (double)(rand.nextFloat() * width * 2.0F) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2.0F) - (double)width, xVelocity, yVelocity, zVelocity);
         }
     }
 

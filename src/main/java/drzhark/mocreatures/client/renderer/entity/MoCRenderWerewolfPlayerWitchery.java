@@ -25,7 +25,8 @@ import net.minecraftforge.common.MinecraftForge;
 public class MoCRenderWerewolfPlayerWitchery extends RendererLivingEntity {
 
     private final MoCModelWerewolf tempWerewolf;
-
+    
+    
     public MoCRenderWerewolfPlayerWitchery(MoCModelWerewolfHuman werehumanModel, ModelBase modelBase, float f)
     {
         super(modelBase, f);

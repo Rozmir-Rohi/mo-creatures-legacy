@@ -5,8 +5,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 import drzhark.mocreatures.MoCPetData;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -40,6 +42,7 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
     public boolean interact(EntityPlayer entityPlayer)
     {
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        
         //before ownership check 
         if (
         		itemstack != null
@@ -198,29 +201,15 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
         return super.interact(entityPlayer);
     }
 
-    /*@Override
-    public void onDeath(DamageSource damageSource)
-    {
-        if (MoCreatures.isServer() && getOwnerPetId() != -1) // required since getInteger will always return 0 if no key is found
-        {
-            MoCreatures.instance.mapData.removeOwnerPet(this, getOwnerPetId());//getOwnerPetId());
-        }
-        super.onDeath(damageSource);
-    }*/
-
     // Fixes despawn issue when chunks unload and duplicated mounts when disconnecting on servers
     @Override
     public void setDead()
     {
         // Server check required to prevent tamed entities from being duplicated on client-side
-        if (MoCreatures.isServer() && getIsTamed() && getHealth() > 0 && !riderIsDisconnecting)
+        if (MoCreatures.isServer() && getIsTamed() && getHealth() > 0 && !riderIsDisconnecting && !MoCreatures.isMobConfinementLoaded)   // the "!MoCreatures.isMobConfinementLoaded" allows setDead() to work on tamed creatures if the Mob Confinement mod is loaded. This is so that the mob confinement items don't duplicate tamed creatures when they try to store them.
         {
             return;
         }
-        /*if (MoCreatures.isServer() && getOwnerPetId() != -1) // required since getInteger will always return 0 if no key is found
-        {
-            MoCreatures.instance.mapData.removeOwnerPet(this, getOwnerPetId());
-        }*/
         super.setDead();
     }
 
@@ -229,11 +218,11 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
      */
     public void playTameEffect(boolean par1)
     {
-        String particle_name = "heart";
+        String particleName = "heart";
 
         if (!par1)
         {
-            particle_name = "smoke";
+            particleName = "smoke";
         }
 
         for (int index = 0; index < 7; ++index)
@@ -242,7 +231,7 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
             double yVelocity = rand.nextGaussian() * 0.02D;
             double zVelocity = rand.nextGaussian() * 0.02D;
             
-            worldObj.spawnParticle(particle_name, posX + (double)(rand.nextFloat() * width * 2.0F) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2.0F) - (double)width, xVelocity, yVelocity, zVelocity);
+            worldObj.spawnParticle(particleName, posX + (double)(rand.nextFloat() * width * 2.0F) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2.0F) - (double)width, xVelocity, yVelocity, zVelocity);
         }
     }
 

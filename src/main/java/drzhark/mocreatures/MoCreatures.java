@@ -174,6 +174,8 @@ public class MoCreatures {
     public static boolean isFoodExpansionLoaded;
     public static boolean isExoticBirdsLoaded;
     public static boolean isImprovingMinecraftLoaded;
+    public static boolean isMobConfinementLoaded;
+    
     public static final GameProfile MOCFAKEPLAYER = new GameProfile(UUID.fromString("6E379B45-1111-2222-3333-2FE1A88BCD66"), "[MoCreatures]");
 
     /**
@@ -447,6 +449,8 @@ public class MoCreatures {
         isExoticBirdsLoaded = Loader.isModLoaded("exoticbirds");
         
         isImprovingMinecraftLoaded = Loader.isModLoaded("imc");
+        
+        isMobConfinementLoaded = Loader.isModLoaded("ayamitsu.mobconfinement");
         
         if (isThaumcraftLoaded) {MoCThaumcraftAspects.addThaumcraftAspects();};
     }

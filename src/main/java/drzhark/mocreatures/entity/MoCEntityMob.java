@@ -713,7 +713,10 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     public void setDead()
     {
         // Server check required to prevent tamed entities from being duplicated on client-side
-        if (MoCreatures.isServer() && (getIsTamed()) && (getHealth() > 0)) { return; }
+        if (MoCreatures.isServer() && (getIsTamed()) && getHealth() > 0 && !MoCreatures.isMobConfinementLoaded)   // the "!MoCreatures.isMobConfinementLoaded" allows setDead() to work on tamed creatures if the Mob Confinement mod is loaded. This is so that the mob confinement items don't duplicate tamed creatures when they try to store them.
+        {
+        	return;
+        }
         super.setDead();
     }
 

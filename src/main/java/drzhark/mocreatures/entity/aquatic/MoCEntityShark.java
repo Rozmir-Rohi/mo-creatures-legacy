@@ -226,20 +226,6 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     }
 
     @Override
-    public void setDead()
-    {
-        if (!worldObj.isRemote && getIsTamed() && (getHealth() > 0))
-        {
-            return;
-        }
-        else
-        {
-            super.setDead();
-            return;
-        }
-    }
-
-    @Override
     public void readEntityFromNBT(NBTTagCompound nbtTagCompound)
     {
         super.readEntityFromNBT(nbtTagCompound);

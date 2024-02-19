@@ -1617,15 +1617,11 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     @Override
     public void setDead()
     {
-        if (MoCreatures.isServer() && (getKittyState() > 2) && (getHealth() > 0))
+        if (MoCreatures.isServer() && getKittyState() > 2 && getHealth() > 0 && !MoCreatures.isMobConfinementLoaded)   // the "!MoCreatures.isMobConfinementLoaded" allows setDead() to work on tamed creatures if the Mob Confinement mod is loaded. This is so that the mob confinement items don't duplicate tamed creatures when they try to store them.
         {
             return;
         }
-        else
-        {
-            super.setDead();
-            return;
-        }
+        super.setDead();
     }
 
     public void swingArm()
