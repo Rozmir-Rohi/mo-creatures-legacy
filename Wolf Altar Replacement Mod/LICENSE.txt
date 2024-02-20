@@ -1,0 +1,46 @@
+CUSTOM LICENSE: GNU General Public License v3.0 and Further Conditions
+
+	GNU General Public License v3.0: https://choosealicense.com/licenses/gpl-3.0/
+
+
+
+
+SECTION 1 - SCOPE OF THE FURTHER CONDITIONS:
+The further conditions only apply to the use and redistribution of the source code from this project (both modified and unmodified), and the use and redistribution of the 16x MoCreatures textures from this project (both modified and unmodified). The full list of 16x MoCreatures textures can be found as a text file inside the mod jar.
+
+
+The further conditions do not apply for the following:
+   - Modpack use of this project.
+
+   - Redistribution of unedited versions of the mod jar file.
+
+   - Private modifications of this project (modified versions of this project that are not uploaded to the internet).
+
+   - Language files that are created for this project.
+
+   - Any other use that is not specified within Section 1.
+
+   For the uses listed in bullet points above, the GNU General Public License v3.0 by itself is applied. 
+
+
+
+SECTION 2 - FURTHER CONDITIONS:
+   - Give credit to Dr Zhark, BloodShot, and BlockDaddy for being the developers of the original Mo' Creatures mod.
+
+   - If Using the Source Code and/or 16x Textures: give credit to me (Rozmir_Rohi) for restoring the 1.7.10 Mo' Creatures mod and backporting the "Mo' Creatures 16x" textures for 1.7.10 with further improvements. Also, provide a link to my project (https://modrinth.com/project/mo-creatures-legacy/).
+
+   - If Using the 16x Textures: give credit to crazyspacekid for being the original creator of "Mo' Creatures 16x". Also, provide a link to their original project  (https://www.curseforge.com/minecraft/texture-packs/mo-creatures-16x).
+
+
+   If these further conditions apply to your use of this project, you must do each of the following:
+		1. Satisfy all the further conditions that apply to your use of this project.
+
+		2. License your work with the GNU General Public License v3.0.
+		
+		3. Exclude the further conditions from the license document for your work. The further conditions must only be applied and not be carried over in the relicensing.
+
+
+
+SECTION 3 - HOW THIS CUSTOM LICENSE COMPLIES WITH THE GNU GENERAL PUBLIC LICENCE v3.0:
+The further conditions are permitted under section 7 of the GNU General Public License v3.0,
+"If a license document contains a further restriction but permits relicensing or conveying under this License, you may add to a covered work material governed by the terms of that license document, provided that the further restriction does not survive such relicensing or conveying...If you add terms to a covered work in accord with this section, you must place, in the relevant source files, a statement of the additional terms that apply to those files, or a notice indicating where to find the applicable terms."

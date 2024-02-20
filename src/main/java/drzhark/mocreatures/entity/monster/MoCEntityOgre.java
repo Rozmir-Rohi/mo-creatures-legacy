@@ -135,7 +135,7 @@ public class MoCEntityOgre extends MoCEntityMob{
     public void DestroyingOgre()
     {
         if (deathTime > 0) { return; }
-        MoCTools.DestroyBlast(this, posX, posY + 1.0D, posZ, getDestroyForce(), getOgreFire());
+        MoCTools.destroyBlast(this, posX, posY + 1.0D, posZ, getDestroyForce(), getOgreFire());
     }
 
     @Override

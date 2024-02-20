@@ -170,7 +170,7 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
         int yCoordinate = MathHelper.floor_double(boundingBox.minY);
         int zCoordinate = MathHelper.floor_double(posZ);
         //String biomeName = MoCTools.BiomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
-        BiomeGenBase biome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        BiomeGenBase biome = MoCTools.biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
         if (!(biome instanceof BiomeGenOcean))
         {
             setType(2);

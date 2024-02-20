@@ -926,7 +926,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         int yCoordinate = MathHelper.floor_double(boundingBox.minY);
         int zCoordinate = MathHelper.floor_double(posZ);
 
-        String biomeName = MoCTools.BiomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        String biomeName = MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
         if (biomeName.toLowerCase().contains("jungle"))
         {

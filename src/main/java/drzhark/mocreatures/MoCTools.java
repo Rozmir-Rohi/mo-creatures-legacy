@@ -233,7 +233,7 @@ public class MoCTools {
             int y = MathHelper.floor_double(entity.posY);
             int z = MathHelper.floor_double(entity.posZ);
 
-            BiomeGenBase biomeThatEntityIsIn = MoCTools.Biomekind(entity.worldObj, x, y, z);
+            BiomeGenBase biomeThatEntityIsIn = MoCTools.biomekind(entity.worldObj, x, y, z);
 
             if (
             		!(BiomeDictionary.isBiomeOfType(biomeThatEntityIsIn, Type.RIVER)) 
@@ -329,7 +329,7 @@ public class MoCTools {
         return entityToSpawn;        
     }
 
-    public static boolean NearMaterialWithDistance(Entity entity, Double double1, Material mat)
+    public static boolean nearMaterialWithDistance(Entity entity, Double double1, Material mat)
     {
         AxisAlignedBB axisalignedbb = entity.boundingBox.expand(double1.doubleValue(), double1.doubleValue(), double1.doubleValue());
         int i = MathHelper.floor_double(axisalignedbb.minX);
@@ -598,7 +598,7 @@ public class MoCTools {
         return origAngle % 360F;
     }
 
-    public static void SlideEntityToXYZ(Entity entity, int x, int y, int z)
+    public static void slideEntityToXYZ(Entity entity, int x, int y, int z)
     {
         if (entity != null)
         {
@@ -747,7 +747,7 @@ public class MoCTools {
         return numberOfEntities;
     }
 
-    public static BiomeGenBase whatBiome(World world, int x, int y, int z)
+    public static BiomeGenBase whatBiomeIsAtXYZ(World world, int x, int y, int z)
     {
         WorldChunkManager worldchunkmanager = world.getWorldChunkManager();
         if (worldchunkmanager == null) { return null; }
@@ -770,7 +770,7 @@ public class MoCTools {
         return 0.0F;
     }
 
-    public static String BiomeName(World world, int x, int y, int z)
+    public static String biomeName(World world, int x, int y, int z)
     {
         WorldChunkManager worldchunkmanager = world.getWorldChunkManager();
         if (worldchunkmanager == null) { return null; }
@@ -787,7 +787,7 @@ public class MoCTools {
         }
     }
 
-    public static BiomeGenBase Biomekind(World world, int i, int j, int k)
+    public static BiomeGenBase biomekind(World world, int i, int j, int k)
     {
         WorldChunkManager worldchunkmanager = world.getWorldChunkManager();
         if (worldchunkmanager == null) { return null; }
@@ -907,7 +907,7 @@ public class MoCTools {
         return world.getGameRules().getGameRuleBooleanValue("mobGriefing");
     }
     
-    public static void DestroyBlast(Entity entity, double d, double d1, double d2, float f, boolean flag)
+    public static void destroyBlast(Entity entity, double d, double d1, double d2, float f, boolean flag)
     {
         entity.worldObj.playSoundEffect(d, d1, d2, "destroy", 4F, (1.0F + ((entity.worldObj.rand.nextFloat() - entity.worldObj.rand.nextFloat()) * 0.2F)) * 0.7F);
 

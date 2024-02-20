@@ -255,7 +255,7 @@ public class MoCEventHooks {
     public void onLivingDeathEvent(LivingDeathEvent event) 
     {
         if (MoCreatures.isServer())
-        {
+        {	
             if (IMoCTameable.class.isAssignableFrom(event.entityLiving.getClass())) 
             {
                 IMoCTameable mocEntity = (IMoCTameable)event.entityLiving;

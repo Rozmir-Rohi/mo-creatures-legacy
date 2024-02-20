@@ -875,7 +875,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             eggDropChance = MoCreatures.proxy.motherWyvernEggDropChance;
         }
         
-        String biomeName = MoCTools.BiomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        String biomeName = MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
         
         if (rand.nextInt(100) < eggDropChance)
         {

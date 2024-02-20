@@ -64,7 +64,7 @@ public class MoCEntityCricket extends MoCEntityInsect
         int yCoordinate = MathHelper.floor_double(boundingBox.minY);
         int zCoordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        BiomeGenBase currentBiome = MoCTools.biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
       
         //sets the cricket to have a more yellow shade to fit in with the grass
         if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SAVANNA)

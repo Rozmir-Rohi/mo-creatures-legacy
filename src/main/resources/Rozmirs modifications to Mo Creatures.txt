@@ -1077,3 +1077,9 @@ Fixed Witchery player werewolf replacement not working on servers - still somewh
 
 
 Fixed creature duplication glitch with mob confinement items from the Mob Confinement mod.
+
+
+Fixed creeper extension not having a chance to mutate into a mutant creeper if the Mutant Creatures mod is installed and has been affected with chemical X.
+
+
+Added a helper mod "Wolf Altar Replacement" to change the model and texture of the wolf altar from the Witchery mod. - Still WIP

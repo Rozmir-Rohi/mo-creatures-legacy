@@ -355,7 +355,6 @@ public class MoCProxy implements IGuiHandler {
         replaceWitcheryPlayerWerewolf = mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "replaceWitcheryPlayerWerewolf", true, "All players must have this enabled if the server they are playing on has it enabled - if a player has this disabled while the server has it enabled, that player will experience visual glitches. THIS IS NOT COMPATIBLE WITH ANY OTHER MODS THAT CAN CHANGE THE PLAYER'S MAX HEALTH. Only has an effect if the Witchery mod is installed. Replaces the Witchery player werewolf model with the Mo' Creatures werewolf model. Werewolf and dire wolf respect will not work for player werewolf form if this is false.").getBoolean(true);
         colorForWitcheryPlayerWolfAndWerewolf = (short) mocSettingsConfig.get(CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "colorForWitcheryPlayerWolfAndWerewolf", 1, "Only has an effect if the Witchery mod is installed and if either replaceWitcheryPlayerWolf or replaceWitcheryPlayerWerewolf is true. This setting determines which textures are used for the player wolf and player werewolf forms. This setting is not unique each player on a server. This affects the textures of all player werewolves in your perspective. Colors: (0 = black | 1 = white | 2 = brown).").getInt();
         
-        
         mocSettingsConfig.save();
         
         if (useOriginalMoCreaturesTextures)

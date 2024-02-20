@@ -1,0 +1,16 @@
+[
+{
+  "modid": "WolfAltarReplacement",
+  "name": "Wolf Altar Replacement",
+  "description": "Replaces the model and texture of the wolf altar from the Witchery mod. This mod is made to be used with the Mo' Creatures Legacy mod.",
+  "version": "1.0",
+  "mcversion": "1.7.10",
+  "url": "https://modrinth.com/project/mo-creatures-legacy/",
+  "updateUrl": "",
+  "authorList": ["Rozmir"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

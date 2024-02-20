@@ -71,7 +71,7 @@ public class MoCEntityWWolf extends MoCEntityMob {
         int yCoordinate = MathHelper.floor_double(boundingBox.minY);
         int zCoordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase biome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        BiomeGenBase biome = MoCTools.biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
         if (BiomeDictionary.isBiomeOfType(biome, Type.SNOWY))
         {

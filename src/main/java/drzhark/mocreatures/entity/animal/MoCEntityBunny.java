@@ -87,7 +87,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         int yCoordinate = MathHelper.floor_double(boundingBox.minY);
         int zCoordinate = MathHelper.floor_double(posZ);
 
-        BiomeGenBase currentBiome = MoCTools.Biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        BiomeGenBase currentBiome = MoCTools.biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
         if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SNOWY))
         {
             setType(3); //snow white bunnies!
