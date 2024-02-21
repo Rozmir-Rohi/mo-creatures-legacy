@@ -562,7 +562,7 @@ public class MoCreatures {
         registerEntity(MoCEntityPiranha.class, "Piranha", 33023, 16711680);
         registerEntity(MoCEntityMole.class, "Mole", 14020607, 16711680);
         
-        int uniqueGlobalEntityID = 117;
+        int uniqueGlobalEntityID = 118;
         
         if (proxy.replaceVanillaCreepers)
         {
@@ -575,10 +575,10 @@ public class MoCreatures {
             
         	if (isMinecraftComesAliveLoaded && proxy.useHumanModelAndMCAVillagerTexturesForWitcheryHumanWerewolfEntities)
         	{
-        		EntityList.addMapping(MoCEntityWerewolfMinecraftComesAliveVillagerWitchery.class, "WerewolfMinecraftComesAliveVillagerWitchery", uniqueGlobalEntityID + 1);
+        		registerEntity(MoCEntityWerewolfMinecraftComesAliveVillagerWitchery.class, "WerewolfMinecraftComesAliveVillagerWitchery");
         	}
         	
-        	EntityList.addMapping(MoCEntityWerewolfVillagerWitchery.class, "WerewolfVillagerWitchery", uniqueGlobalEntityID + 2);
+        	EntityList.addMapping(MoCEntityWerewolfVillagerWitchery.class, "WerewolfVillagerWitchery", uniqueGlobalEntityID + 1);
         }
         
         
