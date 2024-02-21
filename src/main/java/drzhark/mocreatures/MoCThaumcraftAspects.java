@@ -372,7 +372,7 @@ if (MoCreatures.isWitcheryLoaded)
 		ThaumcraftApi.registerEntityTag("MoCreatures.WerewolfWitchery", new AspectList().add(Aspect.MAN, 3).add(Aspect.EXCHANGE, 2).add(Aspect.DARKNESS, 4).add(Aspect.BEAST, 4)); 
 		ThaumcraftApi.registerEntityTag("WerewolfVillagerWitchery", new AspectList().add(Aspect.MAN, 3).add(Aspect.EXCHANGE, 2).add(Aspect.DARKNESS, 4).add(Aspect.BEAST, 4));
 	}
-	if (MoCreatures.isMinecraftComesAliveLoaded && MoCreatures.proxy.useHumanModelAndMinecraftComesAliveVillagerTexturesForWitcheryWerewolfEntities)
+	if (MoCreatures.isMinecraftComesAliveLoaded && MoCreatures.proxy.useHumanModelAndMCAVillagerTexturesForWitcheryHumanWerewolfEntities)
 	{
 		ThaumcraftApi.registerEntityTag("WerewolfMinecraftComesAliveVillagerWitchery", new AspectList().add(Aspect.MAN, 3).add(Aspect.EXCHANGE, 2).add(Aspect.DARKNESS, 4).add(Aspect.BEAST, 4)); 
 	}

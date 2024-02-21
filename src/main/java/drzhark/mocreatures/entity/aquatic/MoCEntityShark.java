@@ -149,11 +149,16 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
 	    		
 	    		if (ownerOfEntityThatIsOnline != null)
 	    		{
-	    			EntityLivingBase entityThatAttackedOwner = ownerOfEntityThatIsOnline.getAITarget();
+	    			double distanceToOwner = MoCTools.getSqDistanceTo(this, ownerOfEntityThatIsOnline.posX, ownerOfEntityThatIsOnline.posY, ownerOfEntityThatIsOnline.posZ);
 	    			
-	    			if (entityThatAttackedOwner != null)
+	    			if (distanceToOwner < 20.0D)
 	    			{
-	    				return entityThatAttackedOwner;
+		    			EntityLivingBase entityThatAttackedOwner = ownerOfEntityThatIsOnline.getAITarget();
+		    			
+		    			if (entityThatAttackedOwner != null)
+		    			{
+		    				return entityThatAttackedOwner;
+		    			}
 	    			}
 	    		}
 	    	}

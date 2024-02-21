@@ -269,14 +269,19 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 	        		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(getOwnerName());
 	        		
 	        		if (ownerOfEntityThatIsOnline != null)
-	        		{
-	        			EntityLivingBase entityThatAttackedOwner = ownerOfEntityThatIsOnline.getAITarget();
-	        			
-	        			if (entityThatAttackedOwner != null)
-	        			{
-	        				entityToAttack = entityThatAttackedOwner;
-	        			}
-	        		}
+		    		{
+		    			double distanceToOwner = MoCTools.getSqDistanceTo(this, ownerOfEntityThatIsOnline.posX, ownerOfEntityThatIsOnline.posY, ownerOfEntityThatIsOnline.posZ);
+		    			
+		    			if (distanceToOwner < 20.0D)
+		    			{
+			    			EntityLivingBase entityThatAttackedOwner = ownerOfEntityThatIsOnline.getAITarget();
+			    			
+			    			if (entityThatAttackedOwner != null)
+			    			{
+			    				setTarget(entityThatAttackedOwner);
+			    			}
+		    			}
+		    		}
 	        	}
             }
             

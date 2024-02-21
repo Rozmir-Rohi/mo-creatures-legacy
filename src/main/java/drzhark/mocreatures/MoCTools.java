@@ -373,7 +373,7 @@ public class MoCTools {
                     {
                         String nameToCheck = "";
                         nameToCheck = block.getUnlocalizedName();//.getBlockName();
-                        if (nameToCheck != null && nameToCheck != "")
+                        if (nameToCheck != null && nameToCheck.length() > 0)
                         {
                             if (nameToCheck.equals(blockName)) { return true; }
                         }

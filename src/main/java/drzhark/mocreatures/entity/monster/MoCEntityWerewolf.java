@@ -18,6 +18,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.pathfinding.PathEntity;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -59,6 +61,8 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         super.entityInit();
         dataWatcher.addObject(22, Byte.valueOf((byte) 0)); // isHumanForm - 0 false 1 true
         dataWatcher.addObject(23, Byte.valueOf((byte) 0)); //hunched
+        dataWatcher.addObject(24, String.valueOf("")); //nameOfPlayerThatRecruitedThisCreature
+        dataWatcher.addObject(25, Byte.valueOf((byte) 0)); //sitting
     }
     
     @Override
@@ -125,6 +129,50 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             return MoCreatures.proxy.getTexture("wolfbrown.png");
         }
     }
+    
+    protected boolean isMovementCeased()
+    {
+        return getIsSitting();
+    }
+    
+    @Override
+    public boolean interact(EntityPlayer entityPlayer)
+    {   
+        if (MoCreatures.isWitcheryLoaded && entityToAttack == null)
+        {
+        	ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        	
+        	if (itemstack == null)
+        	{
+	        	if (
+	        			!getIsHumanForm()
+	        			&& (MoCTools.isPlayerInWerewolfForm(entityPlayer) && entityPlayer.getMaxHealth() == 60) //checks for max level werewolf 
+	        			&& getNameOfPlayerThatRecruitedThisCreature().length() == 0
+	        		)
+	        	{
+	        		setNameOfPlayerThatRecruitedThisCreature(entityPlayer.getCommandSenderName());
+	        		playRecruitmentParticleEffect(true);
+	        		if (!getIsHumanForm())
+	        		{
+	        			MoCTools.playCustomSound(this, "werewolfhowl", worldObj);
+	        		}
+	        	}
+	        	
+	        	if (
+	        			getNameOfPlayerThatRecruitedThisCreature().length() > 0
+	        			&& entityPlayer.isSneaking()
+	        			&& entityPlayer.getCommandSenderName() == getNameOfPlayerThatRecruitedThisCreature()
+	        		)
+	        	{
+	        		setSitting(!getIsSitting()); //toggles sitting
+	        	}
+
+        	}
+        }
+        
+        
+		return false;
+    }
 
     public boolean getIsHumanForm()
     {
@@ -141,13 +189,33 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     {
         return (dataWatcher.getWatchableObjectByte(23) == 1);
     }
-
+    
     public void setHunched(boolean flag)
     {
         byte input = (byte) (flag ? 1 : 0);
         dataWatcher.updateObject(23, Byte.valueOf(input));
     }
-
+    
+    public boolean getIsSitting()
+    {
+        return (dataWatcher.getWatchableObjectByte(25) == 1);
+    }
+    
+    public void setSitting(boolean flag)
+    {
+        byte input = (byte) (flag ? 1 : 0);
+        dataWatcher.updateObject(25, Byte.valueOf(input));
+    }
+    
+    private void setNameOfPlayerThatRecruitedThisCreature(String playerName)
+    {
+        dataWatcher.updateObject(24, playerName);
+    }
+    
+    private String getNameOfPlayerThatRecruitedThisCreature()
+    {
+        return (dataWatcher.getWatchableObjectString(24));
+    }
     @Override
     protected void attackEntity(Entity entity, float distanceToEntity)
     {
@@ -392,11 +460,16 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         
         if ((entityPlayer != null) && canEntityBeSeen(entityPlayer))
         {
-        	if (MoCTools.isPlayerInWolfForm(entityPlayer) || MoCTools.isPlayerInWerewolfForm(entityPlayer)) //don't hunt player if is in wolf or werewolf form
+        	if (	//don't hunt player if is in wolf or werewolf form or if they have been recruited by that player
+        			MoCTools.isPlayerInWolfForm(entityPlayer)
+        			|| MoCTools.isPlayerInWerewolfForm(entityPlayer)
+        			|| (getNameOfPlayerThatRecruitedThisCreature().length() > 0 && entityPlayer.getCommandSenderName() == getNameOfPlayerThatRecruitedThisCreature())
+        		) 
         	{	
         		if (
             			(MoCTools.isPlayerInWerewolfForm(entityPlayer) && entityPlayer.getMaxHealth() == 60) //checks for max level werewolf
             			|| (MoCTools.isPlayerInWolfForm(entityPlayer) && entityPlayer.getMaxHealth() == 32) //checks for max level werewolf
+            			|| (getNameOfPlayerThatRecruitedThisCreature().length() > 0 && entityPlayer.getCommandSenderName() == getNameOfPlayerThatRecruitedThisCreature()) //werewolf player that recruited this werewolf
             		)
             	{
             		EntityLivingBase entityThatAttackedMaxLevelWerewolfPlayer = entityPlayer.getAITarget();
@@ -495,6 +568,41 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 	            return Items.stone_sword;
         }
         return Items.golden_apple;
+    }
+    
+    private void followPlayer()
+    {
+        EntityPlayer playerToFollow = MinecraftServer.getServer().getConfigurationManager().func_152612_a(getNameOfPlayerThatRecruitedThisCreature());
+
+        if (playerToFollow == null) { return; }
+        
+        double distanceFromPlayerToFollow = MoCTools.getSqDistanceTo(this, playerToFollow.posX, playerToFollow.posY, playerToFollow.posZ);
+        
+        if (distanceFromPlayerToFollow > 5.0D)
+        {
+        	setHunched(true);
+        	
+            PathEntity pathEntity = worldObj.getPathEntityToEntity(this, playerToFollow, 16F, true, false, false, true);
+            setPathToEntity(pathEntity);
+        }
+    }
+    
+    /**
+     * Play the recruitment effect, will either be hearts or smoke depending on status
+     */
+    public void playRecruitmentParticleEffect(boolean par1)
+    {
+        String particleName = "happyVillager";
+
+
+        for (int index = 0; index < 7; ++index)
+        {
+            double xVelocity = rand.nextGaussian() * 0.02D;
+            double yVelocity = rand.nextGaussian() * 0.02D;
+            double zVelocity = rand.nextGaussian() * 0.02D;
+            
+            worldObj.spawnParticle(particleName, posX + (double)(rand.nextFloat() * width * 2.0F) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2.0F) - (double)width, xVelocity, yVelocity, zVelocity);
+        }
     }
 
     @Override
@@ -655,6 +763,10 @@ public class MoCEntityWerewolf extends MoCEntityMob {
                     entityAge = 0;
                 }
             }
+            if (!isMovementCeased() && entityToAttack == null)
+            {
+                followPlayer();
+            }
         }
     }
 
@@ -677,6 +789,9 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         else
         {
             setHumanForm(true);
+            
+            setNameOfPlayerThatRecruitedThisCreature("");
+            setSitting(false);
             
             float healthForHumanForm = Math.round((getHealth() / getMaxHealth()) * 16.0D);
             
@@ -716,7 +831,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 
     @Override
     public float getMoveSpeed()
-    {
+    { 	
         if (getIsHunched()) { return 0.9F; }
         return 0.7F;
     }

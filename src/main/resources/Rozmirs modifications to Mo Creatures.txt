@@ -1083,3 +1083,12 @@ Fixed creeper extension not having a chance to mutate into a mutant creeper if t
 
 
 Added a helper mod "Wolf Altar Replacement" to change the model and texture of the wolf altar from the Witchery mod. - Still WIP
+
+
+Improved efficency of empty string detection.
+
+
+Max level Witchery werewolf players can now recruit werewolves that are in their werewolf form by right clicking them with an empty hand. Recruited werewolves will follow the player that recruited them, and will not attack the player even if the player that recruited them is in human form. Recruited werewolves can be told to stay put by being shift right clicked by the player that recruited them. However, the recruitment will reset when the werewolf entity returns to it's human form. Recruited werewolves will despawn unless they have a name tag.
+
+
+Added water plants from the Plant Mega Pack mod as food items for small fish and fishy. Small fish can only eat freshwater plants, and Fishy can only eat saltwater plants, this reflects the places they live in.

@@ -154,17 +154,34 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
         }
     }
     
+    protected boolean isItemPlantMegaPackFishEdibleFreshWaterPlant(Item item)
+    {
+    	return (
+    				(item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverAmazonSword")
+    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverCanadianWaterweed")
+    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverCoonsTail")
+    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:waterCryptWendtii")
+    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:waterDwarfHairGrass")
+    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverEelgrass")
+    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverWaterWisteria")
+    			);
+    }
+    
     @Override
     protected boolean isMyHealFood(ItemStack itemstack)
     {
+    	if (itemstack == null) {return false;}
+    	
     	Item item = itemstack.getItem();
     	
     	if (
     			item instanceof ItemSeeds
     			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
+    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:kelp")
     			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
     			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemstack.getItemDamage() == 11 //BOP kelp
     			|| (item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
+    			|| isItemPlantMegaPackFishEdibleFreshWaterPlant(item)
     			|| MoCreatures.isGregTech6Loaded &&
     				(
     					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins"

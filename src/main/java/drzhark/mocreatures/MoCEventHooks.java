@@ -26,6 +26,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -107,7 +108,7 @@ public class MoCEventHooks {
 		        	if (event.entity instanceof EntityMob && EntityList.getEntityString(event.entity).equals("witchery.wolfman"))
 		        	{
 		        		Random rand = new Random();
-		        		if (MoCreatures.isMinecraftComesAliveLoaded && MoCreatures.proxy.useHumanModelAndMinecraftComesAliveVillagerTexturesForWitcheryWerewolfEntities)
+		        		if (MoCreatures.isMinecraftComesAliveLoaded && MoCreatures.proxy.useHumanModelAndMCAVillagerTexturesForWitcheryHumanWerewolfEntities)
 		            	{
 		        			
 		        			int[] villagerInformation = generateRandomDataForMinecraftComesAliveVillagerWerewolf();
@@ -129,31 +130,17 @@ public class MoCEventHooks {
 		        	}
 		        	
 		        	if (event.entity instanceof EntityVillager && EntityList.getEntityString(event.entity).equals("witchery.werevillager"))
-		        	{
+			        {
 		        		EntityVillager oldVillager = (EntityVillager) event.entity;
 		        		
-		        		if (MoCreatures.isMinecraftComesAliveLoaded && MoCreatures.proxy.useHumanModelAndMinecraftComesAliveVillagerTexturesForWitcheryWerewolfEntities)
-		            	{
-        					
-		        			int[] villagerInformation = generateRandomDataForMinecraftComesAliveVillagerWerewolf();
-		        			
-			        		MoCEntityWerewolfMinecraftComesAliveVillagerWitchery werewolfMinecraftComesAliveVillager = new MoCEntityWerewolfMinecraftComesAliveVillagerWitchery(event.entity.worldObj, villagerInformation[0], villagerInformation[1], villagerInformation[2]);
-				            werewolfMinecraftComesAliveVillager.copyLocationAndAnglesFrom((Entity) event.entity);
-				            event.entity.setDead();
-				            werewolfMinecraftComesAliveVillager.worldObj.spawnEntityInWorld((Entity) werewolfMinecraftComesAliveVillager);
-		        			
-		            	}
 		        		
-		        		else
-		        		{	
-			        		int professionToSet = oldVillager.getProfession();
+			        	int professionToSet = oldVillager.getProfession();
 			        		
-			        		MoCEntityWerewolfVillagerWitchery werewolfVillager = new MoCEntityWerewolfVillagerWitchery(event.entity.worldObj);
-				            werewolfVillager.copyLocationAndAnglesFrom((Entity) event.entity);
-				            werewolfVillager.setProfession(professionToSet);
-				            event.entity.setDead();
-				            werewolfVillager.worldObj.spawnEntityInWorld((Entity) werewolfVillager);
-		        		}
+			        	MoCEntityWerewolfVillagerWitchery werewolfVillager = new MoCEntityWerewolfVillagerWitchery(event.entity.worldObj);
+			        	werewolfVillager.copyLocationAndAnglesFrom((Entity) event.entity);
+				        werewolfVillager.setProfession(professionToSet);
+				        event.entity.setDead();
+				        werewolfVillager.worldObj.spawnEntityInWorld((Entity) werewolfVillager);
 		        	}
         		}
         		
