@@ -56,7 +56,7 @@ public class MoCItemHorseAmulet extends MoCItem {
     	
         if (++ageCounter < 2) { return itemstack; }
 
-        int amulet_durability = itemstack.getItemDamage();
+        int amuletDurability = itemstack.getItemDamage();
 
         if (MoCreatures.isServer())
         {
@@ -69,9 +69,10 @@ public class MoCItemHorseAmulet extends MoCItem {
             spawnClass = 22;
             if (spawnClass == 0 || creatureType == 0)
             {
-                creatureType = amulet_durability;
+                creatureType = amuletDurability;
                 spawnClass = 22;
                 age = 100;
+                maxHealth = 20;
                 health = 20;
                 armor = 0;
                 name = "";
@@ -81,7 +82,7 @@ public class MoCItemHorseAmulet extends MoCItem {
             }
         }
 
-        if (amulet_durability != 0)
+        if (amuletDurability != 0)
         {
 
             double dist = 3D;

@@ -324,7 +324,7 @@ achievement.tier4_horse=Tier 4 Horse
 achievement.tier4_horse.desc=Breed the correct tier 3 horse with the correct vanilla minecraft horse using pumpkins, cake or mushroom stew.
 
 achievement.zebra=Zebra Tamer
-achievement.zebra.desc=Tame a zebra by approaching it with a tier 4 horse and then feeding it with an apple. Zebras are found in savannah type biomes.
+achievement.zebra.desc=Tame a zebra by approaching it with a tier 4 horse and then feeding it with an apple. Zebras are found in savanna type biomes.
 
 achievement.zebra_record=Shuffling
 achievement.zebra_record.desc=Obtain a zebra record by feeding a tamed zebra with any vanilla minecraft music disc. This is the favourite song of zebras.
@@ -397,7 +397,7 @@ achievement.wyvern_portal_staff=Where the Wyverns Live
 achievement.wyvern_portal_staff.desc=Craft a wyvern portal staff and travel to the wyvern lair.
 
 achievement.wyvern_egg=The Fastest of Them All
-achievement.wyvern_egg.desc=Obtain a wyvern egg from a mother wyvern. After hatching, pet wyverns like to eat raw rat and raw rabbit. Adult pet wyverns can be ridden, equipped with vanilla minecraft horse armor, and can carry a chest. Some wyvern types also have reactions when they are fed with essences.
+achievement.wyvern_egg.desc=Obtain a wyvern egg from a mother wyvern. Pet wyverns like to eat raw rat and raw rabbit. Adult pet wyverns can be ridden, equipped with vanilla minecraft horse armor, and can carry a chest. Jungle, swamp, savanna, sand, and mother wyvern types also have reactions when fed with certain essences.
 
 achievement.tame_elephant=Elephant Tamer
 achievement.tame_elephant.desc=Tame a baby elephant or mammoth using many sugar lumps.
@@ -406,16 +406,16 @@ achievement.mount_elephant=Elephant Rider
 achievement.mount_elephant.desc=Ride a tamed adult elephant or mammoth using an elephant harness. You need to make it sit first to climb on. You can make an elephant sit by sneaking near it.
 
 achievement.mammoth_platform=A Platform for Two
-achievement.mammoth_platform.desc=Put a mammoth platform on a songhua river mammoth that is wearing an elephant harness. Two players can ride a songhua river mammoth when it has a mammoth platform. The second player has to sneak and right-click to get on.
+achievement.mammoth_platform.desc=Put a mammoth platform on a songhua river mammoth that is wearing an elephant harness. Two players can ride a songhua river mammoth when it has a mammoth platform. The second player can climb on to the platform by jumping near the mammoth while it is sitting and ridden by another player.
 
 achievement.elephant_garment=Asian Elephant Fashion
 achievement.elephant_garment.desc=Put an elephant garment on an asian elephant.
 
 achievement.elephant_tusks=Battle Ready
-achievement.elephant_tusks.desc=Equip an elephant or mammoth with any tusks. When equipped with tusks they can ram when whipped and can destroy blocks. The effectiveness of block breaking depends on the type of elephant and the tusks it's wearing.
+achievement.elephant_tusks.desc=Equip an elephant or mammoth with any tusks. When equipped with tusks they be whipped to ram and destroy blocks in front. The effectiveness of block breaking depends on the type of elephant and the tusks it's wearing.
 
 achievement.elephant_chest=Elephant Luggage
-achievement.elephant_chest.desc=Put an elephant chest on an elephant or mammoth that is wearing an elephant harness. Elephants and mammoths can hold up to two elephant chests. When carrying two elephant chests, mammoths can also be equiped with up to two minecraft chest blocks. You can open the chests using a key.
+achievement.elephant_chest.desc=Put an elephant chest on an elephant or mammoth that is wearing an elephant harness. Elephants and mammoths can hold two elephant chests. When carrying two elephant chests, mammoths can also be equiped with an extra of two minecraft chest blocks. You can open the chests using a key.
 
 achievement.elephant_howdah=Your Highness
 achievement.elephant_howdah.desc=Put an elephant howdah on an asian elephant that is wearing an elephant garment.
@@ -439,7 +439,7 @@ achievement.pet_food=Feeding the Cat
 achievement.pet_food.desc=Fill a kitty bed by yourself with some milk or cat food. You can automate this process later using a dispenser.
 
 achievement.wool_ball=Kitty Play Time
-achievement.wool_ball.desc=Craft a wool ball. Give this to a curious kitty to make them play with it.
+achievement.wool_ball.desc=Craft a wool ball. Give this to a curious kitty to let them play with it.
 
 achievement.tame_big_cat=Big Cat Tamer
 achievement.tame_big_cat.desc=Tame a baby big cat by dropping some raw meat near it and putting a medallion on it after it eats a good amount of the meat.
@@ -447,16 +447,16 @@ achievement.tame_big_cat.desc=Tame a baby big cat by dropping some raw meat near
 achievement.big_cat_claw=Big Cat Hunter
 achievement.big_cat_claw.desc=Obtain a big cat claw.
 
-achievement.craft_whip=Time to crack the Whip!
+achievement.craft_whip=Time to Crack the Whip!
 achievement.craft_whip.desc=Craft a whip. Use this to make any tamed creature sit. Use this while riding any creature to make it sprint. Use for special effects while riding a nightmare horse, unicorn, unicorn ostrich, or elephant.
 
 achievement.indiana=Just like Indiana Jones
-achievement.indiana.desc=Use a whip on a tamed Big Cat more than six times.
+achievement.indiana.desc=Use a whip on a tamed big cat more than six times.
 
 achievement.shark_tooth=Shark Boxer
 achievement.shark_tooth.desc=Obtain a shark tooth.
 
-achievement.fish_net=Time to catch more Fish
+achievement.fish_net=Time to Catch More Fish
 achievement.fish_net.desc=Craft a fish net. Use this to catch and tame most aquatic creatures. You can also use it to store any aquatic pet.
 
 achievement.shark_sword=A very Toothy Sword
@@ -481,7 +481,7 @@ achievement.ostrich_egg=Egg Thief
 achievement.ostrich_egg.desc=Breed a wild ostrich couple using melon seeds and steal their egg. Pet ostriches can be ridden when they become adults. Pet ostriches can also be transformed with essences.
 
 achievement.ostrich_helmet=Protective Gear
-achievement.ostrich_helmet.desc=Put any vanilla or mo creatures helmet on a pet adult ostrich.
+achievement.ostrich_helmet.desc=Put any vanilla or mo' creatures helmet on a pet adult ostrich.
 
 achievement.ostrich_chest=Ostrich Luggage
 achievement.ostrich_chest.desc=Put a chest on a pet adult ostrich. You can open the chest using a key.
@@ -495,7 +495,7 @@ achievement.pet_amulet.desc=Craft a pet amulet. Use this to store almost any tam
 achievement.cook_omelette=Sunny Side Up
 achievement.cook_omelette.desc=Cook any egg.
 
-achievement.cook_turkey=More filling than Chicken
+achievement.cook_turkey=More Filling than Chicken
 achievement.cook_turkey.desc=Cook raw turkey.
 
 achievement.cook_ostrich=Tastes more like Beef

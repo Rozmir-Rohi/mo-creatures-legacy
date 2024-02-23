@@ -7,7 +7,7 @@ import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
-import drzhark.mocreatures.entity.item.MoCEntityPlatform;
+import drzhark.mocreatures.entity.item.MoCEntityMammothPlatform;
 import drzhark.mocreatures.inventory.MoCAnimalChest;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageAnimation;
@@ -219,7 +219,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 
     @Override
     public void onLivingUpdate()
-    {
+    {	
     	if (entityToAttack != null && entityToAttack == riddenByEntity)
     	{
     		if (!(riddenByEntity instanceof EntityPlayer && riddenByEntity.getCommandSenderName().equals(getOwnerName()))) //if not the owner of this entity
@@ -296,13 +296,49 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 MoCTools.buckleMobsNotPlayers(this, ramAttackDamage, 3D, worldObj);
             }
             
-            if (getIsTamed() && (riddenByEntity == null) && getArmorType() >= 1 && rand.nextInt(20) == 0)
+            if (
+            		getIsTamed() && getArmorType() >= 1 && rand.nextInt(20) == 0 &&
+            		(
+            			sprintCounter == 0
+            			&& (
+            					riddenByEntity == null
+            				
+		            			|| ( 	// make songhua river mammoth sit if it doesn't have a second player mount
+		            					getArmorType() >= 3 //wearing mammoth platform
+		            					&& entityToAttack == null
+		            					&& (riddenByEntity != null && riddenByEntity instanceof EntityPlayer)
+		            					&& ((EntityLivingBase) riddenByEntity).getAITarget() == null
+		            					&& !secondRider()
+		            				)
+	            			)
+            		)
+            	)
             {
                 EntityPlayer playerNearby = worldObj.getClosestPlayerToEntity(this, 3D);
-                if (playerNearby != null && (!MoCreatures.proxy.enableStrictOwnership || playerNearby.getCommandSenderName().equals(getOwnerName())) && playerNearby.isSneaking())
+                
+                if (	//make elephant sit
+                		playerNearby != null
+                		&& (!MoCreatures.proxy.enableStrictOwnership || playerNearby.getCommandSenderName().equals(getOwnerName()))
+                		&& playerNearby.isSneaking()
+                	)
                 {
                     sit();
                 }
+                
+                
+                if (	//mount second player on mammoth
+                		sitCounter > 0
+	            		&& riddenByEntity != null
+	            		&& riddenByEntity instanceof EntityPlayer
+	            		&& getArmorType() >= 3 //wearing mammoth platform
+	            		&& playerNearby != riddenByEntity
+	            		&& !secondRider()
+	            		&& playerNearby.isAirBorne
+	            	)
+	            {
+	            	mountSecondPlayer(playerNearby);
+	            	sitCounter = 0;
+	            }
             }
 
             if (MoCreatures.proxy.elephantBulldozer && getIsTamed() && (riddenByEntity != null) && (getTusks() > 0) && sprintCounter > 0)
@@ -319,37 +355,6 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                     int dmg = MoCTools.destroyBlocksInFront(this, 2D, getTusks(), heightWithinToDestroyBlocks);
                     checkTusks(dmg);
                 
-            }
-
-            if (riddenByEntity != null && riddenByEntity instanceof EntityPlayer)
-            {
-                if (sitCounter != 0 && getArmorType() >= 3 && !secondRider())
-                {
-                    List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(2D, 2D, 2D));
-                    
-                    int iterationLength = entitiesNearbyList.size();
-                    
-                    if (iterationLength > 0)
-                    {
-	                    for (int index = 0; index < iterationLength; index++)
-	                    {
-	                        Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-	
-	                        if (!(entityNearby instanceof EntityPlayer) || entityNearby == riddenByEntity)
-	                        {
-	                            continue;
-	                        }
-	
-	                        if (((EntityPlayer) entityNearby).isSneaking())
-	                        {
-	                            mountSecondPlayer(entityNearby);
-	                        }
-	
-	                    }
-                    }
-                }
-                
-
             }
 
             if (riddenByEntity == null && rand.nextInt(100) == 0)
@@ -379,7 +384,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 	        for (int index = 0; index < iterationLength; index++)
 	        {
 	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-	            if ((entityNearby instanceof MoCEntityPlatform) && (entityNearby.riddenByEntity != null))
+	            if ((entityNearby instanceof MoCEntityMammothPlatform) && (entityNearby.riddenByEntity != null))
 	            {
 	                return true;
 	            }
@@ -418,7 +423,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 	        for (int index = 0; index < iterationLength; index++)
 	        {
 	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-	            if ((entityNearby instanceof MoCEntityPlatform))
+	            if ((entityNearby instanceof MoCEntityMammothPlatform))
 	            {
 	                entityNearby.setDead();
 	            }
@@ -551,7 +556,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                     return true;
                 }
 
-                //attack mammoth platform to songhua river mammoths that already have an elephant harness
+                //attach mammoth platform to songhua river mammoths that already have an elephant harness
                 if (getArmorType() == 1 && getType() == 4 && item == MoCreatures.mammothPlatform)
                 {
                     if (--itemstack.stackSize == 0)
@@ -607,20 +612,25 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         }
         
         if (    //try to mount player on elephant - THIS MUST TO BE AT THE VERY LAST OF THE INTERACT FUNCTION so that any interactable items are used first before the player mounts the elephant
-        		(
-        			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
-        			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
-        		)
-        		&& getIsTamed() && getIsAdult() && getArmorType() >= 1 && sitCounter != 0
+    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+    			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
         	)
         {
-            entityPlayer.rotationYaw = rotationYaw;
-            entityPlayer.rotationPitch = rotationPitch;
-            sitCounter = 0;
-            entityPlayer.mountEntity(this);
-            entityPlayer.addStat(MoCAchievements.mount_elephant, 1);
-            
-            return true;
+        	if (
+        			sitCounter != 0
+        			&& getIsTamed()
+        			&& getIsAdult()
+        			&& riddenByEntity == null
+        			&& getArmorType() >= 1 //wearing elephant harness
+	        	)
+					{
+			            entityPlayer.rotationYaw = rotationYaw;
+			            entityPlayer.rotationPitch = rotationPitch;
+			            sitCounter = 0;
+			            entityPlayer.mountEntity(this);
+			            entityPlayer.addStat(MoCAchievements.mount_elephant, 1);
+			            return true;
+					}
         }
         
         return false;
@@ -765,7 +775,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
     private void mountSecondPlayer(Entity entity)
     {
         double yOffset = 2.0D;
-        MoCEntityPlatform platform = new MoCEntityPlatform(worldObj, getEntityId(), yOffset, 1.25D);
+        MoCEntityMammothPlatform platform = new MoCEntityMammothPlatform(worldObj, getEntityId(), yOffset, 1.25D);
         platform.setPosition(posX, posY + yOffset, posZ);
         worldObj.spawnEntityInWorld(platform);
         entity.mountEntity(platform);

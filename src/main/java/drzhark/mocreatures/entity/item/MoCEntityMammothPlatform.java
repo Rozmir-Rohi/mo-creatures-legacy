@@ -12,13 +12,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class MoCEntityPlatform extends Entity {
+public class MoCEntityMammothPlatform extends Entity {
     private int mastersID = 0;
     private double yOffset;
     private double zOffset;
     private int mountCount;
 
-    public MoCEntityPlatform(World world, int id, double yOffset, double zOffset)
+    public MoCEntityMammothPlatform(World world, int id, double yOffset, double zOffset)
     {
         this(world);
         isImmuneToFire = true;
@@ -28,7 +28,7 @@ public class MoCEntityPlatform extends Entity {
         setSize(0.1F, 0.1F);
     }
 
-    public MoCEntityPlatform(World world)
+    public MoCEntityMammothPlatform(World world)
     {
         super(world);
     }
@@ -127,10 +127,7 @@ public class MoCEntityPlatform extends Entity {
     {
         if (riddenByEntity != null)
         {
-            double var1 = Math.cos((double) rotationYaw * Math.PI / 180.0D) * 0.4D;
-            double var3 = Math.sin((double) rotationYaw * Math.PI / 180.0D) * 0.4D;
             riddenByEntity.setPosition(posX, posY + getMountedYOffset() + riddenByEntity.getYOffset(), posZ);
-            riddenByEntity.rotationYaw = rotationYaw;
         }
     }
 

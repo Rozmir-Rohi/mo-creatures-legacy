@@ -1098,3 +1098,12 @@ Fixed crash when trying to put a mammoth platform to a brown mammoth. This was f
 
 
 Fixed pet amulet, horse amulets, and fish nets making the max health of any stored creature to 20HP.
+
+
+Fixed aquatic creatures always trying to swim up to the surface of water.
+
+
+Fixed second player not being able to mount a mammoth platform. Also now for a player to mount a mammoth platform while another player is riding the songhua river mammoth, they first must make the mammoth sit by sneaking near it, and after the mammoth sits they will need to jump while close to the mammoth to get onto the mammoth platform.
+
+
+Final corrections for the en_US.lang file.

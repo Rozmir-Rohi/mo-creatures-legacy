@@ -204,10 +204,10 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         double yDistance = yCoordinate - posY;
         double zDistance = zCoordinate - posZ;
         
-        double d3 = MathHelper.sqrt_double((xDistance * xDistance) + (zDistance * zDistance));
+        double overallDistanceSquared = MathHelper.sqrt_double((xDistance * xDistance) + (zDistance * zDistance));
         
         float xzAngleInDegreesToNewLocation = (float) ((Math.atan2(zDistance, xDistance) * 180D) / Math.PI) - 90F;
-        float yAngleInDegreesToNewLocation = (float) ((Math.atan2(yDistance, d3) * 180D) / Math.PI);
+        float yAngleInDegreesToNewLocation = (float) ((Math.atan2(yDistance, overallDistanceSquared) * 180D) / Math.PI);
         
         rotationPitch = -updateRotation(rotationPitch, yAngleInDegreesToNewLocation, f);
         rotationYaw = updateRotation(rotationYaw, xzAngleInDegreesToNewLocation, f);
@@ -378,19 +378,19 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             }
             if (MoCreatures.isServer() && this instanceof IMoCTameable)
             {
-                int chance = (getMaxTemper() - getTemper());
-                if (chance <= 0)
+                int tameChance = (getMaxTemper() - getTemper());
+                if (tameChance <= 0)
                 {
-                    chance = 1;
+                    tameChance = 1;
                 }
-                if (rand.nextInt(chance * 8) == 0)
+                if (rand.nextInt(tameChance * 8) == 0)
                 {
                     MoCTools.tameWithName((EntityPlayer) riddenByEntity, (IMoCTameable) this);
                 }
 
             }
         }
-        else if ((riddenByEntity != null) && getIsTamed())// && isSwimming())
+        else if ((riddenByEntity != null) && getIsTamed())
         {
             motionX += riddenByEntity.motionX * (getCustomSpeed() / 5.0D);
             motionZ += riddenByEntity.motionZ * (getCustomSpeed() / 5.0D);
@@ -419,7 +419,6 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 
             if (MoCreatures.isServer())
             {
-                //moveEntity(motionX, motionY, motionZ);
                 super.moveEntityWithHeading(movementSideways, movementForward);
             }
         }
@@ -518,9 +517,9 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 
     }
 
-    public void floatOnWater()
+    public void moveVerticallyInWater()
     {
-        float distanceY = MoCTools.distanceToSurface(this);
+        float yDistanceToSurfaceOfWater = MoCTools.distanceToSurface(this);
 
         if (riddenByEntity != null)
         {
@@ -549,7 +548,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             return;
         }
 
-        if (distanceY < 1 || isDiving())
+        if (yDistanceToSurfaceOfWater < 1 || isDiving())
         {
             if (motionY < -0.05)
             {
@@ -558,20 +557,20 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         }
         else
         {
+        	motionY += 0.001D;
+        	
             if (motionY < 0)
             {
                 motionY = 0;
             }
-            motionY += 0.001D;// 0.001
-
-            if (distanceY > 1)
-            {
-                motionY += (distanceY * 0.02);
-                if (motionY > 0.2D)
-                {
-                    motionY = 0.2D;
-                }
-            }
+        }
+        
+        if (yDistanceToSurfaceOfWater > 20 && rand.nextInt(50) == 0) //move up in water
+        {
+	    	while (motionY < 0.2)
+	    	{
+	    		motionY += 0.05; //TODO: make fish moving up smoother -> use moveWithHeading?
+	    	}
         }
     }
 
@@ -767,7 +766,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 
         if (isSwimming())
         {
-            floatOnWater();
+            moveVerticallyInWater();
             outOfWater = 0;
             setAir(300);
         }
@@ -1037,8 +1036,9 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         return (this instanceof IMoCTameable) && getIsTamed();
     }
 
-    protected void dropMyStuff() {
-        // TODO Auto-generated method stub
+    protected void dropMyStuff()
+    {
+
     }
 
     /**

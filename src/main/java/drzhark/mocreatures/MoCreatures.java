@@ -89,7 +89,7 @@ import drzhark.mocreatures.entity.item.MoCEntityEgg;
 import drzhark.mocreatures.entity.item.MoCEntityFishBowl;
 import drzhark.mocreatures.entity.item.MoCEntityKittyBed;
 import drzhark.mocreatures.entity.item.MoCEntityLitterBox;
-import drzhark.mocreatures.entity.item.MoCEntityPlatform;
+import drzhark.mocreatures.entity.item.MoCEntityMammothPlatform;
 import drzhark.mocreatures.entity.item.MoCEntityThrowableBlockForGolem;
 import drzhark.mocreatures.entity.monster.MoCEntityFlameWraith;
 import drzhark.mocreatures.entity.monster.MoCEntityGolem;
@@ -546,7 +546,7 @@ public class MoCreatures {
         
         
         
-        registerEntity(MoCEntityPlatform.class, "MoCPlatform");
+        registerEntity(MoCEntityMammothPlatform.class, "MoCPlatform");
         registerEntity(MoCEntityElephant.class, "Elephant", 14772545, 23423);
         registerEntity(MoCEntityKomodoDragon.class, "KomodoDragon", 16711680, 23423);
         registerEntity(MoCEntityWyvern.class, "Wyvern", 14772545, 65407);
