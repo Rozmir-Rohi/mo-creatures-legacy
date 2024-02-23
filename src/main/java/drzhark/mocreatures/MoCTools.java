@@ -32,6 +32,7 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityTameable;
@@ -1482,7 +1483,7 @@ public class MoCTools {
      * Drops an amulet with the stored information of the entity passed
      * @param entity
      */
-    public static void dropHorseAmulet(MoCEntityTameableAnimal entity)
+    public static void dropHorseAmuletWithNewPetInformation(MoCEntityTameableAnimal entity)
     {
         if (MoCreatures.isServer())
         {
@@ -1495,20 +1496,21 @@ public class MoCTools {
             {
                 stack.setTagCompound(new NBTTagCompound());
             }
-            NBTTagCompound nbtt = stack.stackTagCompound;
+            NBTTagCompound nbtTagCompound = stack.stackTagCompound;
 
             try
             {
-                nbtt.setInteger("SpawnClass", 21); 
-                nbtt.setFloat("Health", entity.getHealth());
-                nbtt.setInteger("Age", entity.getMoCAge());
-                nbtt.setString("Name", entity.getName());
-                nbtt.setBoolean("Rideable", entity.getIsRideable());
-                nbtt.setByte("Armor", entity.getArmorType());
-                nbtt.setInteger("CreatureType", entity.getType());
-                nbtt.setBoolean("Adult", entity.getIsAdult());          
-                nbtt.setString("OwnerName", entity.getOwnerName());
-                nbtt.setInteger("PetId", entity.getOwnerPetId());
+                nbtTagCompound.setInteger("SpawnClass", 21);
+                nbtTagCompound.setFloat("MaxHealth", ((float) ((EntityLiving) entity).getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue()));
+                nbtTagCompound.setFloat("Health", entity.getHealth());
+                nbtTagCompound.setInteger("Age", entity.getMoCAge());
+                nbtTagCompound.setString("Name", entity.getName());
+                nbtTagCompound.setBoolean("Rideable", entity.getIsRideable());
+                nbtTagCompound.setByte("Armor", entity.getArmorType());
+                nbtTagCompound.setInteger("CreatureType", entity.getType());
+                nbtTagCompound.setBoolean("Adult", entity.getIsAdult());          
+                nbtTagCompound.setString("OwnerName", entity.getOwnerName());
+                nbtTagCompound.setInteger("PetId", entity.getOwnerPetId());
             }
             catch (Exception e)
             {
@@ -1532,7 +1534,7 @@ public class MoCTools {
     /**
      * Drops a new amulet/fishnet with the stored information of the entity
      */
-    public static void dropAmulet(IMoCTameable entity, int amuletType)
+    public static void dropAmuletWithNewPetInformation(IMoCTameable entity, int amuletType)
     {
         if (MoCreatures.isServer())
         {
@@ -1546,7 +1548,7 @@ public class MoCTools {
             {
                 stack.setTagCompound(new NBTTagCompound());
             }
-            NBTTagCompound nbtt = stack.stackTagCompound;
+            NBTTagCompound nbtTagCompound = stack.stackTagCompound;
 
             try
             {
@@ -1559,14 +1561,15 @@ public class MoCTools {
                 {
                     petClass = "KomodoDragon";
                 }
-                nbtt.setString("SpawnClass", petClass);
-                nbtt.setFloat("Health", ((EntityLiving)entity).getHealth());
-                nbtt.setInteger("Age", entity.getMoCAge());
-                nbtt.setString("Name", entity.getName());
-                nbtt.setInteger("CreatureType", entity.getType());
-                nbtt.setString("OwnerName", entity.getOwnerName());
-                nbtt.setBoolean("Adult", entity.getIsAdult());
-                nbtt.setInteger("PetId", entity.getOwnerPetId());
+                nbtTagCompound.setString("SpawnClass", petClass);
+                nbtTagCompound.setFloat("MaxHealth", ((float) ((EntityLiving) entity).getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue()));
+                nbtTagCompound.setFloat("Health", ((EntityLiving) entity).getHealth());
+                nbtTagCompound.setInteger("Age", entity.getMoCAge());
+                nbtTagCompound.setString("Name", entity.getName());
+                nbtTagCompound.setInteger("CreatureType", entity.getType());
+                nbtTagCompound.setString("OwnerName", entity.getOwnerName());
+                nbtTagCompound.setBoolean("Adult", entity.getIsAdult());
+                nbtTagCompound.setInteger("PetId", entity.getOwnerPetId());
             }
             catch (Exception e)
             {

@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
+import net.minecraft.util.MathHelper;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
 public class MoCClientWitcheryPlayerWolfAndWerewolfReplacement {
@@ -45,11 +46,11 @@ public class MoCClientWitcheryPlayerWolfAndWerewolfReplacement {
     		if (event.entity != playerThatIsOnClientSide)
     		{	
     			//the position operations get the other player's relative position to the player that is on the client side
-	    		xPositionForModel = -(playerThatIsOnClientSide.posX - event.entity.posX);
+	    		xPositionForModel = -(MathHelper.floor_double_long(playerThatIsOnClientSide.posX) - event.entity.posX);
 	    		
-	    		yPositionForModel = -(playerThatIsOnClientSide.posY - event.entity.posY);
+	    		yPositionForModel = -(MathHelper.floor_double_long(playerThatIsOnClientSide.posY) - event.entity.posY);
 	    		
-	    		zPositionForModel = -(playerThatIsOnClientSide.posZ - event.entity.posZ);
+	    		zPositionForModel = -(MathHelper.floor_double_long(playerThatIsOnClientSide.posZ) - event.entity.posZ);
 	    		
 	    		//TODO: Try to fix position while moving player
 	    		

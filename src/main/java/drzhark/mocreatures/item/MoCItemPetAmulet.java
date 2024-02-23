@@ -16,6 +16,7 @@ import drzhark.mocreatures.network.message.MoCMessageAppear;
 import drzhark.mocreatures.utils.MoCLog;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -30,6 +31,7 @@ public class MoCItemPetAmulet extends MoCItem
     private IIcon[] icons;
     private int ageCounter;
     private String name;
+    private float maxHealth;
     private float health;
     private int age;
     private int creatureType;
@@ -106,14 +108,16 @@ public class MoCItemPetAmulet extends MoCItem
             	        }
                         
                         
-                        ((EntityLiving)storedCreature).setPosition(newPosX, newPosY, newPosZ);
+                        ((EntityLiving) storedCreature).setPosition(newPosX, newPosY, newPosZ);
                         storedCreature.setType(creatureType);
                         storedCreature.setTamed(true);
                         storedCreature.setName(name);
                         storedCreature.setOwnerPetId(PetId);
                         storedCreature.setOwner(entityPlayer.getCommandSenderName());
                         
-                        ((EntityLiving)storedCreature).setHealth(health);
+                        
+                        ((EntityLiving) storedCreature).getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth);
+                        ((EntityLiving) storedCreature).setHealth(health);
                         storedCreature.setMoCAge(age);
                         storedCreature.setAdult(adult);
                         // special case for kitty
@@ -133,7 +137,7 @@ public class MoCItemPetAmulet extends MoCItem
                             entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, emptyAmulet);
                             MoCPetData petData = MoCreatures.instance.mapData.getPetData(storedCreature.getOwnerName());
                             if (petData != null)
-                            {
+                            {	
                                 petData.setInAmulet(storedCreature.getOwnerPetId(), false);
                             }
                         }
@@ -151,6 +155,7 @@ public class MoCItemPetAmulet extends MoCItem
     {
         PetId = nbt.getInteger("PetId");
         creatureType = nbt.getInteger("CreatureType");
+        maxHealth = nbt.getFloat("MaxHealth");
         health = nbt.getFloat("Health");
         age = nbt.getInteger("Age");
         name = nbt.getString("Name");
@@ -163,6 +168,7 @@ public class MoCItemPetAmulet extends MoCItem
     {
         nbt.setInteger("PetID", PetId);
         nbt.setInteger("CreatureType", creatureType);
+        nbt.setFloat("MaxHealth", maxHealth);
         nbt.setFloat("Health", health);
         nbt.setInteger("Age", age);
         nbt.setString("Name", name);

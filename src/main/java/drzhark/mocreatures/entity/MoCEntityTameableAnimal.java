@@ -163,7 +163,7 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
                     petData.setInAmulet(getOwnerPetId(), true);
                 }
                 dropMyStuff();
-                MoCTools.dropAmulet(this, 2);
+                MoCTools.dropAmuletWithNewPetInformation(this, 2);
                 isDead = true;
             }
 

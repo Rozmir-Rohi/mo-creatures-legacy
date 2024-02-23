@@ -551,8 +551,8 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                     return true;
                 }
 
-                //giving a platform to mammoths with harness will attach the platform
-                if (getArmorType() == 1 && isMammoth() && item == MoCreatures.mammothPlatform)
+                //attack mammoth platform to songhua river mammoths that already have an elephant harness
+                if (getArmorType() == 1 && getType() == 4 && item == MoCreatures.mammothPlatform)
                 {
                     if (--itemstack.stackSize == 0)
                     {

@@ -393,7 +393,7 @@ achievement.fairy_horse.desc=Obtain a fairy horse by breeding a pegasus with a u
 achievement.amulet_fairy=Fairy Horse Storage
 achievement.amulet_fairy.desc=Craft a fairy amulet. The fire for the amulet's crafting recipie can be obtained from hell rats.
 
-achievement.wyvern_portal_staff=Where the Wyverns live
+achievement.wyvern_portal_staff=Where the Wyverns Live
 achievement.wyvern_portal_staff.desc=Craft a wyvern portal staff and travel to the wyvern lair.
 
 achievement.wyvern_egg=The Fastest of Them All
@@ -406,7 +406,7 @@ achievement.mount_elephant=Elephant Rider
 achievement.mount_elephant.desc=Ride a tamed adult elephant or mammoth using an elephant harness. You need to make it sit first to climb on. You can make an elephant sit by sneaking near it.
 
 achievement.mammoth_platform=A Platform for Two
-achievement.mammoth_platform.desc=Put a mammoth platform on a mammoth that is wearing an elephant harness. Two players can ride a mammoth when it has a mammoth platform. The second player has to sneak and right-click to get on.
+achievement.mammoth_platform.desc=Put a mammoth platform on a songhua river mammoth that is wearing an elephant harness. Two players can ride a songhua river mammoth when it has a mammoth platform. The second player has to sneak and right-click to get on.
 
 achievement.elephant_garment=Asian Elephant Fashion
 achievement.elephant_garment.desc=Put an elephant garment on an asian elephant.
@@ -439,7 +439,7 @@ achievement.pet_food=Feeding the Cat
 achievement.pet_food.desc=Fill a kitty bed by yourself with some milk or cat food. You can automate this process later using a dispenser.
 
 achievement.wool_ball=Kitty Play Time
-achievement.wool_ball.desc=Craft a wool ball.
+achievement.wool_ball.desc=Craft a wool ball. Give this to a curious kitty to make them play with it.
 
 achievement.tame_big_cat=Big Cat Tamer
 achievement.tame_big_cat.desc=Tame a baby big cat by dropping some raw meat near it and putting a medallion on it after it eats a good amount of the meat.

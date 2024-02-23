@@ -1092,3 +1092,9 @@ Max level Witchery werewolf players can now recruit werewolves that are in their
 
 
 Added water plants from the Plant Mega Pack mod as food items for small fish and fishy. Small fish can only eat freshwater plants, and Fishy can only eat saltwater plants, this reflects the places they live in.
+
+
+Fixed crash when trying to put a mammoth platform to a brown mammoth. This was fixed by removing the ability to put mammoth platforms on a brown mammoths, this also returns the mammoth platform to it's original state (only being able to be equipped on songhua river mammoths).
+
+
+Fixed pet amulet, horse amulets, and fish nets making the max health of any stored creature to 20HP.

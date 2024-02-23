@@ -177,7 +177,7 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
             entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             if (MoCreatures.isServer())
             {
-                MoCTools.dropAmulet(this, 1);
+                MoCTools.dropAmuletWithNewPetInformation(this, 1);
                 isDead = true;
             }
 

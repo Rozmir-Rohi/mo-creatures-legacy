@@ -566,6 +566,7 @@ public class MoCreatures {
         
         if (proxy.replaceVanillaCreepers)
         {
+        	
     		EntityList.addMapping(EntityCreeperExtension.class, "CreeperExtension", uniqueGlobalEntityID);
         }
         

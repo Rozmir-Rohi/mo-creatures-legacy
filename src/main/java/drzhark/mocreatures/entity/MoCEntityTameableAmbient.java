@@ -177,7 +177,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
                 {
                     petData.setInAmulet(getOwnerPetId(), true);
                 }
-                MoCTools.dropAmulet((IMoCTameable) this, 1);
+                MoCTools.dropAmuletWithNewPetInformation((IMoCTameable) this, 1);
                 isDead = true;
             }
 

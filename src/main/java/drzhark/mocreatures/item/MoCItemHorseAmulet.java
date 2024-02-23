@@ -12,6 +12,8 @@ import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageAppear;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,6 +26,7 @@ public class MoCItemHorseAmulet extends MoCItem {
 
     private int ageCounter;
     private String name;
+    private float maxHealth;
     private float health;
     private int age;
     private int creatureType;
@@ -98,6 +101,7 @@ public class MoCItemHorseAmulet extends MoCItem {
                     storedCreature.setMoCAge(age);
                     storedCreature.setName(name);
                     storedCreature.setArmorType(armor);
+                    ((EntityLiving) storedCreature).getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth);
                     storedCreature.setHealth(health);
                     storedCreature.setAdult(adult);
                     storedCreature.setOwnerPetId(PetId);
@@ -145,6 +149,7 @@ public class MoCItemHorseAmulet extends MoCItem {
     {
         PetId = nbt.getInteger("PetId");
         creatureType = nbt.getInteger("CreatureType");
+        maxHealth = nbt.getFloat("MaxHealth");
         health = nbt.getFloat("Health");
         age = nbt.getInteger("Age");
         name = nbt.getString("Name");
@@ -159,6 +164,7 @@ public class MoCItemHorseAmulet extends MoCItem {
     {
         nbt.setInteger("PetID", PetId);
         nbt.setInteger("CreatureType", creatureType);
+        nbt.setFloat("MaxHealth", maxHealth);
         nbt.setFloat("Health", health);
         nbt.setInteger("Age", age);
         nbt.setString("Name", name);
