@@ -295,7 +295,7 @@ container.MoCreatures.ElephantChest=大象储物箱
 container.MoCreatures.OstrichChest=鸵鸟储物箱
 container.MoCreatures.WyvernChest=翼龙储物箱
 
-notify.MoCreatures.egg_hatching=蛋快孵出来了!继续观察!如果您离开该区域，位于%1$s， %2$s， %3$s的孵化生物将会丢失。
+notify.MoCreatures.egg_hatching=蛋即将孵化！请保持观察！如果您离开该区域，位于%1$s， %2$s， %3$s的孵化生物如果离开该区域将会消失。
 
 notify.MoCreatures.max_pet_count_reached=无法驯服更多生物。您已达到服务器设定的%1$s个宠物的上限。
 
@@ -391,7 +391,7 @@ achievement.wyvern_portal_staff=翼龙巢穴传送杖
 achievement.wyvern_portal_staff.desc=制作一把翼龙巢穴传送杖并前往翼龙巢穴。
 
 achievement.wyvern_egg=最快的伙伴
-achievement.wyvern_egg.desc=从一只母翼龙处获得一枚翼龙蛋。孵化后，宠物翼龙喜欢吃生老鼠和生兔子。成年的宠物翼龙可以骑乘，装备原版的马铠，并且可以携带箱子。
+achievement.wyvern_egg.desc=要获得一枚翼龙蛋，你需要从一只母翼龙那里获取。宠物翼龙喜欢吃生的老鼠和兔子。成年的宠物翼龙可以被骑乘，装备上我的世界原版的马铠，并且能够携带一个箱子。此外，某些类型的翼龙，如丛林、沼泽、热带草原、沙漠和母翼龙，在被喂食特定精华时可能会有不同的反应。
 
 achievement.tame_elephant=驯服大象者
 achievement.tame_elephant.desc=使用许多糖块来驯服一只幼年大象或猛犸象。
@@ -400,16 +400,18 @@ achievement.mount_elephant=骑乘大象者
 achievement.mount_elephant.desc=使用大象鞍马具骑乘一只驯服的成年大象或猛犸象。你需要先让它坐下，然后才能爬上去。你可以通过悄悄接近它来让大象坐下。
 
 achievement.mammoth_platform=双人平台
-achievement.mammoth_platform.desc=在戴着大象鞍马具的大象上放置一个双人平台。当大象有了双人平台后，两个玩家可以骑上大象。第二个玩家需要悄悄接近并右键点击才能上去。
+achievement.mammoth_platform.desc=在戴着大象鞍具的猛犸象身上放置一块猛犸平台。当猛犸象安装了猛犸平台后，两名玩家可以共同骑乘江猛犸象。第二名玩家可以通过在猛犸象附近跳跃的方式，爬上平台，而此时猛犸象正处于坐姿并被另一名玩家骑乘的状态。
 
 achievement.elephant_garment=亚洲象时尚
 achievement.elephant_garment.desc=给亚洲象穿上一件象服。
 
 achievement.elephant_tusks=战斗准备
-achievement.elephant_tusks.desc=给大象或猛犸象装备任何一对象牙。当装备了象牙后，它们可以在被鞭打时冲撞，并可以摧毁树木。树木破坏的效果取决于大象的类型和它所戴的象牙。
+achievement.elephant_tusks.desc=当你给大象或猛犸象装备上任何一对獠牙时，就能够实现这个成就。当大象或猛犸象佩戴着长牙时，它们可以被驯服以用来冲撞并摧毁面前的方块。方块破坏的效果取决于大象的种类和所佩戴的獠牙的类型。
 
 achievement.elephant_chest=大象行李箱
-achievement.elephant_chest.desc=在戴着大象鞍马具的大象或猛犸象上放置一个大象行李箱。大象和猛犸象最多可以携带两个大象行李箱。你可以使用钥匙打开行李箱。
+achievement.elephant_chest.desc=在穿戴大象挽具的大象或猛犸象身上放置一个大象行李箱。大象和猛犸象可以携带两个大象行李箱。当携带两个大象行李箱时，猛犸象还可以额外装备两个我的世界原版箱子。您可以使用钥匙打开这些箱子。
+
+恭喜您创造了这一独特而奇幻的景象！享受大象或猛犸象身着精美胸甲配饰的实用性和美学魅力吧。
 
 achievement.elephant_howdah=殿下
 achievement.elephant_howdah.desc=在穿着象服的亚洲象上放置一个象座。
@@ -433,7 +435,7 @@ achievement.pet_food=喂猫
 achievement.pet_food.desc=使用牛奶或猫粮亲自填充猫窝。以后你可以使用发射器自动化这个过程。
 
 achievement.wool_ball=猫咪玩耍时间
-achievement.wool_ball.desc=制作一个绒毛球。
+achievement.wool_ball.desc=制作一个羊毛球，然后给好奇的猫咪玩耍。
 
 achievement.tame_big_cat=大型猫科动物驯服师
 achievement.tame_big_cat.desc=通过在大型猫科动物附近放置一些生肉，在大型猫科动物吃了一些肉后给它戴上勋章来驯服大型猫科动物。
