@@ -1,7 +1,5 @@
 package drzhark.mocreatures.client;
 
-import java.math.BigDecimal;
-
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
@@ -14,7 +12,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.MathHelper;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
 public class MoCClientWitcheryPlayerWolfAndWerewolfReplacement {
@@ -45,16 +42,19 @@ public class MoCClientWitcheryPlayerWolfAndWerewolfReplacement {
     		
     		if (event.entity != playerThatIsOnClientSide)
     		{	
+    			/*
+    			 * TODO: Fix rendering bugs for player wolf/werewolf forms on other players on servers:
+    			 * 
+    			 *     - Fix model position while the client side player is moving around the other player that is in wolf/werewolf form
+	    		 *     - Fix model rotationYaw and rotationPitch glitches for the other player that is in wolf/werewolf form
+    			 */
+    			
     			//the position operations get the other player's relative position to the player that is on the client side
-	    		xPositionForModel = -(MathHelper.floor_double_long(playerThatIsOnClientSide.posX) - event.entity.posX);
+	    		xPositionForModel = -(playerThatIsOnClientSide.posX - event.entity.posX);
 	    		
-	    		yPositionForModel = -(MathHelper.floor_double_long(playerThatIsOnClientSide.posY) - event.entity.posY);
+	    		yPositionForModel = -(playerThatIsOnClientSide.posY - event.entity.posY);
 	    		
-	    		zPositionForModel = -(MathHelper.floor_double_long(playerThatIsOnClientSide.posZ) - event.entity.posZ);
-	    		
-	    		//TODO: Try to fix position while moving player
-	    		
-	    		//TODO: FIX rotation over rotate for rotationYaw and rotationPitch
+	    		zPositionForModel = -(playerThatIsOnClientSide.posZ - event.entity.posZ);
 	    		
 	    		rotationYawForModel = event.entity.rotationYaw;
 	    		

@@ -1,5 +1,7 @@
 package drzhark.mocreatures.entity.aquatic;
 
+import java.util.List;
+
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
@@ -9,6 +11,9 @@ import drzhark.mocreatures.network.message.MoCMessageAnimation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -31,7 +36,6 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
     protected void applyEntityAttributes()
     {
       super.applyEntityAttributes();
-      getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(getType() == 2 ? 10.0D : 20.0D);
     }
 
     @Override
@@ -54,6 +58,8 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
             }
             getMaxHealth();
         }
+        
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(getType() == 2 ? 10.0D : 20.0D);
     }
 
     @Override
@@ -132,6 +138,24 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
                 tailCounter = 0;
             }
         }
+    }
+    
+    @Override
+    public boolean isMyHealFood(ItemStack itemstack)
+    {
+    	if (itemstack != null)
+    	{
+	    	Item item = itemstack.getItem();
+	    	
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+	    	
+	    	return
+	    		(
+        			(item == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
+        			|| oreDictionaryNameArray.contains("listAllfishraw")
+        		);
+    	}
+    	return false;
     }
 
     @Override

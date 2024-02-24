@@ -1,5 +1,6 @@
 package drzhark.mocreatures.entity.animal;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
@@ -12,7 +13,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathEntity;
@@ -20,6 +20,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import scala.actors.threadpool.Arrays;
 
 public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     private boolean isSwinging;
@@ -54,29 +55,29 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     @Override
     public ResourceLocation getTexture()
     {
-        String tempText = "turtle.png";
+        String textureName = "turtle.png";
 
-        if (getName().equals("Donatello") || getName().equals("donatello"))
+        if (isNameLeonardo())
         {
-            tempText = "turtled.png";
+            textureName = "turtlel.png";
         }
 
-        if (getName().equals("Leonardo") || getName().equals("leonardo"))
+        if (isNameRaphael())
         {
-            tempText = "turtlel.png";
+            textureName = "turtler.png";
+        }
+        
+        if (isNameDonatello())
+        {
+            textureName = "turtled.png";
         }
 
-        if (getName().equals("Raphael") || getName().equals("raphael") || getName().equals("Rafael") || getName().equals("rafael"))
+        if (isNameMichelangelo())
         {
-            tempText = "turtler.png";
+            textureName = "turtlem.png";
         }
 
-        if (getName().equals("Michelangelo") || getName().equals("michelangelo") || getName().equals("Michaelangelo") || getName().equals("michaelangelo"))
-        {
-            tempText = "turtlem.png";
-        }
-
-        return MoCreatures.proxy.getTexture(tempText);
+        return MoCreatures.proxy.getTexture(textureName);
     }
 
     @Override
@@ -425,39 +426,113 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     {
         return "mocreatures:turtledying";
     }
-
+    
     @Override
-    protected Item getDropItem()
-    {
-        if (getName().equals("Donatello") || getName().equals("donatello"))
-        { return MoCreatures.bo; }
+    protected void dropFewItems(boolean hasEntityBeenHitByPlayer, int levelOfLootingEnchantmentUsedToKillThisEntity)
+    {   
+        if (!isTeenageMutantNinjaTurtle())
+        {
+        	int randomAmount = rand.nextInt(3);
+        	
+        	dropItem(MoCreatures.turtleRaw, randomAmount);
+        }
+        
+        
+        if (isNameLeonardo()) { dropItem(MoCreatures.katana, 1); }
 
         
-        if (getName().equals("Leonardo") || getName().equals("leonardo"))
-        { return MoCreatures.katana; }
-
-        
-        if (getName().equals("Rafael") || getName().equals("rafael") || getName().equals("raphael") || getName().equals("Raphael"))
-        { return MoCreatures.sai; }
-
-        
-        if (getName().equals("Michelangelo") || getName().equals("michelangelo") || getName().equals("Michaelangelo") || getName().equals("michaelangelo"))
-        { return MoCreatures.nunchaku; }
+        if (isNameRaphael()) { dropItem(MoCreatures.sai, 1); }
         
         
-        return MoCreatures.turtleRaw;
+        if (isNameDonatello()) { dropItem(MoCreatures.bo, 1); }
+        
+        
+        if (isNameMichelangelo()) { dropItem(MoCreatures.nunchaku, 1); }
     }
+    
+    
+    private boolean isNameLeonardo()
+    {
+    	String nameOfTurtle = getName();
+    	
+    	String nameOfTurtleAsByteArrayString = Arrays.toString(nameOfTurtle.getBytes(StandardCharsets.UTF_8));
+    	
+    	String leonardoInChineseSimplifiedAsByteArrayString = "[-24, -114, -79, -26, -104, -126, -25, -70, -77, -27, -92, -102]";
+    	String leonardoInRussianAsByteArrayString = "[-48, -101, -48, -75, -48, -66, -48, -67, -48, -80, -47, -128, -48, -76, -48, -66]";
+    	
+    	return (
+    				nameOfTurtle.equals("Leonardo")
+    				|| nameOfTurtleAsByteArrayString.equals(leonardoInChineseSimplifiedAsByteArrayString)
+    				|| nameOfTurtleAsByteArrayString.equals(leonardoInRussianAsByteArrayString)
+    			);
+    }
+    
+    
+    private boolean isNameRaphael()
+    {
+    	String nameOfTurtle = getName();
+    	
+    	String nameOfTurtleAsByteArrayString = Arrays.toString(nameOfTurtle.getBytes(StandardCharsets.UTF_8));
+    	
+    	String rapaelInChineseSimplifiedAsByteArrayString = "[-26, -117, -119, -26, -106, -112, -27, -80, -108]";
+    	String raphaelInRussianAsByteArrayString = "[-48, -96, -48, -80, -47, -124, -48, -80, -47, -115, -48, -69, -47, -116]";
+    	
+    	return (
+    				nameOfTurtle.equals("Raphael")
+    				|| nameOfTurtleAsByteArrayString.equals(rapaelInChineseSimplifiedAsByteArrayString)
+    				|| nameOfTurtleAsByteArrayString.equals(raphaelInRussianAsByteArrayString)
+    			);
+    }
+    
+    
+    private boolean isNameDonatello()
+    {
+    	String nameOfTurtle = getName();
+    	
+    	String nameOfTurtleAsByteArrayString = Arrays.toString(nameOfTurtle.getBytes(StandardCharsets.UTF_8));
+    	
+    	String donatelloInChineseSimplifiedAsByteArrayString = "[-27, -92, -102, -27, -80, -68]";
+    	String donatelloInRussianAsByteArrayString = "[-48, -108, -48, -66, -48, -67, -48, -80, -47, -126, -48, -75, -48, -69, -48, -69, -48, -66]";
+    	
+    	
+    	return (
+    				nameOfTurtle.equals("Donatello")
+    				|| nameOfTurtleAsByteArrayString.equals(donatelloInChineseSimplifiedAsByteArrayString)
+    				|| nameOfTurtleAsByteArrayString.equals(donatelloInRussianAsByteArrayString)
+    			);
+    }
+    
+    
+    private boolean isNameMichelangelo()
+    {
+    	String nameOfTurtle = getName();
+    	
+    	String nameOfTurtleAsByteArrayString = Arrays.toString(nameOfTurtle.getBytes(StandardCharsets.UTF_8));
+    	
+    	String michelangeloInChineseSimplifiedAsByteArrayString = "[-25, -79, -77, -27, -68, -128, -26, -100, -105, -25, -112, -86, -25, -67, -105]";
+    	String michelangeloInRussianAsByteArrayString = "[-48, -100, -48, -72, -48, -70, -48, -75, -48, -69, -48, -80, -48, -67, -48, -76, -48, -74, -48, -75, -48, -69, -48, -66]";
+    	
+    	return (
+    				nameOfTurtle.equals("Michelangelo")
+    				|| nameOfTurtleAsByteArrayString.equals(michelangeloInChineseSimplifiedAsByteArrayString)
+    				|| nameOfTurtleAsByteArrayString.equals(michelangeloInRussianAsByteArrayString)
+    			);
+    }
+    
 
     /**
      * Used to avoid rendering the top shell cube
      * 
      * @return
      */
-    public boolean isTMNT()
+    public boolean isTeenageMutantNinjaTurtle()
     {
-        if (getName().equals("Donatello") || getName().equals("donatello") || getName().equals("Leonardo") || getName().equals("leonardo") || getName().equals("Rafael") || getName().equals("rafael") || getName().equals("raphael") || getName().equals("Raphael") || getName().equals("Michelangelo") || getName().equals("michelangelo") || getName().equals("Michaelangelo") || getName()
-                .equals("michaelangelo")) { return true; }
-        return false;
+        return (
+        			isNameLeonardo()
+        			|| isNameRaphael()
+        			|| isNameDonatello()
+        			|| isNameMichelangelo()
+        		);
     }
 
     @Override

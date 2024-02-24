@@ -24,6 +24,7 @@ import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Timer;
 import net.minecraft.world.World;
 
 public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEntity//, IEntityAdditionalSpawnData
@@ -424,9 +425,11 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         }
 
         prevLimbSwingAmount = limbSwingAmount;
+        
         double xDistanceTravelled = posX - prevPosX;
         double zDistanceTravelled = posZ - prevPosZ;
         float overallHorizontalDistanceTravelledSquared = MathHelper.sqrt_double((xDistanceTravelled * xDistanceTravelled) + (zDistanceTravelled * zDistanceTravelled)) * 4.0F;
+        
         if (overallHorizontalDistanceTravelledSquared > 1.0F)
         {
             overallHorizontalDistanceTravelledSquared = 1.0F;
@@ -516,7 +519,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     {
 
     }
-
+    
     public void moveVerticallyInWater()
     {
         float yDistanceToSurfaceOfWater = MoCTools.distanceToSurface(this);
@@ -548,7 +551,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             return;
         }
 
-        if (yDistanceToSurfaceOfWater < 1 || isDiving())
+        if (yDistanceToSurfaceOfWater < 1 || isDiving()) //stay beneath water surface
         {
             if (motionY < -0.05)
             {
@@ -557,20 +560,18 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         }
         else
         {
-        	motionY += 0.001D;
-        	
             if (motionY < 0)
             {
-                motionY = 0;
+                motionY = 0; //fish stays vertically still 
             }
-        }
-        
-        if (yDistanceToSurfaceOfWater > 20 && rand.nextInt(50) == 0) //move up in water
-        {
-	    	while (motionY < 0.2)
-	    	{
-	    		motionY += 0.05; //TODO: make fish moving up smoother -> use moveWithHeading?
-	    	}
+            
+            if (
+            		!isDiving()
+            		&& (yDistanceToSurfaceOfWater > 1 && rand.nextInt(5) == 0)
+            	)
+            {
+            	motionY = 0.05D; //move up in water
+            }
         }
     }
 

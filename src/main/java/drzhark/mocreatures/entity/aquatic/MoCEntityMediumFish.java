@@ -1,5 +1,7 @@
 package drzhark.mocreatures.entity.aquatic;
 
+import java.util.List;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import drzhark.mocreatures.MoCTools;
@@ -9,6 +11,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -162,6 +165,24 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
             prevRenderYawOffset = renderYawOffset = rotationYaw = prevRotationYaw;
             rotationPitch = prevRotationPitch;
         }
+    }
+    
+    @Override
+    public boolean isMyHealFood(ItemStack itemstack)
+    {
+    	if (itemstack != null)
+    	{
+	    	Item item = itemstack.getItem();
+	    	
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+	    	
+	    	return
+	    		(
+        			(item == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
+        			|| oreDictionaryNameArray.contains("listAllfishraw")
+        		);
+    	}
+    	return false;
     }
 
     @Override

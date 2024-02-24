@@ -37,12 +37,25 @@ public class MoCMessageUpdatePetName implements IMessage, IMessageHandler<MoCMes
 
     @Override
     public void toBytes(ByteBuf buffer)
-    {
-    	int byteLength = 0;
-    	
-    	char[] characterArray = name.toCharArray();
-    	
-    	for (char character : characterArray) //this loop goes through each character in the string and assigns them the amount of bytes they need
+    {	
+        
+        buffer.writeInt(findByteLengthOfString(name));
+        
+        
+        buffer.writeBytes(StandardCharsets.UTF_8.encode(name)); //encodes to UTF-8 before writeBytes to properly process special characters
+
+        
+        buffer.writeInt(entityId);
+    }
+
+	public static int findByteLengthOfString(String string)
+	{
+		int byteLength = 0;
+		
+		char[] characterArray = string.toCharArray();
+		
+		
+		for (char character : characterArray) //this loop goes through each character in the string and assigns them the amount of bytes they need
     	{	
     		
     		UnicodeScript scriptThatCharacterIsWrittenIn = Character.UnicodeScript.of(character);
@@ -92,15 +105,9 @@ public class MoCMessageUpdatePetName implements IMessage, IMessageHandler<MoCMes
     			byteLength += 3;
     		}
     	}
-        
-        buffer.writeInt(byteLength);
-        
-        
-        buffer.writeBytes(StandardCharsets.UTF_8.encode(name)); //encodes to UTF-8 before writeBytes to properly process special characters
-
-        
-        buffer.writeInt(entityId);
-    }
+		
+		return byteLength;
+	}
 
     @Override
     public void fromBytes(ByteBuf buffer)
