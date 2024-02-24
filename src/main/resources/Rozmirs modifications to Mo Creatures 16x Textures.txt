@@ -4,7 +4,7 @@ Fixed eyes and/or mouth and/or nose: bear, all horses, wwolf, werewolf, boar, me
 
 Fixed ears: all big cats
 
-Fixed body texture: lion, cheetah, tiger
+Fixed body texture: lion, cheetah, tiger, hell rat
 
 Removed 16x texture because it didn't fit with the model: ant, cricket, kitty, jelly fish    <---- They look much better this way and they don't look too out of place because they are not very detailed x32 textures. Also, some of these texture lose vital details with the 16x version.
 
@@ -18,7 +18,7 @@ Fixed saddle texture inconsistency: all horses
 
 Reworked textures from original 32x textures due to changes in 1.7.10 format: all big cats except panther
 
-Fixed tail: turkey
+Fixed tail: turkey, hell rat
 
 Fixed & improved larva texture: scorpion, scorpion saddle
 

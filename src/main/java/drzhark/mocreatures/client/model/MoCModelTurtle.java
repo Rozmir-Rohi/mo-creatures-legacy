@@ -59,7 +59,7 @@ public class MoCModelTurtle extends ModelBase {
     {
         //super.render(entity, f, f1, f2, f3, f4, f5);
         MoCEntityTurtle entityturtle = (MoCEntityTurtle) entity;
-        boolean TMNT = entityturtle.isTMNT();
+        boolean TMNT = entityturtle.isTeenageMutantNinjaTurtle();
         setRotationAngles(f, f1, f2, f3, f4, f5);
         Shell.render(f5);
         ShellUp.render(f5);

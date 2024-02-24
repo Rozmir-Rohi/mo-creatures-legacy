@@ -1073,9 +1073,6 @@ Fixed elephants always destroying blocks without being whipped.
 Fixed elephant tusks not taking damage when breaking blocks.
 
 
-Fixed Witchery player werewolf replacement not working on servers - still somewhat glitchy though.
-
-
 Fixed creature duplication glitch with mob confinement items from the Mob Confinement mod.
 
 
@@ -1107,3 +1104,27 @@ Fixed second player not being able to mount a mammoth platform. Also now for a p
 
 
 Final corrections for the en_US.lang file.
+
+
+Fixed turtles not recognizing that they are a teenage mutant ninja turtle if they are given a TMNT name in one of the supported languages. Also removed forgiveness of spelling mistakes for english TMNT names, this is because players now have the achievements page where they can find the proper spelling of that TMNT name. 
+
+
+Aquatic creatures can now swim both up and down by themselves.
+
+
+Rays no longer move there tail sideways when swimming.
+
+
+Rays can now be healed using raw fish and any other item in the "listAllfishraw" ore dictionary.
+
+
+Medium fish can now be healed using raw fish and any other item in the "listAllfishraw" ore dictionary. This is because in real life, cod, bass, and salmon are predatory fish, some of which are cannibals.
+
+
+Fixed ray health.
+
+
+Fixed the texture for the back of the hell rat tail. Also improved hell rat body texture. 
+
+
+

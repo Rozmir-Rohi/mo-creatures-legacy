@@ -214,7 +214,7 @@ public class MoCModelRay extends ModelBase {
         //super.setRotationAngles(f, f1, f2, f3, f4, f5);
         float rotF = MathHelper.cos(f * 0.6662F) * 1.5F * f1;
         float f6 = 20F;
-        Tail.rotateAngleY = rotF;//MathHelper.cos(f * 0.6662F) * 0.7F * f1;
+
         RWingA.rotateAngleZ = rotF;
         LWingA.rotateAngleZ = -rotF;
         rotF += (rotF / f6);
