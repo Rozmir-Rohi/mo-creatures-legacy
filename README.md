@@ -1,4 +1,5 @@
 # Mo Creatures Legacy
+<strong> Development for this project has finished. This project will not be receiving any further updates. </strong>
 The final version of Mo' Creatures for 1.7.10 was unfinished and was riddled with bugs. This project fixes that.
 
 The main aim of Mo' Creatures Legacy is to provide a fully working legacy version of Mo' Creatures for 1.7.10.
