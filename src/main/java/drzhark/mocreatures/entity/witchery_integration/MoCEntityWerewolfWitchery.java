@@ -240,39 +240,42 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
     {
         Entity entityThatAttackedThisCreature = damageSource.getEntity();
         
-        damageTaken = 1;
+        if (damageTaken > 0)
+    	{
+        	damageTaken = 1;
         
-        if (entityThatAttackedThisCreature != null)
-        {
-	        if (entityThatAttackedThisCreature instanceof EntityPlayer)
+	        if (entityThatAttackedThisCreature != null)
 	        {
-	        	if (
-	        			MoCTools.isPlayerInWerewolfForm((EntityPlayer) entityThatAttackedThisCreature)
-	        			|| MoCTools.isPlayerInWolfForm((EntityPlayer) entityThatAttackedThisCreature)
-	        		)
-	        	{
-	        		damageTaken = 5;
-	        		damageSource = DamageSource.generic; //don't fight back if attacked by a player werewolf
-	        	}
-	        	
-	        	else 
-	        	{
-	        		EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
-	        		ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
-	        		damageTaken = MoCEntityWerewolf.calculateWerewolfDamageTakenFromPlayerAttack(damageSource, damageTaken, itemstack);
-	        	}
+		        if (entityThatAttackedThisCreature instanceof EntityPlayer)
+		        {
+		        	if (
+		        			MoCTools.isPlayerInWerewolfForm((EntityPlayer) entityThatAttackedThisCreature)
+		        			|| MoCTools.isPlayerInWolfForm((EntityPlayer) entityThatAttackedThisCreature)
+		        		)
+		        	{
+		        		damageTaken = 5;
+		        		damageSource = DamageSource.generic; //don't fight back if attacked by a player werewolf
+		        	}
+		        	
+		        	else 
+		        	{
+		        		EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
+		        		ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
+		        		damageTaken = MoCEntityWerewolf.calculateWerewolfDamageTakenFromPlayerAttack(damageSource, damageTaken, itemstack);
+		        	}
+		        }
+		        
+		        else if (MoCreatures.isWitcheryLoaded && EntityList.getEntityString(entityThatAttackedThisCreature).equals("witchery.witchhunter"))
+		        {
+		        	damageTaken = 5;
+		        }
+		        
+		        else if (entityThatAttackedThisCreature instanceof MoCEntitySilverSkeleton)
+		        {
+		        	damageTaken = 9;
+		        }
 	        }
-	        
-	        else if (MoCreatures.isWitcheryLoaded && EntityList.getEntityString(entityThatAttackedThisCreature).equals("witchery.witchhunter"))
-	        {
-	        	damageTaken = 5;
-	        }
-	        
-	        else if (entityThatAttackedThisCreature instanceof MoCEntitySilverSkeleton)
-	        {
-	        	damageTaken = 9;
-	        }
-        }
+    	}
         
         return super.attackEntityFrom(damageSource, damageTaken);
     }

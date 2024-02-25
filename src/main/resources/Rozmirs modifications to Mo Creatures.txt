@@ -190,7 +190,7 @@ Fixed Crocodile being invisible when doing spin attack.
 Fixed the player model being stuck in death state in f5 mode when dismounting a spinning crocodile without killing it.
 
 
-Renamed fur, hide, reptile, and scorpion armor items' prefixes.
+Renamed fur, hide, reptile, and scorpion armour items' prefixes.
 
 
 Kitty bed, Kitty Litter boxes and Fishbowls now drop themselves on death. Kitty litter boxes will only drop themselves on death if they are clean. Kitty bed and Kitty Litter boxes now have 5 HP.
@@ -229,7 +229,7 @@ Fixed Nightmare horse sitting when using a whip while mounted.
 Fixed whip sounds not playing when making a horse sit.
 
 
-Changed the protection values of fur and hide armor to be the same as leather armor.
+Changed the protection values of fur and hide armour to be the same as leather armour.
 
 
 Fixed Dark Pegasus being slower than Tier 1 horse.
@@ -253,7 +253,7 @@ Fixed Snail Hp: reduced from 20hp to 2hp.
 Made all essence recipes shapeless. Also, you now get two empty bottles back from crafting an essence of light.
 
 
-Horses now handle horse armor protection and their damage reduction in almost the same way as vanilla Minecraft horses.
+Horses now handle horse armour protection and their damage reduction in almost the same way as vanilla Minecraft horses.
 
 
 Modified moclogo image to differentiate from the original mod.
@@ -460,13 +460,13 @@ Fixed egg-hatching chat notification not being dependent on the language files.
 Radded Mandarin and Anglerfish, they now only spawn in the ocean. Also added emissive textures for Anglerfish.
 
 
-Fixed armor protection not working for wyverns. Also fixed a minor bug with armor protection for magic horses.
+Fixed armor protection not working for wyverns. Also fixed a minor bug with armour protection for magic horses.
 
 
 Reduced Witchery Silver Sword damage for werewolves to 9 (same as Gold Sword). Because of this, the Mo'Creatures Silver Sword is now the most powerful weapon against Mo' Creatures werewolves.
 
 
-Tweaked ostrich helmet protection values to follow a similar order to horse armor protection.
+Tweaked ostrich helmet protection values to follow a similar order to horse armour protection.
 
 
 Simplified and improved efficiency of interact code for Wyverns and Elephants. Also, improved code for elephants dropping tusks when sheared or stored in a pet amulet.
@@ -475,7 +475,7 @@ Simplified and improved efficiency of interact code for Wyverns and Elephants. A
 Fixed Skeleton shooting the horse mob that it is riding when trying to shoot the player.
 
 
-Fixed bug where special horses try to wear regular horse armor, which caused that special horse to be invisible.
+Fixed bug where special horses try to wear regular horse armour, which caused that special horse to be invisible.
 
 
 Renamed "Crystal Mount Armor" to "Crystal Horse Armor".
@@ -493,19 +493,19 @@ Fixed skeleton and undead horse skull textures.
 Fixed horse mob and wraith not chasing player if the player manages to get above them.
 
 
-Crickets will now only use their yellow varient when spawning in savannahs or deserts. Also changed Cricket spawning, they now only spawn in forests, plains, and savannahs.
+Crickets will now only use their yellow variant when spawning in savannahs or deserts. Also changed Cricket spawning, they now only spawn in forests, plains, and savannahs.
 
 
 Big Cats, Zebras, and Elephants will no longer spawn in the Outback biome from Biomes O'Plenty. Normal Mo'Creatures horses will spawn in the Outback instead of Zebras to resemble Brumbies in real life.
 
 
-Flies now spawn in Savannah type biomes.
+Flies now spawn in Savanna-type biomes.
 
 
 Fixed the replace creepers event not being dependent on the config files.
 
 
-Fixed pet naming GUI not accepting non-english characters.
+Fixed pet naming GUI not accepting non-English characters.
 
 
 Fixed crash when starting up a server with Mo' Creatures Legacy.
@@ -526,10 +526,10 @@ Fixed silver sword texture.
 Added horse meat drop integration with the Food Expansion mod and Improving Minecraft mod. If GregTech6 is not installed and any of these mods are loaded, normal Mo' Creatures horses will drop horse meat from those mods. The priority for horse meat drops are 1 - Food Expansion. 2 - Improving Minecraft.
 
 
-Fixed MoC weapons and armor not repairable with their materials in an anvil. Note: scorpion swords are repaired using diamonds.
+Fixed MoC weapons and armour not repairable with their materials in an anvil. Note: scorpion swords are repaired using diamonds.
 
 
-Fixed bear spawning in desert.
+Fixed bear spawning in the desert.
 
 
 Fixed naming GUI positioning with different GUI scales.
@@ -554,7 +554,7 @@ Added GregTech6, Palm's Harvest, and more Biomes O' Plenty Item Integration for 
 
 	- Ostrich (feeding only): foodRaisins, listAllseed 
 
-	- Horse (feeding only): listAllwheats, listAllgrain, itemGrass , itemGrassDry
+	- Horse (feeding only): listAllwheats, listAllgrain, itemGrass, itemGrassDry
 
 	- Elephant (feeding only): listAllfruit, listAllwheats, listAllgrain, itemGrass, itemGrassDry
 
@@ -564,7 +564,7 @@ Added GregTech6, Palm's Harvest, and more Biomes O' Plenty Item Integration for 
 
 	- Wyvern (feeding only): foodScrapmeat 
 
-	- Snake (feeding only) : foodScrapmeat 
+	- Snake (feeding only): foodScrapmeat 
 
 
 Deers now drop hide instead of fur. Also added Twilight Forest venison drops for deer.
@@ -575,7 +575,7 @@ Added new feeding items for fishy and small fish:
  - Et Futurum Requiem: Beetroot seeds
  - Biomes O' Plenty: Kelp
  - Palms Harvest: Seaweed
- - Any item in GregTech 6 oredictionary: "foodRaisins"
+ - Any item in GregTech 6 ore dictionary: "foodRaisins"
 
 
 
@@ -634,18 +634,18 @@ Fixed werewolves taking damage from snowball and egg projectiles.
 Dire Wolves now attack players regardless of whether it is night or day.
 
 
-Fixed Werewolf health not changing when in human form and wolf form. Also fixed werewolf taking real damage when transforming.
+Fixed Werewolf health not changing when in human form and wolf form. Also, fixed werewolf taking real damage when transforming.
 
 
 Fixed kitty looking at player when kitty is sleeping.
 
 
 The following pets can now be healed using the following items in addition to their previous items:
- - Turtles: "listAllveggie" (ore dictionary), "listAllfruit" (oredictionary)
+ - Turtles: "listAllveggie" (ore dictionary), "listAllfruit" (ore dictionary)
  - Pet Scorpion: rotten flesh, scrap meat (GregTech 6)
 
 
-Feeding a pet with one of it's normal food items now no longer instantly heals them to full health. However, feeding essences to a pet scorpion, or the same type of essence to an essence created horse or ostrich will still heal them to full health.
+Feeding a pet with one of its normal food items now no longer instantly heals it to full health. However, feeding essences to a pet scorpion, or the same type of essence to an essence-created horse or ostrich will still heal them to full health.
 
 
 Fixed bear and elephant health.
@@ -654,7 +654,7 @@ Fixed bear and elephant health.
 Fixed bear eyes.
 
 
-Fixed predator creatures not destroying drops when destroy drops is enabled. Also, now all predators heal themselves slightly if they kill prey and destroy it's drops.
+Fixed predator creatures not destroying drops when destroy drops is enabled. Also, now all predators heal themselves slightly if they kill prey and destroy its drops.
 
 
 Dire Wolves and Werewolves now heal themselves slightly when they kill prey.
@@ -676,7 +676,7 @@ Also, pets can now only be whipped or renamed by their owners. If a player tries
 If a tamed special creature (mostly predators) is attacked by a player and that player is not the owner of that creature, that creature will now attack that player.
 
 
-Pets can no longer be renamed using a book or a name tag, kitties can also no longer be tamed using a book or a name tag . The items for these uses is now only the medallion.
+Pets can no longer be renamed using a book or a name tag, kitties can also no longer be tamed using a book or a name tag. The items for these uses is now only the medallion.
 
 
 Added language file dependency for the max number of pets reached chat notification. Excluding the chat messages for MoC commands, this marks the completion of full language file dependency for all texts from the original Mo' Creatures mod.
@@ -685,7 +685,7 @@ Added language file dependency for the max number of pets reached chat notificat
 Decreased health of all insects except crabs to 2HP.
 
 
-Added drops for following mobs:
+Added drops for the following mobs:
 	Deer: venison (if palms harvest is installed)
 
 
@@ -695,19 +695,19 @@ Fixed transparent spots in all medium fish. Improved texture of salmon.
 Improved fishing for small fish, fishy, and medium fish. If these creatures are reeled in after biting a fishing hook, they will now be instantly turned into an item in the player's inventory.
 
 
-Improved fishing for fishable creatures. Now reeling in the fish is just like vanilla minecraft.
+Improved fishing for fishable creatures. Now reeling in the fish is just like vanilla Minecraft.
 
 
-Small fish, fishy, and medium fish now have a chance to be force hooked on to a fishing rod by a player throwing the fishing hook at them without the fish willingly biting the hook. But this method of catching fish takes more durability damage on the fishing rod than if the player were to wait for the fish to bite the hook.
+Small fish, fishy, and medium fish now have a chance to be force-hooked onto a fishing rod by a player throwing the fishing hook at them without the fish willingly biting the hook. But this method of catching fish takes more durability damage on the fishing rod than if the player were to wait for the fish to bite the hook.
 
 
 Improved meaningfulness of identifiers in all entity base classes. Also slightly improved the efficiency of For loops in those classes.
 
 
-Fixed werewolf not recognizing golden shovel as one of their weakness items.
+Fixed werewolves not recognizing golden shovel as one of their weakness items.
 
 
-More improvements to meaningfulness of identifiers in entity classes and proxy classes.
+More improvements to the meaningfulness of identifiers in entity classes and proxy classes.
 
 
 Reduced golden shovel weakness damage to werewolf to 3.
@@ -716,13 +716,13 @@ Reduced golden shovel weakness damage to werewolf to 3.
 Cleaned up code for werewolf transforming.
 
 
-Silver skeleton now only run fast if they see an entity to attack (eg: player).
+Silver skeletons now only run fast if they see an entity to attack (eg: player).
 
 
 Blocks thrown by Mini Golems and Big Golems will now instantly turn into solid blocks when they hit the ground. This can be disabled by setting the gamerule doMobGreifing to false.
 
 
-Mini Golems are now no longer able to pickup and throw liquid blocks (eg placeable water block, placeable lava block).
+Mini Golems are now no longer able to pick up and throw liquid blocks (eg placeable water block, placeable lava block).
 
 
 Fixed pandas and bear cubs dragging themselves around when sitting.
@@ -731,10 +731,10 @@ Fixed pandas and bear cubs dragging themselves around when sitting.
 Cleaned up code for duck. Also fixed duck not floating in water. Fixed duck flapping wings in water.
 
 
-Fixed all identifiers to match java naming conventions. Also improved meaningfulness of identifiers and removed unused code where found appropriate.
+Fixed all identifiers to match Java naming conventions. Also improved the meaningfulness of identifiers and removed unused code where found appropriate.
 
 
-Fixed mole having a shadow on the surface when it is digging undergound.
+Fixed mole having a shadow on the surface when it is digging underground.
 
 
 Fixed already spawned scorpions changing their type when they walk into an area where another type of scorpion spawns.
@@ -746,25 +746,25 @@ Scorpions now no longer drop string.
 FOUND BUG: ducks are darker when floating on water. I don't know how to fix this.
 
 
-More identifier changes to match java naming conventions.
+More identifier changes to match Java naming conventions.
 
 
-Added full stops to end of all sentences for achievement descriptions. This fix was only need for en_US.lang and does not need to be applied for other existing language files.
+Added full stops to the end of all sentences for achievement descriptions. This fix was only needed for en_US.lang and does not need to be applied to other existing language files.
 
 
-The following creatures now accept food from the "listAllfishraw" oredictionary:
+The following creatures now accept food from the "listAllfishraw" ore dictionary:
  - Big Cat
  - Piranha
  - Dolphin
  - Shark
  - Komodo Dragons
- - Kitty (Only when angry to calm down, or after using litter box, or after eating from kitty bed)
+ - Kitty (Only when angry to calm down)
 
 
 Komodo Dragons now accept rotten flesh as a food item.
 
 
-Wyverns now accept harvestcraft raw rabbit as a food item.
+Wyverns now accept Harvestcraft raw rabbit as a food item.
 
 
 Fixed the land predators that are supposed to hunt fish not hunting fish if they are in rivers.
@@ -776,14 +776,14 @@ Slightly simplified the code for whip item. Also slightly increased the whip int
 Fixed zebra shuffle!
 Tamed zebras now only dance when a zebra record is put in a jukebox nearby.
 Also readded feature of other MoC Horses nodding their head when the zebra record is played nearby.
-If you remove the zebra record before it has finished playing or if you change the record in the jukebox to another record before it has finished, shuffling for horses will still continue for a 1-3 minutes, afterwards the horse will still return to normal.
+If you remove the zebra record before it has finished playing or if you change the record in the jukebox to another record before it has finished, shuffling for horses will continue for 1-3 minutes, afterwards the horse will still return to normal.
 If you want to instantly stop the horse shuffling without waiting for the zebra record to finish, you can break the jukebox and it will stop all shuffling horses nearby.
 
 
 Fixed jukebox not timing out by itself if it is playing the zebra record and there are shuffling horses nearby.
 
 
-Fixed kitty rotation when picked up by players on the players shoulders.
+Fixed kitty rotation when picked up by players on the player's shoulders.
 
 
 If any of the following creatures are attacked by a player that is not the owner of that creature, and that player then tries to mount that creature. The following creatures will now drop that player off their back:
@@ -794,7 +794,7 @@ If any of the following creatures are attacked by a player that is not the owner
  - Wyvern
 
 
-Fixed following texture:
+Fixed the following textures:
  - Lioness neck
  - Panda eyes
  - Silver Skeleton blades
@@ -810,7 +810,7 @@ Tweaked the textures of the following achievement icons:
  - Dark Pegasus
 
 
-Added drops for following creatures (only if Exotic Birds mod is Installed):
+Added drops for the following creatures (only if Exotic Birds mod is Installed):
 	Bird: small bird meat
 
 	Duck small bird meat
@@ -819,7 +819,7 @@ Added drops for following creatures (only if Exotic Birds mod is Installed):
 Code clean up of "this." operator.
 
 
-Made the Creeper Extension entity be under the the vanilla minecraft mobs label.
+Put the Creeper Extension entity under the vanilla Minecraft mobs label.
 
 
 Fixed Thaumcraft aspects for creeper extension.
@@ -840,7 +840,7 @@ Fixed spawning biome spawning integration with Netherlicious!
 Fixed descriptions for scrolls not being dependent on lang files.
 
 
-Removed config option for using scroll of reset owner since only opped players can use this item.
+Removed config option for using the scroll of reset owner since only opped players can use this item.
 
 
 Added config option to control whether to use 16x Mo' Creatures textures or the original Mo' Creatures textures. This feature works on the client side, allowing players to customize this setting for themselves regardless of whether they are the owner of the world/server without affecting that world/server.
@@ -858,7 +858,7 @@ Players that are in werewolf form from the witchery mod can now no longer intera
 Tidied up the code for generating config files.
 
 
-Put the kitty bed texture back in it's original place.
+Put the kitty bed texture back in its original place.
 
 
 Removed emissive texture for anglerfish to maximize compatibility with both Mo'Creatures texture packs and the option to switch between the 16x and original Mo' Creatures textures.
@@ -873,13 +873,13 @@ Added replacement for Witchery player wolf forms (only applies to player werewol
 Added brown variant for dire wolves.
 
 
-Added config option to select the color for player wolf and werewolf forms for witchery. This option is not unique to players, the color that is chosen will affect the wolf and werewolf forms for all players in a world/server.
+Added config option to select the colour for player wolf and werewolf forms for witchery. This option is not unique to players, the colour that is chosen will affect the wolf and werewolf forms for all players in a world/server.
 
 
 Players can no longer interact with Mo' Creatures entities if they are in wolf or werewolf form from the Witchery mod.
 
 
-Dire wolves, werewolves, and Mo' Creatures integration werewolves now defend max level werewolf players (if the player is in wolf or werewolf form) from entities that attack them.
+Dire wolves, werewolves, and Mo' Creatures integration werewolves now defend max-level werewolf players (if the player is in wolf or werewolf form) from entities that attack them.
 
 
 Fixed fire werewolf not being immune to fire.
@@ -894,7 +894,7 @@ NOTE: Dire wolves, werewolves, and Mo' Creatures integration werewolves will att
 Fixed dire wolves, Werewolves, and Mo' Creatures integration werewolves continuing to attack the player after they have just transformed into wolf or werewolf form. 
 
 
-Werewolves that attack a max level werewolf player before they turn to wolf or werewolf form will suffer the death of shame. ( If a werewolf that attacks a max level werewolf player before they turn into wolf or werewolf form, and that player then turns to wolf or werewolf form, the werewolf that attacked that max level werewolf player will kill themselves ).
+Werewolves that attack a max-level werewolf player before they turn to wolf or werewolf form will suffer the death of shame. ( If a werewolf attacks a max-level werewolf player before they turn into wolf or werewolf form, and that player then turns to wolf or werewolf form, the werewolf that attacked that max-level werewolf player will kill themselves ).
 
 
 The following creatures now have attack damages that change with the world difficulty:
@@ -903,13 +903,13 @@ The following creatures now have attack damages that change with the world diffi
 - Witchery integration werewolf 
 
 
-Witchery integration werewolves now have the following varients: white, black, and brown.
+Witchery integration werewolves now have the following variants: white, black, and brown.
 
 
 Added Russian language file. Thanks to Hudhand for the translation.
 
 
-Returned elephants' bulldozer ability to it's original state from Mo' Creatures.
+Returned elephants' bulldozer ability to its original state from Mo' Creatures.
 
 
 Added the following items from the following mods as food & tame items for panda:
@@ -933,7 +933,7 @@ Added config option to control pet health display modes:
 Added config option to control whether creatures can be mounted or picked up only with a free hand or with items in hand as well.
 
 
-Readded ability for players to ride a non-flying mount with a creature picked up or on their head. You will first need to pickup the pickable creature and then mount the mountable creature. This maybe a bit tricky to do for pickable creatures that are in the player's hand or on the player's shoulder.
+Readded ability for players to ride a non-flying mount with a creature picked up or on their head. You will first need to pick up the pickable creature and then mount the mountable creature. This may be a bit tricky to do for pickable creatures that are in the player's hand or on the player's shoulder.
 
 
 Fixed black and brown bears only hunting player during night.
@@ -942,16 +942,16 @@ Fixed black and brown bears only hunting player during night.
 Added rare giant panda variants as a config option.
 
 
-Removed unused entry in lang files.
+Removed an unused entry in lang files.
 
 
-Fixed player werewolf and wolf form replacements for Witchery mod still rendering even if player has used an invisibility potion.
+Fixed player werewolf and wolf form replacements for Witchery mod still rendering even if the player has used an invisibility potion.
 
 
 Added werewolf weakness damage from Witchery silver bolt for werewolves and Witchery integration werewolves. This will only work if the player has silver bolts in their inventory without any other types of bolts in their inventory.
 
 
-Improved readability of interact code for horse by seperating it into multiple functions.
+Improved readability of interact code for horse by separating it into multiple functions.
 
 
 Kitties that have been bred now only spawn one baby kitty. Baby kitties that are created from breeding will now prompt the owner to name them.
@@ -972,8 +972,8 @@ Kitties now no longer attack the player if they haven't been fed too often. Kitt
 Ostriches now no longer spawn in the outback biome from Biomes O' Plenty.
 
 
-Increased dark pegasus speed to now only be slighty under the speed of a fairy horse. The original Mo' Creatures dark pegasus was as fast as a fairy horse.
-I've decided to keep the fairy horse as the fastest horse in it's original Mo' Creatures speed since it is harder to obtain than a dark pegasus (needing to sacrifice both a pure unicorn and pure pegasus to get it).
+Increased dark pegasus speed to now only be slightly under the speed of a fairy horse. The original Mo' Creature's dark pegasus was as fast as a fairy horse.
+I've decided to keep the fairy horse as the fastest horse in its original Mo' Creatures speed since it is harder to obtain than a dark pegasus (needing to sacrifice both a pure unicorn and pure pegasus to get it).
 
 
 Fixed remove turkey if spawned in blacklisted biome event.
@@ -982,10 +982,10 @@ Fixed remove turkey if spawned in blacklisted biome event.
 Fixed crash on server relating to Witchery player wolf form and player werewolf form replacement.
 
 
-NOTE: Witchery player wolf form and player werewolf form replacements only works in single player. If used on servers it makes any werewolf players other than yourself be invisible when they are in wolf or werewolf form.
+NOTE: Witchery player wolf form and player werewolf form replacements only work in single-player. If used on servers it makes any werewolf players other than yourself invisible when they are in wolf or werewolf form.
 
 
-Fixed bunny rotation when picked up by player.
+Fixed bunny rotation when picked up by the player.
 
 
 Tweaked texture: nightmare horse achievement icon.
@@ -997,10 +997,10 @@ Minor code edits: simplification in some areas, and renaming to match Java namin
 Fixed the replaceWitcheryWerewolfEntities config option being dependent on the replaceVanillaCreepers config.
 
 
-Improved location accuracy for spawning fire particles when Witchery integration werewolf is right clicked with wolfsbane. Also improved location accuracy for where golem blocks transform back to solid blocks.
+Improved location accuracy for spawning fire particles when Witchery integration werewolf is right-clicked with wolfsbane. Also improved location accuracy for where golem blocks transform back to solid blocks.
 
 
-Fixed crash from entity id conflict relating to creeper extensions and Witchery integration werewolves. 
+Fixed crash from entity ID conflict relating to creeper extensions and Witchery integration werewolves. 
 
 
 Improved the meaningfulness of some identifiers in render classes.
@@ -1027,7 +1027,7 @@ Added config option to control whether the human form for Mo' Creatures werewolv
 Fixed Mo' Creatures werewolf not taking proper damage in human form.
 
 
-Fixed crash when player tries to hook a Werewolf using a fishing rod.
+Fixed crash when the player tries to hook a Werewolf using a fishing rod.
 
 
 Fixed wolfsbane interaction with Witchery werewolf integration villagers and Witchery werewolf integration Minecraft Comes Alive villagers.
@@ -1039,7 +1039,7 @@ Simplified the code for the ostrich interact function.
 Fixed elephant chest achievement description for all lang files.
 
 
-Simplified the code for wyverns dropping armor.
+Simplified the code for wyverns dropping armour.
 
 
 Fixed white werewolf lips. Also removed unused texture.
@@ -1053,18 +1053,18 @@ The following creatures now have attack damages that scale with the difficulty:
 	Silver Skeleton <- also increased base attack damage
 
 
-Tweaked thaumcraft aspects for:
+Tweaked Thaumcraft aspects for:
 	Wyvern
 	Silver Skeleton
 
 
-The songhua river mammoth can now carry 4 elephant chests just like the regular mammoth.
+The Songhua River mammoth can now carry 4 elephant chests just like the regular mammoth.
 
 
 All mammoths can now carry a mammoth platform.
 
 
-Improved meaningulness of identifiers in the code for elephant.
+Improved meaningfulness of identifiers in the code for elephant.
 
 
 Fixed elephants always destroying blocks without being whipped.
@@ -1082,37 +1082,37 @@ Fixed creeper extension not having a chance to mutate into a mutant creeper if t
 Added a helper mod "Wolf Altar Replacement" to change the model and texture of the wolf altar from the Witchery mod.
 
 
-Improved efficency of empty string detection.
+Improved efficiency of empty string detection.
 
 
-Max level Witchery werewolf players can now recruit werewolves that are in their werewolf form by right clicking them with an empty hand. Recruited werewolves will follow the player that recruited them, and will not attack the player even if the player that recruited them is in human form. Recruited werewolves can be told to stay put by being shift right clicked by the player that recruited them. However, the recruitment will reset when the werewolf entity returns to it's human form. Recruited werewolves will despawn unless they have a name tag.
+Max-level Witchery werewolf players can now recruit werewolves that are in their werewolf form by right-clicking them with an empty hand. Recruited werewolves will follow the player that recruited them, and will not attack the player even if the player that recruited them is in human form. Recruited werewolves can be told to stay put by being shift right-clicked by the player that recruited them. However, the recruitment will reset when the werewolf entity returns to its human form. Recruited werewolves will despawn unless they have a name tag.
 
 
 Added water plants from the Plant Mega Pack mod as food items for small fish and fishy. Small fish can only eat freshwater plants, and Fishy can only eat saltwater plants, this reflects the places they live in.
 
 
-Fixed crash when trying to put a mammoth platform to a brown mammoth. This was fixed by removing the ability to put mammoth platforms on a brown mammoths, this also returns the mammoth platform to it's original state (only being able to be equipped on songhua river mammoths).
+Fixed crash when trying to put a mammoth platform to a brown mammoth. This was fixed by removing the ability to put mammoth platforms on brown mammoths, this also returns the mammoth platform to its original state (only being able to be equipped on Songhua river mammoths).
 
 
-Fixed pet amulet, horse amulets, and fish nets making the max health of any stored creature to 20HP.
+Fixed pet amulets, horse amulets, and fish nets making the max health of any stored creature to 20HP.
 
 
 Fixed aquatic creatures always trying to swim up to the surface of water.
 
 
-Fixed second player not being able to mount a mammoth platform. Also now for a player to mount a mammoth platform while another player is riding the songhua river mammoth, they first must make the mammoth sit by sneaking near it, and after the mammoth sits they will need to jump while close to the mammoth to get onto the mammoth platform.
+Fixed the second player not being able to mount a mammoth platform. Also now for a player to mount a mammoth platform while another player is riding the Songhua River mammoth, they first must make the mammoth sit by sneaking near it, and after the mammoth sits they will need to jump while close to the mammoth to get onto the mammoth platform.
 
 
 Final corrections for the en_US.lang file.
 
 
-Fixed turtles not recognizing that they are a teenage mutant ninja turtle if they are given a TMNT name in one of the supported languages. Also removed forgiveness of spelling mistakes for english TMNT names, this is because players now have the achievements page where they can find the proper spelling of that TMNT name. 
+Fixed turtles not recognizing that they are a teenage mutant ninja turtle if they are given a TMNT name in one of the supported languages. Also removed forgiveness of spelling mistakes for English TMNT names, this is because players now have the achievements page where they can find the proper spelling of that TMNT name. 
 
 
 Aquatic creatures can now swim both up and down by themselves.
 
 
-Rays no longer move there tail sideways when swimming.
+Rays no longer move their tail sideways when swimming.
 
 
 Rays can now be healed using raw fish and any other item in the "listAllfishraw" ore dictionary.
@@ -1127,4 +1127,16 @@ Fixed ray health.
 Fixed the texture for the back of the hell rat tail. Also improved hell rat body texture. 
 
 
-Moved the "Wolf Altar Replacement" mod to it's own repository and webpage. The "Wolf Altar Replacement" mod will be completed at a later date.
+Moved the "Wolf Altar Replacement" mod to its own repository and webpage. The "Wolf Altar Replacement" mod will be completed at a later date.
+
+
+Fixed werewolves taking real damage when transforming back to human form.
+
+
+Fixed Mo' Creatures werewolves not fighting back if they are in their werewolf form and are attacked by a witch hunter.
+
+
+Increased whip durability to 64.
+
+
+Final tidy up of text files. 

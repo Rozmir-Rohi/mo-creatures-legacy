@@ -83,7 +83,7 @@ public class MoCEntityWerewolfMinecraftComesAliveVillagerWitchery extends Entity
         if (entityThatAttackedThisCreature != null && !(entityThatAttackedThisCreature instanceof EntityPlayer))
         {		
 	        if (MoCreatures.isWitcheryLoaded && EntityList.getEntityString(entityThatAttackedThisCreature).equals("witchery.witchhunter"))
-	        {
+	        {	//fixes bug with Witchery witch hunter silver bolt damage
 	        	damageTaken = 5;
 	        	damageSource = DamageSource.generic;
 	        }

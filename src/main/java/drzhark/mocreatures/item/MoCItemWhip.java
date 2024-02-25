@@ -28,7 +28,7 @@ public class MoCItemWhip extends MoCItem {
     {
         super(name);
         maxStackSize = 1;
-        setMaxDamage(24);
+        setMaxDamage(64);
     }
     
     @Override

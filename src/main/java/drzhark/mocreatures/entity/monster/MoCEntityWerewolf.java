@@ -266,48 +266,44 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         Entity entityThatAttackedThisCreature = damageSource.getEntity();
         if (!getIsHumanForm())
         {
-        	damageTaken = 1;
-        	
-	        if (entityThatAttackedThisCreature != null)
-	        {
-		        if (entityThatAttackedThisCreature instanceof EntityPlayer)
+        	if (damageTaken > 0)
+        	{
+	        	damageTaken = 1;
+	        	
+		        if (entityThatAttackedThisCreature != null)
 		        {
-		        	if (
-		        			MoCTools.isPlayerInWerewolfForm((EntityPlayer) entityThatAttackedThisCreature)
-		        			|| MoCTools.isPlayerInWolfForm((EntityPlayer) entityThatAttackedThisCreature)
-		        		)
-		        	{
-		        		damageTaken = 5;
-		        		damageSource = DamageSource.generic; //don't fight back if attacked by a player werewolf
-		        	}
-		        	
-		        	else 
-		        	{
-		        		EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
-		        		ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
-		        		damageTaken = calculateWerewolfDamageTakenFromPlayerAttack(damageSource, damageTaken, itemstack);
-		        	}
+			        if (entityThatAttackedThisCreature instanceof EntityPlayer)
+			        {
+			        	if (
+			        			MoCTools.isPlayerInWerewolfForm((EntityPlayer) entityThatAttackedThisCreature)
+			        			|| MoCTools.isPlayerInWolfForm((EntityPlayer) entityThatAttackedThisCreature)
+			        		)
+			        	{
+			        		damageTaken = 5;
+			        		damageSource = DamageSource.generic; //don't fight back if attacked by a player werewolf
+			        	}
+			        	
+			        	else 
+			        	{
+			        		EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
+			        		ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
+			        		damageTaken = calculateWerewolfDamageTakenFromPlayerAttack(damageSource, damageTaken, itemstack);
+			        	}
+			        }
+			        
+			        else if (entityThatAttackedThisCreature instanceof MoCEntitySilverSkeleton)
+			        {
+			        	damageTaken = 9;
+			        }
 		        }
-		        
-		        else if (MoCreatures.isWitcheryLoaded && EntityList.getEntityString(entityThatAttackedThisCreature).equals("witchery.witchhunter"))
-		        {
-		        	damageTaken = 5;
-		        	damageSource = DamageSource.generic;
-		        }
-		        
-		        else if (entityThatAttackedThisCreature instanceof MoCEntitySilverSkeleton)
-		        {
-		        	damageTaken = 9;
-		        }
-	        }
+        	}
         }
         
-        else if (entityThatAttackedThisCreature != null && !(entityThatAttackedThisCreature instanceof EntityPlayer))
+        if (entityThatAttackedThisCreature != null && !(entityThatAttackedThisCreature instanceof EntityPlayer))
         {		
 	        if (MoCreatures.isWitcheryLoaded && EntityList.getEntityString(entityThatAttackedThisCreature).equals("witchery.witchhunter"))
-	        {
+	        {	//fixes bug with Witchery witch hunter silver bolt damage
 	        	damageTaken = 5;
-	        	damageSource = DamageSource.generic;
 	        }
         }
         

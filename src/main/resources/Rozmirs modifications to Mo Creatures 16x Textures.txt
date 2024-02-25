@@ -1,45 +1,47 @@
-Resized canvas to fit 1.7.10 format: bear
+Resized Canvas to Fit 1.7.10 Format: bear.
 
-Fixed eyes and/or mouth and/or nose: bear, all horses, wwolf, werewolf, boar, medium fish, crocodile, wyvern, all deer, raccoon, all ostriches, all elephants and mammoths, mole, komodo dragon
+Fixed Eyes and/or Mouth and/or Nose: bear, all horses, wwolf, werewolf, boar, medium fish, crocodile, wyvern, all deer, raccoon, all ostriches, all elephants and mammoths, mole, komodo dragon.
 
-Fixed ears: all big cats
+Fixed Ears: all big cats.
 
-Fixed body texture: lion, cheetah, tiger, hell rat
+Fixed Body Texture: lion, cheetah, tiger, hell rat.
 
-Removed 16x texture because it didn't fit with the model: ant, cricket, kitty, jelly fish    <---- They look much better this way and they don't look too out of place because they are not very detailed x32 textures. Also, some of these texture lose vital details with the 16x version.
+Removed 16x Texture Because it didn't Fit with the Model: ant, cricket, kitty, jelly fish    <---- They look much better this way and they don't look too out of place because they are not very detailed x32 textures. Also, some of these texture lose vital details with the 16x version.
 
-Improved face, sheild and blade textures: silver skeleton
+Improved Face, Sheild and Blade textures: silver skeleton.
 
-Combined 16x shading with 32x details: roach     <--- This was due to the full 16x textures not fitting with the model (legs and antenna)
+Combined 16x Shading with 32x Details: roach     <--- This was due to the full 16x textures not fitting with the model (legs and antenna).
 
-Fixed fangs: snakes
+Fixed Fangs: snakes.
 
-Fixed saddle texture inconsistency: all horses
+Fixed Saddle Texture Inconsistency: all horses.
 
-Reworked textures from original 32x textures due to changes in 1.7.10 format: all big cats except panther
+Reworked Textures from Original 32x Textures Due to Changes in 1.7.10 Format: all big cats except panther.
 
-Fixed tail: turkey, hell rat
+Fixed Tail: turkey, hell rat.
 
-Fixed & improved larva texture: scorpion, scorpion saddle
+Fixed & Improved Larva Texture, and Saddle: scorpion.
 
-Improved texture: particle effect for undead horse transformation
+Improved Texture: particle effect for undead horse transformation.
 
-Improved eyes: Dolphin, Crocodile
+Improved Eyes: dolphin, and crocodile.
 
-Fixed ears being connected: Fox and Fox Cub
+Fixed Ears being Connected: fox and fox cub.
 
-Added 16x Kitty Emoticons
+Added 16x kitty emoticons.
 
-Fixed Fishy textures in Fish bowl and Fishy Tails.
+Fixed Fishy textures in fish bowl and fishy tails.
 
 Removed 16x texture for small fish.
 
-Fixed Head, Helmets, & Wings : Ostrich
+Fixed Head, Helmets, and Wings: ostrich.
 
-Removed unused parts of texture: wwolf.
+Removed Unused Parts of Texture: wwolf.
 
 Fixed some textures being fake PNGs.
 
-Fixed wings: pegasus and dark pegasus.
+Fixed Wings: pegasus and dark pegasus.
 
-Fixed transparent spots in all medium fish. Improved texture of blue salmon. Also added new red salmon texture.
+Fixed transparent spots in all medium fish.
+
+Improved texture of blue salmon.

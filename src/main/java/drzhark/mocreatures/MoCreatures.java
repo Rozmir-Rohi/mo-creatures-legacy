@@ -154,7 +154,7 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 
-@Mod(modid = "MoCreatures", name = "Mo' Creatures Legacy", version = "1.0")
+@Mod(modid = "MoCreatures", name = "Mo' Creatures Legacy", version = "1.1")
 public class MoCreatures {
 
     @Instance("MoCreatures")
