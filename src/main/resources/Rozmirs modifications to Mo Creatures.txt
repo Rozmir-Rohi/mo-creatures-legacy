@@ -1079,7 +1079,7 @@ Fixed creature duplication glitch with mob confinement items from the Mob Confin
 Fixed creeper extension not having a chance to mutate into a mutant creeper if the Mutant Creatures mod is installed and has been affected with chemical X.
 
 
-Added a helper mod "Wolf Altar Replacement" to change the model and texture of the wolf altar from the Witchery mod. - Still WIP
+Added a helper mod "Wolf Altar Replacement" to change the model and texture of the wolf altar from the Witchery mod.
 
 
 Improved efficency of empty string detection.
@@ -1127,4 +1127,4 @@ Fixed ray health.
 Fixed the texture for the back of the hell rat tail. Also improved hell rat body texture. 
 
 
-
+Moved the "Wolf Altar Replacement" mod to it's own repository and webpage. The "Wolf Altar Replacement" mod will be completed at a later date.

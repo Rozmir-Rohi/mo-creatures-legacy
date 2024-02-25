@@ -102,9 +102,9 @@ Beta Testers Who Helped Solve Major Bugs:
 
 
 
-===========================================================================
+===============================================================
 	   ORIGINAL MO'CREATURES CONTRIBUTER CREDITS
-	------------------------------------------------
+	-----------------------------------------------
 
 - Kent C Jensen (BlockDaddy) for his amazing Ogres and fish textures. And for his incredible help with ostriches and fish bowls. He is the main force behind the horse overhaul and did all of the textures and art, as well as many of the ideas for the new horses. He has also been helping with the remodelling and retexturing. Most models and textures on this mod have been done by Kent.
 
@@ -138,7 +138,7 @@ Beta Testers Who Helped Solve Major Bugs:
 
 - cdrumer11 for his help with the pink and white dolphin skins
 
-===========================================================================
+===============================================================
 
 
 

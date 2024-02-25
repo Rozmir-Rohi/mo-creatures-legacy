@@ -14,8 +14,6 @@ The further conditions do not apply for the following:
 
    - Redistribution of unedited versions of the mod jar file.
 
-   - Use of the "Wolf Altar Replacement" mod that is located inside the Mo' Creatures Legacy mod jar file.
-
    - Private modifications of this project (modified versions of this project that are not uploaded to the internet).
 
    - Language files that are created for this project.
