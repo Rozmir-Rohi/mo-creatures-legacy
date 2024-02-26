@@ -86,7 +86,6 @@ Sounds:
 Language File Translations:
 	Omgise - Chinese (Simplified) (zh_CN.lang)
 	
-
 	Hudhand - Russian (ru_RU.lang)
 
 
@@ -98,6 +97,8 @@ Beta Testers Who Helped Solve Major Bugs:
 	quentin452
 
 	brandyyn
+
+	yoruki_167
 
 
 

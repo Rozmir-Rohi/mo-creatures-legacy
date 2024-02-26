@@ -1139,4 +1139,7 @@ Fixed Mo' Creatures werewolves not fighting back if they are in their werewolf f
 Increased whip durability to 64.
 
 
-Final tidy up of text files. 
+Final tidy up of text files.
+
+
+Fixed entity ID conflict crash for good.
