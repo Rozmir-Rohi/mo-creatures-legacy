@@ -205,8 +205,8 @@ item.whip.name=Whip
 item.woolball.name=Wool Ball
 
 
-entity.CreeperExtension.name=Creeper
-entity.WerewolfVillagerWitchery.name=Villager
+entity.MoCreatures.CreeperExtension.name=Creeper
+entity.MoCreatures.WerewolfVillagerWitchery.name=Villager
 entity.MoCreatures.WerewolfWitchery.name=Werewolf
 entity.MoCreatures.WerewolfMinecraftComesAliveVillagerWitchery.name=Villager
 

@@ -205,8 +205,8 @@ item.whip.name=Кнут
 item.woolball.name=Клубок шерсти
 
 
-entity.CreeperExtension.name=Крипер
-entity.WerewolfVillagerWitchery.name=Житель
+entity.MoCreatures.CreeperExtension.name=Крипер
+entity.MoCreatures.WerewolfVillagerWitchery.name=Житель
 entity.MoCreatures.WerewolfWitchery.name=Оборотень
 entity.MoCreatures.WerewolfMinecraftComesAliveVillagerWitchery.name=Житель
 

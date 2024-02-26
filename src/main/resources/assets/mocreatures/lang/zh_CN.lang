@@ -203,8 +203,8 @@ item.unicornhorn.name=独角兽角
 item.whip.name=鞭子
 item.woolball.name=羊毛球
 
-entity.CreeperExtension.name=苦力怕
-entity.WerewolfVillagerWitchery.name=村民
+entity.MoCreatures.CreeperExtension.name=苦力怕
+entity.MoCreatures.WerewolfVillagerWitchery.name=村民
 entity.MoCreatures.WerewolfWitchery.name=狼人
 entity.MoCreatures.WerewolfMinecraftComesAliveVillagerWitchery.name=村民
 
