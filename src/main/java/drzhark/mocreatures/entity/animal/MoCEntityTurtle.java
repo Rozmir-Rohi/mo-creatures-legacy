@@ -1,6 +1,7 @@
 package drzhark.mocreatures.entity.animal;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
@@ -20,7 +21,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import scala.actors.threadpool.Arrays;
 
 public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     private boolean isSwinging;

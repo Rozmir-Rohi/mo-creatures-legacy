@@ -1143,3 +1143,6 @@ Final tidy up of text files.
 
 
 Fixed entity ID conflict crash for good. Also readjusted lang file entries for creeper extension and witchery integration werewolf villager to the entity id conflict fix.
+
+
+Fixed turtle crash.
