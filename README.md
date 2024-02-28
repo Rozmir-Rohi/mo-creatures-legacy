@@ -26,25 +26,23 @@ Do NOT try to load this mod into a world that previously had the original Mo' Cr
 
 <details>
 <summary><h2>Credits & Assets Used:</h2></summary>
-<strong>DrZhark, Bloodshot, BlockDaddy and remaining Original Mo' Creatures contributers </strong> - This project is a modified version of DrZhark's Mo' Creatures Mod v6.3.1 for Minecraft 1.7.10 and is licensed through the GNU Genral Public License Version 3 as per the conditions of the original project's license. DrZhark's Mo' Creatures Mod Original Forum Post:  http://www.minecraftforum.net/viewtopic.php?f=25&t=86929
- 
-  
- 
+<strong>DrZhark, Bloodshot, BlockDaddy and remaining Original Mo' Creatures contributers </strong> - This project is a modified version of DrZhark's Mo' Creatures Mod v6.3.1 for Minecraft 1.7.10 and is licensed under the "GNU General Public License v3.0 and Further Conditions" custom license which satisfies the GNU General Public License Version 3 as per the conditions of the original project's license. DrZhark's Mo' Creatures Mod Original Forum Post:  http://www.minecraftforum.net/viewtopic.php?f=25&t=86929
+<br><br>
+
 <strong> crazyspacekid </strong> - Entity textures were overhauled with the application of modified textures from the Mo' Creatures 16x texture pack. This asset was used with permission from the owner and proof of permission can be found inside the assets folder of the mod jar archive as an image file. All changes to original 16x textures have been documented in the "Rozmirs modifications to Mo Creature 16x Textures" text file inside the assets folder of the jar archive. Curseforge Project Link: https://www.curseforge.com/minecraft/texture-packs/mo-creatures-16x
+<br><br>
  
-  
- 
- <strong> Azanor </strong>  - Thaumcraft 4.2.2 API was used as a library under the MIT License to add Thaumcraft aspects to mod content.
- 
-  
- 
- <strong> WildBamaBoy </strong> - Horse achievement icon textures were directly based of the Cooconed Horse item texture from the Spider Queen mod. This asset was used under the Public Domain license through the condition of section 8 of the MCA Minecraft Mod License v1.1.1 ("In the event that no public declaration of the mod’s end-of-life is made within 1 year after the previous update, announcement regarding status, or official statement from an author, the mod is released into the public domain.")
- 
-  
+<strong> Azanor </strong>  - Thaumcraft 4.2.2 API was used as a library under the MIT License to add Thaumcraft aspects to mod content.
+<br><br>
+
+<strong> WildBamaBoy </strong> - The horse achievement icon textures were directly based of the Cooconed Horse item texture from the Spider Queen mod. This asset was used under the Public Domain license through the condition of section 8 of the MCA Minecraft Mod License v1.1.1 ("In the event that no public declaration of the mod’s end-of-life is made within 1 year after the previous update, announcement regarding status, or official statement from an author, the mod is released into the public domain."). Additionally, all the skins for the Minecraft Comes Alive Witchery werewolf villager forms were sourced from the Minecraft Comes Alive mod, the use of these assets are satisfied through the application of the "GNU General Public License v3.0 and Further Conditions" custom license which satisfies the GNU General Public License Version 3 of the Minecraft Comes Alive mod.
+<br><br>
  
 <strong> ganymedes01 </strong> - Code for proper damaging and item dropping for kitty litter box, kitty bed, and fish bowl was sourced from EntityArmourStand.class from the etfuturum mod. This asset was used under the Public Domain license.
- 
-  
+<br><br>
+
+<strong> Thornack </strong> - Provided the code for replacing the Witchery player wolf and player werewolf models with the Mo Creatures dire wolf and werewolf models (https://forums.minecraftforge.net/topic/28566-1710-how-to-change-player-model-and-texture/).
+<br><br>
  
 <strong> TheAetherTeam </strong> - The AchievementsAether.class and Aether.class code from the 1.7.10 Aether Mod helped me understand how to add an achievements class that is separate to the main mod class file. This asset was used under the GNU Lesser General Public License v3.0 through the custom license condition of The Aether mod "The source code of The Aether mod for Minecraft 1.7+ is under the LGPL v3.0 license".TheAetherTeam - The AchievementsAether.class and Aether.class code from the 1.7.10 Aether Mod helped me understand how to add an achievements class that is separate to the main mod class file. This asset was used under the GNU Lesser General Public License v3.0 through the custom license condition of The Aether mod "The source code of The Aether mod for Minecraft 1.7+ is under the LGPL v3.0 license".The different custom license of this project is permitted under the GNU Lesser General Public License v3.0 from the following sections:
 
@@ -65,28 +63,18 @@ A copy of the GNU Lesser General Public License (1.7.10 Aether Source Code Licen
 A copy of the GNU General Public license can be found inside the assets folder of the mod jar archive.
 
 The source code for the 1.7.10 Aether mod can be found here: https://github.com/The-Aether-Team/The-Aether-Archived/tree/1.7.10
-
-
-
-A copy of the GNU Lesser General Public License (1.7.10 Aether Source Code License) can be found in the "Negligable Licenses" folder inside the assets folder of the mod jar archive. 
-A copy of the GNU General Public license can be found inside the assets folder of the mod jar archive.
-The source code for the 1.7.10 Aether mod can be found here: https://github.com/The-Aether-Team/The-Aether-Archived/tree/1.7.10
  
-  
- 
-  
+<br><br><br>  
  
  <h3> Sounds Files: </h3>
  
  <strong> Mike Koenig </strong> - Kitty using Litter box sound was sourced from: https://soundbible.com/313-Dig-In-A-Cat-Litter-Box.html. This was used under the CC BY 3.0 DEED Attribution 3.0 Unported license. A different license for this project as a whole is acceptable under section 4a "this does not require the Collection apart from the Work itself to be made subject to the terms of this License".
  
-  
- 
  <strong> Fesliyan Studios </strong> - Rattle Snake Rattle sound effects were sourced from https://www.fesliyanstudios.com/royalty-free-sound-effects-download/rattlesnake-281 This was used under the Fesliyan Studios Sound Effects Policy license (see "Negligable Licenses" folder inside the assets folder of the mod jar archive ).
  
   
  
- The following assets were used under the Unlicense license:
+The following assets were used under the Unlicense license:
  
  Panda Cub Grunt:
  
@@ -96,8 +84,6 @@ The source code for the 1.7.10 Aether mod can be found here: https://github.com/
  
  Panda Cub Hurt & Death: https://www.youtube.com/watch?v=YRmGZIENeq4&ab_channel=audiofreeHD 
  
-  
- 
  Panda Cub Hurt: https://www.youtube.com/watch?v=AyY70jPsZcc&ab_channel=nosoundeffects
  
  
@@ -105,8 +91,27 @@ The source code for the 1.7.10 Aether mod can be found here: https://github.com/
  
  
  Panda Adult Hurt and Death: https://www.youtube.com/watch?v=i5Y_8s6qDdk&ab_channel=FreeSoundEffect
- 
+
+
+<br><br><br>
+
+ <h3> Language File Translations: </h3>
+	Omgise - Chinese (Simplified) (zh_CN.lang)
+	<br><br>
+ 	Hudhand - Russian (ru_RU.lang)
+  
+<br><br><br>
+
+<h3> Beta Testers Who Helped Solve Major Bugs: </h3>
+	Omgise
+ 	<br><br>
+	quentin452
+ 	<br><br>
+	brandyyn
+ 	<br><br>
+	yoruki_167
   
+<br><br><br>
  
  ===========================================================================
   <h3> Original Mo'Creatures Contributor Credits </h3>
@@ -131,7 +136,7 @@ The source code for the 1.7.10 Aether mod can be found here: https://github.com/
 
  ===========================================================================
 
-</details>
+<br><br><br>
 
 ## Use of anatawa12's Fork of ForgeGradle 1.2 within Project:
 The source code of this project uses anatawa12's fork of ForgeGradle 1.2 as a library under the GNU Lesser General Public License v2.1 (https://choosealicense.com/licenses/lgpl-2.1/).
@@ -147,3 +152,5 @@ The source code of this mod is permitted under section 6 of the original license
 
 
 The source code for anatawa12's fork of ForgeGradle 1.2 can be found here: https://github.com/anatawa12/ForgeGradle-1.2
+
+</details>
