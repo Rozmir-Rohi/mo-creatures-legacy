@@ -1,11 +1,58 @@
 # Mo Creatures Legacy
-<strong> Development for this project has finished. This project will not be receiving any further updates. </strong>
+<strong> I'm extending support for bug fixes until the end of 23rd June 2024, I will try to fix any bugs that are reported in this time.
+My response times may vary as I will be busier with other things, but I will get to working on them eventually. </strong>
+
+<details>
+	<summary><strong>This is also the last call for the contribution of the following language files:</strong></summary>
+  
+  <p>Italian - it_IT.lang</p>
+
+
+  <p>European French - fr_FR.lang</p>
+
+
+  <p>Canadian French - fr_CA.lang</p>
+
+
+  <p>German - de_DE.lang</p>
+
+
+  <p>Danish - da_DK.lang</p>
+
+
+  <p>Japanese - ja_JP.lang</p>
+
+
+  <p>Dutch - nl_NL.lang</p>
+
+
+  <p>European Spanish - es_ES.lang</p>
+
+
+  <p>Mexican Spanish - es_MX.lang</p>
+
+
+  <p>Chinese Traditional (Taiwan) - zh_TW.lang</p>
+
+
+  <p>Brazilian Portuguese - pt_BR.lang</p>
+
+
+  <p>European Portuguese - pt_PT.lang</p>
+
+
+  <p>Polish - pl_PL.lang</p>
+  
+</details>
+
+<br><br>
+
 
 The final version of Mo' Creatures for 1.7.10 was unfinished and was riddled with bugs. This project fixes that.
 
 The main aim of Mo' Creatures Legacy is to provide a fully working legacy version of Mo' Creatures for 1.7.10.
 
-
+<br><br>
 
 <strong> DISCLAIMER: </strong>
 * This project is not endorsed by Dr Zhark or anyone from the original Mo' Creatures team.
