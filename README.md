@@ -1,6 +1,5 @@
 # Mo Creatures Legacy
-<strong> I'm extending support for bug fixes until the end of 23rd June 2024, I will try to fix any bugs that are reported in this time.
-My response times may vary as I will be busier with other things, but I will get to working on them eventually. </strong>
+<strong> I'm extending support for bug fixes until the end of 23rd June 2024, please report any bugs you find during this time. Due to my busyness with other commitments, I can only work on this project after 23rd June 2024. After 23rd June 2024, I will fix the bugs that are reported. </strong>
 
 <details>
 	<summary><strong>This is also the last call for the contribution of the following language files:</strong></summary>
