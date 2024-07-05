@@ -2,7 +2,7 @@ package drzhark.mocreatures.client.model;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import drzhark.mocreatures.entity.monster.MoCEntityGolem;
+import drzhark.mocreatures.entity.monster.MoCEntityBigGolem;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -340,7 +340,7 @@ public class MoCModelGolem extends ModelBase {
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
     {
         //super.render(entity, f, f1, f2, f3, f4, f5);
-        MoCEntityGolem entityG = (MoCEntityGolem) entity;
+        MoCEntityBigGolem entityG = (MoCEntityBigGolem) entity;
         boolean openChest = entityG.openChest();
         boolean isSummoning = entityG.isMissingCubes();
         boolean angry = entityG.getGolemState() > 1;

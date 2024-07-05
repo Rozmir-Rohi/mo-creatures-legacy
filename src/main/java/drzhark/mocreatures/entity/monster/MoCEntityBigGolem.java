@@ -31,7 +31,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.world.BlockEvent;
 
-public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpawnData {
+public class MoCEntityBigGolem extends MoCEntityMob implements IEntityAdditionalSpawnData {
 
     public int throwBlockCounter;
     public MoCEntityThrowableBlockForGolem tempBlock;
@@ -39,7 +39,7 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
     private int hurtCounter = 0;
     private int smokeCounter;
 
-    public MoCEntityGolem(World world)
+    public MoCEntityBigGolem(World world)
     {
         super(world);
         texture = "golemt.png";
@@ -241,7 +241,7 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
             BlockEvent.BreakEvent event = null;
             if (!worldObj.isRemote)
             {
-            event = new BlockEvent.BreakEvent(myBlockCoords[0], myBlockCoords[1], myBlockCoords[2], worldObj, block, tileBlockMetadata, FakePlayerFactory.get((WorldServer)worldObj, MoCreatures.MOCFAKEPLAYER));
+            event = new BlockEvent.BreakEvent(myBlockCoords[0], myBlockCoords[1], myBlockCoords[2], worldObj, block, tileBlockMetadata, FakePlayerFactory.get((WorldServer)worldObj, MoCreatures.MOC_FAKE_PLAYER));
             }
         if (canDestroyBlocks && event != null && !event.isCanceled())
             {

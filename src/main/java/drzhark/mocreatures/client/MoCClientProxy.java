@@ -159,7 +159,7 @@ import drzhark.mocreatures.entity.item.MoCEntityLitterBox;
 import drzhark.mocreatures.entity.item.MoCEntityMammothPlatform;
 import drzhark.mocreatures.entity.item.MoCEntityThrowableBlockForGolem;
 import drzhark.mocreatures.entity.monster.MoCEntityFlameWraith;
-import drzhark.mocreatures.entity.monster.MoCEntityGolem;
+import drzhark.mocreatures.entity.monster.MoCEntityBigGolem;
 import drzhark.mocreatures.entity.monster.MoCEntityHellRat;
 import drzhark.mocreatures.entity.monster.MoCEntityHorseMob;
 import drzhark.mocreatures.entity.monster.MoCEntityMiniGolem;
@@ -256,7 +256,7 @@ public class MoCClientProxy extends MoCProxy {
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityFirefly.class, new MoCRenderFirefly(new MoCModelFirefly()));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityCricket.class, new MoCRenderCricket(new MoCModelCricket()));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntitySnail.class, new MoCRenderMoC(new MoCModelSnail(), 0.0F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityGolem.class, new MoCRenderGolem(new MoCModelGolem(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityBigGolem.class, new MoCRenderGolem(new MoCModelGolem(), 0.5F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityThrowableBlockForGolem.class, new MoCRenderThrowableBlockForGolem());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityPetScorpion.class, new MoCRenderPetScorpion(new MoCModelPetScorpion(), 0.6F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityMammothPlatform.class, new MoCRenderPlatform());
@@ -405,7 +405,7 @@ public class MoCClientProxy extends MoCProxy {
     }
 
     @Override
-    public void VacuumFX(MoCEntityGolem entity)
+    public void VacuumFX(MoCEntityBigGolem entity)
     {
         int densityInt = (MoCreatures.proxy.getParticleFX());
         if (densityInt == 0) { return; }

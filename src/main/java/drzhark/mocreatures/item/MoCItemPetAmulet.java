@@ -91,7 +91,7 @@ public class MoCItemPetAmulet extends MoCItem
                 {
                     if (spawnClass.equalsIgnoreCase("MoCHorse"))
                     {
-                        spawnClass = "WildHorse";
+                        spawnClass = "Horse";
                     }
                     
 

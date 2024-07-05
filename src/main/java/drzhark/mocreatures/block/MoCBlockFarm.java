@@ -16,7 +16,7 @@ public class MoCBlockFarm extends BlockContainer
         super(Material.wood);
         setTickRandomly(true);
         setBlockName(name);
-        setCreativeTab(MoCreatures.tabMoC);
+        setCreativeTab(MoCreatures.MOC_CREATIVE_TAB);
         GameRegistry.registerBlock(this, MultiItemBlock.class, name);
     }
 

@@ -21,7 +21,7 @@ public class MoCItem extends Item
     	
     	if (!(name.contains("achievement_icon_"))) //do not add the achievement icons as items in the creative tab
     	{
-        	setCreativeTab(MoCreatures.tabMoC);	
+        	setCreativeTab(MoCreatures.MOC_CREATIVE_TAB);	
     	}
     }
     

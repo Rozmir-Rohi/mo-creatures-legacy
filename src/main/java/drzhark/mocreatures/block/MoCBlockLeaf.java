@@ -31,7 +31,7 @@ public class MoCBlockLeaf extends BlockLeavesBase
     {
         super(Material.leaves, true);
         setTickRandomly(true);
-        setCreativeTab(MoCreatures.tabMoC);
+        setCreativeTab(MoCreatures.MOC_CREATIVE_TAB);
         setBlockName(name);
         GameRegistry.registerBlock(this, MultiItemBlock.class, name);
     }

@@ -92,7 +92,7 @@ import drzhark.mocreatures.entity.item.MoCEntityLitterBox;
 import drzhark.mocreatures.entity.item.MoCEntityMammothPlatform;
 import drzhark.mocreatures.entity.item.MoCEntityThrowableBlockForGolem;
 import drzhark.mocreatures.entity.monster.MoCEntityFlameWraith;
-import drzhark.mocreatures.entity.monster.MoCEntityGolem;
+import drzhark.mocreatures.entity.monster.MoCEntityBigGolem;
 import drzhark.mocreatures.entity.monster.MoCEntityHellRat;
 import drzhark.mocreatures.entity.monster.MoCEntityHorseMob;
 import drzhark.mocreatures.entity.monster.MoCEntityMiniGolem;
@@ -162,8 +162,9 @@ public class MoCreatures {
 
     @SidedProxy(clientSide = "drzhark.mocreatures.client.MoCClientProxy", serverSide = "drzhark.mocreatures.MoCProxy")
     public static MoCProxy proxy;
-    public static final CreativeTabs tabMoC = new MoCCreativeTabs(CreativeTabs.creativeTabArray.length, "MoCreaturesTab");
+    public static final CreativeTabs MOC_CREATIVE_TAB = new MoCCreativeTabs(CreativeTabs.creativeTabArray.length, "MoCreaturesTab");
     public MoCPetMapData mapData;
+    
     private static boolean isThaumcraftLoaded;
     public static boolean isBiomesOPlentyLoaded;
     public static boolean isGregTech6Loaded;
@@ -176,9 +177,10 @@ public class MoCreatures {
     public static boolean isImprovingMinecraftLoaded;
     public static boolean isMobConfinementLoaded;
     public static boolean isMutantCreaturesLoaded;
+    public static boolean isJustAnotherSpawnerLoaded;
     
     
-    public static final GameProfile MOCFAKEPLAYER = new GameProfile(UUID.fromString("6E379B45-1111-2222-3333-2FE1A88BCD66"), "[MoCreatures]");
+    public static final GameProfile MOC_FAKE_PLAYER = new GameProfile(UUID.fromString("6E379B45-1111-2222-3333-2FE1A88BCD66"), "[MoCreatures]");
 
     /**
      * ITEMS
@@ -400,7 +402,7 @@ public class MoCreatures {
     public static Map<String, MoCEntityData> mocEntityMap = new TreeMap<String, MoCEntityData>(String.CASE_INSENSITIVE_ORDER);
     public static Map<Class<? extends EntityLiving>, MoCEntityData> entityMap = new HashMap<Class<? extends EntityLiving>, MoCEntityData>();
     public static Map<Integer, Class<? extends EntityLiving>> instaSpawnerMap = new HashMap<Integer, Class<? extends EntityLiving>>();
-    public static List<String> defaultBiomeSupport = new ArrayList<String>();
+    public static List<String> listOfModsSupportedForBiomeSpawningIntegration = new ArrayList<String>();
     public static final String CATEGORY_ITEM_IDS = "item-ids";
 
     @EventHandler
@@ -456,6 +458,8 @@ public class MoCreatures {
         
         isMutantCreaturesLoaded = Loader.isModLoaded("MutantCreatures");
         
+        isJustAnotherSpawnerLoaded = Loader.isModLoaded("JustAnotherSpawner");
+        
         if (isThaumcraftLoaded) {MoCThaumcraftAspects.addThaumcraftAspects();};
     }
 
@@ -465,13 +469,13 @@ public class MoCreatures {
         DimensionManager.registerDimension(wyvernLairDimensionID, wyvernLairDimensionID);
         // ***MUST REGISTER BIOMES AT THIS POINT TO MAKE SURE OUR ENTITIES GET ALL BIOMES FROM DICTIONARY****
         WyvernLairBiome = new BiomeGenWyvernLair(proxy.wyvernBiomeID);
-        defaultBiomeSupport.add("biomesop");
-        defaultBiomeSupport.add("extrabiomes");
-        defaultBiomeSupport.add("highlands");
-        defaultBiomeSupport.add("ted80");
-        defaultBiomeSupport.add("etfuturum");
-        defaultBiomeSupport.add("Netherlicious");
-        defaultBiomeSupport.add("minecraft");
+        listOfModsSupportedForBiomeSpawningIntegration.add("biomesop");
+        listOfModsSupportedForBiomeSpawningIntegration.add("extrabiomes");
+        listOfModsSupportedForBiomeSpawningIntegration.add("highlands");
+        listOfModsSupportedForBiomeSpawningIntegration.add("ted80");
+        listOfModsSupportedForBiomeSpawningIntegration.add("etfuturum");
+        listOfModsSupportedForBiomeSpawningIntegration.add("Netherlicious");
+        listOfModsSupportedForBiomeSpawningIntegration.add("minecraft");
         registerEntities();
     }
 
@@ -504,7 +508,7 @@ public class MoCreatures {
         registerEntity(MoCEntityBird.class, "Bird", 14020607, 14020607);// 0x03600, 0x003500);
         registerEntity(MoCEntityMouse.class, "Mouse", 14772545, 0);//, 0x02600, 0x002500);
         registerEntity(MoCEntityTurkey.class, "Turkey", 14020607, 16711680);//, 0x2600, 0x052500);
-        registerEntity(MoCEntityHorse.class, "WildHorse", 12623485, 15656192);//, 0x2600, 0x052500);
+        registerEntity(MoCEntityHorse.class, "Horse", 12623485, 15656192);//, 0x2600, 0x052500);
         registerEntity(MoCEntityHorseMob.class, "HorseMob", 16711680, 9320590);//, 0x2600, 0x052500);
         registerEntity(MoCEntityOgre.class, "Ogre", 16711680, 65407);//, 0x2600, 0x052500);
         registerEntity(MoCEntityBoar.class, "Boar", 14772545, 9141102);//, 0x2600, 0x052500);
@@ -535,13 +539,13 @@ public class MoCreatures {
         registerEntity(MoCEntityOstrich.class, "Ostrich", 14020607, 9639167);//, 0x2600, 0x052500);
         registerEntity(MoCEntityBee.class, "Bee", 65407, 15656192);//, 0x2600, 0x052500);
         registerEntity(MoCEntityFly.class, "Fly", 65407, 1);//, 0x2600, 0x052500);
-        registerEntity(MoCEntityDragonfly.class, "DragonFly", 65407, 14020607);//, 0x2600, 0x052500);
+        registerEntity(MoCEntityDragonfly.class, "Dragonfly", 65407, 14020607);//, 0x2600, 0x052500);
         registerEntity(MoCEntityFirefly.class, "Firefly", 65407, 9320590);//, 0x2600, 0x052500);
         registerEntity(MoCEntityCricket.class, "Cricket", 65407, 16622);//, 0x2600, 0x052500);
         registerEntity(MoCEntitySnail.class, "Snail", 65407, 14772545);//, 0x2600, 0x052500);
-        registerEntity(MoCEntityButterfly.class, "ButterFly", 65407, 7434694);//, 0x22600, 0x012500);
+        registerEntity(MoCEntityButterfly.class, "Butterfly", 65407, 7434694);//, 0x22600, 0x012500);
         registerEntity(MoCEntityThrowableBlockForGolem.class, "ThrowableBlockForGolem");
-        registerEntity(MoCEntityGolem.class, "BigGolem", 16711680, 16622);
+        registerEntity(MoCEntityBigGolem.class, "BigGolem", 16711680, 16622);
         registerEntity(MoCEntityPetScorpion.class, "PetScorpion");
         
         
@@ -607,19 +611,26 @@ public class MoCreatures {
          * lila - 7434694
          * morado lila - 6053069
          */
-
+    	
+    	
+    	/**
+    	* REGISTER ENTITY SPAWNS
+    	* ======================
+    	*/
+    	
         // ambients
         mocEntityMap.put("Ant", new MoCEntityData("Ant", 4, EnumCreatureType.ambient, new SpawnListEntry(MoCEntityAnt.class, 2, 1, 4), new ArrayList(Arrays.asList(Type.FOREST, Type.JUNGLE, Type.PLAINS, Type.SWAMP))));
         mocEntityMap.put("Bee", new MoCEntityData("Bee", 3, EnumCreatureType.ambient, new SpawnListEntry(MoCEntityBee.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.JUNGLE))));
-        mocEntityMap.put("ButterFly", new MoCEntityData("ButterFly", 3, EnumCreatureType.ambient, new SpawnListEntry(MoCEntityButterfly.class, 2, 1, 3), new ArrayList(Arrays.asList(Type.FOREST, Type.JUNGLE))));
+        mocEntityMap.put("Butterfly", new MoCEntityData("Butterfly", 3, EnumCreatureType.ambient, new SpawnListEntry(MoCEntityButterfly.class, 2, 1, 3), new ArrayList(Arrays.asList(Type.FOREST, Type.JUNGLE))));
         mocEntityMap.put("Crab", new MoCEntityData("Crab", 2, EnumCreatureType.ambient, new SpawnListEntry(MoCEntityCrab.class, 4, 1, 2), new ArrayList(Arrays.asList(Type.BEACH))));
         mocEntityMap.put("Cricket", new MoCEntityData("Cricket", 2, EnumCreatureType.ambient, new SpawnListEntry(MoCEntityCricket.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.PLAINS, Type.SAVANNA))));
-        mocEntityMap.put("DragonFly", new MoCEntityData("DragonFly", 2, EnumCreatureType.ambient, new SpawnListEntry(MoCEntityDragonfly.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.RIVER, Type.SWAMP))));
+        mocEntityMap.put("Dragonfly", new MoCEntityData("Dragonfly", 2, EnumCreatureType.ambient, new SpawnListEntry(MoCEntityDragonfly.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.RIVER, Type.SWAMP))));
         mocEntityMap.put("Firefly", new MoCEntityData("Firefly", 3, EnumCreatureType.ambient, new SpawnListEntry(MoCEntityFirefly.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.SWAMP))));
         mocEntityMap.put("Fly", new MoCEntityData("Fly", 2, EnumCreatureType.ambient, new SpawnListEntry(MoCEntityFly.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.SAVANNA, Type.FOREST, Type.JUNGLE, Type.SWAMP))));
         mocEntityMap.put("Maggot", new MoCEntityData("Maggot", 2, EnumCreatureType.ambient, new SpawnListEntry(MoCEntityMaggot.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.JUNGLE, Type.SWAMP))));
         mocEntityMap.put("Snail", new MoCEntityData("Snail", 2, EnumCreatureType.ambient, new SpawnListEntry(MoCEntitySnail.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.JUNGLE, Type.SWAMP))));
         mocEntityMap.put("Roach", new MoCEntityData("Roach", 2, EnumCreatureType.ambient, new SpawnListEntry(MoCEntityRoach.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.JUNGLE, Type.SWAMP))));
+        
         // creatures
         mocEntityMap.put("Bear", new MoCEntityData("Bear", 4, EnumCreatureType.creature, new SpawnListEntry(MoCEntityBear.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.MOUNTAIN, Type.JUNGLE, Type.SNOWY))));
         mocEntityMap.put("BigCat", new MoCEntityData("BigCat", 4, EnumCreatureType.creature, new SpawnListEntry(MoCEntityBigCat.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.SAVANNA, Type.JUNGLE, Type.SNOWY))));
@@ -641,8 +652,9 @@ public class MoCreatures {
         mocEntityMap.put("Snake", new MoCEntityData("Snake", 3, EnumCreatureType.creature, new SpawnListEntry(MoCEntitySnake.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.SANDY, Type.FOREST, Type.JUNGLE, Type.SWAMP))));
         mocEntityMap.put("Turkey", new MoCEntityData("Turkey", 2, EnumCreatureType.creature, new SpawnListEntry(MoCEntityTurkey.class, 8, 1, 2), new ArrayList(Arrays.asList(Type.PLAINS))));
         mocEntityMap.put("Turtle", new MoCEntityData("Turtle", 3, EnumCreatureType.creature, new SpawnListEntry(MoCEntityTurtle.class, 4, 1, 2), new ArrayList(Arrays.asList(Type.SWAMP))));
-        mocEntityMap.put("WildHorse", new MoCEntityData("WildHorse", 4, EnumCreatureType.creature, new SpawnListEntry(MoCEntityHorse.class, 8, 1, 4), new ArrayList(Arrays.asList(Type.PLAINS, Type.SAVANNA))));
+        mocEntityMap.put("Horse", new MoCEntityData("Horse", 4, EnumCreatureType.creature, new SpawnListEntry(MoCEntityHorse.class, 8, 1, 4), new ArrayList(Arrays.asList(Type.PLAINS, Type.SAVANNA))));
         mocEntityMap.put("Wyvern", new MoCEntityData("Wyvern", 3, EnumCreatureType.creature, new SpawnListEntry(MoCEntityWyvern.class, 8, 1, 3), new ArrayList()));
+        
         // water creatures
         mocEntityMap.put("Dolphin", new MoCEntityData("Dolphin", 3, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityDolphin.class, 3, 1, 1), new ArrayList(Arrays.asList(Type.BEACH, Type.OCEAN, Type.SWAMP))));
         mocEntityMap.put("Fishy", new MoCEntityData("Fishy", 6, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityFishy.class, 6, 3, 6), new ArrayList(Arrays.asList(Type.BEACH, Type.OCEAN))));
@@ -654,7 +666,7 @@ public class MoCreatures {
         mocEntityMap.put("SmallFish", new MoCEntityData("SmallFish", 6, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntitySmallFish.class, 12, 2, 6), new ArrayList(Arrays.asList(Type.OCEAN, Type.RIVER, Type.SWAMP))));
         
         // monsters
-        mocEntityMap.put("BigGolem", new MoCEntityData("BigGolem", 1, EnumCreatureType.monster, new SpawnListEntry(MoCEntityGolem.class, 3, 1, 1), new ArrayList(Arrays.asList(Type.SANDY, Type.FOREST, Type.SNOWY, Type.JUNGLE, Type.HILLS, Type.MOUNTAIN, Type.PLAINS, Type.SWAMP, Type.WASTELAND))));
+        mocEntityMap.put("BigGolem", new MoCEntityData("BigGolem", 1, EnumCreatureType.monster, new SpawnListEntry(MoCEntityBigGolem.class, 3, 1, 1), new ArrayList(Arrays.asList(Type.SANDY, Type.FOREST, Type.SNOWY, Type.JUNGLE, Type.HILLS, Type.MOUNTAIN, Type.PLAINS, Type.SWAMP, Type.WASTELAND))));
         mocEntityMap.put("FlameWraith", new MoCEntityData("FlameWraith", 3, EnumCreatureType.monster, new SpawnListEntry(MoCEntityFlameWraith.class, 5, 1, 1), new ArrayList(Arrays.asList(Type.SANDY, Type.FOREST, Type.SNOWY, Type.JUNGLE, Type.HILLS, Type.MOUNTAIN, Type.NETHER, Type.PLAINS, Type.SWAMP, Type.WASTELAND))));
         mocEntityMap.put("HellRat", new MoCEntityData("HellRat", 4, EnumCreatureType.monster, new SpawnListEntry(MoCEntityHellRat.class, 6, 1, 4), new ArrayList(Arrays.asList(Type.NETHER))));
         mocEntityMap.put("HorseMob", new MoCEntityData("HorseMob", 3, EnumCreatureType.monster, new SpawnListEntry(MoCEntityHorseMob.class, 8, 1, 3), new ArrayList(Arrays.asList(Type.PLAINS, Type.SAVANNA, Type.NETHER))));
@@ -667,36 +679,102 @@ public class MoCreatures {
         mocEntityMap.put("Wraith", new MoCEntityData("Wraith", 3, EnumCreatureType.monster, new SpawnListEntry(MoCEntityWraith.class, 1, 1, 1), new ArrayList(Arrays.asList(Type.SANDY, Type.FOREST, Type.SNOWY, Type.JUNGLE, Type.HILLS, Type.MOUNTAIN, Type.PLAINS, Type.SWAMP, Type.WASTELAND))));
         mocEntityMap.put("WWolf", new MoCEntityData("WWolf", 3, EnumCreatureType.monster, new SpawnListEntry(MoCEntityWWolf.class, 8, 1, 4), new ArrayList(Arrays.asList(Type.CONIFEROUS))));
 
+        
+        
+        if (!isJustAnotherSpawnerLoaded) //only use built-in entity spawn config data if the Just Another Spawner mod is NOT installed
+        {
+        	proxy.readMocConfigValues();  //perform initial update for entity data based on config file spawn list entries
+        	
+	        // update the spawn data for all entities based on initial updates from config file
+	        for (MoCEntityData entityData : mocEntityMap.values())
+	        {
+	        	String entityClassFilePath = "";
+	    		
+	    		if (entityData.getType() == EnumCreatureType.ambient)
+	    		{
+	    			entityClassFilePath = "drzhark.mocreatures.entity.ambient.";
+	    		}
+	    		
+	    		if (entityData.getType() == EnumCreatureType.creature)
+	    		{
+	    			entityClassFilePath = "drzhark.mocreatures.entity.animal.";
+	    		}
+	    		
+	    		if (entityData.getType() == EnumCreatureType.waterCreature)
+	    		{
+	    			entityClassFilePath = "drzhark.mocreatures.entity.aquatic.";	
+	    		}
+	    		
+	    		if (entityData.getType() == EnumCreatureType.monster)
+	    		{
+	    			entityClassFilePath = "drzhark.mocreatures.entity.monster.";	
+	    		}
+	        	
+	        	String fullyQualifiedEntityClass = entityClassFilePath + "MoCEntity" + entityData.getEntityName();
+	        	
+	        	try
+	        	{
+	        		Class<?> entityClass = Class.forName(fullyQualifiedEntityClass);
+	        		
+	        		mocEntityMap.replace
+	        		(
+	        				entityData.getEntityName(),
+			           		new MoCEntityData
+			           		(
+			           			entityData.getEntityName(),
+			           			entityData.getMaxInChunk(),
+			           			entityData.getType(),
+			           			new SpawnListEntry(entityClass, entityData.getFrequency(), entityData.getMinSpawn(), entityData.getMaxSpawn()),
+			           			entityData.getBiomeTypes(),
+			           			entityData.getCanSpawn()
+			           		)
+			        );
+	        	}
+	        	catch (ClassNotFoundException ex)
+	        	{
+	        		System.out.println("[Mo' Creatures]: ERROR - Tried to register an entity spawn entry but could not find the following Entity Class file: " + fullyQualifiedEntityClass);
+	        	}
+	        }
+        }
+        
+        
         for (MoCEntityData entityData : mocEntityMap.values())
         {
-            if (entityData.getEntityName().equals("Wyvern")) continue;
+        	if ((!entityData.getCanSpawn()) || entityData.getFrequency() == 0) {continue;} //don't try to register spawns for an entity that is set to not spawn in the config file
+        	
+            if (entityData.getEntityName().equals("Wyvern")) {continue;} //don't register spawns for wyvern in normal biomes
+            
             SpawnListEntry spawnEntry = entityData.getSpawnListEntry();
-            for (BiomeDictionary.Type type : entityData.getBiomeTypes())
+            
+//			FOR DEBUG Purposes:            
+//            	System.out.println("============================");
+//           	 	System.out.println(spawnEntry);
+            
+            for (BiomeDictionary.Type biomeType : entityData.getBiomeTypes())
             {
-                for (BiomeGenBase biome : BiomeDictionary.getBiomesForType(type))
+                for (BiomeGenBase biome : BiomeDictionary.getBiomesForType(biomeType))
                 {
-                    boolean match = false;
-                    for (String allowedBiomeMod : defaultBiomeSupport)
+                    boolean canEntitySpawnInThisBiome = false;
+                    for (String supportedBiomeMod : listOfModsSupportedForBiomeSpawningIntegration)
                     {
                     	
-                        if (biome.getClass().getName().contains(allowedBiomeMod))
+                        if (biome.getClass().getName().contains(supportedBiomeMod))
                         {
-                            match = true;
+                            canEntitySpawnInThisBiome = true;
                             break;
                         }
                     }
-                    if (!biome.getSpawnableList(entityData.getType()).contains(spawnEntry) && match)
+                    if (!biome.getSpawnableList(entityData.getType()).contains(spawnEntry) && canEntitySpawnInThisBiome)
                     {
-                        biome.getSpawnableList(entityData.getType()).add(spawnEntry);
+                        biome.getSpawnableList(entityData.getType()).add(spawnEntry); //registers the spawnlist entry for that entity in that biome
                     }
                 }
             }
         }
-        proxy.readMocConfigValues();
     }
 
     /**
-     * For Litterbox and kittybeds
+     * Used to register entities that are NOT supposed to have a spawn egg
      * 
      * @param entityClass
      * @param entityName
@@ -711,6 +789,12 @@ public class MoCreatures {
         mocEntityID += 1;
     }
 
+    /**
+     * Used to register entities that are supposed to have a spawn egg
+     * 
+     * @param entityClass
+     * @param entityName
+     */
     private void registerEntity(Class<? extends Entity> entityClass, String entityName, int eggColor, int eggDotsColor)
     {
         if (proxy.debug) 

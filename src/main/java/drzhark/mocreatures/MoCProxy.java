@@ -11,7 +11,7 @@ import drzhark.mocreatures.configuration.MoCConfiguration;
 import drzhark.mocreatures.configuration.MoCProperty;
 import drzhark.mocreatures.entity.IMoCEntity;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
-import drzhark.mocreatures.entity.monster.MoCEntityGolem;
+import drzhark.mocreatures.entity.monster.MoCEntityBigGolem;
 import drzhark.mocreatures.utils.MoCLog;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -165,7 +165,7 @@ public class MoCProxy implements IGuiHandler {
 
     public void MaterializeFX(MoCEntityHorse entity) {}
 
-    public void VacuumFX(MoCEntityGolem entity) {}
+    public void VacuumFX(MoCEntityBigGolem entity) {}
     
     public void hammerFX(EntityPlayer entityPlayer) {}
 
@@ -246,46 +246,46 @@ public class MoCProxy implements IGuiHandler {
         {
             for (MoCEntityData entityData : MoCreatures.mocEntityMap.values())
             {
-                MoCConfigCategory cat = mocEntityConfig.getCategory(entityData.getEntityName().toLowerCase());
-                if (!cat.containsKey("frequency"))
+                MoCConfigCategory entityConfigData = mocEntityConfig.getCategory(entityData.getEntityName().toLowerCase());
+                if (!entityConfigData.containsKey("frequency"))
                 {
-                    cat.put("frequency", new MoCProperty("frequency", Integer.toString(entityData.getFrequency()), MoCProperty.Type.INTEGER));
+                    entityConfigData.put("frequency", new MoCProperty("frequency", Integer.toString(entityData.getFrequency()), MoCProperty.Type.INTEGER));
                 }
                 else
                 {
-                    entityData.setFrequency(Integer.parseInt(cat.get("frequency").value));
+                    entityData.setFrequency(Integer.parseInt(entityConfigData.get("frequency").value));
                 }
-                if (!cat.containsKey("minspawn"))
+                if (!entityConfigData.containsKey("minspawn"))
                 {
-                    cat.put("minspawn", new MoCProperty("minspawn", Integer.toString(entityData.getMinSpawn()), MoCProperty.Type.INTEGER));
-                }
-                else
-                {
-                    entityData.setMinSpawn(Integer.parseInt(cat.get("minspawn").value));
-                }
-                if (!cat.containsKey("maxspawn"))
-                {
-                    cat.put("maxspawn", new MoCProperty("maxspawn", Integer.toString(entityData.getMaxSpawn()), MoCProperty.Type.INTEGER));
+                    entityConfigData.put("minspawn", new MoCProperty("minspawn", Integer.toString(entityData.getMinSpawn()), MoCProperty.Type.INTEGER));
                 }
                 else
                 {
-                    entityData.setMaxSpawn(Integer.parseInt(cat.get("maxspawn").value));
+                    entityData.setMinSpawn(Integer.parseInt(entityConfigData.get("minspawn").value));
                 }
-                if (!cat.containsKey("maxchunk"))
+                if (!entityConfigData.containsKey("maxspawn"))
                 {
-                    cat.put("maxchunk", new MoCProperty("maxchunk", Integer.toString(entityData.getMaxInChunk()), MoCProperty.Type.INTEGER));
-                }
-                else
-                {
-                    entityData.setMaxInChunk(Integer.parseInt(cat.get("maxchunk").value));
-                }
-                if (!cat.containsKey("canspawn"))
-                {
-                    cat.put("canspawn", new MoCProperty("canspawn", Boolean.toString(entityData.getCanSpawn()), MoCProperty.Type.BOOLEAN));
+                    entityConfigData.put("maxspawn", new MoCProperty("maxspawn", Integer.toString(entityData.getMaxSpawn()), MoCProperty.Type.INTEGER));
                 }
                 else
                 {
-                    entityData.setCanSpawn(Boolean.parseBoolean(cat.get("canspawn").value));
+                    entityData.setMaxSpawn(Integer.parseInt(entityConfigData.get("maxspawn").value));
+                }
+                if (!entityConfigData.containsKey("maxchunk"))
+                {
+                    entityConfigData.put("maxchunk", new MoCProperty("maxchunk", Integer.toString(entityData.getMaxInChunk()), MoCProperty.Type.INTEGER));
+                }
+                else
+                {
+                    entityData.setMaxInChunk(Integer.parseInt(entityConfigData.get("maxchunk").value));
+                }
+                if (!entityConfigData.containsKey("canspawn"))
+                {
+                    entityConfigData.put("canspawn", new MoCProperty("canspawn", Boolean.toString(entityData.getCanSpawn()), MoCProperty.Type.BOOLEAN));
+                }
+                else
+                {
+                    entityData.setCanSpawn(Boolean.parseBoolean(entityConfigData.get("canspawn").value));
                 }
             }
         }

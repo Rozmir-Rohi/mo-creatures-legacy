@@ -1060,7 +1060,7 @@ public class MoCTools {
                 BlockEvent.BreakEvent event = null;
                 if (!entity.worldObj.isRemote)
                 {
-                    event = new BlockEvent.BreakEvent(j3, l3, j4, entity.worldObj, block, metadata, FakePlayerFactory.get(DimensionManager.getWorld(entity.worldObj.provider.dimensionId), MoCreatures.MOCFAKEPLAYER));
+                    event = new BlockEvent.BreakEvent(j3, l3, j4, entity.worldObj, block, metadata, FakePlayerFactory.get(DimensionManager.getWorld(entity.worldObj.provider.dimensionId), MoCreatures.MOC_FAKE_PLAYER));
                 }
                 if (event != null && !event.isCanceled())
                 {
@@ -1089,7 +1089,7 @@ public class MoCTools {
                     BlockEvent.BreakEvent event = null;
                     if (!entity.worldObj.isRemote)
                     {
-                        event = new BlockEvent.BreakEvent(k3, i4, k4, entity.worldObj, block, metadata, FakePlayerFactory.get((WorldServer)entity.worldObj, MoCreatures.MOCFAKEPLAYER));
+                        event = new BlockEvent.BreakEvent(k3, i4, k4, entity.worldObj, block, metadata, FakePlayerFactory.get((WorldServer)entity.worldObj, MoCreatures.MOC_FAKE_PLAYER));
                     }
                     if (event != null && !event.isCanceled())
                     {
@@ -1200,7 +1200,7 @@ public class MoCTools {
                     BlockEvent.BreakEvent event = null;
                     if (!entity.worldObj.isRemote)
                     {
-                        event = new BlockEvent.BreakEvent(x, y, z, entity.worldObj, block, metadata, FakePlayerFactory.get((WorldServer)entity.worldObj, MoCreatures.MOCFAKEPLAYER));
+                        event = new BlockEvent.BreakEvent(x, y, z, entity.worldObj, block, metadata, FakePlayerFactory.get((WorldServer)entity.worldObj, MoCreatures.MOC_FAKE_PLAYER));
                     }
                     if (event != null && !event.isCanceled())
                     {
@@ -1244,7 +1244,7 @@ public class MoCTools {
                     BlockEvent.BreakEvent event = null;
                     if (!entity.worldObj.isRemote)
                     {
-                        event = new BlockEvent.BreakEvent(x, y, z, entity.worldObj, block2, metadata, FakePlayerFactory.get((WorldServer)entity.worldObj, MoCreatures.MOCFAKEPLAYER));
+                        event = new BlockEvent.BreakEvent(x, y, z, entity.worldObj, block2, metadata, FakePlayerFactory.get((WorldServer)entity.worldObj, MoCreatures.MOC_FAKE_PLAYER));
                     }
                     if (event != null && !event.isCanceled())
                     {
@@ -1429,7 +1429,7 @@ public class MoCTools {
                 BlockEvent.BreakEvent event = null;
                 if (!entity.worldObj.isRemote)
                 {
-                    event = new BlockEvent.BreakEvent(x, y + index, z, entity.worldObj, block, metadata, FakePlayerFactory.get((WorldServer)entity.worldObj, MoCreatures.MOCFAKEPLAYER));
+                    event = new BlockEvent.BreakEvent(x, y + index, z, entity.worldObj, block, metadata, FakePlayerFactory.get((WorldServer)entity.worldObj, MoCreatures.MOC_FAKE_PLAYER));
                 }
                 if (event != null && !event.isCanceled())
                 {
@@ -1555,7 +1555,7 @@ public class MoCTools {
                 String petClass = entity.getClass().getSimpleName().replace("MoCEntity", "");
                 if (petClass.equalsIgnoreCase("Horse"))
                 {
-                    petClass = "WildHorse";
+                    petClass = "Horse";
                 }
                 else if (petClass.equalsIgnoreCase("Komodo"))
                 {

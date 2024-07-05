@@ -2191,7 +2191,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         BlockEvent.BreakEvent event = null;
         if (!worldObj.isRemote)
         {
-            event = new BlockEvent.BreakEvent(xCoordinate - 1, yCoordinate, zCoordinate - 1, worldObj, block, metadata, FakePlayerFactory.get(DimensionManager.getWorld(worldObj.provider.dimensionId), MoCreatures.MOCFAKEPLAYER));
+            event = new BlockEvent.BreakEvent(xCoordinate - 1, yCoordinate, zCoordinate - 1, worldObj, block, metadata, FakePlayerFactory.get(DimensionManager.getWorld(worldObj.provider.dimensionId), MoCreatures.MOC_FAKE_PLAYER));
         }
         if (event != null && !event.isCanceled())
         {

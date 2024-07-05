@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import drzhark.mocreatures.client.model.MoCModelGolem;
-import drzhark.mocreatures.entity.monster.MoCEntityGolem;
+import drzhark.mocreatures.entity.monster.MoCEntityBigGolem;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,7 +24,7 @@ public class MoCRenderGolem extends MoCRenderMoC {
     /**
      * A method used to render a creeper's powered form as a pass model.
      */
-    protected int renderGPassModel(MoCEntityGolem par1Entity, int par2, float par3)
+    protected int renderGPassModel(MoCEntityBigGolem par1Entity, int par2, float par3)
     {
         boolean depth = true;
 
@@ -78,10 +78,10 @@ public class MoCRenderGolem extends MoCRenderMoC {
     @Override
     protected int shouldRenderPass(EntityLivingBase entityLiving, int par2, float par3)
     {
-        return renderGPassModel((MoCEntityGolem) entityLiving, par2, par3);
+        return renderGPassModel((MoCEntityBigGolem) entityLiving, par2, par3);
     }
 
     protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityGolem)par1Entity).getTexture();
+        return ((MoCEntityBigGolem)par1Entity).getTexture();
     }
 }

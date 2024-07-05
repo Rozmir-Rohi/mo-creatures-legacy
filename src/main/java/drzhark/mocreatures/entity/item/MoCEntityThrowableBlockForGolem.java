@@ -4,7 +4,7 @@ import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
-import drzhark.mocreatures.entity.monster.MoCEntityGolem;
+import drzhark.mocreatures.entity.monster.MoCEntityBigGolem;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -156,7 +156,7 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
 	                {
 	                    continue;
 	                }
-	                if (entityNearby instanceof MoCEntityGolem)
+	                if (entityNearby instanceof MoCEntityBigGolem)
 	                {
 	                    continue;
 	                }
@@ -196,9 +196,9 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
             float zDistanceToMaster = (float) posZ - (float) master.posZ;
             float xzDistanceToMaster = xDistanceToMaster * xDistanceToMaster + zDistanceToMaster * zDistanceToMaster;
 
-            if (xzDistanceToMaster < 1.0F && master instanceof MoCEntityGolem)
+            if (xzDistanceToMaster < 1.0F && master instanceof MoCEntityBigGolem)
             {
-                ((MoCEntityGolem) master).receiveBlock(getType(), getMetadata());
+                ((MoCEntityBigGolem) master).receiveBlock(getType(), getMetadata());
                 setDead();
             }
 
@@ -236,7 +236,7 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
             motionY = ((master.posY - posY) / 20D + 0.15D);
             motionZ = ((master.posZ - posZ) / summonedSpeed);
 
-            if (xzDistanceToMaster < 2.5F && master instanceof MoCEntityGolem)
+            if (xzDistanceToMaster < 2.5F && master instanceof MoCEntityBigGolem)
             {
                 motionX = 0D;
                 motionY = 0D;

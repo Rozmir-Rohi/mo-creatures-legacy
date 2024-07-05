@@ -24,7 +24,7 @@ Fixed Werewolf taking too much damage when hit for the first time.  This was fix
 Renamed some Items and Entities in the language file:
 	WWolf --> Dire Wolf
 
-	WildHorse --> Horse
+	Horse --> Horse
 
 	Pet Food --> Pet Food
 
@@ -1146,3 +1146,14 @@ Fixed entity ID conflict crash for good. Also readjusted lang file entries for c
 
 
 Fixed turtle crash.
+
+
+Changed the Following Entity Names:  <--- WARNING: be careful if loading the new version of the mod into an existing world. This change cause old versions of these entities to bug out.
+	ButterFly --> Butterfly
+
+	DragonFly --> Dragonfly
+
+	WildHorse --> Horse
+
+
+Fixed entity spawn list config file not working.

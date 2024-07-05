@@ -262,11 +262,11 @@ ThaumcraftApi.registerEntityTag("MoCreatures.Ant", new AspectList().add(Aspect.E
 
 ThaumcraftApi.registerEntityTag("MoCreatures.Bee", new AspectList().add(Aspect.FLIGHT, 1).add(Aspect.BEAST, 1)); 
 
-ThaumcraftApi.registerEntityTag("MoCreatures.ButterFly", new AspectList().add(Aspect.FLIGHT, 1).add(Aspect.BEAST, 1));
+ThaumcraftApi.registerEntityTag("MoCreatures.Butterfly", new AspectList().add(Aspect.FLIGHT, 1).add(Aspect.BEAST, 1));
 
 ThaumcraftApi.registerEntityTag("MoCreatures.Cricket", new AspectList().add(Aspect.FLIGHT, 1).add(Aspect.EARTH, 1).add(Aspect.BEAST, 1));
 
-ThaumcraftApi.registerEntityTag("MoCreatures.DragonFly", new AspectList().add(Aspect.FLIGHT, 1).add(Aspect.BEAST, 1)); 
+ThaumcraftApi.registerEntityTag("MoCreatures.Dragonfly", new AspectList().add(Aspect.FLIGHT, 1).add(Aspect.BEAST, 1)); 
 
 ThaumcraftApi.registerEntityTag("MoCreatures.Firefly", new AspectList().add(Aspect.FLIGHT, 1).add(Aspect.LIGHT, 1).add(Aspect.BEAST, 1)); 
 
@@ -318,7 +318,7 @@ ThaumcraftApi.registerEntityTag("MoCreatures.Snake", new AspectList().add(Aspect
 
 ThaumcraftApi.registerEntityTag("MoCreatures.Turkey", new AspectList().add(Aspect.FLIGHT, 2).add(Aspect.EARTH, 2).add(Aspect.BEAST, 2));  
 
-ThaumcraftApi.registerEntityTag("MoCreatures.WildHorse", new AspectList().add(Aspect.EARTH, 1).add(Aspect.AIR, 1).add(Aspect.BEAST, 4)); 
+ThaumcraftApi.registerEntityTag("MoCreatures.Horse", new AspectList().add(Aspect.EARTH, 1).add(Aspect.AIR, 1).add(Aspect.BEAST, 4)); 
 
 // -------------------------------------------------------------------------------------------------------
 

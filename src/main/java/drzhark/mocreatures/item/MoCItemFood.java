@@ -13,7 +13,7 @@ public class MoCItemFood extends ItemFood
     public MoCItemFood(String name, int j)
     {
         super(j, 0.6F, false);
-        setCreativeTab(MoCreatures.tabMoC);
+        setCreativeTab(MoCreatures.MOC_CREATIVE_TAB);
         setUnlocalizedName(name);
         GameRegistry.registerItem(this, name);
         maxStackSize = 32;
@@ -22,7 +22,7 @@ public class MoCItemFood extends ItemFood
     public MoCItemFood(String name, int j, float f, boolean flag)
     {
         super(j, f, flag);
-        setCreativeTab(MoCreatures.tabMoC);
+        setCreativeTab(MoCreatures.MOC_CREATIVE_TAB);
         setUnlocalizedName(name);
         GameRegistry.registerItem(this, name);
     }

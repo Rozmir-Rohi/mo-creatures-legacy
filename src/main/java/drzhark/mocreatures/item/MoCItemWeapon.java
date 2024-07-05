@@ -34,7 +34,7 @@ public class MoCItemWeapon extends ItemSword {
     {
         super(toolMaterial);
         
-        setCreativeTab(MoCreatures.tabMoC);
+        setCreativeTab(MoCreatures.MOC_CREATIVE_TAB);
         setUnlocalizedName(name);
         GameRegistry.registerItem(this, name);
         

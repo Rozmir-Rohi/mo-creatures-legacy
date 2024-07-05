@@ -23,7 +23,7 @@ public class MoCItemRecord extends ItemRecord
     public MoCItemRecord(String string)
     {
         super(string);
-        setCreativeTab(MoCreatures.tabMoC);
+        setCreativeTab(MoCreatures.MOC_CREATIVE_TAB);
         setUnlocalizedName(string);
         GameRegistry.registerItem(this, string);
     }

@@ -4,7 +4,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import drzhark.mocreatures.client.MoCClientProxy;
-import drzhark.mocreatures.entity.monster.MoCEntityGolem;
+import drzhark.mocreatures.entity.monster.MoCEntityBigGolem;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 
@@ -43,9 +43,9 @@ public class MoCMessageTwoBytes implements IMessage, IMessageHandler<MoCMessageT
     public IMessage onMessage(MoCMessageTwoBytes message, MessageContext context)
     {
         Entity entity = MoCClientProxy.mc.thePlayer.worldObj.getEntityByID(message.entityId);
-        if (entity != null && entity instanceof MoCEntityGolem)
+        if (entity != null && entity instanceof MoCEntityBigGolem)
         {
-            ((MoCEntityGolem) entity).saveGolemCube(message.slot, message.value);
+            ((MoCEntityBigGolem) entity).saveGolemCube(message.slot, message.value);
         }
         return null;
     }

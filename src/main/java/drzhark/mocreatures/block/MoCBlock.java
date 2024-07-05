@@ -19,7 +19,7 @@ public class MoCBlock extends Block
     {
         super(material);
         setBlockName(name);
-        setCreativeTab(MoCreatures.tabMoC);
+        setCreativeTab(MoCreatures.MOC_CREATIVE_TAB);
         GameRegistry.registerBlock(this, MultiItemBlock.class, name);
     }
 

@@ -185,7 +185,7 @@ public class MoCItemHorseAmulet extends MoCItem {
     public void addInformation(ItemStack itemstack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
         initAndReadNBT(itemstack);
-        if (name.length() > 0) par3List.add(EnumChatFormatting.AQUA + StatCollector.translateToLocal("entity.MoCreatures.WildHorse.name")); //Writes the name of the entity type to item desc
+        if (name.length() > 0) par3List.add(EnumChatFormatting.AQUA + StatCollector.translateToLocal("entity.MoCreatures.Horse.name")); //Writes the name of the entity type to item desc
         if (name.length() > 0) par3List.add(EnumChatFormatting.BLUE + name); //writes the pet name to item desc
         if (ownerName.length() > 0) par3List.add(EnumChatFormatting.DARK_BLUE + ((new ChatComponentTranslation("amulet_and_fishnet_desc.MoCreatures.ownedBy", new Object[] {ownerName})).getUnformattedTextForChat())); //writes "owned by OWNER" (dependent on lang files)in item desc
     }

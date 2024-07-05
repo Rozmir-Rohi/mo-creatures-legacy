@@ -32,7 +32,7 @@ public class MoCBlockTallGrass extends BlockBush implements IShearable
         super(Material.vine);
         float var3 = 0.4F;
         setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, 0.8F, 0.5F + var3);
-        setCreativeTab(MoCreatures.tabMoC);
+        setCreativeTab(MoCreatures.MOC_CREATIVE_TAB);
         setBlockName(name);
         GameRegistry.registerBlock(this, MultiItemBlock.class, name);
     }
