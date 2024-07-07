@@ -38,8 +38,8 @@ public class MoCItemPetAmulet extends MoCItem
     private String spawnClass;
     private String ownerName;
     private int amuletType;
-    private boolean adult;
-    private int PetId;
+    private boolean isAdult;
+    private int petId;
 
     public MoCItemPetAmulet(String name) 
     {
@@ -112,14 +112,14 @@ public class MoCItemPetAmulet extends MoCItem
                         storedCreature.setType(creatureType);
                         storedCreature.setTamed(true);
                         storedCreature.setName(name);
-                        storedCreature.setOwnerPetId(PetId);
+                        storedCreature.setOwnerPetId(petId);
                         storedCreature.setOwner(entityPlayer.getCommandSenderName());
                         
                         
                         ((EntityLiving) storedCreature).getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth);
                         ((EntityLiving) storedCreature).setHealth(health);
                         storedCreature.setMoCAge(age);
-                        storedCreature.setAdult(adult);
+                        storedCreature.setAdult(isAdult);
                         // special case for kitty
                         if (spawnClass.equalsIgnoreCase("Kitty"))
                         {
@@ -153,55 +153,55 @@ public class MoCItemPetAmulet extends MoCItem
 
     public void readFromNBT(NBTTagCompound nbt)
     {
-        PetId = nbt.getInteger("PetId");
+        petId = nbt.getInteger("PetId");
         creatureType = nbt.getInteger("CreatureType");
         maxHealth = nbt.getFloat("MaxHealth");
         health = nbt.getFloat("Health");
         age = nbt.getInteger("Age");
         name = nbt.getString("Name");
         spawnClass = nbt.getString("SpawnClass");
-        adult = nbt.getBoolean("Adult");
+        isAdult = nbt.getBoolean("Adult");
         ownerName = nbt.getString("OwnerName");
     }
 
     public void writeToNBT(NBTTagCompound nbt)
     {
-        nbt.setInteger("PetID", PetId);
+        nbt.setInteger("PetID", petId);
         nbt.setInteger("CreatureType", creatureType);
         nbt.setFloat("MaxHealth", maxHealth);
         nbt.setFloat("Health", health);
         nbt.setInteger("Age", age);
         nbt.setString("Name", name);
         nbt.setString("SpawnClass", spawnClass);
-        nbt.setBoolean("Adult", adult);
+        nbt.setBoolean("Adult", isAdult);
         nbt.setString("OwnerName", ownerName);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons(IIconRegister par1IconRegister)
+    public void registerIcons(IIconRegister iconRegister)
     {
         icons = new IIcon[4];
-        icons[0] = par1IconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":")); //empty fishnet
-        icons[1] = par1IconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":") + "full"); //fishnet with generic fish
-        icons[2] = par1IconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":")); //empty superamulet
-        icons[3] = par1IconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":") + "full"); //full superamulet
+        icons[0] = iconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":")); //empty fishnet
+        icons[1] = iconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":") + "full"); //fishnet with generic fish
+        icons[2] = iconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":")); //empty superamulet
+        icons[3] = iconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":") + "full"); //full superamulet
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public IIcon getIconFromDamage(int par1)
+    public IIcon getIconFromDamage(int itemDamage)
     {
         if (amuletType == 1)
         {
-            if (par1 < 1)
+            if (itemDamage < 1)
             {
                 return icons[2];
             }
             return icons[3];
         }
         
-        if (par1 < 1)
+        if (itemDamage < 1)
         {
             return icons[0];
         }

@@ -212,7 +212,7 @@ public static void initilization()
 	tame_kitty = new Achievement("achievement.tame_kitty", "tame_kitty", 4, 6, new ItemStack(MoCreatures.achievementIconTameKitty), craft_medallion).registerStat();
 	kitty_litter_box = new Achievement("achievement.kitty_litter_box", "kitty_litter_box", 3, 8, new ItemStack(MoCreatures.litterbox), tame_kitty).registerStat();
 	kitty_litter = new Achievement("achievement.kitty_litter", "kitty_litter", 3, 10, new ItemStack(Blocks.sand), kitty_litter_box).registerStat();
-	kitty_bed = new Achievement("achievement.kitty_bed", "kitty_bed", 4, 8, new ItemStack(MoCreatures.kittybed), tame_kitty).registerStat();
+	kitty_bed = new Achievement("achievement.kitty_bed", "kitty_bed", 4, 8, new ItemStack(MoCreatures.achievementIconKittyBed), tame_kitty).registerStat();
 	pet_food = new Achievement("achievement.pet_food", "pet_food", 4, 10, new ItemStack(MoCreatures.petFood), kitty_bed).registerStat();
 	wool_ball = new Achievement("achievement.wool_ball", "wool_ball", 5, 8, new ItemStack(MoCreatures.woolball), tame_kitty).registerStat();
 	

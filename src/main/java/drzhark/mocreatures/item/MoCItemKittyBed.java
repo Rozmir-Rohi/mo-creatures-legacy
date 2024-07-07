@@ -1,14 +1,27 @@
 package drzhark.mocreatures.item;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.item.MoCEntityKittyBed;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class MoCItemKittyBed extends MoCItem {
 
 	int bedType;
+	
+	private IIcon[] icons;
 	
     public MoCItemKittyBed(String name)
     {
@@ -43,5 +56,31 @@ public class MoCItemKittyBed extends MoCItem {
     public String getUnlocalizedName(ItemStack itemstack)
     {
         return (new StringBuilder()).append(super.getUnlocalizedName()).append(".").append(itemstack.getItemDamage()).toString();
+    }
+    
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerIcons(IIconRegister iconRegister)
+    {
+        icons = new IIcon[16];
+        
+        for (int index = 0; index < 16; index++)
+        {
+            String kittyBedWoolColour = ItemDye.field_150921_b[index];
+               
+            icons[index] = iconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":")+"_"+kittyBedWoolColour);
+        }
+        
+        
+    }
+
+    /**
+     * Gets an icon index based on an item's damage value
+     */
+    @SideOnly(Side.CLIENT)
+    @Override
+    public IIcon getIconFromDamage(int itemDamage)
+    {
+        return icons[itemDamage];
     }
 }

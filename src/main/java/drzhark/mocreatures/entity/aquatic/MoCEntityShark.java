@@ -17,6 +17,7 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -68,9 +69,46 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
             {
                 Entity entityThatPlayerIsRiding = ((EntityPlayer)entity).ridingEntity;
                 
+                if (entityThatPlayerIsRiding instanceof MoCEntityDolphin) 
+                {
+                    return; //don't attack players who are riding a dolphin
+                }
+                
                 if (entityThatPlayerIsRiding instanceof EntityBoat) 
                 {
-                    return;
+                	if (distanceToEntity < 2D && rand.nextInt(100) < 10) //10% chance to target players who are in a boat
+                	{
+                		int xBoatCoordinate = (int)Math.round(entityThatPlayerIsRiding.posX);
+                		
+                		int yBoatCoordinate = (int)Math.round(entityThatPlayerIsRiding.posY);
+                		
+                		int zBoatCoordinate = (int)Math.round(entityThatPlayerIsRiding.posZ); 
+                		
+                		if (rand.nextInt(100) < 20) //20% chance to break players boat each hit
+                		{
+	                        for (int index = 0; index < 3; ++index)
+	                        {
+	                        	entityThatPlayerIsRiding.func_145778_a(Item.getItemFromBlock(Blocks.planks), 1, 0.0F);
+	                        }
+	
+	                        for (int index = 0; index < 2; ++index)
+	                        {
+	                        	entityThatPlayerIsRiding.func_145778_a(Items.stick, 1, 0.0F);
+	                        }
+	                        
+	                        entityThatPlayerIsRiding.setDead();
+	                        
+	                        worldObj.playAuxSFX(1012, xBoatCoordinate, yBoatCoordinate, zBoatCoordinate, 0); //play door break sound
+                		}
+                		else
+                		{
+                			worldObj.playAuxSFX(1010, xBoatCoordinate, yBoatCoordinate, zBoatCoordinate, 0); //play door hit sound
+                			return;
+                		};
+                        
+                        
+                	}
+                	else {return;}
                 }
             }
             attackTime = 20;
@@ -132,7 +170,17 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
         if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getMoCAge() >= 100))
         {
             EntityPlayer closestEntityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
-            if ((closestEntityPlayer != null) && closestEntityPlayer.isInWater() && !getIsTamed()) { return closestEntityPlayer; }
+            
+            if
+            (
+            		(closestEntityPlayer != null)
+            		&& closestEntityPlayer.isInWater()
+            		&& !getIsTamed()
+            		&& !(closestEntityPlayer.ridingEntity instanceof MoCEntityDolphin)
+            )
+            {
+            	return closestEntityPlayer;
+            }
             
             if (rand.nextInt(200) == 0)  // hunting cooldown between each prey
             {

@@ -31,11 +31,11 @@ public class MoCItemHorseAmulet extends MoCItem {
     private int age;
     private int creatureType;
     private int spawnClass;
-    private boolean rideable;
+    private boolean isRideable;
     private byte armor;
-    private boolean adult;
+    private boolean isAdult;
     private String ownerName;
-    private int PetId;
+    private int petId;
     
     public MoCItemHorseAmulet(String name)
     {
@@ -77,8 +77,8 @@ public class MoCItemHorseAmulet extends MoCItem {
                 armor = 0;
                 name = "";
                 ownerName = "";
-                rideable = false;
-                adult = true;
+                isRideable = false;
+                isAdult = true;
             }
         }
 
@@ -98,14 +98,14 @@ public class MoCItemHorseAmulet extends MoCItem {
                     storedCreature.setPosition(newPosX, newPosY, newPosZ);
                     storedCreature.setType(creatureType);
                     storedCreature.setTamed(true);
-                    storedCreature.setRideable(rideable);
+                    storedCreature.setRideable(isRideable);
                     storedCreature.setMoCAge(age);
                     storedCreature.setName(name);
                     storedCreature.setArmorType(armor);
                     ((EntityLiving) storedCreature).getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth);
                     storedCreature.setHealth(health);
-                    storedCreature.setAdult(adult);
-                    storedCreature.setOwnerPetId(PetId);
+                    storedCreature.setAdult(isAdult);
+                    storedCreature.setOwnerPetId(petId);
                     storedCreature.setOwner(entityPlayer.getCommandSenderName());
 
                     if (entityPlayer.worldObj.spawnEntityInWorld(storedCreature))
@@ -148,31 +148,31 @@ public class MoCItemHorseAmulet extends MoCItem {
 
     public void readFromNBT(NBTTagCompound nbt)
     {
-        PetId = nbt.getInteger("PetId");
+        petId = nbt.getInteger("PetId");
         creatureType = nbt.getInteger("CreatureType");
         maxHealth = nbt.getFloat("MaxHealth");
         health = nbt.getFloat("Health");
         age = nbt.getInteger("Age");
         name = nbt.getString("Name");
         spawnClass = nbt.getInteger("SpawnClass");
-        rideable = nbt.getBoolean("Rideable");
+        isRideable = nbt.getBoolean("Rideable");
         armor = nbt.getByte("Armor");
-        adult = nbt.getBoolean("Adult");
+        isAdult = nbt.getBoolean("Adult");
         ownerName = nbt.getString("OwnerName");
     }
     
     public void writeToNBT(NBTTagCompound nbt)
     {
-        nbt.setInteger("PetID", PetId);
+        nbt.setInteger("PetID", petId);
         nbt.setInteger("CreatureType", creatureType);
         nbt.setFloat("MaxHealth", maxHealth);
         nbt.setFloat("Health", health);
         nbt.setInteger("Age", age);
         nbt.setString("Name", name);
         nbt.setInteger("SpawnClass", spawnClass);
-        nbt.setBoolean("Rideable", rideable);
+        nbt.setBoolean("Rideable", isRideable);
         nbt.setByte("Armor", armor);
-        nbt.setBoolean("Adult", adult);
+        nbt.setBoolean("Adult", isAdult);
         nbt.setString("OwnerName", ownerName);
     }
     

@@ -59,8 +59,8 @@ public class MoCItem extends Item
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons(IIconRegister par1IconRegister)
+    public void registerIcons(IIconRegister iconRegister)
     {
-        itemIcon = par1IconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":"));
+        itemIcon = iconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":"));
     }
 }

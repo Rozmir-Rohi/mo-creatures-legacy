@@ -1157,3 +1157,9 @@ Changed the Following Entity Names:  <--- WARNING: be careful if loading the new
 
 
 Fixed entity spawn list config file not working.
+
+
+Fixed kitty bed items all sharing one texture. All kitty bed items now have their own textures. The original kitty bed texture is now only used for the kitty bed achievement.
+
+
+Sharks will now try to break any boats that have players in them. Because of this the only safe ways to travel through oceans are now is to ride a dolphin or to fly. 
