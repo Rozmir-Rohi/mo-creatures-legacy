@@ -407,7 +407,8 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         		|| (getTusks() == 3 && tuskUses > 1000) //diamond tusks
         	)
         {
-            MoCTools.playCustomSound(this, "turtlehurt", worldObj);
+        	
+        	worldObj.playSoundAtEntity(this, "random.break", 1, 1);
             setTusks((byte) 0);
         }
     }
