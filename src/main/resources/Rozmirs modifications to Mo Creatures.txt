@@ -1166,3 +1166,18 @@ Sharks will now try to break any boats that have players in them. Because of thi
 
 
 The sound effect for elephant tusks breaking is now the vanilla Minecraft tool breaking sound.
+
+
+Improved meaningfulness of kitty code.
+
+
+Readded Ents as a config option.
+
+
+Added config option to register vanilla extensions under vanilla Minecraft label. This is set to false by default since it is incompatible with many mods.
+
+
+Sharks now only try to break boats on hard difficulty.
+Also decreased the chance that sharks break the player's boat with each hit.
+If not aggravate, sharks now only have a 40% chance to target player's in boats. But if attacked they will straight away try to break that players boat.
+Boats broken by sharks now only drop sticks, this was done to improve compatibility with other mods that add boats.

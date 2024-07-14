@@ -206,9 +206,12 @@ item.woolball.name=Клубок шерсти
 
 
 entity.MoCreatures.CreeperExtension.name=Крипер
+entity.CreeperExtension.name=Крипер
 entity.MoCreatures.WerewolfVillagerWitchery.name=Житель
+entity.WerewolfVillagerWitchery.name=Житель
 entity.MoCreatures.WerewolfWitchery.name=Оборотень
 entity.MoCreatures.WerewolfMinecraftComesAliveVillagerWitchery.name=Житель
+entity.WerewolfMinecraftComesAliveVillagerWitchery.name=Житель
 
 entity.MoCreatures.Ant.name=Муравей
 entity.MoCreatures.Bear.name=Медведь
@@ -228,6 +231,7 @@ entity.MoCreatures.Dragonfly.name=Стрекоза
 entity.MoCreatures.Duck.name=Утка
 entity.MoCreatures.Egg.name=Яйцо
 entity.MoCreatures.Elephant.name=Слон
+entity.MoCreatures.Ent.name=Энт
 entity.MoCreatures.Firefly.name=Светлячок
 entity.MoCreatures.FishBowl.name=Аквариум
 entity.MoCreatures.Fishy.name=Рыбка

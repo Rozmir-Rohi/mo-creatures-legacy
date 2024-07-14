@@ -38,7 +38,7 @@ public class MoCRenderKitty extends RenderBiped {
         boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityKitty.getName()).isEmpty();
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         boolean flag2 = MoCreatures.proxy.getDisplayPetIcons();
-        if (entityKitty.renderName())
+        if (entityKitty.shouldRenderName())
         {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
@@ -195,15 +195,15 @@ public class MoCRenderKitty extends RenderBiped {
         {
             onTheSide(entityLiving);
         }
-        if (entityKitty.climbingTree())
+        if (entityKitty.isClimbingTree())
         {
             rotateAnimal(entityLiving);
         }
-        if (entityKitty.upsideDown())
+        if (entityKitty.isUpsideDown())
         {
             upsideDown(entityLiving);
         }
-        if (entityKitty.onPlayersBack())
+        if (entityKitty.isOnPlayersBack())
         {
             onPlayersBack(entityLiving);
         }

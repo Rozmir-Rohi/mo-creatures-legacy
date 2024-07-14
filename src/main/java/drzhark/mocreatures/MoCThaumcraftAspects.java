@@ -340,6 +340,11 @@ ThaumcraftApi.registerEntityTag("MoCreatures.Crocodile", new AspectList().add(As
 
 // Magical Creatures------------------------------------------------------------------------------------ 
 
+if (MoCreatures.proxy.enableEnts)
+{
+	ThaumcraftApi.registerEntityTag("MoCreatures.Ent", new AspectList().add(Aspect.MAGIC, 3).add(Aspect.TREE, 10).add(Aspect.PLANT, 3));
+}
+
 ThaumcraftApi.registerEntityTag("MoCreatures.Wyvern", new AspectList().add(Aspect.POISON, 2).add(Aspect.WEAPON, 3).add(Aspect.FLIGHT, 12).add(Aspect.BEAST, 4));
 // -------------------------------------------------------------------------------------------------------
 

@@ -1464,7 +1464,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     }
 
     @Override
-    public boolean renderName()
+    public boolean shouldRenderName()
     {
         return getDisplayName() && (riddenByEntity == null);
     }

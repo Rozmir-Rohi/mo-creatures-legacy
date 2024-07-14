@@ -74,35 +74,24 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
                     return; //don't attack players who are riding a dolphin
                 }
                 
-                if (entityThatPlayerIsRiding instanceof EntityBoat) 
+                if (entityThatPlayerIsRiding instanceof EntityBoat && (worldObj.difficultySetting.getDifficultyId() > 2)) //if player is riding boat and is on hard difficulty 
                 {
-                	if (distanceToEntity < 2D && rand.nextInt(100) < 10) //10% chance to target players who are in a boat
-                	{
-                		int xBoatCoordinate = (int)Math.round(entityThatPlayerIsRiding.posX);
-                		
-                		int yBoatCoordinate = (int)Math.round(entityThatPlayerIsRiding.posY);
-                		
-                		int zBoatCoordinate = (int)Math.round(entityThatPlayerIsRiding.posZ); 
-                		
-                		if (rand.nextInt(100) < 20) //20% chance to break players boat each hit
+                	if (distanceToEntity < 2D && rand.nextInt(100) < 10) //10% chance to hit player's boat
+                	{ 
+                		if (rand.nextInt(100) < 17) //17% chance to break players boat each hit
                 		{
-	                        for (int index = 0; index < 3; ++index)
-	                        {
-	                        	entityThatPlayerIsRiding.func_145778_a(Item.getItemFromBlock(Blocks.planks), 1, 0.0F);
-	                        }
-	
 	                        for (int index = 0; index < 2; ++index)
 	                        {
 	                        	entityThatPlayerIsRiding.func_145778_a(Items.stick, 1, 0.0F);
 	                        }
 	                        
-	                        entityThatPlayerIsRiding.setDead();
+	                        worldObj.playSoundAtEntity(entityThatPlayerIsRiding, "mob.zombie.woodbreak", 1, 1);  //play door break sound
 	                        
-	                        worldObj.playAuxSFX(1012, xBoatCoordinate, yBoatCoordinate, zBoatCoordinate, 0); //play door break sound
+	                        entityThatPlayerIsRiding.setDead();
                 		}
                 		else
                 		{
-                			worldObj.playAuxSFX(1010, xBoatCoordinate, yBoatCoordinate, zBoatCoordinate, 0); //play door hit sound
+                			worldObj.playSoundAtEntity(entityThatPlayerIsRiding, "mob.zombie.wood", 1, 1); //play door hit sound
                 			return;
                 		};
                         
@@ -177,6 +166,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
             		&& closestEntityPlayer.isInWater()
             		&& !getIsTamed()
             		&& !(closestEntityPlayer.ridingEntity instanceof MoCEntityDolphin)
+            		&& !((closestEntityPlayer.ridingEntity instanceof EntityBoat) && (worldObj.difficultySetting.getDifficultyId() < 3) && (rand.nextInt(100) > 40)) //40% chance to target players in boat if world difficulty is below hard
             )
             {
             	return closestEntityPlayer;
@@ -273,7 +263,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     }
 
     @Override
-    public boolean renderName()
+    public boolean shouldRenderName()
     {
         return getDisplayName();
     }

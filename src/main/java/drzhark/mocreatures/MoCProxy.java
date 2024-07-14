@@ -53,9 +53,11 @@ public class MoCProxy implements IGuiHandler {
     public boolean emptyHandMountAndPickUpOnly;
     public boolean elephantBulldozer;
     
+    public boolean enableEnts;
     public boolean enableRareGiantPandaVariant;
     
     public boolean replaceVanillaCreepers;
+    public boolean tryToRegisterVanillaExtensionsUnderVanillaMinecraftLabel;
     
     //mod integration options
     public boolean replaceWitcheryWerewolfEntities;
@@ -307,6 +309,7 @@ public class MoCProxy implements IGuiHandler {
         // general
         debug = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "debug", false, "Turns on verbose logging.").getBoolean(false);
         replaceVanillaCreepers = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "replaceVanillaCreepers", true, "This feature does not cause problems with the Et Futurum Requiem mod, or the Mutant Creatures mod. However, THIS MAY BE INCOMPATIBLE WITH OTHER MODS THAT DO THINGS WITH CREEPERS - If true: will replace vanilla creepers in worlds with own extension of creeper code. This is used to make creepers scared of kitty. If this is causing problems with other mods set this to false to turn it off.").getBoolean(true);
+        tryToRegisterVanillaExtensionsUnderVanillaMinecraftLabel = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "tryToRegisterVanillaExtensionsUnderVanillaMinecraftLabel", false, "WARNING - this setting is incompatible with many mods when it is active, if it is incompatibile it will result in an entity ID conflict crash when launching Minecraft. If true: tries to register vanilla extensions (eg: MoC creepers, and Witchery integration werewolf villagers) under the vanilla Minecraft label, the effect of this setting is only visible for players who use the Waila mod or any other mod that tells you which mod an entity is from.").getBoolean(false);
         enableMoCPetDeathMessages =  mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "enableMoCPetDeathMessages", true, "If true: the owner of a pet will recieve a message in chat when their pet dies, the message will also include how the pet died. No other players than the pet owner will get the message.").getBoolean(true); 
         particleFX = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "particleFX", 3, "Determines the amount of particles to be spawned for particles relating to Mo' Creatures.").getInt();
         
@@ -321,6 +324,7 @@ public class MoCProxy implements IGuiHandler {
         easyBreeding = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "easyBreeding", false, "Makes horse breeding simpler.").getBoolean(true);
         elephantBulldozer = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "elephantBulldozer", true, "Allows tamed elephants to break blocks in front when ramming with tusks equipped.").getBoolean(true);
         emptyHandMountAndPickUpOnly = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "emptyHandMountAndPickUpOnly", true, "If true: mountable creatures can only be mounted with an empty hand, creatures that can be picked up can only be picked up with an empty hand, if a player switches to an item while holding a creature in their hand, they will drop that creature.").getBoolean(true);
+        enableEnts = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "enableEnts", false, "If true: Registers Ents as an entity and allows them to spawn in worlds.").getBoolean(false);
         enableRareGiantPandaVariant = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "enableRareGiantPandaVariant", false, "If true: pandas that spawn will have a 10% to be a giant panda.").getBoolean(false);
         ostrichEggDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "ostrichEggDropChance", 3, "A value of 3 means ostriches have a 3% chance to drop an egg.").getInt();
         staticBed = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "staticBed", true, "If true: kitty bed cannot be pushed.").getBoolean(true);

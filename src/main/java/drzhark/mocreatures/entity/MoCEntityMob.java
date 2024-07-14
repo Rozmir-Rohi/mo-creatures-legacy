@@ -652,7 +652,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     }
 
     @Override
-    public boolean renderName()
+    public boolean shouldRenderName()
     {
         return getDisplayName() && (riddenByEntity == null);
     }

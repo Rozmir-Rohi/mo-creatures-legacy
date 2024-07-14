@@ -658,7 +658,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean renderName()
+    public boolean shouldRenderName()
     {
         return getDisplayName();
     }

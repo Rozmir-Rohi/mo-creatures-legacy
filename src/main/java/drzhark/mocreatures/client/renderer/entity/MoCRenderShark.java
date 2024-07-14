@@ -31,7 +31,7 @@ public class MoCRenderShark extends RenderLiving {
         boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityShark.getName()).isEmpty();
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         boolean flag2 = MoCreatures.proxy.getDisplayPetIcons();
-        if (entityShark.renderName())
+        if (entityShark.shouldRenderName())
         {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
@@ -109,7 +109,7 @@ public class MoCRenderShark extends RenderLiving {
     {
         MoCEntityShark entityShark = (MoCEntityShark) entityLiving;
         super.doRender(entityShark, d, d1, d2, f, f1);
-        if (entityShark.renderName())
+        if (entityShark.shouldRenderName())
         {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;

@@ -193,7 +193,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         dataWatcher.updateObject(27, Byte.valueOf(input));
     }
     @Override
-    public boolean renderName()
+    public boolean shouldRenderName()
     {
         return getDisplayName() && (riddenByEntity == null);
     }

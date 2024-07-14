@@ -35,7 +35,7 @@ public interface IMoCEntity {
      */
     public void performAnimation(int i);
 
-    public boolean renderName();
+    public boolean shouldRenderName();
 
     public int nameYOffset();
 

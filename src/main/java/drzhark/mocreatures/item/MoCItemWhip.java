@@ -222,7 +222,7 @@ public class MoCItemWhip extends MoCItem {
 		    if ((entityAnimal instanceof MoCEntityKitty))
 		    {
 		        MoCEntityKitty entityKitty = (MoCEntityKitty) entityAnimal;
-		        if ((entityKitty.getKittyState() > 2) && entityKitty.whipeable())
+		        if ((entityKitty.getKittyState() > 2) && entityKitty.isWhipeable())
 		        {
 		            entityKitty.setSitting(!entityKitty.getIsSitting());
 		        }

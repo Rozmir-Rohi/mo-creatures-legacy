@@ -204,9 +204,12 @@ item.whip.name=鞭子
 item.woolball.name=羊毛球
 
 entity.MoCreatures.CreeperExtension.name=苦力怕
+entity.CreeperExtension.name=苦力怕
 entity.MoCreatures.WerewolfVillagerWitchery.name=村民
+entity.WerewolfVillagerWitchery.name=村民
 entity.MoCreatures.WerewolfWitchery.name=狼人
 entity.MoCreatures.WerewolfMinecraftComesAliveVillagerWitchery.name=村民
+entity.WerewolfMinecraftComesAliveVillagerWitchery.name=村民
 
 entity.MoCreatures.Ant.name=蚂蚁
 entity.MoCreatures.Bear.name=熊
@@ -226,6 +229,7 @@ entity.MoCreatures.Dragonfly.name=蜻蜓
 entity.MoCreatures.Duck.name=鸭子
 entity.MoCreatures.Egg.name=蛋
 entity.MoCreatures.Elephant.name=大象
+entity.MoCreatures.Ent.name=树人
 entity.MoCreatures.Firefly.name=萤火虫
 entity.MoCreatures.FishBowl.name=鱼缸
 entity.MoCreatures.Fishy.name=小鱼

@@ -928,7 +928,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     }
 
     @Override
-    public boolean renderName()
+    public boolean shouldRenderName()
     {
         return false;
     }

@@ -63,6 +63,7 @@ import drzhark.mocreatures.entity.animal.MoCEntityCrocodile;
 import drzhark.mocreatures.entity.animal.MoCEntityDeer;
 import drzhark.mocreatures.entity.animal.MoCEntityDuck;
 import drzhark.mocreatures.entity.animal.MoCEntityElephant;
+import drzhark.mocreatures.entity.animal.MoCEntityEnt;
 import drzhark.mocreatures.entity.animal.MoCEntityFox;
 import drzhark.mocreatures.entity.animal.MoCEntityGoat;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
@@ -566,10 +567,21 @@ public class MoCreatures {
         registerEntityAndSpawnEgg(MoCEntityPiranha.class, "Piranha", 33023, 16711680);
         registerEntityAndSpawnEgg(MoCEntityMole.class, "Mole", 14020607, 16711680);
         
+        if (proxy.enableEnts)
+        {
+        	registerEntityAndSpawnEgg(MoCEntityEnt.class, "Ent", 12623485, 16711680);
+        }
+        
+        int entityIdForRegisteringVanillaExtensionUnderVanillaMinecraftLabel = 117;  //from testing popular mods, the free entity ids appear to be 117, 118
+        
         
         if (proxy.replaceVanillaCreepers)
         {
-        	registerEntity(EntityCreeperExtension.class, "CreeperExtension");
+        	if (proxy.tryToRegisterVanillaExtensionsUnderVanillaMinecraftLabel)
+        	{
+        		EntityList.addMapping(EntityCreeperExtension.class, "CreeperExtension", entityIdForRegisteringVanillaExtensionUnderVanillaMinecraftLabel++);
+        	}
+        	else {registerEntity(EntityCreeperExtension.class, "CreeperExtension");}
         }
         
     	if (isWitcheryLoaded && proxy.replaceWitcheryWerewolfEntities)
@@ -578,10 +590,20 @@ public class MoCreatures {
             
         	if (isMinecraftComesAliveLoaded && proxy.useHumanModelAndMCAVillagerTexturesForWitcheryHumanWerewolfEntities)
         	{
-        		registerEntity(MoCEntityWerewolfMinecraftComesAliveVillagerWitchery.class, "WerewolfMinecraftComesAliveVillagerWitchery");
+        		
+        		if (proxy.tryToRegisterVanillaExtensionsUnderVanillaMinecraftLabel)
+            	{
+            		EntityList.addMapping(MoCEntityWerewolfMinecraftComesAliveVillagerWitchery.class, "WerewolfMinecraftComesAliveVillagerWitchery", entityIdForRegisteringVanillaExtensionUnderVanillaMinecraftLabel++);
+            	}
+            	else {registerEntity(MoCEntityWerewolfMinecraftComesAliveVillagerWitchery.class, "WerewolfMinecraftComesAliveVillagerWitchery");}
         	}
         	
-        	registerEntity(MoCEntityWerewolfVillagerWitchery.class, "WerewolfVillagerWitchery");
+        	
+        	if (proxy.tryToRegisterVanillaExtensionsUnderVanillaMinecraftLabel)
+        	{
+        		EntityList.addMapping(MoCEntityWerewolfVillagerWitchery.class, "WerewolfVillagerWitchery", entityIdForRegisteringVanillaExtensionUnderVanillaMinecraftLabel++);
+        	}
+        	else {registerEntity(MoCEntityWerewolfVillagerWitchery.class, "WerewolfVillagerWitchery");}
         }
         
         
@@ -641,6 +663,13 @@ public class MoCreatures {
         mocEntityMap.put("Deer", new MoCEntityData("Deer", 2, EnumCreatureType.creature, new SpawnListEntry(MoCEntityDeer.class, 8, 1, 2), new ArrayList(Arrays.asList(Type.FOREST, Type.JUNGLE))));
         mocEntityMap.put("Duck", new MoCEntityData("Duck", 3, EnumCreatureType.creature, new SpawnListEntry(MoCEntityDuck.class, 10, 1, 2), new ArrayList(Arrays.asList(Type.RIVER))));
         mocEntityMap.put("Elephant", new MoCEntityData("Elephant", 3, EnumCreatureType.creature, new SpawnListEntry(MoCEntityElephant.class, 4, 1, 1), new ArrayList(Arrays.asList(Type.SAVANNA, Type.JUNGLE, Type.SNOWY))));
+        
+        if (proxy.enableEnts)
+        {
+        	mocEntityMap.put("Ent", new MoCEntityData("Ent", 3, EnumCreatureType.creature, new SpawnListEntry(MoCEntityEnt.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST))));
+        }
+        
+        
         mocEntityMap.put("Fox", new MoCEntityData("Fox", 2, EnumCreatureType.creature, new SpawnListEntry(MoCEntityFox.class, 2, 1, 1), new ArrayList(Arrays.asList(Type.FOREST, Type.SNOWY))));
         mocEntityMap.put("Goat", new MoCEntityData("Goat", 2, EnumCreatureType.creature, new SpawnListEntry(MoCEntityGoat.class, 8, 1, 3), new ArrayList(Arrays.asList(Type.MOUNTAIN))));
         mocEntityMap.put("Kitty", new MoCEntityData("Kitty", 3, EnumCreatureType.creature, new SpawnListEntry(MoCEntityKitty.class, 2, 1, 2), new ArrayList(Arrays.asList(Type.FOREST))));

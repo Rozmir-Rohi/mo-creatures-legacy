@@ -836,7 +836,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean renderName()
+    public boolean shouldRenderName()
     {
         return !getName().isEmpty() && getDisplayName() && MoCreatures.proxy.getDisplayPetName();
     }

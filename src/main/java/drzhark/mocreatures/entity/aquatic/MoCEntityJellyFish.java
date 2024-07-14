@@ -198,7 +198,7 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     }
     
     @Override
-    public boolean renderName()
+    public boolean shouldRenderName()
     {
         return getDisplayName() && (riddenByEntity == null);
     }

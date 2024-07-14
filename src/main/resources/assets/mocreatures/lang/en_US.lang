@@ -206,9 +206,12 @@ item.woolball.name=Wool Ball
 
 
 entity.MoCreatures.CreeperExtension.name=Creeper
+entity.CreeperExtension.name=Creeper
 entity.MoCreatures.WerewolfVillagerWitchery.name=Villager
+entity.WerewolfVillagerWitchery.name=Villager
 entity.MoCreatures.WerewolfWitchery.name=Werewolf
 entity.MoCreatures.WerewolfMinecraftComesAliveVillagerWitchery.name=Villager
+entity.WerewolfMinecraftComesAliveVillagerWitchery.name=Villager
 
 entity.MoCreatures.Ant.name=Ant
 entity.MoCreatures.Bear.name=Bear
@@ -228,6 +231,7 @@ entity.MoCreatures.Dragonfly.name=Dragonfly
 entity.MoCreatures.Duck.name=Duck
 entity.MoCreatures.Egg.name=Egg
 entity.MoCreatures.Elephant.name=Elephant
+entity.MoCreatures.Ent.name=Ent
 entity.MoCreatures.Firefly.name=Firefly
 entity.MoCreatures.FishBowl.name=Fish Bowl
 entity.MoCreatures.Fishy.name=Fishy

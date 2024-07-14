@@ -31,7 +31,7 @@ public class MoCRenderDolphin extends RenderLiving {
         boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityDolphin.getName()).isEmpty();
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         //boolean flag2 = MoCreatures.proxy.getdisplayPetIcons();
-        if (entityDolphin.renderName())
+        if (entityDolphin.shouldRenderName())
         {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
@@ -110,7 +110,7 @@ public class MoCRenderDolphin extends RenderLiving {
     {
         MoCEntityDolphin entitydolphin = (MoCEntityDolphin) entityLiving;
         super.doRender(entitydolphin, d, d1, d2, f, f1);
-        if (entitydolphin.renderName())
+        if (entitydolphin.shouldRenderName())
         {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;

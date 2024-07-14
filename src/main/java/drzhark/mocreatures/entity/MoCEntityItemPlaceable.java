@@ -97,13 +97,13 @@ public class MoCEntityItemPlaceable extends EntityLiving {
      }
 	
 	 
-	 private void damageItemEntity(float decrease_health_amount) {
-	        float item_entity_health = getHealth();
-	        item_entity_health -= decrease_health_amount;
-	        if (item_entity_health <= 0.5F) {
+	 private void damageItemEntity(float decreasHealthAmount) {
+	        float itemEntityHealth = getHealth();
+	        itemEntityHealth -= decreasHealthAmount;
+	        if (itemEntityHealth <= 0.5F) {
 	           setDead();
 	        } else {
-	           setHealth(item_entity_health);
+	           setHealth(itemEntityHealth);
 	        }
 
 	     }
