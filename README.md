@@ -1,5 +1,5 @@
 # Mo Creatures Legacy
-<strong> Project Status:</strong> On Hold (future updates planned)
+<strong> Project Status:</strong> On Hold (future update(s) planned)
 
 <br><br>
 
