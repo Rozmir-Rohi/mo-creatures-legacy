@@ -1,48 +1,5 @@
 # Mo Creatures Legacy
-<strong> I'm extending support for bug fixes until the end of 23rd June 2024, please report any bugs you find during this time. Due to my busyness with other commitments, I can only work on this project after 23rd June 2024. After 23rd June 2024, I will fix the bugs that are reported. </strong>
-
-<details>
-	<summary><strong>This is also the last call for the contribution of the following language files:</strong></summary>
-  
-  <p>Italian - it_IT.lang</p>
-
-
-  <p>European French - fr_FR.lang</p>
-
-
-  <p>Canadian French - fr_CA.lang</p>
-
-
-  <p>German - de_DE.lang</p>
-
-
-  <p>Danish - da_DK.lang</p>
-
-
-  <p>Japanese - ja_JP.lang</p>
-
-
-  <p>Dutch - nl_NL.lang</p>
-
-
-  <p>European Spanish - es_ES.lang</p>
-
-
-  <p>Mexican Spanish - es_MX.lang</p>
-
-
-  <p>Chinese Traditional (Taiwan) - zh_TW.lang</p>
-
-
-  <p>Brazilian Portuguese - pt_BR.lang</p>
-
-
-  <p>European Portuguese - pt_PT.lang</p>
-
-
-  <p>Polish - pl_PL.lang</p>
-  
-</details>
+<strong> Project Status:</strong> On Hold (future updates planned)
 
 <br><br>
 
