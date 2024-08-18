@@ -1190,3 +1190,15 @@ Undead mobs no longer attack players if they are riding undead horses.
 
 
 Fixed mo'creatures entities being attacked by mobs if there is a player riding them. Now mobs need to kill the player first to attack the mo creatures entity.
+
+
+Pet scorpions now only accept crafted saddles and no longer use normal saddles.
+
+
+Undead mobs will now ignore players riding an undead ostrich or scorpion.
+
+
+Undead mobs are now neutral to the player if they are riding an undead mount.
+
+
+Added ostriches and scorpions to /mocspawn command. Also fixed existing errors with the command.

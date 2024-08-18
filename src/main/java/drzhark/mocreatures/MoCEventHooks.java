@@ -11,6 +11,7 @@ import drzhark.mocreatures.entity.animal.MoCEntityElephant;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
 import drzhark.mocreatures.entity.animal.MoCEntityKitty;
 import drzhark.mocreatures.entity.animal.MoCEntityOstrich;
+import drzhark.mocreatures.entity.animal.MoCEntityPetScorpion;
 import drzhark.mocreatures.entity.animal.MoCEntityTurkey;
 import drzhark.mocreatures.entity.monster.MoCEntityScorpion;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfVillagerWitchery;
@@ -202,7 +203,7 @@ public class MoCEventHooks {
     @SubscribeEvent
     public void entityJoinWorldEvent(EntityJoinWorldEvent event)
     {
-    	if (event.entity instanceof EntityCreeper)  //adds a new task for creepers when they are being constructed so they are afraid of kitties
+    	if (event.entity instanceof EntityCreeper)  //makes vanilla creepers afraid of kitties
     	{
     		EntityCreeper creeper = (EntityCreeper) event.entity;
     		
@@ -219,9 +220,12 @@ public class MoCEventHooks {
     	if (	//makes undead mobs ignore the player if they are riding an undead horse
     			event.entityLiving.isEntityUndead()
     			&& event.target instanceof EntityPlayer
-    			&& event.target.ridingEntity instanceof MoCEntityHorse
-    			&& ((MoCEntityHorse) event.target.ridingEntity).isUndead()
-    			&& (event.entityLiving.getLastAttacker() != event.target) //don't be passive to the player if they've been hit by them
+    			&& (
+    					(event.target.ridingEntity instanceof MoCEntityHorse && ((MoCEntityHorse) event.target.ridingEntity).isUndead())
+    					|| (event.target.ridingEntity instanceof MoCEntityOstrich && ((MoCEntityOstrich) event.target.ridingEntity).isUndead())
+    					|| (event.target.ridingEntity instanceof MoCEntityPetScorpion && ((MoCEntityPetScorpion) event.target.ridingEntity).isUndead())
+    				)
+    			&& (event.target.getLastAttacker() != event.entityLiving) //don't be passive to the player if the undead mob has been hit by them
     		)
     	{
     		((EntityLiving) event.entityLiving).setAttackTarget(null); //don't attack that player
@@ -238,9 +242,9 @@ public class MoCEventHooks {
 	    		if ((event.block.blockRegistry).getNameForObject(event.block).equals("harvestcraft:beehive"))
 	    		{   
 	    			Random rand = new Random();
-		            int amount_of_bees_to_spawn = 2 + rand.nextInt(5); // 2-6 bees
+		            int amountOfBeesToSpawn = 2 + rand.nextInt(5); // 2-6 bees
 		            
-		            for (int index = 0; index < amount_of_bees_to_spawn; index++)
+		            for (int index = 0; index < amountOfBeesToSpawn; index++)
 		            {
 		            	MoCEntityBee bee = new MoCEntityBee(event.world);
 			            bee.setPosition(event.x, event.y, event.z);

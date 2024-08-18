@@ -322,28 +322,28 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     {
        if (transformCounter != 0 && transformType > 4)
         {
-            String newText = "ostricha.png";
+            String newTexture = "ostricha.png";
             if (transformType == 5)
             {
-                newText = "ostriche.png";
+                newTexture = "ostriche.png";
             }
             if (transformType == 6)
             {
-                newText = "ostrichf.png";
+                newTexture = "ostrichf.png";
             }
             if (transformType == 7)
             {
-                newText = "ostrichg.png";
+                newTexture = "ostrichg.png";
             }
             if (transformType == 8)
             {
-                newText = "ostrichh.png";
+                newTexture = "ostrichh.png";
             }
             
-            if ((transformCounter % 5) == 0) { return MoCreatures.proxy.getTexture(newText); }
-            if (transformCounter > 50 && (transformCounter % 3) == 0) { return MoCreatures.proxy.getTexture(newText); }
+            if ((transformCounter % 5) == 0) { return MoCreatures.proxy.getTexture(newTexture); }
+            if (transformCounter > 50 && (transformCounter % 3) == 0) { return MoCreatures.proxy.getTexture(newTexture); }
 
-            if (transformCounter > 75 && (transformCounter % 4) == 0) { return MoCreatures.proxy.getTexture(newText); }
+            if (transformCounter > 75 && (transformCounter % 4) == 0) { return MoCreatures.proxy.getTexture(newTexture); }
         }
 
         switch (getType())
@@ -998,11 +998,11 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         setIsChested(nbtTagCompound.getBoolean("Bagged"));
         if (getIsChested())
         {
-            NBTTagList nbttaglist = nbtTagCompound.getTagList("Items", 10);
+            NBTTagList nbtTagList = nbtTagCompound.getTagList("Items", 10);
             localChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.OstrichChest"), 18);
-            for (int i = 0; i < nbttaglist.tagCount(); i++)
+            for (int i = 0; i < nbtTagList.tagCount(); i++)
             {
-                NBTTagCompound nbtTagCompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
+                NBTTagCompound nbtTagCompound1 = (NBTTagCompound) nbtTagList.getCompoundTagAt(i);
                 int j = nbtTagCompound1.getByte("Slot") & 0xff;
                 if ((j >= 0) && j < localChest.getSizeInventory())
                 {
@@ -1025,7 +1025,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         
         if (getIsChested() && localChest != null)
         {
-            NBTTagList nbttaglist = new NBTTagList();
+            NBTTagList nbtTagList = new NBTTagList();
             for (int i = 0; i < localChest.getSizeInventory(); i++)
             {
                 localItemstack = localChest.getStackInSlot(i);
@@ -1034,10 +1034,10 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
                     NBTTagCompound nbtTagCompound1 = new NBTTagCompound();
                     nbtTagCompound1.setByte("Slot", (byte) i);
                     localItemstack.writeToNBT(nbtTagCompound1);
-                    nbttaglist.appendTag(nbtTagCompound1);
+                    nbtTagList.appendTag(nbtTagCompound1);
                 }
             }
-            nbtTagCompound.setTag("Items", nbttaglist);
+            nbtTagCompound.setTag("Items", nbtTagList);
         }
     }
 
@@ -1215,6 +1215,11 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             jumpCounter = 1;
         }
         
+    }
+    
+    public boolean isUndead()
+    {
+        return getType() == 7;
     }
 
     @Override

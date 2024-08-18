@@ -2053,12 +2053,11 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
      */
     public boolean isNightmare()
     {
-
         return getType() == 38;
     }
 
     /**
-     * Rare horse that can be transformed into Nightmares or Bathorses or give
+     * Rare horses that can be transformed into Nightmares or Bathorses or give
      * ghost horses on dead
      */
     public boolean isPureBreed()

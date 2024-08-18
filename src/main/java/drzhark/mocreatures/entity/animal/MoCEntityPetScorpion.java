@@ -71,23 +71,23 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     @Override
     public ResourceLocation getTexture()
     {
-        boolean saddle = getIsRideable();
+        boolean hasSaddle = getIsRideable();
         switch (getType())
         {
             case 1:
-                if (!saddle) { return MoCreatures.proxy.getTexture("scorpiondirt.png"); }
+                if (!hasSaddle) { return MoCreatures.proxy.getTexture("scorpiondirt.png"); }
                 return MoCreatures.proxy.getTexture("scorpiondirtsaddle.png");
             case 2:
-                if (!saddle) { return MoCreatures.proxy.getTexture("scorpioncave.png"); }
+                if (!hasSaddle) { return MoCreatures.proxy.getTexture("scorpioncave.png"); }
                 return MoCreatures.proxy.getTexture("scorpioncavesaddle.png");
             case 3:
-                if (!saddle) { return MoCreatures.proxy.getTexture("scorpionnether.png"); }
+                if (!hasSaddle) { return MoCreatures.proxy.getTexture("scorpionnether.png"); }
                 return MoCreatures.proxy.getTexture("scorpionnethersaddle.png");
             case 4:
-                if (!saddle) { return MoCreatures.proxy.getTexture("scorpionfrost.png"); }
+                if (!hasSaddle) { return MoCreatures.proxy.getTexture("scorpionfrost.png"); }
                 return MoCreatures.proxy.getTexture("scorpionfrostsaddle.png");
             case 5:
-                if (!saddle) { return MoCreatures.proxy.getTexture("scorpionundead.png"); }
+                if (!hasSaddle) { return MoCreatures.proxy.getTexture("scorpionundead.png"); }
                 return MoCreatures.proxy.getTexture("scorpionundeadsaddle.png");
             default:
                 return MoCreatures.proxy.getTexture("scorpiondirt.png");
@@ -419,8 +419,8 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
 
         if (MoCreatures.isServer() && getIsAdult() && getHasBabies())
         {
-            int k = rand.nextInt(5);
-            for (int i = 0; i < k; i++)
+            int amountOfBabyScorpionsToSpawn = rand.nextInt(5);
+            for (int index = 0; index < amountOfBabyScorpionsToSpawn; index++)
             {
 
                 MoCEntityScorpion entityPetScorpion = new MoCEntityScorpion(worldObj);
@@ -493,7 +493,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         if (super.interact(entityPlayer)) { return false; }
 
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-        if ((itemstack != null) && getIsAdult() && !getIsRideable() && (itemstack.getItem() == Items.saddle || itemstack.getItem() == MoCreatures.craftedSaddle))
+        if ((itemstack != null) && getIsAdult() && !getIsRideable() && (itemstack.getItem() == MoCreatures.craftedSaddle))
         {
             if (--itemstack.stackSize == 0)
             {
@@ -717,6 +717,11 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     public void dropMyStuff() 
     {
         MoCTools.dropSaddle(this, worldObj);
+    }
+    
+    public boolean isUndead()
+    {
+        return getType() == 5;
     }
     
     /**

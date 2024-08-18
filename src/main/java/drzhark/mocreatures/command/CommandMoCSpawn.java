@@ -9,11 +9,14 @@ import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
+import drzhark.mocreatures.entity.animal.MoCEntityOstrich;
+import drzhark.mocreatures.entity.animal.MoCEntityPetScorpion;
 import drzhark.mocreatures.entity.animal.MoCEntityWyvern;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageAppear;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
@@ -22,11 +25,15 @@ public class CommandMoCSpawn extends CommandBase {
 
     private static List<String> commands = new ArrayList<String>();
     private static List aliases = new ArrayList<String>();
+    private static List tabCompletionStrings = new ArrayList<String>();
 
     static {
-        commands.add("/mocspawn <horse|wyvern> <int>");
+        commands.add("/mocspawn <horse|ostrich|scorpion|wyvern> <int>");
         aliases.add("mocspawn");
-       //tabCompletionStrings.add("moctp");
+        tabCompletionStrings.add("horse");
+        tabCompletionStrings.add("ostrich");
+        tabCompletionStrings.add("scorpion");
+        tabCompletionStrings.add("wyvern");
     }
 
     public String getCommandName()
@@ -37,6 +44,14 @@ public class CommandMoCSpawn extends CommandBase {
     public List getCommandAliases()
     {
         return aliases;
+    }
+    
+    /**
+     * Adds the strings available in this command to the given list of tab completion options.
+     */
+    public List addTabCompletionOptions(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
+    {
+        return getListOfStringsMatchingLastWord(par2ArrayOfStr, (String[])tabCompletionStrings.toArray(new String[tabCompletionStrings.size()]));
     }
 
     /**
@@ -76,6 +91,16 @@ public class CommandMoCSpawn extends CommandBase {
                 specialEntity = new MoCEntityHorse(player.worldObj);
                 specialEntity.setAdult(true);
             }
+            else if (entityType.equalsIgnoreCase("ostrich"))
+            {
+                specialEntity = new MoCEntityOstrich(player.worldObj);
+                specialEntity.setAdult(true);
+            }
+            else if (entityType.equalsIgnoreCase("scorpion"))
+            {
+                specialEntity = new MoCEntityPetScorpion(player.worldObj);
+                specialEntity.setMoCAge(120);
+            }
             else if (entityType.equalsIgnoreCase("wyvern"))
             {
                 specialEntity = new MoCEntityWyvern(player.worldObj);
@@ -95,8 +120,31 @@ public class CommandMoCSpawn extends CommandBase {
             specialEntity.setOwner("NoOwner");
             specialEntity.setName("Rename_Me");
             specialEntity.setType(type);
+            
+            
+            if (entityType.equalsIgnoreCase("horse"))
+            {
+                specialEntity.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(((MoCEntityHorse) specialEntity).calculateMaxHealth()); //set max health to the new type
+                specialEntity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(((MoCEntityHorse) specialEntity).getCustomSpeed());
+            }
+            else if (entityType.equalsIgnoreCase("ostrich"))
+            {
+                specialEntity.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(((MoCEntityOstrich) specialEntity).calculateMaxHealth());
+            }
+            else if (entityType.equalsIgnoreCase("wyvern"))
+            {
+                specialEntity.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(((MoCEntityWyvern) specialEntity).getType() >= 5 ? 80.0D : 40.0D);
+            }
+            
+            specialEntity.setHealth(specialEntity.getMaxHealth());
+            
 
-            if ((entityType.equalsIgnoreCase("horse") && (type < 1 || type > 67)) || (entityType.equalsIgnoreCase("wyvern") && (type < 1 || type > 12)))
+            if (
+            		(entityType.equalsIgnoreCase("horse") && (type < 1 || type > 67))
+            		|| (entityType.equalsIgnoreCase("ostrich") && (type < 1 || type > 8))
+            		|| (entityType.equalsIgnoreCase("scorpion") && (type < 1 || type > 5))
+            		|| (entityType.equalsIgnoreCase("wyvern") && (type < 1 || type > 12))
+            	)
             {
                 iCommandSender.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED + "ERROR:" + EnumChatFormatting.WHITE + "The spawn type " + type + " is not a valid type."));
                 return;
@@ -107,7 +155,7 @@ public class CommandMoCSpawn extends CommandBase {
         }
         else
         {
-            iCommandSender.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED + "ERROR:" + EnumChatFormatting.WHITE + "Invalid spawn parameters entered."));
+            iCommandSender.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED + "/mocspawn <entity> <type as a number>"));
         }
     }
 
