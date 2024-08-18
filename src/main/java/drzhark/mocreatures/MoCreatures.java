@@ -92,8 +92,8 @@ import drzhark.mocreatures.entity.item.MoCEntityKittyBed;
 import drzhark.mocreatures.entity.item.MoCEntityLitterBox;
 import drzhark.mocreatures.entity.item.MoCEntityMammothPlatform;
 import drzhark.mocreatures.entity.item.MoCEntityThrowableBlockForGolem;
-import drzhark.mocreatures.entity.monster.MoCEntityFlameWraith;
 import drzhark.mocreatures.entity.monster.MoCEntityBigGolem;
+import drzhark.mocreatures.entity.monster.MoCEntityFlameWraith;
 import drzhark.mocreatures.entity.monster.MoCEntityHellRat;
 import drzhark.mocreatures.entity.monster.MoCEntityHorseMob;
 import drzhark.mocreatures.entity.monster.MoCEntityMiniGolem;
@@ -104,7 +104,6 @@ import drzhark.mocreatures.entity.monster.MoCEntitySilverSkeleton;
 import drzhark.mocreatures.entity.monster.MoCEntityWWolf;
 import drzhark.mocreatures.entity.monster.MoCEntityWerewolf;
 import drzhark.mocreatures.entity.monster.MoCEntityWraith;
-import drzhark.mocreatures.entity.vanilla_mc_extension.EntityCreeperExtension;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfMinecraftComesAliveVillagerWitchery;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfVillagerWitchery;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfWitchery;
@@ -487,13 +486,7 @@ public class MoCreatures {
         event.registerServerCommand(new CommandMoCreatures());
         event.registerServerCommand(new CommandMoCTP());
         event.registerServerCommand(new CommandMoCPets());
-        if (isServer())
-        {
-            if (MinecraftServer.getServer().isDedicatedServer())
-            {
-                event.registerServerCommand(new CommandMoCSpawn());
-            }
-        }
+        event.registerServerCommand(new CommandMoCSpawn());
     }
 
     @EventHandler
@@ -575,15 +568,6 @@ public class MoCreatures {
         int entityIdForRegisteringVanillaExtensionUnderVanillaMinecraftLabel = 117;  //from testing popular mods, the free entity ids appear to be 117, 118
         
         
-        if (proxy.replaceVanillaCreepers)
-        {
-        	if (proxy.tryToRegisterVanillaExtensionsUnderVanillaMinecraftLabel)
-        	{
-        		EntityList.addMapping(EntityCreeperExtension.class, "CreeperExtension", entityIdForRegisteringVanillaExtensionUnderVanillaMinecraftLabel++);
-        	}
-        	else {registerEntity(EntityCreeperExtension.class, "CreeperExtension");}
-        }
-        
     	if (isWitcheryLoaded && proxy.replaceWitcheryWerewolfEntities)
         {
         	registerEntity(MoCEntityWerewolfWitchery.class, "WerewolfWitchery");
@@ -593,7 +577,7 @@ public class MoCreatures {
         		
         		if (proxy.tryToRegisterVanillaExtensionsUnderVanillaMinecraftLabel)
             	{
-            		EntityList.addMapping(MoCEntityWerewolfMinecraftComesAliveVillagerWitchery.class, "WerewolfMinecraftComesAliveVillagerWitchery", entityIdForRegisteringVanillaExtensionUnderVanillaMinecraftLabel++);
+            		EntityList.addMapping(MoCEntityWerewolfMinecraftComesAliveVillagerWitchery.class, "WerewolfMinecraftComesAliveVillagerWitchery", entityIdForRegisteringVanillaExtensionUnderVanillaMinecraftLabel);
             	}
             	else {registerEntity(MoCEntityWerewolfMinecraftComesAliveVillagerWitchery.class, "WerewolfMinecraftComesAliveVillagerWitchery");}
         	}

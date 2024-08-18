@@ -56,7 +56,6 @@ public class MoCProxy implements IGuiHandler {
     public boolean enableEnts;
     public boolean enableRareGiantPandaVariant;
     
-    public boolean replaceVanillaCreepers;
     public boolean tryToRegisterVanillaExtensionsUnderVanillaMinecraftLabel;
     
     //mod integration options
@@ -308,8 +307,7 @@ public class MoCProxy implements IGuiHandler {
         
         // general
         debug = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "debug", false, "Turns on verbose logging.").getBoolean(false);
-        replaceVanillaCreepers = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "replaceVanillaCreepers", true, "This feature does not cause problems with the Et Futurum Requiem mod, or the Mutant Creatures mod. However, THIS MAY BE INCOMPATIBLE WITH OTHER MODS THAT DO THINGS WITH CREEPERS - If true: will replace vanilla creepers in worlds with own extension of creeper code. This is used to make creepers scared of kitty. If this is causing problems with other mods set this to false to turn it off.").getBoolean(true);
-        tryToRegisterVanillaExtensionsUnderVanillaMinecraftLabel = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "tryToRegisterVanillaExtensionsUnderVanillaMinecraftLabel", false, "WARNING - this setting is incompatible with many mods when it is active, if it is incompatibile it will result in an entity ID conflict crash when launching Minecraft. If true: tries to register vanilla extensions (eg: MoC creepers, and Witchery integration werewolf villagers) under the vanilla Minecraft label, the effect of this setting is only visible for players who use the Waila mod or any other mod that tells you which mod an entity is from.").getBoolean(false);
+        tryToRegisterVanillaExtensionsUnderVanillaMinecraftLabel = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "tryToRegisterVanillaExtensionsUnderVanillaMinecraftLabel", false, "WARNING - this setting is incompatible with many mods when it is active, if it is incompatibile it will result in an entity ID conflict crash when launching Minecraft. If true: tries to register vanilla extensions (eg: Witchery integration werewolf villagers) under the vanilla Minecraft label, the effect of this setting is only visible for players who use the Waila mod or any other mod that tells you which mod an entity is from.").getBoolean(false);
         enableMoCPetDeathMessages =  mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "enableMoCPetDeathMessages", true, "If true: the owner of a pet will recieve a message in chat when their pet dies, the message will also include how the pet died. No other players than the pet owner will get the message.").getBoolean(true); 
         particleFX = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "particleFX", 3, "Determines the amount of particles to be spawned for particles relating to Mo' Creatures.").getInt();
         

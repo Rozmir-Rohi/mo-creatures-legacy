@@ -1181,3 +1181,12 @@ Sharks now only try to break boats on hard difficulty.
 Also decreased the chance that sharks break the player's boat with each hit.
 If not aggravate, sharks now only have a 40% chance to target player's in boats. But if attacked they will straight away try to break that players boat.
 Boats broken by sharks now only drop sticks, this was done to improve compatibility with other mods that add boats.
+
+
+Removed creeper extension. Vanilla MC creepers are now afraid of MoCreatures kitties.
+
+
+Undead mobs no longer attack players if they are riding undead horses.
+
+
+Fixed mo'creatures entities being attacked by mobs if there is a player riding them. Now mobs need to kill the player first to attack the mo creatures entity.

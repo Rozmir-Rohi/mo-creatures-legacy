@@ -1870,8 +1870,35 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
         Entity entityThatAttackedThisCreature = damageSource.getEntity();
-        //this avoids damage done by Players to a tamed creature that is not theirs
-        if (MoCreatures.proxy.enableStrictOwnership && getOwnerName() != null && !getOwnerName().equals("") && entityThatAttackedThisCreature != null && entityThatAttackedThisCreature instanceof EntityPlayer && !((EntityPlayer) entityThatAttackedThisCreature).getCommandSenderName().equals(getOwnerName()) && !MoCTools.isThisPlayerAnOP((EntityPlayer) entityThatAttackedThisCreature)) { return false; }
+        
+        if (	//this avoids damage done by Players to a tamed creature that is not theirs
+        		MoCreatures.proxy.enableStrictOwnership
+        		&& getOwnerName() != null
+        		&& !getOwnerName().equals("")
+        		&& entityThatAttackedThisCreature != null
+        		&& entityThatAttackedThisCreature instanceof EntityPlayer
+        		&& !((EntityPlayer) entityThatAttackedThisCreature).getCommandSenderName().equals(getOwnerName())
+        		&& !MoCTools.isThisPlayerAnOP((EntityPlayer) entityThatAttackedThisCreature)
+        	)
+        {
+        	return false;
+        }
+        
+        if (	//don't get damaged by mobs if ridden by a player
+        		(riddenByEntity != null)
+        		&& (entityThatAttackedThisCreature != null)
+        		&& !(damageSource.isProjectile())
+        	)
+        {
+        	if (	//let other players attack this entity if there is a player riding it
+        			entityThatAttackedThisCreature instanceof EntityPlayer
+        			&& !((EntityPlayer) entityThatAttackedThisCreature).getCommandSenderName().equals(getOwnerName())
+        		)
+        	{
+        		return super.attackEntityFrom(damageSource, damageTaken);
+        	}
+        	else {return false;}
+        }
 
         if (isNotScared())
         {

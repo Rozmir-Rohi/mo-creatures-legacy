@@ -8,15 +8,18 @@ import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.ambient.MoCEntityBee;
 import drzhark.mocreatures.entity.animal.MoCEntityBigCat;
 import drzhark.mocreatures.entity.animal.MoCEntityElephant;
+import drzhark.mocreatures.entity.animal.MoCEntityHorse;
+import drzhark.mocreatures.entity.animal.MoCEntityKitty;
 import drzhark.mocreatures.entity.animal.MoCEntityOstrich;
 import drzhark.mocreatures.entity.animal.MoCEntityTurkey;
 import drzhark.mocreatures.entity.monster.MoCEntityScorpion;
-import drzhark.mocreatures.entity.vanilla_mc_extension.EntityCreeperExtension;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfVillagerWitchery;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfWitchery;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityVillager;
@@ -26,8 +29,10 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.WorldEvent;;
 
@@ -67,18 +72,6 @@ public class MoCEventHooks {
 	{
         if (!event.entityLiving.worldObj.isRemote)
         { 
-        	if (MoCreatures.proxy.replaceVanillaCreepers) //replace vanilla creepers with creeper extension if it is enabled in the MoC config files
-			{
-        		if (event.entityLiving.getClass() == EntityCreeper.class)
-        		{
-		            EntityCreeperExtension creeper = new EntityCreeperExtension(event.entityLiving.worldObj);
-		            creeper.copyLocationAndAnglesFrom((Entity) event.entityLiving);
-		            creeper.onSpawnWithEgg((IEntityLivingData) null);
-		            event.entityLiving.setDead();
-		            creeper.worldObj.spawnEntityInWorld((Entity) creeper);   
-        		}
-	        }
-        	
         	if (event.entityLiving instanceof MoCEntityTurkey) //remove newly spawned Turkeys from biomes that they are not supposed to spawn in (mainly savannas)
         	{
         		MoCEntityTurkey turkey = (MoCEntityTurkey) event.entityLiving;
@@ -204,6 +197,35 @@ public class MoCEventHooks {
 	        	}
         	}
         }
+    }
+    
+    @SubscribeEvent
+    public void entityJoinWorldEvent(EntityJoinWorldEvent event)
+    {
+    	if (event.entity instanceof EntityCreeper)  //adds a new task for creepers when they are being constructed so they are afraid of kitties
+    	{
+    		EntityCreeper creeper = (EntityCreeper) event.entity;
+    		
+    		if(creeper.tasks != null)
+    		{
+    			creeper.tasks.addTask(3, new EntityAIAvoidEntity(creeper, MoCEntityKitty.class, 6.0F, 1.0D, 1.2D));
+    		}
+    	}
+    }
+    
+    @SubscribeEvent
+    public void onLivingSetTarget(LivingSetAttackTargetEvent event)
+    {
+    	if (	//makes undead mobs ignore the player if they are riding an undead horse
+    			event.entityLiving.isEntityUndead()
+    			&& event.target instanceof EntityPlayer
+    			&& event.target.ridingEntity instanceof MoCEntityHorse
+    			&& ((MoCEntityHorse) event.target.ridingEntity).isUndead()
+    			&& (event.entityLiving.getLastAttacker() != event.target) //don't be passive to the player if they've been hit by them
+    		)
+    	{
+    		((EntityLiving) event.entityLiving).setAttackTarget(null); //don't attack that player
+    	}
     }
     
     @SubscribeEvent

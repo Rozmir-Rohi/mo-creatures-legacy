@@ -114,27 +114,26 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     @Override
     public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
     {
-       Entity entityThatAttackedThisCreature = damageSource.getEntity();
-        if ((riddenByEntity != null) && (entityThatAttackedThisCreature == riddenByEntity)) { return false; }
+    	Entity entityThatAttackedThisCreature = damageSource.getEntity();
         
-        float vanillaMinecraftHorseArmorProtection = 3.7F * getArmorType(); 
-        
-        damageTaken *= (1-(vanillaMinecraftHorseArmorProtection * 0.04F)); //final damage taken after applying armor values. The function uses same damage reduction value as vanilla minecraft.
-        
-        if (damageTaken < 0F) {damageTaken = 0F;}
-        
-        
-        if (
-        		super.attackEntityFrom(damageSource, damageTaken)
-        		&& (entityThatAttackedThisCreature != null)
-        		&& canThisHorseFightBackAgainstTheAttacker(entityThatAttackedThisCreature)
-        	)
-        {
-            entityToAttack = entityThatAttackedThisCreature;
-            return true;
-        }
-        
-        return super.attackEntityFrom(damageSource, damageTaken);
+		float vanillaMinecraftHorseArmorProtection = 3.7F * getArmorType(); 
+		
+		damageTaken *= (1-(vanillaMinecraftHorseArmorProtection * 0.04F)); //final damage taken after applying armor values. The function uses same damage reduction value as vanilla minecraft.
+		
+		if (damageTaken < 0F) {damageTaken = 0F;}
+		
+		
+		if (
+				super.attackEntityFrom(damageSource, damageTaken)
+				&& (entityThatAttackedThisCreature != null)
+				&& canThisHorseFightBackAgainstTheAttacker(entityThatAttackedThisCreature)
+			)
+		{
+		    entityToAttack = entityThatAttackedThisCreature;
+		    return true;
+		}
+		
+		return super.attackEntityFrom(damageSource, damageTaken);
     }
     
     private boolean canThisHorseFightBackAgainstTheAttacker(Entity entityAttacker)
@@ -195,6 +194,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
         return riddenByEntity == null;
     }
+    
 
     @Override
     public boolean checkSpawningBiome()
@@ -413,8 +413,8 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
             Block block = worldObj.getBlock(MathHelper.floor_double(posX), MathHelper.floor_double(posY - 0.20000000298023221D - prevRotationPitch), MathHelper.floor_double(posZ));
             if (block != Blocks.air)
             {
-                SoundType stepsound = block.stepSound;
-                worldObj.playSoundAtEntity(this, stepsound.getStepResourcePath(), stepsound.getVolume() * 0.5F, stepsound.getPitch() * 0.75F);
+                SoundType stepSound = block.stepSound;
+                worldObj.playSoundAtEntity(this, stepSound.getStepResourcePath(), stepSound.getVolume() * 0.5F, stepSound.getPitch() * 0.75F);
             }
         }
     }
@@ -833,181 +833,167 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
         switch (getType())
         {
-        case 1:
-            tempTexture = "horsewhite.png";
-            break;
-        case 2:
-            tempTexture = "horsecreamy.png";
-            break;
-        case 3:
-            tempTexture = "horsebrown.png";
-            break;
-        case 4:
-            tempTexture = "horsedarkbrown.png";
-            break;
-        case 5:
-            tempTexture = "horseblack.png";
-            break;
-        case 6:
-            tempTexture = "horsebrightcreamy.png";
-            break;
-        case 7:
-            tempTexture = "horsespeckled.png";
-            break;
-        case 8:
-            tempTexture = "horsepalebrown.png";
-            break;
-        case 9:
-            tempTexture = "horsegrey.png";
-            break;
-        case 11:
-            tempTexture = "horsepinto.png";
-            break;
-        case 12:
-            tempTexture = "horsebrightpinto.png";
-            break;
-        case 13:
-            tempTexture = "horsepalespeckles.png";
-            break;
-        case 16:
-            tempTexture = "horsespotted.png";
-            break;
-        case 17:
-            tempTexture = "horsecow.png";
-            break;
-
-        case 21:
-            tempTexture = "horseghost.png";
-            break;
-        case 22:
-            tempTexture = "horseghostb.png";
-            break;
-        case 23:
-            tempTexture = "horseundead.png";
-            break;
-        case 24:
-            tempTexture = "horseundeadunicorn.png";
-            break;
-        case 25:
-            tempTexture = "horseundeadpegasus.png";
-            break;
-        case 26:
-            tempTexture = "horseskeleton.png";
-            break;
-        case 27:
-            tempTexture = "horseunicornskeleton.png";
-            break;
-        case 28:
-            tempTexture = "horsepegasusskeleton.png";
-            break;
-        case 30:
-            tempTexture = "horsebug.png";
-            break;
-        case 32:
-            tempTexture = "horsebat.png";
-            break;
-        case 36:
-            tempTexture = "horseunicorn.png";
-            break;
-        case 38:
-            tempTexture = "horsenightmare.png";
-            break;
-        case 39:
-            tempTexture = "horsepegasus.png";
-            break;
-        case 40:
-            tempTexture = "horsedarkpegasus.png";
-            break;
-            /*
-        case 44:
-            tempTexture = "horsefairydarkblue.png";
-            break;
-        case 45:
-            tempTexture = "horsefairydarkblue.png";
-            break;
-        case 46:
-            tempTexture = "horsefairydarkblue.png";
-            break; 
-        case 47:
-            tempTexture = "horsefairydarkblue.png";
-            break;*/
-        case 48:
-            tempTexture = "horsefairyyellow.png";
-            break;
-        case 49:
-            tempTexture = "horsefairypurple.png";
-            break;
-        case 50:
-            tempTexture = "horsefairywhite.png";
-            break;
-        case 51:
-            tempTexture = "horsefairyblue.png";
-            break;
-        case 52:
-            tempTexture = "horsefairypink.png";
-            break;
-        case 53:
-            tempTexture = "horsefairylightgreen.png";
-            break;
-        case 54:
-            tempTexture = "horsefairyblack.png";
-            break;
-        case 55:
-            tempTexture = "horsefairyred.png";
-            break;
-        case 56:
-            tempTexture = "horsefairydarkblue.png";
-            break;
-        case 57:
-            tempTexture = "horsefairycyan.png";
-            break;
-        case 58:
-            tempTexture = "horsefairygreen.png";
-            break;
-        case 59:
-            tempTexture = "horsefairyorange.png";
-            break;
-        
-        case 60:
-            tempTexture = "horsezebra.png";
-            break;
-        case 61:
-            tempTexture = "horsezorse.png";
-            break;
-        case 65:
-            tempTexture = "horsedonkey.png";
-            break;
-        case 66:
-            tempTexture = "horsemule.png";
-            break;
-        case 67:
-            tempTexture = "horsezonky.png";
-            break;
-
-        default:
-            tempTexture = "horsebug.png";
+	        case 1:
+	            tempTexture = "horsewhite.png";
+	            break;
+	        case 2:
+	            tempTexture = "horsecreamy.png";
+	            break;
+	        case 3:
+	            tempTexture = "horsebrown.png";
+	            break;
+	        case 4:
+	            tempTexture = "horsedarkbrown.png";
+	            break;
+	        case 5:
+	            tempTexture = "horseblack.png";
+	            break;
+	        case 6:
+	            tempTexture = "horsebrightcreamy.png";
+	            break;
+	        case 7:
+	            tempTexture = "horsespeckled.png";
+	            break;
+	        case 8:
+	            tempTexture = "horsepalebrown.png";
+	            break;
+	        case 9:
+	            tempTexture = "horsegrey.png";
+	            break;
+	        case 11:
+	            tempTexture = "horsepinto.png";
+	            break;
+	        case 12:
+	            tempTexture = "horsebrightpinto.png";
+	            break;
+	        case 13:
+	            tempTexture = "horsepalespeckles.png";
+	            break;
+	        case 16:
+	            tempTexture = "horsespotted.png";
+	            break;
+	        case 17:
+	            tempTexture = "horsecow.png";
+	            break;
+	        case 21:
+	            tempTexture = "horseghost.png";
+	            break;
+	        case 22:
+	            tempTexture = "horseghostb.png";
+	            break;
+	        case 23:
+	            tempTexture = "horseundead.png";
+	            break;
+	        case 24:
+	            tempTexture = "horseundeadunicorn.png";
+	            break;
+	        case 25:
+	            tempTexture = "horseundeadpegasus.png";
+	            break;
+	        case 26:
+	            tempTexture = "horseskeleton.png";
+	            break;
+	        case 27:
+	            tempTexture = "horseunicornskeleton.png";
+	            break;
+	        case 28:
+	            tempTexture = "horsepegasusskeleton.png";
+	            break;
+	        case 30:
+	            tempTexture = "horsebug.png";
+	            break;
+	        case 32:
+	            tempTexture = "horsebat.png";
+	            break;
+	        case 36:
+	            tempTexture = "horseunicorn.png";
+	            break;
+	        case 38:
+	            tempTexture = "horsenightmare.png";
+	            break;
+	        case 39:
+	            tempTexture = "horsepegasus.png";
+	            break;
+	        case 40:
+	            tempTexture = "horsedarkpegasus.png";
+	            break;
+	        case 48:
+	            tempTexture = "horsefairyyellow.png";
+	            break;
+	        case 49:
+	            tempTexture = "horsefairypurple.png";
+	            break;
+	        case 50:
+	            tempTexture = "horsefairywhite.png";
+	            break;
+	        case 51:
+	            tempTexture = "horsefairyblue.png";
+	            break;
+	        case 52:
+	            tempTexture = "horsefairypink.png";
+	            break;
+	        case 53:
+	            tempTexture = "horsefairylightgreen.png";
+	            break;
+	        case 54:
+	            tempTexture = "horsefairyblack.png";
+	            break;
+	        case 55:
+	            tempTexture = "horsefairyred.png";
+	            break;
+	        case 56:
+	            tempTexture = "horsefairydarkblue.png";
+	            break;
+	        case 57:
+	            tempTexture = "horsefairycyan.png";
+	            break;
+	        case 58:
+	            tempTexture = "horsefairygreen.png";
+	            break;
+	        case 59:
+	            tempTexture = "horsefairyorange.png";
+	            break;
+	        
+	        case 60:
+	            tempTexture = "horsezebra.png";
+	            break;
+	        case 61:
+	            tempTexture = "horsezorse.png";
+	            break;
+	        case 65:
+	            tempTexture = "horsedonkey.png";
+	            break;
+	        case 66:
+	            tempTexture = "horsemule.png";
+	            break;
+	        case 67:
+	            tempTexture = "horsezonky.png";
+	            break;
+	
+	        default:
+	            tempTexture = "horsebug.png";
         }
 
         if ((canWearRegularArmor() || isMagicHorse()) && getArmorType() > 0)
         {
-            String armorTex = "";
+            String armorTexture = "";
             if (getArmorType() == 1)
             {
-                armorTex = "metal.png";
+                armorTexture = "metal.png";
             }
             if (getArmorType() == 2)
             {
-                armorTex = "gold.png";
+                armorTexture = "gold.png";
             }
             if (getArmorType() == 3)
             {
-                armorTex = "diamond.png";
+                armorTexture = "diamond.png";
             }
             if (getArmorType() == 4)
             {
-                armorTex = "crystaline.png";
+                armorTexture = "crystaline.png";
             }
-            return MoCreatures.proxy.getTexture(tempTexture.replace(".png", armorTex));
+            return MoCreatures.proxy.getTexture(tempTexture.replace(".png", armorTexture));
         }
 
         
@@ -2461,7 +2447,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                 int horsemateType;// = 0;
                 if (flag)
                 {
-                    horsemateType = TranslateVanillaHorseType((EntityHorse) horsemate);   
+                    horsemateType = translateVanillaHorseType((EntityHorse) horsemate);   
                     if (horsemateType == -1) return;
                 }else
                 {
@@ -2529,7 +2515,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
      * @param horse
      * @return
      */
-    private int TranslateVanillaHorseType(EntityHorse horse)
+    private int translateVanillaHorseType(EntityHorse horse)
     {
         if (horse.getHorseType() == 1)
         {

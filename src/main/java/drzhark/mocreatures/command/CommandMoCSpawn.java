@@ -47,12 +47,12 @@ public class CommandMoCSpawn extends CommandBase {
         return 2;
     }
 
-    public String getCommandUsage(ICommandSender par1ICommandSender)
+    public String getCommandUsage(ICommandSender iCommandSender)
     {
         return "commands.mocspawn.usage";
     }
 
-    public void processCommand(ICommandSender par1ICommandSender, String[] stringArray)
+    public void processCommand(ICommandSender iCommandSender, String[] stringArray)
     {
         if (stringArray.length == 2)
         {
@@ -62,14 +62,14 @@ public class CommandMoCSpawn extends CommandBase {
             {
                 type = Integer.parseInt(stringArray[1]);
             }
-            catch (NumberFormatException e)
+            catch (NumberFormatException exception)
             {
-                par1ICommandSender.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED + "ERROR:" + EnumChatFormatting.WHITE + "The spawn type " + type + " for " + entityType + " is not a valid type."));
+                iCommandSender.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED + "ERROR:" + EnumChatFormatting.WHITE + "The spawn type " + type + " for " + entityType + " is not a valid type."));
                 return;
             }
 
-            String playername = par1ICommandSender.getCommandSenderName();
-            EntityPlayerMP player = FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().func_152612_a(playername);
+            String playerName = iCommandSender.getCommandSenderName();
+            EntityPlayerMP player = FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().func_152612_a(playerName);
             MoCEntityTameableAnimal specialEntity = null;
             if (entityType.equalsIgnoreCase("horse"))
             {
@@ -83,13 +83,13 @@ public class CommandMoCSpawn extends CommandBase {
             }
             else
             {
-                par1ICommandSender.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED + "ERROR:" + EnumChatFormatting.WHITE + "The entity spawn type " + entityType + " is not a valid type."));
+                iCommandSender.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED + "ERROR:" + EnumChatFormatting.WHITE + "The entity spawn type " + entityType + " is not a valid type."));
                 return;
             }
-            double dist = 3D;
+            double distance = 3D;
             double newPosY = player.posY;
-            double newPosX = player.posX - (dist * Math.cos((MoCTools.realAngle(player.rotationYaw - 90F)) / 57.29578F));
-            double newPosZ = player.posZ - (dist * Math.sin((MoCTools.realAngle(player.rotationYaw - 90F)) / 57.29578F));
+            double newPosX = player.posX - (distance * Math.cos((MoCTools.realAngle(player.rotationYaw - 90F)) / 57.29578F));
+            double newPosZ = player.posZ - (distance * Math.sin((MoCTools.realAngle(player.rotationYaw - 90F)) / 57.29578F));
             specialEntity.setPosition(newPosX, newPosY, newPosZ);
             specialEntity.setTamed(true);
             specialEntity.setOwner("NoOwner");
@@ -98,7 +98,7 @@ public class CommandMoCSpawn extends CommandBase {
 
             if ((entityType.equalsIgnoreCase("horse") && (type < 1 || type > 67)) || (entityType.equalsIgnoreCase("wyvern") && (type < 1 || type > 12)))
             {
-                par1ICommandSender.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED + "ERROR:" + EnumChatFormatting.WHITE + "The spawn type " + type + " is not a valid type."));
+                iCommandSender.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED + "ERROR:" + EnumChatFormatting.WHITE + "The spawn type " + type + " is not a valid type."));
                 return;
             }
             player.worldObj.spawnEntityInWorld(specialEntity);
@@ -107,7 +107,7 @@ public class CommandMoCSpawn extends CommandBase {
         }
         else
         {
-            par1ICommandSender.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED + "ERROR:" + EnumChatFormatting.WHITE + "Invalid spawn parameters entered."));
+            iCommandSender.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED + "ERROR:" + EnumChatFormatting.WHITE + "Invalid spawn parameters entered."));
         }
     }
 
