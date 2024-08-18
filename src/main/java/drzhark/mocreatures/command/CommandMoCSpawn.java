@@ -8,6 +8,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
+import drzhark.mocreatures.entity.animal.MoCEntityElephant;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
 import drzhark.mocreatures.entity.animal.MoCEntityOstrich;
 import drzhark.mocreatures.entity.animal.MoCEntityPetScorpion;
@@ -28,11 +29,12 @@ public class CommandMoCSpawn extends CommandBase {
     private static List tabCompletionStrings = new ArrayList<String>();
 
     static {
-        commands.add("/mocspawn <horse|ostrich|scorpion|wyvern> <int>");
+        commands.add("/mocspawn <horse|ostrich|scorpion|elephant|wyvern> <int>");
         aliases.add("mocspawn");
         tabCompletionStrings.add("horse");
         tabCompletionStrings.add("ostrich");
         tabCompletionStrings.add("scorpion");
+        tabCompletionStrings.add("elephant");
         tabCompletionStrings.add("wyvern");
     }
 
@@ -101,6 +103,11 @@ public class CommandMoCSpawn extends CommandBase {
                 specialEntity = new MoCEntityPetScorpion(player.worldObj);
                 specialEntity.setMoCAge(120);
             }
+            else if (entityType.equalsIgnoreCase("elephant"))
+            {
+                specialEntity = new MoCEntityElephant(player.worldObj);
+                specialEntity.setAdult(true);
+            }
             else if (entityType.equalsIgnoreCase("wyvern"))
             {
                 specialEntity = new MoCEntityWyvern(player.worldObj);
@@ -131,6 +138,11 @@ public class CommandMoCSpawn extends CommandBase {
             {
                 specialEntity.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(((MoCEntityOstrich) specialEntity).calculateMaxHealth());
             }
+            else if (entityType.equalsIgnoreCase("elephant"))
+            {
+                specialEntity.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(((MoCEntityElephant) specialEntity).calculateMaxHealth()); //set max health to the new type
+                specialEntity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(((MoCEntityElephant) specialEntity).getCustomSpeed());
+            }
             else if (entityType.equalsIgnoreCase("wyvern"))
             {
                 specialEntity.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(((MoCEntityWyvern) specialEntity).getType() >= 5 ? 80.0D : 40.0D);
@@ -143,6 +155,7 @@ public class CommandMoCSpawn extends CommandBase {
             		(entityType.equalsIgnoreCase("horse") && (type < 1 || type > 67))
             		|| (entityType.equalsIgnoreCase("ostrich") && (type < 1 || type > 8))
             		|| (entityType.equalsIgnoreCase("scorpion") && (type < 1 || type > 5))
+            		|| (entityType.equalsIgnoreCase("elephant") && (type < 1 || type > 4))
             		|| (entityType.equalsIgnoreCase("wyvern") && (type < 1 || type > 12))
             	)
             {

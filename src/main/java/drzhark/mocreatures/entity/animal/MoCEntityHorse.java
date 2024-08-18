@@ -21,6 +21,7 @@ import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockJukebox;
 import net.minecraft.block.BlockJukebox.TileEntityJukebox;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
@@ -186,15 +187,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         {return 6;}
         
         else {return 2;}
-    }
-
-    @Override
-    public boolean canBeCollidedWith()
-    {
-
-        return riddenByEntity == null;
-    }
-    
+    }    
 
     @Override
     public boolean checkSpawningBiome()
@@ -440,24 +433,24 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         return (dataWatcher.getWatchableObjectByte(23) == 1);
     }
 
-    protected MoCEntityHorse getClosestMommy(Entity entity, double d)
+    protected MoCEntityHorse getClosestMommy(Entity entity, double range)
     {
         double d1 = -1D;
         MoCEntityHorse entityLiving = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(entity, entity.boundingBox.expand(d, d, d));
-        for (int i = 0; i < list.size(); i++)
+        List listOfEntitiesNearby = worldObj.getEntitiesWithinAABBExcludingEntity(entity, entity.boundingBox.expand(range, range, range));
+        for (int index = 0; index < listOfEntitiesNearby.size(); index++)
         {
-            Entity entity1 = (Entity) list.get(i);
-            if ((!(entity1 instanceof MoCEntityHorse)) || ((entity1 instanceof MoCEntityHorse) && !((MoCEntityHorse) entity1).getHasBred()))
+            Entity entityNearby = (Entity) listOfEntitiesNearby.get(index);
+            if ((!(entityNearby instanceof MoCEntityHorse)) || ((entityNearby instanceof MoCEntityHorse) && !((MoCEntityHorse) entityNearby).getHasBred()))
             {
                 continue;
             }
 
-            double d2 = entity1.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-            if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)))
+            double distanceToEntityNearby = entityNearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+            if (((range < 0.0D) || (distanceToEntityNearby < (range * range))) && ((d1 == -1D) || (distanceToEntityNearby < d1)))
             {
-                d1 = d2;
-                entityLiving = (MoCEntityHorse) entity1;
+                d1 = distanceToEntityNearby;
+                entityLiving = (MoCEntityHorse) entityNearby;
             }
         }
 
@@ -467,47 +460,47 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     @Override
     public double getCustomJump()
     {
-        double HorseJump = 0.4D;
+        double horseJump = 0.4D;
         int horseType = getType();
         
         if (horseType < 6) // tier 1
         {
-            HorseJump = 0.4;
+            horseJump = 0.4;
         }
         else if (horseType > 5 && horseType < 11) // tier 2
         {
-            HorseJump = 0.45D;
+            horseJump = 0.45D;
         }
         else if (horseType > 10 && horseType < 16) // tier 3
         {
-            HorseJump = 0.5D;
+            horseJump = 0.5D;
         }
         else if (horseType > 15 && horseType < 21) // tier 4
         {
-            HorseJump = 0.55D;
+            horseJump = 0.55D;
         }
 
         else if (horseType > 20 && horseType < 26) // ghost and undead
         {
-            HorseJump = 0.45D;
+            horseJump = 0.45D;
         }
         else if (horseType > 25 && horseType < 30) // skeleton
         {
-            HorseJump = 0.5D;
+            horseJump = 0.5D;
         }
         else if (horseType >= 30 && horseType < 40) // magics
         {
-            HorseJump = 0.55D;
+            horseJump = 0.55D;
         }
         else if (horseType >= 40 && horseType < 60) // black pegasus and fairies
         {
-            HorseJump = 0.6D;
+            horseJump = 0.6D;
         }
         else if (horseType >= 60) // donkeys - zebras and the like
         {
-            HorseJump = 0.45D;
+            horseJump = 0.45D;
         }
-        return HorseJump;
+        return horseJump;
     }
 
     @Override
@@ -2386,7 +2379,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
             }
 
-            if (!ReadyforParenting(this)) { return; }
+            if (!isReadyforParenting(this)) { return; }
 
             int i = 0;
 
@@ -2412,11 +2405,11 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                     continue;
                 }
                 
-                if (!ReadyforParenting(this)) return;
+                if (!isReadyforParenting(this)) return;
                 
                 if (!flag)
                 {
-                    if (!ReadyforParenting((MoCEntityHorse)horsemate))
+                    if (!isReadyforParenting((MoCEntityHorse)horsemate))
                     {    
                         return;
                     }
@@ -2676,7 +2669,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         mouthCounter = 1;
     }
 
-    public boolean ReadyforParenting(MoCEntityHorse entityhorse)
+    public boolean isReadyforParenting(MoCEntityHorse entityhorse)
     {
         int i = entityhorse.getType();
         return (entityhorse.riddenByEntity == null) && (entityhorse.ridingEntity == null) && entityhorse.getIsTamed() && entityhorse.hasEatenPumpkin && entityhorse.getIsAdult() && !entityhorse.isUndead() && !entityhorse.isGhost() && (i != 61) && (i < 66);
@@ -2830,11 +2823,35 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         }
     }
 
-    private void stand()
+    public void stand()
     {
-        if (riddenByEntity == null && !isOnAir())
+        if (
+        		(!isFlyer() && getIsJumping())
+        		|| (riddenByEntity == null && !isOnAir())
+        	)
         {
             standCounter = 1;
+        }
+    }
+    
+    public void updateRiderPosition()
+    {
+        super.updateRiderPosition();
+        
+        if (standCounter > 0)
+        {
+        	float factor = 1F;
+        	
+            float f = MathHelper.sin(this.renderYawOffset * (float)Math.PI / 180.0F);
+            float f1 = MathHelper.cos(this.renderYawOffset * (float)Math.PI / 180.0F);
+            float f2 = 0.7F * factor;
+            float f3 = 0.15F * factor;
+            this.riddenByEntity.setPosition(this.posX + (double)(f2 * f), this.posY + this.getMountedYOffset() + this.riddenByEntity.getYOffset() + (double)f3, this.posZ - (double)(f2 * f1));
+
+            if (this.riddenByEntity instanceof EntityLivingBase)
+            {
+                ((EntityLivingBase)this.riddenByEntity).renderYawOffset = this.renderYawOffset;
+            }
         }
     }
 

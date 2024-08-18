@@ -159,6 +159,18 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     {
         return dataWatcher.getWatchableObjectInt(18);
     }
+    
+    @Override
+    public boolean canBeCollidedWith()
+    {
+        return riddenByEntity == null;
+    }
+    
+    @Override
+    public boolean canBePushed()
+    {
+        return canBeCollidedWith();
+    }
 
     public boolean getIsJumping()
     {
@@ -195,6 +207,11 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     public void setIsJumping(boolean flag)
     {
         isEntityJumping = flag;
+        
+        if (flag && (this instanceof MoCEntityHorse && !(((MoCEntityHorse) this).isFlyer())))
+        {
+        	((MoCEntityHorse) this).stand();
+        }
     }
 
     @Override
@@ -415,11 +432,6 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     {
         if (MoCreatures.isServer())
         {
-            if (rideableEntity() && riddenByEntity != null)
-            {
-                Riding();
-            }
-
             if (forceUpdates() && rand.nextInt(500) == 0)
             {
                 MoCTools.forceDataSync(this);
@@ -806,53 +818,6 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         if (pathEntity != null)
         {
             setPathToEntity(pathEntity);
-        }
-    }
-
-    /**
-     * Called to make ridden entities pass on collision to rider
-     */
-    public void Riding()
-    {
-        if ((riddenByEntity != null) && (riddenByEntity instanceof EntityPlayer))
-        {
-            EntityPlayer entityPlayer = (EntityPlayer) riddenByEntity;
-
-            List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(1.0D, 0.0D, 1.0D));
-
-            int iterationLength = entitiesNearbyList.size();
-
-            if (iterationLength > 0)
-            {
-                for (int index = 0; index < iterationLength; index++)
-                {
-                    Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-
-                    if (entityNearby.isDead)
-                    {
-                        continue;
-                    }
-
-                    entityNearby.onCollideWithPlayer(entityPlayer);
-
-                    if (!(entityNearby instanceof EntityMob))
-                    {
-                        continue;
-                    }
-
-                    float distance = getDistanceToEntity(entityNearby);
-
-                    if ((distance < 2.0F) && entityNearby instanceof EntityMob && (rand.nextInt(10) == 0))
-                    {
-                        attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase) entityNearby), (float)((EntityMob)entityNearby).getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue());
-                    }
-                }
-            }
-
-            if (entityPlayer.isSneaking())
-            {
-                makeEntityDive();
-            }
         }
     }
 
@@ -1882,22 +1847,6 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         	)
         {
         	return false;
-        }
-        
-        if (	//don't get damaged by mobs if ridden by a player
-        		(riddenByEntity != null)
-        		&& (entityThatAttackedThisCreature != null)
-        		&& !(damageSource.isProjectile())
-        	)
-        {
-        	if (	//let other players attack this entity if there is a player riding it
-        			entityThatAttackedThisCreature instanceof EntityPlayer
-        			&& !((EntityPlayer) entityThatAttackedThisCreature).getCommandSenderName().equals(getOwnerName())
-        		)
-        	{
-        		return super.attackEntityFrom(damageSource, damageTaken);
-        	}
-        	else {return false;}
         }
 
         if (isNotScared())

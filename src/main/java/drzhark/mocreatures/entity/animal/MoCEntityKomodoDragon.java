@@ -491,12 +491,6 @@ public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
     }
 
     @Override
-    public boolean canBeCollidedWith()
-    {
-        return riddenByEntity == null;
-    }
-
-    @Override
     public boolean shouldEntityBeIgnored(Entity entity)
     {
         return (super.shouldEntityBeIgnored(entity)

@@ -312,12 +312,6 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean canBeCollidedWith()
-    {
-        return riddenByEntity == null;
-    }
-
-    @Override
     public ResourceLocation getTexture()
     {
        if (transformCounter != 0 && transformType > 4)

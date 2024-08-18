@@ -695,13 +695,6 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean canBeCollidedWith()
-    {
-
-        return riddenByEntity == null;
-    }
-
-    @Override
     public boolean rideableEntity()
     {
         return true;

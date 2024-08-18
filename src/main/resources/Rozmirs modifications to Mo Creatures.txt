@@ -1189,7 +1189,7 @@ Removed creeper extension. Vanilla MC creepers are now afraid of MoCreatures kit
 Undead mobs no longer attack players if they are riding undead horses.
 
 
-Fixed mo'creatures entities being attacked by mobs if there is a player riding them. Now mobs need to kill the player first to attack the mo creatures entity.
+Fixed Mo'Creatures entities being attacked by mobs if there is a player riding them. Now mobs need to kill the player first to attack the mo creatures entity.
 
 
 Pet scorpions now only accept crafted saddles and no longer use normal saddles.
@@ -1201,4 +1201,16 @@ Undead mobs will now ignore players riding an undead ostrich or scorpion.
 Undead mobs are now neutral to the player if they are riding an undead mount.
 
 
+Removed creeper extension from lang files.
+
+
 Added ostriches and scorpions to /mocspawn command. Also fixed existing errors with the command.
+
+
+Finished fixing Mo'Creatures mounts getting attacked by mobs when ridden.
+
+
+All non-flying Mo'Creatures horses now use their jump animation when jumping like vanilla mc horses.
+
+
+Added elephant to /mocspawn command.

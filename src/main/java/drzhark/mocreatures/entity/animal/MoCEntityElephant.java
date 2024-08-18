@@ -219,7 +219,28 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 
     @Override
     public void onLivingUpdate()
-    {	
+    {
+    	if (rideableEntity() && riddenByEntity instanceof EntityPlayer)
+        {
+    		EntityPlayer entityPlayer = (EntityPlayer) riddenByEntity;
+            
+            if (entityPlayer.isSneaking())
+            {
+                if (MoCreatures.isServer())
+                {
+                    if (sitCounter == 0)
+                    {
+                        sit();
+                    }
+                    if (sitCounter >= 50)
+                    {
+                        entityPlayer.mountEntity(null);
+                    }
+
+                }
+            }
+        }
+    	
     	if (entityToAttack != null && entityToAttack == riddenByEntity)
     	{
     		if (!(riddenByEntity instanceof EntityPlayer && riddenByEntity.getCommandSenderName().equals(getOwnerName()))) //if not the owner of this entity
@@ -1066,58 +1087,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
     {
         dataWatcher.updateObject(19, Integer.valueOf(i));
     }
-
-    @Override
-    public void Riding()
-    {
-        if ((riddenByEntity != null) && (riddenByEntity instanceof EntityPlayer))
-        {
-            EntityPlayer entityPlayer = (EntityPlayer) riddenByEntity;
-            List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(1.0D, 0.0D, 1.0D));
-            if (entitiesNearbyList != null)
-            {
-                for (int index = 0; index < entitiesNearbyList.size(); index++)
-                {
-                    Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-                    if (entityNearby.isDead)
-                    {
-                        continue;
-                    }
-                    entityNearby.onCollideWithPlayer(entityPlayer);
-                }
-
-            }
-            
-            if (entityPlayer.isSneaking())
-            {
-                if (MoCreatures.isServer())
-                {
-                    if (sitCounter == 0)
-                    {
-                        sit();
-                    }
-                    if (sitCounter >= 50)
-                    {
-                        entityPlayer.mountEntity(null);
-                    }
-
-                }
-            }
-        }
-    }
-
-    @Override
-    public boolean canBePushed()
-    {
-        return riddenByEntity == null;
-    }
-
-    @Override
-    public boolean canBeCollidedWith()
-    {
-        return riddenByEntity == null;
-    }
-
+    
     @Override
     public void updateRiderPosition()
     {   

@@ -371,7 +371,7 @@ public class MoCModelNewHorse extends ModelBase {
         boolean eating = entityhorse.getEating();
         boolean ramming = ((entityhorse.sprintCounter > 0 && entityhorse.sprintCounter < 150) && entityhorse.isUnicorned() && (entityhorse.riddenByEntity != null));
         //boolean flyer = entityhorse.isFlyer();
-        boolean standing = (entityhorse.standCounter != 0 && entityhorse.riddenByEntity == null);
+        boolean standing = (entityhorse.standCounter != 0);
         boolean openMouth = (entityhorse.mouthCounter != 0);
         boolean moveTail = (entityhorse.tailCounter != 0);
        

@@ -889,12 +889,6 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean canBeCollidedWith()
-    {
-        return riddenByEntity == null;
-    }
-
-    @Override
     public void dropMyStuff() 
     {
         if (MoCreatures.isServer())

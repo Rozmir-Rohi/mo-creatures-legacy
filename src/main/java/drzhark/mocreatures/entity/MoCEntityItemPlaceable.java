@@ -54,9 +54,9 @@ public class MoCEntityItemPlaceable extends EntityLiving {
            }
            else
            {
-              boolean flag = "arrow".equals(source.getDamageType());
-              boolean flag1 = "player".equals(source.getDamageType());
-              if (!flag1 && !flag) {return false;}
+              boolean sourceOfDamageIsArrow = "arrow".equals(source.getDamageType());
+              boolean sourceOfDamageIsFromPlayer = "player".equals(source.getDamageType());
+              if (!sourceOfDamageIsFromPlayer && !sourceOfDamageIsArrow) {return false;}
               else
               {
             	  
@@ -79,7 +79,7 @@ public class MoCEntityItemPlaceable extends EntityLiving {
                  else
                  {
                     long i = worldObj.getTotalWorldTime();
-                    if (i - punchCooldown > 5L && !flag)
+                    if (i - punchCooldown > 5L && !sourceOfDamageIsArrow)
                     {
                        punchCooldown = i;
                     }
@@ -109,7 +109,8 @@ public class MoCEntityItemPlaceable extends EntityLiving {
 	     }
 	     
 	 
-	public void dropItemEntity() {
+	public void dropItemEntity()
+	{
 		if (MoCreatures.isServer())
 	    {
 			entityDropItem(new ItemStack(Items.stick), 0F);   // <--- Default drop as placeholder, this is ment to be overridden by the child classes

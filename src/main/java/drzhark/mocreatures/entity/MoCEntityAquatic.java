@@ -95,6 +95,18 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         dataWatcher.addObject(20, Integer.valueOf(0)); // integer type - will be automatically checked and networked in onUpdate-EntityLiving
         dataWatcher.addObject(21, String.valueOf("")); //owners name
     }
+    
+    @Override
+    public boolean canBeCollidedWith()
+    {
+        return riddenByEntity == null;
+    }
+    
+    @Override
+    public boolean canBePushed()
+    {
+        return canBeCollidedWith();
+    }
 
     public int getTemper()
     {
@@ -574,44 +586,6 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         }
     }
 
-    // used to pick up objects while riding an entity
-    public void Riding()
-    {
-        if ((riddenByEntity != null) && (riddenByEntity instanceof EntityPlayer))
-        {
-            EntityPlayer entityPlayer = (EntityPlayer) riddenByEntity;
-            List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(1.0D, 0.0D, 1.0D));
-            
-            int iterationLength = entitiesNearbyList.size();
-            
-            if (iterationLength > 0)
-            {
-                for (int index = 0; index < iterationLength; index++)
-                {
-                    Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-                    if (entityNearby.isDead)
-                    {
-                        continue;
-                    }
-                    
-                    entityNearby.onCollideWithPlayer(entityPlayer);
-                    
-                    if (!(entityNearby instanceof EntityMob))
-                    {
-                        continue;
-                    }
-                    
-                    float distance = getDistanceToEntity(entityNearby);
-                    
-                    if ((distance < 2.0F) && entityNearby instanceof EntityMob && (rand.nextInt(10) == 0))
-                    {
-                        attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase) entityNearby), (float)((EntityMob)entityNearby).getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue());
-                    }
-                }
-            }
-        }
-    }
-
     @Override
     protected boolean isMovementCeased()
     {
@@ -625,7 +599,6 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         {
             if (riddenByEntity != null)
             {
-                Riding();
                 mountCount = 1;
             }
 
@@ -997,23 +970,6 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         Entity entityThatAttackedThisCreature = damageSource.getEntity();
         //this avoids damage done by Players to a tamed creature that is not theirs
         if (MoCreatures.proxy.enableStrictOwnership && getOwnerName() != null && !getOwnerName().equals("") && entityThatAttackedThisCreature != null && entityThatAttackedThisCreature instanceof EntityPlayer && !((EntityPlayer) entityThatAttackedThisCreature).getCommandSenderName().equals(getOwnerName()) && !MoCTools.isThisPlayerAnOP(((EntityPlayer) entityThatAttackedThisCreature))) { return false; }
-        
-        
-        if (	//don't get damaged by mobs if ridden by a player
-        		(riddenByEntity != null)
-        		&& (entityThatAttackedThisCreature != null)
-        		&& !(damageSource.isProjectile())
-        	)
-        {
-        	if (	//let other players attack this entity if there is a player riding it
-        			entityThatAttackedThisCreature instanceof EntityPlayer
-        			&& !((EntityPlayer) entityThatAttackedThisCreature).getCommandSenderName().equals(getOwnerName())
-        		)
-        	{
-        		return super.attackEntityFrom(damageSource, damageTaken);
-        	}
-        	else {return false;}
-        }
         
         
         if (isFisheable()) //tests if the fish has been force hooked by a player throwing a fishing hook at them
