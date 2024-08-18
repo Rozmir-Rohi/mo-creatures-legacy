@@ -997,7 +997,25 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         Entity entityThatAttackedThisCreature = damageSource.getEntity();
         //this avoids damage done by Players to a tamed creature that is not theirs
         if (MoCreatures.proxy.enableStrictOwnership && getOwnerName() != null && !getOwnerName().equals("") && entityThatAttackedThisCreature != null && entityThatAttackedThisCreature instanceof EntityPlayer && !((EntityPlayer) entityThatAttackedThisCreature).getCommandSenderName().equals(getOwnerName()) && !MoCTools.isThisPlayerAnOP(((EntityPlayer) entityThatAttackedThisCreature))) { return false; }
-
+        
+        
+        if (	//don't get damaged by mobs if ridden by a player
+        		(riddenByEntity != null)
+        		&& (entityThatAttackedThisCreature != null)
+        		&& !(damageSource.isProjectile())
+        	)
+        {
+        	if (	//let other players attack this entity if there is a player riding it
+        			entityThatAttackedThisCreature instanceof EntityPlayer
+        			&& !((EntityPlayer) entityThatAttackedThisCreature).getCommandSenderName().equals(getOwnerName())
+        		)
+        	{
+        		return super.attackEntityFrom(damageSource, damageTaken);
+        	}
+        	else {return false;}
+        }
+        
+        
         if (isFisheable()) //tests if the fish has been force hooked by a player throwing a fishing hook at them
         {
 	        if (entityThatAttackedThisCreature != null)
