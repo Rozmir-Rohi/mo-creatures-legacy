@@ -198,7 +198,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
                     MoCEntityFishy entityfishy1 = new MoCEntityFishy(worldObj);
                     entityfishy1.setPosition(posX, posY, posZ);
                     worldObj.spawnEntityInWorld(entityfishy1);
-                    worldObj.playSoundAtEntity(this, "mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
+                    playSound("mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
                     setHasEaten(false);
                     entityfishy.setHasEaten(false);
                     gestationTime = 0;

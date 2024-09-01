@@ -607,7 +607,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
-            worldObj.playSoundAtEntity(this, "mocreatures:kittyeatingf", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+            playSound("mocreatures:kittyeatingf", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             heal(8);
             changeKittyStateTo(KITTY_STATE_IN_LOVE_STAGE_ONE);
             return true;
@@ -641,7 +641,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
-            worldObj.playSoundAtEntity(this, "mocreatures:kittyeatingf", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+            playSound("mocreatures:kittyeatingf", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             heal(5);
             changeKittyStateTo(KITTY_STATE_NORMAL_HAPPY);
             return true;
@@ -838,7 +838,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                if ((distanceToEntityItemForTaming < 2.0F) && (closestEntityItemForTaming != null) && (deathTime == 0))
 	                {
 	                    closestEntityItemForTaming.setDead();
-	                    worldObj.playSoundAtEntity(this, "mocreatures:kittyeatingf", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+	                    playSound("mocreatures:kittyeatingf", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
 	                    setHungry(false);
 	                    setKittyState(KITTY_STATE_PRETAMED);
 	                }

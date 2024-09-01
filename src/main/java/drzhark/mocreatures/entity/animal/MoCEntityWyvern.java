@@ -404,7 +404,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
 
                 entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.key));
                 setIsChested(true);
-                worldObj.playSoundAtEntity(this, "mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
+                playSound("mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
                 return true;
             }
 

@@ -362,7 +362,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             if (hissCounter % 25 == 0)
             {
                 setMouthState(0.3F);
-                worldObj.playSoundAtEntity(this, "mocreatures:snakeupset", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                playSound("mocreatures:snakeupset", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             }
             if (hissCounter % 35 == 0)
             {
@@ -399,7 +399,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
                 
             if (rattleState % 20 == 0 )
             {
-            	worldObj.playSoundAtEntity(this, "mocreatures:snakerattle", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+            	playSound("mocreatures:snakerattle", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             }
             if (getRattleState() > 40)
             {
@@ -500,7 +500,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 
             if (bodyswing < 0F)
             {
-                worldObj.playSoundAtEntity(this, "mocreatures:snakesnap", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                playSound("mocreatures:snakesnap", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
                 bodyswing = 2.5F;
                 setMouthState(0.0F);
                 setBiting(false);

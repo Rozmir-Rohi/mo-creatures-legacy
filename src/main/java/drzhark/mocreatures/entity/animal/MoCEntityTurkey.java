@@ -86,7 +86,12 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
 
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
 
-        if (MoCreatures.isServer() && !getIsTamed() && (itemstack != null) && (isItemstackFoodItem(itemstack)))
+        if (
+        		MoCreatures.isServer()
+        		&& !getIsTamed()
+        		&& (itemstack != null)
+        		&& isMyHealFood(itemstack)
+        	)
         {
             MoCTools.tameWithName(entityPlayer, this);
         }
@@ -97,16 +102,12 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-        return itemstack != null && isItemstackFoodItem(itemstack);
-    }
-    
-    private boolean isItemstackFoodItem(ItemStack itemstack)
-    {
-	    if (itemstack != null)
+    	if (itemstack != null)
 	    {
 	    	Item item = itemstack.getItem();
 		    	
-		    	return (
+		    	return
+		    		(
 		    			item instanceof ItemSeeds
 		    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
 		    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
@@ -116,6 +117,7 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
 	    }
 	    else {return false;}
     }
+    
 
     @Override
     public int nameYOffset()

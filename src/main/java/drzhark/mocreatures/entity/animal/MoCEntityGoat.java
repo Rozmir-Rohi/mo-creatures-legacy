@@ -318,7 +318,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
                     }
                     if ((distanceToEntityItem < 2.0F) && (entityItem != null) && (deathTime == 0) && rand.nextInt(50) == 0)
                     {
-                        worldObj.playSoundAtEntity(this, "mocreatures:goateating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                        playSound("mocreatures:goateating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
                         setEating(true);
 
                         entityItem.setDead();
@@ -389,7 +389,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
 
             attackingCounter = 30;
 
-            worldObj.playSoundAtEntity(this, "mocreatures:goatsmack", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+            playSound("mocreatures:goatsmack", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             if (entity instanceof MoCEntityGoat)
             {
                 MoCTools.pushEntityBack(this, entity, 0.4F);
@@ -502,7 +502,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
             movecount += 5;
             if (movecount == 30)
             {
-                worldObj.playSoundAtEntity(this, "mocreatures:goatdigg", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                playSound("mocreatures:goatdigg", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             }
 
             if (movecount > 100)
@@ -540,7 +540,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
                 EntityPlayer entityPlayer1 = worldObj.getClosestPlayerToEntity(this, 3D);
                 if (entityPlayer1 != null)
                 {
-                    worldObj.playSoundAtEntity(this, "mocreatures:goateating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                    playSound("mocreatures:goateating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
                 }
             }
             if (eatcount > 25)
@@ -620,7 +620,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
                     entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                 }
                 heal(5);
-                worldObj.playSoundAtEntity(this, "mocreatures:goateating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                playSound("mocreatures:goateating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
                 return true;
             }
         }

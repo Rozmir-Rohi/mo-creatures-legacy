@@ -302,7 +302,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
                 spinInt += 3;
                 if ((spinInt % 20) == 0)
                 {
-                    worldObj.playSoundAtEntity(this, "mocreatures:crocroll", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                    playSound("mocreatures:crocroll", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
                 }
                 if (spinInt > 80)
                 {
@@ -338,7 +338,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
             biteProgress += 0.1F;
             if (biteProgress == 0.4F)
             {
-                worldObj.playSoundAtEntity(this, "mocreatures:crocjawsnap", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                playSound("mocreatures:crocjawsnap", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             }
             if (biteProgress > 0.6F)
             {

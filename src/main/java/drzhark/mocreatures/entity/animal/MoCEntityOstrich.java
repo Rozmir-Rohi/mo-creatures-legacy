@@ -564,7 +564,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
                             }
         
                             //TODO change sound
-                            worldObj.playSoundAtEntity(this, "mob.chicken.plop", 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+                            playSound("mob.chicken.plop", 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
                             //finds a male and makes it eggWatch as well
                             //MoCEntityOstrich entityOstrich = (MoCEntityOstrich) getClosestSpecificEntity(this, MoCEntityOstrich.class, 12D);
                             eggCounter = rand.nextInt(2000) + 2000;

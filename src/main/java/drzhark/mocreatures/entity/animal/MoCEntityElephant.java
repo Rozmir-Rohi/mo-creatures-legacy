@@ -429,7 +429,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         	)
         {
         	
-        	worldObj.playSoundAtEntity(this, "random.break", 1, 1);
+        	playSound("random.break", 1, 1);
             setTusks((byte) 0);
         }
     }
@@ -1382,7 +1382,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
             if (!block.isAir(worldObj, MathHelper.floor_double(posX), MathHelper.floor_double(posY - 0.20000000298023221D - prevRotationPitch), MathHelper.floor_double(posZ)))
             {
                 Block.SoundType stepsound = block.stepSound;
-                worldObj.playSoundAtEntity(this, stepsound.getStepResourcePath(), stepsound.getVolume() * 0.5F, stepsound.getPitch() * 0.75F);
+                playSound(stepsound.getStepResourcePath(), stepsound.getVolume() * 0.5F, stepsound.getPitch() * 0.75F);
             }
         }
     }

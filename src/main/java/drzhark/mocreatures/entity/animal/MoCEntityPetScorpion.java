@@ -188,6 +188,8 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     @Override
     public void onLivingUpdate()
     {
+    	tryToSetEffectOnMobThatTheOwnerAttacked();
+    	
     	if (entityToAttack != null && entityToAttack == riddenByEntity)
     	{
     		if (!(riddenByEntity instanceof EntityPlayer && riddenByEntity.getCommandSenderName().equals(getOwnerName()))) //if not the owner of this entity
@@ -212,7 +214,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
 
         if (MoCreatures.isServer() && (armCounter == 10 || armCounter == 40))
         {
-            worldObj.playSoundAtEntity(this, "mocreatures:scorpionclaw", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+            playSound("mocreatures:scorpionclaw", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
         }
 
         if (armCounter != 0 && armCounter++ > 24)
@@ -225,7 +227,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             poisontimer++;
             if (poisontimer == 1)
             {
-                worldObj.playSoundAtEntity(this, "mocreatures:scorpionsting", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                playSound("mocreatures:scorpionsting", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             }
             if (poisontimer > 50)
             {
@@ -290,6 +292,39 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     	
     	return true;
     }
+    
+    
+    private void tryToSetEffectOnMobThatTheOwnerAttacked()
+    {
+    	if (getIsTamed()) //defend owner if they are attacked by an entity
+    	{
+    		EntityPlayer ownerOfEntityThatIsOnline = MinecraftServer.getServer().getConfigurationManager().func_152612_a(getOwnerName());
+    		
+    		if (
+    				ownerOfEntityThatIsOnline != null
+    				&& riddenByEntity == ownerOfEntityThatIsOnline
+    				&& ownerOfEntityThatIsOnline.isSwingInProgress //only sting if player is swinging arm
+    				&& !getIsPoisoning()
+    				&& ownerOfEntityThatIsOnline.getLastAttacker() != null
+    				&& !(ownerOfEntityThatIsOnline.getLastAttacker().isDead)
+    				&& rand.nextInt(100) < 30
+    			)
+    		{
+    			Entity entityToSetEffectOn = ownerOfEntityThatIsOnline.getLastAttacker();
+    			
+    			
+    			double distanceToTargetEntity = MoCTools.getSqDistanceTo(this, entityToSetEffectOn.posX, entityToSetEffectOn.posY, entityToSetEffectOn.posZ);
+    			
+    			
+    			if (distanceToTargetEntity < 5.0D)
+    			{
+    				stingAndApplyEffectOnEntity(entityToSetEffectOn);
+    			}
+    			
+    		}
+    	}
+    }
+    
 
     @Override
     protected Entity findPlayerToAttack()
@@ -361,28 +396,10 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         else if (attackTime <= 0 && (distanceToEntity < 3.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
-            boolean isEntityToAttackInstanceOfPlayer = (entity instanceof EntityPlayer);
+            
             if (!getIsPoisoning() && rand.nextInt(5) == 0)
             {
-                setPoisoning(true);
-                if (getType() <= 2)// regular scorpions
-                {
-                    ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 70, 0));
-                }
-                else if (getType() == 4)// frost scorpions
-                {
-                    ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 70, 0));
-
-                }
-                else if (getType() == 3)// nether scorpions
-                {
-                    if (isEntityToAttackInstanceOfPlayer && MoCreatures.isServer() && !worldObj.provider.isHellWorld)
-                    {
-                        ((EntityLivingBase) entity).setFire(15);
-
-                    }
-
-                }
+                stingAndApplyEffectOnEntity(entity);
 
             }
             else
@@ -392,6 +409,33 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             }
         }
     }
+
+    private void stingAndApplyEffectOnEntity(Entity entity)
+	{
+		int potionTime = 70;
+		
+		setPoisoning(true);
+		if (getType() <= 1)// regular scorpions
+		{
+		    ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, potionTime, 0));
+		}
+		else if (getType() == 2) //cave scorpions
+		{
+			((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.confusion.id, potionTime, 0));
+		}
+		else if (getType() == 4)// frost scorpions
+		{
+		    ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, potionTime, 0));
+
+		}
+		else if (getType() == 3)// fire scorpions
+		{
+		    if ((entity instanceof EntityPlayer) && MoCreatures.isServer() && !worldObj.provider.isHellWorld)
+		    {
+		        ((EntityLivingBase) entity).setFire(15);
+		    }
+		}
+	}
 
     public void swingArm()
     {
@@ -429,7 +473,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
                 entityPetScorpion.setType(getType());
                 entityPetScorpion.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
                 worldObj.spawnEntityInWorld(entityPetScorpion);
-                worldObj.playSoundAtEntity(this, "mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
+                playSound("mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
 
             }
         }

@@ -225,7 +225,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
 
         if (MoCreatures.isServer() && (armCounter == 10 || armCounter == 40))
         {
-            worldObj.playSoundAtEntity(this, "mocreatures:scorpionclaw", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+            playSound("mocreatures:scorpionclaw", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
         }
 
         if (armCounter != 0 && armCounter++ > 24)
@@ -238,7 +238,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
             poisontimer++;
             if (poisontimer == 1)
             {
-                worldObj.playSoundAtEntity(this, "mocreatures:scorpionsting", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                playSound("mocreatures:scorpionsting", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             }
             if (poisontimer > 50)
             {
@@ -325,26 +325,9 @@ public class MoCEntityScorpion extends MoCEntityMob {
         else if (attackTime <= 0 && (distanceToEntity < 3.0D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY))
         {
             attackTime = 20;
-            boolean isEntityPlayer = (entity instanceof EntityPlayer);
             if (!getIsPoisoning() && rand.nextInt(5) == 0 && entity instanceof EntityLivingBase)
             {
-                setPoisoning(true);
-                if (getType() <= 2)// regular scorpions
-                {
-                    ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 70, 0));
-                }
-                else if (getType() == 4)// blue scorpions
-                {
-                    ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 70, 0));
-
-                }
-                else if (getType() == 3)// red scorpions
-                {
-                    if (isEntityPlayer && MoCreatures.isServer() && !worldObj.provider.isHellWorld)
-                    {
-                        ((EntityLivingBase) entity).setFire(15);
-                    }
-                }
+                stingAndApplyEffectOnEntity(entity);
             }
             else
             {
@@ -353,6 +336,33 @@ public class MoCEntityScorpion extends MoCEntityMob {
             }
         }
     }
+
+	private void stingAndApplyEffectOnEntity(Entity entity)
+	{
+		int potionTime = 70;
+		
+		setPoisoning(true);
+		if (getType() <= 1)// regular scorpions
+		{
+		    ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, potionTime, 0));
+		}
+		else if (getType() == 2) //cave scorpions
+		{
+			((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.confusion.id, potionTime, 0));
+		}
+		else if (getType() == 4)// frost scorpions
+		{
+		    ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, potionTime, 0));
+
+		}
+		else if (getType() == 3)// fire scorpions
+		{
+		    if ((entity instanceof EntityPlayer) && MoCreatures.isServer() && !worldObj.provider.isHellWorld)
+		    {
+		        ((EntityLivingBase) entity).setFire(15);
+		    }
+		}
+	}
 
     public void swingArm()
     {

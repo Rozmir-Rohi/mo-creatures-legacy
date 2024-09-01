@@ -207,7 +207,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
 
                     if (!getIsHiding())
                     {
-                        worldObj.playSoundAtEntity(this, "mocreatures:turtlehissing", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                        playSound("mocreatures:turtlehissing", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
                         setIsHiding(true);
                     }
 
@@ -358,7 +358,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
                 setSwinging(false);
                 swingProgress = 0.0F;
                 // TODO
-                worldObj.playSoundAtEntity(this, "mob.chicken.plop", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                playSound("mob.chicken.plop", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
                 setIsUpsideDown(false);
                 flopCounter = 0;
             }

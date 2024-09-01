@@ -1,5 +1,7 @@
 package drzhark.mocreatures.entity.animal;
 
+import java.util.List;
+
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.IMoCEntity;
@@ -11,6 +13,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -247,8 +250,34 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     @Override
     public boolean isMyHealFood(ItemStack itemstack)
     {
-    	return itemstack != null && isItemEdible(itemstack.getItem());
-    }
+    	if (itemstack != null)
+    	{
+    		Item item = itemstack.getItem();
+    		
+    		List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+    	
+	    	return 
+	    			(
+	    					isItemEdible(item)
+			        		|| item == Items.porkchop
+			    			|| item == Items.beef 
+			    			|| item == Items.chicken
+			    			|| (item == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
+			    			|| item == MoCreatures.ratRaw
+			        		|| item == MoCreatures.turkeyRaw
+			            	|| item == MoCreatures.ostrichRaw
+			        		|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
+			    			|| oreDictionaryNameArray.contains("listAllmeatraw")
+			    			|| oreDictionaryNameArray.contains("listAllfishraw")
+			    			|| MoCreatures.isGregTech6Loaded &&
+			    			(
+			    					oreDictionaryNameArray.contains("foodScrapmeat")
+							)
+						);
+    	}
+    	
+    	return false;
+	}
 
     @Override
     public int nameYOffset()

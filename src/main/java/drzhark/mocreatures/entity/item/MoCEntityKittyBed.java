@@ -199,7 +199,7 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
         if ((itemstack != null) && MoCreatures.isServer() && (itemstack.getItem() == Items.milk_bucket))
         {
             entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.bucket, 1));
-            worldObj.playSoundAtEntity(this, "mocreatures:pouringmilk", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+            playSound("mocreatures:pouringmilk", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             setHasMilk(true);
             setHasFood(false);
             entityPlayer.addStat(MoCAchievements.pet_food, 1);
@@ -211,7 +211,7 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
-            worldObj.playSoundAtEntity(this, "mocreatures:pouringfood", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+            playSound("mocreatures:pouringfood", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             setHasMilk(false);
             setHasFood(true);
             entityPlayer.addStat(MoCAchievements.pet_food, 1);
@@ -273,7 +273,7 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
             	if (!getHasFood() && (item == MoCreatures.petFood))
             	{
             		entityItem.setDead();
-            		worldObj.playSoundAtEntity(this, "mocreatures:pouringfood", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+            		playSound("mocreatures:pouringfood", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             		setHasMilk(false);
             		setHasFood(true);
             	}

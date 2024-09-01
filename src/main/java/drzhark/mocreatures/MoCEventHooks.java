@@ -217,8 +217,9 @@ public class MoCEventHooks {
     @SubscribeEvent
     public void onLivingSetTarget(LivingSetAttackTargetEvent event)
     {
-    	if (	//makes undead mobs ignore the player if they are riding an undead horse
+    	if (	//makes undead mobs below 50 HP ignore the player if they are riding an undead horse
     			event.entityLiving.isEntityUndead()
+    			&& event.entityLiving.getMaxHealth() < 50
     			&& event.target instanceof EntityPlayer
     			&& (
     					(event.target.ridingEntity instanceof MoCEntityHorse && ((MoCEntityHorse) event.target.ridingEntity).isUndead())

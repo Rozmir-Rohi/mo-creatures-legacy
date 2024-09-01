@@ -115,7 +115,7 @@ public class MoCItemWeapon extends ItemSword {
      * entry argument beside ev. They just raise the damage on the stack.
      */
     @Override
-    public boolean hitEntity(ItemStack itemStack, EntityLivingBase entityLiving_that_has_been_hit, EntityLivingBase par3EntityLiving)
+    public boolean hitEntity(ItemStack itemStack, EntityLivingBase entityLivingThatHasBeenHit, EntityLivingBase par3EntityLiving)
     {
         int i = 1;
         if (breakable)
@@ -127,22 +127,22 @@ public class MoCItemWeapon extends ItemSword {
         switch (specialWeaponType)
         {
         case 1: //poison
-            entityLiving_that_has_been_hit.addPotionEffect(new PotionEffect(Potion.poison.id, potionTime, 0));
-            break;
-        case 2: //frost slowdown
-            entityLiving_that_has_been_hit.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, potionTime, 0));
-            break;
-        case 3: //fire
-            entityLiving_that_has_been_hit.setFire(10);
-            break;
-        case 4: //nausea
-            entityLiving_that_has_been_hit.addPotionEffect(new PotionEffect(Potion.confusion.id, potionTime, 0));
-            break;
-        case 5: //blindness
-            entityLiving_that_has_been_hit.addPotionEffect(new PotionEffect(Potion.blindness.id, potionTime, 0));
-            break;
-        default:
-            break;
+	            entityLivingThatHasBeenHit.addPotionEffect(new PotionEffect(Potion.poison.id, potionTime, 0));
+	            break;
+	        case 2: //frost slowdown
+	            entityLivingThatHasBeenHit.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, potionTime, 0));
+	            break;
+	        case 3: //fire
+	            entityLivingThatHasBeenHit.setFire(10);
+	            break;
+	        case 4: //nausea
+	            entityLivingThatHasBeenHit.addPotionEffect(new PotionEffect(Potion.confusion.id, potionTime, 0));
+	            break;
+	        case 5: //blindness
+	            entityLivingThatHasBeenHit.addPotionEffect(new PotionEffect(Potion.blindness.id, potionTime, 0));
+	            break;
+	        default:
+	            break;
         }
 
         return true;

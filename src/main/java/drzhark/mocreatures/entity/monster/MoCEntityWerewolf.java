@@ -742,7 +742,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
                 }
                 if (MoCreatures.proxy.useRealisticHumanSoundsForWerewolf && transformCounter == 10)
                 {
-                    worldObj.playSoundAtEntity(this, "mocreatures:weretransform", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
+                    playSound("mocreatures:weretransform", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
                 }
                 if (transformCounter > 30)
                 {

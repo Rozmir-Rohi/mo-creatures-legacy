@@ -121,7 +121,7 @@ public class MoCEntityEgg extends EntityLiving {
         }
         if ((eggLostCounter > 10) && entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.mocegg, 1, eggIndex)))
         {
-            worldObj.playSoundAtEntity(this, "random.pop", 0.2F, (((rand.nextFloat() - rand.nextFloat()) * 0.7F) + 1.0F) * 2.0F);
+            playSound("random.pop", 0.2F, (((rand.nextFloat() - rand.nextFloat()) * 0.7F) + 1.0F) * 2.0F);
             if (!worldObj.isRemote)
             {
                 entityPlayer.onItemPickup(this, 1);
@@ -249,7 +249,7 @@ public class MoCEntityEgg extends EntityLiving {
                             MoCTools.tameWithName((EntityPlayerMP) entityPlayer, (IMoCTameable) entityspawn);
                         }
                     }
-                    worldObj.playSoundAtEntity(this, "mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
+                    playSound("mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
                     setDead();
                 }
             }
@@ -356,7 +356,7 @@ public class MoCEntityEgg extends EntityLiving {
                             MoCTools.tameWithName((EntityPlayerMP) entityPlayer, entityspawn);
                         }
                     }
-                    worldObj.playSoundAtEntity(this, "mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
+                    playSound("mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
                     setDead();
                 }
             }

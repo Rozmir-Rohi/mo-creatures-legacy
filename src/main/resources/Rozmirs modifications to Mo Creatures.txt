@@ -1214,3 +1214,15 @@ All non-flying Mo'Creatures horses now use their jump animation when jumping lik
 
 
 Added elephant to /mocspawn command.
+
+
+Added vanilla mc sounds to horse jumping.
+
+
+Undead mobs will now only ignore players if their max health is below 50 and the player is riding an undead mount.
+
+
+Pet scorpions will now sting and apply their potion effect on mobs that the player attacks while riding them.
+
+
+Fixed cave scorpions applying poison effect. They now apply nausea.

@@ -374,7 +374,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
                 }
             }
 
-            worldObj.playSoundAtEntity(this, "mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+            playSound("mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
 
             return true;
         }
@@ -388,7 +388,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
             heal(5);
             
             setHasEaten(true);
-            worldObj.playSoundAtEntity(this, "mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+            playSound("mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             return true;
         }
         if (

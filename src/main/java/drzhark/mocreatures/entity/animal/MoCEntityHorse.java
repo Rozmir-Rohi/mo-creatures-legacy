@@ -388,6 +388,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         if (isFlyer() || isFloater()) { return; }
 
         float i = (float) (Math.ceil(f - 3F)/2F);
+        
         if (MoCreatures.isServer() && (i > 0))
         {
             if (getType() >= 10)
@@ -407,7 +408,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
             if (block != Blocks.air)
             {
                 SoundType stepSound = block.stepSound;
-                worldObj.playSoundAtEntity(this, stepSound.getStepResourcePath(), stepSound.getVolume() * 0.5F, stepSound.getPitch() * 0.75F);
+                playSound(stepSound.getStepResourcePath(), stepSound.getVolume() * 0.5F, stepSound.getPitch() * 0.75F);
             }
         }
     }
@@ -2024,8 +2025,25 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     {
         return
 
-        getType() == 39 || getType() == 36 || getType() == 32 || getType() == 40 || (getType() >= 45 && getType() < 60) //fairy
-                || getType() == 21 || getType() == 22;
+        getType() == 39
+        || getType() == 36
+        || getType() == 32
+        || getType() == 40
+        || (getType() >= 45 && getType() < 60) //fairy
+        || getType() == 21
+        || getType() == 22;
+    }
+    
+    @Override    
+    public void setIsJumping(boolean flag)
+    {
+        isEntityJumping = flag;
+        
+        if (!isFlyer()&& flag)
+        {
+        	stand(); //use vanilla horse jump animation
+        	playSound("mob.horse.jump", 0.4F, 1.0F);
+        }
     }
 
     @Override

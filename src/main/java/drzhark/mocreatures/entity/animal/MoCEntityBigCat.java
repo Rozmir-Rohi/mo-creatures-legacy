@@ -707,7 +707,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         if ((itemstack != null) && getIsTamed() && isMyHealFood(itemstack))
         {
             heal(5);
-            worldObj.playSoundAtEntity(this, "mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+            playSound("mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
             setHungry(false);
         }
         return false;
