@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import drzhark.mocreatures.entity.aquatic.MoCEntityJellyFish;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -53,12 +54,10 @@ public class MoCRenderJellyFish extends RenderLiving {
     @Override
     public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
-        MoCEntityJellyFish entityjellyfish = (MoCEntityJellyFish) entityLiving;
-        boolean isGlowing = entityjellyfish.isGlowing();
+        MoCEntityJellyFish entityJellyfish = (MoCEntityJellyFish) entityLiving;
+        boolean isGlowing = entityJellyfish.isGlowing();
         
-        //TODO: fix jellyfish not glowing
-        
-        if (!entityjellyfish.isSwimming())
+        if (!entityJellyfish.isSwimming())
         {
             depth = 0.09F;
         }
@@ -69,17 +68,15 @@ public class MoCRenderJellyFish extends RenderLiving {
         }
         GL11.glPushMatrix();
         GL11.glEnable(3042 /*GL_BLEND*/);
-        if (!isGlowing)
+        
+        if (isGlowing)
         {
-            float transparency = 0.7F;
-            GL11.glBlendFunc(770, 771);
-            GL11.glColor4f(0.8F, 0.8F, 0.8F, transparency);
+        	char c0 = 61680;
+            int j = c0 % 65536;
+            int k = c0 / 65536;
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j / 1.0F, (float)k / 1.0F);
         }
-        else
-        {
-            GL11.glBlendFunc(770, 1);
-            //GL11.glBlendFunc(770, GL11.GL_ONE);
-        }
+        
         super.doRender(entityLiving, x, y, z, rotationYaw, rotationPitch);
         GL11.glDisable(3042/*GL_BLEND*/);
         GL11.glPopMatrix();
@@ -87,25 +84,26 @@ public class MoCRenderJellyFish extends RenderLiving {
     }
 
 
-    protected void stretch(MoCEntityJellyFish entityjellyfish)
+    protected void stretch(MoCEntityJellyFish entityJellyfish)
     {
-        GL11.glScalef(entityjellyfish.getMoCAge() * 0.01F, entityjellyfish.getMoCAge() * 0.01F, entityjellyfish.getMoCAge() * 0.01F);
+        GL11.glScalef(entityJellyfish.getMoCAge() * 0.01F, entityJellyfish.getMoCAge() * 0.01F, entityJellyfish.getMoCAge() * 0.01F);
     }
 
-    protected void pulse(MoCEntityJellyFish entityjellyfish)
+    protected void pulse(MoCEntityJellyFish entityJellyfish)
     {
 
-        float pulseSize = entityjellyfish.pulsingSize;
+        float pulseSize = entityJellyfish.pulsingSize;
         if (pulseSize > 0.2F)
         {
             pulseSize = 0.2F - (pulseSize - 0.2F);
         }
-        float scale = entityjellyfish.getMoCAge() * 0.01F + (pulseSize/4);
-        float scale2 = entityjellyfish.getMoCAge() * 0.01F + (pulseSize / 4);
+        float scale = entityJellyfish.getMoCAge() * 0.01F + (pulseSize/4);
+        float scale2 = entityJellyfish.getMoCAge() * 0.01F + (pulseSize / 4);
         GL11.glScalef(scale, scale2, scale);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityJellyFish)par1Entity).getTexture();
+    protected ResourceLocation getEntityTexture(Entity entity)
+    {
+        return ((MoCEntityJellyFish) entity).getTexture();
     }
 }

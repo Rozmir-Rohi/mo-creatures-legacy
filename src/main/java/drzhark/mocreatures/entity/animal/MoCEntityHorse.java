@@ -365,7 +365,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
      */
     public void dropBags()
     {
-        if (!isBagger() || !getChestedHorse() || !MoCreatures.isServer()) { return; }
+        if (!isBagger() || !getIsChestedHorse() || !MoCreatures.isServer()) { return; }
 
         EntityItem entityItem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Blocks.chest, 1));
         float f3 = 0.05F;
@@ -429,7 +429,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         return 9;
     }
 
-    public boolean getChestedHorse()
+    public boolean getIsChestedHorse()
     {
         return (dataWatcher.getWatchableObjectByte(23) == 1);
     }
@@ -1373,7 +1373,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	        {
 	        	if (interactIfItemstackIsAmulet(entityPlayer, horseType, item)) {return true;};
 	        	
-	        	if ((item == MoCreatures.key) && getChestedHorse())
+	        	if ((item == MoCreatures.key) && getIsChestedHorse())
 		        {
 		            // if first time opening horse chest, we must initialize it
 		            if (localHorseChest == null)
@@ -1401,7 +1401,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		
 		        if (item == Item.getItemFromBlock(Blocks.chest) && (isBagger()))
 		        {
-		            if (getChestedHorse()) { return false; }
+		            if (getIsChestedHorse()) { return false; }
 		            if (--itemstack.stackSize == 0)
 		            {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
@@ -2975,13 +2975,13 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         super.writeEntityToNBT(nbtTagCompound);
         nbtTagCompound.setBoolean("Saddle", getIsRideable());
         nbtTagCompound.setBoolean("EatingHaystack", getEating());
-        nbtTagCompound.setBoolean("ChestedHorse", getChestedHorse());
+        nbtTagCompound.setBoolean("ChestedHorse", getIsChestedHorse());
         nbtTagCompound.setBoolean("HasReproduced", getHasReproduced());
         nbtTagCompound.setBoolean("Bred", getHasBred());
         nbtTagCompound.setBoolean("DisplayName", getDisplayName());
         nbtTagCompound.setInteger("ArmorType", getArmorType());
 
-        if (getChestedHorse() && localHorseChest != null)
+        if (getIsChestedHorse() && localHorseChest != null)
         {
             NBTTagList nbttaglist = new NBTTagList();
             for (int index = 0; index < localHorseChest.getSizeInventory(); index++)
@@ -3011,7 +3011,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         setReproduced(nbtTagCompound.getBoolean("HasReproduced"));
         setDisplayName(nbtTagCompound.getBoolean("DisplayName"));
         setArmorType((byte) nbtTagCompound.getInteger("ArmorType"));
-        if (getChestedHorse())
+        if (getIsChestedHorse())
         {
             NBTTagList nbttaglist = nbtTagCompound.getTagList("Items", 10);
             localHorseChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.HorseChest"), getInventorySize());

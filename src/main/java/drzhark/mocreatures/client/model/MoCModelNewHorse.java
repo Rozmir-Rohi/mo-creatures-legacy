@@ -456,7 +456,7 @@ public class MoCModelNewHorse extends ModelBase {
                 Unicorn.render(f5);
             }
 
-            if (entityhorse.getChestedHorse())
+            if (entityhorse.getIsChestedHorse())
             {
                 Bag1.render(f5);
                 Bag2.render(f5);

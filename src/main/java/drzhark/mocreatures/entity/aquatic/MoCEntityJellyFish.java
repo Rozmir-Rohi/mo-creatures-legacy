@@ -4,9 +4,13 @@ import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAquatic;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -139,7 +143,7 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
             
             if(rand.nextInt(200) == 0)
             {
-                setGlowing(!worldObj.isDaytime()); 
+                setGlowing(!worldObj.isDaytime());
             }
             
             
@@ -151,22 +155,31 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
                     setAdult(true);
                 }
             }
-
-            if (!getIsTamed() && ++poisonCounter > 250 && (worldObj.difficultySetting.getDifficultyId() > 0)  && rand.nextInt(30) == 0)
-            {
-                EntityPlayer entityPlayertarget = worldObj.getClosestPlayer(posX, posY, posZ, 3D);
-                if (entityPlayertarget != null)
-                {
-                    //System.out.println("attempting poisioning" + this);
-                }
-                
-                if (MoCTools.findClosestPlayerAndPoisonThem(this, true))
-                {
-                    poisonCounter = 0;
-                }
-            }
         }
     }
+    
+    @Override
+    protected void collideWithEntity(Entity entityThatThisEntityHasCollidedWith)
+    {
+    	if (
+    			worldObj.difficultySetting.getDifficultyId() > 0
+    			&& 
+    				!( //entities that are immune to being stung
+    					entityThatThisEntityHasCollidedWith instanceof MoCEntityJellyFish
+    					|| entityThatThisEntityHasCollidedWith instanceof MoCEntityShark
+    					|| entityThatThisEntityHasCollidedWith instanceof MoCEntityRay
+    			 	)
+    		)
+    	{
+    		int secondsToApplyPoison = worldObj.difficultySetting.getDifficultyId() * 3;
+    		
+    		//posion entities that collide with this entity
+    		((EntityLivingBase) entityThatThisEntityHasCollidedWith).addPotionEffect(new PotionEffect(Potion.poison.id, (secondsToApplyPoison)* 20, 0));
+    	}
+    	
+        super.collideWithEntity(entityThatThisEntityHasCollidedWith);
+    }
+    
 
     @Override
     public void moveVerticallyInWater()
@@ -205,8 +218,9 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     
     @Override
     public int nameYOffset()
-    {     int yOffsetName = (int) (getMoCAge() * -1 /2.3);
-         return yOffsetName;
+    {     
+    	int yOffsetName = (int) (getMoCAge() * -1 /2.3);
+    	return yOffsetName;
     }
       
     @Override

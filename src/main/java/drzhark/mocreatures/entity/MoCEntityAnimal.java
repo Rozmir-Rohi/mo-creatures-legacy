@@ -1208,8 +1208,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
             if (!worldObj.isRemote)
             {
                 //needs to be left in so flying mounts can be controlled
-                //moveEntity(motionX, motionY, motionZ);
-                super.moveEntityWithHeading(movementSideways, movementForward);//, motionZ);
+                super.moveEntityWithHeading(movementSideways, movementForward);
             }
             if (isFlyingAlone())
             {
@@ -1239,11 +1238,6 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
                 {
                     motionY *= 0.5D;
                 }
-                /*if (MoCreatures.isServer())
-                {
-                    moveEntity(motionX, motionY, motionZ);
-                    //super.moveEntityWithHeading(par1, par2);//, motionZ);
-                }*/
             }
 
             if (isFlyer() && riddenByEntity == null && entityToAttack != null && entityToAttack.posY < posY && rand.nextInt(30) == 0)
@@ -1274,9 +1268,6 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
                 {
                 	movement = ((float) getCustomSpeed())*0.77F;
                 }
-
-                //motionX += riddenByEntity.motionX * getCustomSpeed();
-               // motionZ += riddenByEntity.motionZ * getCustomSpeed();
             }
             else if (!isFlyingAlone())
             {
