@@ -55,9 +55,9 @@ public class MoCBlockDirt extends MoCBlock
     @Override
     public void getSubBlocks(Item par1, CreativeTabs tab, List subItems) 
     {
-        for (int ix = 0; ix < MoCreatures.multiBlockNames.size(); ix++) 
+        for (int index = 0; index < MoCreatures.multiBlockNames.size(); index++) 
         {
-            subItems.add(new ItemStack(this, 1, ix));
+            subItems.add(new ItemStack(this, 1, index));
         }
     }
 }

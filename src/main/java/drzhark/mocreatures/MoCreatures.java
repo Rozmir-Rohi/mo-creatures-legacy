@@ -28,10 +28,10 @@ import cpw.mods.fml.relauncher.Side;
 import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.block.MoCBlockDirt;
 import drzhark.mocreatures.block.MoCBlockGrass;
-import drzhark.mocreatures.block.MoCBlockLeaf;
+import drzhark.mocreatures.block.MoCBlockLeaves;
 import drzhark.mocreatures.block.MoCBlockLog;
 import drzhark.mocreatures.block.MoCBlockPlanks;
-import drzhark.mocreatures.block.MoCBlockRock;
+import drzhark.mocreatures.block.MoCBlockStone;
 import drzhark.mocreatures.block.MoCBlockTallGrass;
 import drzhark.mocreatures.client.MoCClientTickHandler;
 import drzhark.mocreatures.client.MoCClientWitcheryPlayerWolfAndWerewolfReplacement;
@@ -908,15 +908,18 @@ public class MoCreatures {
 
         turkeyRaw = new MoCItemFood("turkeyraw", 3, 0.3F, false).setPotionEffect(Potion.hunger.id, 30, 0, 0.8F);
         turkeyCooked = new MoCItemFood("turkeycooked", 8, 0.6F, false);
+        
         hide = new MoCItem("hide");
         chestHide = new MoCItemArmor("hidechest", HIDE_ARMOR, 4, 1);
         helmetHide = new MoCItemArmor("hidehelmet", HIDE_ARMOR, 4, 0);
         legsHide = new MoCItemArmor("hidelegs", HIDE_ARMOR, 4, 2);
         bootsHide = new MoCItemArmor("hideboots", HIDE_ARMOR, 4, 3);
+        
         ratRaw = new MoCItemFood("ratraw", 2, 0.3F, false).setPotionEffect(Potion.hunger.id, 30, 0, 0.8F);
         ratCooked = new MoCItemFood("ratcooked", 4, 0.6F, false);
         ratBurger = new MoCItemFood("ratburger", 8, 0.6F, false);
 
+        
         chitin = new MoCItem("chitin");
         chitinCave = new MoCItem("chitinblack");
         chitinFrost = new MoCItem("chitinfrost");
@@ -960,6 +963,7 @@ public class MoCreatures {
         tusksWood = new MoCItemWeapon("tuskswood", ToolMaterial.WOOD);
         tusksIron = new MoCItemWeapon("tusksiron", ToolMaterial.IRON);
         tusksDiamond = new MoCItemWeapon("tusksdiamond", ToolMaterial.EMERALD);
+        
         elephantHarness = new MoCItem("elephantharness");
         elephantChest = new MoCItem("elephantchest");
         elephantGarment = new MoCItem("elephantgarment");
@@ -968,6 +972,7 @@ public class MoCreatures {
 
         crabRaw = new MoCItemFood("crabraw", 2, 0.3F, false).setPotionEffect(Potion.hunger.id, 30, 0, 0.8F);
         crabCooked = new MoCItemFood("crabcooked", 6, 0.6F, false);
+        
         silverSword = new MoCItemWeapon("silversword", SILVER_WEAPON);
 
         multiBlockNames.add ("WyvernLair");
@@ -975,7 +980,11 @@ public class MoCreatures {
 
         staffPortal = new ItemStaffPortal("staffportal");
         staffTeleport = new ItemStaffTeleport("staffteleport");
+        
         petAmulet = new MoCItemPetAmulet("petamulet", 1);
+        
+        
+        
         
         achievementIconKillWraith = new MoCItem("achievement_icon_kill_wraith");
         achievementIconKillOgre = new MoCItem("achievement_icon_kill_ogre");
@@ -1010,12 +1019,16 @@ public class MoCreatures {
         achievementIconOstrichFlag = new MoCItem("achievement_icon_ostrich_flag");
 
         //new blocks
-        mocStone = new MoCBlockRock("MoCStone").setHardness(1.5F).setResistance(10.0F).setStepSound(Block.soundTypeStone);
+        mocStone = new MoCBlockStone("MoCStone").setHardness(1.5F).setResistance(10.0F).setStepSound(Block.soundTypeStone);
         mocGrass = new MoCBlockGrass("MoCGrass").setHardness(0.5F).setStepSound(Block.soundTypeGrass);
         mocDirt = new MoCBlockDirt("MoCDirt").setHardness(0.6F).setStepSound(Block.soundTypeGravel);
+        
+        
         //non terrain generator blocks
-        mocLeaf = new MoCBlockLeaf("MoCLeaves").setHardness(0.2F).setLightOpacity(1).setStepSound(Block.soundTypeGrass);
+        mocLeaf = new MoCBlockLeaves("MoCLeaves").setHardness(0.2F).setLightOpacity(1).setStepSound(Block.soundTypeGrass);
         mocLog = new MoCBlockLog("MoCLog").setHardness(2.0F).setStepSound(Block.soundTypeWood);
+        
+        
         mocTallGrass = new MoCBlockTallGrass("MoCTallGrass", true).setHardness(0.0F).setStepSound(Block.soundTypeGrass);     
         mocPlank = new MoCBlockPlanks("MoCWoodPlank").setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood);
 

@@ -11,13 +11,14 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraftforge.oredict.OreDictionary;
 
-public class MoCBlockRock extends MoCBlock
+public class MoCBlockStone extends MoCBlock
 {
     @SideOnly(Side.CLIENT)
     private IIcon[] icons;
     
-    public MoCBlockRock(String name)
+    public MoCBlockStone(String name)
     {
         super(name, Material.rock);
         setTickRandomly(true);
@@ -54,11 +55,14 @@ public class MoCBlockRock extends MoCBlock
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubBlocks(Item par1, CreativeTabs tab, List subItems) 
+    public void getSubBlocks(Item item, CreativeTabs tab, List subItems) 
     {
-        for (int ix = 0; ix < MoCreatures.multiBlockNames.size(); ix++) 
+        for (int index = 0; index < MoCreatures.multiBlockNames.size(); index++) 
         {
-            subItems.add(new ItemStack(this, 1, ix));
+        	ItemStack itemstack = new ItemStack(item, 1, index);
+            subItems.add(itemstack);
+            
+            OreDictionary.registerOre("stone", itemstack);
         }
     }
 }

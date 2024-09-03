@@ -19,15 +19,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
-public class MoCBlockLeaf extends BlockLeavesBase
+public class MoCBlockLeaves extends BlockLeavesBase
 {
     int adjacentTreeBlocks[];
 
     @SideOnly(Side.CLIENT)
     private IIcon[] icons;
 
-    public MoCBlockLeaf(String name)
+    public MoCBlockLeaves(String name)
     {
         super(Material.leaves, true);
         setTickRandomly(true);
@@ -234,9 +235,12 @@ public class MoCBlockLeaf extends BlockLeavesBase
     @Override
     public void getSubBlocks(Item item, CreativeTabs tab, List subItems) 
     {
-        for (int ix = 0; ix < MoCreatures.multiBlockNames.size(); ix++) 
+        for (int index = 0; index < MoCreatures.multiBlockNames.size(); index++) 
         {
-            subItems.add(new ItemStack(item, 1, ix));
+        	ItemStack itemstack = new ItemStack(item, 1, index);
+            subItems.add(itemstack);
+            
+            OreDictionary.registerOre("treeLeaves", itemstack);
         }
     }
 

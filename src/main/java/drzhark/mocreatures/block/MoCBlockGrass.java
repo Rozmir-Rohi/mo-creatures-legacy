@@ -57,8 +57,9 @@ public class MoCBlockGrass extends MoCBlock
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List subItems) 
     {
-        for (int ix = 0; ix < MoCreatures.multiBlockNames.size(); ix++) {
-            subItems.add(new ItemStack(item, 1, ix));
+        for (int index = 0; index < MoCreatures.multiBlockNames.size(); index++)
+        {
+            subItems.add(new ItemStack(item, 1, index));
         }
     }
 

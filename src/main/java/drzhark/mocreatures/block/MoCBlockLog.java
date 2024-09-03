@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCBlockLog extends MoCBlock
 {
@@ -109,8 +110,12 @@ public class MoCBlockLog extends MoCBlock
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List subItems)
     {
-        for (int ix = 0; ix < MoCreatures.multiBlockNames.size(); ix++) {
-            subItems.add(new ItemStack(item, 1, ix));
+        for (int index = 0; index < MoCreatures.multiBlockNames.size(); index++)
+        {
+        	ItemStack itemstack = new ItemStack(item, 1, index);
+            subItems.add(itemstack);
+            
+            OreDictionary.registerOre("logWood", itemstack);
         }
     }
 

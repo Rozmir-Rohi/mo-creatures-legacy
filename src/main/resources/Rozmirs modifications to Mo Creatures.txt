@@ -1232,3 +1232,6 @@ Fixed Jellyfish not poisoning any entity that touches it.
 
 
 Fixed jellyfish not glowing at night.
+
+
+Added vanilla ore dictionary tags for the wyvern lair log, stone, planks and leaves.
