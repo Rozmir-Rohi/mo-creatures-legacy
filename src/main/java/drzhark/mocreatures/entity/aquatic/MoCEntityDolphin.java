@@ -196,9 +196,9 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     {
         if (riddenByEntity == null) { return; }
 
-        float size_factor = getMoCAge() * 0.01F;
+        float sizeFactor = getMoCAge() * 0.01F;
         
-        double distance = size_factor / 4.0D;
+        double distance = sizeFactor / 4.0D;
         
         double newPosX = posX - (distance * Math.cos((MoCTools.realAngle(renderYawOffset - 90F)) / 57.29578F));
         double newPosZ = posZ - (distance * Math.sin((MoCTools.realAngle(renderYawOffset - 90F)) / 57.29578F));
