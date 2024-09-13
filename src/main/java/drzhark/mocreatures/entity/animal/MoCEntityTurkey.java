@@ -1,5 +1,7 @@
 package drzhark.mocreatures.entity.animal;
 
+import java.util.List;
+
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
@@ -105,15 +107,20 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
     	if (itemstack != null)
 	    {
 	    	Item item = itemstack.getItem();
+	    	
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
 		    	
-		    	return
-		    		(
-		    			item instanceof ItemSeeds
-		    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
-		    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
-		    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllseed" //BOP seeds or GregTech6 seeds or Palms Harvest seeds
-		    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins" //GregTech6 raisins or Palm's Harvest raisins
-		    		);
+	    	return
+	    		(
+	    			item instanceof ItemSeeds
+	    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
+	    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
+	    			|| oreDictionaryNameArray.size() > 0 &&
+						(
+							oreDictionaryNameArray.contains("listAllseed") //BOP seeds or Palm's Harvest Seeds
+							|| oreDictionaryNameArray.contains("foodRaisins") //GregTech6 seeds/raisins or Palm's Harvest raisins
+						)
+	    		);
 	    }
 	    else {return false;}
     }

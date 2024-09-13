@@ -641,12 +641,17 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     	{
     		Item item = itemstack.getItem();
     		
+    		List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+    		
     		return (
         				item instanceof ItemSeeds
         				|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
         				|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
-        				|| OreDictionary.getOreName(OreDictionary.getOreID(new ItemStack(item))) == "listAllseed" //BOP seeds or Palm's Harvest Seeds
-        				|| OreDictionary.getOreName(OreDictionary.getOreID(new ItemStack(item))) == "foodRaisins" //GregTech6 seeds/raisins or Palm's Harvest raisins
+        				|| oreDictionaryNameArray.size() > 0 &&
+        					(
+        						oreDictionaryNameArray.contains("listAllseed") //BOP seeds or Palm's Harvest Seeds
+        						|| oreDictionaryNameArray.contains("foodRaisins") //GregTech6 seeds/raisins or Palm's Harvest raisins
+        					)
     				);
     	}
     	

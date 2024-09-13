@@ -1,5 +1,7 @@
 package drzhark.mocreatures.entity.animal;
 
+import java.util.List;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
@@ -574,13 +576,18 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     	{
 	    	Item item = itemstack.getItem();
 	    	
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+	    	
 	    	return
 	    		(
 	    			item instanceof ItemSeeds
 	    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
 	    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
-	    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "listAllseed"  //BOP seeds or Palm's Harvest Seeds
-	    			|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins" //GregTech6 seeds/raisins or Palm's Harvest raisins
+	    			|| oreDictionaryNameArray.size() > 0 &&
+	    				(
+	    					oreDictionaryNameArray.contains("listAllseed")  //BOP seeds or Palm's Harvest Seeds
+	    					|| oreDictionaryNameArray.contains("foodRaisins") //GregTech6 seeds/raisins or Palm's Harvest raisins
+	    				)
 	    		);
     	}
     	else {return false;}

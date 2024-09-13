@@ -1235,3 +1235,45 @@ Fixed jellyfish not glowing at night.
 
 
 Added vanilla ore dictionary tags for the wyvern lair log, stone, planks and leaves.
+
+
+Fixed the /mocspawn command spawning wyverns in their child state.
+
+
+Fishable fish now swim up to fish hooks.
+
+
+Hopefully fixed jellyfish flickering emissive texture bug.
+
+
+Decreased the max spawn count for aquatic creatures to reduce lag in oceans
+
+
+Sharks now destroy Et Futurum Requiem boats that players are riding in hard difficulty.
+
+
+Re-tweaked sharks attacking boats:
+	In hard difficulty: sharks will have a 10% chance to break the players boat with each hit.
+
+	In other difficulties: sharks will sometimes follow players that are in a boat but they will not try to destroy the boat.
+
+
+Added More Feeding Item Integration:
+	Pandas now include the itembamboo item from the Bamboo mod. Pandas also now include the  bamboo, cropBamboo, cropBambooshoot ore dictionaries for feeding.
+
+	Elephants now include the cropCoconut ore dictionary for feeding.
+
+	Fishy and Small Fish now include the cropKelp and cropSeaweed ore dictionaries for feeding according to their spawning biome (Fishy eats saltwater plants, while most Small Fish eat 
+	freshwater plants, but the Mandarinfish will only eat saltwater plants)
+
+
+Added More Item Drop Integration:
+	Horses now drop horse meat from the LotsOfFood mod if it is installed
+
+	Bunnies now drop the same items as Et Futurum rabbits if the Et Futurum mod is installed.
+
+	Goats now drop chevon from the Novacraft mod if it is installed
+
+
+
+Added the golden sickle, all silver tools, and all electrum tools from the Thermal Foundation mod as werewolf weakness items. The Electrum sword is the only item that is equal to the Mo' Creatures Silver Sword in it's effectiveness against werewolves.

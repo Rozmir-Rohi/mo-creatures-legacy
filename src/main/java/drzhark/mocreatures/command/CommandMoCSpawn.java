@@ -111,7 +111,7 @@ public class CommandMoCSpawn extends CommandBase {
             else if (entityType.equalsIgnoreCase("wyvern"))
             {
                 specialEntity = new MoCEntityWyvern(player.worldObj);
-                specialEntity.setAdult(false);
+                specialEntity.setAdult(true);
             }
             else
             {

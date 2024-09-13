@@ -164,19 +164,41 @@ public class MoCreatures {
     public static final CreativeTabs MOC_CREATIVE_TAB = new MoCCreativeTabs(CreativeTabs.creativeTabArray.length, "MoCreaturesTab");
     public MoCPetMapData mapData;
     
-    private static boolean isThaumcraftLoaded;
+    
+    
+    
     public static boolean isBiomesOPlentyLoaded;
-    public static boolean isGregTech6Loaded;
-    public static boolean isPalmsHarvestLoaded;
-    public static boolean isWitcheryLoaded;
-    public static boolean isMinecraftComesAliveLoaded;
-    public static boolean isTwilightForestLoaded;
-    public static boolean isFoodExpansionLoaded;
+    
+    public static boolean isEtFuturumRequiemLoaded;
+    
     public static boolean isExoticBirdsLoaded;
+    
+    public static boolean isFoodExpansionLoaded;
+    
+    public static boolean isGregTech6Loaded;
+    
     public static boolean isImprovingMinecraftLoaded;
-    public static boolean isMobConfinementLoaded;
-    public static boolean isMutantCreaturesLoaded;
+    
     public static boolean isJustAnotherSpawnerLoaded;
+    
+    public static boolean isLotsOfFoodLoaded;
+    
+    public static boolean isMinecraftComesAliveLoaded;
+    
+    public static boolean isMobConfinementLoaded;
+    
+    public static boolean isMutantCreaturesLoaded;
+    
+    public static boolean isNovacraftLoaded;
+    
+    public static boolean isPalmsHarvestLoaded;
+    
+    private static boolean isThaumcraftLoaded;
+    
+    public static boolean isTwilightForestLoaded;
+    
+    public static boolean isWitcheryLoaded;
+
     
     
     public static final GameProfile MOC_FAKE_PLAYER = new GameProfile(UUID.fromString("6E379B45-1111-2222-3333-2FE1A88BCD66"), "[MoCreatures]");
@@ -433,31 +455,38 @@ public class MoCreatures {
         
         MoCAchievements.initilization();
         
-        isThaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
-        
         isBiomesOPlentyLoaded = Loader.isModLoaded("BiomesOPlenty");
         
-        isGregTech6Loaded = Loader.isModLoaded("gregtech");
-        
-        isPalmsHarvestLoaded = Loader.isModLoaded("harvestcraft");
-        
-        isWitcheryLoaded = Loader.isModLoaded("witchery");
-        
-        isMinecraftComesAliveLoaded = Loader.isModLoaded("MCA");
-        
-        isTwilightForestLoaded = Loader.isModLoaded("TwilightForest");
-        
-        isFoodExpansionLoaded = GameRegistry.findItem("FoodExpansion", "ItemHorseMeat") != null; //have to use this method over the normal way to detect the Food Expansion mod since it's mod ID is not properly registered
+        isEtFuturumRequiemLoaded = Loader.isModLoaded("etfuturum");
         
         isExoticBirdsLoaded = Loader.isModLoaded("exoticbirds");
         
+        isFoodExpansionLoaded = GameRegistry.findItem("FoodExpansion", "ItemHorseMeat") != null; //have to use this method over the normal way to detect the Food Expansion mod since it's mod ID is not properly registered
+        
+        isGregTech6Loaded = Loader.isModLoaded("gregtech");
+        
         isImprovingMinecraftLoaded = Loader.isModLoaded("imc");
+        
+        isJustAnotherSpawnerLoaded = Loader.isModLoaded("JustAnotherSpawner");
+        
+        isLotsOfFoodLoaded = Loader.isModLoaded("LotsOfFood");
+        
+        isMinecraftComesAliveLoaded = Loader.isModLoaded("MCA");
         
         isMobConfinementLoaded = Loader.isModLoaded("ayamitsu.mobconfinement");
         
         isMutantCreaturesLoaded = Loader.isModLoaded("MutantCreatures");
         
-        isJustAnotherSpawnerLoaded = Loader.isModLoaded("JustAnotherSpawner");
+        isNovacraftLoaded = Loader.isModLoaded("nova_craft");
+        
+        isPalmsHarvestLoaded = Loader.isModLoaded("harvestcraft");
+        
+        isThaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
+
+        isTwilightForestLoaded = Loader.isModLoaded("TwilightForest");
+        
+        isWitcheryLoaded = Loader.isModLoaded("witchery");
+
         
         if (isThaumcraftLoaded) {MoCThaumcraftAspects.addThaumcraftAspects();};
     }
@@ -668,14 +697,14 @@ public class MoCreatures {
         mocEntityMap.put("Wyvern", new MoCEntityData("Wyvern", 3, EnumCreatureType.creature, new SpawnListEntry(MoCEntityWyvern.class, 8, 1, 3), new ArrayList()));
         
         // water creatures
-        mocEntityMap.put("Dolphin", new MoCEntityData("Dolphin", 3, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityDolphin.class, 3, 1, 1), new ArrayList(Arrays.asList(Type.BEACH, Type.OCEAN, Type.SWAMP))));
-        mocEntityMap.put("Fishy", new MoCEntityData("Fishy", 6, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityFishy.class, 6, 3, 6), new ArrayList(Arrays.asList(Type.BEACH, Type.OCEAN))));
-        mocEntityMap.put("JellyFish", new MoCEntityData("JellyFish", 4, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityJellyFish.class, 4, 1, 4), new ArrayList(Arrays.asList(Type.OCEAN))));
-        mocEntityMap.put("Ray", new MoCEntityData("Ray", 3, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityRay.class, 3, 1, 2), new ArrayList(Arrays.asList(Type.SWAMP, Type.OCEAN))));
-        mocEntityMap.put("Shark", new MoCEntityData("Shark", 3, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityShark.class, 2, 1, 1), new ArrayList(Arrays.asList(Type.OCEAN))));
-        mocEntityMap.put("MediumFish", new MoCEntityData("MediumFish", 4, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityMediumFish.class, 12, 4, 4), new ArrayList(Arrays.asList(Type.OCEAN, Type.RIVER, Type.SWAMP))));
-        mocEntityMap.put("Piranha", new MoCEntityData("Piranha", 4, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityPiranha.class, 10, 1, 6), new ArrayList(Arrays.asList(Type.JUNGLE))));
-        mocEntityMap.put("SmallFish", new MoCEntityData("SmallFish", 6, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntitySmallFish.class, 12, 2, 6), new ArrayList(Arrays.asList(Type.OCEAN, Type.RIVER, Type.SWAMP))));
+        mocEntityMap.put("Dolphin", new MoCEntityData("Dolphin", 2, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityDolphin.class, 3, 1, 1), new ArrayList(Arrays.asList(Type.BEACH, Type.OCEAN, Type.SWAMP))));
+        mocEntityMap.put("Fishy", new MoCEntityData("Fishy", 4, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityFishy.class, 6, 1, 4), new ArrayList(Arrays.asList(Type.BEACH, Type.OCEAN))));
+        mocEntityMap.put("JellyFish", new MoCEntityData("JellyFish", 3, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityJellyFish.class, 4, 1, 3), new ArrayList(Arrays.asList(Type.OCEAN))));
+        mocEntityMap.put("Ray", new MoCEntityData("Ray", 2, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityRay.class, 3, 1, 2), new ArrayList(Arrays.asList(Type.SWAMP, Type.OCEAN))));
+        mocEntityMap.put("Shark", new MoCEntityData("Shark", 1, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityShark.class, 2, 1, 1), new ArrayList(Arrays.asList(Type.OCEAN))));
+        mocEntityMap.put("MediumFish", new MoCEntityData("MediumFish", 3, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityMediumFish.class, 12, 1, 3), new ArrayList(Arrays.asList(Type.OCEAN, Type.RIVER, Type.SWAMP))));
+        mocEntityMap.put("Piranha", new MoCEntityData("Piranha", 4, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntityPiranha.class, 10, 1, 4), new ArrayList(Arrays.asList(Type.JUNGLE))));
+        mocEntityMap.put("SmallFish", new MoCEntityData("SmallFish", 4, EnumCreatureType.waterCreature, new SpawnListEntry(MoCEntitySmallFish.class, 12, 1, 4), new ArrayList(Arrays.asList(Type.OCEAN, Type.RIVER, Type.SWAMP))));
         
         // monsters
         mocEntityMap.put("BigGolem", new MoCEntityData("BigGolem", 1, EnumCreatureType.monster, new SpawnListEntry(MoCEntityBigGolem.class, 3, 1, 1), new ArrayList(Arrays.asList(Type.SANDY, Type.FOREST, Type.SNOWY, Type.JUNGLE, Type.HILLS, Type.MOUNTAIN, Type.PLAINS, Type.SWAMP, Type.WASTELAND))));

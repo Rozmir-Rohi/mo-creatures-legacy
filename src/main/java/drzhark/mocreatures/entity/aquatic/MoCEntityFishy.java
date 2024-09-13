@@ -222,7 +222,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     }
     
 
-    protected boolean isItemPlantMegaPackFishEdibleSaltWaterPlant(Item item)
+    public static boolean isItemPlantMegaPackFishEdibleSaltWaterPlant(Item item)
     {
     	return (
     				(item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanCommonEelgrass")
@@ -242,6 +242,8 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     	
     	Item item = itemstack.getItem();
     	
+    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+    	
     	if (
     			item instanceof ItemSeeds
     			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
@@ -250,10 +252,16 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemstack.getItemDamage() == 11 //BOP kelp
     			|| (item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
     			|| isItemPlantMegaPackFishEdibleSaltWaterPlant(item)
-    			|| MoCreatures.isGregTech6Loaded &&
-    				(
-    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins"
+    			|| (oreDictionaryNameArray.size() > 0 && oreDictionaryNameArray.contains("cropKelp"))
+    			|| (
+    					MoCreatures.isGregTech6Loaded
+    					&& oreDictionaryNameArray.size() > 0
+    					&& (
+    							oreDictionaryNameArray.contains("listAllseed")
+    							|| oreDictionaryNameArray.contains("foodRaisins")
+    						)
     				)
+	    
     		) {return true;}
     	
         return false;

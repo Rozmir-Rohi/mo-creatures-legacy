@@ -1,5 +1,6 @@
 package drzhark.mocreatures.entity.animal;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
@@ -686,9 +687,20 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
     }
 
     @Override
-    protected Item getDropItem()
+    protected void dropFewItems(boolean hasEntityBeenHitByPlayer, int levelOfLootingEnchantmentUsedToKillThisEntity)
     {
-        return Items.leather;
+        int randomAmount = rand.nextInt(3);
+    
+		if (MoCreatures.isNovacraftLoaded)
+		{
+			if (isBurning())
+			{
+				dropItem(GameRegistry.findItem("nova_craft", "cooked_chevon"), randomAmount);
+			}
+			else {dropItem(GameRegistry.findItem("nova_craft", "raw_chevon"), randomAmount);}
+		}
+        
+        dropItem(Items.leather, randomAmount);
     }
 
     @Override

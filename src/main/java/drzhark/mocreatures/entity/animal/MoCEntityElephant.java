@@ -757,12 +757,13 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 							oreDictionaryNameArray.contains("listAllfruit") //BOP fruit or GregTech6 fruit or Palm's Harvest fruit
 							|| oreDictionaryNameArray.contains("listAllwheats") //GregTech6 wheat items
 							|| oreDictionaryNameArray.contains("listAllgrain") //Palm's Harvest wheat items
-					)
-				|| MoCreatures.isGregTech6Loaded &&
-					(
-						OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrass"
-						|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "itemGrassDry"
-						|| OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "cropGrain"
+							|| oreDictionaryNameArray.contains("cropCoconut")
+							|| MoCreatures.isGregTech6Loaded &&
+								(
+									oreDictionaryNameArray.contains("itemGrass")
+									|| oreDictionaryNameArray.contains("itemGrassDry")
+									|| oreDictionaryNameArray.contains("cropGrain")
+								)
 					)
 			)
 		{

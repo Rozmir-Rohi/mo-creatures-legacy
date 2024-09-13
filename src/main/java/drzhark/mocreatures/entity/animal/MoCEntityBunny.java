@@ -2,6 +2,7 @@ package drzhark.mocreatures.entity.animal;
 
 import java.util.List;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
@@ -344,21 +345,42 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         else if (onGround && ridingEntity == null)
         {
             isPickedUp = false;
-            //System.out.println("pickedOff");
             playSound("mocreatures:rabbitland", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
-            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(12D, 12D, 12D));
-            for (int k = 0; k < list.size(); k++)
+            List listOfEntitiesNearby = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(12D, 12D, 12D));
+            for (int index = 0; index < listOfEntitiesNearby.size(); index++)
             {
-                Entity entity = (Entity) list.get(k);
-                if (entity instanceof EntityMob)
+                Entity entityNearby = (Entity) listOfEntitiesNearby.get(index);
+                if (entityNearby instanceof EntityMob)
                 {
-                    EntityMob entitymob = (EntityMob) entity;
-                    entitymob.setAttackTarget(this);
+                    EntityMob entityMob = (EntityMob) entityNearby;
+                    entityMob.setAttackTarget(this);
 
                 }
             }
 
         }
+    }
+    
+    @Override
+    protected void dropFewItems(boolean hasEntityBeenHitByPlayer, int levelOfLootingEnchantmentUsedToKillThisEntity)
+    {
+        int randomAmount = rand.nextInt(2);
+    
+		if (MoCreatures.isEtFuturumRequiemLoaded)
+		{
+			dropItem(GameRegistry.findItem("etfuturum", "rabbit_hide"), randomAmount);
+			
+			if (isBurning())
+			{
+				dropItem(GameRegistry.findItem("etfuturum", "rabbit_cooked"), randomAmount);
+			}
+			else {dropItem(GameRegistry.findItem("etfuturum", "rabbit_raw"), randomAmount);}
+			
+			if (rand.nextInt(10) == 0) // 10% chance
+			{
+				dropItem(GameRegistry.findItem("etfuturum", "rabbit_foot"), 1);
+			}
+		}
     }
 
     @Override

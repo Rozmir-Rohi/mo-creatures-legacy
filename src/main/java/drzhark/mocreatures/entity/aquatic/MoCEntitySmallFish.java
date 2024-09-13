@@ -1,5 +1,7 @@
 package drzhark.mocreatures.entity.aquatic;
 
+import java.util.List;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import drzhark.mocreatures.MoCTools;
@@ -174,17 +176,30 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
     	
     	Item item = itemstack.getItem();
     	
+    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+    	
     	if (
     			item instanceof ItemSeeds
     			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
-    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:kelp")
     			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
-    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemstack.getItemDamage() == 11 //BOP kelp
-    			|| (item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
-    			|| isItemPlantMegaPackFishEdibleFreshWaterPlant(item)
-    			|| MoCreatures.isGregTech6Loaded &&
-    				(
-    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodRaisins"
+    			|| ( getType() <= 3 && isItemPlantMegaPackFishEdibleFreshWaterPlant(item)) //Anchovy, Angelfish and Goldfish can eat freshwater plants
+    			|| (
+    					getType() == 5 &&  //Mandarin fish can eat saltwater plants
+    					(
+    						MoCEntityFishy.isItemPlantMegaPackFishEdibleSaltWaterPlant(item)
+    						|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemstack.getItemDamage() == 11 //BOP kelp
+    						|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:kelp")
+    						|| (item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
+	    					|| (oreDictionaryNameArray.size() > 0 && oreDictionaryNameArray.contains("cropKelp"))
+    					)
+    				)
+    			|| (
+    					MoCreatures.isGregTech6Loaded
+    					&& oreDictionaryNameArray.size() > 0
+    					&& (
+    							oreDictionaryNameArray.contains("listAllseed")
+    							|| oreDictionaryNameArray.contains("foodRaisins")
+    						)
     				)
     		) {return true;}
     	

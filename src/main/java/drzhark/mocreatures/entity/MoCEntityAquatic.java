@@ -554,7 +554,13 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             return;
         }
 
-        if ((entityToAttack != null && ((entityToAttack.posY < (posY - 0.5D)) && getDistanceToEntity(entityToAttack) < 10F)))
+        if (
+        		entityToAttack != null
+        		&& (
+        				entityToAttack.posY < (posY - 0.5D)
+        				&& getDistanceToEntity(entityToAttack) < 10F
+        			)
+        	)
         {
             if (motionY < -0.1)
             {
@@ -570,6 +576,8 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
                 motionY = -0.05;
             }
         }
+        
+        
         else
         {
             if (motionY < 0)
@@ -577,9 +585,34 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
                 motionY = 0; //fish stays vertically still 
             }
             
-            if (
+
+            else if
+            	( 	//if the fish is fishable and there is a fish hook nearby, move up to that fish hook
+        			isFisheable()
+        			&& closestFishHook != null
+        			&& closestFishHook.field_146043_c == null //tests that nothing is hooked to that fish hook
+                	&& distanceToHook > 1
+        		)
+	        { 
+	        	
+	            motionY += 0.001D;// 0.001
+	
+	            if (yDistanceToSurfaceOfWater > 1)
+	            {
+	                motionY += (yDistanceToSurfaceOfWater * 0.02);
+	                if (motionY > 0.2D)
+	                {
+	                    motionY = 0.2D;
+	                }
+	            }
+	        }
+                
+            
+        	else if
+        		(
             		!isDiving()
-            		&& (yDistanceToSurfaceOfWater > 1 && rand.nextInt(5) == 0)
+            		&& yDistanceToSurfaceOfWater > 1
+            		&& rand.nextInt(5) == 0
             	)
             {
             	motionY = 0.05D; //move up in water
@@ -973,22 +1006,16 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         if (MoCreatures.proxy.enableStrictOwnership && getOwnerName() != null && !getOwnerName().equals("") && entityThatAttackedThisCreature != null && entityThatAttackedThisCreature instanceof EntityPlayer && !((EntityPlayer) entityThatAttackedThisCreature).getCommandSenderName().equals(getOwnerName()) && !MoCTools.isThisPlayerAnOP(((EntityPlayer) entityThatAttackedThisCreature))) { return false; }
         
         
-        if (isFisheable()) //tests if the fish has been force hooked by a player throwing a fishing hook at them
-        {
-	        if (entityThatAttackedThisCreature != null)
-	        {
-	        	if (entityThatAttackedThisCreature instanceof EntityPlayer)
-	        	{
-	        		if (((EntityPlayer) entityThatAttackedThisCreature).inventory.getCurrentItem() != null) //must check if itemstack isn't null before getItem() else game will crash
-	        		{
-		        		if (((EntityPlayer) entityThatAttackedThisCreature).inventory.getCurrentItem().getItem() == Items.fishing_rod)
-		        		{
-		        			lookForHookToGetCaughtOn(); //tests if there is a fishing hook nearby, if so sets the fish as caught on a hook
-		        		}
-	        		}
-	        	}
-	        }
-    	}
+        if (
+        		isFisheable() //tests if the fish has been force hooked by a player throwing a fishing hook at them
+        		&& entityThatAttackedThisCreature != null
+        		&& entityThatAttackedThisCreature instanceof EntityPlayer
+        		&& ((EntityPlayer) entityThatAttackedThisCreature).inventory.getCurrentItem() != null //must check if itemstack isn't null before getItem() else game will crash
+        		&& ((EntityPlayer) entityThatAttackedThisCreature).inventory.getCurrentItem().getItem() == Items.fishing_rod
+        	)
+    		{
+    			lookForHookToGetCaughtOn(); //tests if there is a fishing hook nearby, if so sets the fish as caught on a hook
+    		}
         
         //to prevent tamed aquatics from getting block damage
         if (getIsTamed() && damageSource.getDamageType().equalsIgnoreCase("inWall"))
@@ -1055,6 +1082,11 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     
     EntityFishHook hookThatThisFishIsHookedTo;
     
+    
+    EntityFishHook closestFishHook;
+    
+    float distanceToHook;
+    
     /**
      * The act of getting Hooked into a fish Hook.
      */
@@ -1064,32 +1096,32 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         
         if (closestEntityPlayer != null)
         {
-            EntityFishHook fishHook = closestEntityPlayer.fishEntity;
+        	closestFishHook = closestEntityPlayer.fishEntity;
             
-            if (fishHook != null)
+            if (closestFishHook != null)
             {
-            	if (fishHook.field_146043_c == null) //hooked by fish willingly biting the fish hook
+            	if (closestFishHook.field_146043_c == null) //hooked by fish willingly biting the fish hook
             	{
-	                float distanceToHook = fishHook.getDistanceToEntity(this);
+            		distanceToHook = closestFishHook.getDistanceToEntity(this);
 	                
 	                if (distanceToHook > 1)
 	                {
-	                    MoCTools.getPathToEntity(this, fishHook, distanceToHook);
+	                    MoCTools.getPathToEntity(this, closestFishHook, distanceToHook);
 	                }
 	                else
 	                {
-	                    fishHook.field_146043_c = this;
+	                    closestFishHook.field_146043_c = this;
 	                    isCaughtOnHook = true;
 	                    
 	                    if (outOfWater == 0) //if in water
 	                    {
-	                    	fishHook.motionY -= 0.20000000298023224D;
+	                    	closestFishHook.motionY -= 0.20000000298023224D;
 		                    playSound("random.splash", 0.25F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.4F);
 	                    }
 	                    
 	                    playerThatHookedThisFish = closestEntityPlayer;
 	                    
-	                    hookThatThisFishIsHookedTo = fishHook;
+	                    hookThatThisFishIsHookedTo = closestFishHook;
 	                    
 	                }
             	}

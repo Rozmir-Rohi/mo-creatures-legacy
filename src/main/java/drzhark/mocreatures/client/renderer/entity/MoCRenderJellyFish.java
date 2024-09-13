@@ -62,7 +62,6 @@ public class MoCRenderJellyFish extends RenderLiving {
             depth = 0.09F;
         }
         else
-
         {
             depth = 0.3F;
         }
@@ -75,6 +74,7 @@ public class MoCRenderJellyFish extends RenderLiving {
             int j = c0 % 65536;
             int k = c0 / 65536;
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j / 1.0F, (float)k / 1.0F);
+            GL11.glDepthMask(false);
         }
         
         super.doRender(entityLiving, x, y, z, rotationYaw, rotationPitch);

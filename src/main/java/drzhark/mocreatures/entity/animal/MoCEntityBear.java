@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityBear extends MoCEntityTameableAnimal {
 
@@ -614,6 +615,9 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     	
     	Item item = itemstack.getItem();
     	
+    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+    	
+    	
 		if (
 				item == Items.reeds
 				|| item == Items.sugar
@@ -632,6 +636,14 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooTropicalBlue")
             	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooMoso")
             	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooGiantTimber")
+            	|| (item.itemRegistry).getNameForObject(item).equals("BambooMod:itembamboo") //Universal Bamboo Mod
+            	
+            	|| oreDictionaryNameArray.size() > 0 &&
+            		(
+            				oreDictionaryNameArray.contains("bamboo")
+            				|| oreDictionaryNameArray.contains("cropBamboo")
+            				|| oreDictionaryNameArray.contains("cropBambooshoot")
+            		)
             ) {return true;}
 		
 		return false;

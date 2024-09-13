@@ -10,6 +10,7 @@ import drzhark.mocreatures.entity.MoCEntityMob;
 import drzhark.mocreatures.entity.MoCEntityTameableAquatic;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityBoat;
@@ -64,7 +65,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     {
         if ((distanceToEntity < 3.5D) && (entity.boundingBox.maxY > boundingBox.minY) && (entity.boundingBox.minY < boundingBox.maxY) && (getMoCAge() >= 100))
         {
-            if (entity instanceof EntityPlayer && ((EntityPlayer)entity).ridingEntity != null)
+            if (entity instanceof EntityPlayer && ((EntityPlayer) entity).ridingEntity != null)
             {
                 Entity entityThatPlayerIsRiding = ((EntityPlayer)entity).ridingEntity;
                 
@@ -73,18 +74,18 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
                     return; //don't attack players who are riding a dolphin
                 }
                 
-                if (entityThatPlayerIsRiding instanceof EntityBoat && (worldObj.difficultySetting.getDifficultyId() > 2)) //if player is riding boat and is on hard difficulty 
+                if (checkPlayerIsRidingBoat((EntityPlayer) entity) && (worldObj.difficultySetting.getDifficultyId() > 2)) //if player is riding boat and is on hard difficulty 
                 {
                 	if (distanceToEntity < 2D && rand.nextInt(100) < 10) //10% chance to hit player's boat
                 	{ 
-                		if (rand.nextInt(100) < 17) //17% chance to break players boat each hit
+                		if (rand.nextInt(100) < 10) //10% chance to break players boat each hit
                 		{
 	                        for (int index = 0; index < 2; ++index)
 	                        {
 	                        	entityThatPlayerIsRiding.func_145778_a(Items.stick, 1, 0.0F);
 	                        }
 	                        
-	                        worldObj.playSoundAtEntity(entityThatPlayerIsRiding, "mob.zombie.woodbreak", 1, 1);  //play door break sound
+							worldObj.playSoundAtEntity(entityThatPlayerIsRiding, "mob.zombie.woodbreak", 1, 1);  //play door break sound
 	                        
 	                        entityThatPlayerIsRiding.setDead();
                 		}
@@ -165,7 +166,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
             		&& closestEntityPlayer.isInWater()
             		&& !getIsTamed()
             		&& !(closestEntityPlayer.ridingEntity instanceof MoCEntityDolphin)
-            		&& !((closestEntityPlayer.ridingEntity instanceof EntityBoat) && (worldObj.difficultySetting.getDifficultyId() < 3) && (rand.nextInt(100) > 40)) //40% chance to target players in boat if world difficulty is below hard
+            		&& !(checkPlayerIsRidingBoat(closestEntityPlayer) && (worldObj.difficultySetting.getDifficultyId() < 3) && (rand.nextInt(100) > 40)) //40% chance to target players in boat if world difficulty is below hard
             )
             {
             	return closestEntityPlayer;
@@ -201,6 +202,28 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
 	    	}
         }
         return null;
+    }
+    
+    private boolean checkPlayerIsRidingBoat(EntityPlayer player)
+    {
+    	Entity entityThatPlayerIsRiding = player.ridingEntity;
+    	
+    	if (
+    			entityThatPlayerIsRiding instanceof EntityBoat
+    			|| (
+    					MoCreatures.isEtFuturumRequiemLoaded
+		    			&&
+		    				(
+		    					EntityList.getEntityString(entityThatPlayerIsRiding).equals("etfuturum.new_boat")
+		    					|| EntityList.getEntityString(entityThatPlayerIsRiding).equals("etfuturum.chest_boat")
+		    				)
+    				)
+    		)
+    	{
+    		return true;
+    	}
+    	
+    	return false;
     }
 
     public EntityLivingBase getClosestEntityLivingThatCanBeHunted(Entity entity, double distance)

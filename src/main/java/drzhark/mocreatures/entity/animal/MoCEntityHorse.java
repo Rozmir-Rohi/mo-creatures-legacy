@@ -649,6 +649,15 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         			}
         			else {dropItem(GameRegistry.findItem("FoodExpansion", "ItemHorseMeat"), randomAmount);}
         		}
+        		
+        		else if (MoCreatures.isLotsOfFoodLoaded)
+        		{
+        			if (isBurning())
+        			{
+        				dropItem(GameRegistry.findItem("LotsOfFood", "chevalcuit"), randomAmount);
+        			}
+        			else {dropItem(GameRegistry.findItem("LotsOfFood", "chevalcru"), randomAmount);}
+        		}
         	
         		else if (MoCreatures.isImprovingMinecraftLoaded)
         		{
@@ -1342,7 +1351,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         
         int horseType = getType();
         
-        if (horseType == 60 && !getIsTamed() && isZebraRunning()) // zebra
+        if (horseType == 60 && !getIsTamed() && isZebraRunningAwayFromPlayer()) // zebra
         { return false; }
         
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
@@ -2069,7 +2078,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
     /**
      * Rare horses that can be transformed into Nightmares or Bathorses or give
-     * ghost horses on dead
+     * ghost horses on death
      */
     public boolean isPureBreed()
     {
@@ -2101,17 +2110,22 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         return getType() == 36 || (getType() >= 45 && getType() < 60) || getType() == 27 || getType() == 24;
     }
 
-    public boolean isZebraRunning()
+    public boolean isZebraRunningAwayFromPlayer()
     {
         boolean flag = false;
-        EntityPlayer ep1 = worldObj.getClosestPlayerToEntity(this, 8D);
-        if (ep1 != null)
+        EntityPlayer entityPlayer = worldObj.getClosestPlayerToEntity(this, 8D);
+        if (entityPlayer != null)
         {
             flag = true;
-            if (ep1.ridingEntity != null && ep1.ridingEntity instanceof MoCEntityHorse)
+            if (entityPlayer.ridingEntity != null && entityPlayer.ridingEntity instanceof MoCEntityHorse)
             {
-                MoCEntityHorse playerHorse = (MoCEntityHorse) ep1.ridingEntity;
-                if (playerHorse.getType() == 16 || playerHorse.getType() == 17 || playerHorse.getType() == 60 || playerHorse.getType() == 61)
+                MoCEntityHorse horseThatPlayerIsRiding = (MoCEntityHorse) entityPlayer.ridingEntity;
+                if (
+                		horseThatPlayerIsRiding.getType() == 16
+                		|| horseThatPlayerIsRiding.getType() == 17
+                		|| horseThatPlayerIsRiding.getType() == 60
+                		|| horseThatPlayerIsRiding.getType() == 61
+                	)
                 {
                     flag = false;
                 }
@@ -2120,7 +2134,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         }
         if (flag)
         {
-            MoCTools.runAway(this, ep1);
+            MoCTools.runAway(this, entityPlayer);
         }
         return flag;
     }
@@ -2348,7 +2362,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
              */
             if (getType() == 60 && !getIsTamed())
             {
-                boolean flag = isZebraRunning();
+                boolean flag = isZebraRunningAwayFromPlayer();
 
             }
 

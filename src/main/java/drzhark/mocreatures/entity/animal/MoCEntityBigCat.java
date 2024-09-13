@@ -818,12 +818,15 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 	    			|| item == MoCreatures.ostrichRaw
 	    			|| item == MoCreatures.turkeyRaw
 	    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
-	    			|| oreDictionaryNameArray.contains("listAllmeatraw")
-	    			|| oreDictionaryNameArray.contains("listAllfishraw")
-	    			|| MoCreatures.isGregTech6Loaded &&
-	    				(
-	    					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
-	    				)
+	    			|| oreDictionaryNameArray.size() > 0 &&
+						(
+							oreDictionaryNameArray.contains("listAllmeatraw")
+							|| oreDictionaryNameArray.contains("listAllfishraw")
+							|| MoCreatures.isGregTech6Loaded &&
+			    				(
+			    					oreDictionaryNameArray.contains("foodScrapmeat")
+			    				)
+						)
 	    		);
     	}
     	else {return false;}
