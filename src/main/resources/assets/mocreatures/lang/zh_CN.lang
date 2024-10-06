@@ -317,16 +317,16 @@ achievement.tier2_horse=二级马匹
 achievement.tier2_horse.desc=使用苹果驯服任何普通的Mo' Creatures马匹。
 
 achievement.tier3_horse=三级马匹
-achievement.tier3_horse.desc=使用南瓜、蛋糕或蘑菇炖菜等食物，将正确等级的Mo' Creatures马匹与正确的我的世界原版马匹繁殖。
+achievement.tier3_horse.desc=使用南瓜、蛋糕或蘑菇炖菜等食物，将正确等级的Mo' Creatures马匹与正确的Minecraft原版马匹繁殖。
 
 achievement.tier4_horse=四级马匹
-achievement.tier4_horse.desc=使用南瓜、蛋糕或蘑菇炖菜等食物，将正确等级的Mo' Creatures马匹与正确的我的世界原版马匹繁殖。
+achievement.tier4_horse.desc=使用南瓜、蛋糕或蘑菇炖菜等食物，将正确等级的Mo' Creatures马匹与正确的Minecraft原版马匹繁殖。
 
 achievement.zebra=斑马驯养师
 achievement.zebra.desc=使用四级马匹接近一只斑马，然后用苹果喂它来驯服它。斑马出现在草原生态环境中。
 
 achievement.zebra_record=Shuffling
-achievement.zebra_record.desc=通过用驯服的斑马喂养任何我的世界原版音乐唱片来获取一张斑马记录。这是斑马们最喜欢的歌曲。
+achievement.zebra_record.desc=通过用驯服的斑马喂养任何Minecraft原版音乐唱片来获取一张斑马记录。这是斑马们最喜欢的歌曲。
 
 achievement.zorse=杂交马
 achievement.zorse.desc=使用南瓜、蛋糕或蘑菇炖菜等食物，将已被驯服的斑马与其他任何马匹繁殖。
@@ -395,7 +395,7 @@ achievement.wyvern_portal_staff=翼龙巢穴传送杖
 achievement.wyvern_portal_staff.desc=制作一把翼龙巢穴传送杖并前往翼龙巢穴。
 
 achievement.wyvern_egg=最快的伙伴
-achievement.wyvern_egg.desc=要获得一枚翼龙蛋，你需要从一只母翼龙那里获取。宠物翼龙喜欢吃生的老鼠和兔子。成年的宠物翼龙可以被骑乘，装备上我的世界原版的马铠，并且能够携带一个箱子。此外，某些类型的翼龙，如丛林、沼泽、热带草原、沙漠和母翼龙，在被喂食特定精华时可能会有不同的反应。
+achievement.wyvern_egg.desc=要获得一枚翼龙蛋，你需要从一只母翼龙那里获取。宠物翼龙喜欢吃生的老鼠和兔子。成年的宠物翼龙可以被骑乘，装备上Minecraft原版的马铠，并且能够携带一个箱子。此外，某些类型的翼龙，如丛林、沼泽、热带草原、沙漠和母翼龙，在被喂食特定精华时可能会有不同的反应。
 
 achievement.tame_elephant=驯服大象者
 achievement.tame_elephant.desc=使用许多糖块来驯服一只幼年大象或猛犸象。
@@ -413,7 +413,7 @@ achievement.elephant_tusks=战斗准备
 achievement.elephant_tusks.desc=当你给大象或猛犸象装备上任何一对獠牙时，就能够实现这个成就。当大象或猛犸象佩戴着长牙时，它们可以被驯服以用来冲撞并摧毁面前的方块。方块破坏的效果取决于大象的种类和所佩戴的獠牙的类型。
 
 achievement.elephant_chest=大象行李箱
-achievement.elephant_chest.desc=在穿戴大象挽具的大象或猛犸象身上放置一个大象行李箱。大象和猛犸象可以携带两个大象行李箱。当携带两个大象行李箱时，猛犸象还可以额外装备两个我的世界原版箱子。您可以使用钥匙打开这些箱子。
+achievement.elephant_chest.desc=在穿戴大象挽具的大象或猛犸象身上放置一个大象行李箱。大象和猛犸象可以携带两个大象行李箱。当携带两个大象行李箱时，猛犸象还可以额外装备两个Minecraft原版箱子。您可以使用钥匙打开这些箱子。
 
 恭喜您创造了这一独特而奇幻的景象！享受大象或猛犸象身着精美胸甲配饰的实用性和美学魅力吧。
 
