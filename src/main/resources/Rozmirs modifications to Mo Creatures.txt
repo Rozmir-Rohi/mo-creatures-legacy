@@ -1283,3 +1283,15 @@ Code clean up.
 
 
 Merged Wolf Altar Replacement into Mo' Creatures Legacy. Also created a config setting to generate the Wolf Altar Replacement Mod. Also updated credits.
+
+
+Mice, Bunny, Pet Scorpion, and Snake now take fall damage.
+
+
+Added spawn eggs to Mo' Creatures creative tab.
+
+
+Made Witchery player werewolf/wolf form detector check duration of night vision potion to better assess whether it is from the Witchery werewolf mechanism.
+
+
+Added kitty beds to creative tab.

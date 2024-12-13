@@ -255,6 +255,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         		)
         	{
         		mountEntity(null);
+        		fallDistance = -3; //prevents fall damage when dropped
         		setPicked(false);
         	}
         }
@@ -618,6 +619,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             {
                 mountEntity(null);
             }
+            fallDistance = -3; //prevents fall damage when dropped
             motionX = entityPlayer.motionX * 5D;
             motionY = (entityPlayer.motionY / 2D) + 0.5D;
             motionZ = entityPlayer.motionZ * 5D;

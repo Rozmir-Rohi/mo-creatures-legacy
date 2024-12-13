@@ -169,11 +169,6 @@ public class MoCEntityMouse extends MoCEntityAnimal
     }
 
     @Override
-    protected void fall(float f)
-    {
-    }
-
-    @Override
     public double getYOffset()
     {
         if (ridingEntity instanceof EntityPlayer && ridingEntity == MoCreatures.proxy.getPlayer() && !MoCreatures.isServer())
@@ -215,7 +210,11 @@ public class MoCEntityMouse extends MoCEntityAnimal
 	        else
 	        {
 	            setPicked(false);
-	            if (MoCreatures.isServer()) mountEntity(null);
+	            if (MoCreatures.isServer())
+	            {
+	            	mountEntity(null);
+	            }
+	            fallDistance = -3; //prevents fall damage when dropped
 	            return false;
 	        }
 	        motionX = entityPlayer.motionX * 5D;
@@ -257,6 +256,7 @@ public class MoCEntityMouse extends MoCEntityAnimal
             	if (MoCreatures.proxy.emptyHandMountAndPickUpOnly && ((EntityPlayer) ridingEntity).inventory.getCurrentItem() != null)
             	{
             		mountEntity(null);
+            		fallDistance = -3; //prevents fall damage when dropped
             		setPicked(false);
             	}
             }

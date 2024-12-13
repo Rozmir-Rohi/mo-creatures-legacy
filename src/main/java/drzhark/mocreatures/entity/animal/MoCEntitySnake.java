@@ -198,6 +198,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 	            {
 	                mountEntity(null);
 	            }
+	            fallDistance = -3; //prevents fall damage when dropped
 	        }
 	        motionX = entityPlayer.motionX * 5D;
 	        motionY = (entityPlayer.motionY / 2D) + 0.5D;

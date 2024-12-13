@@ -37,20 +37,20 @@ public class MoCRenderMoC extends RenderLiving {
 
         IMoCEntity entityMoC = (IMoCEntity) entity;
 
-        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityMoC.getName()).isEmpty();
-        boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode((EntityLiving) entity);
-        boolean flag2 = MoCreatures.proxy.getDisplayPetIcons();
+        boolean shouldDisplayPetName = MoCreatures.proxy.getDisplayPetName() && !(entityMoC.getName()).isEmpty();
+        boolean shouldDisplayPetHealth = MoCreatures.proxy.getDisplayPetHealthMode((EntityLiving) entity);
+        boolean shouldDisplayPetIcons = MoCreatures.proxy.getDisplayPetIcons();
         if (entityMoC.shouldRenderName())
         {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
-            float f5 = ((Entity) entityMoC).getDistanceToEntity(renderManager.livingPlayer);
-            if (f5 < 16F)
+            float distanceOfThisEntityToPlayer = ((Entity) entityMoC).getDistanceToEntity(renderManager.livingPlayer);
+            if (distanceOfThisEntityToPlayer < 16F)
             {
-                String s = "";
-                s = (new StringBuilder()).append(s).append(entityMoC.getName()).toString();
+                String petName = "";
+                petName = (new StringBuilder()).append(petName).append(entityMoC.getName()).toString();
                 float f7 = 0.1F;
-                FontRenderer fontrenderer = getFontRendererFromRenderManager();
+                FontRenderer fontRenderer = getFontRendererFromRenderManager();
                 GL11.glPushMatrix();
                 GL11.glTranslatef((float) d + 0.0F, (float) d1 + f7, (float) d2);
                 GL11.glNormal3f(0.0F, 1.0F, 0.0F);
@@ -61,10 +61,10 @@ public class MoCRenderMoC extends RenderLiving {
                 int yOffset = entityMoC.nameYOffset(); //the default offset for pet name tags is -80
                
                 
-                if (flag1)
+                if (shouldDisplayPetHealth)
                 {
                     GL11.glDisable(3553 /* GL_TEXTURE_2D */);
-                    if (!flag)
+                    if (!shouldDisplayPetName)
                     {
                         yOffset += 8;
                     }
@@ -87,7 +87,7 @@ public class MoCRenderMoC extends RenderLiving {
                     tessellator1.draw();
                     GL11.glEnable(3553 /* GL_TEXTURE_2D */);
                 }
-                if (flag)
+                if (shouldDisplayPetName)
                 {
                     GL11.glDepthMask(false);
                     GL11.glDisable(2929 /* GL_DEPTH_TEST */);
@@ -95,18 +95,18 @@ public class MoCRenderMoC extends RenderLiving {
                     GL11.glBlendFunc(770, 771);
                     GL11.glDisable(3553 /* GL_TEXTURE_2D */);
                     tessellator1.startDrawingQuads();
-                    int i = fontrenderer.getStringWidth(s) / 2;
+                    int stringWidthHalf = fontRenderer.getStringWidth(petName) / 2;
                     tessellator1.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
-                    tessellator1.addVertex(-i - 1, -1 + yOffset, 0.0D);
-                    tessellator1.addVertex(-i - 1, 8 + yOffset, 0.0D);
-                    tessellator1.addVertex(i + 1, 8 + yOffset, 0.0D);
-                    tessellator1.addVertex(i + 1, -1 + yOffset, 0.0D);
+                    tessellator1.addVertex(-stringWidthHalf - 1, -1 + yOffset, 0.0D);
+                    tessellator1.addVertex(-stringWidthHalf - 1, 8 + yOffset, 0.0D);
+                    tessellator1.addVertex(stringWidthHalf + 1, 8 + yOffset, 0.0D);
+                    tessellator1.addVertex(stringWidthHalf + 1, -1 + yOffset, 0.0D);
                     tessellator1.draw();
                     GL11.glEnable(3553 /* GL_TEXTURE_2D */);
-                    fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, yOffset, 0x20ffffff);
+                    fontRenderer.drawString(petName, -fontRenderer.getStringWidth(petName) / 2, yOffset, 0x20ffffff);
                     GL11.glEnable(2929 /* GL_DEPTH_TEST */);
                     GL11.glDepthMask(true);
-                    fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, yOffset, -1);
+                    fontRenderer.drawString(petName, -fontRenderer.getStringWidth(petName) / 2, yOffset, -1);
                     GL11.glDisable(3042 /* GL_BLEND */);
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 }

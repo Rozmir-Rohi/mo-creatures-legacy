@@ -124,37 +124,54 @@ public class MoCTools {
     
     public static boolean isPlayerInWolfForm(EntityPlayer player)
     {
-    	if (MoCreatures.isWitcheryLoaded)
-    	{
-    		if (
-    				24 <= player.getMaxHealth() && player.getMaxHealth() <= 32
-    				&& !(player.isPotionActive(Potion.field_76434_w)) //if heal bost potion effect is not active
-    				&& player.isPotionActive(Potion.nightVision)
-    			)
-    		{
-    			return true;
-    		}
-    	}
+    	if (
+    			MoCreatures.isWitcheryLoaded
+    			&& 24 <= player.getMaxHealth() && player.getMaxHealth() <= 32
+    			&& !(player.isPotionActive(Potion.field_76434_w)) //if heal bost potion effect is not active
+    			&& isNightVisionPotionEffectActiveAndIsItFromWitcheryWerewolfMechanism(player)
+    		)
+		{
+			return true;
+		}
     	
     	return false;
     }
     
-    
+
     public static boolean isPlayerInWerewolfForm(EntityPlayer player)
     {
-    	if (MoCreatures.isWitcheryLoaded)
-    	{
-    		if (
-    				40 <= player.getMaxHealth() && player.getMaxHealth() <= 60
-    				&& !(player.isPotionActive(Potion.field_76434_w)) //if heal bost potion effect is not active
-    				&& player.isPotionActive(Potion.nightVision)
-    			)
-    		{
-    			return true;
-    		}
-    	}
+    	if (
+    			MoCreatures.isWitcheryLoaded
+    			&& 40 <= player.getMaxHealth() && player.getMaxHealth() <= 60
+    			&& !(player.isPotionActive(Potion.field_76434_w)) //if heal bost potion effect is not active
+    			&& isNightVisionPotionEffectActiveAndIsItFromWitcheryWerewolfMechanism(player)
+    		)
+		{
+			return true;
+		}
     	
     	return false;
+    }
+    
+    private static boolean isNightVisionPotionEffectActiveAndIsItFromWitcheryWerewolfMechanism(EntityPlayer entityPlayer)
+    {
+    	if (entityPlayer.getActivePotionEffect(Potion.nightVision) != null)
+		{
+			PotionEffect nightVisionPotionEffect = entityPlayer.getActivePotionEffect(Potion.nightVision);
+			
+			int potionEffectDuration = nightVisionPotionEffect.getDuration() / 20; //converts potion effect duration from ticks to seconds
+			
+			System.out.println(potionEffectDuration);
+			
+			if (	//makes sure the potion effect duration is the same as set by Witchery
+					potionEffectDuration > 15
+					&& potionEffectDuration < 21
+				)
+			{
+				return true;
+			}
+		}
+		return false;
     }
 
     

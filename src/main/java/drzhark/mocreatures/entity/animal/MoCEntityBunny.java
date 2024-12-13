@@ -120,11 +120,6 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
     }
 
     @Override
-    protected void fall(float f)
-    {
-    }
-
-    @Override
     protected String getDeathSound()
     {
         return "mocreatures:rabbitdeath";
@@ -231,6 +226,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
     			if (MoCreatures.isServer())
     			{
     				mountEntity(null);
+    				fallDistance = -5; //prevents fall damage when dropped
     				motionX = entityPlayer.motionX * 5D;
         			motionY = (entityPlayer.motionY / 2D) + 0.5D;
             		motionZ = entityPlayer.motionZ * 5D;
@@ -282,32 +278,37 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
                     return;
                 }*/
 
-                List list1 = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4.0D, 4.0D, 4.0D));
+                List listOfEntitiesNearby = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4.0D, 4.0D, 4.0D));
                 boolean flag = false;
-                for (int i1 = 0; i1 < list1.size(); i1++)
+                for (int index = 0; index < listOfEntitiesNearby.size(); index++)
                 {
-                    Entity entity1 = (Entity) list1.get(i1);
-                    if (!(entity1 instanceof MoCEntityBunny) || (entity1 == this))
+                    Entity entityNearby = (Entity) listOfEntitiesNearby.get(index);
+                    if (!(entityNearby instanceof MoCEntityBunny) || (entityNearby == this))
                     {
                         continue;
                     }
-                    MoCEntityBunny entitybunny = (MoCEntityBunny) entity1;
-                    if ((entitybunny.ridingEntity != null) || (entitybunny.bunnyReproduceTickerA < 1023) || !entitybunny.getIsAdult() || !entitybunny.getHasEaten())
+                    MoCEntityBunny entityBunnyNearby = (MoCEntityBunny) entityNearby;
+                    if (
+                    		(entityBunnyNearby.ridingEntity != null)
+                    		|| (entityBunnyNearby.bunnyReproduceTickerA < 1023)
+                    		|| !entityBunnyNearby.getIsAdult()
+                    		|| !entityBunnyNearby.getHasEaten()
+                    	)
                     {
                         continue;
                     }
-                    MoCEntityBunny entitybunny1 = new MoCEntityBunny(worldObj);
-                    entitybunny1.setPosition(posX, posY, posZ);
-                    entitybunny1.setAdult(false);
+                    MoCEntityBunny entityBunnyBaby = new MoCEntityBunny(worldObj);
+                    entityBunnyBaby.setPosition(posX, posY, posZ);
+                    entityBunnyBaby.setAdult(false);
                     int babytype = getType();
                     if (rand.nextInt(2) == 0)
                     {
-                        babytype = entitybunny.getType();
+                        babytype = entityBunnyNearby.getType();
                     }
-                    entitybunny1.setType(babytype);
-                    worldObj.spawnEntityInWorld(entitybunny1);
+                    entityBunnyBaby.setType(babytype);
+                    worldObj.spawnEntityInWorld(entityBunnyBaby);
                     proceed();
-                    entitybunny.proceed();
+                    entityBunnyNearby.proceed();
                     flag = true;
                     break;
                 }
@@ -325,9 +326,18 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
     @Override
     protected void updateEntityActionState()
     {
-        if (onGround && ((motionX > 0.05D) || (motionZ > 0.05D) || (motionX < -0.05D) || (motionZ < -0.05D)))
+        if (
+        		onGround
+        		&& (
+        				motionX > 0.05D
+        				|| motionZ > 0.05D
+        				|| motionX < -0.05D
+        				|| motionZ < -0.05D
+        			)
+        	)
         {
-            motionY = 0.45000000000000001D;
+            motionY = 0.45000000000000001D; //jump
+            fallDistance = -5; //prevents fall damage when jumping
         }
         
         if (isPickedUp && ridingEntity instanceof EntityPlayer)

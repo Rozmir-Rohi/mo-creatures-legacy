@@ -1,6 +1,5 @@
 package drzhark.mocreatures;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -9,6 +8,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -27,7 +27,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.network.handshake.FMLHandshakeMessage.ModList;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -129,6 +128,7 @@ import drzhark.mocreatures.item.MoCItemKittyBed;
 import drzhark.mocreatures.item.MoCItemLitterBox;
 import drzhark.mocreatures.item.MoCItemPetAmulet;
 import drzhark.mocreatures.item.MoCItemRecord;
+import drzhark.mocreatures.item.MoCItemSpawnEgg;
 import drzhark.mocreatures.item.MoCItemSugarLump;
 import drzhark.mocreatures.item.MoCItemTurtleSoup;
 import drzhark.mocreatures.item.MoCItemWeapon;
@@ -425,6 +425,12 @@ public class MoCreatures {
     public static Item achievementIconOstrichChest;
     public static Item achievementIconOstrichFlag;
     
+    public static Item spawnEgg;
+	
+	static int entitySpawnEggSubId = 0;
+	
+	public static HashMap entityEggs = new LinkedHashMap();
+    
 
     public static MoCPlayerTracker tracker;
     public static Map<String, MoCEntityData> mocEntityMap = new TreeMap<String, MoCEntityData>(String.CASE_INSENSITIVE_ORDER);
@@ -505,8 +511,6 @@ public class MoCreatures {
         	proxy.mocSettingsConfig.save();
         }
     }
-
-    //how to check for client: if(FMLCommonHandler.instance().getSide().isRemote())
 
     @EventHandler
     public void load(FMLInitializationEvent event)
@@ -871,8 +875,15 @@ public class MoCreatures {
             MoCLog.logger.info("registerEntity " + entityClass + " with Mod ID " + mocEntityID);
         }
         EntityRegistry.registerModEntity(entityClass, entityName, mocEntityID, instance, 128, 1, true);
-        mocEntityID += 1;
+        mocEntityID++;
     }
+    
+    
+    public static int getSpawnEggItemSubId()
+	{
+		++entitySpawnEggSubId;
+		return entitySpawnEggSubId;
+	}
 
     /**
      * Used to register entities that are supposed to have a spawn egg
@@ -886,10 +897,13 @@ public class MoCreatures {
         {
           MoCLog.logger.info("registerEntity " + entityClass + " with Mod ID " + mocEntityID);
         }
+        
         EntityRegistry.registerModEntity(entityClass, entityName, mocEntityID, instance, 128, 1, true);
-        EntityList.IDtoClassMapping.put(Integer.valueOf(mocEntityID), entityClass);
-        EntityList.entityEggs.put(Integer.valueOf(mocEntityID), new EntityEggInfo(mocEntityID, eggColor, eggDotsColor));
-        mocEntityID += 1;
+        mocEntityID++;
+        
+        int subId = getSpawnEggItemSubId();
+        EntityList.IDtoClassMapping.put(subId, entityClass);
+		entityEggs.put(subId, new EntityList.EntityEggInfo(subId, eggColor, eggDotsColor));
     }
 
     private int getItemId(String name, int defaultId)
@@ -1109,6 +1123,9 @@ public class MoCreatures {
         mocDirt.setHarvestLevel("shovel", 0, 0); 
         mocGrass.setHarvestLevel("shovel", 0, 0); 
         mocStone.setHarvestLevel("pickaxe", 1, 0);
+        
+        
+        spawnEgg = new MoCItemSpawnEgg();
 
         proxy.mocSettingsConfig.save();
     }
@@ -1252,8 +1269,6 @@ public class MoCreatures {
 
         GameRegistry.addRecipe(new ItemStack(fishbowlEmpty, 1), new Object[] { "# #", "# #", "###", Character.valueOf('#'), Blocks.glass, });
 
-        //GameRegistry.addRecipe(new ItemStack(rope, 1), new Object[] { "# #", " # ", "# #", Character.valueOf('#'), Item.silk, });
-
         GameRegistry.addShapelessRecipe(new ItemStack(petFood, 4), new Object[] { new ItemStack(Items.fish, 1), new ItemStack(Items.porkchop, 1) });
 
         GameRegistry.addRecipe(new ItemStack(woolball, 1), new Object[] { " # ", "# #", " # ", Character.valueOf('#'), Items.string, });
@@ -1296,9 +1311,10 @@ public class MoCreatures {
         {
             GameRegistry.addShapelessRecipe(new ItemStack(kittybed, 1, index), new Object[] { new ItemStack(Items.dye, 1, index), new ItemStack(kittybed, 1) });
 
-            GameRegistry.addRecipe(new ItemStack(kittybed, 1, index), new Object[] { "###", "#X#", "Z  ", Character.valueOf('#'), Blocks.planks, Character.valueOf('X'), new ItemStack(Blocks.wool, 1, MoCTools.colorize(index)), Character.valueOf('Z'), Items.iron_ingot, });
-            String kittyBedTypeName = ItemDye.field_150923_a[index];
-            LanguageRegistry.addName(new ItemStack(kittybed, 1, index), (StatCollector.translateToLocal("item.kittybed." + kittyBedTypeName + ".name")));
+            ItemStack kittyBedItemStack = new ItemStack(kittybed, 1, index);
+            GameRegistry.addRecipe(kittyBedItemStack, new Object[] { "###", "#X#", "Z  ", Character.valueOf('#'), Blocks.planks, Character.valueOf('X'), new ItemStack(Blocks.wool, 1, MoCTools.colorize(index)), Character.valueOf('Z'), Items.iron_ingot, });
+            String kittyBedTypeColourNamePrefix = ItemDye.field_150923_a[index];
+            LanguageRegistry.addName(kittyBedItemStack, (StatCollector.translateToLocal("item.kittybed." + kittyBedTypeColourNamePrefix + ".name")));
         }
         
         for (int i = 0; i < multiBlockNames.size(); i++) 
