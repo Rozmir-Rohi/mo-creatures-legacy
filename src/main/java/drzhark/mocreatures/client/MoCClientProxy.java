@@ -322,7 +322,7 @@ public class MoCClientProxy extends MoCProxy {
         }
         for (int x = 0; x < i; x++)
         {
-            MoCEntityFXUndead FXUndead = new MoCEntityFXUndead(entity.worldObj, entity.posX, entity.posY + (double) (entity.worldObj.rand.nextFloat() * entity.height), entity.posZ);
+            MoCEntityFXUndead FXUndead = new MoCEntityFXUndead(entity.worldObj, entity.posX, entity.posY + entity.worldObj.rand.nextFloat() * entity.height, entity.posZ);
             mc.effectRenderer.addEffect(FXUndead);
 
         }
@@ -344,7 +344,7 @@ public class MoCClientProxy extends MoCProxy {
             int i = densityInt * entity.worldObj.rand.nextInt(2);// + 2;
             for (int x = 0; x < i; x++)
             {
-                MoCEntityFXStar FXStar = new MoCEntityFXStar(mc.theWorld, entity.posX, entity.posY + (double) (entity.worldObj.rand.nextFloat() * entity.height), entity.posZ, fRed, fGreen, fBlue);
+                MoCEntityFXStar FXStar = new MoCEntityFXStar(mc.theWorld, entity.posX, entity.posY + entity.worldObj.rand.nextFloat() * entity.height, entity.posZ, fRed, fGreen, fBlue);
                 mc.effectRenderer.addEffect(FXStar);
 
             }
@@ -360,7 +360,7 @@ public class MoCClientProxy extends MoCProxy {
         double var2 = entity.worldObj.rand.nextGaussian() * 0.02D;
         double var4 = entity.worldObj.rand.nextGaussian() * 0.02D;
         double var6 = entity.worldObj.rand.nextGaussian() * 0.02D;
-        mc.theWorld.spawnParticle("lava", entity.posX + (double) (entity.worldObj.rand.nextFloat() * entity.width) - (double) entity.width, entity.posY + 0.5D + (double) (entity.worldObj.rand.nextFloat() * entity.height), entity.posZ + (double) (entity.worldObj.rand.nextFloat() * entity.width) - (double) entity.width, var2, var4, var6);
+        mc.theWorld.spawnParticle("lava", entity.posX + entity.worldObj.rand.nextFloat() * entity.width - entity.width, entity.posY + 0.5D + entity.worldObj.rand.nextFloat() * entity.height, entity.posZ + entity.worldObj.rand.nextFloat() * entity.width - entity.width, var2, var4, var6);
 
     }
 
@@ -377,9 +377,9 @@ public class MoCClientProxy extends MoCProxy {
             double newPosY = 0.7D + ((float) entity.posY + entity.worldObj.rand.nextFloat());
             double newPosZ = ((float) entity.posZ + entity.worldObj.rand.nextFloat());
             int var19 = entity.worldObj.rand.nextInt(2) * 2 - 1;
-            double speedY = ((double) entity.worldObj.rand.nextFloat() - 0.5D) * 0.5D;
-            double speedX = (double) (entity.worldObj.rand.nextFloat() * 2.0F * (float) var19);
-            double speedZ = (double) (entity.worldObj.rand.nextFloat() * 2.0F * (float) var19);
+            double speedY = (entity.worldObj.rand.nextFloat() - 0.5D) * 0.5D;
+            double speedX = entity.worldObj.rand.nextFloat() * 2.0F * var19;
+            double speedZ = entity.worldObj.rand.nextFloat() * 2.0F * var19;
 
             MoCEntityFXVanish FXVanish = new MoCEntityFXVanish(entity.worldObj, newPosX, newPosY, newPosZ, speedX, speedY, speedZ, entity.colorFX(1, entity.getType()), entity.colorFX(2, entity.getType()), entity.colorFX(3, entity.getType()), false);
             mc.effectRenderer.addEffect(FXVanish);
@@ -398,9 +398,9 @@ public class MoCClientProxy extends MoCProxy {
             double newPosY = 0.7D + ((float) entity.posY + entity.worldObj.rand.nextFloat());
             double newPosZ = ((float) entity.posZ + entity.worldObj.rand.nextFloat());
             int var19 = entity.worldObj.rand.nextInt(2) * 2 - 1;
-            double speedY = ((double) entity.worldObj.rand.nextFloat() - 0.5D) * 0.5D;
-            double speedX = (double) (entity.worldObj.rand.nextFloat() * 2.0F * (float) var19);
-            double speedZ = (double) (entity.worldObj.rand.nextFloat() * 2.0F * (float) var19);
+            double speedY = (entity.worldObj.rand.nextFloat() - 0.5D) * 0.5D;
+            double speedX = entity.worldObj.rand.nextFloat() * 2.0F * var19;
+            double speedZ = entity.worldObj.rand.nextFloat() * 2.0F * var19;
 
             MoCEntityFXVanish FXVanish = new MoCEntityFXVanish(mc.theWorld, newPosX, newPosY, newPosZ, speedX, speedY, speedZ, entity.colorFX(1, entity.getType()), entity.colorFX(2, entity.getType()), entity.colorFX(3, entity.getType()), true);
             mc.effectRenderer.addEffect(FXVanish);
@@ -418,7 +418,7 @@ public class MoCClientProxy extends MoCProxy {
         {
             double newPosX = entity.posX - (1.5 * Math.cos((MoCTools.realAngle(entity.rotationYaw - 90F)) / 57.29578F));
             double newPosZ = entity.posZ - (1.5 * Math.sin((MoCTools.realAngle(entity.rotationYaw - 90F)) / 57.29578F));
-            double newPosY = entity.posY + ((double) entity.height - 0.8D - (double) entity.getAdjustedYOffset() * 1.8);// + (entity.worldObj.rand.nextDouble() * ((double) entity.height - (double) entity.getAdjustedYOffset() * 2));
+            double newPosY = entity.posY + (entity.height - 0.8D - entity.getAdjustedYOffset() * 1.8);// + (entity.worldObj.rand.nextDouble() * ((double) entity.height - (double) entity.getAdjustedYOffset() * 2));
             //adjustedYOffset from 0 (tallest) to 1.45 (on the ground)
             //height = 4F
 
@@ -443,12 +443,12 @@ public class MoCClientProxy extends MoCProxy {
             double newPosY = 0.3D + ((float) entity.posY + entity.worldObj.rand.nextFloat());
             double newPosZ = ((float) entity.posZ + entity.worldObj.rand.nextFloat());
             int var19 = entity.worldObj.rand.nextInt(2) * 2 - 1;
-            double speedY = ((double) entity.worldObj.rand.nextFloat() - 0.5D) * 0.5D;
-            double speedX = (double) (entity.worldObj.rand.nextFloat() * 2.0F * (float) var19);
-            double speedZ = (double) (entity.worldObj.rand.nextFloat() * 2.0F * (float) var19);
+            double speedY = (entity.worldObj.rand.nextFloat() - 0.5D) * 0.5D;
+            double speedX = entity.worldObj.rand.nextFloat() * 2.0F * var19;
+            double speedZ = entity.worldObj.rand.nextFloat() * 2.0F * var19;
 
             EntitySpellParticleFX hammerFX = new EntitySpellParticleFX(mc.theWorld, newPosX, newPosY, newPosZ, speedX, speedY, speedZ);
-            ((EntitySpellParticleFX)hammerFX).setBaseSpellTextureIndex(144);
+            hammerFX.setBaseSpellTextureIndex(144);
             ((EntityFX)hammerFX).setRBGColorF(74F/256F, 145F/256F, 71F/256F);
             mc.effectRenderer.addEffect(hammerFX);
         }
@@ -468,9 +468,9 @@ public class MoCClientProxy extends MoCProxy {
             double newPosY = 0.7D + ((float) entity.posY + entity.worldObj.rand.nextFloat());
             double newPosZ = ((float) entity.posZ + entity.worldObj.rand.nextFloat());
             int var19 = entity.worldObj.rand.nextInt(2) * 2 - 1;
-            double speedY = ((double) entity.worldObj.rand.nextFloat() - 0.5D) * 0.5D;
-            double speedX = (double) (entity.worldObj.rand.nextFloat() * 2.0F * (float) var19);
-            double speedZ = (double) (entity.worldObj.rand.nextFloat() * 2.0F * (float) var19);
+            double speedY = (entity.worldObj.rand.nextFloat() - 0.5D) * 0.5D;
+            double speedX = entity.worldObj.rand.nextFloat() * 2.0F * var19;
+            double speedZ = entity.worldObj.rand.nextFloat() * 2.0F * var19;
 
             MoCEntityFXVanish hammerFX = new MoCEntityFXVanish(mc.theWorld, newPosX, newPosY, newPosZ, speedX, speedY, speedZ, 189F/256F, 110F/256F, 229F/256F, true);
             mc.effectRenderer.addEffect(hammerFX);
@@ -513,17 +513,20 @@ public class MoCClientProxy extends MoCProxy {
         return particleFX;
     }
 
-    public boolean getDisplayPetName()
+    @Override
+	public boolean getDisplayPetName()
     {
         return displayPetName;
     }
 
-    public boolean getDisplayPetIcons()
+    @Override
+	public boolean getDisplayPetIcons()
     {
         return displayPetIcons;
     }
 
-    public boolean getDisplayPetHealthMode(EntityLiving entityLiving)
+    @Override
+	public boolean getDisplayPetHealthMode(EntityLiving entityLiving)
     {
     	switch(displayPetHealthMode)
     	{

@@ -16,7 +16,8 @@ public class WorldProviderWyvernEnd extends WorldProviderSurface
     /**
      * creates a new world chunk manager for WorldProvider
      */
-    public void registerWorldChunkManager()
+    @Override
+	public void registerWorldChunkManager()
     {
         worldChunkMgr = new WorldChunkManagerWyvernLair(MoCreatures.WyvernLairBiome, 0.5F, 0.0F);
         setDimension(MoCreatures.wyvernLairDimensionID);
@@ -26,7 +27,8 @@ public class WorldProviderWyvernEnd extends WorldProviderSurface
     /**
      * Returns a new chunk provider which generates chunks for this world
      */
-    public IChunkProvider createChunkGenerator()
+    @Override
+	public IChunkProvider createChunkGenerator()
     {
         return new MoCChunkProviderWyvernLair(worldObj, worldObj.getSeed(), 0);
     }
@@ -52,7 +54,8 @@ public class WorldProviderWyvernEnd extends WorldProviderSurface
         return null;
     }
 
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
 
     /**
      * Return vectorThreeDimensional with biome specific fog color
@@ -79,10 +82,11 @@ public class WorldProviderWyvernEnd extends WorldProviderSurface
         var5 *= var4 * 0.0F + 0.15F;
         var6 *= var4 * 0.0F + 0.15F;
         var7 *= var4 * 0.0F + 0.15F;
-        return Vec3.createVectorHelper((double)var5, (double)var6, (double)var7);
+        return Vec3.createVectorHelper(var5, var6, var7);
     }
 
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
     public boolean isSkyColored()
     {
         return false;
@@ -91,7 +95,8 @@ public class WorldProviderWyvernEnd extends WorldProviderSurface
     /**
      * True if the player can respawn in this dimension (true = overworld, false = nether).
      */
-    public boolean canRespawnHere()
+    @Override
+	public boolean canRespawnHere()
     {
         return false;
     }
@@ -99,12 +104,14 @@ public class WorldProviderWyvernEnd extends WorldProviderSurface
     /**
      * Returns 'true' if in the "main surface world", but 'false' if in the Nether or End dimensions.
      */
-    public boolean isSurfaceWorld()
+    @Override
+	public boolean isSurfaceWorld()
     {
         return false;
     }
 
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
 
     /**
      * the y level at which clouds are rendered.
@@ -117,7 +124,8 @@ public class WorldProviderWyvernEnd extends WorldProviderSurface
     /**
      * Will check if the x, z position specified is alright to be set as the map spawn point
      */
-    public boolean canCoordinateBeSpawn(int par1, int par2)
+    @Override
+	public boolean canCoordinateBeSpawn(int par1, int par2)
     {
         return worldObj.getTopBlock(par1, par2).getMaterial().blocksMovement();
     }
@@ -141,17 +149,20 @@ public class WorldProviderWyvernEnd extends WorldProviderSurface
     /**
      * Gets the hard-coded portal location to use when entering this dimension.
      */
-    public ChunkCoordinates getEntrancePortalLocation()
+    @Override
+	public ChunkCoordinates getEntrancePortalLocation()
     {
         return new ChunkCoordinates(0, 70, 0);
     }
 
-    public int getAverageGroundLevel()
+    @Override
+	public int getAverageGroundLevel()
     {
         return 50;
     }
 
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
 
     /**
      * Returns true if the given X,Z coordinate should show environmental fog.
@@ -164,7 +175,8 @@ public class WorldProviderWyvernEnd extends WorldProviderSurface
     /**
      * Returns the dimension's name, e.g. "The End", "Nether", or "Overworld".
      */
-    public String getDimensionName()
+    @Override
+	public String getDimensionName()
     {
         return "Wyvern Lair";
     }

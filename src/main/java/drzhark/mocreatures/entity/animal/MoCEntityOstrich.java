@@ -29,11 +29,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 
@@ -128,12 +128,14 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         return true;
     }
 
-    public boolean getIsRideable()
+    @Override
+	public boolean getIsRideable()
     {
         return (dataWatcher.getWatchableObjectByte(22) == 1);
     }
 
-    public void setRideable(boolean flag)
+    @Override
+	public void setRideable(boolean flag)
     {
         byte input = (byte) (flag ? 1 : 0);
         dataWatcher.updateObject(22, Byte.valueOf(input));
@@ -591,7 +593,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
                     EntityPlayer eggStealer = worldObj.getClosestPlayerToEntity(this, 10D);
                     if (eggStealer != null)
                     {
-                        if (!getIsTamed() && worldObj.difficultySetting != worldObj.difficultySetting.PEACEFUL)
+                        if (!getIsTamed() && worldObj.difficultySetting != EnumDifficulty.PEACEFUL)
                         {
                             entityToAttack = eggStealer;
                             flapWings();
@@ -645,8 +647,8 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     		
     		return (
         				item instanceof ItemSeeds
-        				|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
-        				|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
+        				|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
+        				|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
         				|| oreDictionaryNameArray.size() > 0 &&
         					(
         						oreDictionaryNameArray.contains("listAllseed") //BOP seeds or Palm's Harvest Seeds
@@ -1001,7 +1003,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             localChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.OstrichChest"), 18);
             for (int i = 0; i < nbtTagList.tagCount(); i++)
             {
-                NBTTagCompound nbtTagCompound1 = (NBTTagCompound) nbtTagList.getCompoundTagAt(i);
+                NBTTagCompound nbtTagCompound1 = nbtTagList.getCompoundTagAt(i);
                 int j = nbtTagCompound1.getByte("Slot") & 0xff;
                 if ((j >= 0) && j < localChest.getSizeInventory())
                 {
@@ -1069,7 +1071,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         }
         else
         {
-            return (double) ((120 - getMoCAge()) * 0.01D);
+            return (120 - getMoCAge()) * 0.01D;
         }
     }
 

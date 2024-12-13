@@ -73,7 +73,7 @@ public class MoCRenderJellyFish extends RenderLiving {
         	char c0 = 61680;
             int j = c0 % 65536;
             int k = c0 / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j / 1.0F, (float)k / 1.0F);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0F, k / 1.0F);
             GL11.glDepthMask(false);
         }
         
@@ -102,7 +102,8 @@ public class MoCRenderJellyFish extends RenderLiving {
         GL11.glScalef(scale, scale2, scale);
     }
 
-    protected ResourceLocation getEntityTexture(Entity entity)
+    @Override
+	protected ResourceLocation getEntityTexture(Entity entity)
     {
         return ((MoCEntityJellyFish) entity).getTexture();
     }

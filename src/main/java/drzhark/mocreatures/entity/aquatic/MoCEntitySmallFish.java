@@ -20,7 +20,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
 
@@ -36,7 +35,8 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
         
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(4.0D);
@@ -159,13 +159,13 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
     protected boolean isItemPlantMegaPackFishEdibleFreshWaterPlant(Item item)
     {
     	return (
-    				(item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverAmazonSword")
-    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverCanadianWaterweed")
-    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverCoonsTail")
-    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:waterCryptWendtii")
-    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:waterDwarfHairGrass")
-    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverEelgrass")
-    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverWaterWisteria")
+    				(Item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverAmazonSword")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverCanadianWaterweed")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverCoonsTail")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:waterCryptWendtii")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:waterDwarfHairGrass")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverEelgrass")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:riverWaterWisteria")
     			);
     }
     
@@ -180,16 +180,16 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
     	
     	if (
     			item instanceof ItemSeeds
-    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
-    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
+    			|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
+    			|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
     			|| ( getType() <= 3 && isItemPlantMegaPackFishEdibleFreshWaterPlant(item)) //Anchovy, Angelfish and Goldfish can eat freshwater plants
     			|| (
     					getType() == 5 &&  //Mandarin fish can eat saltwater plants
     					(
     						MoCEntityFishy.isItemPlantMegaPackFishEdibleSaltWaterPlant(item)
-    						|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemstack.getItemDamage() == 11 //BOP kelp
-    						|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:kelp")
-    						|| (item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
+    						|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemstack.getItemDamage() == 11 //BOP kelp
+    						|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:kelp")
+    						|| (Item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
 	    					|| (oreDictionaryNameArray.size() > 0 && oreDictionaryNameArray.contains("cropKelp"))
     					)
     				)
@@ -209,7 +209,7 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
     @Override
     public float getSizeFactor() 
     {   
-        return (float)getMoCAge() * 0.01F;
+        return getMoCAge() * 0.01F;
     }
 
     @Override

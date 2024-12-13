@@ -15,7 +15,8 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderBird extends MoCRenderMoC {
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityBird)par1Entity).getTexture();
     }
 

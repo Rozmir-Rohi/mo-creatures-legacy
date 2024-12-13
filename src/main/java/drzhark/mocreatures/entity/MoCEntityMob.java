@@ -51,7 +51,8 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         texture = "blank.jpg";
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
@@ -66,7 +67,8 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         return super.onSpawnWithEgg(entityLivingData);
     }
 
-    public ResourceLocation getTexture()
+    @Override
+	public ResourceLocation getTexture()
     {
         return MoCreatures.proxy.getTexture(texture);
     }
@@ -97,7 +99,8 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         dataWatcher.addObject(19, Integer.valueOf(0)); // int type
     }
 
-    public void setType(int i)
+    @Override
+	public void setType(int i)
     {
         dataWatcher.updateObject(19, Integer.valueOf(i));
     }
@@ -131,12 +134,14 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         return dataWatcher.getWatchableObjectString(17);
     }
 
-    public int getMoCAge()
+    @Override
+	public int getMoCAge()
     {
         return dataWatcher.getWatchableObjectInt(18);
     }
 
-    public void setMoCAge(int i)
+    @Override
+	public void setMoCAge(int i)
     {
         dataWatcher.updateObject(18, Integer.valueOf(i));
     }
@@ -245,7 +250,8 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     	return false;
     }
     
-    public void onKillEntity(EntityLivingBase entityLiving)
+    @Override
+	public void onKillEntity(EntityLivingBase entityLiving)
     {
     	if (isPredator() && MoCreatures.proxy.destroyDrops)
     	{
@@ -681,11 +687,11 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
 
         for (int var2 = 0; var2 < 10; ++var2)
         {
-            int var3 = MathHelper.floor_double(posX + (double) var1.nextInt(20) - 10.0D);
-            int var4 = MathHelper.floor_double(boundingBox.minY + (double) var1.nextInt(6) - 3.0D);
-            int var5 = MathHelper.floor_double(posZ + (double) var1.nextInt(20) - 10.0D);
+            int var3 = MathHelper.floor_double(posX + var1.nextInt(20) - 10.0D);
+            int var4 = MathHelper.floor_double(boundingBox.minY + var1.nextInt(6) - 3.0D);
+            int var5 = MathHelper.floor_double(posZ + var1.nextInt(20) - 10.0D);
 
-            if (!worldObj.canBlockSeeTheSky(var3, var4, var5) && getBlockPathWeight(var3, var4, var5) < 0.0F) { return Vec3.createVectorHelper((double) var3, (double) var4, (double) var5); }
+            if (!worldObj.canBlockSeeTheSky(var3, var4, var5) && getBlockPathWeight(var3, var4, var5) < 0.0F) { return Vec3.createVectorHelper(var3, var4, var5); }
         }
 
         return null;

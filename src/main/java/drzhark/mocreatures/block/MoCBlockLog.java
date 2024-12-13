@@ -31,7 +31,8 @@ public class MoCBlockLog extends MoCBlock
     /**
      * Returns the quantity of items to drop on block destruction.
      */
-    public int quantityDropped(Random par1Random)
+    @Override
+	public int quantityDropped(Random par1Random)
     {
         return 1;
     }
@@ -39,7 +40,8 @@ public class MoCBlockLog extends MoCBlock
     /**
      * Returns the ID of the items to drop on destruction.
      */
-    public Item getItemDropped(int par1, Random par2Random, int par3)
+    @Override
+	public Item getItemDropped(int par1, Random par2Random, int par3)
     {
         return Item.getItemFromBlock(MoCreatures.mocLog);
     }
@@ -54,7 +56,8 @@ public class MoCBlockLog extends MoCBlock
      * Called when the player destroys a block with an item that can harvest it. (i, j, k) are the coordinates of the
      * block and l is the block's subtype/damage.
      */
-    public void harvestBlock(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
+    @Override
+	public void harvestBlock(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
     {
         super.harvestBlock(par1World, par2EntityPlayer, par3, par4, par5, par6);
     }
@@ -62,7 +65,8 @@ public class MoCBlockLog extends MoCBlock
     /**
      * ejects contained items into the world, and notifies neighbours of an update, as appropriate
      */
-    public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6)
+    @Override
+	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6)
     {
         byte var7 = 4;
         int var8 = var7 + 1;
@@ -102,12 +106,14 @@ public class MoCBlockLog extends MoCBlock
     /**
      * The type of render function that is called for this block
      */
-    public int getRenderType()
+    @Override
+	public int getRenderType()
     {
         return 31;
     }
 
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List subItems)
     {
         for (int index = 0; index < MoCreatures.multiBlockNames.size(); index++)

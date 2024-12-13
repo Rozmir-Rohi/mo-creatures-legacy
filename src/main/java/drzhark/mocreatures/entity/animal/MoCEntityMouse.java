@@ -28,13 +28,15 @@ public class MoCEntityMouse extends MoCEntityAnimal
         setSize(0.3F, 0.3F);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(4.0D);
     }
 
-    public void selectType()
+    @Override
+	public void selectType()
     {
         checkSpawningBiome();
         
@@ -116,7 +118,8 @@ public class MoCEntityMouse extends MoCEntityAnimal
         return !onGround && isOnLadder();
     }
 
-    public boolean entitiesThatAreScary(Entity entity)
+    @Override
+	public boolean entitiesThatAreScary(Entity entity)
     {
         return !(entity instanceof MoCEntityMouse)
         && super.entitiesThatAreScary(entity);

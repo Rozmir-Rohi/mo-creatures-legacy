@@ -3,6 +3,7 @@ package drzhark.mocreatures.item;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import drzhark.mocreatures.MoCProxy;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -131,7 +132,7 @@ public class MoCItemArmor extends ItemArmor
             tempArmorTexture = "scorpn_2.png";
         }
 
-        return "mocreatures:" + MoCreatures.proxy.ARMOR_TEXTURE + tempArmorTexture;
+        return "mocreatures:" + MoCProxy.ARMOR_TEXTURE + tempArmorTexture;
     }
 
     @SideOnly(Side.CLIENT)

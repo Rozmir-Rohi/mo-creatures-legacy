@@ -59,7 +59,7 @@ public class MoCPetData {
     {
         for (int i = 0; i < tamedList.tagCount(); i++)
         {
-            NBTTagCompound nbt = (NBTTagCompound)tamedList.getCompoundTagAt(i);
+            NBTTagCompound nbt = tamedList.getCompoundTagAt(i);
             if (nbt.hasKey("PetId") && nbt.getInteger("PetId") == id)
             {
                 tamedList.removeTag(i);
@@ -80,7 +80,7 @@ public class MoCPetData {
         {
             for (int i = 0; i < tamedList.tagCount(); i++)
             {
-                NBTTagCompound nbt = (NBTTagCompound)tamedList.getCompoundTagAt(i);
+                NBTTagCompound nbt = tamedList.getCompoundTagAt(i);
                 if (nbt.hasKey("PetId") && nbt.getInteger("PetId") == id)
                 {
                     return nbt;

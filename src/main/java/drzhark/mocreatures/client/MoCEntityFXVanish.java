@@ -3,6 +3,7 @@ package drzhark.mocreatures.client;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import drzhark.mocreatures.MoCProxy;
 import drzhark.mocreatures.MoCreatures;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
@@ -69,9 +70,9 @@ public class MoCEntityFXVanish extends EntityFX {
         float var2 = var1;
         var1 = -var1 + var1 * var1 * sizeExp;//5 insteaf of 2 makes an explosion
         var1 = 1.0F - var1;
-        posX = portalPosX + motionX * (double) var1;
-        posY = portalPosY + motionY * (double) var1 + (double) (1.0F - var2);
-        posZ = portalPosZ + motionZ * (double) var1;
+        posX = portalPosX + motionX * var1;
+        posY = portalPosY + motionY * var1 + (1.0F - var2);
+        posZ = portalPosZ + motionZ * var1;
 
         if (particleAge++ >= particleMaxAge)
         {
@@ -82,16 +83,16 @@ public class MoCEntityFXVanish extends EntityFX {
     @Override
     public void renderParticle(Tessellator par1Tessellator, float par2, float par3, float par4, float par5, float par6, float par7)
     {
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation("mocreatures", MoCreatures.proxy.MISC_TEXTURE + "fxvanish.png"));
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation("mocreatures", MoCProxy.MISC_TEXTURE + "fxvanish.png"));
         float scale = 0.1F * particleScale;
-        float xPos = (float) (prevPosX + (posX - prevPosX) * (double) par2 - interpPosX);
-        float yPos = (float) (prevPosY + (posY - prevPosY) * (double) par2 - interpPosY);
-        float zPos = (float) (prevPosZ + (posZ - prevPosZ) * (double) par2 - interpPosZ);
+        float xPos = (float) (prevPosX + (posX - prevPosX) * par2 - interpPosX);
+        float yPos = (float) (prevPosY + (posY - prevPosY) * par2 - interpPosY);
+        float zPos = (float) (prevPosZ + (posZ - prevPosZ) * par2 - interpPosZ);
         float colorIntensity = 1.0F;
         par1Tessellator.setColorOpaque_F(particleRed * colorIntensity, particleGreen * colorIntensity, particleBlue * colorIntensity);//, 1.0F);
-        par1Tessellator.addVertexWithUV((double) (xPos - par3 * scale - par6 * scale), (double) (yPos - par4 * scale), (double) (zPos - par5 * scale - par7 * scale), 0D, 1D);
-        par1Tessellator.addVertexWithUV((double) (xPos - par3 * scale + par6 * scale), (double) (yPos + par4 * scale), (double) (zPos - par5 * scale + par7 * scale), 1D, 1D);
-        par1Tessellator.addVertexWithUV((double) (xPos + par3 * scale + par6 * scale), (double) (yPos + par4 * scale), (double) (zPos + par5 * scale + par7 * scale), 1D, 0D);
-        par1Tessellator.addVertexWithUV((double) (xPos + par3 * scale - par6 * scale), (double) (yPos - par4 * scale), (double) (zPos + par5 * scale - par7 * scale), 0D, 0D);
+        par1Tessellator.addVertexWithUV(xPos - par3 * scale - par6 * scale, yPos - par4 * scale, zPos - par5 * scale - par7 * scale, 0D, 1D);
+        par1Tessellator.addVertexWithUV(xPos - par3 * scale + par6 * scale, yPos + par4 * scale, zPos - par5 * scale + par7 * scale, 1D, 1D);
+        par1Tessellator.addVertexWithUV(xPos + par3 * scale + par6 * scale, yPos + par4 * scale, zPos + par5 * scale + par7 * scale, 1D, 0D);
+        par1Tessellator.addVertexWithUV(xPos + par3 * scale - par6 * scale, yPos - par4 * scale, zPos + par5 * scale - par7 * scale, 0D, 0D);
     }
 }

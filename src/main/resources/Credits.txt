@@ -36,7 +36,7 @@ The different custom license of this project is permitted under the GNU Lesser G
 			- A copy of the GNU Lesser Public License is provided along with a copy of the GNU General Public License.
  			- Access is provided to the source code of the Library.
 
-A copy of the GNU Lesser General Public License (1.7.10 Aether Source Code License) can be found in the "Negligable Licenses" folder inside the mod jar archive. 
+A copy of the GNU Lesser General Public License (1.7.10 Aether Source Code License) can be found in the "Negligible Licenses" folder inside the mod jar archive. 
 
 A copy of the GNU General Public license can be found inside the mod jar archive.
 
@@ -50,9 +50,17 @@ Code for Multilingual Pet Naming:
 
 	Joop Eggen - Their answer in StackOverflow taught me how to categorize characters from a string in Java 8 based on which language they are from (https://stackoverflow.com/questions/26357938/detect-chinese-character-in-java).
 
-	Tino Didriksen - Their answer in StackOverflow taught how many bytes a character requires based on the language that it is from (https://stackoverflow.com/questions/14485589/utf-8-how-many-bytes-are-used-by-languages-to-represent-a-visible-character).
+	Tino Didriksen - Their answer in StackOverflow taught me how many bytes a character requires based on the language that it is from (https://stackoverflow.com/questions/14485589/utf-8-how-many-bytes-are-used-by-languages-to-represent-a-visible-character).
 
 	Joshua Engel - Their post taught me how to encode a string of non-ASCII characters to UTF-8 so that they can be properly processed in the code (https://www.quora.com/How-do-I-convert-a-string-to-UTF-8-in-Java).
+
+
+
+
+Code for Wolf Altar Replacement Mod Generation:
+	GOXR3PLUS - Their answer in StackOverflow taught me how to copy a file inside a jar archive to outside the archive (https://stackoverflow.com/a/44077426/865910).
+
+	UpcraftLP - Their answer in Minecraft Forums taught me how to get the directory of the mods folder (https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/modification-development/2700976-how-to-get-the-location-of-the-mods-directory).
 
 
 
@@ -63,7 +71,7 @@ Sounds:
 
 
 	Fesliyan Studios - The rattle snake rattle sound effects were sourced from https://www.fesliyanstudios.com/royalty-free-sound-effects-download/rattlesnake-281
-	This was used under the Fesliyan Studios Sound Effects Policy license (see "Negligable Licenses" folder inside the mod jar archive ).
+	This was used under the Fesliyan Studios Sound Effects Policy license (see "Negligible Licenses" folder inside the mod jar archive ).
 
 
 	The following assets were used under the Unlicense license:
@@ -91,7 +99,7 @@ Language File Translations:
 
 
 
-Beta Testers Who Helped Solve Major Bugs:
+Mod Testers Who Helped Solve Major Bugs:
 	Omgise
 
 	quentin452

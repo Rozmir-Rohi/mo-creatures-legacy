@@ -30,11 +30,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityElephant extends MoCEntityTameableAnimal {
 
@@ -115,7 +115,8 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         dataWatcher.updateObject(23, Byte.valueOf(b));
     }
 
-    public byte getArmorType()
+    @Override
+	public byte getArmorType()
     {
         return (dataWatcher.getWatchableObjectByte(22));
     }
@@ -749,9 +750,9 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 		if (	//general food
 				item == MoCreatures.sugarLump
 				|| item == Items.wheat
-				|| (item.itemRegistry).getNameForObject(item).equals("tropicraft:coconutChunk")
-				|| (item.itemRegistry).getNameForObject(item).equals("tropicraft:pineappleCubes")
-				|| (item.itemRegistry).getNameForObject(item).equals("harvestcraft:coconutItem")
+				|| (Item.itemRegistry).getNameForObject(item).equals("tropicraft:coconutChunk")
+				|| (Item.itemRegistry).getNameForObject(item).equals("tropicraft:pineappleCubes")
+				|| (Item.itemRegistry).getNameForObject(item).equals("harvestcraft:coconutItem")
 				|| oreDictionaryNameArray.size() > 0 &&
 					(
 							oreDictionaryNameArray.contains("listAllfruit") //BOP fruit or GregTech6 fruit or Palm's Harvest fruit
@@ -783,7 +784,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 		        if (MoCreatures.isServer() && !getIsAdult() && !getIsTamed() && temper >= 10)
 		        {
 		            setTamed(true);
-		            MoCTools.tameWithName((EntityPlayerMP) entityPlayer, this);
+		            MoCTools.tameWithName(entityPlayer, this);
 		            entityPlayer.addStat(MoCAchievements.tame_elephant, 1);
 		        }
 			}
@@ -927,7 +928,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
             localElephantChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
-                NBTTagCompound nbtTagCompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
+                NBTTagCompound nbtTagCompound1 = nbttaglist.getCompoundTagAt(i);
                 int j = nbtTagCompound1.getByte("Slot") & 0xff;
                 if ((j >= 0) && j < localElephantChest.getSizeInventory())
                 {
@@ -941,7 +942,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
             localElephantChest2 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 18);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
-                NBTTagCompound nbtTagCompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
+                NBTTagCompound nbtTagCompound1 = nbttaglist.getCompoundTagAt(i);
                 int j = nbtTagCompound1.getByte("Slot") & 0xff;
                 if ((j >= 0) && j < localElephantChest2.getSizeInventory())
                 {
@@ -956,7 +957,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
             localElephantChest3 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
-                NBTTagCompound nbtTagCompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
+                NBTTagCompound nbtTagCompound1 = nbttaglist.getCompoundTagAt(i);
                 int j = nbtTagCompound1.getByte("Slot") & 0xff;
                 if ((j >= 0) && j < localElephantChest3.getSizeInventory())
                 {
@@ -971,7 +972,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
             localElephantChest4 = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.ElephantChest"), 9);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
-                NBTTagCompound nbtTagCompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
+                NBTTagCompound nbtTagCompound1 = nbttaglist.getCompoundTagAt(i);
                 int j = nbtTagCompound1.getByte("Slot") & 0xff;
                 if ((j >= 0) && j < localElephantChest4.getSizeInventory())
                 {
@@ -1143,7 +1144,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 	            if (isSitting) yOffset = 0.45D;
 	            break;
         }
-        return (double) (yOffset + (height * 0.75D));
+        return yOffset + (height * 0.75D);
     }
 
     
@@ -1286,7 +1287,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         {
             return getSizeFactor() * -0.5D;
         }
-        return (double) ((100/getMoCAge()) * (getSizeFactor() * -0.5D));
+        return (100/getMoCAge()) * (getSizeFactor() * -0.5D);
     }
 
     @Override
@@ -1327,7 +1328,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
     	        }    
         		return false;
         	}
-            else if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting != worldObj.difficultySetting.PEACEFUL))
+            else if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting != EnumDifficulty.PEACEFUL))
             {
                 entityToAttack = entityThatAttackedThisCreature;
             }

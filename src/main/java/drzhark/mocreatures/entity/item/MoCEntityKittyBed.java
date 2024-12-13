@@ -1,5 +1,6 @@
 package drzhark.mocreatures.entity.item;
 
+import drzhark.mocreatures.MoCProxy;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.MoCEntityItemPlaceable;
@@ -40,10 +41,11 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
 
     public ResourceLocation getTexture()
     {
-        return new ResourceLocation("mocreatures" + ":" + MoCreatures.proxy.MODEL_TEXTURE + "kittybed.png");
+        return new ResourceLocation("mocreatures" + ":" + MoCProxy.MODEL_TEXTURE + "kittybed.png");
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(5D); // setMaxHealth

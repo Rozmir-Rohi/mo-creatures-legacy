@@ -66,7 +66,8 @@ public class MoCRenderMouse extends MoCRenderMoC {
         GL11.glTranslatef(-0.55F, 0F, 0F);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityMouse)par1Entity).getTexture();
     }
 }

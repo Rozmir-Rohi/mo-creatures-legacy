@@ -64,9 +64,9 @@ public class MoCItemFishBowl extends MoCItem {
     public ItemStack onItemRightClick(ItemStack itemstack, World worldObj, EntityPlayer entityPlayer)
     {
         float var4 = 1.0F;
-        double var5 = entityPlayer.prevPosX + (entityPlayer.posX - entityPlayer.prevPosX) * (double) var4;
-        double var7 = entityPlayer.prevPosY + (entityPlayer.posY - entityPlayer.prevPosY) * (double) var4 + 1.62D - (double) entityPlayer.yOffset;
-        double var9 = entityPlayer.prevPosZ + (entityPlayer.posZ - entityPlayer.prevPosZ) * (double) var4;
+        double var5 = entityPlayer.prevPosX + (entityPlayer.posX - entityPlayer.prevPosX) * var4;
+        double var7 = entityPlayer.prevPosY + (entityPlayer.posY - entityPlayer.prevPosY) * var4 + 1.62D - entityPlayer.yOffset;
+        double var9 = entityPlayer.prevPosZ + (entityPlayer.posZ - entityPlayer.prevPosZ) * var4;
 
         MovingObjectPosition movingObjectPos = getMovingObjectPositionFromPlayer(worldObj, entityPlayer, true);//fishBowlType == 0);
 
@@ -133,7 +133,7 @@ public class MoCItemFishBowl extends MoCItem {
                     entityfish.setTypeInt(fishBowlType);
                     entityfish.selectType();
                     worldObj.spawnEntityInWorld(entityfish);
-                    MoCTools.tameWithName((EntityPlayer) entityPlayer, entityfish);
+                    MoCTools.tameWithName(entityPlayer, entityfish);
 
                     if (--itemstack.stackSize == 0)
                     {

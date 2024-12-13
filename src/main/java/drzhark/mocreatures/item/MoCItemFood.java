@@ -27,7 +27,8 @@ public class MoCItemFood extends ItemFood
         GameRegistry.registerItem(this, name);
     }
 
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister par1IconRegister)
     {
         itemIcon = par1IconRegister.registerIcon("mocreatures"+ getUnlocalizedName().replaceFirst("item.", ":"));

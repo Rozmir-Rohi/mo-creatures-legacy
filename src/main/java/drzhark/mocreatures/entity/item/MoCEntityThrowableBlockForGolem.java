@@ -202,7 +202,7 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
                 setDead();
             }
 
-            double summonedSpeed = (double) acceleration;//20D;
+            double summonedSpeed = acceleration;//20D;
             motionX = ((master.posX - posX) / summonedSpeed);
             motionY = ((master.posY - posY) / 20D + 0.15D);
             motionZ = ((master.posZ - posZ) / summonedSpeed);
@@ -231,7 +231,7 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
             float zDistanceToMaster = (float) posZ - (float) master.posZ;
             float xzDistanceToMaster = xDistanceToMaster * xDistanceToMaster + zDistanceToMaster * zDistanceToMaster;
 
-            double summonedSpeed = (double) acceleration;//20D;
+            double summonedSpeed = acceleration;//20D;
             motionX = ((master.posX - posX) / summonedSpeed);
             motionY = ((master.posY - posY) / 20D + 0.15D);
             motionZ = ((master.posZ - posZ) / summonedSpeed);
@@ -254,7 +254,7 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
         if (getBehavior() == 5)// exploding throwable block
         {
             acceleration = 5;
-            double summonedSpeed = (double) acceleration;//20D;
+            double summonedSpeed = acceleration;//20D;
             motionX = ((oldPosX - posX) / summonedSpeed);
             motionY = ((oldPosY - posY) / 20D + 0.15D);
             motionZ = ((oldPosZ - posZ) / summonedSpeed);

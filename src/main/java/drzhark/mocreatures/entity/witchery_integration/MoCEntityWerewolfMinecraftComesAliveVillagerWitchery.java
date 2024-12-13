@@ -99,9 +99,9 @@ public class MoCEntityWerewolfMinecraftComesAliveVillagerWitchery extends Entity
         isTransforming = false;
         
         MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(worldObj, getHairColor() + 1, getProfession(), getSkinID());
-        werewolf.copyLocationAndAnglesFrom((Entity) this);
+        werewolf.copyLocationAndAnglesFrom(this);
         setDead();
-        werewolf.worldObj.spawnEntityInWorld((Entity) werewolf); 
+        werewolf.worldObj.spawnEntityInWorld(werewolf); 
     }
 	
 	public boolean IsNight()

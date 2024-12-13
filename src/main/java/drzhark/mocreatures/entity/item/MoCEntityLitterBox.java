@@ -35,7 +35,8 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
         return MoCreatures.proxy.getTexture("litterbox.png");
     }
     
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(5D); // setMaxHealth

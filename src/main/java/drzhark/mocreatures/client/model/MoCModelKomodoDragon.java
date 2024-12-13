@@ -220,6 +220,7 @@ public MoCModelKomodoDragon()
      setRotation(SaddleB, 0F, 0F, 0F);
 }
 
+@Override
 public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
 {
     MoCEntityKomodoDragon komodo = (MoCEntityKomodoDragon) entity;
@@ -420,13 +421,13 @@ public void render(Entity entity, float f, float f1, float f2, float f3, float f
         
         int i = 0;
         float tailLat = 0F;
-        tailLat = A * MathHelper.sin(w * t - k * (float) i++);
+        tailLat = A * MathHelper.sin(w * t - k * i++);
         Tail1.rotateAngleY = tailLat;
-        tailLat = A * MathHelper.sin(w * t - k * (float) i++);
+        tailLat = A * MathHelper.sin(w * t - k * i++);
         Tail2.rotateAngleY = tailLat;
-        tailLat = A * MathHelper.sin(w * t - k * (float) i++);
+        tailLat = A * MathHelper.sin(w * t - k * i++);
         Tail3.rotateAngleY = tailLat;
-        tailLat = A * MathHelper.sin(w * t - k * (float) i++);
+        tailLat = A * MathHelper.sin(w * t - k * i++);
         Tail4.rotateAngleY = tailLat;
         
 

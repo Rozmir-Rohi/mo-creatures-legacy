@@ -35,7 +35,8 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
         setMoCAge(30 + rand.nextInt(70));
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(6.0D);
@@ -53,7 +54,8 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
         setType(1);
     }
 
-    public ResourceLocation getTexture()
+    @Override
+	public ResourceLocation getTexture()
     {
        return MoCreatures.proxy.getTexture("smallfish_piranha.png");
     }
@@ -131,7 +133,8 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
         }
     }
 
-    public boolean isNotScared()
+    @Override
+	public boolean isNotScared()
     {
         return true;
     }

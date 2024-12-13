@@ -36,7 +36,8 @@ public class MoCModelMaggot extends ModelBase
         Tailtip.setRotationPoint(0F, 23F, 4F);
     }
 
-    public void render(Entity entity, float f, float movementSpeed, float timer, float f3, float f4, float f5)
+    @Override
+	public void render(Entity entity, float f, float movementSpeed, float timer, float f3, float f4, float f5)
     {
         setRotationAngles(f, movementSpeed, timer, f3, f4, f5);
         

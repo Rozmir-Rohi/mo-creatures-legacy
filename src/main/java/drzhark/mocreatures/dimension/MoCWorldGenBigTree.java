@@ -86,14 +86,14 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
      */
     void generateLeafNodeList()
     {
-        height = (int)((double)heightLimit * heightAttenuation);
+        height = (int)(heightLimit * heightAttenuation);
 
         if (height >= heightLimit)
         {
             height = heightLimit - 1;
         }
 
-        int var1 = (int)(1.382D + Math.pow(leafDensity * (double)heightLimit / 13.0D, 2.0D));
+        int var1 = (int)(1.382D + Math.pow(leafDensity * heightLimit / 13.0D, 2.0D));
 
         if (var1 < 1)
         {
@@ -125,26 +125,26 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
             {
                 for (double var9 = 0.5D; var7 < var1; ++var7)
                 {
-                    double var11 = scaleWidth * (double)var8 * ((double)rand.nextFloat() + 0.328D);
-                    double var13 = (double)rand.nextFloat() * 2.0D * Math.PI;
-                    int var15 = MathHelper.floor_double(var11 * Math.sin(var13) + (double)basePos[0] + var9);
-                    int var16 = MathHelper.floor_double(var11 * Math.cos(var13) + (double)basePos[2] + var9);
+                    double var11 = scaleWidth * var8 * (rand.nextFloat() + 0.328D);
+                    double var13 = rand.nextFloat() * 2.0D * Math.PI;
+                    int var15 = MathHelper.floor_double(var11 * Math.sin(var13) + basePos[0] + var9);
+                    int var16 = MathHelper.floor_double(var11 * Math.cos(var13) + basePos[2] + var9);
                     int[] var17 = new int[] {var15, var3, var16};
                     int[] var18 = new int[] {var15, var3 + leafDistanceLimit, var16};
 
                     if (checkBlockLine(var17, var18) == -1)
                     {
                         int[] var19 = new int[] {basePos[0], basePos[1], basePos[2]};
-                        double var20 = Math.sqrt(Math.pow((double)Math.abs(basePos[0] - var17[0]), 2.0D) + Math.pow((double)Math.abs(basePos[2] - var17[2]), 2.0D));
+                        double var20 = Math.sqrt(Math.pow(Math.abs(basePos[0] - var17[0]), 2.0D) + Math.pow(Math.abs(basePos[2] - var17[2]), 2.0D));
                         double var22 = var20 * branchSlope;
 
-                        if ((double)var17[1] - var22 > (double)var5)
+                        if (var17[1] - var22 > var5)
                         {
                             var19[1] = var5;
                         }
                         else
                         {
-                            var19[1] = (int)((double)var17[1] - var22);
+                            var19[1] = (int)(var17[1] - var22);
                         }
 
                         if (checkBlockLine(var19, var17) == -1)
@@ -169,7 +169,7 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
 
     void func_150529_a(int par1, int par2, int par3, float par4, byte par5, Block par6)
     {
-        int var7 = (int)((double)par4 + 0.618D);
+        int var7 = (int)(par4 + 0.618D);
         byte var8 = otherCoordPairs[par5];
         byte var9 = otherCoordPairs[par5 + 3];
         int[] var10 = new int[] {par1, par2, par3};
@@ -184,9 +184,9 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
 
             while (var13 <= var7)
             {
-                double var15 = Math.pow((double)Math.abs(var12) + 0.5D, 2.0D) + Math.pow((double)Math.abs(var13) + 0.5D, 2.0D);
+                double var15 = Math.pow(Math.abs(var12) + 0.5D, 2.0D) + Math.pow(Math.abs(var13) + 0.5D, 2.0D);
 
-                if (var15 > (double)(par4 * par4))
+                if (var15 > par4 * par4)
                 {
                     ++var13;
                 }
@@ -214,14 +214,14 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
      */
     float layerSize(int par1)
     {
-        if ((double)par1 < (double)((float)heightLimit) * 0.3D)
+        if (par1 < (heightLimit) * 0.3D)
         {
             return -1.618F;
         }
         else
         {
-            float var2 = (float)heightLimit / 2.0F;
-            float var3 = (float)heightLimit / 2.0F - (float)par1;
+            float var2 = heightLimit / 2.0F;
+            float var3 = heightLimit / 2.0F - par1;
             float var4;
 
             if (var3 == 0.0F)
@@ -234,7 +234,7 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
             }
             else
             {
-                var4 = (float)Math.sqrt(Math.pow((double)Math.abs(var2), 2.0D) - Math.pow((double)Math.abs(var3), 2.0D));
+                var4 = (float)Math.sqrt(Math.pow(Math.abs(var2), 2.0D) - Math.pow(Math.abs(var3), 2.0D));
             }
 
             var4 *= 0.5F;
@@ -302,9 +302,9 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
 
             for (int var16 = var4[var6] + var9; var15 != var16; var15 += var9)
             {
-                var14[var6] = MathHelper.floor_double((double)(par1ArrayOfInteger[var6] + var15) + 0.5D);
-                var14[var7] = MathHelper.floor_double((double)par1ArrayOfInteger[var7] + (double)var15 * var10 + 0.5D);
-                var14[var8] = MathHelper.floor_double((double)par1ArrayOfInteger[var8] + (double)var15 * var12 + 0.5D);
+                var14[var6] = MathHelper.floor_double(par1ArrayOfInteger[var6] + var15 + 0.5D);
+                var14[var7] = MathHelper.floor_double(par1ArrayOfInteger[var7] + var15 * var10 + 0.5D);
+                var14[var8] = MathHelper.floor_double(par1ArrayOfInteger[var8] + var15 * var12 + 0.5D);
                 byte var17 = 0;
                 int var18 = Math.abs(var14[0] - par1ArrayOfInteger[0]);
                 int var19 = Math.abs(var14[2] - par1ArrayOfInteger[2]);
@@ -348,7 +348,7 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
      */
     boolean leafNodeNeedsBase(int par1)
     {
-        return (double)par1 >= (double)heightLimit * 0.2D;
+        return par1 >= heightLimit * 0.2D;
     }
 
     /**
@@ -449,8 +449,8 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
             for (var15 = var3[var5] + var8; var14 != var15; var14 += var8)
             {
                 var13[var5] = par1ArrayOfInteger[var5] + var14;
-                var13[var6] = MathHelper.floor_double((double)par1ArrayOfInteger[var6] + (double)var14 * var9);
-                var13[var7] = MathHelper.floor_double((double)par1ArrayOfInteger[var7] + (double)var14 * var11);
+                var13[var6] = MathHelper.floor_double(par1ArrayOfInteger[var6] + var14 * var9);
+                var13[var7] = MathHelper.floor_double(par1ArrayOfInteger[var7] + var14 * var11);
 
                 if (!isReplaceable(worldObj, var13[0], var13[1], var13[2]))
                 {
@@ -501,7 +501,8 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
     /**
      * Rescales the generator settings, only used in WorldGenBigTree
      */
-    public void setScale(double par1, double par3, double par5)
+    @Override
+	public void setScale(double par1, double par3, double par5)
     {
         heightLimitLimit = (int)(par1 * 12.0D);
 
@@ -514,7 +515,8 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
         leafDensity = par5;
     }
 
-    public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5)
+    @Override
+	public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5)
     {
         worldObj = par1World;
         long var6 = par2Random.nextLong();

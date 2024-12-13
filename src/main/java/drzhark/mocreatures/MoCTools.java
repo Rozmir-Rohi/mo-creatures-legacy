@@ -658,7 +658,7 @@ public class MoCTools {
                 		|| block.getMaterial() != Material.water
                 	) 
                 { 
-                	return (float) index;
+                	return index;
                 }
             }
         }
@@ -682,7 +682,7 @@ public class MoCTools {
 
     public boolean isInsideOfMaterial(Material material, Entity entity)
     {
-        double yDistance = entity.posY + (double) entity.getEyeHeight();
+        double yDistance = entity.posY + entity.getEyeHeight();
         
         int x = MathHelper.floor_double(entity.posX);
         int y = MathHelper.floor_float(MathHelper.floor_double(yDistance));
@@ -693,8 +693,8 @@ public class MoCTools {
         if (block != Blocks.air && block.getMaterial() == material)
         {
             float f = BlockLiquid.getLiquidHeightPercent(entity.worldObj.getBlockMetadata(x, y, z)) - 0.1111111F;
-            float f1 = (float) (y + 1) - f;
-            return yDistance < (double) f1;
+            float f1 = y + 1 - f;
+            return yDistance < f1;
         }
         else
         {
@@ -1291,9 +1291,9 @@ public class MoCTools {
             Block block6 = entity.worldObj.getBlock(MathHelper.floor_double(x), MathHelper.floor_double(y), MathHelper.floor_double(z + 1.1D));
             Block block7 = entity.worldObj.getBlock(MathHelper.floor_double(x), MathHelper.floor_double(y), MathHelper.floor_double(z - 1.1D));
 
-            float tempX1 = (float) x - (float) entity.posX;
-            float tempY1 = (float) y - (float) entity.posY;
-            float tempZ1 = (float) z - (float) entity.posZ;
+            float tempX1 = x - (float) entity.posX;
+            float tempY1 = y - (float) entity.posY;
+            float tempZ1 = z - (float) entity.posZ;
             float spawnDist = tempX1 * tempX1 + tempY1 * tempY1 + tempZ1 * tempZ1;
 
             if (allowedBlock(Block.getIdFromBlock(block1)) && (block2 == Blocks.air || block3 == Blocks.air || block4 == Blocks.air || block5 == Blocks.air || block6 == Blocks.air || block7 == Blocks.air) & spawnDist > 100F)
@@ -1410,7 +1410,7 @@ public class MoCTools {
     {
         if (strength == 0) { return 0; }
         int count = 0;
-        float strengthF = (float) strength;
+        float strengthF = strength;
         
         double newPosX = entity.posX - (distance * Math.cos((MoCTools.realAngle(entity.rotationYaw - 90F)) / 57.29578F));
         double newPosZ = entity.posZ - (distance * Math.sin((MoCTools.realAngle(entity.rotationYaw - 90F)) / 57.29578F));
@@ -1680,11 +1680,11 @@ public class MoCTools {
              int amountOfMaggotsToSpawn = 1 + worldObj.rand.nextInt(4);
              for (int index = 0; index < amountOfMaggotsToSpawn; ++index)
              {
-                 float maggotPosX = ((float) (index % 2) - 0.5F) * (float) 1 / 4.0F;
-                 float maggotPosZ = ((float) (index / 2) - 0.5F) * (float) 1 / 4.0F;
+                 float maggotPosX = (index % 2 - 0.5F) * 1 / 4.0F;
+                 float maggotPosZ = (index / 2 - 0.5F) * 1 / 4.0F;
                  
                  MoCEntityMaggot maggot = new MoCEntityMaggot(worldObj);
-                 maggot.setLocationAndAngles(entity.posX + (double) maggotPosX, entity.posY + 0.5D, entity.posZ + (double) maggotPosZ, worldObj.rand.nextFloat() * 360.0F, 0.0F);
+                 maggot.setLocationAndAngles(entity.posX + maggotPosX, entity.posY + 0.5D, entity.posZ + maggotPosZ, worldObj.rand.nextFloat() * 360.0F, 0.0F);
                  
                  worldObj.spawnEntityInWorld(maggot);
              }

@@ -33,7 +33,8 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
         setMoCAge(30 + rand.nextInt(70));
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
       super.applyEntityAttributes();
       getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0D);
@@ -188,7 +189,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
     @Override
     public float getSizeFactor() 
     {   
-        return (float)getMoCAge() * 0.01F;
+        return getMoCAge() * 0.01F;
     }
 
     @Override

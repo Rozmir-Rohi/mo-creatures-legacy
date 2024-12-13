@@ -53,7 +53,8 @@ public class MoCRenderFishy extends RenderLiving {
         GL11.glScalef(entityFishy.getMoCAge() * 0.01F, entityFishy.getMoCAge() * 0.01F, entityFishy.getMoCAge() * 0.01F);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityFishy)par1Entity).getTexture();
     }
 }

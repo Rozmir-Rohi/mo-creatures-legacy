@@ -49,7 +49,8 @@ public class MoCBlockTallGrass extends BlockBush implements IShearable
     /**
      * Returns the ID of the items to drop on destruction.
      */
-    public Item getItemDropped(int par1, Random par2Random, int par3)
+    @Override
+	public Item getItemDropped(int par1, Random par2Random, int par3)
     {
         return null;
     }
@@ -57,7 +58,8 @@ public class MoCBlockTallGrass extends BlockBush implements IShearable
     /**
      * Returns the usual quantity dropped by the block plus a bonus of 1 to 'i' (inclusive).
      */
-    public int quantityDroppedWithBonus(int par1, Random par2Random)
+    @Override
+	public int quantityDroppedWithBonus(int par1, Random par2Random)
     {
         return 1 + par2Random.nextInt(par1 * 2 + 1);
     }
@@ -66,7 +68,8 @@ public class MoCBlockTallGrass extends BlockBush implements IShearable
      * Called when the player destroys a block with an item that can harvest it. (i, j, k) are the coordinates of the
      * block and l is the block's subtype/damage.
      */
-    public void harvestBlock(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
+    @Override
+	public void harvestBlock(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
     {
         super.harvestBlock(par1World, par2EntityPlayer, par3, par4, par5, par6);
     }
@@ -74,7 +77,8 @@ public class MoCBlockTallGrass extends BlockBush implements IShearable
     /**
      * Get the block's damage value (for use with pick block).
      */
-    public int getDamageValue(World par1World, int par2, int par3, int par4)
+    @Override
+	public int getDamageValue(World par1World, int par2, int par3, int par4)
     {
         return par1World.getBlockMetadata(par2, par3, par4);
     }

@@ -36,7 +36,8 @@ public class MoCRenderEgg extends RenderLiving {
         GL11.glScalef(f, f, f);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityEgg)par1Entity).getTexture();
     }
 }

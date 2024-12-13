@@ -39,7 +39,8 @@ public class MoCWorldGenPortal extends WorldGenerator
     }
     
     
-    public boolean generate(World world, Random random, int x, int y, int z)
+    @Override
+	public boolean generate(World world, Random random, int x, int y, int z)
     {
         if(world.getBlock(x, y , z) == centerBlock || world.getBlock(x, y-1 , z) == centerBlock || world.getBlock(x, y+1 , z) == centerBlock)
         {

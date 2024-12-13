@@ -15,7 +15,8 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderDeer extends RenderLiving {
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityDeer)par1Entity).getTexture();
     }
 

@@ -182,7 +182,8 @@ public class MoCRenderShark extends RenderLiving {
         GL11.glScalef(entityShark.getMoCAge() * 0.01F, entityShark.getMoCAge() * 0.01F, entityShark.getMoCAge() * 0.01F);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityShark)par1Entity).getTexture();
     }
 }

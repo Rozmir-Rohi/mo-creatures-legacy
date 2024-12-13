@@ -43,7 +43,8 @@ public class MoCConfigCategory implements Map<String, MoCProperty> {
       parent.children.add(this); 
   }
   
-  public boolean equals(Object obj) {
+  @Override
+public boolean equals(Object obj) {
     if (obj instanceof MoCConfigCategory) {
       MoCConfigCategory cat = (MoCConfigCategory)obj;
       return (name.equals(cat.name) && children.equals(cat.children));
@@ -178,60 +179,72 @@ public class MoCConfigCategory implements Map<String, MoCProperty> {
       prop.resetChangedState(); 
   }
   
-  public int size() {
+  @Override
+public int size() {
     return properties.size();
   }
   
-  public boolean isEmpty() {
+  @Override
+public boolean isEmpty() {
     return properties.isEmpty();
   }
   
-  public boolean containsKey(Object key) {
+  @Override
+public boolean containsKey(Object key) {
     return properties.containsKey(key);
   }
   
-  public boolean containsValue(Object value) {
+  @Override
+public boolean containsValue(Object value) {
     return properties.containsValue(value);
   }
   
-  public MoCProperty get(Object key) {
+  @Override
+public MoCProperty get(Object key) {
     return properties.get(key);
   }
   
-  public MoCProperty put(String key, MoCProperty value) {
+  @Override
+public MoCProperty put(String key, MoCProperty value) {
     changed = true;
     return properties.put(key, value);
   }
   
-  public MoCProperty remove(Object key) {
+  @Override
+public MoCProperty remove(Object key) {
     changed = true;
     return properties.remove(key);
   }
   
-  public void putAll(Map<? extends String, ? extends MoCProperty> m) {
+  @Override
+public void putAll(Map<? extends String, ? extends MoCProperty> m) {
     changed = true;
     properties.putAll(m);
   }
   
-  public void clear() {
+  @Override
+public void clear() {
     changed = true;
     properties.clear();
   }
   
-  public Set<String> keySet() {
+  @Override
+public Set<String> keySet() {
     return properties.keySet();
   }
   
-  public Collection<MoCProperty> values() {
+  @Override
+public Collection<MoCProperty> values() {
     return properties.values();
   }
   
-  public Set<Map.Entry<String, MoCProperty>> entrySet() {
-    return (Set<Map.Entry<String, MoCProperty>>)ImmutableSet.copyOf(properties.entrySet());
+  @Override
+public Set<Map.Entry<String, MoCProperty>> entrySet() {
+    return ImmutableSet.copyOf(properties.entrySet());
   }
   
   public Set<MoCConfigCategory> getChildren() {
-    return (Set<MoCConfigCategory>)ImmutableSet.copyOf(children);
+    return ImmutableSet.copyOf(children);
   }
   
   public void removeChild(MoCConfigCategory child) {

@@ -89,7 +89,8 @@ public class MoCRenderPetScorpion extends MoCRenderMoC {
         GL11.glScalef(f, f, f);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityPetScorpion)par1Entity).getTexture();
     }
 }

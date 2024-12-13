@@ -43,7 +43,8 @@ public class MoCRenderCricket extends MoCRenderMoC {
         }
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityCricket)par1Entity).getTexture();
     }
 }

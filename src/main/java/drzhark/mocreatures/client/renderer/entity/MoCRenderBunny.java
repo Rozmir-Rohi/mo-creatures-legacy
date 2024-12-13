@@ -14,7 +14,8 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class MoCRenderBunny extends MoCRenderMoC {
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityBunny)par1Entity).getTexture();
     }
 

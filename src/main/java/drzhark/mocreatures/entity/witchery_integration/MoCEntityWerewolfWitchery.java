@@ -61,7 +61,8 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
         setType(werewolfType);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D);
@@ -160,7 +161,8 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
         return (dataWatcher.getWatchableObjectString(23));
     }
 
-    protected boolean isMovementCeased()
+    @Override
+	protected boolean isMovementCeased()
     {
         return getIsSitting();
     }
@@ -370,7 +372,7 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
             double yVelocity = rand.nextGaussian() * 0.02D;
             double zVelocity = rand.nextGaussian() * 0.02D;
             
-            worldObj.spawnParticle(particleName, posX + (double)(rand.nextFloat() * width * 2.0F) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2.0F) - (double)width, xVelocity, yVelocity, zVelocity);
+            worldObj.spawnParticle(particleName, posX + rand.nextFloat() * width * 2.0F - width, posY + 0.5D + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0F - width, xVelocity, yVelocity, zVelocity);
         }
     }
 
@@ -552,21 +554,21 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
         if (MoCreatures.isMinecraftComesAliveLoaded && MoCreatures.proxy.useHumanModelAndMCAVillagerTexturesForWitcheryHumanWerewolfEntities)
         {
         	MoCEntityWerewolfMinecraftComesAliveVillagerWitchery werewolfMinecraftComesAliveVillager = new MoCEntityWerewolfMinecraftComesAliveVillagerWitchery(worldObj, getType() - 1, villagerProfession, skinID);
-	        werewolfMinecraftComesAliveVillager.copyLocationAndAnglesFrom((Entity) this);
+	        werewolfMinecraftComesAliveVillager.copyLocationAndAnglesFrom(this);
 	        setDead();
 	        
 	        werewolfMinecraftComesAliveVillager.setHealth(healthForHumanForm);
-	        werewolfMinecraftComesAliveVillager.worldObj.spawnEntityInWorld((Entity) werewolfMinecraftComesAliveVillager);
+	        werewolfMinecraftComesAliveVillager.worldObj.spawnEntityInWorld(werewolfMinecraftComesAliveVillager);
         }
         else 
         {
 	        MoCEntityWerewolfVillagerWitchery werewolfVillager = new MoCEntityWerewolfVillagerWitchery(worldObj, getType());
-	        werewolfVillager.copyLocationAndAnglesFrom((Entity) this);
+	        werewolfVillager.copyLocationAndAnglesFrom(this);
 	        werewolfVillager.setProfession(villagerProfession);
 	        setDead();
 	        
 	        werewolfVillager.setHealth(healthForHumanForm);
-	        werewolfVillager.worldObj.spawnEntityInWorld((Entity) werewolfVillager);
+	        werewolfVillager.worldObj.spawnEntityInWorld(werewolfVillager);
         }
     }
 

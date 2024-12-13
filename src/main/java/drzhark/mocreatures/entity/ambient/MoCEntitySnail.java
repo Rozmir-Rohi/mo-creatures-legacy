@@ -24,7 +24,8 @@ public class MoCEntitySnail extends MoCEntityAmbient
         dataWatcher.addObject(22, Byte.valueOf((byte) 0));
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
       super.applyEntityAttributes();
       getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());

@@ -82,13 +82,15 @@ public class MoCItemRecord extends ItemRecord
         return "MoC - " + recordName;
     }
 
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister)
     {
         itemIcon = iconRegister.registerIcon("mocreatures:recordshuffle");
     }
 
-    public ResourceLocation getRecordResource(String name)
+    @Override
+	public ResourceLocation getRecordResource(String name)
     {
         return RECORD_SHUFFLE_RESOURCE;
     }

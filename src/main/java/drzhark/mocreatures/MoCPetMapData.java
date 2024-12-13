@@ -87,7 +87,7 @@ public class MoCPetMapData extends WorldSavedData
 
             for (int i = 0; i < tag.tagCount(); i++)
             {
-                NBTTagCompound nbt = (NBTTagCompound)tag.getCompoundTagAt(i);
+                NBTTagCompound nbt = tag.getCompoundTagAt(i);
                 if (nbt.getInteger("PetId") == id)
                 {
                     //nbt = (NBTTagCompound)petNBT.copy(); //this breaks updates
@@ -95,7 +95,7 @@ public class MoCPetMapData extends WorldSavedData
                     double posY = Math.round(petNBT.getTagList("Pos", 6).func_150309_d(1));
                     double posZ = Math.round(petNBT.getTagList("Pos", 6).func_150309_d(2));
                     // Update what we need for commands
-                    nbt.setTag("Pos", newDoubleNBTList(new double[] {posX, posY + (double)((Entity)pet).ySize, posZ}));
+                    nbt.setTag("Pos", newDoubleNBTList(new double[] {posX, posY + ((Entity)pet).ySize, posZ}));
                     nbt.setInteger("ChunkX", ((Entity)pet).chunkCoordX);
                     nbt.setInteger("ChunkY", ((Entity)pet).chunkCoordY);
                     nbt.setInteger("ChunkZ", ((Entity)pet).chunkCoordZ);
@@ -129,7 +129,7 @@ public class MoCPetMapData extends WorldSavedData
             NBTTagList tag = petData.getTamedList();
             for (int i = 0; i < tag.tagCount(); i++)
             {
-                NBTTagCompound nbt = (NBTTagCompound)tag.getCompoundTagAt(i);
+                NBTTagCompound nbt = tag.getCompoundTagAt(i);
                 if (nbt.getInteger("PetId") == pet.getOwnerPetId())
                 {
                     // found existing pet
@@ -173,7 +173,8 @@ public class MoCPetMapData extends WorldSavedData
     /**
      * reads in data from the NBTTagCompound into this MapDataBase
      */
-    public void readFromNBT(NBTTagCompound par1NBTTagCompound)
+    @Override
+	public void readFromNBT(NBTTagCompound par1NBTTagCompound)
     {
         Iterator iterator = par1NBTTagCompound.func_150296_c().iterator();
         while (iterator.hasNext())
@@ -191,7 +192,8 @@ public class MoCPetMapData extends WorldSavedData
     /**
      * write data to NBTTagCompound from this MapDataBase, similar to Entities and TileEntities
      */
-    public void writeToNBT(NBTTagCompound par1NBTTagCompound)
+    @Override
+	public void writeToNBT(NBTTagCompound par1NBTTagCompound)
     {
         for (Map.Entry<String, MoCPetData> ownerEntry : petMap.entrySet())
         {

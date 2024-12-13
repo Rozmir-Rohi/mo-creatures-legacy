@@ -42,7 +42,8 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
         setMoCAge(70);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(12.0D);
@@ -187,7 +188,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
 
         if (isPotionActive(Potion.jump))
         {
-            motionY += (float) (getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F;
+            motionY += (getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F;
         }
         if (isSprinting())
         {

@@ -30,17 +30,20 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
     	return !getIsTamed();
     }
 
-    public int getOwnerPetId()
+    @Override
+	public int getOwnerPetId()
     {
         return dataWatcher.getWatchableObjectInt(30);
     }
 
-    public void setOwnerPetId(int i)
+    @Override
+	public void setOwnerPetId(int i)
     {
         dataWatcher.updateObject(30, i);
     }
 
-    public boolean interact(EntityPlayer entityPlayer)
+    @Override
+	public boolean interact(EntityPlayer entityPlayer)
     {
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         //before ownership check 
@@ -177,7 +180,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
                 {
                     petData.setInAmulet(getOwnerPetId(), true);
                 }
-                MoCTools.dropAmuletWithNewPetInformation((IMoCTameable) this, 1);
+                MoCTools.dropAmuletWithNewPetInformation(this, 1);
                 isDead = true;
             }
 
@@ -228,7 +231,8 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
     /**
      * Play the taming effect, will either be hearts or smoke depending on status
      */
-    public void playTameEffect(boolean par1)
+    @Override
+	public void playTameEffect(boolean par1)
     {
         String particleName = "heart";
 
@@ -242,7 +246,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
             double xVelocity = rand.nextGaussian() * 0.02D;
             double yVelocity = rand.nextGaussian() * 0.02D;
             double zVelocity = rand.nextGaussian() * 0.02D;
-            worldObj.spawnParticle(particleName, posX + (double)(rand.nextFloat() * width * 2.0F) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2.0F) - (double)width, xVelocity, yVelocity, zVelocity);
+            worldObj.spawnParticle(particleName, posX + rand.nextFloat() * width * 2.0F - width, posY + 0.5D + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0F - width, xVelocity, yVelocity, zVelocity);
         }
     }
 
@@ -254,7 +258,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
             nbtTagCompound.setInteger("PetId", getOwnerPetId());
         if (this instanceof IMoCTameable && getIsTamed() && MoCreatures.instance.mapData != null)
         {
-            MoCreatures.instance.mapData.updateOwnerPet((IMoCTameable)this, nbtTagCompound);
+            MoCreatures.instance.mapData.updateOwnerPet(this, nbtTagCompound);
         }
     }
 
@@ -272,7 +276,7 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
                 NBTTagList tag = petData.getOwnerRootNBT().getTagList("TamedList", 10);
                 for (int i = 0; i < tag.tagCount(); i++)
                 {
-                    NBTTagCompound nbt = (NBTTagCompound)tag.getCompoundTagAt(i);
+                    NBTTagCompound nbt = tag.getCompoundTagAt(i);
                     if (nbt.getInteger("PetId") == nbtTagCompound.getInteger("PetId"))
                     {
                         // update amulet flag

@@ -152,7 +152,8 @@ public class MoCBlockLeaves extends BlockLeavesBase
     /**
      * ejects contained items into the world, and notifies neighbours of an update, as appropriate
      */
-    public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6)
+    @Override
+	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6)
     {
         byte b0 = 1;
         int j1 = b0 + 1;

@@ -412,9 +412,9 @@ public class MoCConfiguration {
           save(buffer);
         } else {
           for (Map.Entry<String, MoCConfiguration> entry : children.entrySet()) {
-            buffer.write("START: \"" + (String)entry.getKey() + "\"" + NEW_LINE);
-            ((MoCConfiguration)entry.getValue()).save(buffer);
-            buffer.write("END: \"" + (String)entry.getKey() + "\"" + NEW_LINE + NEW_LINE);
+            buffer.write("START: \"" + entry.getKey() + "\"" + NEW_LINE);
+            entry.getValue().save(buffer);
+            buffer.write("END: \"" + entry.getKey() + "\"" + NEW_LINE + NEW_LINE);
           } 
         } 
         buffer.close();
@@ -538,11 +538,13 @@ public class MoCConfiguration {
       return input.getEncoding();
     }
     
-    public int read(char[] cbuf, int off, int len) throws IOException {
+    @Override
+	public int read(char[] cbuf, int off, int len) throws IOException {
       return input.read(cbuf, off, len);
     }
     
-    public void close() throws IOException {
+    @Override
+	public void close() throws IOException {
       input.close();
     }
   }
@@ -570,7 +572,7 @@ public class MoCConfiguration {
   }
   
   public Set<String> getCategoryNames() {
-    return (Set<String>)ImmutableSet.copyOf(categories.keySet());
+    return ImmutableSet.copyOf(categories.keySet());
   }
   
   public String getFileName() {

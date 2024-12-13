@@ -112,12 +112,14 @@ public class CommandMoCreatures extends CommandBase {
         tabCompletionStrings.add("wyverneggdropchance");
     }
 
-    public String getCommandName()
+    @Override
+	public String getCommandName()
     {
         return "mocreatures";
     }
 
-    public List getCommandAliases()
+    @Override
+	public List getCommandAliases()
     {
         return aliases;
     }
@@ -125,12 +127,14 @@ public class CommandMoCreatures extends CommandBase {
     /**
      * Return the required permission level for this command.
      */
-    public int getRequiredPermissionLevel()
+    @Override
+	public int getRequiredPermissionLevel()
     {
         return 2;
     }
 
-    public String getCommandUsage(ICommandSender par1ICommandSender)
+    @Override
+	public String getCommandUsage(ICommandSender par1ICommandSender)
     {
         return "commands.mocreatures.usage";
     }
@@ -138,12 +142,14 @@ public class CommandMoCreatures extends CommandBase {
     /**
      * Adds the strings available in this command to the given list of tab completion options.
      */
-    public List addTabCompletionOptions(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
+    @Override
+	public List addTabCompletionOptions(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
     {
         return getListOfStringsMatchingLastWord(par2ArrayOfStr, (String[])tabCompletionStrings.toArray(new String[tabCompletionStrings.size()]));
     }
 
-    public void processCommand(ICommandSender par1ICommandSender, String[] charArray)
+    @Override
+	public void processCommand(ICommandSender par1ICommandSender, String[] charArray)
     {
         String command = "";
         if (charArray.length == 0)
@@ -194,7 +200,7 @@ public class CommandMoCreatures extends CommandBase {
                 {
                     for (int i = 0; i < ownerPetData.getTamedList().tagCount(); i++)
                     {
-                        NBTTagCompound nbt = (NBTTagCompound)ownerPetData.getTamedList().getCompoundTagAt(i);
+                        NBTTagCompound nbt = ownerPetData.getTamedList().getCompoundTagAt(i);
                         if (nbt.hasKey("PetId") && !foundIds.contains(nbt.getInteger("PetId")))
                         {
                             unloadedCount++;
@@ -248,7 +254,7 @@ public class CommandMoCreatures extends CommandBase {
                     {
                         for (int i = 0; i < ownerPetData.getTamedList().tagCount(); i++)
                         {
-                            NBTTagCompound nbt = (NBTTagCompound)ownerPetData.getTamedList().getCompoundTagAt(i);
+                            NBTTagCompound nbt = ownerPetData.getTamedList().getCompoundTagAt(i);
                             if (nbt.hasKey("PetId") && !foundIds.contains(nbt.getInteger("PetId")))
                             {
                                 unloadedCount++;
@@ -283,7 +289,7 @@ public class CommandMoCreatures extends CommandBase {
             {
                 for (int i = 0; i < ownerPetData.getTamedList().tagCount(); i++)
                 {
-                    NBTTagCompound nbt = (NBTTagCompound)ownerPetData.getTamedList().getCompoundTagAt(i);
+                    NBTTagCompound nbt = ownerPetData.getTamedList().getCompoundTagAt(i);
                     if (nbt.hasKey("PetId") && nbt.getInteger("PetId") == petId)
                     {
                         String petName = nbt.getString("Name");

@@ -37,7 +37,8 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
         attackRange = 4D;
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
@@ -266,7 +267,7 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
 			    			|| item == MoCreatures.ratRaw
 			        		|| item == MoCreatures.turkeyRaw
 			            	|| item == MoCreatures.ostrichRaw
-			        		|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
+			        		|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
 			    			|| oreDictionaryNameArray.contains("listAllmeatraw")
 			    			|| oreDictionaryNameArray.contains("listAllfishraw")
 			    			|| MoCreatures.isGregTech6Loaded &&

@@ -207,7 +207,7 @@ public class MoCRenderMoC extends RenderLiving {
 
         if (i != 0)
         {
-            GL11.glRotatef((float) i, -1F, 0.0F, 0.0F);
+            GL11.glRotatef(i, -1F, 0.0F, 0.0F);
         }
     }
     
@@ -221,7 +221,7 @@ public class MoCRenderMoC extends RenderLiving {
 
         if (i != 0)
         {
-            GL11.glRotatef((float) i, 0F, 0F, -1F);
+            GL11.glRotatef(i, 0F, 0F, -1F);
         }
     }
     
@@ -230,7 +230,7 @@ public class MoCRenderMoC extends RenderLiving {
         int i = mocreature.yawRotationOffset();
         if (i != 0)
         {
-            GL11.glRotatef((float) i, 0.0F, -1.0F, 0.0F);
+            GL11.glRotatef(i, 0.0F, -1.0F, 0.0F);
         }
     }
 

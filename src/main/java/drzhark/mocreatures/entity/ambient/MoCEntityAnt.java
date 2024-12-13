@@ -116,7 +116,8 @@ public class MoCEntityAnt extends MoCEntityInsect{
     }
 
     
-    protected int getFlyingFreq()
+    @Override
+	protected int getFlyingFreq()
     {
         return 5000;
     }

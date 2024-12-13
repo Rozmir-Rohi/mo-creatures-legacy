@@ -60,7 +60,7 @@ public class ItemStaffPortal extends MoCItem
 
                 if (var2 != null)
                 {
-                    thePlayer.playerNetServerHandler.setPlayerLocation((double)var2.posX, (double)var2.posY, (double)var2.posZ, 0.0F, 0.0F);
+                    thePlayer.playerNetServerHandler.setPlayerLocation(var2.posX, var2.posY, var2.posZ, 0.0F, 0.0F);
                 }
                 thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, MoCreatures.wyvernLairDimensionID, new MoCDirectTeleporter(thePlayer.mcServer.worldServerForDimension(MoCreatures.wyvernLairDimensionID)));
                 itemstack.damageItem(1, entityPlayer);
@@ -89,7 +89,7 @@ public class ItemStaffPortal extends MoCItem
                             Block block1 = thePlayer.mcServer.worldServerForDimension(0).getBlock(var2.posX, var2.posY + i1 + 1, var2.posZ);
                             if (block == Blocks.air && block1 == Blocks.air)
                             {
-                                thePlayer.playerNetServerHandler.setPlayerLocation((double)var2.posX, (double)var2.posY+i1+1, (double)var2.posZ, 0.0F, 0.0F);
+                                thePlayer.playerNetServerHandler.setPlayerLocation(var2.posX, (double)var2.posY+i1+1, var2.posZ, 0.0F, 0.0F);
                                 if (MoCreatures.proxy.debug) {System.out.println("MoC Staff teleporter found location at spawn");}
                                 foundSpawn = true;
                                 break;
@@ -110,7 +110,7 @@ public class ItemStaffPortal extends MoCItem
                 }
                 else
                 {
-                    thePlayer.playerNetServerHandler.setPlayerLocation((double)portalPosX, ((double)portalPosY) + 1D, (double)portalPosZ, 0.0F, 0.0F);
+                    thePlayer.playerNetServerHandler.setPlayerLocation(portalPosX, (portalPosY) + 1D, portalPosZ, 0.0F, 0.0F);
                 }
 
                 itemstack.damageItem(1, entityPlayer);

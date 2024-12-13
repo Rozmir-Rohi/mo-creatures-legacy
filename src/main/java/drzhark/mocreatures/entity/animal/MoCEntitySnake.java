@@ -50,7 +50,8 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         setMoCAge(50 + rand.nextInt(50));
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);

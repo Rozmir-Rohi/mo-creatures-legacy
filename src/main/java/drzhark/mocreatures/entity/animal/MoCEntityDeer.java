@@ -26,7 +26,8 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
         setTamed(false);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());

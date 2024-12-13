@@ -22,7 +22,8 @@ public class MoCEntityCrab extends MoCEntityTameableAmbient
         setMoCAge(50 + rand.nextInt(50));
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(6.0D);
@@ -114,7 +115,7 @@ public class MoCEntityCrab extends MoCEntityTameableAmbient
     @Override
     public float getSizeFactor() 
     {   
-        return 0.7F * (float)getMoCAge() * 0.01F;
+        return 0.7F * getMoCAge() * 0.01F;
     }
     
     @Override
@@ -131,12 +132,14 @@ public class MoCEntityCrab extends MoCEntityTameableAmbient
     /**
      * Get this Entity's EnumCreatureAttribute
      */
-    public EnumCreatureAttribute getCreatureAttribute()
+    @Override
+	public EnumCreatureAttribute getCreatureAttribute()
     {
         return EnumCreatureAttribute.ARTHROPOD;
     }
     
-    protected boolean canBeTrappedInNet() 
+    @Override
+	protected boolean canBeTrappedInNet() 
     {
         return true;
     }

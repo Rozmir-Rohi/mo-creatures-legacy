@@ -20,7 +20,8 @@ public class MoCRenderKitty extends RenderBiped {
 
     public MoCModelKitty kitty1;
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityKitty)par1Entity).getTexture();
     }
 

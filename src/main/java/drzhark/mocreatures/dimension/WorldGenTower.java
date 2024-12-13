@@ -33,7 +33,8 @@ public class WorldGenTower extends WorldGenerator
         decoMetadata = DecoMeta;
     }
     
-    public boolean generate(World world, Random random, int x, int y, int z)
+    @Override
+	public boolean generate(World world, Random random, int x, int y, int z)
     {
         int t = 3;
         

@@ -48,7 +48,8 @@ public class MoCRenderBigCat extends RenderLiving {
         return shouldRenderPass((MoCEntityBigCat) entityLiving, i);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityBigCat)par1Entity).getTexture();
     }
 

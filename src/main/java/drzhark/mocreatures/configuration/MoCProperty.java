@@ -147,7 +147,7 @@ public class MoCProperty {
     } 
     int[] primitives = new int[nums.size()];
     for (int i = 0; i < nums.size(); i++)
-      primitives[i] = ((Integer)nums.get(i)).intValue(); 
+      primitives[i] = nums.get(i).intValue(); 
     return primitives;
   }
   
@@ -171,7 +171,7 @@ public class MoCProperty {
     } 
     boolean[] primitives = new boolean[tmp.size()];
     for (int i = 0; i < tmp.size(); i++)
-      primitives[i] = ((Boolean)tmp.get(i)).booleanValue(); 
+      primitives[i] = tmp.get(i).booleanValue(); 
     return primitives;
   }
   
@@ -192,7 +192,7 @@ public class MoCProperty {
     } 
     double[] primitives = new double[tmp.size()];
     for (int i = 0; i < tmp.size(); i++)
-      primitives[i] = ((Double)tmp.get(i)).doubleValue(); 
+      primitives[i] = tmp.get(i).doubleValue(); 
     return primitives;
   }
   

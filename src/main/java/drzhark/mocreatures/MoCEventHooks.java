@@ -16,6 +16,7 @@ import drzhark.mocreatures.entity.animal.MoCEntityTurkey;
 import drzhark.mocreatures.entity.monster.MoCEntityScorpion;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfVillagerWitchery;
 import drzhark.mocreatures.entity.witchery_integration.MoCEntityWerewolfWitchery;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
@@ -106,18 +107,18 @@ public class MoCEventHooks {
 		        			int[] villagerInformation = generateRandomDataForMinecraftComesAliveVillagerWerewolf();
 		        			
         					MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(event.entity.worldObj, villagerInformation[0] + 1, villagerInformation[1], villagerInformation[2]);
-				            werewolf.copyLocationAndAnglesFrom((Entity) event.entity);
+				            werewolf.copyLocationAndAnglesFrom(event.entity);
 				            event.entity.setDead();
-				            werewolf.worldObj.spawnEntityInWorld((Entity) werewolf);
+				            werewolf.worldObj.spawnEntityInWorld(werewolf);
         					
 		            	}
 		        		
 		        		else
 		        		{
 			        		MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(event.entity.worldObj, rand.nextInt(5), rand.nextInt(3) + 1); //the random number from 0-4 sets a random vanilla minecraft villager profession, the random integar from 1-3 sets the werewolf type
-				            werewolf.copyLocationAndAnglesFrom((Entity) event.entity);
+				            werewolf.copyLocationAndAnglesFrom(event.entity);
 				            event.entity.setDead();
-				            werewolf.worldObj.spawnEntityInWorld((Entity) werewolf);
+				            werewolf.worldObj.spawnEntityInWorld(werewolf);
 		        		}
 		        	}
 		        	
@@ -129,10 +130,10 @@ public class MoCEventHooks {
 			        	int professionToSet = oldVillager.getProfession();
 			        		
 			        	MoCEntityWerewolfVillagerWitchery werewolfVillager = new MoCEntityWerewolfVillagerWitchery(event.entity.worldObj);
-			        	werewolfVillager.copyLocationAndAnglesFrom((Entity) event.entity);
+			        	werewolfVillager.copyLocationAndAnglesFrom(event.entity);
 				        werewolfVillager.setProfession(professionToSet);
 				        event.entity.setDead();
-				        werewolfVillager.worldObj.spawnEntityInWorld((Entity) werewolfVillager);
+				        werewolfVillager.worldObj.spawnEntityInWorld(werewolfVillager);
 		        	}
         		}
         		
@@ -240,7 +241,7 @@ public class MoCEventHooks {
         { 
 	    	if (MoCreatures.isPalmsHarvestLoaded)
 	    	{	//spawn bees when a player breaks a hive from the Palm's Harvest mod
-	    		if ((event.block.blockRegistry).getNameForObject(event.block).equals("harvestcraft:beehive"))
+	    		if ((Block.blockRegistry).getNameForObject(event.block).equals("harvestcraft:beehive"))
 	    		{   
 	    			Random rand = new Random();
 		            int amountOfBeesToSpawn = 2 + rand.nextInt(5); // 2-6 bees
@@ -256,7 +257,7 @@ public class MoCEventHooks {
 			            bee.motionY += 0.3D;
 			            bee.setIsFlying(true);
 			            
-		            	bee.worldObj.spawnEntityInWorld((Entity) bee); 	
+		            	bee.worldObj.spawnEntityInWorld(bee); 	
 		            }
 	    		}
 	    	}

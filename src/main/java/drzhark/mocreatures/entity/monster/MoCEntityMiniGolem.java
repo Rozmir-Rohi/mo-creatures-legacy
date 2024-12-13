@@ -23,7 +23,8 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
         setSize(1.0F, 1.0F);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);

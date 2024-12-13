@@ -54,7 +54,8 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
         setTamed(false);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(25.0D);
@@ -507,7 +508,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     @Override
     public double getMountedYOffset()
     {
-        return (double) height * 0.35D;
+        return height * 0.35D;
     }
 
     @Override

@@ -35,7 +35,8 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
         setMoCAge(110);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);

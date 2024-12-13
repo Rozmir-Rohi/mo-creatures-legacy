@@ -46,7 +46,8 @@ public class MoCEntityBigGolem extends MoCEntityMob implements IEntityAdditional
         setSize(1.5F, 4F);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
       super.applyEntityAttributes();
       getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(50.0D);
@@ -80,7 +81,7 @@ public class MoCEntityBigGolem extends MoCEntityMob implements IEntityAdditional
 
     public int getGolemState()
     {
-        return (int) (dataWatcher.getWatchableObjectByte(23));
+        return (dataWatcher.getWatchableObjectByte(23));
     }
 
     public void setGolemState(int b)
@@ -665,7 +666,7 @@ public class MoCEntityBigGolem extends MoCEntityMob implements IEntityAdditional
         NBTTagList nbttaglist = nbtTagCompound.getTagList("GolemBlocks", 10);
         for (int i = 0; i < 23; i++)
         {
-            NBTTagCompound var4 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
+            NBTTagCompound var4 = nbttaglist.getCompoundTagAt(i);
             golemCubes[i] = var4.getByte("Slot");
         }
     }
@@ -864,7 +865,8 @@ public class MoCEntityBigGolem extends MoCEntityMob implements IEntityAdditional
         return emptyCubePosition;
     }
 
-    public int rollRotationOffset()
+    @Override
+	public int rollRotationOffset()
     {
         int leftLeg = 0;
         int rightLeg = 0;

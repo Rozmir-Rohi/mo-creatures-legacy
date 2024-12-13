@@ -39,7 +39,8 @@ public class MoCEntityHorseMob extends MoCEntityMob
         setSize(1.4F, 1.6F);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
       super.applyEntityAttributes();
       getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
@@ -220,7 +221,8 @@ public class MoCEntityHorseMob extends MoCEntityMob
         return trasparency;
       }
 
-    public boolean isFlyer()
+    @Override
+	public boolean isFlyer()
     {
         return getType() == 16 //pegasus
         || getType() == 40 // dark pegasus
@@ -253,7 +255,8 @@ public class MoCEntityHorseMob extends MoCEntityMob
         return getType() == 21 || getType() == 22;
     }
 
-    public void onLivingUpdate()
+    @Override
+	public void onLivingUpdate()
     {
     	super.onLivingUpdate();
 
@@ -458,7 +461,7 @@ public class MoCEntityHorseMob extends MoCEntityMob
     @Override
     public double getMountedYOffset()
     {
-        return (double)height * 0.75D - 0.5D;
+        return height * 0.75D - 0.5D;
     }
 
     @Override

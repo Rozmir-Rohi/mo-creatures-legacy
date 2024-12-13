@@ -19,7 +19,8 @@ public class MoCRenderOstrich extends MoCRenderMoC {
         super(modelBase, 0.5F);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityOstrich)par1Entity).getTexture();
     }
 

@@ -22,7 +22,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityBird extends MoCEntityTameableAnimal {
     public boolean isFleeing;
@@ -49,7 +48,8 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         setTamed(false);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
       super.applyEntityAttributes();
       getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0D);
@@ -581,8 +581,8 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
 	    	return
 	    		(
 	    			item instanceof ItemSeeds
-	    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
-	    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
+	    			|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
+	    			|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
 	    			|| oreDictionaryNameArray.size() > 0 &&
 	    				(
 	    					oreDictionaryNameArray.contains("listAllseed")  //BOP seeds or Palm's Harvest Seeds

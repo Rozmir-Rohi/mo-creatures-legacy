@@ -56,7 +56,7 @@ public class ItemOgreHammer extends MoCItem
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World par2World, EntityPlayer entityPlayer)
     {
-        double coordY = entityPlayer.posY + (double)entityPlayer.getEyeHeight();
+        double coordY = entityPlayer.posY + entityPlayer.getEyeHeight();
         double coordZ = entityPlayer.posZ;
         double coordX = entityPlayer.posX;
         int newWallBlockID = 0;
@@ -85,7 +85,7 @@ public class ItemOgreHammer extends MoCItem
                     {
                         Block block = Block.getBlockById(blockInfo[0]);
                         entityPlayer.worldObj.setBlock(MathHelper.floor_double(newPosX),  MathHelper.floor_double(newPosY),  MathHelper.floor_double(newPosZ), block, blockInfo[1], 3);
-                        entityPlayer.worldObj.playSoundEffect((double)((float)newPosX + 0.5F), (double)((float)newPosY + 0.5F), (double)((float)newPosZ + 0.5F), block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+                        entityPlayer.worldObj.playSoundEffect((float)newPosX + 0.5F, (float)newPosY + 0.5F, (float)newPosZ + 0.5F, block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
                     }
                     MoCreatures.proxy.hammerFX(entityPlayer);
                     entityPlayer.setItemInUse(itemstack, 200);

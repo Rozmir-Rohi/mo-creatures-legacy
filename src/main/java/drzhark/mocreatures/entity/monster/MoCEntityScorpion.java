@@ -54,7 +54,8 @@ public class MoCEntityScorpion extends MoCEntityMob {
         }
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
@@ -538,7 +539,8 @@ public class MoCEntityScorpion extends MoCEntityMob {
     /**
      * Get this Entity's EnumCreatureAttribute
      */
-    public EnumCreatureAttribute getCreatureAttribute()
+    @Override
+	public EnumCreatureAttribute getCreatureAttribute()
     {
         return EnumCreatureAttribute.ARTHROPOD;
     }

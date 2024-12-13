@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.potion.Potion;
@@ -72,7 +73,8 @@ public class MoCItemWeapon extends ItemSword {
         if (repair_material != null && OreDictionary.itemMatches(repair_material, itemstack_in_anvil, false))
         {
     	
-        	String weapon_id = itemstack_weapon.getItem().itemRegistry.getNameForObject(itemstack_weapon.getItem());
+        	itemstack_weapon.getItem();
+			String weapon_id = Item.itemRegistry.getNameForObject(itemstack_weapon.getItem());
         	
         	if( weapon_id.contains("sting") || weapon_id.contains("MoCreatures:bo")) //stingers and bo staff can't be repaired
             {
@@ -214,7 +216,7 @@ public class MoCItemWeapon extends ItemSword {
     
     public Multimap func_111205_h() {
         final Multimap multimap = super.getItemAttributeModifiers();
-        multimap.put((Object)SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), (Object)new AttributeModifier(MoCItemWeapon.field_111210_e, "Weapon modifier", (double)attackDamage, 0));
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(Item.field_111210_e, "Weapon modifier", attackDamage, 0));
         return multimap;
     }
 }

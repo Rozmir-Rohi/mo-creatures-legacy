@@ -135,8 +135,8 @@ public class MoCModelFishBowl extends ModelBase {
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, int type, int rot)
     {
         //super.setRotationAngles(f, f1, f2, f3, f4, f5);
-        Body[type].rotateAngleY = (float) rot / 57.29578F;
-        Tail[type].rotateAngleY = (float) rot / 57.29578F;
+        Body[type].rotateAngleY = rot / 57.29578F;
+        Tail[type].rotateAngleY = rot / 57.29578F;
     }
 
 }

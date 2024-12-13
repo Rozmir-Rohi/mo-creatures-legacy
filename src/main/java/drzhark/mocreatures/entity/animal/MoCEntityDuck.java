@@ -17,13 +17,15 @@ public class MoCEntityDuck extends MoCEntityAnimal//EntityChicken
         setSize(0.3F, 0.4F);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(4.0D);
     }
     
-    public boolean isSwimmerEntity()
+    @Override
+	public boolean isSwimmerEntity()
     {
         return true;
     }

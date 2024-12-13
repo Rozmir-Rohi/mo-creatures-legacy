@@ -90,7 +90,7 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
     public int pitchRotationOffset() 
     {
 
-        int state = (int)getState();
+        int state = getState();
         switch (state)
         {
         case 0:
@@ -109,7 +109,7 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
     @Override
     public float getAdjustedYOffset()
     {
-        int state = (int)getState();
+        int state = getState();
         switch (state)
         {
         case 0:

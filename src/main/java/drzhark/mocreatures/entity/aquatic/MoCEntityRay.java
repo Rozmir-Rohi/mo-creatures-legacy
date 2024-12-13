@@ -33,7 +33,8 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
         setMoCAge(50 + (rand.nextInt(50)));
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
       super.applyEntityAttributes();
     }
@@ -238,13 +239,13 @@ public class MoCEntityRay extends MoCEntityTameableAquatic {
     @Override
     public double getMountedYOffset()
     {
-        return (double)height * 0.15D * getSizeFactor();
+        return height * 0.15D * getSizeFactor();
     }
 
     @Override
     public float getSizeFactor()
     {
-        float sizeFactor = (float) getMoCAge() * 0.01F;
+        float sizeFactor = getMoCAge() * 0.01F;
         if (sizeFactor > 1.5F) sizeFactor = 1.5F;
         return sizeFactor;
     }

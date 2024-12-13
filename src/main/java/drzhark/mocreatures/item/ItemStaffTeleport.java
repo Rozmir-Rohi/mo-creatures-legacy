@@ -56,7 +56,7 @@ public class ItemStaffTeleport extends MoCItem
             return itemstack;
         }
 
-        double coordY = entityPlayer.posY + (double)entityPlayer.getEyeHeight();
+        double coordY = entityPlayer.posY + entityPlayer.getEyeHeight();
         double coordZ = entityPlayer.posZ;
         double coordX = entityPlayer.posX;
         for (int x = 4; x < 128; x++)
@@ -74,7 +74,7 @@ public class ItemStaffTeleport extends MoCItem
                 if (MoCreatures.isServer())
                 {
                     EntityPlayerMP thePlayer = (EntityPlayerMP) entityPlayer;
-                    thePlayer.playerNetServerHandler.setPlayerLocation((double)newPosX, (double)newPosY, (double)newPosZ, entityPlayer.rotationYaw, entityPlayer.rotationPitch);
+                    thePlayer.playerNetServerHandler.setPlayerLocation(newPosX, newPosY, newPosZ, entityPlayer.rotationYaw, entityPlayer.rotationPitch);
                     MoCTools.playCustomSound(entityPlayer, "appearmagic", entityPlayer.worldObj);
                 }
                 MoCreatures.proxy.teleportFX(entityPlayer);

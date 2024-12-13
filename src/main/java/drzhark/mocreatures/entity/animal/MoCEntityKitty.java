@@ -82,7 +82,8 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         hasFoundTree = false;
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
@@ -315,7 +316,8 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         }
     }
     
-    public boolean entitiesThatAreScary(Entity entity)
+    @Override
+	public boolean entitiesThatAreScary(Entity entity)
     {
         return 
         		(
@@ -331,7 +333,8 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     
 
     //TODO use MoCAnimal instead
-    public EntityLiving getClosestEntityLiving(Entity entity, double distance)
+    @Override
+	public EntityLiving getClosestEntityLiving(Entity entity, double distance)
     {
         double currentMinimumDistance = -1D;
         EntityLiving closestEntityLiving = null;
@@ -650,7 +653,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         {
             if (MoCreatures.isServer())
             {
-                MoCTools.tameWithName((EntityPlayerMP) entityPlayer, this);
+                MoCTools.tameWithName(entityPlayer, this);
             }
 
             return true;

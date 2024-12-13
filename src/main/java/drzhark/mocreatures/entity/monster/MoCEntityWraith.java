@@ -25,7 +25,8 @@ public class MoCEntityWraith extends MoCEntityMob
         noClip = MoCreatures.proxy.wraithsCanGoThroughWalls;
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(worldObj.difficultySetting.getDifficultyId() + 1); // setAttackStrength
@@ -124,7 +125,8 @@ public class MoCEntityWraith extends MoCEntityMob
         return super.attackEntityFrom(damageSource, damageTaken);
     }
     
-    public void onDeath(DamageSource damageSource)
+    @Override
+	public void onDeath(DamageSource damageSource)
     {
         if (damageSource.getEntity() != null && damageSource.getEntity() instanceof EntityPlayer)
         {

@@ -41,7 +41,8 @@ public class MoCRenderButterfly extends MoCRenderInsect {
         GL11.glTranslatef(0.0F, fHeight, 0.0F);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityButterfly)par1Entity).getTexture();
     }
 }

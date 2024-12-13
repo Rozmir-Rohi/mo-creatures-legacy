@@ -29,7 +29,8 @@ public class MoCEntityFlameWraith extends MoCEntityWraith implements IMob {
         
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
       super.applyEntityAttributes();
       getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
@@ -77,7 +78,8 @@ public class MoCEntityFlameWraith extends MoCEntityWraith implements IMob {
         super.onLivingUpdate();
     }
     
-    public void onDeath(DamageSource damageSource)
+    @Override
+	public void onDeath(DamageSource damageSource)
     {
         if (damageSource.getEntity() != null && damageSource.getEntity() instanceof EntityPlayer)
         {

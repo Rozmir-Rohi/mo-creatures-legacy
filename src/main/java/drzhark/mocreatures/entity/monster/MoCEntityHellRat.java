@@ -19,7 +19,8 @@ public class MoCEntityHellRat extends MoCEntityRat {
         isImmuneToFire = true;
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);

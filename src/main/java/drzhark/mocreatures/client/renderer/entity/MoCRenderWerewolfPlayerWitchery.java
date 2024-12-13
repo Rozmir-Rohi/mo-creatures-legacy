@@ -140,7 +140,7 @@ public class MoCRenderWerewolfPlayerWitchery extends RendererLivingEntity {
 
                     if ((j & 15) == 15)
                     {
-                        f8 = (float)entityLivingBase.ticksExisted + rotationPitch;
+                        f8 = entityLivingBase.ticksExisted + rotationPitch;
                         GL11.glEnable(GL11.GL_BLEND);
                         f9 = 0.5F;
                         GL11.glColor4f(f9, f9, f9, 1.0F);
@@ -155,10 +155,10 @@ public class MoCRenderWerewolfPlayerWitchery extends RendererLivingEntity {
                             GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
                             GL11.glMatrixMode(GL11.GL_TEXTURE);
                             GL11.glLoadIdentity();
-                            float f11 = f8 * (0.001F + (float)k * 0.003F) * 20.0F;
+                            float f11 = f8 * (0.001F + k * 0.003F) * 20.0F;
                             float f12 = 0.33333334F;
                             GL11.glScalef(f12, f12, f12);
-                            GL11.glRotatef(30.0F - (float)k * 60.0F, 0.0F, 0.0F, 1.0F);
+                            GL11.glRotatef(30.0F - k * 60.0F, 0.0F, 0.0F, 1.0F);
                             GL11.glTranslatef(0.0F, f11, 0.0F);
                             GL11.glMatrixMode(GL11.GL_MODELVIEW);
                             this.renderPassModel.render(entityLivingBase, f7, f6, f4, f3 - f2, f13, f5);
@@ -212,10 +212,10 @@ public class MoCRenderWerewolfPlayerWitchery extends RendererLivingEntity {
 
                 if ((j >> 24 & 255) > 0)
                 {
-                    f8 = (float)(j >> 16 & 255) / 255.0F;
-                    f9 = (float)(j >> 8 & 255) / 255.0F;
-                    float f15 = (float)(j & 255) / 255.0F;
-                    f10 = (float)(j >> 24 & 255) / 255.0F;
+                    f8 = (j >> 16 & 255) / 255.0F;
+                    f9 = (j >> 8 & 255) / 255.0F;
+                    float f15 = (j & 255) / 255.0F;
+                    f10 = (j >> 24 & 255) / 255.0F;
                     GL11.glColor4f(f8, f9, f15, f10);
                     this.mainModel.render(entityLivingBase, f7, f6, f4, f3 - f2, f13, f5);
 
@@ -307,7 +307,8 @@ public class MoCRenderWerewolfPlayerWitchery extends RendererLivingEntity {
     }
 
 
-    protected ResourceLocation getEntityTexture(Entity entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity entity) {
     	
     	switch (MoCreatures.proxy.colorForWitcheryPlayerWolfAndWerewolf)
     	{

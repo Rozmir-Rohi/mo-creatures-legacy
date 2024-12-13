@@ -19,7 +19,6 @@ import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityFishy extends MoCEntityTameableAquatic {
 
@@ -35,7 +34,8 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
         setMoCAge(50 + rand.nextInt(50));
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
       super.applyEntityAttributes();
       getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(6.0D);
@@ -225,12 +225,12 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     public static boolean isItemPlantMegaPackFishEdibleSaltWaterPlant(Item item)
     {
     	return (
-    				(item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanCommonEelgrass")
-    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:waterKelpGiantGRN")
-    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:waterKelpGiantYEL")
-    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanMozuku")
-    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanSeaGrapes")
-    				|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanSeaLettuce")
+    				(Item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanCommonEelgrass")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:waterKelpGiantGRN")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:waterKelpGiantYEL")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanMozuku")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanSeaGrapes")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanSeaLettuce")
     			);
     }
     
@@ -246,11 +246,11 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     	
     	if (
     			item instanceof ItemSeeds
-    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
-    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:kelp")
-    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
-    			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemstack.getItemDamage() == 11 //BOP kelp
-    			|| (item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
+    			|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
+    			|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:kelp")
+    			|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
+    			|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemstack.getItemDamage() == 11 //BOP kelp
+    			|| (Item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
     			|| isItemPlantMegaPackFishEdibleSaltWaterPlant(item)
     			|| (oreDictionaryNameArray.size() > 0 && oreDictionaryNameArray.contains("cropKelp"))
     			|| (

@@ -1037,7 +1037,7 @@ public class MoCModelOstrich extends ModelBase {
             
             if (jumpCounter!=0)
             {
-                wingF = (-40F/radianF) + MathHelper.cos((float) jumpCounter * 0.3F) *  1.3F;
+                wingF = (-40F/radianF) + MathHelper.cos(jumpCounter * 0.3F) *  1.3F;
             }
             else
             if (rider && floating)

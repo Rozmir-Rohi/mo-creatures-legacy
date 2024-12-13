@@ -59,7 +59,8 @@ public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
         }
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
@@ -90,13 +91,15 @@ public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
         return !getIsTamed() && ticksExisted > 2400;
     }
    
-    public void setRideable(boolean flag)
+    @Override
+	public void setRideable(boolean flag)
     {
         byte input = (byte) (flag ? 1 : 0);
         dataWatcher.updateObject(22, Byte.valueOf(input));
     }
 
-    public boolean getIsRideable()
+    @Override
+	public boolean getIsRideable()
     {
         return (dataWatcher.getWatchableObjectByte(22) == 1);
     }
@@ -246,7 +249,7 @@ public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
     {   
         if (!getIsAdult())
         {
-            return (float)getMoCAge() * 0.01F;
+            return getMoCAge() * 0.01F;
         }
         return 1.2F;
     }
@@ -316,13 +319,13 @@ public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
         {
             return (-55);
         }
-        return (int) ((60/getMoCAge()) * (-50));
+        return (60/getMoCAge()) * (-50);
     }
 
     @Override
     public double roperYOffset()
     {
-        double r = (double) ((150 - getMoCAge()) * 0.012D);
+        double r = (150 - getMoCAge()) * 0.012D;
         if (r < 0.55D)
         {
             r = 0.55D;
@@ -371,9 +374,9 @@ public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
         }
         if (getIsAdult())
         {
-            return (double) (yOffset + (height) );
+            return yOffset + (height);
         }
-        return (double) (height * (120/getMoCAge()) );
+        return height * (120/getMoCAge());
     }
 
     @Override
@@ -477,7 +480,7 @@ public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
 	    			|| item == MoCreatures.ratRaw
 	        		|| item == MoCreatures.turkeyRaw
 	            	|| item == MoCreatures.ostrichRaw
-	        		|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
+	        		|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
 	    			|| oreDictionaryNameArray.contains("listAllmeatraw")
 	    			|| oreDictionaryNameArray.contains("listAllfishraw")
 	    			|| MoCreatures.isGregTech6Loaded &&

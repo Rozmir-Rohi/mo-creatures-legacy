@@ -55,7 +55,8 @@ public class MoCRenderRat extends RenderLiving {
         GL11.glScalef(f, f, f);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityRat)par1Entity).getTexture();
     }
 }

@@ -26,7 +26,8 @@ public class MoCBlockGrass extends MoCBlock
         setTickRandomly(true);
     }
 
-    public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
+    @Override
+	public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
         if (!MoCreatures.isServer())
         {
@@ -54,7 +55,8 @@ public class MoCBlockGrass extends MoCBlock
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List subItems) 
     {
         for (int index = 0; index < MoCreatures.multiBlockNames.size(); index++)

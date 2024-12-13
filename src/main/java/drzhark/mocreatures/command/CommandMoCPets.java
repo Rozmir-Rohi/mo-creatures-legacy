@@ -33,12 +33,14 @@ public class CommandMoCPets extends CommandBase {
        //tabCompletionStrings.add("moctp");
     }
 
-    public String getCommandName()
+    @Override
+	public String getCommandName()
     {
         return "mocpets";
     }
 
-    public List getCommandAliases()
+    @Override
+	public List getCommandAliases()
     {
         return aliases;
     }
@@ -46,17 +48,20 @@ public class CommandMoCPets extends CommandBase {
     /**
      * Return the required permission level for this command.
      */
-    public int getRequiredPermissionLevel()
+    @Override
+	public int getRequiredPermissionLevel()
     {
         return 2;
     }
 
-    public String getCommandUsage(ICommandSender par1ICommandSender)
+    @Override
+	public String getCommandUsage(ICommandSender par1ICommandSender)
     {
         return "commands.mocpets.usage";
     }
 
-    public void processCommand(ICommandSender par1ICommandSender, String[] paramArray)
+    @Override
+	public void processCommand(ICommandSender par1ICommandSender, String[] paramArray)
     {
         String command = "";
         if (paramArray.length == 0)
@@ -97,7 +102,7 @@ public class CommandMoCPets extends CommandBase {
             MoCreatures.instance.mapData.forceSave(); // force save so we get correct information
             for (int i = 0; i < ownerPetData.getTamedList().tagCount(); i++)
             {
-                NBTTagCompound nbt = (NBTTagCompound)ownerPetData.getTamedList().getCompoundTagAt(i);
+                NBTTagCompound nbt = ownerPetData.getTamedList().getCompoundTagAt(i);
                 if (nbt.hasKey("PetId") && !foundIds.contains(nbt.getInteger("PetId")))
                 {
                     unloadedCount++;

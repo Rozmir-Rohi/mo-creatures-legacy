@@ -16,7 +16,8 @@ public class MoCRenderFox extends RenderLiving {
         super(modelBase, 0.5F);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityFox)par1Entity).getTexture();
     }
 }

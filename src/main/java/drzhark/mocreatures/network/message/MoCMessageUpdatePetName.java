@@ -144,7 +144,7 @@ public class MoCMessageUpdatePetName implements IMessage, IMessageHandler<MoCMes
             NBTTagList tag = petData.getOwnerRootNBT().getTagList("TamedList", 10);
             for (int index = 0; index < tag.tagCount(); index++)
             {
-                NBTTagCompound nbt = (NBTTagCompound)tag.getCompoundTagAt(index);
+                NBTTagCompound nbt = tag.getCompoundTagAt(index);
                 if (nbt.getInteger("PetId") == id)
                 {
                     nbt.setString("Name", message.name);

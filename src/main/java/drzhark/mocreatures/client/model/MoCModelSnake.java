@@ -305,7 +305,7 @@ public class MoCModelSnake extends ModelBase {
             }else*/
             {
 
-                sidef = 0.5F * MathHelper.sin(w * t - 0.3F * (float) i) - (movInt / 20F) * MathHelper.sin(+0.8F * t - 0.2F * (float) i);
+                sidef = 0.5F * MathHelper.sin(w * t - 0.3F * i) - (movInt / 20F) * MathHelper.sin(+0.8F * t - 0.2F * i);
                 sidef = sidef * sideperf;
                 //GL11.glTranslatef(0.0F, 0.0F, -0.05F*i);
 

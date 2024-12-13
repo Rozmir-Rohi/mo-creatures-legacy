@@ -21,7 +21,8 @@ public class MoCRenderSnake extends MoCRenderMoC {
         //tempSnake = (MoCModelSnake) modelBase;
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntitySnake)par1Entity).getTexture();
     }
 

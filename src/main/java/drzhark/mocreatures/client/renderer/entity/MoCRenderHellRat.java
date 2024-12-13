@@ -25,7 +25,8 @@ public class MoCRenderHellRat extends MoCRenderRat {
         GL11.glScalef(f, f, f);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityHellRat)par1Entity).getTexture();
     }
 }

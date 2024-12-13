@@ -211,7 +211,8 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
     /**
      * loads or generates the chunk at the chunk location specified
      */
-    public Chunk loadChunk(int par1, int par2)
+    @Override
+	public Chunk loadChunk(int par1, int par2)
     {
         return provideChunk(par1, par2);
     }
@@ -220,9 +221,10 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
      * Will return back a chunk, if it doesn't exist and its not a MP client it will generates all the blocks for the
      * specified chunk from the map seed and chunk seed
      */
-    public Chunk provideChunk(int par1, int par2)
+    @Override
+	public Chunk provideChunk(int par1, int par2)
     {
-        RNGa.setSeed((long)par1 * 341873128712L + (long)par2 * 132897987541L);
+        RNGa.setSeed(par1 * 341873128712L + par2 * 132897987541L);
         Block[] var3 = new Block[32768];
         biomesForGeneration = worldObj.getWorldChunkManager().loadBlockGeneratorData(biomesForGeneration, par1 * 16, par2 * 16, 16, 16);
         func_147420_a(par1, par2, var3, biomesForGeneration);
@@ -288,8 +290,8 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
                 }
 
                 var18 = var18 * 3.0D - 2.0D;
-                float var20 = (float)(var14 + par2 - 0) / 1.0F;
-                float var21 = (float)(var15 + par4 - 0) / 1.0F;
+                float var20 = (var14 + par2 - 0) / 1.0F;
+                float var21 = (var15 + par4 - 0) / 1.0F;
                 float var22 = 100.0F - MathHelper.sqrt_float(var20 * var20 + var21 * var21) * 8.0F;
 
                 if (var22 > 80.0F)
@@ -316,14 +318,14 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
                 }
 
                 var16 += 0.5D;
-                var18 = var18 * (double)par6 / 16.0D;
+                var18 = var18 * par6 / 16.0D;
                 ++var13;
-                double var23 = (double)par6 / 2.0D;
+                double var23 = par6 / 2.0D;
 
                 for (int var25 = 0; var25 < par6; ++var25)
                 {
                     double var26 = 0.0D;
-                    double var28 = ((double)var25 - var23) * 8.0D / var16;
+                    double var28 = (var25 - var23) * 8.0D / var16;
 
                     if (var28 < 0.0D)
                     {
@@ -348,13 +350,13 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
                     }
 
                     var26 -= 8.0D;
-                    var26 += (double)var22;
+                    var26 += var22;
                     byte var36 = 2;
                     double var37;
 
                     if (var25 > par6 / 2 - var36)
                     {
-                        var37 = (double)((float)(var25 - (par6 / 2 - var36)) / 64.0F);
+                        var37 = (var25 - (par6 / 2 - var36)) / 64.0F;
 
                         if (var37 < 0.0D)
                         {
@@ -373,7 +375,7 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
 
                     if (var25 < var36)
                     {
-                        var37 = (double)((float)(var36 - var25) / ((float)var36 - 1.0F));
+                        var37 = (var36 - var25) / (var36 - 1.0F);
                         var26 = var26 * (1.0D - var37) + -30.0D * var37;
                     }
 
@@ -389,7 +391,8 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
     /**
      * Checks to see if a chunk exists at x, y
      */
-    public boolean chunkExists(int par1, int par2)
+    @Override
+	public boolean chunkExists(int par1, int par2)
     {
         return true;
     }
@@ -397,7 +400,8 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
     /**
      * Populates chunk with ores etc etc
      */
-    public void populate(IChunkProvider par1IChunkProvider, int par2, int par3)
+    @Override
+	public void populate(IChunkProvider par1IChunkProvider, int par2, int par3)
     {
         BlockFalling.fallInstantly = true;
 
@@ -477,7 +481,8 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
      * Two modes of operation: if passed true, save all Chunks in one go.  If passed false, save up to two chunks.
      * Return true if all chunks have been saved.
      */
-    public boolean saveChunks(boolean par1, IProgressUpdate par2IProgressUpdate)
+    @Override
+	public boolean saveChunks(boolean par1, IProgressUpdate par2IProgressUpdate)
     {
         return true;
     }
@@ -485,7 +490,8 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
     /**
      * Returns if the IChunkProvider supports saving.
      */
-    public boolean canSave()
+    @Override
+	public boolean canSave()
     {
         return true;
     }
@@ -493,7 +499,8 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
     /**
      * Converts the instance data to a readable string.
      */
-    public String makeString()
+    @Override
+	public String makeString()
     {
         return "RandomLevelSource";
     }
@@ -501,7 +508,8 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
     /**
      * Returns a list of creatures of the specified type that can spawn at the given location.
      */
-    public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int par2, int par3, int par4)
+    @Override
+	public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int par2, int par3, int par4)
     {
         BiomeGenBase var5 = worldObj.getBiomeGenForCoords(par2, par4);
         return var5 == null ? null : var5.getSpawnableList(par1EnumCreatureType);
@@ -510,12 +518,14 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
     /**
      * Returns the location of the closest structure of the specified type. If not found returns null.
      */
-    public ChunkPosition func_147416_a(World par1World, String par2Str, int par3, int par4, int par5)
+    @Override
+	public ChunkPosition func_147416_a(World par1World, String par2Str, int par3, int par4, int par5)
     {
         return null;
     }
 
-    public int getLoadedChunkCount()
+    @Override
+	public int getLoadedChunkCount()
     {
         return 0;
     }

@@ -31,7 +31,8 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         setMoCAge(80 + rand.nextInt(100));
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
       super.applyEntityAttributes();
       getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(30.0D);

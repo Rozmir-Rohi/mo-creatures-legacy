@@ -35,7 +35,8 @@ public class MoCEntityOgre extends MoCEntityMob{
         attackFrequency = 30;
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(getType() > 4 ? 50.0D : 35.0D);
@@ -297,7 +298,8 @@ public class MoCEntityOgre extends MoCEntityMob{
         }
     }
     
-    public void onDeath(DamageSource damageSource) {
+    @Override
+	public void onDeath(DamageSource damageSource) {
         if (damageSource.getEntity() != null && damageSource.getEntity() instanceof EntityPlayer)
         {
           EntityPlayer player = (EntityPlayer)damageSource.getEntity();

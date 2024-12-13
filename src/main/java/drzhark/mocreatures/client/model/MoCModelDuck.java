@@ -26,28 +26,28 @@ public class MoCModelDuck extends ModelBase {
         byte var1 = 16;
         head = new ModelRenderer(this, 0, 0);
         head.addBox(-2.0F, -6.0F, -2.0F, 4, 6, 3, 0.0F);
-        head.setRotationPoint(0.0F, (float) (-1 + var1), -4.0F);
+        head.setRotationPoint(0.0F, -1 + var1, -4.0F);
         bill = new ModelRenderer(this, 14, 0);
         bill.addBox(-2.0F, -4.0F, -4.0F, 4, 2, 2, 0.0F);
-        bill.setRotationPoint(0.0F, (float) (-1 + var1), -4.0F);
+        bill.setRotationPoint(0.0F, -1 + var1, -4.0F);
         chin = new ModelRenderer(this, 14, 4);
         chin.addBox(-1.0F, -2.0F, -3.0F, 2, 2, 2, 0.0F);
-        chin.setRotationPoint(0.0F, (float) (-1 + var1), -4.0F);
+        chin.setRotationPoint(0.0F, -1 + var1, -4.0F);
         body = new ModelRenderer(this, 0, 9);
         body.addBox(-3.0F, -4.0F, -3.0F, 6, 8, 6, 0.0F);
-        body.setRotationPoint(0.0F, (float) var1, 0.0F);
+        body.setRotationPoint(0.0F, var1, 0.0F);
         rightLeg = new ModelRenderer(this, 26, 0);
         rightLeg.addBox(-1.0F, 0.0F, -3.0F, 3, 5, 3);
-        rightLeg.setRotationPoint(-2.0F, (float) (3 + var1), 1.0F);
+        rightLeg.setRotationPoint(-2.0F, 3 + var1, 1.0F);
         leftLeg = new ModelRenderer(this, 26, 0);
         leftLeg.addBox(-1.0F, 0.0F, -3.0F, 3, 5, 3);
-        leftLeg.setRotationPoint(1.0F, (float) (3 + var1), 1.0F);
+        leftLeg.setRotationPoint(1.0F, 3 + var1, 1.0F);
         rightWing = new ModelRenderer(this, 24, 13);
         rightWing.addBox(0.0F, 0.0F, -3.0F, 1, 4, 6);
-        rightWing.setRotationPoint(-4.0F, (float) (-3 + var1), 0.0F);
+        rightWing.setRotationPoint(-4.0F, -3 + var1, 0.0F);
         leftWing = new ModelRenderer(this, 24, 13);
         leftWing.addBox(-1.0F, 0.0F, -3.0F, 1, 4, 6);
-        leftWing.setRotationPoint(4.0F, (float) (-3 + var1), 0.0F);
+        leftWing.setRotationPoint(4.0F, -3 + var1, 0.0F);
     }
 
     /**

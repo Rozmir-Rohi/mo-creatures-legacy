@@ -1,5 +1,11 @@
 package drzhark.mocreatures;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,6 +27,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.network.handshake.FMLHandshakeMessage.ModList;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -444,16 +451,7 @@ public class MoCreatures {
             MinecraftForge.EVENT_BUS.register(new MoCClientWitcheryPlayerWolfAndWerewolfReplacement());
         }
         FMLCommonHandler.instance().bus().register(new MoCPlayerTracker());
-    }
-
-    //how to check for client: if(FMLCommonHandler.instance().getSide().isRemote())
-
-    @EventHandler
-    public void load(FMLInitializationEvent event)
-    {
-        DimensionManager.registerProviderType(wyvernLairDimensionID, WorldProviderWyvernEnd.class, true);
         
-        MoCAchievements.initilization();
         
         isBiomesOPlentyLoaded = Loader.isModLoaded("BiomesOPlenty");
         
@@ -485,10 +483,56 @@ public class MoCreatures {
 
         isTwilightForestLoaded = Loader.isModLoaded("TwilightForest");
         
-        isWitcheryLoaded = Loader.isModLoaded("witchery");
-
+        if (isThaumcraftLoaded) {MoCThaumcraftAspects.addThaumcraftAspects();};   
         
-        if (isThaumcraftLoaded) {MoCThaumcraftAspects.addThaumcraftAspects();};
+        isWitcheryLoaded = Loader.isModLoaded("witchery");
+        
+        if (isWitcheryLoaded && proxy.generateWolfAltarReplacementMod)
+        {
+        	String modName = "/wolf-altar-replacement.jar";
+        	
+        	InputStream originalFileInputStream = getClass().getResourceAsStream(modName);
+        	
+        	String modsFolderDirectory = event.getModConfigurationDirectory().getAbsolutePath() + "/../mods/";
+        	
+        	String targetAbsolutePathForCopiedFile = modsFolderDirectory + modName;
+        	
+        	copy(originalFileInputStream, targetAbsolutePathForCopiedFile);
+        	
+        	
+        	proxy.mocSettingsConfig.get(proxy.CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "generateWolfAltarReplacementMod").set(false);
+        	
+        	proxy.mocSettingsConfig.save();
+        }
+    }
+
+    //how to check for client: if(FMLCommonHandler.instance().getSide().isRemote())
+
+    @EventHandler
+    public void load(FMLInitializationEvent event)
+    {
+        DimensionManager.registerProviderType(wyvernLairDimensionID, WorldProviderWyvernEnd.class, true);
+        
+        MoCAchievements.initilization();     
+    }
+    
+    public static boolean copy(InputStream source , String destination) {
+        boolean succeess = true;
+
+        System.out.println("Copying ->" + source + "\n\tto ->" + destination);
+
+        try
+        {
+            Files.copy(source, Paths.get(destination), StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (IOException ex)
+        {
+        	System.out.println("[Mo' Creatures]: ERROR - Couldn't create file " + "'" + destination + "'");
+            succeess = false;
+        }
+
+        return succeess;
+
     }
 
     @EventHandler

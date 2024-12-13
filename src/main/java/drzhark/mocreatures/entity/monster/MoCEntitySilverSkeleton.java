@@ -26,7 +26,8 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob
         setSize(0.9F, 1.4F);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
       super.applyEntityAttributes();
       getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(25.0D);
@@ -117,7 +118,8 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob
             }
         }
 
-        protected void attackEntity(Entity entity, float distanceToEntity)
+        @Override
+		protected void attackEntity(Entity entity, float distanceToEntity)
         {
             if (attackTime <= 0 && distanceToEntity < 2.0F && entity.boundingBox.maxY > boundingBox.minY && entity.boundingBox.minY < boundingBox.maxY)
             {
@@ -126,7 +128,8 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob
                 attackEntityAsMob(entity);
             }
         }
-    public float getMoveSpeed()
+    @Override
+	public float getMoveSpeed()
     {
     	if (isSprinting()) {return 1.2F;}
     	else {return 0.8F;}
@@ -153,7 +156,8 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob
     /**
      * Get this Entity's EnumCreatureAttribute
      */
-    public EnumCreatureAttribute getCreatureAttribute()
+    @Override
+	public EnumCreatureAttribute getCreatureAttribute()
     {
         return EnumCreatureAttribute.UNDEAD;
     }

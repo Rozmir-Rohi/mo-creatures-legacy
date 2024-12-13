@@ -43,7 +43,8 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         setHumanForm(true);
     }
     
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16.0D);
@@ -130,7 +131,8 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         }
     }
     
-    protected boolean isMovementCeased()
+    @Override
+	protected boolean isMovementCeased()
     {
         return getIsSitting();
     }
@@ -351,7 +353,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    
 		    if (
 		    		itemHeldByPlayer == Items.golden_shovel
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.shovelSilver")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.shovelSilver")))
 		    	)
 		    {
 		        damageTaken = 3;
@@ -359,13 +361,13 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    	
 		    if (
 		    		itemHeldByPlayer == Items.golden_hoe
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("BiomesOPlenty:scytheGold")))
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:dagger.gold")))
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:waraxe.gold"))) // 8 is the actual damage dealt to werewolf using golden war axe in-game because of the item's armor penetration ability 
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.sickleGold")))
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.hoeSilver")))
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.sickleSilver")))
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.shovelElectrum")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("BiomesOPlenty:scytheGold")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:dagger.gold")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:waraxe.gold"))) // 8 is the actual damage dealt to werewolf using golden war axe in-game because of the item's armor penetration ability 
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.sickleGold")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.hoeSilver")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.sickleSilver")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.shovelElectrum")))
 		    	)
 		    {
 		        damageTaken = 6;
@@ -373,9 +375,9 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    
 		    if (
 		    		itemHeldByPlayer == Items.golden_pickaxe
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.pickaxeSilver")))
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.hoeElectrum")))
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.sickleElectrum")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.pickaxeSilver")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.hoeElectrum")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.sickleElectrum")))
 		    	) 
 		    {
 		    	damageTaken = 7;
@@ -383,10 +385,10 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    
 		    if (
 		    		itemHeldByPlayer == Items.golden_axe
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:mace.gold")))
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:spear.gold")))
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.axeSilver")))
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.pickaxeElectrum")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:mace.gold")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:spear.gold")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.axeSilver")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.pickaxeElectrum")))
 		    	)
 		    {
 		        damageTaken = 8;
@@ -394,9 +396,9 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    
 		    if (
 		    		itemHeldByPlayer == Items.golden_sword
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("witchery:silversword")))
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.swordSilver")))
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.axeElectrum")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("witchery:silversword")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.swordSilver")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.axeElectrum")))
 		    	)
 		    {
 		    	damageTaken = 9;
@@ -404,7 +406,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    
 		    if (
 		    		itemHeldByPlayer == MoCreatures.silverSword
-		    		|| (((itemHeldByPlayer.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.swordElectrum")))
+		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.swordElectrum")))
 		    	)
 		    {
 		    	damageTaken = 10;
@@ -433,7 +435,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 				if (itemstackInInventorySlot != null)
 				{
 					Item itemInInventorySlot = itemstackInInventorySlot.getItem();
-					String stringNameForItemInInventorySlot = (itemInInventorySlot.itemRegistry).getNameForObject(itemInInventorySlot);
+					String stringNameForItemInInventorySlot = (Item.itemRegistry).getNameForObject(itemInInventorySlot);
 					
 					if (stringNameForItemInInventorySlot.equals("witchery:ingredient"))
 					{	
@@ -617,7 +619,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             double yVelocity = rand.nextGaussian() * 0.02D;
             double zVelocity = rand.nextGaussian() * 0.02D;
             
-            worldObj.spawnParticle(particleName, posX + (double)(rand.nextFloat() * width * 2.0F) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2.0F) - (double)width, xVelocity, yVelocity, zVelocity);
+            worldObj.spawnParticle(particleName, posX + rand.nextFloat() * width * 2.0F - width, posY + 0.5D + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0F - width, xVelocity, yVelocity, zVelocity);
         }
     }
 

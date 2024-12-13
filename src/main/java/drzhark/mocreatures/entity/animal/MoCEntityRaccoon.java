@@ -22,7 +22,8 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
         setMoCAge(70 + rand.nextInt(30));
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0D);
@@ -183,7 +184,7 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     @Override
     public float getSizeFactor() 
     {   
-        return 0.8F * (float)getMoCAge() * 0.01F;
+        return 0.8F * getMoCAge() * 0.01F;
     }
 
     @Override

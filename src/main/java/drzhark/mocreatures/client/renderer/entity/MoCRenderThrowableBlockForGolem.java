@@ -26,7 +26,7 @@ public class MoCRenderThrowableBlockForGolem extends Render {
     {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) par2, (float) par4, (float) par6);
-        GL11.glRotatef((float) (((100 - entity_throwable_block.acceleration) / 10F) * 36F), 0F, -1F, 0.0F);
+        GL11.glRotatef(((100 - entity_throwable_block.acceleration) / 10F) * 36F, 0F, -1F, 0.0F);
         bindEntityTexture(entity_throwable_block);
         blockRenderer.renderBlockAsItem(entity_throwable_block.getMyBlock(), entity_throwable_block.getMetadata(), entity_throwable_block.getBrightness(par9));
         GL11.glPopMatrix();
@@ -43,7 +43,8 @@ public class MoCRenderThrowableBlockForGolem extends Render {
         return TextureMap.locationBlocksTexture;
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity)
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity)
     {
         return func_110808_a((MoCEntityThrowableBlockForGolem)par1Entity);
     }

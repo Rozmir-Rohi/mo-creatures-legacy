@@ -54,14 +54,16 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         texture = "blank.jpg";
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(6.0D);
     }
 
-    public ResourceLocation getTexture()
+    @Override
+	public ResourceLocation getTexture()
     {
         return MoCreatures.proxy.getTexture(texture);
     }
@@ -135,7 +137,8 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
      * @return networked Entity "Age" in integer value, typical values are
      *         0-100.
      */
-    public int getMoCAge()
+    @Override
+	public int getMoCAge()
     {
         return dataWatcher.getWatchableObjectInt(19);
     }
@@ -171,12 +174,14 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         dataWatcher.updateObject(18, Byte.valueOf(input));
     }
 
-    public void setMoCAge(int i)
+    @Override
+	public void setMoCAge(int i)
     {
         dataWatcher.updateObject(19, Integer.valueOf(i));
     }
 
-    public void setType(int i)
+    @Override
+	public void setType(int i)
     {
         dataWatcher.updateObject(20, Integer.valueOf(i));
     }
@@ -253,7 +258,8 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     	return false;
     }
     
-    public void onKillEntity(EntityLivingBase entityLiving)
+    @Override
+	public void onKillEntity(EntityLivingBase entityLiving)
     {
     	if (isPredator() && MoCreatures.proxy.destroyDrops)
     	{
@@ -716,11 +722,11 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 		                    
 		                    setDead();
 		                    
-		                    double overallDistanceSquared = (double) MathHelper.sqrt_double(xDistance * xDistance + yDistance * yDistance + zDistance * zDistance);
+		                    double overallDistanceSquared = MathHelper.sqrt_double(xDistance * xDistance + yDistance * yDistance + zDistance * zDistance);
 		                    double distanceOffset = 0.1D;
 		                    
 		                    entityItem.motionX = xDistance * distanceOffset;
-		                    entityItem.motionY = yDistance * distanceOffset + (double )MathHelper.sqrt_double(overallDistanceSquared) * 0.08D;
+		                    entityItem.motionY = yDistance * distanceOffset + MathHelper.sqrt_double(overallDistanceSquared) * 0.08D;
 		                    entityItem.motionZ = zDistance * distanceOffset;
 		                    
 		                    worldObj.spawnEntityInWorld(entityItem);

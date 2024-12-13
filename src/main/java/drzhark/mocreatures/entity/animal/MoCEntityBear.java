@@ -24,7 +24,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityBear extends MoCEntityTameableAnimal {
 
@@ -582,7 +581,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         }
         else
         {
-            return (double) ((130 - getMoCAge()) * 0.01D);
+            return (130 - getMoCAge()) * 0.01D;
         }
 
     }
@@ -621,22 +620,22 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
 		if (
 				item == Items.reeds
 				|| item == Items.sugar
-            	|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:bamboo")
-            	|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:bamboo")
-            	|| (item.itemRegistry).getNameForObject(item).equals("tropicraft:bambooChute")
-            	|| (item.itemRegistry).getNameForObject(item).equals("harvestcraft:bambooshootItem")
-            	|| (item.itemRegistry).getNameForObject(item).equals("Growthcraft|Bamboo:grc.bamboo")
+            	|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:bamboo")
+            	|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:bamboo")
+            	|| (Item.itemRegistry).getNameForObject(item).equals("tropicraft:bambooChute")
+            	|| (Item.itemRegistry).getNameForObject(item).equals("harvestcraft:bambooshootItem")
+            	|| (Item.itemRegistry).getNameForObject(item).equals("Growthcraft|Bamboo:grc.bamboo")
             	
-            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooFargesiaRobusta")
-            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooShortTassled")
-            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooTimorBlack")
-            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooGolden")
-            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooWetForest")
-            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooAsper")
-            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooTropicalBlue")
-            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooMoso")
-            	|| (item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooGiantTimber")
-            	|| (item.itemRegistry).getNameForObject(item).equals("BambooMod:itembamboo") //Universal Bamboo Mod
+            	|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooFargesiaRobusta")
+            	|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooShortTassled")
+            	|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooTimorBlack")
+            	|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooGolden")
+            	|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooWetForest")
+            	|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooAsper")
+            	|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooTropicalBlue")
+            	|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooMoso")
+            	|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooGiantTimber")
+            	|| (Item.itemRegistry).getNameForObject(item).equals("BambooMod:itembamboo") //Universal Bamboo Mod
             	
             	|| oreDictionaryNameArray.size() > 0 &&
             		(
@@ -658,7 +657,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         	
         	else {return -70;}
         }
-        return (int) ((100/getMoCAge()) * (-40));
+        return (100/getMoCAge()) * (-40);
 
     }
     

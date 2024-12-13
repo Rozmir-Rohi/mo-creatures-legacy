@@ -54,12 +54,14 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         texture = "blank.png";
     }
 
-    public ResourceLocation getTexture()
+    @Override
+	public ResourceLocation getTexture()
     {
         return MoCreatures.proxy.getTexture(texture);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
@@ -103,7 +105,8 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         
     }
 
-    public void setType(int i)
+    @Override
+	public void setType(int i)
     {
         dataWatcher.updateObject(19, Integer.valueOf(i));
     }
@@ -141,12 +144,14 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
      * @return networked Entity "Age" in integer value, typical values are
      *         0-100.
      */
-    public int getMoCAge()
+    @Override
+	public int getMoCAge()
     {
         return dataWatcher.getWatchableObjectInt(18);
     }
 
-    public void setMoCAge(int i)
+    @Override
+	public void setMoCAge(int i)
     {
         dataWatcher.updateObject(18, Integer.valueOf(i));
     }
@@ -408,7 +413,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         double yDistanceToNewFacingLocation = y + 0.5D - posY;
         double zDistanceToNewFacingLocation = z + 0.5D - posZ;
         
-        double overallDistanceToNewFacingLocationSquared = (double) MathHelper.sqrt_double(xDistanceToNewFacingLocation * xDistanceToNewFacingLocation + zDistanceToNewFacingLocation * zDistanceToNewFacingLocation);
+        double overallDistanceToNewFacingLocationSquared = MathHelper.sqrt_double(xDistanceToNewFacingLocation * xDistanceToNewFacingLocation + zDistanceToNewFacingLocation * zDistanceToNewFacingLocation);
         
         float xzAngleInDegreesToNewFacingLocation = (float) (Math.atan2(zDistanceToNewFacingLocation, xDistanceToNewFacingLocation) * 180.0D / Math.PI) - 90.0F;
         float yAngleInDegreesToNewFacingLocation = (float) (-(Math.atan2(yDistanceToNewFacingLocation, overallDistanceToNewFacingLocationSquared) * 180.0D / Math.PI));

@@ -24,7 +24,8 @@ public class MoCRenderCrocodile extends RenderLiving {
         croc = modelBase;
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityCrocodile)par1Entity).getTexture();
     }
 
@@ -106,7 +107,7 @@ public class MoCRenderCrocodile extends RenderLiving {
         {
             intEndSpin = 1;
         }
-        float f3 = ((((float) intEndSpin) - 1.0F) / 20F) * 1.6F;
+        float f3 = (((intEndSpin) - 1.0F) / 20F) * 1.6F;
         f3 = MathHelper.sqrt_float(f3);
         if (f3 > 1.0F)
         {
@@ -140,7 +141,7 @@ public class MoCRenderCrocodile extends RenderLiving {
         {
             intEndSpin = 1;
         }
-        float f3 = ((((float) intEndSpin) - 1.0F) / 20F) * 1.6F;
+        float f3 = (((intEndSpin) - 1.0F) / 20F) * 1.6F;
         f3 = MathHelper.sqrt_float(f3);
         if (f3 > 1.0F)
         {

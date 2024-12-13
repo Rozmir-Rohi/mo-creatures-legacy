@@ -1277,3 +1277,9 @@ Added More Item Drop Integration:
 
 
 Added the golden sickle, all silver tools, and all electrum tools from the Thermal Foundation mod as werewolf weakness items. The Electrum sword is the only item that is equal to the Mo' Creatures Silver Sword in it's effectiveness against werewolves.
+
+
+Code clean up.
+
+
+Merged Wolf Altar Replacement into Mo' Creatures Legacy. Also created a config setting to generate the Wolf Altar Replacement Mod. Also updated credits.

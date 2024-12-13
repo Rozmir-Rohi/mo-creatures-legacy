@@ -25,7 +25,8 @@ public class MoCEntityInsect extends MoCEntityAmbient {
         setSize(0.2F, 0.2F);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(2.0D);
@@ -236,7 +237,8 @@ public class MoCEntityInsect extends MoCEntityAmbient {
     /**
      * Get this Entity's EnumCreatureAttribute
      */
-    public EnumCreatureAttribute getCreatureAttribute()
+    @Override
+	public EnumCreatureAttribute getCreatureAttribute()
     {
         return EnumCreatureAttribute.ARTHROPOD;
     }

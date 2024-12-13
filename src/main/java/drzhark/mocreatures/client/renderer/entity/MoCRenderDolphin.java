@@ -184,7 +184,8 @@ public class MoCRenderDolphin extends RenderLiving {
     }
 
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityDolphin)par1Entity).getTexture();
     }
 }

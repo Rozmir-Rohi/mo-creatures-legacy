@@ -239,7 +239,7 @@ public class MoCModelGoat extends ModelBase {
         // GL11.glTranslatef(eatMov, 0.0F, 0.0F);
         if (eatMov != 0 && !bleat)
         {
-            GL11.glTranslatef((float) (eatMov / 100F), 0.0F, 0.0F);
+            GL11.glTranslatef(eatMov / 100F, 0.0F, 0.0F);
         }
         if (typeInt > 4 && entityAge > 0.9)
         {

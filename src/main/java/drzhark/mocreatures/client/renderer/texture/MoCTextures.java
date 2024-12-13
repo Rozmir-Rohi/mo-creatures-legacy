@@ -14,6 +14,7 @@ import java.util.jar.JarFile;
 
 import com.google.common.collect.Maps;
 
+import drzhark.mocreatures.MoCProxy;
 import drzhark.mocreatures.MoCreatures;
 import net.minecraft.util.ResourceLocation;
 
@@ -25,20 +26,20 @@ public class MoCTextures {
     public void loadTextures() {
         try
         {
-            TEXTURE_RESOURCES.put(MoCreatures.proxy.ARMOR_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/armor/"));
-            TEXTURE_RESOURCES.put(MoCreatures.proxy.BLOCK_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/blocks/"));
-            TEXTURE_RESOURCES.put(MoCreatures.proxy.GUI_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/gui/"));
-            TEXTURE_RESOURCES.put(MoCreatures.proxy.ITEM_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/items/"));
+            TEXTURE_RESOURCES.put(MoCProxy.ARMOR_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/armor/"));
+            TEXTURE_RESOURCES.put(MoCProxy.BLOCK_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/blocks/"));
+            TEXTURE_RESOURCES.put(MoCProxy.GUI_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/gui/"));
+            TEXTURE_RESOURCES.put(MoCProxy.ITEM_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/items/"));
             
             if (MoCreatures.proxy.useOriginalMoCreaturesTextures)
             {
-            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MODEL_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/models_original/"));
-            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MISC_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/misc_original/"));
+            	TEXTURE_RESOURCES.put(MoCProxy.MODEL_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/models_original/"));
+            	TEXTURE_RESOURCES.put(MoCProxy.MISC_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/misc_original/"));
             }
             else 
             {
-            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MODEL_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/models/"));
-            	TEXTURE_RESOURCES.put(MoCreatures.proxy.MISC_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/misc/"));
+            	TEXTURE_RESOURCES.put(MoCProxy.MODEL_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/models/"));
+            	TEXTURE_RESOURCES.put(MoCProxy.MISC_TEXTURE, getResourceListing(getClass(), "assets/mocreatures/textures/misc/"));
             }
             
         }

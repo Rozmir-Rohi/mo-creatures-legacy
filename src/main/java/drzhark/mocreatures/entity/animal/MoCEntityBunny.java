@@ -39,7 +39,8 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         bunnyReproduceTickerB = 0;
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(4.0D);
@@ -172,9 +173,9 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         	if (    	
         			item == Items.carrot
         			|| item == Items.golden_carrot
-        			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot")
-        			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:food") && itemstack.getItemDamage() == 2 //BoP Wild Carrots
-        			|| (item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:food") && itemstack.getItemDamage() == 11 //BoP Turnip
+        			|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot")
+        			|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:food") && itemstack.getItemDamage() == 2 //BoP Wild Carrots
+        			|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:food") && itemstack.getItemDamage() == 11 //BoP Turnip
         			|| oreDictionaryNameArray.size() > 0 && oreDictionaryNameArray.contains("listAllveggie") //BOP veg or GregTech6 veg or Palm's Harvest veg
 
         		)

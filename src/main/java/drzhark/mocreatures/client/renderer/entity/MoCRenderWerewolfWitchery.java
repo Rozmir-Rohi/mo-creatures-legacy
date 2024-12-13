@@ -50,7 +50,8 @@ public class MoCRenderWerewolfWitchery extends RenderLiving {
         return shouldRenderPass((MoCEntityWerewolfWitchery) entityLiving, i);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityWerewolfWitchery)par1Entity).getTexture();
     }
 }

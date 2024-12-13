@@ -20,7 +20,8 @@ public class WorldGenWyvernGrass extends WorldGenerator
         tallGrassMetadata = par2;
     }
 
-    public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5)
+    @Override
+	public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5)
     {
         int var11;
 

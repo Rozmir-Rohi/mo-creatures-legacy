@@ -85,7 +85,8 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         dataWatcher.updateObject(25, Byte.valueOf(input));
     }
 
-    public byte getArmorType()
+    @Override
+	public byte getArmorType()
     {
         return dataWatcher.getWatchableObjectByte(24);
     }
@@ -96,12 +97,14 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         dataWatcher.updateObject(24, Byte.valueOf(i));
     }
 
-    public boolean getIsRideable()
+    @Override
+	public boolean getIsRideable()
     {
         return (dataWatcher.getWatchableObjectByte(22) == 1);
     }
 
-    public void setRideable(boolean flag)
+    @Override
+	public void setRideable(boolean flag)
     {
         byte input = (byte) (flag ? 1 : 0);
         dataWatcher.updateObject(22, Byte.valueOf(input));
@@ -330,7 +333,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     @Override
     public float getSizeFactor() 
     {   
-        return (float)getMoCAge() * 0.01F;
+        return getMoCAge() * 0.01F;
     }
 
     @Override
@@ -538,7 +541,8 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     /**
      * Drops the current armor
      */
-    public void dropArmor()
+    @Override
+	public void dropArmor()
     {
         if (MoCreatures.isServer())
         {
@@ -624,7 +628,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     @Override
     public double getMountedYOffset()
     {
-        return (double)height * 0.90D * getSizeFactor();
+        return height * 0.90D * getSizeFactor();
     }
 
     @Override
@@ -785,7 +789,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             localchest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.WyvernChest"), 14);
             for (int i = 0; i < nbttaglist.tagCount(); i++)
             {
-                NBTTagCompound nbtTagCompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
+                NBTTagCompound nbtTagCompound1 = nbttaglist.getCompoundTagAt(i);
                 int j = nbtTagCompound1.getByte("Slot") & 0xff;
                 if ((j >= 0) && j < localchest.getSizeInventory())
                 {

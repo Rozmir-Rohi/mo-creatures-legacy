@@ -20,7 +20,8 @@ public class MoCRenderNewHorse extends MoCRenderMoC {
 
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityHorse)par1Entity).getTexture();
     }
 

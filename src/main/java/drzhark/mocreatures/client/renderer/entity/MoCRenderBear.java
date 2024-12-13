@@ -38,7 +38,8 @@ public class MoCRenderBear extends MoCRenderMoC {
         GL11.glScalef(sizeFactor, sizeFactor, sizeFactor);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityBear)par1Entity).getTexture();
     }
 }

@@ -36,7 +36,8 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
         setMoCAge(100 + rand.nextInt(100));
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(25.0D);

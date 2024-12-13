@@ -40,7 +40,8 @@ public class MoCEntityFishBowl extends MoCEntityItemPlaceable {
         return MoCreatures.proxy.getTexture("fishbowl.png");
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(5.0D); // setMaxHealth

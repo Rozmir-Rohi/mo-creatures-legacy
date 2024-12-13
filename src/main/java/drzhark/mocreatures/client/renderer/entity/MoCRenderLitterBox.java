@@ -27,7 +27,8 @@ public class MoCRenderLitterBox extends RenderLiving {
         litterbox.usedlitter = entitylitterbox.getUsedLitter();
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityLitterBox)par1Entity).getTexture();
     }
 }

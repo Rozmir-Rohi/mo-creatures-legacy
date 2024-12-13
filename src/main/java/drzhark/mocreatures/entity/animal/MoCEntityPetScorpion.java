@@ -47,7 +47,8 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         stepHeight = 20.0F;
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
@@ -103,7 +104,8 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         dataWatcher.addObject(24, Byte.valueOf((byte) 0)); // isPicked - 0 false 1 true
     }
 
-    public boolean getIsRideable()
+    @Override
+	public boolean getIsRideable()
     {
         return (dataWatcher.getWatchableObjectByte(22) == 1);
     }
@@ -123,7 +125,8 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         return isPoisoning;
     }
 
-    public void setRideable(boolean flag)
+    @Override
+	public void setRideable(boolean flag)
     {
         byte input = (byte) (flag ? 1 : 0);
         dataWatcher.updateObject(22, Byte.valueOf(input));
@@ -694,7 +697,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     @Override
     public double roperYOffset()
     {
-        double yOffsetRoper = (double) ((150 - getMoCAge()) * 0.012D);
+        double yOffsetRoper = (150 - getMoCAge()) * 0.012D;
         if (yOffsetRoper < 0.55D)
         {
             yOffsetRoper = 0.55D;
@@ -764,7 +767,8 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     /**
      * Get this Entity's EnumCreatureAttribute
      */
-    public EnumCreatureAttribute getCreatureAttribute()
+    @Override
+	public EnumCreatureAttribute getCreatureAttribute()
     {
         return EnumCreatureAttribute.ARTHROPOD;
     }

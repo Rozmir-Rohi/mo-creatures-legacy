@@ -15,7 +15,8 @@ public class MoCEntityMaggot extends MoCEntityAmbient
         texture = "maggot.png";
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(2.0D);

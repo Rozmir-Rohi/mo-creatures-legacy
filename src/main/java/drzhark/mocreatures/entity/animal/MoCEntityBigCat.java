@@ -28,11 +28,11 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 	
@@ -388,7 +388,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
             	return false; 
             }
             if ((riddenByEntity == entityThatAttackedThisCreature) || (ridingEntity == entityThatAttackedThisCreature)) { return true; }
-            if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting != worldObj.difficultySetting.PEACEFUL))
+            if ((entityThatAttackedThisCreature != this) && (worldObj.difficultySetting != EnumDifficulty.PEACEFUL))
             {
                 entityToAttack = entityThatAttackedThisCreature;
                 
@@ -444,7 +444,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     {	
         if (roper != null && roper instanceof EntityPlayer) { return getMastersEnemy((EntityPlayer) roper, 12D); }
 
-        if (worldObj.difficultySetting != worldObj.difficultySetting.PEACEFUL)
+        if (worldObj.difficultySetting != EnumDifficulty.PEACEFUL)
         {
             EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, getAttackRange());
             if (!getIsTamed() && (entityPlayer != null) && getIsAdult() && getIsHungry())
@@ -817,7 +817,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 	    			|| (item == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
 	    			|| item == MoCreatures.ostrichRaw
 	    			|| item == MoCreatures.turkeyRaw
-	    			|| (item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
+	    			|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")
 	    			|| oreDictionaryNameArray.size() > 0 &&
 						(
 							oreDictionaryNameArray.contains("listAllmeatraw")

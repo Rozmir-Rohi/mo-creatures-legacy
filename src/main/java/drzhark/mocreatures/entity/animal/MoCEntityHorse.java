@@ -334,7 +334,8 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     /**
      * Drops the current armor if the horse has one
      */
-    public void dropArmor()
+    @Override
+	public void dropArmor()
     {
         if (MoCreatures.isServer())
         {
@@ -710,7 +711,8 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         return "mocreatures:horsehurt";
     }
 
-    public boolean getIsRideable()
+    @Override
+	public boolean getIsRideable()
     {
         return (dataWatcher.getWatchableObjectByte(22) == 1);
     }
@@ -2821,7 +2823,8 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         hasReproduced = var1;
     }
 
-    public void setRideable(boolean flag)
+    @Override
+	public void setRideable(boolean flag)
     {
         byte input = (byte) (flag ? 1 : 0);
         dataWatcher.updateObject(22, Byte.valueOf(input));
@@ -2866,7 +2869,8 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         }
     }
     
-    public void updateRiderPosition()
+    @Override
+	public void updateRiderPosition()
     {
         super.updateRiderPosition();
         
@@ -2878,7 +2882,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
             float f1 = MathHelper.cos(this.renderYawOffset * (float)Math.PI / 180.0F);
             float f2 = 0.7F * factor;
             float f3 = 0.15F * factor;
-            this.riddenByEntity.setPosition(this.posX + (double)(f2 * f), this.posY + this.getMountedYOffset() + this.riddenByEntity.getYOffset() + (double)f3, this.posZ - (double)(f2 * f1));
+            this.riddenByEntity.setPosition(this.posX + f2 * f, this.posY + this.getMountedYOffset() + this.riddenByEntity.getYOffset() + f3, this.posZ - f2 * f1);
 
             if (this.riddenByEntity instanceof EntityLivingBase)
             {

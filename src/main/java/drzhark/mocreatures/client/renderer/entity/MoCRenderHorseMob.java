@@ -39,7 +39,8 @@ public class MoCRenderHorseMob extends RenderLiving {
 
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityHorseMob)par1Entity).getTexture();
     }
 }

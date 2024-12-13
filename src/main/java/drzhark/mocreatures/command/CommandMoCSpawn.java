@@ -38,12 +38,14 @@ public class CommandMoCSpawn extends CommandBase {
         tabCompletionStrings.add("wyvern");
     }
 
-    public String getCommandName()
+    @Override
+	public String getCommandName()
     {
         return "mocspawn";
     }
 
-    public List getCommandAliases()
+    @Override
+	public List getCommandAliases()
     {
         return aliases;
     }
@@ -51,7 +53,8 @@ public class CommandMoCSpawn extends CommandBase {
     /**
      * Adds the strings available in this command to the given list of tab completion options.
      */
-    public List addTabCompletionOptions(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
+    @Override
+	public List addTabCompletionOptions(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
     {
         return getListOfStringsMatchingLastWord(par2ArrayOfStr, (String[])tabCompletionStrings.toArray(new String[tabCompletionStrings.size()]));
     }
@@ -59,17 +62,20 @@ public class CommandMoCSpawn extends CommandBase {
     /**
      * Return the required permission level for this command.
      */
-    public int getRequiredPermissionLevel()
+    @Override
+	public int getRequiredPermissionLevel()
     {
         return 2;
     }
 
-    public String getCommandUsage(ICommandSender iCommandSender)
+    @Override
+	public String getCommandUsage(ICommandSender iCommandSender)
     {
         return "commands.mocspawn.usage";
     }
 
-    public void processCommand(ICommandSender iCommandSender, String[] stringArray)
+    @Override
+	public void processCommand(ICommandSender iCommandSender, String[] stringArray)
     {
         if (stringArray.length == 2)
         {

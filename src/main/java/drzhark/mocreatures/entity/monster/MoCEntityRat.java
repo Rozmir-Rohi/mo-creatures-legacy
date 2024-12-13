@@ -24,7 +24,8 @@ public class MoCEntityRat extends MoCEntityMob {
         setSize(0.5F, 0.5F);
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);

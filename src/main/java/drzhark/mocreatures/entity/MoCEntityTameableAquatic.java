@@ -27,17 +27,20 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
         dataWatcher.addObject(30, -1); // PetId    
     }
 
-    public int getOwnerPetId()
+    @Override
+	public int getOwnerPetId()
     {
         return dataWatcher.getWatchableObjectInt(30);
     }
 
-    public void setOwnerPetId(int i)
+    @Override
+	public void setOwnerPetId(int i)
     {
         dataWatcher.updateObject(30, i);
     }
 
-    public boolean interact(EntityPlayer entityPlayer)
+    @Override
+	public boolean interact(EntityPlayer entityPlayer)
     {
         ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
         //before ownership check 
@@ -200,7 +203,8 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
     /**
      * Play the taming effect, will either be hearts or smoke depending on status
      */
-    public void playTameEffect(boolean par1)
+    @Override
+	public void playTameEffect(boolean par1)
     {
         String particleName = "heart";
 
@@ -214,7 +218,7 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
             double xVelocity = rand.nextGaussian() * 0.02D;
             double yVelocity = rand.nextGaussian() * 0.02D;
             double zVelocity = rand.nextGaussian() * 0.02D;
-            worldObj.spawnParticle(particleName, posX + (double)(rand.nextFloat() * width * 2.0F) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2.0F) - (double)width, xVelocity, yVelocity, zVelocity);
+            worldObj.spawnParticle(particleName, posX + rand.nextFloat() * width * 2.0F - width, posY + 0.5D + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0F - width, xVelocity, yVelocity, zVelocity);
         }
     }
 
@@ -226,7 +230,7 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
             nbtTagCompound.setInteger("PetId", getOwnerPetId());
         if (this instanceof IMoCTameable && getIsTamed() && MoCreatures.instance.mapData != null)
         {
-            MoCreatures.instance.mapData.updateOwnerPet((IMoCTameable)this, nbtTagCompound);
+            MoCreatures.instance.mapData.updateOwnerPet(this, nbtTagCompound);
         }
     }
 
@@ -244,7 +248,7 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
                 NBTTagList tag = petData.getOwnerRootNBT().getTagList("TamedList", 10);
                 for (int i = 0; i < tag.tagCount(); i++)
                 {
-                    NBTTagCompound nbt = (NBTTagCompound)tag.getCompoundTagAt(i);
+                    NBTTagCompound nbt = tag.getCompoundTagAt(i);
                     if (nbt.getInteger("PetId") == nbtTagCompound.getInteger("PetId"))
                     {
                         // update amulet flag
@@ -273,7 +277,8 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
      * @param rider The entity that is riding
      * @return if the entity should be dismounted when under water
      */
-    public boolean shouldDismountInWater(Entity rider){
+    @Override
+	public boolean shouldDismountInWater(Entity rider){
         return !getIsTamed();
     }
 
@@ -283,7 +288,8 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
     }
 
     // Override to fix heart animation on clients
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
     public void handleHealthUpdate(byte par1)
     {
         if (par1 == 2)

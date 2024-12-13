@@ -65,7 +65,8 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         texture = "blank.jpg";
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getMoveSpeed());
@@ -113,7 +114,8 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         dataWatcher.addObject(20, String.valueOf("")); //owners name
     }
 
-    public void setType(int i)
+    @Override
+	public void setType(int i)
     {
         dataWatcher.updateObject(19, Integer.valueOf(i));
     }
@@ -155,7 +157,8 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
      * @return networked Entity "Age" in integer value, typical values are
      *         0-100.
      */
-    public int getMoCAge()
+    @Override
+	public int getMoCAge()
     {
         return dataWatcher.getWatchableObjectInt(18);
     }
@@ -178,7 +181,8 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
 
     }
 
-    public void setMoCAge(int i)
+    @Override
+	public void setMoCAge(int i)
     {
         dataWatcher.updateObject(18, Integer.valueOf(i));
     }
@@ -411,7 +415,8 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     	return false;
     }
 
-    public void onKillEntity(EntityLivingBase entityLivingThatHasBeenKilled)
+    @Override
+	public void onKillEntity(EntityLivingBase entityLivingThatHasBeenKilled)
     {
     	if (isPredator() && MoCreatures.proxy.destroyDrops)
     	{
@@ -764,7 +769,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         double yDistanceToNewFacingLocation = y + 0.5D - posY;
         double zDistanceToNewFacingLocation = z + 0.5D - posZ;
 
-        double overallDistanceToNewFacingLocationSquared = (double) MathHelper.sqrt_double(xDistanceToNewFacingLocation * xDistanceToNewFacingLocation + zDistanceToNewFacingLocation * zDistanceToNewFacingLocation);
+        double overallDistanceToNewFacingLocationSquared = MathHelper.sqrt_double(xDistanceToNewFacingLocation * xDistanceToNewFacingLocation + zDistanceToNewFacingLocation * zDistanceToNewFacingLocation);
         
         float xzAngleInDegreesToNewFacingLocation = (float) (Math.atan2(zDistanceToNewFacingLocation, xDistanceToNewFacingLocation) * 180.0D / Math.PI) - 90.0F;
         float yAngleInDegreesToNewFacingLocation = (float) (-(Math.atan2(yDistanceToNewFacingLocation, overallDistanceToNewFacingLocationSquared) * 180.0D / Math.PI));
@@ -1679,7 +1684,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         double yVelocity = rand.nextGaussian() * 0.02D;
         double zVelocity = rand.nextGaussian() * 0.02D;
 
-        worldObj.spawnParticle("heart", posX + (double) (rand.nextFloat() * width * 2.0F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2.0F) - (double) width, xVelocity, yVelocity, zVelocity);
+        worldObj.spawnParticle("heart", posX + rand.nextFloat() * width * 2.0F - width, posY + 0.5D + rand.nextFloat() * height, posZ + rand.nextFloat() * width * 2.0F - width, xVelocity, yVelocity, zVelocity);
 
     }
 
@@ -1733,7 +1738,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
             {
                 if (ridingEntity != null)
                 {
-                    setLocationAndAngles(ridingEntity.posX, ridingEntity.boundingBox.minY + (double) ridingEntity.height, ridingEntity.posZ, rotationYaw, rotationPitch);
+                    setLocationAndAngles(ridingEntity.posX, ridingEntity.boundingBox.minY + ridingEntity.height, ridingEntity.posZ, rotationYaw, rotationPitch);
                     ridingEntity.riddenByEntity = null;
                 }
                 ridingEntity = null;

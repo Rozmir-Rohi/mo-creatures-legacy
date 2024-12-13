@@ -25,7 +25,8 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
         setMoCAge(50 + (rand.nextInt(50)));
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
       super.applyEntityAttributes();
       getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(6.0D);
@@ -256,7 +257,7 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
             }
         }
         
-        return (float)getMoCAge() * 0.01F + (pulseSize/4);
+        return getMoCAge() * 0.01F + (pulseSize/4);
     }
     
     @Override

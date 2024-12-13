@@ -18,6 +18,7 @@ import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.FakePlayerFactory;
@@ -81,7 +82,7 @@ public class MoCEntityEnt extends MoCEntityAnimal{
                 Item itemHeldByPlayer = currentItem.getItem();
                 if (itemHeldByPlayer != null && itemHeldByPlayer instanceof ItemAxe)
                 {
-                    if ((worldObj.difficultySetting != worldObj.difficultySetting.PEACEFUL) )
+                    if ((worldObj.difficultySetting != EnumDifficulty.PEACEFUL) )
                     {
                         entityToAttack = entityPlayer;
                         

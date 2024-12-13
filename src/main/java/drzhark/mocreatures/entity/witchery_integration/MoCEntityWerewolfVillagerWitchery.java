@@ -106,9 +106,9 @@ public class MoCEntityWerewolfVillagerWitchery extends EntityVillager {
         isTransforming = false;
         
         MoCEntityWerewolfWitchery werewolf = new MoCEntityWerewolfWitchery(worldObj, getProfession(), werewolfType);
-        werewolf.copyLocationAndAnglesFrom((Entity) this);
+        werewolf.copyLocationAndAnglesFrom(this);
         setDead();
-        werewolf.worldObj.spawnEntityInWorld((Entity) werewolf); 
+        werewolf.worldObj.spawnEntityInWorld(werewolf); 
     }
 	
 	public boolean IsNight()

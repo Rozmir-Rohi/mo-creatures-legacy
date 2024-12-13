@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import drzhark.mocreatures.MoCProxy;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.client.model.MoCModelKittyBed;
@@ -57,7 +58,7 @@ public class MoCRenderKittyBed extends RenderLiving {
 
     protected int shouldRenderPass(MoCEntityKittyBed entityLiving, int i)
     {
-        bindTexture(new ResourceLocation("mocreatures" + ":" + MoCreatures.proxy.MODEL_TEXTURE + "kittybed.png"));
+        bindTexture(new ResourceLocation("mocreatures" + ":" + MoCProxy.MODEL_TEXTURE + "kittybed.png"));
         float alpha = 0.5F;    // alpha value (opacity of color overlaid to default texture)
         int fleeceColorTable_row = MoCTools.colorize(mycolor);
         
@@ -77,7 +78,8 @@ public class MoCRenderKittyBed extends RenderLiving {
         return shouldRenderPass((MoCEntityKittyBed)entityLiving, i);
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return ((MoCEntityKittyBed)par1Entity).getTexture();
     }
 }
