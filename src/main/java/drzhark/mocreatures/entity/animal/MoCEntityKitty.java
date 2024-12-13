@@ -578,15 +578,15 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         //Ownership code
         //if (MoCreatures.proxy.enableStrictOwnership && getOwnerName() != null && !getOwnerName().equals("") && !entityPlayer.getCommandSenderName().equals(getOwnerName())) { return true; }
 
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-        if ((getKittyState() == KITTY_STATE_PRETAMED) && (itemstack != null) && (itemstack.getItem() == MoCreatures.medallion))
+        ItemStack itemStack = entityPlayer.getHeldItem();
+        if ((getKittyState() == KITTY_STATE_PRETAMED) && (itemStack != null) && (itemStack.getItem() == MoCreatures.medallion))
         {
             if (MoCreatures.isServer())
             {
                 MoCTools.tameWithName(entityPlayer, this);
                 entityPlayer.addStat(MoCAchievements.tame_kitty, 1);
             }
-            if (getIsTamed() && --itemstack.stackSize == 0)
+            if (getIsTamed() && --itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -597,16 +597,16 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             }
             return false;
         }
-        if ((getKittyState() == KITTY_STATE_NORMAL_HAPPY) && (itemstack != null) && 
+        if ((getKittyState() == KITTY_STATE_NORMAL_HAPPY) && (itemStack != null) && 
         		(
-        			itemstack.getItem() == Items.cake
-        			|| (itemstack.getItem() == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
-        			|| isItemStackInRawFishOreDictionary(itemstack)
-        			|| itemstack.getItem() == Items.cooked_fished
+        			itemStack.getItem() == Items.cake
+        			|| (itemStack.getItem() == Items.fish && itemStack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
+        			|| isItemStackInRawFishOreDictionary(itemStack)
+        			|| itemStack.getItem() == Items.cooked_fished
         		)
         	)
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -615,9 +615,9 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             changeKittyStateTo(KITTY_STATE_IN_LOVE_STAGE_ONE);
             return true;
         }
-        if ((getKittyState() == KITTY_STATE_INTERESTED) && (itemstack != null) && (itemstack.getItem() == MoCreatures.woolball) && MoCreatures.isServer())
+        if ((getKittyState() == KITTY_STATE_INTERESTED) && (itemStack != null) && (itemStack.getItem() == MoCreatures.woolball) && MoCreatures.isServer())
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -632,15 +632,15 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             entityToAttack = entityItem;
             return true;
         }
-        if ((getKittyState() == KITTY_STATE_ANGRY) && (itemstack != null) && 
+        if ((getKittyState() == KITTY_STATE_ANGRY) && (itemStack != null) && 
         		(
-        			itemstack.getItem() == Items.fish
-        			|| isItemStackInRawFishOreDictionary(itemstack)
-        			|| itemstack.getItem() == Items.cooked_fished
+        			itemStack.getItem() == Items.fish
+        			|| isItemStackInRawFishOreDictionary(itemStack)
+        			|| itemStack.getItem() == Items.cooked_fished
         		)
         	)
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -649,7 +649,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             changeKittyStateTo(KITTY_STATE_NORMAL_HAPPY);
             return true;
         }
-        if ((itemstack != null) && (getKittyState() > KITTY_STATE_PRETAMED) && ((itemstack.getItem() == MoCreatures.medallion)))
+        if ((itemStack != null) && (getKittyState() > KITTY_STATE_PRETAMED) && ((itemStack.getItem() == MoCreatures.medallion)))
         {
             if (MoCreatures.isServer())
             {
@@ -658,7 +658,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 
             return true;
         }
-        if ((itemstack != null) && (getKittyState() > KITTY_STATE_PRETAMED) && isPickable() && (itemstack.getItem() == Items.lead) && (entityPlayer.ridingEntity == null))
+        if ((itemStack != null) && (getKittyState() > KITTY_STATE_PRETAMED) && isPickable() && (itemStack.getItem() == Items.lead) && (entityPlayer.ridingEntity == null))
         {
             changeKittyStateTo(KITTY_STATE_HELD_ON_PLAYERS_HAND_USING_ROPE);
             if (MoCreatures.isServer())
@@ -667,14 +667,14 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             }
             return true;
         }
-        if ((itemstack != null) && (getKittyState() > KITTY_STATE_PRETAMED) && isWhipeable() && (itemstack.getItem() == MoCreatures.whip))
+        if ((itemStack != null) && (getKittyState() > KITTY_STATE_PRETAMED) && isWhipeable() && (itemStack.getItem() == MoCreatures.whip))
         {
             setSitting(!getIsSitting());
             return true;
         }
         if (
         		(
-	    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+	    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
 	    			|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
         		)
         		&& !(entityPlayer.isSneaking()) && (getKittyState() == KITTY_STATE_KITTEN) && (ridingEntity != null)
@@ -685,7 +685,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         }
         if (
 	        	(
-	    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+	    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
 	    			|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
 	    		)
 	        	&& !(entityPlayer.isSneaking()) && (getKittyState() > KITTY_STATE_PRETAMED) && isPickable() && (entityPlayer.ridingEntity == null)
@@ -700,7 +700,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         }
         if (
         		(
-        				(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+        				(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
         				|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
         		)
         		&& !(entityPlayer.isSneaking()) && (getKittyState() == KITTY_STATE_ON_PLAYERS_BACK)
@@ -996,7 +996,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                    EntityPlayer entityPlayerNearby = worldObj.getClosestPlayerToEntity(this, 12D);
 	                    if (entityPlayerNearby != null)
 	                    {
-	                        ItemStack itemstackHeldByPlayer = entityPlayerNearby.inventory.getCurrentItem();
+	                        ItemStack itemstackHeldByPlayer = entityPlayerNearby.getHeldItem();
 	                        if ((itemstackHeldByPlayer != null) && (itemstackHeldByPlayer.getItem() == MoCreatures.woolball))
 	                        {
 	                            changeKittyStateTo(KITTY_STATE_INTERESTED);
@@ -1182,7 +1182,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                    break;
 	                }
 	                
-	                ItemStack itemstackHeldByPlyer = closestEntityPlayerNearby.inventory.getCurrentItem();
+	                ItemStack itemstackHeldByPlyer = closestEntityPlayerNearby.getHeldItem();
 	                
 	                if ((itemstackHeldByPlyer == null) || ((itemstackHeldByPlyer != null) && (itemstackHeldByPlyer.getItem() != MoCreatures.woolball)))
 	                {
@@ -1281,7 +1281,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                    break;
 	                }
 	                
-	                ItemStack itemstackHeldByPlayer = playerThatThisKittyIsMountedOn.inventory.getCurrentItem();
+	                ItemStack itemstackHeldByPlayer = playerThatThisKittyIsMountedOn.getHeldItem();
 	                
 	                if (itemstackHeldByPlayer == null || ((itemstackHeldByPlayer != null) && (itemstackHeldByPlayer.getItem() != Items.lead)))
 	                {
@@ -1615,13 +1615,13 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         return (getKittyState() != KITTY_STATE_ANGRY) && (getKittyState() != KITTY_STATE_HELD_ON_PLAYERS_HAND_USING_ROPE) && (getKittyState() != KITTY_STATE_ON_PLAYERS_BACK) && (getKittyState() != KITTY_STATE_GIVING_BIRTH_STAGE_ONE) && (getKittyState() != KITTY_STATE_GIVING_BIRTH_STAGE_TWO) && (getKittyState() != KITTY_STATE_PARENTING);
     }
     
-    private boolean isItemStackInRawFishOreDictionary(ItemStack itemstack)
+    private boolean isItemStackInRawFishOreDictionary(ItemStack itemStack)
     {
-    	if (itemstack != null)
+    	if (itemStack != null)
     	{
-	    	Item item = itemstack.getItem();
+	    	Item item = itemStack.getItem();
 	    	
-	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
 	    	
 	    	return oreDictionaryNameArray.contains("listAllfishraw");
 	    	

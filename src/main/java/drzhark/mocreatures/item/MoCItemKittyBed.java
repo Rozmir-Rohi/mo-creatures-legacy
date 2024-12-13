@@ -31,25 +31,25 @@ public class MoCItemKittyBed extends MoCItem {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityPlayer)
+    public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer)
     {
         if (MoCreatures.isServer())
         {
-            itemstack.stackSize--;
-            MoCEntityKittyBed entitykittybed = new MoCEntityKittyBed(world, itemstack.getItemDamage());
+            itemStack.stackSize--;
+            MoCEntityKittyBed entitykittybed = new MoCEntityKittyBed(world, itemStack.getItemDamage());
             entitykittybed.setPosition(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
             world.spawnEntityInWorld(entitykittybed);
             entitykittybed.motionY += world.rand.nextFloat() * 0.05F;
             entitykittybed.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3F;
             entitykittybed.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3F;
         }
-        return itemstack;
+        return itemStack;
     }
     
     @Override
-    public String getUnlocalizedName(ItemStack itemstack)
+    public String getUnlocalizedName(ItemStack itemStack)
     {
-        return (new StringBuilder()).append(super.getUnlocalizedName()).append(".").append(itemstack.getItemDamage()).toString();
+        return (new StringBuilder()).append(super.getUnlocalizedName()).append(".").append(itemStack.getItemDamage()).toString();
     }
     
     @SideOnly(Side.CLIENT)

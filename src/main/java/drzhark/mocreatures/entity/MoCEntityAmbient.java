@@ -272,10 +272,10 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
     /**
      * Used to heal the animal
      * 
-     * @param itemstack
+     * @param itemStack
      * @return
      */
-    protected boolean isMyHealFood(ItemStack itemstack)
+    protected boolean isMyHealFood(ItemStack itemStack)
     {
         return false;
     }
@@ -1069,10 +1069,10 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
     /**
      * Used to follow the player carrying the item
      * 
-     * @param itemstack
+     * @param itemStack
      * @return
      */
-    public boolean isMyFollowFood(ItemStack itemstack)
+    public boolean isMyFollowFood(ItemStack itemStack)
     {
         return false;
     }
@@ -1082,7 +1082,7 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         EntityPlayer closestEntityPlayer = worldObj.getClosestPlayerToEntity(this, 24D);
         if (closestEntityPlayer == null) { return; }
 
-        ItemStack itemstackThatPlayerIsHolding = closestEntityPlayer.inventory.getCurrentItem();
+        ItemStack itemstackThatPlayerIsHolding = closestEntityPlayer.getHeldItem();
         if (itemstackThatPlayerIsHolding != null && isMyFollowFood(itemstackThatPlayerIsHolding))
         {
             PathEntity pathEntity = worldObj.getPathEntityToEntity(this, closestEntityPlayer, 16F, true, false, false, true);

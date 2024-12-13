@@ -42,17 +42,17 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
     @Override
 	public boolean interact(EntityPlayer entityPlayer)
     {
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        ItemStack itemStack = entityPlayer.getHeldItem();
         
         //before ownership check 
         if (
-        		itemstack != null
+        		itemStack != null
         		&& getIsTamed()
-        		&& itemstack.getItem() == MoCreatures.scrollOfOwner
+        		&& itemStack.getItem() == MoCreatures.scrollOfOwner
                 && MoCTools.isThisPlayerAnOP(entityPlayer)
            )
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -79,7 +79,7 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
         }
 
         //changes name
-        if (MoCreatures.isServer() && itemstack != null && getIsTamed() && (itemstack.getItem() == MoCreatures.medallion))
+        if (MoCreatures.isServer() && itemStack != null && getIsTamed() && (itemStack.getItem() == MoCreatures.medallion))
         {
             if (MoCTools.tameWithName(entityPlayer, this))
             {
@@ -90,9 +90,9 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
         
         //sets it free, untamed
         if (
-        		itemstack != null
+        		itemStack != null
         		&& getIsTamed()
-        		&& itemstack.getItem() == MoCreatures.scrollFreedom
+        		&& itemStack.getItem() == MoCreatures.scrollFreedom
         		&& getOwnerName().length() > 0
         		&& (
         				entityPlayer.getCommandSenderName().equals(getOwnerName())
@@ -100,7 +100,7 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
         			)
         	)
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -121,9 +121,9 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
 
         //removes owner, any other player can claim it by renaming it
         if (
-        		itemstack != null
+        		itemStack != null
         		&& getIsTamed() 
-        		&& itemstack.getItem() == MoCreatures.scrollOfSale
+        		&& itemStack.getItem() == MoCreatures.scrollOfSale
         		&& getOwnerName().length() > 0
                 && (
                 		entityPlayer.getCommandSenderName().equals(getOwnerName())
@@ -131,7 +131,7 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
                 	)
         	)
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -147,7 +147,7 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
         }
         
         //stores in petAmulet
-        if (itemstack != null && itemstack.getItem() == MoCreatures.petAmulet && itemstack.getItemDamage() == 0 && canBeTrappedInAmulet()) 
+        if (itemStack != null && itemStack.getItem() == MoCreatures.petAmulet && itemStack.getItemDamage() == 0 && canBeTrappedInAmulet()) 
         {
         	//if the player using the amulet is not the owner
 	        if (getOwnerName().length() > 0 && !(getOwnerName().equals(entityPlayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
@@ -171,7 +171,7 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
             return true;
         }
         
-        if ((itemstack != null) && getIsTamed() && (itemstack.getItem() == Items.shears))
+        if ((itemStack != null) && getIsTamed() && (itemStack.getItem() == Items.shears))
         {
             if (MoCreatures.isServer())
             {
@@ -182,9 +182,9 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
         }
         
       //heals the animal
-        if ((itemstack != null) && getIsTamed() && (getHealth() != getMaxHealth()) && isMyHealFood(itemstack))
+        if ((itemStack != null) && getIsTamed() && (getHealth() != getMaxHealth()) && isMyHealFood(itemStack))
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -287,7 +287,7 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
     }
 
     @Override
-	public boolean isBreedingItem(ItemStack itemstack)
+	public boolean isBreedingItem(ItemStack itemStack)
     {
         return false;
     }

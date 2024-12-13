@@ -170,13 +170,13 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
     }
     
     @Override
-    protected boolean isMyHealFood(ItemStack itemstack)
+    protected boolean isMyHealFood(ItemStack itemStack)
     {
-    	if (itemstack == null) {return false;}
+    	if (itemStack == null) {return false;}
     	
-    	Item item = itemstack.getItem();
+    	Item item = itemStack.getItem();
     	
-    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
     	
     	if (
     			item instanceof ItemSeeds
@@ -187,7 +187,7 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
     					getType() == 5 &&  //Mandarin fish can eat saltwater plants
     					(
     						MoCEntityFishy.isItemPlantMegaPackFishEdibleSaltWaterPlant(item)
-    						|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemstack.getItemDamage() == 11 //BOP kelp
+    						|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemStack.getItemDamage() == 11 //BOP kelp
     						|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:kelp")
     						|| (Item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
 	    					|| (oreDictionaryNameArray.size() > 0 && oreDictionaryNameArray.contains("cropKelp"))

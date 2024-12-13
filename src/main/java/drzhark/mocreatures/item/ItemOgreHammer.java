@@ -35,7 +35,7 @@ public class ItemOgreHammer extends MoCItem
      * is being used
      */
     @Override
-    public EnumAction getItemUseAction(ItemStack itemstack)
+    public EnumAction getItemUseAction(ItemStack itemStack)
     {
         return EnumAction.block;
     }
@@ -44,7 +44,7 @@ public class ItemOgreHammer extends MoCItem
      * How long it takes to use or consume an item
      */
     @Override
-    public int getMaxItemUseDuration(ItemStack itemstack)
+    public int getMaxItemUseDuration(ItemStack itemStack)
     {
         return 72000;
     }
@@ -54,7 +54,7 @@ public class ItemOgreHammer extends MoCItem
      * pressed. Args: itemStack, world, entityPlayer
      */
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World par2World, EntityPlayer entityPlayer)
+    public ItemStack onItemRightClick(ItemStack itemStack, World par2World, EntityPlayer entityPlayer)
     {
         double coordY = entityPlayer.posY + entityPlayer.getEyeHeight();
         double coordZ = entityPlayer.posZ;
@@ -75,7 +75,7 @@ public class ItemOgreHammer extends MoCItem
                 newPosZ = coordZ + Math.sin((MoCTools.realAngle(entityPlayer.rotationYaw- 90F) / 57.29578F)) * (Math.sin( (entityPlayer.rotationPitch- 90F) / 57.29578F) * (x-1) );
                 if (entityPlayer.worldObj.getBlock(MathHelper.floor_double(newPosX), MathHelper.floor_double(newPosY), MathHelper.floor_double(newPosZ)) != Blocks.air)  
                 {
-                    return itemstack;
+                    return itemStack;
                 }
                 
                 int blockInfo[] = obtainBlockAndMetadataFromBelt(entityPlayer, true);
@@ -88,12 +88,12 @@ public class ItemOgreHammer extends MoCItem
                         entityPlayer.worldObj.playSoundEffect((float)newPosX + 0.5F, (float)newPosY + 0.5F, (float)newPosZ + 0.5F, block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
                     }
                     MoCreatures.proxy.hammerFX(entityPlayer);
-                    entityPlayer.setItemInUse(itemstack, 200);
+                    entityPlayer.setItemInUse(itemStack, 200);
                 }
-                return itemstack;
+                return itemStack;
             }
         }
-        return itemstack;
+        return itemStack;
     }
 
     /**
@@ -132,7 +132,7 @@ public class ItemOgreHammer extends MoCItem
     }
 
     @Override
-    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityPlayer, World world, int i, int j, int k, int l, float f1, float f2, float f3)
+    public boolean onItemUse(ItemStack itemStack, EntityPlayer entityPlayer, World world, int i, int j, int k, int l, float f1, float f2, float f3)
     {
         return false;
     }

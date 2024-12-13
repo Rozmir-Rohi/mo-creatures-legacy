@@ -169,17 +169,17 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
     }
     
     @Override
-    public boolean isMyHealFood(ItemStack itemstack)
+    public boolean isMyHealFood(ItemStack itemStack)
     {
-    	if (itemstack != null)
+    	if (itemStack != null)
     	{
-	    	Item item = itemstack.getItem();
+	    	Item item = itemStack.getItem();
 	    	
-	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
 	    	
 	    	return
 	    		(
-        			(item == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
+        			(item == Items.fish && itemStack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
         			|| oreDictionaryNameArray.contains("listAllfishraw")
         		);
     	}

@@ -28,18 +28,18 @@ public class ItemStaffPortal extends MoCItem
     private int portalDimension;
 
     @Override
-    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityPlayer, World world, int i, int j, int k, int l, float f1, float f2, float f3)
+    public boolean onItemUse(ItemStack itemStack, EntityPlayer entityPlayer, World world, int i, int j, int k, int l, float f1, float f2, float f3)
     {
         if(!MoCreatures.isServer())
         {
             return false;
         }
-        if( itemstack.stackTagCompound == null )
+        if( itemStack.stackTagCompound == null )
         {
-             itemstack.setTagCompound(new NBTTagCompound());
+             itemStack.setTagCompound(new NBTTagCompound());
         }
 
-        NBTTagCompound nbtcompound = itemstack.stackTagCompound;
+        NBTTagCompound nbtcompound = itemStack.stackTagCompound;
 
         EntityPlayerMP thePlayer = (EntityPlayerMP) entityPlayer;
         if (thePlayer.ridingEntity != null || thePlayer.riddenByEntity != null)
@@ -63,7 +63,7 @@ public class ItemStaffPortal extends MoCItem
                     thePlayer.playerNetServerHandler.setPlayerLocation(var2.posX, var2.posY, var2.posZ, 0.0F, 0.0F);
                 }
                 thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, MoCreatures.wyvernLairDimensionID, new MoCDirectTeleporter(thePlayer.mcServer.worldServerForDimension(MoCreatures.wyvernLairDimensionID)));
-                itemstack.damageItem(1, entityPlayer);
+                itemStack.damageItem(1, entityPlayer);
                 entityPlayer.addStat(MoCAchievements.wyvern_portal_staff, 1);
                 return true;
             }
@@ -113,7 +113,7 @@ public class ItemStaffPortal extends MoCItem
                     thePlayer.playerNetServerHandler.setPlayerLocation(portalPosX, (portalPosY) + 1D, portalPosZ, 0.0F, 0.0F);
                 }
 
-                itemstack.damageItem(1, entityPlayer);
+                itemStack.damageItem(1, entityPlayer);
                 thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, portalDimension, new MoCDirectTeleporter(thePlayer.mcServer.worldServerForDimension(0)));
                 return true;
             }
@@ -134,7 +134,7 @@ public class ItemStaffPortal extends MoCItem
      * is being used
      */
     @Override
-    public EnumAction getItemUseAction(ItemStack itemstack)
+    public EnumAction getItemUseAction(ItemStack itemStack)
     {
         return EnumAction.block;
     }
@@ -144,10 +144,10 @@ public class ItemStaffPortal extends MoCItem
      * pressed. Args: itemStack, world, entityPlayer
      */
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World par2World, EntityPlayer par3EntityPlayer)
+    public ItemStack onItemRightClick(ItemStack itemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
-        par3EntityPlayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
-        return itemstack;
+        par3EntityPlayer.setItemInUse(itemStack, getMaxItemUseDuration(itemStack));
+        return itemStack;
     }
 
     public void readFromNBT(NBTTagCompound nbt)

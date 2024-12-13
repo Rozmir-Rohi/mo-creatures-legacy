@@ -142,9 +142,9 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     {   
         if (MoCreatures.isWitcheryLoaded && entityToAttack == null)
         {
-        	ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        	ItemStack itemStack = entityPlayer.getHeldItem();
         	
-        	if (itemstack == null)
+        	if (itemStack == null)
         	{
 	        	if (
 	        			!getIsHumanForm()
@@ -288,8 +288,8 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 			        	else 
 			        	{
 			        		EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
-			        		ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
-			        		damageTaken = calculateWerewolfDamageTakenFromPlayerAttack(damageSource, damageTaken, itemstack);
+			        		ItemStack itemStack = entityPlayer.getCurrentEquippedItem();
+			        		damageTaken = calculateWerewolfDamageTakenFromPlayerAttack(damageSource, damageTaken, itemStack);
 			        	}
 			        }
 			        
@@ -312,13 +312,13 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         return super.attackEntityFrom(damageSource, damageTaken);
     }
 
-	public static float calculateWerewolfDamageTakenFromPlayerAttack(DamageSource damageSource, float damageTaken, ItemStack itemstack)
+	public static float calculateWerewolfDamageTakenFromPlayerAttack(DamageSource damageSource, float damageTaken, ItemStack itemStack)
 	{
-		if (itemstack != null)
+		if (itemStack != null)
 		{
 		    damageTaken = 1;
 		    
-		    Item itemHeldByPlayer = itemstack.getItem();
+		    Item itemHeldByPlayer = itemStack.getItem();
 		    
 		    if (damageSource.isProjectile())
 		    {
@@ -713,7 +713,10 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             if (player != null) {player.addStat(MoCAchievements.kill_werewolf, 1);}
         }
 
-        if (!worldObj.isRemote)
+        if (
+        		!worldObj.isRemote
+        		&& getNameOfPlayerThatRecruitedThisCreature().length() == 0 //don't drop anything if this werewolf was recruited
+        	)
         {
             for (int index = 0; index < 2; index++)
             {
@@ -731,9 +734,21 @@ public class MoCEntityWerewolf extends MoCEntityMob {
     public void onLivingUpdate()
     {
         super.onLivingUpdate();
+        
+        if (getType() == 4 && !isImmuneToFire)
+        { //sets immunity to fire for fire werewolves in-case they get reset, which does sometimes happen when worlds are reloaded
+        	isImmuneToFire = true;
+        }
+        
         if (!worldObj.isRemote)
         {
-            if (((IsNight() && getIsHumanForm()) || (!IsNight() && !getIsHumanForm())) && (rand.nextInt(250) == 0))
+            if (
+            		(
+            			(IsNight() && getIsHumanForm())
+            			|| (!IsNight() && !getIsHumanForm())
+            		)
+            		&& (rand.nextInt(250) == 0)
+            	)
             {
                 isTransforming = true;
             }

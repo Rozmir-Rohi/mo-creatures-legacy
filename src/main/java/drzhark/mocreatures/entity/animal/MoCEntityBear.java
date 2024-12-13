@@ -453,11 +453,11 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     public boolean interact(EntityPlayer entityPlayer)
     {
         if (super.interact(entityPlayer)) { return false; }
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-        if ((itemstack != null) && (getType() == 3 || getType() == 5) && (isItemstackPandaFoodItem(itemstack)))
+        ItemStack itemStack = entityPlayer.getHeldItem();
+        if ((itemStack != null) && (getType() == 3 || getType() == 5) && (isItemstackPandaFoodItem(itemStack)))
         {
         	
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -587,34 +587,34 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyFollowFood(ItemStack itemstack)
+    public boolean isMyFollowFood(ItemStack itemStack)
     {
-    	return (getType() == 3 || getType() == 5) && itemstack != null && (isItemstackPandaFoodItem(itemstack)); 
+    	return (getType() == 3 || getType() == 5) && itemStack != null && (isItemstackPandaFoodItem(itemStack)); 
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack itemstack)
+    public boolean isMyHealFood(ItemStack itemStack)
     {
-        if (itemstack != null) 
+        if (itemStack != null) 
         {
         	if (getType() == 3 || getType() == 5) //panda and giant panda
         	{
-        		return (isItemstackPandaFoodItem(itemstack));
+        		return (isItemstackPandaFoodItem(itemStack));
         	}
         	else
         	{
-        		return isItemEdible(itemstack.getItem());
+        		return isItemEdible(itemStack.getItem());
         	}
         }
         else {return false;}
     }
     
     
-    private boolean isItemstackPandaFoodItem(ItemStack itemstack) {
+    private boolean isItemstackPandaFoodItem(ItemStack itemStack) {
     	
-    	Item item = itemstack.getItem();
+    	Item item = itemStack.getItem();
     	
-    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
     	
     	
 		if (

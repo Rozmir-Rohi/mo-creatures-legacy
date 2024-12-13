@@ -47,7 +47,7 @@ public class MoCProxy implements IGuiHandler {
     public boolean staticBed;
     public boolean staticLitter;
 
-    public boolean easyBreeding;
+    public boolean hardHorseBreeding;
     public boolean destroyDrops;
     public boolean enableStrictOwnership;
     public boolean emptyHandMountAndPickUpOnly;
@@ -320,7 +320,7 @@ public class MoCProxy implements IGuiHandler {
         maxOPTamed = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "maxTamedPerOP", 20, "Max tamed creatures an op can have. Requires enableStrictOwnership to be set to true.").getInt();
         enableStrictOwnership = mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "enableStrictOwnership", false, "If true: only the owner of a pet can interact with the their pets. This also adds a limit to the amount of tamed creatures a player can have (see 'maxTamedPerPlayer' and 'maxTamedPerOP').").getBoolean(false);
         
-        easyBreeding = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "easyBreeding", false, "Makes horse breeding simpler.").getBoolean(true);
+        hardHorseBreeding = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "hardHorseBreeding", false, "If true: Horses will be less likely to produce unique breeds.").getBoolean(false);
         elephantBulldozer = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "elephantBulldozer", true, "Allows tamed elephants to break blocks in front when ramming with tusks equipped.").getBoolean(true);
         emptyHandMountAndPickUpOnly = mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "emptyHandMountAndPickUpOnly", true, "If true: mountable creatures can only be mounted with an empty hand, creatures that can be picked up can only be picked up with an empty hand, if a player switches to an item while holding a creature in their hand, they will drop that creature.").getBoolean(true);
         enableEnts = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "enableEnts", false, "If true: Registers Ents as an entity and allows them to spawn in worlds.").getBoolean(false);

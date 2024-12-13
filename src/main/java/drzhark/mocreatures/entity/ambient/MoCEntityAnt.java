@@ -110,9 +110,9 @@ public class MoCEntityAnt extends MoCEntityInsect{
     }
 
     @Override
-    public boolean isMyFollowFood(ItemStack itemstack)
+    public boolean isMyFollowFood(ItemStack itemStack)
     {
-        return itemstack != null && isItemEdible(itemstack.getItem());
+        return itemStack != null && isItemEdible(itemStack.getItem());
     }
 
     

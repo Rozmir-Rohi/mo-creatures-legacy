@@ -86,13 +86,13 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
     {
         if (super.interact(entityPlayer)) { return false; }
 
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        ItemStack itemStack = entityPlayer.getHeldItem();
 
         if (
         		MoCreatures.isServer()
         		&& !getIsTamed()
-        		&& (itemstack != null)
-        		&& isMyHealFood(itemstack)
+        		&& (itemStack != null)
+        		&& isMyHealFood(itemStack)
         	)
         {
             MoCTools.tameWithName(entityPlayer, this);
@@ -102,13 +102,13 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack itemstack)
+    public boolean isMyHealFood(ItemStack itemStack)
     {
-    	if (itemstack != null)
+    	if (itemStack != null)
 	    {
-	    	Item item = itemstack.getItem();
+	    	Item item = itemStack.getItem();
 	    	
-	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
 		    	
 	    	return
 	    		(

@@ -685,9 +685,9 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 
         if (super.interact(entityPlayer)) { return false; }
         
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        ItemStack itemStack = entityPlayer.getHeldItem();
         
-        if ((itemstack != null) && !getIsTamed() && getPreTamed() && (itemstack.getItem() == MoCreatures.medallion))
+        if ((itemStack != null) && !getIsTamed() && getPreTamed() && (itemStack.getItem() == MoCreatures.medallion))
         {
             if (MoCreatures.isServer())
             {
@@ -695,7 +695,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
                 entityPlayer.addStat(MoCAchievements.tame_big_cat, 1);
             }
             
-            if (getIsTamed() && --itemstack.stackSize == 0)
+            if (getIsTamed() && --itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                 return true;
@@ -704,7 +704,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
             return false;
         }
         
-        if ((itemstack != null) && getIsTamed() && isMyHealFood(itemstack))
+        if ((itemStack != null) && getIsTamed() && isMyHealFood(itemStack))
         {
             heal(5);
             playSound("mocreatures:eating", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
@@ -801,20 +801,20 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     }
     
     @Override
-    public boolean isMyHealFood(ItemStack itemstack)
+    public boolean isMyHealFood(ItemStack itemStack)
     {
-    	if (itemstack != null)
+    	if (itemStack != null)
     	{
-	    	Item item = itemstack.getItem();
+	    	Item item = itemStack.getItem();
 	    	
-	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
 	    	
 	    	return 
 	    		(
 	    			item == Items.porkchop
 	    			|| item == Items.beef 
 	    			|| item == Items.chicken
-	    			|| (item == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
+	    			|| (item == Items.fish && itemStack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
 	    			|| item == MoCreatures.ostrichRaw
 	    			|| item == MoCreatures.turkeyRaw
 	    			|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:rabbit_raw")

@@ -61,7 +61,7 @@ public class MoCItemFishBowl extends MoCItem {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World worldObj, EntityPlayer entityPlayer)
+    public ItemStack onItemRightClick(ItemStack itemStack, World worldObj, EntityPlayer entityPlayer)
     {
         float var4 = 1.0F;
         double var5 = entityPlayer.prevPosX + (entityPlayer.posX - entityPlayer.prevPosX) * var4;
@@ -72,7 +72,7 @@ public class MoCItemFishBowl extends MoCItem {
 
         if (movingObjectPos == null)
         {
-            return itemstack;
+            return itemStack;
         }
         else
         {
@@ -84,7 +84,7 @@ public class MoCItemFishBowl extends MoCItem {
                 {
                 	entityPlayer.addStat(MoCAchievements.catch_fish_in_fish_bowl, 1);
                 	
-                    if (--itemstack.stackSize == 0)
+                    if (--itemStack.stackSize == 0)
                     {
                     	ItemStack fishbowl = ((MoCEntityFishBowl.toItemStack(((MoCEntityFishy) target).getType())));
                     	((MoCEntityFishy) target).setTamed(false);
@@ -98,7 +98,7 @@ public class MoCItemFishBowl extends MoCItem {
                     	((MoCEntityFishy) target).setTamed(false);
                     	((MoCEntityFishy) target).setOwner("");
                         target.setDead();
-                        return itemstack;
+                        return itemStack;
                     }
                 }
             }
@@ -112,7 +112,7 @@ public class MoCItemFishBowl extends MoCItem {
                 if (!worldObj.isRemote && fishBowlType == 0 && worldObj.getBlock(var13, var14, var15).getMaterial() == Material.water && worldObj.getBlockMetadata(var13, var14, var15) == 0)
                 {
 
-                    if (--itemstack.stackSize == 0)
+                    if (--itemStack.stackSize == 0)
                     {
                         return new ItemStack(MoCreatures.fishbowlWater, 1, 11);
                     }
@@ -120,7 +120,7 @@ public class MoCItemFishBowl extends MoCItem {
                     {
                         entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.fishbowlWater, 1, 11));
 
-                        return itemstack;
+                        return itemStack;
                     }
                 }
 
@@ -135,32 +135,32 @@ public class MoCItemFishBowl extends MoCItem {
                     worldObj.spawnEntityInWorld(entityfish);
                     MoCTools.tameWithName(entityPlayer, entityfish);
 
-                    if (--itemstack.stackSize == 0)
+                    if (--itemStack.stackSize == 0)
                     {
                         return new ItemStack(MoCreatures.fishbowlEmpty, 1, 0);
                     }
                     else
                     {
                         entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.fishbowlEmpty, 1, 0));
-                        return itemstack;
+                        return itemStack;
                     }
                 }
 
                 if (MoCreatures.isServer() && worldObj.getBlock(var13, var14, var15).getMaterial().isSolid())
                 {
-                    MoCEntityFishBowl entityfishbowl = new MoCEntityFishBowl(worldObj, itemstack.getItemDamage());
+                    MoCEntityFishBowl entityfishbowl = new MoCEntityFishBowl(worldObj, itemStack.getItemDamage());
                     entityfishbowl.setPosition(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ);
                     worldObj.spawnEntityInWorld(entityfishbowl);
-                    if (--itemstack.stackSize == 0)
+                    if (--itemStack.stackSize == 0)
                     {
                         entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                     }
 
-                    return itemstack;
+                    return itemStack;
                 }
             }
         }
 
-        return itemstack;
+        return itemStack;
     }
 }

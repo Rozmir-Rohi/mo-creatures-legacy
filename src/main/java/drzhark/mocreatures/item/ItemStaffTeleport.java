@@ -39,7 +39,7 @@ public class ItemStaffTeleport extends MoCItem
      * is being used
      */
     @Override
-    public EnumAction getItemUseAction(ItemStack itemstack)
+    public EnumAction getItemUseAction(ItemStack itemStack)
     {
         return EnumAction.block;
     }
@@ -49,11 +49,11 @@ public class ItemStaffTeleport extends MoCItem
      * pressed. Args: itemStack, world, entityPlayer
      */
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World par2World, EntityPlayer entityPlayer)
+    public ItemStack onItemRightClick(ItemStack itemStack, World par2World, EntityPlayer entityPlayer)
     {
         if (entityPlayer.ridingEntity != null || entityPlayer.riddenByEntity != null)
         {
-            return itemstack;
+            return itemStack;
         }
 
         double coordY = entityPlayer.posY + entityPlayer.getEyeHeight();
@@ -78,14 +78,14 @@ public class ItemStaffTeleport extends MoCItem
                     MoCTools.playCustomSound(entityPlayer, "appearmagic", entityPlayer.worldObj);
                 }
                 MoCreatures.proxy.teleportFX(entityPlayer);
-                entityPlayer.setItemInUse(itemstack, 200);
-                itemstack.damageItem(1, entityPlayer);
+                entityPlayer.setItemInUse(itemStack, 200);
+                itemStack.damageItem(1, entityPlayer);
 
-                return itemstack;
+                return itemStack;
             }
         }
 
-        entityPlayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
-        return itemstack;
+        entityPlayer.setItemInUse(itemStack, getMaxItemUseDuration(itemStack));
+        return itemStack;
     }
 }

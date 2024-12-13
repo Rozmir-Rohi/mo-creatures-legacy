@@ -9,11 +9,11 @@ import net.minecraft.item.ItemStack;
 public class MoCAchievementEvents {
 	
 
-	private boolean isWyvernEgg(ItemStack itemstack) //test if itemstack is a wyvern egg  (mocegg ID: 50-61)
+	private boolean isWyvernEgg(ItemStack itemStack) //test if itemStack is a wyvern egg  (mocegg ID: 50-61)
     {
-		if (itemstack.getItem().equals(MoCreatures.mocegg))
+		if (itemStack.getItem().equals(MoCreatures.mocegg))
 		{
-			return (49 < itemstack.getItemDamage() && itemstack.getItemDamage() < 62);
+			return (49 < itemStack.getItemDamage() && itemStack.getItemDamage() < 62);
 		}
 		
 		return false;

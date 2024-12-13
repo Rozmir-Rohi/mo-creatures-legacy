@@ -1295,3 +1295,30 @@ Made Witchery player werewolf/wolf form detector check duration of night vision 
 
 
 Added kitty beds to creative tab.
+
+
+Renamed "easyBreeding" config to "hardHorseBreeding" and updated the description.
+
+
+Fixed land horse speeds not working.
+
+
+Added vanilla horse galloping sounds to Mo' Creatures horses.
+
+
+Fixed fire immunity for nightmare horse, dark Pegasus, and fire ogres resetting with each world reload.
+
+
+Fixed sunlight damage mechanism for normal ogre.
+
+
+Recruited werewolves now no longer drop anything.
+
+
+Fixed Dolphin speed not working.
+
+
+Added Dolphin to /mocspawn command.
+
+
+Slightly increased flying speed of Wyvern. 

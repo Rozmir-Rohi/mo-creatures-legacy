@@ -347,13 +347,13 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyFollowFood(ItemStack itemstack)
+    public boolean isMyFollowFood(ItemStack itemStack)
     {
         Item item = null;
         
-        if (itemstack != null)
+        if (itemStack != null)
         {
-            item = itemstack.getItem();
+            item = itemStack.getItem();
         }
         return (item != null && isItemEdible(item));
     }
@@ -598,8 +598,8 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
     public boolean interact(EntityPlayer entityPlayer)
     {
         if (super.interact(entityPlayer)) { return false; }
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-        if (itemstack != null && itemstack.getItem() == Items.bucket)
+        ItemStack itemStack = entityPlayer.getHeldItem();
+        if (itemStack != null && itemStack.getItem() == Items.bucket)
         {
             if (getType() > 4)
             {
@@ -615,9 +615,9 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
 
         if (getIsTamed())
         {
-            if ((itemstack != null) && (isItemEdible(itemstack.getItem())))
+            if ((itemStack != null) && (isItemEdible(itemStack.getItem())))
             {
-                if (--itemstack.stackSize == 0)
+                if (--itemStack.stackSize == 0)
                 {
                     entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                 }
@@ -627,7 +627,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
             }
         }
 
-        if (MoCreatures.isServer() && !getIsTamed() && (itemstack != null) && isItemEdible(itemstack.getItem()))
+        if (MoCreatures.isServer() && !getIsTamed() && (itemStack != null) && isItemEdible(itemStack.getItem()))
         {
             if (MoCTools.tameWithName(entityPlayer, this))
             {

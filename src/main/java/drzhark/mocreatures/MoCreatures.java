@@ -495,7 +495,7 @@ public class MoCreatures {
         
         if (isWitcheryLoaded && proxy.generateWolfAltarReplacementMod)
         {
-        	String modName = "/wolf-altar-replacement.jar";
+        	String modName = "/wolf-altar-replacement-1.0.jar";
         	
         	InputStream originalFileInputStream = getClass().getResourceAsStream(modName);
         	

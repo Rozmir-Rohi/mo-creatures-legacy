@@ -4,6 +4,7 @@ import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.entity.aquatic.MoCEntityDolphin;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -435,6 +436,16 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             rotationPitch = riddenByEntity.rotationPitch * 0.5F;
             prevRotationYaw = rotationYaw = riddenByEntity.rotationYaw;
             setRotation(rotationYaw, rotationPitch);
+            if (this instanceof MoCEntityDolphin && !onGround) //controls speed of dolphins underwater
+            {
+	            float acceleration = 0;
+	            
+	            acceleration = 1.0F + ((float) getCustomSpeed() * 0.029F);
+	            
+	          //the purpose of the if statement here isn't to make sure the motion is always under getCustomSpeed(), but instead to prevent the entity from accelerating to infinity
+	            if (motionX < getCustomSpeed()) {motionX *= acceleration;} 
+	            if (motionZ < getCustomSpeed()) {motionZ *= acceleration;}   
+            }
 
             if (MoCreatures.isServer())
             {
@@ -707,9 +718,9 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
                 
                 if (!(isHookNearby) && playerThatHookedThisFish != null && hookThatThisFishIsHookedTo != null)
                 {
-                	if (playerThatHookedThisFish.inventory.getCurrentItem() != null)  //must check if itemstack isn't null before getItem() else game will crash
+                	if (playerThatHookedThisFish.getHeldItem() != null)  //must check if itemStack isn't null before getItem() else game will crash
                 	{
-	                	if (playerThatHookedThisFish.inventory.getCurrentItem().getItem() == Items.fishing_rod)
+	                	if (playerThatHookedThisFish.getHeldItem().getItem() == Items.fishing_rod)
 	                	{
 		                	
 		                	ItemStack itemstackToBeFished = new ItemStack(Items.fish, 1, 0);
@@ -1016,8 +1027,8 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         		isFisheable() //tests if the fish has been force hooked by a player throwing a fishing hook at them
         		&& entityThatAttackedThisCreature != null
         		&& entityThatAttackedThisCreature instanceof EntityPlayer
-        		&& ((EntityPlayer) entityThatAttackedThisCreature).inventory.getCurrentItem() != null //must check if itemstack isn't null before getItem() else game will crash
-        		&& ((EntityPlayer) entityThatAttackedThisCreature).inventory.getCurrentItem().getItem() == Items.fishing_rod
+        		&& ((EntityPlayer) entityThatAttackedThisCreature).getHeldItem() != null //must check if itemStack isn't null before getItem() else game will crash
+        		&& ((EntityPlayer) entityThatAttackedThisCreature).getHeldItem().getItem() == Items.fishing_rod
         	)
     		{
     			lookForHookToGetCaughtOn(); //tests if there is a fishing hook nearby, if so sets the fish as caught on a hook
@@ -1052,10 +1063,10 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     /**
      * Used to heal the animal
      * 
-     * @param itemstack
+     * @param itemStack
      * @return
      */
-    protected boolean isMyHealFood(ItemStack itemstack)
+    protected boolean isMyHealFood(ItemStack itemStack)
     {
         return false;
     }

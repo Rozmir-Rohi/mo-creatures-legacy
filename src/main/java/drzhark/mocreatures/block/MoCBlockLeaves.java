@@ -238,10 +238,10 @@ public class MoCBlockLeaves extends BlockLeavesBase
     {
         for (int index = 0; index < MoCreatures.multiBlockNames.size(); index++) 
         {
-        	ItemStack itemstack = new ItemStack(item, 1, index);
-            subItems.add(itemstack);
+        	ItemStack itemStack = new ItemStack(item, 1, index);
+            subItems.add(itemStack);
             
-            OreDictionary.registerOre("treeLeaves", itemstack);
+            OreDictionary.registerOre("treeLeaves", itemStack);
         }
     }
 

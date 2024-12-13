@@ -478,21 +478,21 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
     public boolean interact(EntityPlayer entityPlayer)
     {
         if (super.interact(entityPlayer)) { return false; }
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        ItemStack itemStack = entityPlayer.getHeldItem();
         
-        if (itemstack != null) 
+        if (itemStack != null) 
         {
-        	Item item = itemstack.getItem();
+        	Item item = itemStack.getItem();
         	
-        	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+        	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
         	
-        	if (interactIfItemIsFoodItem(entityPlayer, itemstack, item, oreDictionaryNameArray)) {return true;};
+        	if (interactIfItemIsFoodItem(entityPlayer, itemStack, item, oreDictionaryNameArray)) {return true;};
         	
         	if (getIsTamed() && getIsAdult())
         	{
         		if (getArmorType() == 0 && item == MoCreatures.elephantHarness)
                 {
-                    if (--itemstack.stackSize == 0)
+                    if (--itemStack.stackSize == 0)
                     {
                         entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                     }
@@ -508,7 +508,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 			|| (item == Item.getItemFromBlock(Blocks.chest) && isMammoth() && getStorage() != 4)
                 		)
                 {
-                    if (--itemstack.stackSize == 0)
+                    if (--itemStack.stackSize == 0)
                     {
                         entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                     }
@@ -555,7 +555,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 //giving a garment to an indian elephant with an harness will make it pretty
                 if (getArmorType() == 1 && getType() == 2 && item == MoCreatures.elephantGarment)
                 {
-                    if (--itemstack.stackSize == 0)
+                    if (--itemStack.stackSize == 0)
                     {
                         entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                     }
@@ -569,7 +569,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 //giving a howdah to a pretty indian elephant with a garment will attach the howdah
                 if (getArmorType() == 2 && getType() == 5 && item == MoCreatures.elephantHowdah)
                 {
-                    if (--itemstack.stackSize == 0)
+                    if (--itemStack.stackSize == 0)
                     {
                         entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                     }
@@ -582,7 +582,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 //attach mammoth platform to songhua river mammoths that already have an elephant harness
                 if (getArmorType() == 1 && getType() == 4 && item == MoCreatures.mammothPlatform)
                 {
-                    if (--itemstack.stackSize == 0)
+                    if (--itemStack.stackSize == 0)
                     {
                         entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                     }
@@ -605,7 +605,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 		if (item == MoCreatures.tusksIron) {tuskType = 2;}
                 		if (item == MoCreatures.tusksDiamond) {tuskType = 3;}
                 		
-                		if (--itemstack.stackSize == 0)
+                		if (--itemStack.stackSize == 0)
                 	    {
                 			entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                 	    }
@@ -635,7 +635,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         }
         
         if (    //try to mount player on elephant - THIS MUST TO BE AT THE VERY LAST OF THE INTERACT FUNCTION so that any interactable items are used first before the player mounts the elephant
-    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
     			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
         	)
         {
@@ -745,7 +745,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 		return false;
 	}
 
-	private boolean interactIfItemIsFoodItem(EntityPlayer entityPlayer, ItemStack itemstack, Item item, List<String> oreDictionaryNameArray)
+	private boolean interactIfItemIsFoodItem(EntityPlayer entityPlayer, ItemStack itemStack, Item item, List<String> oreDictionaryNameArray)
 	{
 		if (	//general food
 				item == MoCreatures.sugarLump
@@ -769,7 +769,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 			)
 		{
 		    
-			if (--itemstack.stackSize == 0)
+			if (--itemStack.stackSize == 0)
 		    {
 		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		    }
@@ -1062,13 +1062,13 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack itemstack)
+    public boolean isMyHealFood(ItemStack itemStack)
     {
-        return itemstack != null &&
+        return itemStack != null &&
         		(
-        			itemstack.getItem() == Items.baked_potato
-        			|| itemstack.getItem() == Items.bread
-        			|| itemstack.getItem() == MoCreatures.haystack
+        			itemStack.getItem() == Items.baked_potato
+        			|| itemStack.getItem() == Items.bread
+        			|| itemStack.getItem() == MoCreatures.haystack
                 );
     }
 

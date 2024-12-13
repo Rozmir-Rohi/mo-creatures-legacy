@@ -248,11 +248,11 @@ public class MoCEntityFishBowl extends MoCEntityItemPlaceable {
     @Override
     public boolean interact(EntityPlayer entityPlayer)
     {
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        ItemStack itemStack = entityPlayer.getHeldItem();
 
-        if ((itemstack != null) && (getType() > 0 && getType() < 11) && ((itemstack.getItem() == MoCreatures.fishbowlEmpty) || (itemstack.getItem() == MoCreatures.fishbowlWater)))
+        if ((itemStack != null) && (getType() > 0 && getType() < 11) && ((itemStack.getItem() == MoCreatures.fishbowlEmpty) || (itemStack.getItem() == MoCreatures.fishbowlWater)))
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -264,7 +264,7 @@ public class MoCEntityFishBowl extends MoCEntityItemPlaceable {
         
         if (
 	        	(
-	    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+	    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
 	    			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
 	    		)
 	    		&& !(entityPlayer.isSneaking())

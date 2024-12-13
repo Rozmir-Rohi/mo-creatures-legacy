@@ -353,15 +353,15 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     {
         if (super.interact(entityPlayer)) {return false;}
         
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        ItemStack itemStack = entityPlayer.getHeldItem();
         
-        if (getIsTamed() && itemstack != null)
+        if (getIsTamed() && itemStack != null)
         {
-        	Item item = itemstack.getItem();
+        	Item item = itemStack.getItem();
         	
         	if (!getIsRideable() && getMoCAge() > 90 && (item == Items.saddle || item == MoCreatures.craftedSaddle) )
             {
-                if (--itemstack.stackSize == 0)
+                if (--itemStack.stackSize == 0)
                 {
                     entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                 }
@@ -390,7 +390,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
                 
                 setArmorType(armorType);
                 
-                if (--itemstack.stackSize == 0)
+                if (--itemStack.stackSize == 0)
                 {
                     entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                 }
@@ -400,7 +400,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
 
             if (getMoCAge() > 90 && !getIsChested() && (item == Item.getItemFromBlock(Blocks.chest)))
             {
-                if (--itemstack.stackSize == 0)
+                if (--itemStack.stackSize == 0)
                 {
                     entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                 }
@@ -428,7 +428,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
 
             if ((item == MoCreatures.essenceLight) && getMoCAge() > 90 && getType() < 5) // wyvern types below 5: Jungle, Swamp, Savanna, Sand
             {
-                if (--itemstack.stackSize == 0)
+                if (--itemStack.stackSize == 0)
                 {
                     entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
                 }
@@ -457,7 +457,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             {
 	            if (item == MoCreatures.essenceUndead)
 	            {
-	                if (--itemstack.stackSize == 0)
+	                if (--itemStack.stackSize == 0)
 	                {
 	                    entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
 	                }
@@ -475,7 +475,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             
 	            if (item == MoCreatures.essenceLight)
 	            {
-	                if (--itemstack.stackSize == 0)
+	                if (--itemStack.stackSize == 0)
 	                {
 	                    entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
 	                }
@@ -493,7 +493,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
 	
 	            if (item == MoCreatures.essenceDarkness)
 	            {
-	                if (--itemstack.stackSize == 0)
+	                if (--itemStack.stackSize == 0)
 	                {
 	                    entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
 	                }
@@ -513,7 +513,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
 
         if (
         		(
-        			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+        			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
         			|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
         		)
         		&& !(entityPlayer.isSneaking()) && getIsRideable() && getMoCAge() > 90 && (riddenByEntity == null)
@@ -823,17 +823,17 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack itemstack)
+    public boolean isMyHealFood(ItemStack itemStack)
     {
-        return itemstack != null && 
+        return itemStack != null && 
         	(
-        		itemstack.getItem() == MoCreatures.ratRaw
-        		|| itemstack.getItem() == MoCreatures.turkeyRaw
-        		|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("etfuturum:rabbit_raw")
-        		|| (itemstack.getItem().itemRegistry).getNameForObject(itemstack.getItem()).equals("harvestcraft:rabbitrawItem")
+        		itemStack.getItem() == MoCreatures.ratRaw
+        		|| itemStack.getItem() == MoCreatures.turkeyRaw
+        		|| (itemStack.getItem().itemRegistry).getNameForObject(itemStack.getItem()).equals("etfuturum:rabbit_raw")
+        		|| (itemStack.getItem().itemRegistry).getNameForObject(itemStack.getItem()).equals("harvestcraft:rabbitrawItem")
         		|| MoCreatures.isGregTech6Loaded &&
         			(	
-        				OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+        				OreDictionary.getOreName(OreDictionary.getOreID(itemStack)) == "foodScrapmeat"
         			)
         	);
     }
@@ -926,9 +926,9 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
          {
              if (getType() < 5)
              {
-                 return 1.4D;
+                 return 1.46D;
              }
-             return 1.44D;
+             return 1.5D;
          }
         return 0.8D;
     }

@@ -71,6 +71,8 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     public int sprintCounter;
     public int transformType;
     public int transformCounter;
+    
+    private int forwardMovementCounterForWalkingSoundEffect;
 
     public MoCEntityHorse(World world)
     {
@@ -84,8 +86,6 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         setChestedHorse(false);
         roper = null;
         stepHeight = 1.0F;
-        
-        if (getType() == 38 || getType() == 40) {isImmuneToFire = true;} //sets immunity to fire for nightmare horse and dark pegasus if they were spawned into the world without going through essence transformations
 
         if (MoCreatures.isServer())
         {
@@ -110,7 +110,6 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         dataWatcher.addObject(25, Integer.valueOf(0)); // armor 0 by default, 1 metal, 2 gold, 3 diamond, 4 crystaline
         dataWatcher.addObject(26, Byte.valueOf((byte) 0)); // Bred - 0 false 1 true
     }
-
    
     @Override
     public boolean attackEntityFrom(DamageSource damageSource, float damageTaken)
@@ -210,7 +209,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     /**
      * returns one of the RGB color codes
      * 
-     * @param sColor
+     * @param sparkleColour
      *            : 1 will return the Red component, 2 will return the Green and
      *            3 the blue
      * @param typeInt
@@ -218,102 +217,102 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
      *            horse types.
      * @return
      */
-    public float colorFX(int sColor, int typeInt)
+    public float colorFX(int sparkleColour, int typeInt)
     {
         if (typeInt == 48) // yellow
         {
-            if (sColor == 1) { return (float) 179 / 256; }
-            if (sColor == 2) { return (float) 160 / 256; }
+            if (sparkleColour == 1) { return (float) 179 / 256; }
+            if (sparkleColour == 2) { return (float) 160 / 256; }
             return (float) 22 / 256;
         }
         
         if (typeInt == 49) // purple
         {
-            if (sColor == 1) { return (float) 147 / 256; }
-            if (sColor == 2) { return (float) 90 / 256; }
+            if (sparkleColour == 1) { return (float) 147 / 256; }
+            if (sparkleColour == 2) { return (float) 90 / 256; }
             return (float) 195 / 256;
         }
 
         if (typeInt == 51) // blue
         {
-            if (sColor == 1) { return (float) 30 / 256; }
-            if (sColor == 2) { return (float) 144 / 256; }
+            if (sparkleColour == 1) { return (float) 30 / 256; }
+            if (sparkleColour == 2) { return (float) 144 / 256; }
             return (float) 255 / 256;
         }
         if (typeInt == 52) // pink
         {
-            if (sColor == 1) { return (float) 255 / 256; }
-            if (sColor == 2) { return (float) 105 / 256; }
+            if (sparkleColour == 1) { return (float) 255 / 256; }
+            if (sparkleColour == 2) { return (float) 105 / 256; }
             return (float) 180 / 256;
         }
 
         if (typeInt == 53) // lightgreen
         {
-            if (sColor == 1) { return (float) 188 / 256; }
-            if (sColor == 2) { return (float) 238 / 256; }
+            if (sparkleColour == 1) { return (float) 188 / 256; }
+            if (sparkleColour == 2) { return (float) 238 / 256; }
             return (float) 104 / 256;
         }
         
         if (typeInt == 54) // black fairy
         {
-            if (sColor == 1) { return (float) 110 / 256; }
-            if (sColor == 2) { return (float) 123 / 256; }
+            if (sparkleColour == 1) { return (float) 110 / 256; }
+            if (sparkleColour == 2) { return (float) 123 / 256; }
             return (float) 139 / 256;
         }
         
         if (typeInt == 55) // red fairy
         {
-            if (sColor == 1) { return (float) 194 / 256; }
-            if (sColor == 2) { return (float) 29 / 256; }
+            if (sparkleColour == 1) { return (float) 194 / 256; }
+            if (sparkleColour == 2) { return (float) 29 / 256; }
             return (float) 34 / 256;
         }
         
         if (typeInt == 56) // dark blue fairy
         {
-            if (sColor == 1) { return (float) 63 / 256; }
-            if (sColor == 2) { return (float) 45 / 256; }
+            if (sparkleColour == 1) { return (float) 63 / 256; }
+            if (sparkleColour == 2) { return (float) 45 / 256; }
             return (float) 255 / 256;
         }
         
         if (typeInt == 57) // cyan
         {
-            if (sColor == 1) { return (float) 69 / 256; }
-            if (sColor == 2) { return (float) 146 / 256; }
+            if (sparkleColour == 1) { return (float) 69 / 256; }
+            if (sparkleColour == 2) { return (float) 146 / 256; }
             return (float) 145 / 256;
         }
 
         if (typeInt == 58) // green
         {
-            if (sColor == 1) { return (float) 90 / 256; }
-            if (sColor == 2) { return (float) 136 / 256; }
+            if (sparkleColour == 1) { return (float) 90 / 256; }
+            if (sparkleColour == 2) { return (float) 136 / 256; }
             return (float) 43 / 256;
         }
         
         if (typeInt == 59) // orange
         {
-            if (sColor == 1) { return (float) 218 / 256; }
-            if (sColor == 2) { return (float) 40 / 256; }
+            if (sparkleColour == 1) { return (float) 218 / 256; }
+            if (sparkleColour == 2) { return (float) 40 / 256; }
             return (float) 0 / 256;
         }
         
         if (typeInt > 22 && typeInt < 26) // green for undeads
         {
-            if (sColor == 1) { return (float) 60 / 256; }
-            if (sColor == 2) { return (float) 179 / 256; }
+            if (sparkleColour == 1) { return (float) 60 / 256; }
+            if (sparkleColour == 2) { return (float) 179 / 256; }
             return (float) 112 / 256;
 
         }
         if (typeInt == 40) // dark red for black pegasus
         {
-            if (sColor == 1) { return (float) 139 / 256; }
-            if (sColor == 2) { return 0F; }
+            if (sparkleColour == 1) { return (float) 139 / 256; }
+            if (sparkleColour == 2) { return 0F; }
             return 0F;
 
         }
 
         // by default will return clear gold
-        if (sColor == 1) { return (float) 255 / 256; }
-        if (sColor == 2) { return (float) 236 / 256; }
+        if (sparkleColour == 1) { return (float) 255 / 256; }
+        if (sparkleColour == 2) { return (float) 236 / 256; }
         return (float) 139 / 256;
     }
 
@@ -384,25 +383,25 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     }
 
     @Override
-    protected void fall(float f)
+    protected void fall(float fallDistance)
     {
         if (isFlyer() || isFloater()) { return; }
 
-        float i = (float) (Math.ceil(f - 3F)/2F);
+        float adjustedFallDistance = (float) (Math.ceil(fallDistance - 3F)/2F);
         
-        if (MoCreatures.isServer() && (i > 0))
+        if (MoCreatures.isServer() && (adjustedFallDistance > 0))
         {
             if (getType() >= 10)
             {
-                i /= 2;
+                adjustedFallDistance /= 2;
             }
-            if (i > 1F)
+            if (adjustedFallDistance > 1F)
             {
-                attackEntityFrom(DamageSource.fall, i);
+                attackEntityFrom(DamageSource.fall, adjustedFallDistance);
             }
-            if ((riddenByEntity != null) && (i > 1F))
+            if ((riddenByEntity != null) && (adjustedFallDistance > 1F))
             {
-                riddenByEntity.attackEntityFrom(DamageSource.fall, i);
+                riddenByEntity.attackEntityFrom(DamageSource.fall, adjustedFallDistance);
             }
 
             Block block = worldObj.getBlock(MathHelper.floor_double(posX), MathHelper.floor_double(posY - 0.20000000298023221D - prevRotationPitch), MathHelper.floor_double(posZ));
@@ -435,10 +434,10 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         return (dataWatcher.getWatchableObjectByte(23) == 1);
     }
 
-    protected MoCEntityHorse getClosestMommy(Entity entity, double range)
+    protected MoCEntityHorse getClosestMotherHorse(Entity entity, double range)
     {
         double d1 = -1D;
-        MoCEntityHorse entityLiving = null;
+        MoCEntityHorse closestEntityHorseNearby = null;
         List listOfEntitiesNearby = worldObj.getEntitiesWithinAABBExcludingEntity(entity, entity.boundingBox.expand(range, range, range));
         for (int index = 0; index < listOfEntitiesNearby.size(); index++)
         {
@@ -452,11 +451,11 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
             if (((range < 0.0D) || (distanceToEntityNearby < (range * range))) && ((d1 == -1D) || (distanceToEntityNearby < d1)))
             {
                 d1 = distanceToEntityNearby;
-                entityLiving = (MoCEntityHorse) entityNearby;
+                closestEntityHorseNearby = (MoCEntityHorse) entityNearby;
             }
         }
 
-        return entityLiving;
+        return closestEntityHorseNearby;
     }
 
     @Override
@@ -692,23 +691,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     @Override
     protected String getHurtSound()
     {
-        openMouth();
-        if (isFlyer() && riddenByEntity == null)
-        {
-            wingFlap();
-        }
-        else
-        {
-            if (rand.nextInt(3) == 0)
-            {
-                stand();
-            }
-        }
-        if (isUndead()) { return "mocreatures:horsehurtundead"; }
-        if (isGhost()) { return "mocreatures:horsehurtghost"; }
-        if (getType() == 60 || getType() == 61) { return "mocreatures:zebrahurt"; }
-        if (getType() >= 65 && getType() <= 67) { return "mocreatures:donkeyhurt"; }
-        return "mocreatures:horsehurt";
+    	return getMadSound();
     }
 
     @Override
@@ -738,13 +721,24 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     @Override
     protected String getMadSound()
     {
-        openMouth();
-        stand();
-        if (isUndead()) { return "mocreatures:horsemadundead"; }
-        if (isGhost()) { return "mocreatures:horsemadghost"; }
+    	openMouth();
+        if (isFlyer() && riddenByEntity == null)
+        {
+            wingFlap();
+        }
+        else
+        {
+            if (rand.nextInt(3) == 0)
+            {
+                stand();
+            }
+        }
+        if (isUndead()) { return "mocreatures:horsehurtundead"; }
+        if (isGhost()) { return "mocreatures:horsehurtghost"; }
         if (getType() == 60 || getType() == 61) { return "mocreatures:zebrahurt"; }
         if (getType() >= 65 && getType() <= 67) { return "mocreatures:donkeyhurt"; }
-        return "mocreatures:horsemad";
+        
+        return "mocreatures:horsehurt";
     }
 
     public double calculateMaxHealth()
@@ -1185,162 +1179,162 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
      * @param entityhorse1
      * @return
      */
-    //private int HorseGenetics(MoCEntityHorse entityhorse, MoCEntityHorse entityhorse1)
-    private int HorseGenetics(int typeA, int typeB)
+    //private int horseGenetics(MoCEntityHorse entityhorse, MoCEntityHorse entityhorse1)
+    private int horseGenetics(int parentHorseTypeA, int parentHorseTypeB)
     {
-        boolean flag = MoCreatures.proxy.easyBreeding;
+        boolean shouldBecomeSterile = MoCreatures.proxy.hardHorseBreeding;
         //int typeA = entityhorse.getType();
         //int typeB = entityhorse1.getType();
 
         // identical horses have so spring
-        if (typeA == typeB) { return typeA; }
+        if (parentHorseTypeA == parentHorseTypeB) { return parentHorseTypeA; }
 
         // zebras plus any horse
-        if (typeA == 60 && typeB < 21 || typeB == 60 && typeA < 21) { return 61; // zorse
+        if (parentHorseTypeA == 60 && parentHorseTypeB < 21 || parentHorseTypeB == 60 && parentHorseTypeA < 21) { return 61; // zorse
         }
 
         // donkey plus any horse
-        if (typeA == 65 && typeB < 21 || typeB == 65 && typeA < 21) { return 66; // mule
+        if (parentHorseTypeA == 65 && parentHorseTypeB < 21 || parentHorseTypeB == 65 && parentHorseTypeA < 21) { return 66; // mule
         }
 
         // zebra plus donkey
-        if (typeA == 60 && typeB == 65 || typeB == 60 && typeA == 65) { return 67; // zonky
+        if (parentHorseTypeA == 60 && parentHorseTypeB == 65 || parentHorseTypeB == 60 && parentHorseTypeA == 65) { return 67; // zonky
         }
 
-        if (typeA > 20 && typeB < 21 || typeB > 20 && typeA < 21) // rare horses plus  ordinary horse always returns ordinary horse
+        if (parentHorseTypeA > 20 && parentHorseTypeB < 21 || parentHorseTypeB > 20 && parentHorseTypeA < 21) // rare horses plus  ordinary horse always returns ordinary horse
         {
-            if (typeA < typeB) { return typeA; }
-            return typeB;
+            if (parentHorseTypeA < parentHorseTypeB) { return parentHorseTypeA; }
+            return parentHorseTypeB;
         }
 
         // unicorn plus white pegasus (they will both vanish!)
-        if (typeA == 36 && typeB == 39 || typeB == 36 && typeA == 39)
+        if (parentHorseTypeA == 36 && parentHorseTypeB == 39 || parentHorseTypeB == 36 && parentHorseTypeA == 39)
         {
             return 50; // white fairy
         }
 
         // rare horse mixture: produces a regular horse 1-5
-        if (typeA > 20 && typeB > 20 && (typeA != typeB)) { return (rand.nextInt(5)) + 1; }
+        if (parentHorseTypeA > 20 && parentHorseTypeB > 20 && (parentHorseTypeA != parentHorseTypeB)) { return (rand.nextInt(5)) + 1; }
 
         // rest of cases will return either typeA, typeB or new mix
         int chanceInt = (rand.nextInt(4)) + 1;
-        if (!flag)
+        if (shouldBecomeSterile)
         {
             if (chanceInt == 1) // 25%
             {
-                return typeA;
+                return parentHorseTypeA;
             }
             else if (chanceInt == 2) // 25%
-            { return typeB; }
+            { return parentHorseTypeB; }
         }
 
-        if ((typeA == 1 && typeB == 2) || (typeA == 2 && typeB == 1)) { return 6; }
+        if ((parentHorseTypeA == 1 && parentHorseTypeB == 2) || (parentHorseTypeA == 2 && parentHorseTypeB == 1)) { return 6; }
 
-        if ((typeA == 1 && typeB == 3) || (typeA == 3 && typeB == 1)) { return 2; }
+        if ((parentHorseTypeA == 1 && parentHorseTypeB == 3) || (parentHorseTypeA == 3 && parentHorseTypeB == 1)) { return 2; }
 
-        if ((typeA == 1 && typeB == 4) || (typeA == 4 && typeB == 1)) { return 7; }
+        if ((parentHorseTypeA == 1 && parentHorseTypeB == 4) || (parentHorseTypeA == 4 && parentHorseTypeB == 1)) { return 7; }
 
-        if ((typeA == 1 && typeB == 5) || (typeA == 5 && typeB == 1)) { return 9; }
+        if ((parentHorseTypeA == 1 && parentHorseTypeB == 5) || (parentHorseTypeA == 5 && parentHorseTypeB == 1)) { return 9; }
 
-        if ((typeA == 1 && typeB == 7) || (typeA == 7 && typeB == 1)) { return 12; }
+        if ((parentHorseTypeA == 1 && parentHorseTypeB == 7) || (parentHorseTypeA == 7 && parentHorseTypeB == 1)) { return 12; }
 
-        if ((typeA == 1 && typeB == 8) || (typeA == 8 && typeB == 1)) { return 7; }
+        if ((parentHorseTypeA == 1 && parentHorseTypeB == 8) || (parentHorseTypeA == 8 && parentHorseTypeB == 1)) { return 7; }
 
-        if ((typeA == 1 && typeB == 9) || (typeA == 9 && typeB == 1)) { return 13; }
+        if ((parentHorseTypeA == 1 && parentHorseTypeB == 9) || (parentHorseTypeA == 9 && parentHorseTypeB == 1)) { return 13; }
 
-        if ((typeA == 1 && typeB == 11) || (typeA == 11 && typeB == 1)) { return 12; }
+        if ((parentHorseTypeA == 1 && parentHorseTypeB == 11) || (parentHorseTypeA == 11 && parentHorseTypeB == 1)) { return 12; }
 
-        if ((typeA == 1 && typeB == 12) || (typeA == 12 && typeB == 1)) { return 13; }
+        if ((parentHorseTypeA == 1 && parentHorseTypeB == 12) || (parentHorseTypeA == 12 && parentHorseTypeB == 1)) { return 13; }
 
-        if ((typeA == 1 && typeB == 17) || (typeA == 17 && typeB == 1)) { return 16; }
+        if ((parentHorseTypeA == 1 && parentHorseTypeB == 17) || (parentHorseTypeA == 17 && parentHorseTypeB == 1)) { return 16; }
 
-        if ((typeA == 2 && typeB == 4) || (typeA == 4 && typeB == 2)) { return 3; }
+        if ((parentHorseTypeA == 2 && parentHorseTypeB == 4) || (parentHorseTypeA == 4 && parentHorseTypeB == 2)) { return 3; }
 
-        if ((typeA == 2 && typeB == 5) || (typeA == 5 && typeB == 2)) { return 4; }
+        if ((parentHorseTypeA == 2 && parentHorseTypeB == 5) || (parentHorseTypeA == 5 && parentHorseTypeB == 2)) { return 4; }
 
-        if ((typeA == 2 && typeB == 7) || (typeA == 7 && typeB == 2)) { return 8; }
+        if ((parentHorseTypeA == 2 && parentHorseTypeB == 7) || (parentHorseTypeA == 7 && parentHorseTypeB == 2)) { return 8; }
 
-        if ((typeA == 2 && typeB == 8) || (typeA == 8 && typeB == 2)) { return 3; }
+        if ((parentHorseTypeA == 2 && parentHorseTypeB == 8) || (parentHorseTypeA == 8 && parentHorseTypeB == 2)) { return 3; }
 
-        if ((typeA == 2 && typeB == 12) || (typeA == 12 && typeB == 2)) { return 6; }
+        if ((parentHorseTypeA == 2 && parentHorseTypeB == 12) || (parentHorseTypeA == 12 && parentHorseTypeB == 2)) { return 6; }
 
-        if ((typeA == 2 && typeB == 16) || (typeA == 16 && typeB == 2)) { return 13; }
+        if ((parentHorseTypeA == 2 && parentHorseTypeB == 16) || (parentHorseTypeA == 16 && parentHorseTypeB == 2)) { return 13; }
 
-        if ((typeA == 2 && typeB == 17) || (typeA == 17 && typeB == 2)) { return 12; }
+        if ((parentHorseTypeA == 2 && parentHorseTypeB == 17) || (parentHorseTypeA == 17 && parentHorseTypeB == 2)) { return 12; }
 
-        if ((typeA == 3 && typeB == 4) || (typeA == 4 && typeB == 3)) { return 8; }
+        if ((parentHorseTypeA == 3 && parentHorseTypeB == 4) || (parentHorseTypeA == 4 && parentHorseTypeB == 3)) { return 8; }
 
-        if ((typeA == 3 && typeB == 5) || (typeA == 5 && typeB == 3)) { return 8; }
+        if ((parentHorseTypeA == 3 && parentHorseTypeB == 5) || (parentHorseTypeA == 5 && parentHorseTypeB == 3)) { return 8; }
 
-        if ((typeA == 3 && typeB == 6) || (typeA == 6 && typeB == 3)) { return 2; }
+        if ((parentHorseTypeA == 3 && parentHorseTypeB == 6) || (parentHorseTypeA == 6 && parentHorseTypeB == 3)) { return 2; }
 
-        if ((typeA == 3 && typeB == 7) || (typeA == 7 && typeB == 3)) { return 11; }
+        if ((parentHorseTypeA == 3 && parentHorseTypeB == 7) || (parentHorseTypeA == 7 && parentHorseTypeB == 3)) { return 11; }
 
-        if ((typeA == 3 && typeB == 9) || (typeA == 9 && typeB == 3)) { return 8; }
+        if ((parentHorseTypeA == 3 && parentHorseTypeB == 9) || (parentHorseTypeA == 9 && parentHorseTypeB == 3)) { return 8; }
 
-        if ((typeA == 3 && typeB == 12) || (typeA == 12 && typeB == 3)) { return 11; }
+        if ((parentHorseTypeA == 3 && parentHorseTypeB == 12) || (parentHorseTypeA == 12 && parentHorseTypeB == 3)) { return 11; }
 
-        if ((typeA == 3 && typeB == 16) || (typeA == 16 && typeB == 3)) { return 11; }
+        if ((parentHorseTypeA == 3 && parentHorseTypeB == 16) || (parentHorseTypeA == 16 && parentHorseTypeB == 3)) { return 11; }
 
-        if ((typeA == 3 && typeB == 17) || (typeA == 17 && typeB == 3)) { return 11; }
+        if ((parentHorseTypeA == 3 && parentHorseTypeB == 17) || (parentHorseTypeA == 17 && parentHorseTypeB == 3)) { return 11; }
 
-        if ((typeA == 4 && typeB == 6) || (typeA == 6 && typeB == 4)) { return 3; }
+        if ((parentHorseTypeA == 4 && parentHorseTypeB == 6) || (parentHorseTypeA == 6 && parentHorseTypeB == 4)) { return 3; }
 
-        if ((typeA == 4 && typeB == 7) || (typeA == 7 && typeB == 4)) { return 8; }
+        if ((parentHorseTypeA == 4 && parentHorseTypeB == 7) || (parentHorseTypeA == 7 && parentHorseTypeB == 4)) { return 8; }
 
-        if ((typeA == 4 && typeB == 9) || (typeA == 9 && typeB == 4)) { return 7; }
+        if ((parentHorseTypeA == 4 && parentHorseTypeB == 9) || (parentHorseTypeA == 9 && parentHorseTypeB == 4)) { return 7; }
 
-        if ((typeA == 4 && typeB == 11) || (typeA == 11 && typeB == 4)) { return 7; }
+        if ((parentHorseTypeA == 4 && parentHorseTypeB == 11) || (parentHorseTypeA == 11 && parentHorseTypeB == 4)) { return 7; }
 
-        if ((typeA == 4 && typeB == 12) || (typeA == 12 && typeB == 4)) { return 7; }
+        if ((parentHorseTypeA == 4 && parentHorseTypeB == 12) || (parentHorseTypeA == 12 && parentHorseTypeB == 4)) { return 7; }
 
-        if ((typeA == 4 && typeB == 13) || (typeA == 13 && typeB == 4)) { return 7; }
+        if ((parentHorseTypeA == 4 && parentHorseTypeB == 13) || (parentHorseTypeA == 13 && parentHorseTypeB == 4)) { return 7; }
 
-        if ((typeA == 4 && typeB == 16) || (typeA == 16 && typeB == 4)) { return 13; }
+        if ((parentHorseTypeA == 4 && parentHorseTypeB == 16) || (parentHorseTypeA == 16 && parentHorseTypeB == 4)) { return 13; }
 
-        if ((typeA == 4 && typeB == 17) || (typeA == 17 && typeB == 4)) { return 5; }
+        if ((parentHorseTypeA == 4 && parentHorseTypeB == 17) || (parentHorseTypeA == 17 && parentHorseTypeB == 4)) { return 5; }
 
-        if ((typeA == 5 && typeB == 6) || (typeA == 6 && typeB == 5)) { return 4; }
+        if ((parentHorseTypeA == 5 && parentHorseTypeB == 6) || (parentHorseTypeA == 6 && parentHorseTypeB == 5)) { return 4; }
 
-        if ((typeA == 5 && typeB == 7) || (typeA == 7 && typeB == 5)) { return 4; }
+        if ((parentHorseTypeA == 5 && parentHorseTypeB == 7) || (parentHorseTypeA == 7 && parentHorseTypeB == 5)) { return 4; }
 
-        if ((typeA == 5 && typeB == 8) || (typeA == 8 && typeB == 5)) { return 4; }
+        if ((parentHorseTypeA == 5 && parentHorseTypeB == 8) || (parentHorseTypeA == 8 && parentHorseTypeB == 5)) { return 4; }
 
-        if ((typeA == 5 && typeB == 11) || (typeA == 11 && typeB == 5)) { return 17; }
+        if ((parentHorseTypeA == 5 && parentHorseTypeB == 11) || (parentHorseTypeA == 11 && parentHorseTypeB == 5)) { return 17; }
 
-        if ((typeA == 5 && typeB == 12) || (typeA == 12 && typeB == 5)) { return 13; }
+        if ((parentHorseTypeA == 5 && parentHorseTypeB == 12) || (parentHorseTypeA == 12 && parentHorseTypeB == 5)) { return 13; }
 
-        if ((typeA == 5 && typeB == 13) || (typeA == 13 && typeB == 5)) { return 16; }
+        if ((parentHorseTypeA == 5 && parentHorseTypeB == 13) || (parentHorseTypeA == 13 && parentHorseTypeB == 5)) { return 16; }
 
-        if ((typeA == 5 && typeB == 16) || (typeA == 16 && typeB == 5)) { return 17; }
+        if ((parentHorseTypeA == 5 && parentHorseTypeB == 16) || (parentHorseTypeA == 16 && parentHorseTypeB == 5)) { return 17; }
 
-        if ((typeA == 6 && typeB == 8) || (typeA == 8 && typeB == 6)) { return 2; }
+        if ((parentHorseTypeA == 6 && parentHorseTypeB == 8) || (parentHorseTypeA == 8 && parentHorseTypeB == 6)) { return 2; }
 
-        if ((typeA == 6 && typeB == 17) || (typeA == 17 && typeB == 6)) { return 7; }
+        if ((parentHorseTypeA == 6 && parentHorseTypeB == 17) || (parentHorseTypeA == 17 && parentHorseTypeB == 6)) { return 7; }
 
-        if ((typeA == 7 && typeB == 16) || (typeA == 16 && typeB == 7)) { return 13; }
+        if ((parentHorseTypeA == 7 && parentHorseTypeB == 16) || (parentHorseTypeA == 16 && parentHorseTypeB == 7)) { return 13; }
 
-        if ((typeA == 8 && typeB == 11) || (typeA == 11 && typeB == 8)) { return 7; }
+        if ((parentHorseTypeA == 8 && parentHorseTypeB == 11) || (parentHorseTypeA == 11 && parentHorseTypeB == 8)) { return 7; }
 
-        if ((typeA == 8 && typeB == 12) || (typeA == 12 && typeB == 8)) { return 7; }
+        if ((parentHorseTypeA == 8 && parentHorseTypeB == 12) || (parentHorseTypeA == 12 && parentHorseTypeB == 8)) { return 7; }
 
-        if ((typeA == 8 && typeB == 13) || (typeA == 13 && typeB == 8)) { return 7; }
+        if ((parentHorseTypeA == 8 && parentHorseTypeB == 13) || (parentHorseTypeA == 13 && parentHorseTypeB == 8)) { return 7; }
 
-        if ((typeA == 8 && typeB == 16) || (typeA == 16 && typeB == 8)) { return 7; }
+        if ((parentHorseTypeA == 8 && parentHorseTypeB == 16) || (parentHorseTypeA == 16 && parentHorseTypeB == 8)) { return 7; }
 
-        if ((typeA == 8 && typeB == 17) || (typeA == 17 && typeB == 8)) { return 7; }
+        if ((parentHorseTypeA == 8 && parentHorseTypeB == 17) || (parentHorseTypeA == 17 && parentHorseTypeB == 8)) { return 7; }
 
-        if ((typeA == 9 && typeB == 16) || (typeA == 16 && typeB == 9)) { return 13; }
+        if ((parentHorseTypeA == 9 && parentHorseTypeB == 16) || (parentHorseTypeA == 16 && parentHorseTypeB == 9)) { return 13; }
 
-        if ((typeA == 11 && typeB == 16) || (typeA == 16 && typeB == 11)) { return 13; }
+        if ((parentHorseTypeA == 11 && parentHorseTypeB == 16) || (parentHorseTypeA == 16 && parentHorseTypeB == 11)) { return 13; }
 
-        if ((typeA == 11 && typeB == 17) || (typeA == 17 && typeB == 11)) { return 7; }
+        if ((parentHorseTypeA == 11 && parentHorseTypeB == 17) || (parentHorseTypeA == 17 && parentHorseTypeB == 11)) { return 7; }
 
-        if ((typeA == 12 && typeB == 16) || (typeA == 16 && typeB == 12)) { return 13; }
+        if ((parentHorseTypeA == 12 && parentHorseTypeB == 16) || (parentHorseTypeA == 16 && parentHorseTypeB == 12)) { return 13; }
 
-        if ((typeA == 13 && typeB == 17) || (typeA == 17 && typeB == 13)) { return 9; }
+        if ((parentHorseTypeA == 13 && parentHorseTypeB == 17) || (parentHorseTypeA == 17 && parentHorseTypeB == 13)) { return 9; }
 
-        return typeA; // breed is not in the table so it will return the first
+        return parentHorseTypeA; // breed is not in the table so it will return the first
                         // parent type
     }
 
@@ -1356,16 +1350,16 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         if (horseType == 60 && !getIsTamed() && isZebraRunningAwayFromPlayer()) // zebra
         { return false; }
         
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        ItemStack itemStack = entityPlayer.getHeldItem();
         EntityPlayer owner = worldObj.getPlayerEntityByName(getOwnerName());
         
-        if (itemstack != null)
+        if (itemStack != null)
         {
-        	Item item = itemstack.getItem();
+        	Item item = itemStack.getItem();
         
 	        if (!getIsRideable() && (item == Items.saddle) || (item == MoCreatures.craftedSaddle))
 	        {
-	            if (--itemstack.stackSize == 0)
+	            if (--itemStack.stackSize == 0)
 	            {
 	                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 	            }
@@ -1373,12 +1367,12 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	            return true;
 	        }
 	        
-	        List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+	        List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
 	        
 	        
-	        if (interactIfThisHorseIsANormalHorseAndItemstackIsHealFood(entityPlayer, horseType, itemstack, item, oreDictionaryNameArray)) {return true;};
+	        if (interactIfThisHorseIsANormalHorseAndItemstackIsHealFood(entityPlayer, horseType, itemStack, item, oreDictionaryNameArray)) {return true;};
 	        
-	        if (interactIfThisHorseIsANormalHorseAndItemstackIsBreedingFood(entityPlayer, itemstack, item)) {return true;};
+	        if (interactIfThisHorseIsANormalHorseAndItemstackIsBreedingFood(entityPlayer, itemStack, item)) {return true;};
 	        
 	        if (getIsTamed())
 	        {
@@ -1400,20 +1394,20 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		
 		        }
 	        	
-		        if (interactIfItemstackIsHorseArmor(entityPlayer, itemstack, item)) {return true;};
+		        if (interactIfItemstackIsHorseArmor(entityPlayer, itemStack, item)) {return true;};
 		
-		        if (interactIfItemstackIsEssenceOfDarkness(entityPlayer, horseType, itemstack, owner, item)) {return true;};
+		        if (interactIfItemstackIsEssenceOfDarkness(entityPlayer, horseType, itemStack, owner, item)) {return true;};
 		        
-		        if (interactIfItemstackisEssenceOfFire(entityPlayer, horseType, itemstack, owner, item)) {return true;};
+		        if (interactIfItemstackisEssenceOfFire(entityPlayer, horseType, itemStack, owner, item)) {return true;};
 		
-		        if (interactIfItemstackIsEssenceOfLight(entityPlayer, horseType, itemstack, owner, item)) {return true;};
+		        if (interactIfItemstackIsEssenceOfLight(entityPlayer, horseType, itemStack, owner, item)) {return true;};
 		        
-		        if (interactIfItemstackIsEssenceOfUndead(entityPlayer, horseType, itemstack, owner, item)) {return true;};
+		        if (interactIfItemstackIsEssenceOfUndead(entityPlayer, horseType, itemStack, owner, item)) {return true;};
 		
 		        if (item == Item.getItemFromBlock(Blocks.chest) && (isBagger()))
 		        {
 		            if (getIsChestedHorse()) { return false; }
-		            if (--itemstack.stackSize == 0)
+		            if (--itemStack.stackSize == 0)
 		            {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		            }
@@ -1425,13 +1419,13 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		        
 		        if (interactIfThisHorseIsAZebraAndItemstackIsRecord(entityPlayer, horseType, item)) {return true;};
 		        
-		        if (interactIfThisHorseIsAFairyAndItemstackIsDye(entityPlayer, horseType, itemstack, item)) {return true;};
+		        if (interactIfThisHorseIsAFairyAndItemstackIsDye(entityPlayer, horseType, itemStack, item)) {return true;};
         	}
         }
         
         if (	//try to mount player on horse - THIS MUST TO BE AT THE VERY LAST OF THE INTERACT FUNCTION so that any interactable items are used first before the player mounts the horse
 	        	(
-	    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+	    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
 	    			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
 	    		)
 	        	&& !(entityPlayer.isSneaking()) && getIsRideable() && getIsAdult() && (riddenByEntity == null)
@@ -1449,7 +1443,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         return false;
     }
 
-	private boolean interactIfThisHorseIsANormalHorseAndItemstackIsBreedingFood(EntityPlayer entityPlayer, ItemStack itemstack, Item item)
+	private boolean interactIfThisHorseIsANormalHorseAndItemstackIsBreedingFood(EntityPlayer entityPlayer, ItemStack itemStack, Item item)
 	{
 		if (
 				item == Item.getItemFromBlock(Blocks.pumpkin)  //normal horse breeding items
@@ -1461,7 +1455,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		    
 		    if (item == Items.mushroom_stew)
 		    {
-		        if (--itemstack.stackSize == 0)
+		        if (--itemStack.stackSize == 0)
 		        {
 		            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.bowl));
 		        }
@@ -1470,7 +1464,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		            entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.bowl));
 		        }
 		    }
-		    else if (--itemstack.stackSize == 0)
+		    else if (--itemStack.stackSize == 0)
 		    {
 		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		    }
@@ -1482,7 +1476,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		return false;
 	}
 
-	private boolean interactIfThisHorseIsANormalHorseAndItemstackIsHealFood(EntityPlayer entityPlayer, int horseType, ItemStack itemstack, Item item, List<String> oreDictionaryNameArray)
+	private boolean interactIfThisHorseIsANormalHorseAndItemstackIsHealFood(EntityPlayer entityPlayer, int horseType, ItemStack itemStack, Item item, List<String> oreDictionaryNameArray)
 	{
 		if (
 				!isUndead() && !isMagicHorse() && 
@@ -1532,7 +1526,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 			if (item == MoCreatures.haystack) {temperIncrease = 0; healAmount = 25; ageIncrease = 1;}
 
 
-			if (--itemstack.stackSize == 0)
+			if (--itemStack.stackSize == 0)
 			{
 				entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 			}
@@ -1613,12 +1607,12 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		return false;
 	}
 
-	private boolean interactIfThisHorseIsAFairyAndItemstackIsDye(EntityPlayer entityPlayer, int horseType, ItemStack itemstack, Item item)
+	private boolean interactIfThisHorseIsAFairyAndItemstackIsDye(EntityPlayer entityPlayer, int horseType, ItemStack itemStack, Item item)
 	{
 		if ((horseType == 50) && (item == Items.dye)) //set color of fairy horse based on dye player is interacting with
 		{
 
-		    int colorInt = BlockColored.func_150031_c(itemstack.getItemDamage());
+		    int colorInt = BlockColored.func_150031_c(itemStack.getItemDamage());
 		    switch (colorInt)
 		    {
 		    case 1: //orange
@@ -1669,7 +1663,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		    
 		    }
 		    
-		    if (--itemstack.stackSize == 0)
+		    if (--itemStack.stackSize == 0)
 		    {
 		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		    }
@@ -1715,11 +1709,11 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		return false;
 	}
 
-	private boolean interactIfItemstackIsEssenceOfLight(EntityPlayer entityPlayer, int horseType, ItemStack itemstack, EntityPlayer owner, Item item)
+	private boolean interactIfItemstackIsEssenceOfLight(EntityPlayer entityPlayer, int horseType, ItemStack itemStack, EntityPlayer owner, Item item)
 	{
 		if (item == MoCreatures.essenceLight)
 		{
-		    if (--itemstack.stackSize == 0)
+		    if (--itemStack.stackSize == 0)
 		    {
 		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
 		    }
@@ -1766,12 +1760,12 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		return false;
 	}
 
-	private boolean interactIfItemstackIsEssenceOfDarkness(EntityPlayer entityPlayer, int horseType, ItemStack itemstack, EntityPlayer owner, Item item)
+	private boolean interactIfItemstackIsEssenceOfDarkness(EntityPlayer entityPlayer, int horseType, ItemStack itemStack, EntityPlayer owner, Item item)
 	{
 		// transform to dark pegasus
 		if (item == MoCreatures.essenceDarkness)
 		{
-		    if (--itemstack.stackSize == 0)
+		    if (--itemStack.stackSize == 0)
 		    {
 		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
 		    }
@@ -1810,12 +1804,12 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		return false;
 	}
 
-	private boolean interactIfItemstackisEssenceOfFire(EntityPlayer entityPlayer, int horseType, ItemStack itemstack, EntityPlayer owner, Item item)
+	private boolean interactIfItemstackisEssenceOfFire(EntityPlayer entityPlayer, int horseType, ItemStack itemStack, EntityPlayer owner, Item item)
 	{
 		// to transform to nightmares: only pure breeds
 		if (item == MoCreatures.essenceFire)
 		{
-		    if (--itemstack.stackSize == 0)
+		    if (--itemStack.stackSize == 0)
 		    {
 		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
 		    }
@@ -1849,12 +1843,12 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		return false;
 	}
 
-	private boolean interactIfItemstackIsEssenceOfUndead(EntityPlayer entityPlayer, int horseType, ItemStack itemstack, EntityPlayer owner, Item item)
+	private boolean interactIfItemstackIsEssenceOfUndead(EntityPlayer entityPlayer, int horseType, ItemStack itemStack, EntityPlayer owner, Item item)
 	{
 		// transform to undead, or heal undead horse
 		if (item == MoCreatures.essenceUndead)
 		{
-		    if (--itemstack.stackSize == 0)
+		    if (--itemStack.stackSize == 0)
 		    {
 		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
 		    }
@@ -1903,7 +1897,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		return false;
 	}
 
-	private boolean interactIfItemstackIsHorseArmor(EntityPlayer entityPlayer, ItemStack itemstack, Item item) {
+	private boolean interactIfItemstackIsHorseArmor(EntityPlayer entityPlayer, ItemStack itemStack, Item item) {
 		if (
 				canWearRegularArmor() &&
 				(
@@ -1925,7 +1919,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		    
 		    setArmorType(regularArmorType);
 		    
-		    if (--itemstack.stackSize == 0)
+		    if (--itemStack.stackSize == 0)
 		    {
 		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		    }
@@ -1941,7 +1935,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		    
 		    setArmorType((byte) 4);
 		    
-		    if (--itemstack.stackSize == 0)
+		    if (--itemStack.stackSize == 0)
 		    {
 		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		    }
@@ -2055,6 +2049,61 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         	stand(); //use vanilla horse jump animation
         	playSound("mob.horse.jump", 0.4F, 1.0F);
         }
+    }
+    
+    @Override
+    protected void func_145780_a(int xCoord, int yCoord_, int zCoord, Block blockThatThisEntityIsWalkingOn)
+    {
+        Block.SoundType soundType = blockThatThisEntityIsWalkingOn.stepSound;
+
+        if (worldObj.getBlock(xCoord, yCoord_ + 1, zCoord) == Blocks.snow_layer)
+        {
+            soundType = Blocks.snow_layer.stepSound;
+        }
+
+        if (!blockThatThisEntityIsWalkingOn.getMaterial().isLiquid())
+        {
+            if (riddenByEntity != null)
+            {
+                ++forwardMovementCounterForWalkingSoundEffect;
+
+                if (forwardMovementCounterForWalkingSoundEffect > 5 && forwardMovementCounterForWalkingSoundEffect % 3 == 0)
+                {
+                    playSound("mob.horse.gallop", soundType.getVolume() * 0.15F, soundType.getPitch());
+
+                    if (!isUndead() && rand.nextInt(10) == 0)
+                    {
+                        playSound("mob.horse.breathe", soundType.getVolume() * 0.6F, soundType.getPitch());
+                    }
+                }
+                else if (forwardMovementCounterForWalkingSoundEffect <= 5)
+                {
+                    playSound("mob.horse.wood", soundType.getVolume() * 0.15F, soundType.getPitch());
+                }
+            }
+            else if (soundType == Block.soundTypeWood)
+            {
+                playSound("mob.horse.wood", soundType.getVolume() * 0.15F, soundType.getPitch());
+            }
+            else
+            {
+                playSound("mob.horse.soft", soundType.getVolume() * 0.15F, soundType.getPitch());
+            }
+        }
+    }
+    
+    public void moveEntityWithHeading(float strafeMovement, float forwardMovement)
+    {
+        if (riddenByEntity != null && riddenByEntity instanceof EntityLivingBase)
+        {
+            float movementForward = ((EntityLivingBase)riddenByEntity).moveForward;
+
+            if (movementForward <= 0.0F)
+            {
+                forwardMovementCounterForWalkingSoundEffect = 0;
+            }
+        }
+        super.moveEntityWithHeading(strafeMovement, forwardMovement);
     }
 
     @Override
@@ -2378,7 +2427,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                 {
                     setAdult(true);
                     setBred(false);
-                    MoCEntityHorse mommyHorse = getClosestMommy(this, 16D);
+                    MoCEntityHorse mommyHorse = getClosestMotherHorse(this, 16D);
                     if (mommyHorse != null)
                     {
                         mommyHorse.setBred(false);
@@ -2404,7 +2453,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
             if (getHasBred() && !getIsAdult() && (roper == null) && !getEating())
             {
 
-                MoCEntityHorse mommy = getClosestMommy(this, 16D);
+                MoCEntityHorse mommy = getClosestMotherHorse(this, 16D);
                 if ((mommy != null) && (MoCTools.getSqDistanceTo(mommy, posX, posY, posZ) > 4D))
                 {
                     PathEntity pathEntity = worldObj.getPathEntityToEntity(this, mommy, 16F, true, false, false, true);
@@ -2481,7 +2530,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                     ((MoCEntityHorse)horsemate).hasEatenPumpkin = false;
                     ((MoCEntityHorse)horsemate).gestationTime = 0;
                 }
-                int type = HorseGenetics(getType(), horsemateType);
+                int type = horseGenetics(getType(), horsemateType);
                 
                 
                 babyHorse.setOwner(getOwnerName());
@@ -2576,6 +2625,17 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     public void onUpdate()
     {
         super.onUpdate();
+        
+        if (
+        		(
+        				getType() == 38 //nightmare horse
+        				|| getType() == 40 //dark pegasus
+        		)
+        		&& !isImmuneToFire
+        	)
+        { //sets immunity to fire for nightmare horse and dark pegasus in-case they get reset, which does sometimes happen when worlds are reloaded
+        	isImmuneToFire = true;
+        }
 
         if (shuffleCounter > 0)
         {
@@ -2878,15 +2938,15 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         {
         	float factor = 1F;
         	
-            float f = MathHelper.sin(this.renderYawOffset * (float)Math.PI / 180.0F);
-            float f1 = MathHelper.cos(this.renderYawOffset * (float)Math.PI / 180.0F);
+            float f = MathHelper.sin(renderYawOffset * (float)Math.PI / 180.0F);
+            float f1 = MathHelper.cos(renderYawOffset * (float)Math.PI / 180.0F);
             float f2 = 0.7F * factor;
             float f3 = 0.15F * factor;
-            this.riddenByEntity.setPosition(this.posX + f2 * f, this.posY + this.getMountedYOffset() + this.riddenByEntity.getYOffset() + f3, this.posZ - f2 * f1);
+            riddenByEntity.setPosition(posX + f2 * f, posY + getMountedYOffset() + riddenByEntity.getYOffset() + f3, posZ - f2 * f1);
 
-            if (this.riddenByEntity instanceof EntityLivingBase)
+            if (riddenByEntity instanceof EntityLivingBase)
             {
-                ((EntityLivingBase)this.riddenByEntity).renderYawOffset = this.renderYawOffset;
+                ((EntityLivingBase)riddenByEntity).renderYawOffset = renderYawOffset;
             }
         }
     }
@@ -3036,11 +3096,11 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
             for (int index = 0; index < nbttaglist.tagCount(); index++)
             {
-                ItemStack itemstack = localHorseChest.getStackInSlot(index);
+                ItemStack itemStack = localHorseChest.getStackInSlot(index);
 
-                if (itemstack != null)
+                if (itemStack != null)
                 {
-                    localHorseChest.setInventorySlotContents(index, itemstack.copy());
+                    localHorseChest.setInventorySlotContents(index, itemStack.copy());
                 }
             }
         }

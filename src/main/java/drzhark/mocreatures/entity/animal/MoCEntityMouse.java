@@ -187,10 +187,10 @@ public class MoCEntityMouse extends MoCEntityAnimal
     @Override
     public boolean interact(EntityPlayer entityPlayer)
     {   
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        ItemStack itemStack = entityPlayer.getHeldItem();
         
         if (	
-        		(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+        		(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
 	    		|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
 	    	)
         {
@@ -253,7 +253,7 @@ public class MoCEntityMouse extends MoCEntityAnimal
             }
             if (ridingEntity instanceof EntityPlayer)
             {
-            	if (MoCreatures.proxy.emptyHandMountAndPickUpOnly && ((EntityPlayer) ridingEntity).inventory.getCurrentItem() != null)
+            	if (MoCreatures.proxy.emptyHandMountAndPickUpOnly && ((EntityPlayer) ridingEntity).getHeldItem() != null)
             	{
             		mountEntity(null);
             		fallDistance = -3; //prevents fall damage when dropped

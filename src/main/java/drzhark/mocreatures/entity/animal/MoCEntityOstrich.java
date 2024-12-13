@@ -637,13 +637,13 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     }
     
     @Override
-    public boolean isMyHealFood(ItemStack itemstack) //healing foods
+    public boolean isMyHealFood(ItemStack itemStack) //healing foods
     {
-    	if (itemstack != null)
+    	if (itemStack != null)
     	{
-    		Item item = itemstack.getItem();
+    		Item item = itemStack.getItem();
     		
-    		List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+    		List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
     		
     		return (
         				item instanceof ItemSeeds
@@ -665,17 +665,17 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     {
         if (super.interact(entityPlayer)) { return false; }
         
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        ItemStack itemStack = entityPlayer.getHeldItem();
         
-        if (itemstack != null)
+        if (itemStack != null)
         {
-        	Item item = itemstack.getItem();
+        	Item item = itemStack.getItem();
         	
         	if (getIsTamed() && getType() > 1)
         	{
 		        if (!getIsRideable() && (item == MoCreatures.craftedSaddle || item == Items.saddle))
 		        {
-		            if (--itemstack.stackSize == 0)
+		            if (--itemStack.stackSize == 0)
 		            {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		            }
@@ -685,7 +685,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 		
 		        if (item == MoCreatures.essenceDarkness)
 		        {
-		            if (--itemstack.stackSize == 0)
+		            if (--itemStack.stackSize == 0)
 		            {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
 		            }
@@ -708,7 +708,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 		
 		        if (item == MoCreatures.essenceUndead)
 		        {
-		            if (--itemstack.stackSize == 0)
+		            if (--itemStack.stackSize == 0)
 		            {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
 		            }
@@ -732,7 +732,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 		
 		        if (item == MoCreatures.essenceLight)
 		        {
-		            if (--itemstack.stackSize == 0)
+		            if (--itemStack.stackSize == 0)
 		            {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
 		            }
@@ -756,7 +756,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 		
 		        if (item == MoCreatures.essenceFire)
 		        {
-		            if (--itemstack.stackSize == 0)
+		            if (--itemStack.stackSize == 0)
 		            {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
 		            }
@@ -779,9 +779,9 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 		        }
 		        if (getIsChested() && item == Item.getItemFromBlock(Blocks.wool))
 		        {
-		            int colorInt = (itemstack.getItemDamage());
+		            int colorInt = (itemStack.getItemDamage());
 		            if (colorInt == 0) colorInt = 16;
-		            if (--itemstack.stackSize == 0)
+		            if (--itemStack.stackSize == 0)
 		            {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		            }
@@ -793,7 +793,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 		        
 		        if (!getIsChested() && item == Item.getItemFromBlock(Blocks.chest))
 		        {
-		             if (--itemstack.stackSize == 0)
+		             if (--itemStack.stackSize == 0)
 		            {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		            }
@@ -823,7 +823,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         	}
         	else if (getType() == 2 && item == Items.melon_seeds) //breeding item
 	        {
-	            if (--itemstack.stackSize == 0)
+	            if (--itemStack.stackSize == 0)
 	            {
 	                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 	            }
@@ -837,7 +837,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         
         if (	//try to mount player on ostrich - THIS MUST TO BE AT THE VERY LAST OF THE INTERACT FUNCTION so that any interactable items are used first before the player mounts the ostrich
         		(
-        			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+        			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
     				|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
         		)
         		&& !(entityPlayer.isSneaking()) && getIsRideable() && getIsAdult() && (riddenByEntity == null)

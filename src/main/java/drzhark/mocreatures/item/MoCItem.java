@@ -33,24 +33,24 @@ public class MoCItem extends Item
     
     @SideOnly(Side.CLIENT)
     @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer entityPlayer, List loreList, boolean flag)
+    public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List loreList, boolean flag)
     {
-        super.addInformation(itemstack, entityPlayer, loreList, flag);
+        super.addInformation(itemStack, entityPlayer, loreList, flag);
         
-        if (itemstack.getItem() == MoCreatures.scrollFreedom)
+        if (itemStack.getItem() == MoCreatures.scrollFreedom)
         {
         	loreList.add(StatCollector.translateToLocal("item.scrolloffreedom.desc.line1"));
         	loreList.add(StatCollector.translateToLocal("item.scrolloffreedom.desc.line2"));
         }
         
-        if (itemstack.getItem() == MoCreatures.scrollOfSale)
+        if (itemStack.getItem() == MoCreatures.scrollOfSale)
         {
         	loreList.add(StatCollector.translateToLocal("item.scrollofsale.desc.line1"));
         	loreList.add(StatCollector.translateToLocal("item.scrollofsale.desc.line2"));
         	loreList.add(StatCollector.translateToLocal("item.scrollofsale.desc.line3"));
         }
         
-        if (itemstack.getItem() == MoCreatures.scrollOfOwner)
+        if (itemStack.getItem() == MoCreatures.scrollOfOwner)
         {
         	loreList.add(StatCollector.translateToLocal("item.scrollofowner.desc.line1"));
         	loreList.add(StatCollector.translateToLocal("item.scrollofowner.desc.line2"));

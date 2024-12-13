@@ -127,19 +127,19 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     public boolean interact(EntityPlayer entityPlayer)
     {
         if (super.interact(entityPlayer)) { return false; }
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        ItemStack itemStack = entityPlayer.getHeldItem();
         
-        if ((itemstack != null) && 
+        if ((itemStack != null) && 
         		(//taming items
-        			itemstack.getItem() == MoCreatures.turkeyRaw
+        			itemStack.getItem() == MoCreatures.turkeyRaw
         			|| MoCreatures.isGregTech6Loaded &&
         				(
-        					OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+        					OreDictionary.getOreName(OreDictionary.getOreID(itemStack)) == "foodScrapmeat"
         				)
         		)
         	)
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -249,13 +249,13 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack itemstack)
+    public boolean isMyHealFood(ItemStack itemStack)
     {
-    	if (itemstack != null)
+    	if (itemStack != null)
     	{
-    		Item item = itemstack.getItem();
+    		Item item = itemStack.getItem();
     		
-    		List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+    		List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
     	
 	    	return 
 	    			(
@@ -263,7 +263,7 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
 			        		|| item == Items.porkchop
 			    			|| item == Items.beef 
 			    			|| item == Items.chicken
-			    			|| (item == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
+			    			|| (item == Items.fish && itemStack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
 			    			|| item == MoCreatures.ratRaw
 			        		|| item == MoCreatures.turkeyRaw
 			            	|| item == MoCreatures.ostrichRaw

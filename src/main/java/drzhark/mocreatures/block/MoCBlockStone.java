@@ -59,10 +59,10 @@ public class MoCBlockStone extends MoCBlock
     {
         for (int index = 0; index < MoCreatures.multiBlockNames.size(); index++) 
         {
-        	ItemStack itemstack = new ItemStack(item, 1, index);
-            subItems.add(itemstack);
+        	ItemStack itemStack = new ItemStack(item, 1, index);
+            subItems.add(itemStack);
             
-            OreDictionary.registerOre("stone", itemstack);
+            OreDictionary.registerOre("stone", itemStack);
         }
     }
 }

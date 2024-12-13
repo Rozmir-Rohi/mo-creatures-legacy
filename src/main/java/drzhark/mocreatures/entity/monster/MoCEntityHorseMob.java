@@ -63,17 +63,17 @@ public class MoCEntityHorseMob extends MoCEntityMob
         {
             if (getType() == 0)
             {
-                int j = rand.nextInt(100);
-                if (j <= (40))
+                int typeSelector = rand.nextInt(100);
+                if (typeSelector <= (40))
                 {
                     setType(23); //undead
-                } else if (j <= (80))
+                } else if (typeSelector <= (80))
                 {
                     setType(26); //skeleton horse
                 } 
                 else
                 {
-                    setType(32);
+                    setType(32); //bat horse
                 }
             }
         }
@@ -112,11 +112,11 @@ public class MoCEntityHorseMob extends MoCEntityMob
                 if (textureCounter < 10) {textureCounter = 10;}
                 if (textureCounter > max) {textureCounter = 10;}
                 
-                String iteratorTex = "" + textureCounter;
-                iteratorTex = iteratorTex.substring(0,1);
-                String decayTex = "" + (getMoCAge()/100);
-                decayTex = decayTex.substring(0,1);
-                return MoCreatures.proxy.getTexture(baseTex + decayTex + iteratorTex + ".png");
+                String iteratorTexture = "" + textureCounter;
+                iteratorTexture = iteratorTexture.substring(0,1);
+                String decayTexture = "" + (getMoCAge()/100);
+                decayTexture = decayTexture.substring(0,1);
+                return MoCreatures.proxy.getTexture(baseTex + decayTexture + iteratorTexture + ".png");
 
             case 26:
                 return MoCreatures.proxy.getTexture("horseskeleton.png");
@@ -132,12 +132,12 @@ public class MoCEntityHorseMob extends MoCEntityMob
                 if (rand.nextInt(3)== 0) {textureCounter++;} //animation speed
                 if (textureCounter < 10) {textureCounter = 10;}
                 if (textureCounter > 59) {textureCounter = 10;}
-                String NTA = "horsenightmare";
-                String NTB = "" + textureCounter;
-                NTB = NTB.substring(0,1);
-                String NTC = ".png";
+                String textureNamePartA = "horsenightmare";
+                String textureNamePartB = "" + textureCounter;
+                textureNamePartB = textureNamePartB.substring(0,1);
+                String textureNamePartC = ".png";
 
-                return MoCreatures.proxy.getTexture(NTA + NTB + NTC);
+                return MoCreatures.proxy.getTexture(textureNamePartA + textureNamePartB + textureNamePartC);
 
             default:
                 return MoCreatures.proxy.getTexture("horseundead.png");
@@ -177,6 +177,11 @@ public class MoCEntityHorseMob extends MoCEntityMob
     public void onUpdate()
     {
         super.onUpdate();
+        
+        if (getType() == 38 && !isImmuneToFire)
+        { //sets immunity to fire for nightmare horses in-case they get reset, which does sometimes happen when worlds are reloaded
+        	isImmuneToFire = true;
+        }
 
         if (mouthCounter > 0 && ++mouthCounter > 30)
         {
@@ -322,8 +327,12 @@ public class MoCEntityHorseMob extends MoCEntityMob
 
             if (worldObj.isDaytime())
             {
-                float var1 = getBrightness(1.0F);
-                if (var1 > 0.5F && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && rand.nextFloat() * 30.0F < (var1 - 0.4F) * 2.0F)
+                float brightness = getBrightness(1.0F);
+                if (
+                		getType() != 38 //not a nightmare horse
+                		&& brightness > 0.5F
+                		&& worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && rand.nextFloat() * 30.0F < (brightness - 0.4F) * 2.0F
+                	)
                 {
                     setFire(8);
                 }
@@ -336,18 +345,24 @@ public class MoCEntityHorseMob extends MoCEntityMob
 
             if (riddenByEntity == null)
             {
-                List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4D, 3D, 4D));
-                for(int i = 0; i < list.size(); i++)
+                List listOfEntitiesNearby = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4D, 3D, 4D));
+                for(int index = 0; index < listOfEntitiesNearby.size(); index++)
                 {
-                    Entity entity = (Entity) list.get(i);
-                    if(!(entity instanceof EntityMob))
+                    Entity entityNearby = (Entity) listOfEntitiesNearby.get(index);
+                    if(!(entityNearby instanceof EntityMob))
                     {
                         continue;
                     }
-                    EntityMob entitymob = (EntityMob) entity;
-                    if(entitymob.ridingEntity == null && (entitymob instanceof EntitySkeleton || entitymob instanceof EntityZombie))
+                    EntityMob entityMobNearby = (EntityMob) entityNearby;
+                    if (
+                    		entityMobNearby.ridingEntity == null
+                    		&& (
+                    				entityMobNearby instanceof EntitySkeleton
+                    				|| entityMobNearby instanceof EntityZombie
+                    			)
+                    	)
                     {
-                        entitymob.mountEntity(this);
+                        entityMobNearby.mountEntity(this);
                         break;
                     }
                 }
@@ -383,13 +398,13 @@ public class MoCEntityHorseMob extends MoCEntityMob
     @Override
     protected Item getDropItem()
     {
-        boolean flag = (rand.nextInt(100) < MoCreatures.proxy.rareItemDropChance);
+        boolean shouldDropRareItem = (rand.nextInt(100) < MoCreatures.proxy.rareItemDropChance);
         if (getType() == 32 && MoCreatures.proxy.rareItemDropChance < 25)
         {
-            flag = (rand.nextInt(100) < 25);
+            shouldDropRareItem = (rand.nextInt(100) < 25);
         }
 
-        if (flag && (getType() == 36 || (getType() >=50 && getType() < 60))) //unicorn
+        if (shouldDropRareItem && (getType() == 36 || (getType() >=50 && getType() < 60))) //unicorn
         {
             return MoCreatures.unicornHorn;
         }
@@ -401,11 +416,11 @@ public class MoCEntityHorseMob extends MoCEntityMob
         {
             return Items.feather;
         }
-        if (getType() == 38 && flag && worldObj.provider.isHellWorld) //nightmare
+        if (getType() == 38 && shouldDropRareItem && worldObj.provider.isHellWorld) //nightmare
         {
             return MoCreatures.heartFire;
         }
-        if (getType() == 32 && flag) //bat horse
+        if (getType() == 32 && shouldDropRareItem) //bat horse
         {
             return MoCreatures.heartDarkness;
         }
@@ -415,7 +430,7 @@ public class MoCEntityHorseMob extends MoCEntityMob
         }
         if ((getType() == 23 || getType() == 24 || getType() == 25))
         {
-            if (flag)
+            if (shouldDropRareItem)
             {
                 return MoCreatures.heartundead;
             }
@@ -449,8 +464,6 @@ public class MoCEntityHorseMob extends MoCEntityMob
         if (MoCreatures.isServer())
         {
         	Entity entityThatAttackedThisCreature = damageSource.getEntity();
-        	
-        	if (getIsTamed()) {MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageHealth(getEntityId(), getHealth()), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));}
             
             if ((riddenByEntity != null) && (entityThatAttackedThisCreature == riddenByEntity)) { return false; }
         }

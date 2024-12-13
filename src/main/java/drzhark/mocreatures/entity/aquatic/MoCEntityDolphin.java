@@ -102,20 +102,20 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
 
         switch (getType())
         {
-        case 1:
-            return 50;
-        case 2:
-            return 100;
-        case 3:
-            return 150;
-        case 4:
-            return 200;
-        case 5:
-            return 250;
-        case 6:
-            return 300;
-        default:
-            return 100;
+	        case 1:
+	            return 50;
+	        case 2:
+	            return 100;
+	        case 3:
+	            return 150;
+	        case 4:
+	            return 200;
+	        case 5:
+	            return 250;
+	        case 6:
+	            return 300;
+	        default:
+	            return 100;
         }
     }
 
@@ -123,20 +123,20 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     {
         switch (getType())
         {
-        case 1:
-            return 50;
-        case 2:
-            return 100;
-        case 3:
-            return 150;
-        case 4:
-            return 200;
-        case 5:
-            return 250;
-        case 6:
-            return 300;
-        default:
-            return 50;
+			case 1:
+			    return 50;
+			case 2:
+			    return 100;
+			case 3:
+			    return 150;
+			case 4:
+			    return 200;
+			case 5:
+			    return 250;
+			case 6:
+			    return 300;
+			default:
+			    return 50;
         }
     }
 
@@ -145,20 +145,26 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     {
         switch (getType())
         {
-        case 1:
-            return 1.5D;
-        case 2:
-            return 2.5D;
-        case 3:
-            return 3.5D;
-        case 4:
-            return 4.5D;
-        case 5:
-            return 5.5D;
-        case 6:
-            return 6.5D;
-        default:
-            return 1.5D;
+			case 1: //blue
+			    return 1.2D;
+			    
+			case 2: //light blue
+			    return 1.4D;
+			    
+			case 3: //pinkish blue
+			    return 1.8D;
+			    
+			case 4: //black
+			    return 2.0D;
+			    
+			case 5: //pink
+			    return 2.2D;
+			    
+			case 6: //white
+			    return 2.4D;
+			    
+			default:
+			    return 1.2D;
         }
     }
 
@@ -289,18 +295,25 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         return entityLiving;
     }
 
-    private int genetics(MoCEntityDolphin entitydolphin, MoCEntityDolphin entitydolphin1)
+    private int genetics(MoCEntityDolphin entityDolphinParent1, MoCEntityDolphin entityDolphinParent2)
     {
-        if (entitydolphin.getType() == entitydolphin1.getType()) { return entitydolphin.getType(); }
-        int typeToSet = entitydolphin.getType() + entitydolphin1.getType();
+        if (entityDolphinParent1.getType() == entityDolphinParent2.getType()) { return entityDolphinParent1.getType(); }
         
-        boolean flag = rand.nextInt(3) == 0;
+        int typeToSet = entityDolphinParent1.getType() + entityDolphinParent2.getType();
         
-        boolean flag1 = rand.nextInt(10) == 0;
+        boolean isLowerTierDolphinGranted = rand.nextInt(3) == 0;
         
-        if ((typeToSet < 5) && flag) { return typeToSet; }
+        boolean isHigherTierDolphinGranted = rand.nextInt(10) == 0;
         
-        if (((typeToSet == 5) || (typeToSet == 6)) && flag1)
+        if ((typeToSet < 5) && isLowerTierDolphinGranted) { return typeToSet; }
+        
+        if (
+        		(
+        			typeToSet == 5
+        			|| typeToSet == 6
+        		)
+        		&& isHigherTierDolphinGranted
+        	)
         {
             return typeToSet;
         }
@@ -352,10 +365,10 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         if (super.interact(entityPlayer)) { return false; }
         
         
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-        if ((itemstack != null) && isMyHealFood(itemstack))
+        ItemStack itemStack = entityPlayer.getHeldItem();
+        if ((itemStack != null) && isMyHealFood(itemStack))
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -379,9 +392,9 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
 
             return true;
         }
-        if ((itemstack != null) && (itemstack.getItem() == Items.cooked_fished) && getIsTamed() && getIsAdult())
+        if ((itemStack != null) && (itemStack.getItem() == Items.cooked_fished) && getIsTamed() && getIsAdult())
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -394,7 +407,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         }
         if (
         		(
-        			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+        			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
         			|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
         		)
         		&& !(entityPlayer.isSneaking()) && riddenByEntity == null
@@ -518,17 +531,17 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     }
     
     @Override
-    public boolean isMyHealFood(ItemStack itemstack)
+    public boolean isMyHealFood(ItemStack itemStack)
     {
-    	if (itemstack != null)
+    	if (itemStack != null)
     	{
-	    	Item item = itemstack.getItem();
+	    	Item item = itemStack.getItem();
 	    	
-	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
 	    	
 	    	return
 	    		(
-	    			(item == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
+	    			(item == Items.fish && itemStack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
         			|| oreDictionaryNameArray.contains("listAllfishraw")
         		);
     	}

@@ -29,9 +29,9 @@ public class MoCItemRecord extends ItemRecord
     }
     
     @Override
-    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityPlayer, World world, int xCoordinate, int yCoordinate, int zCoordinate, int l, float f1, float f2, float f3)
+    public boolean onItemUse(ItemStack itemStack, EntityPlayer entityPlayer, World world, int xCoordinate, int yCoordinate, int zCoordinate, int l, float f1, float f2, float f3)
     {
-    	super.onItemUse(itemstack, entityPlayer, world, xCoordinate, yCoordinate, zCoordinate, l, f1, f2, f3);
+    	super.onItemUse(itemStack, entityPlayer, world, xCoordinate, yCoordinate, zCoordinate, l, f1, f2, f3);
     	
     	/**
          * Makes zebras shuffle and normal horses nod their heads to "Party Rock Anthem" by LMFAO!

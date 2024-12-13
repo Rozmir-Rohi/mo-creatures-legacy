@@ -251,7 +251,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         if (ridingEntity instanceof EntityPlayer)
         {
         	if (
-        			MoCreatures.proxy.emptyHandMountAndPickUpOnly && ((EntityPlayer) ridingEntity).inventory.getCurrentItem() != null
+        			MoCreatures.proxy.emptyHandMountAndPickUpOnly && ((EntityPlayer) ridingEntity).getHeldItem() != null
         		)
         	{
         		mountEntity(null);
@@ -540,10 +540,10 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     {
         if (super.interact(entityPlayer)) { return false; }
 
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-        if ((itemstack != null) && getIsAdult() && !getIsRideable() && (itemstack.getItem() == MoCreatures.craftedSaddle))
+        ItemStack itemStack = entityPlayer.getHeldItem();
+        if ((itemStack != null) && getIsAdult() && !getIsRideable() && (itemStack.getItem() == MoCreatures.craftedSaddle))
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -551,9 +551,9 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && getIsTamed() && itemstack.getItem() == MoCreatures.essenceUndead)
+        if ((itemStack != null) && getIsTamed() && itemStack.getItem() == MoCreatures.essenceUndead)
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
             }
@@ -565,9 +565,9 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if ((itemstack != null) && getIsTamed() && itemstack.getItem() == MoCreatures.essenceDarkness)
+        if ((itemStack != null) && getIsTamed() && itemStack.getItem() == MoCreatures.essenceDarkness)
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
             }
@@ -590,7 +590,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         }
         if (
         		(
-    	    		(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+    	    		(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
     	    		|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
     	    	)
     	        && !(entityPlayer.isSneaking()) && ridingEntity == null && getMoCAge() < 60
@@ -610,7 +610,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             }
         }
         else if (
-	        		((MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null) || !(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
+	        		((MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null) || !(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
 		    		&& ridingEntity != null && getIsPicked()
 	    		)
         {
@@ -625,7 +625,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             motionZ = entityPlayer.motionZ * 5D;
         }
 
-        if ((itemstack == null) && getIsRideable() && getIsTamed() && getIsAdult() && (riddenByEntity == null))
+        if ((itemStack == null) && getIsRideable() && getIsTamed() && getIsAdult() && (riddenByEntity == null))
         {
             entityPlayer.rotationYaw = rotationYaw;
             entityPlayer.rotationPitch = rotationPitch;
@@ -712,16 +712,16 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     }
 
     @Override
-    protected boolean isMyHealFood(ItemStack itemstack)
+    protected boolean isMyHealFood(ItemStack itemStack)
     {
         return
         		(
-        			itemstack.getItem() == Items.rotten_flesh
-        			|| itemstack.getItem() == MoCreatures.ratRaw
-        			|| itemstack.getItem() == MoCreatures.ratCooked
+        			itemStack.getItem() == Items.rotten_flesh
+        			|| itemStack.getItem() == MoCreatures.ratRaw
+        			|| itemStack.getItem() == MoCreatures.ratCooked
         			|| MoCreatures.isGregTech6Loaded &&
             			(
-            				OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+            				OreDictionary.getOreName(OreDictionary.getOreID(itemStack)) == "foodScrapmeat"
             			)
         		);
     }

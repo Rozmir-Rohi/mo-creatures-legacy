@@ -46,21 +46,21 @@ public class MoCItemHorseAmulet extends MoCItem {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World worldObj, EntityPlayer entityPlayer)
+    public ItemStack onItemRightClick(ItemStack itemStack, World worldObj, EntityPlayer entityPlayer)
     {
     	//if the player using the amulet is not the owner
         if (ownerName.length() > 0 && !(ownerName.equals(entityPlayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
         {
-        	return itemstack;
+        	return itemStack;
         }
     	
-        if (++ageCounter < 2) { return itemstack; }
+        if (++ageCounter < 2) { return itemStack; }
 
-        int amuletDurability = itemstack.getItemDamage();
+        int amuletDurability = itemStack.getItemDamage();
 
         if (MoCreatures.isServer())
         {
-            initAndReadNBT(itemstack);
+            initAndReadNBT(itemStack);
         }
         
         if (spawnClass == 21 || spawnClass == 0) // horses or old amulets
@@ -143,7 +143,7 @@ public class MoCItemHorseAmulet extends MoCItem {
             ageCounter = 0;
        }
 
-        return itemstack;
+        return itemStack;
     }
 
     public void readFromNBT(NBTTagCompound nbt)
@@ -182,21 +182,21 @@ public class MoCItemHorseAmulet extends MoCItem {
      * allows items to add custom lines of information to the mouseover description
      */
     @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
+    public void addInformation(ItemStack itemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-        initAndReadNBT(itemstack);
+        initAndReadNBT(itemStack);
         if (name.length() > 0) par3List.add(EnumChatFormatting.AQUA + StatCollector.translateToLocal("entity.MoCreatures.Horse.name")); //Writes the name of the entity type to item desc
         if (name.length() > 0) par3List.add(EnumChatFormatting.BLUE + name); //writes the pet name to item desc
         if (ownerName.length() > 0) par3List.add(EnumChatFormatting.DARK_BLUE + ((new ChatComponentTranslation("amulet_and_fishnet_desc.MoCreatures.ownedBy", new Object[] {ownerName})).getUnformattedTextForChat())); //writes "owned by OWNER" (dependent on lang files)in item desc
     }
     
-    private void initAndReadNBT(ItemStack itemstack)
+    private void initAndReadNBT(ItemStack itemStack)
     {
-        if( itemstack.stackTagCompound == null )
+        if( itemStack.stackTagCompound == null )
         {
-            itemstack.setTagCompound(new NBTTagCompound());
+            itemStack.setTagCompound(new NBTTagCompound());
         }
-        NBTTagCompound nbtcompound = itemstack.stackTagCompound;
+        NBTTagCompound nbtcompound = itemStack.stackTagCompound;
         readFromNBT(nbtcompound);
     }
 }

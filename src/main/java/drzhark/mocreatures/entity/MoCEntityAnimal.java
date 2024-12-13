@@ -488,9 +488,9 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
 
                 if (closestEntityItem != null)
                 {
-                	ItemStack itemstack = closestEntityItem.getEntityItem();
+                	ItemStack itemStack = closestEntityItem.getEntityItem();
 
-                	if (isMyHealFood(itemstack))
+                	if (isMyHealFood(itemStack))
                 	{
 
                 		float distanceToEntityItem = closestEntityItem.getDistanceToEntity(this);
@@ -633,10 +633,10 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     /**
      * Used to heal the animal
      *
-     * @param itemstack
+     * @param itemStack
      * @return
      */
-    protected boolean isMyHealFood(ItemStack itemstack)
+    protected boolean isMyHealFood(ItemStack itemStack)
     {
         return false;
     }
@@ -1008,7 +1008,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
 
                 if (MoCreatures.isServer() && !getIsTamed())
                 {
-                    playSound("mocreatures:" + getMadSound(), 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                    playSound(getMadSound(), 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
                     riddenByEntity.motionY += 0.3D;
                     riddenByEntity.motionZ -= 0.3D;
                     riddenByEntity.mountEntity(null);
@@ -1064,7 +1064,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
                 setRotation(rotationYaw, rotationPitch);
                 if (MoCreatures.isServer() && !getIsTamed())
                 {
-                    playSound("mocreatures:" + getMadSound(), 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                    playSound(getMadSound(), 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
                     riddenByEntity.motionY += 0.3D;
                     riddenByEntity.motionZ -= 0.3D;
                     riddenByEntity.mountEntity(null);
@@ -1087,18 +1087,18 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         }
         else
         {
-            float movement = 0.91F;
+            float acceleration = 0.91F;
             if (onGround)
             {
-                movement = 0.5460001F;
+                acceleration = 0.5460001F;
                 Block block = worldObj.getBlock(MathHelper.floor_double(posX), MathHelper.floor_double(boundingBox.minY) - 1, MathHelper.floor_double(posZ));
                 if (block != Blocks.air)
                 {
-                    movement = block.slipperiness * 0.91F;
+                    acceleration = block.slipperiness * 0.91F;
                 }
             }
 
-            float f3 = 0.162771F / (movement * movement * movement);
+            float f3 = 0.162771F / (acceleration * acceleration * acceleration);
             moveFlying(strafeMovement, forwardMovement, onGround ? 0.1F * f3 : 0.02F);
 
             if (isOnLadder())
@@ -1129,7 +1129,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
 
                 if (MoCreatures.isServer() && rand.nextInt(50) == 0)
                 {
-                    playSound("mocreatures:" + getMadSound(), 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+                    playSound(getMadSound(), 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
                     riddenByEntity.motionY += 0.9D;
                     riddenByEntity.motionZ -= 0.3D;
                     riddenByEntity.mountEntity(null);
@@ -1220,7 +1220,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
                 int yDistanceFromGround = MoCTools.distanceToFloor(this);
                 if (yDistanceFromGround <= flyingHeight())
                 {
-                    motionY *= 0.3 + (movement);
+                    motionY *= 0.3 + (acceleration);
                 }
                 if (yDistanceFromGround <= flyingHeight() && (isCollidedHorizontally || rand.nextInt(100) == 0))
                 {
@@ -1259,8 +1259,13 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         		}
         	}
 
-            if ((isFlyer()) && (riddenByEntity != null) && getIsTamed()
-            		&& (this instanceof MoCEntityHorse || this instanceof MoCEntityWyvern))
+            if (
+            		riddenByEntity != null //isFlyer()
+            		&& getIsTamed()
+            		&& (
+            				this instanceof MoCEntityHorse || this instanceof MoCEntityWyvern
+            			)
+            	)
             {
             	if (isFlyer())  //slow fall for flying horses and wyverns
             	{
@@ -1269,9 +1274,9 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
             	}
 
 
-                if (isOnAir() || !(this instanceof MoCEntityWyvern))  //controls speed for flying mounts when they are flying. Also makes every flyer except wyverns be as fast on the ground as they are in the air
+                if (isOnAir() || !(this instanceof MoCEntityWyvern))  //controls the land and flying speed for horses and Wyverns. Also makes every flyer except wyverns be as fast on the ground as they are in the air
                 {
-                	movement = ((float) getCustomSpeed())*0.77F;
+                	acceleration = ((float) getCustomSpeed())*0.77F;
                 }
             }
             else if (!isFlyingAlone())
@@ -1282,12 +1287,12 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
 
             if (riddenByEntity != null && isOnAir() & !isFlyer())
             {
-            	movement = flyerFriction();
+            	acceleration = flyerFriction();
 
             }
 
-            motionX *= movement;
-            motionZ *= movement;
+            motionX *= acceleration;
+            motionZ *= acceleration;
         }
 
         prevLimbSwingAmount = limbSwingAmount;
@@ -1701,10 +1706,10 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     /**
      * Used to follow the player carrying the item
      *
-     * @param itemstack
+     * @param itemStack
      * @return
      */
-    public boolean isMyFollowFood(ItemStack itemstack)
+    public boolean isMyFollowFood(ItemStack itemStack)
     {
         return false;
     }
@@ -1715,7 +1720,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
 
         if (closestEntityPlayer == null) { return; }
 
-        ItemStack itemstackThatPlayerIsHolding = closestEntityPlayer.inventory.getCurrentItem();
+        ItemStack itemstackThatPlayerIsHolding = closestEntityPlayer.getHeldItem();
 
         if (itemstackThatPlayerIsHolding != null && isMyFollowFood(itemstackThatPlayerIsHolding))
         {

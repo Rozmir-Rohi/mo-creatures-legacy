@@ -197,8 +197,8 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
     @Override
     public boolean interact(EntityPlayer entityPlayer)
     {
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-        if ((itemstack != null) && MoCreatures.isServer() && (itemstack.getItem() == Items.milk_bucket))
+        ItemStack itemStack = entityPlayer.getHeldItem();
+        if ((itemStack != null) && MoCreatures.isServer() && (itemStack.getItem() == Items.milk_bucket))
         {
             entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.bucket, 1));
             playSound("mocreatures:pouringmilk", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
@@ -207,9 +207,9 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
             entityPlayer.addStat(MoCAchievements.pet_food, 1);
             return true;
         }
-        if ((itemstack != null) && MoCreatures.isServer() && !getHasFood() && (itemstack.getItem() == MoCreatures.petFood))
+        if ((itemStack != null) && MoCreatures.isServer() && !getHasFood() && (itemStack.getItem() == MoCreatures.petFood))
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -221,7 +221,7 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
         }
         if (
         		(
-        			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+        			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
         			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
         		)
         		&& !(entityPlayer.isSneaking())

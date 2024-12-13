@@ -134,12 +134,12 @@ public class MoCEntityBee extends MoCEntityInsect
     }
 
     @Override
-    public boolean isMyFollowFood(ItemStack itemstack)
+    public boolean isMyFollowFood(ItemStack itemStack)
     {
-        return itemstack != null && 
+        return itemStack != null && 
         		(
-        			itemstack.getItem() == Item.getItemFromBlock(Blocks.red_flower) 
-        			|| itemstack.getItem() == Item.getItemFromBlock(Blocks.yellow_flower)
+        			itemStack.getItem() == Item.getItemFromBlock(Blocks.red_flower) 
+        			|| itemStack.getItem() == Item.getItemFromBlock(Blocks.yellow_flower)
         		);
     }
 }

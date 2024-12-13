@@ -159,11 +159,11 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
     @Override
     public boolean interact(EntityPlayer entityPlayer)
     {
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        ItemStack itemStack = entityPlayer.getHeldItem();
 
-        if ((itemstack != null) && MoCreatures.isServer() && getUsedLitter() && (itemstack.getItem() == Item.getItemFromBlock(Blocks.sand)))
+        if ((itemStack != null) && MoCreatures.isServer() && getUsedLitter() && (itemStack.getItem() == Item.getItemFromBlock(Blocks.sand)))
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -172,12 +172,12 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
             entityPlayer.addStat(MoCAchievements.kitty_litter, 1);
             return true;
         }
-        else if ((itemstack == null))
+        else if ((itemStack == null))
         {
             rotationYaw = entityPlayer.rotationYaw;
             if (
             		(
-                		(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+                		(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
                 		|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
                 	)
                 	&& !(entityPlayer.isSneaking()) && (ridingEntity == null) && (entityPlayer.ridingEntity == null)

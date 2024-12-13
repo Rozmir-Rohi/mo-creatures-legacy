@@ -21,7 +21,7 @@ public class MultiItemBlock extends ItemBlock {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemstack) {
-        return getUnlocalizedName() + "." + MoCreatures.multiBlockNames.get(itemstack.getItemDamage());
+    public String getUnlocalizedName(ItemStack itemStack) {
+        return getUnlocalizedName() + "." + MoCreatures.multiBlockNames.get(itemStack.getItemDamage());
     }
 }

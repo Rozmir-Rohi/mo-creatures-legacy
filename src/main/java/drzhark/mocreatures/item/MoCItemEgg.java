@@ -24,12 +24,12 @@ public class MoCItemEgg extends MoCItem {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityPlayer)
+    public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer)
     {
-        itemstack.stackSize--;
+        itemStack.stackSize--;
         if (MoCreatures.isServer())
         {
-            int i = itemstack.getItemDamage();
+            int i = itemStack.getItemDamage();
             if (i == 30)
             {
                 i = 31; //for ostrich eggs. placed eggs become stolen eggs.
@@ -41,12 +41,12 @@ public class MoCItemEgg extends MoCItem {
             entityegg.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3F;
             entityegg.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.3F;
         }
-        return itemstack;
+        return itemStack;
     }
 
    @Override
-    public String getUnlocalizedName(ItemStack itemstack)
+    public String getUnlocalizedName(ItemStack itemStack)
     {
-        return (new StringBuilder()).append(super.getUnlocalizedName()).append(".").append(itemstack.getItemDamage()).toString();
+        return (new StringBuilder()).append(super.getUnlocalizedName()).append(".").append(itemStack.getItemDamage()).toString();
     }
 }

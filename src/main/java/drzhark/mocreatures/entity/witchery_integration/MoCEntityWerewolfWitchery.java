@@ -172,9 +172,9 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
     {   
         if (MoCreatures.isWitcheryLoaded && entityToAttack == null)
         {
-        	ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        	ItemStack itemStack = entityPlayer.getHeldItem();
         	
-        	if (itemstack == null)
+        	if (itemStack == null)
         	{
 	        	if (
 	        			(MoCTools.isPlayerInWerewolfForm(entityPlayer) && entityPlayer.getMaxHealth() == 60) //checks for max level werewolf 
@@ -262,8 +262,8 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
 		        	else 
 		        	{
 		        		EntityPlayer entityPlayer = (EntityPlayer) entityThatAttackedThisCreature;
-		        		ItemStack itemstack = entityPlayer.getCurrentEquippedItem();
-		        		damageTaken = MoCEntityWerewolf.calculateWerewolfDamageTakenFromPlayerAttack(damageSource, damageTaken, itemstack);
+		        		ItemStack itemStack = entityPlayer.getCurrentEquippedItem();
+		        		damageTaken = MoCEntityWerewolf.calculateWerewolfDamageTakenFromPlayerAttack(damageSource, damageTaken, itemStack);
 		        	}
 		        }
 		        
@@ -475,7 +475,10 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
             if (player != null) {player.addStat(MoCAchievements.kill_werewolf, 1);}
         }
 
-        if (!worldObj.isRemote)
+        if (
+        		!worldObj.isRemote
+        		&& getNameOfPlayerThatRecruitedThisCreature().length() == 0 //don't drop anything if this werewolf was recruited
+        	)
         {
             for (int index = 0; index < 2; index++)
             {

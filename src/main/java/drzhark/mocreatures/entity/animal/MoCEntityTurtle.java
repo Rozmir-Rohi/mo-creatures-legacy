@@ -125,7 +125,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
         
         if (getIsTamed())
         {
-            ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+            ItemStack itemStack = entityPlayer.getHeldItem();
             if (getIsUpsideDown())
             {
                 flipFlop(false);
@@ -137,7 +137,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
                 rotationYaw = entityPlayer.rotationYaw;
                 if (
                 		MoCreatures.isServer() 
-                		&& ((MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null) || (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly)))
+                		&& ((MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null) || (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly)))
                 		&& (entityPlayer.ridingEntity == null)
                 	)
                 {
@@ -147,7 +147,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
             else
             {
                 if (	MoCreatures.isServer()
-                		&& ((MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null) || (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly)))
+                		&& ((MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null) || (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly)))
                 	)
                 {
                     mountEntity(null);
@@ -549,15 +549,15 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack itemstack)
+    public boolean isMyHealFood(ItemStack itemStack)
     {
-    	if (itemstack != null)
+    	if (itemStack != null)
     	{
-	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
 	    	
 	        return (
-	        			itemstack.getItem() == Items.reeds
-	        			|| itemstack.getItem() == Items.melon
+	        			itemStack.getItem() == Items.reeds
+	        			|| itemStack.getItem() == Items.melon
 	        			|| oreDictionaryNameArray.size() > 0 && oreDictionaryNameArray.contains("listAllveggie") //BOP veg or GregTech6 veg or Palm's Harvest veg
 	        			|| oreDictionaryNameArray.contains("listAllfruit") //BOP fruit or GregTech6 fruit or Palm's Harvest fruit
 	        		);

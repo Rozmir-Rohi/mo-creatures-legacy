@@ -41,7 +41,7 @@ public class MoCMessageExplode implements IMessage, IMessageHandler<MoCMessageEx
         {
             if (entity.getEntityId() == message.entityId && entity instanceof MoCEntityOgre)
             {
-                ((MoCEntityOgre) entity).DestroyingOgre();
+                ((MoCEntityOgre) entity).destroyBlocksNearby();
                 break;
             }
         }

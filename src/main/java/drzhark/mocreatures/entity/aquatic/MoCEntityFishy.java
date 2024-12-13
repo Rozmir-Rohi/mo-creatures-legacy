@@ -236,20 +236,20 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     
     
     @Override
-    protected boolean isMyHealFood(ItemStack itemstack)
+    protected boolean isMyHealFood(ItemStack itemStack)
     {
-    	if (itemstack == null) {return false;}
+    	if (itemStack == null) {return false;}
     	
-    	Item item = itemstack.getItem();
+    	Item item = itemStack.getItem();
     	
-    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
     	
     	if (
     			item instanceof ItemSeeds
     			|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
     			|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:kelp")
     			|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
-    			|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemstack.getItemDamage() == 11 //BOP kelp
+    			|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemStack.getItemDamage() == 11 //BOP kelp
     			|| (Item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
     			|| isItemPlantMegaPackFishEdibleSaltWaterPlant(item)
     			|| (oreDictionaryNameArray.size() > 0 && oreDictionaryNameArray.contains("cropKelp"))

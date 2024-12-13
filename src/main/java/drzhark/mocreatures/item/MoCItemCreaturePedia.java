@@ -26,7 +26,7 @@ public class MoCItemCreaturePedia extends MoCItem {
     /**
      * Called when a player right clicks a entity with a item.
      */
-    public void itemInteractionForEntity2(ItemStack itemstack, EntityLiving entityLiving)
+    public void itemInteractionForEntity2(ItemStack itemStack, EntityLiving entityLiving)
     {
         if (entityLiving.worldObj.isRemote) { return; }
 
@@ -56,7 +56,7 @@ public class MoCItemCreaturePedia extends MoCItem {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World worldObj, EntityPlayer entityPlayer)
+    public ItemStack onItemRightClick(ItemStack itemStack, World worldObj, EntityPlayer entityPlayer)
     {
         if (!worldObj.isRemote)
         {
@@ -89,24 +89,24 @@ public class MoCItemCreaturePedia extends MoCItem {
                 }
             }
 
-            if (entityLiving == null) { return itemstack; }
+            if (entityLiving == null) { return itemStack; }
 
             if (entityLiving instanceof MoCEntityHorse)
             {
                 MoCreatures.showCreaturePedia(entityPlayer, "/mocreatures/pedia/horse.png");
-                return itemstack;
+                return itemStack;
             }
 
             if (entityLiving instanceof MoCEntityTurtle)
             {
                 MoCreatures.showCreaturePedia(entityPlayer, "/mocreatures/pedia/turtle.png");
-                return itemstack;
+                return itemStack;
             }
 
             if (entityLiving instanceof MoCEntityBunny)
             {
                 MoCreatures.showCreaturePedia(entityPlayer, "/mocreatures/pedia/bunny.png");
-                return itemstack;
+                return itemStack;
             }
 
             //TODO 4FIX             
@@ -114,11 +114,11 @@ public class MoCItemCreaturePedia extends MoCItem {
             {
                 //System.out.println("showing dolphin");
                 MoCreatures.showCreaturePedia(entityPlayer, "/mocreatures/pedia/dolphin.png");
-                return itemstack;
+                return itemStack;
             }*/
         }
 
-        return itemstack;
+        return itemStack;
     }
 
     private int ageCounter;

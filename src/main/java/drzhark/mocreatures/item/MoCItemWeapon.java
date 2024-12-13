@@ -107,7 +107,7 @@ public class MoCItemWeapon extends ItemSword {
      * (Quality+1)*2 if correct blockType, 1.5F if sword
      */
     @Override
-    public float func_150893_a(ItemStack itemstack, Block par2Block)
+    public float func_150893_a(ItemStack itemStack, Block par2Block)
     {
         return par2Block == Blocks.web ? 15.0F : 1.5F;
     }

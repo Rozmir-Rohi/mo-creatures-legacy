@@ -67,15 +67,15 @@ public class MoCItemWhip extends MoCItem {
 
     
     
-    public ItemStack onItemRightClick2(ItemStack itemstack, World world, EntityPlayer entityPlayer)
+    public ItemStack onItemRightClick2(ItemStack itemStack, World world, EntityPlayer entityPlayer)
     {
-        return itemstack;
+        return itemStack;
     }
     
     
 
     @Override
-    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityPlayer, World world, int x, int y, int z, int l, float f1, float f2, float f3)
+    public boolean onItemUse(ItemStack itemStack, EntityPlayer entityPlayer, World world, int x, int y, int z, int l, float f1, float f2, float f3)
     {
         Block block = world.getBlock(x, y, z);
         Block blockAbove = world.getBlock(x, y + 1, z);
@@ -86,7 +86,7 @@ public class MoCItemWhip extends MoCItem {
             
             world.playSoundAtEntity(entityPlayer, "mocreatures:whip", 0.5F, 0.4F / ((itemRand.nextFloat() * 0.4F) + 0.8F));
             
-            itemstack.damageItem(1, entityPlayer);
+            itemStack.damageItem(1, entityPlayer);
             
 	            
             MoCEntityAnimal closestWhippableEntityToPlayer = findClosestWhippableEntityNearPlayer(entityPlayer);

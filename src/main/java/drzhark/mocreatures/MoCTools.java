@@ -88,11 +88,11 @@ public class MoCTools {
     /**
      * Drops item
      */
-    public static void dropCustomItem(Entity entity, World worldObj, ItemStack itemstack)
+    public static void dropCustomItem(Entity entity, World worldObj, ItemStack itemStack)
     {
         if (!MoCreatures.isServer()) { return; }
 
-        EntityItem entityItem = new EntityItem(worldObj, entity.posX, entity.posY, entity.posZ, itemstack);
+        EntityItem entityItem = new EntityItem(worldObj, entity.posX, entity.posY, entity.posZ, itemStack);
         float f3 = 0.05F;
         entityItem.motionX = (float) worldObj.rand.nextGaussian() * f3;
         entityItem.motionY = ((float) worldObj.rand.nextGaussian() * f3) + 0.2F;
@@ -101,13 +101,13 @@ public class MoCTools {
     }
     
     /**
-     * Returns all the ore dictionary entries for the itemstack as a string array
+     * Returns all the ore dictionary entries for the itemStack as a string array
      * 
-     * @param itemstack
+     * @param itemStack
      * @return
      */
-    public static List<String> getOreDictionaryEntries(ItemStack itemstack) {
-		int[] oreDictionaryIdList = OreDictionary.getOreIDs(itemstack);
+    public static List<String> getOreDictionaryEntries(ItemStack itemStack) {
+		int[] oreDictionaryIdList = OreDictionary.getOreIDs(itemStack);
 		
 		List<String> oreDictionaryNameArray = new ArrayList<String>();
 		        	
@@ -1473,8 +1473,8 @@ public class MoCTools {
         
         for (int l = 0; l < animalchest.getSizeInventory(); l++)
         {
-            ItemStack itemstack = animalchest.getStackInSlot(l);
-            if (itemstack == null)
+            ItemStack itemStack = animalchest.getStackInSlot(l);
+            if (itemStack == null)
             {
                 continue;
             }
@@ -1484,7 +1484,7 @@ public class MoCTools {
             
             float motionMultiplier = 0.05F;
 
-            EntityItem entityItem = new EntityItem(entity.worldObj,  entityPosX + xOffset, entityPosY + yOffset, entityPosZ + zOffset, itemstack);
+            EntityItem entityItem = new EntityItem(entity.worldObj,  entityPosX + xOffset, entityPosY + yOffset, entityPosZ + zOffset, itemStack);
             
             entityItem.motionX = ((float) entity.worldObj.rand.nextGaussian() * motionMultiplier);
             entityItem.motionY = (((float) entity.worldObj.rand.nextGaussian() * motionMultiplier) + 0.2F);

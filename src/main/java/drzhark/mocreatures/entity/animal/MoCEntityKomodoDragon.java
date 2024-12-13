@@ -265,12 +265,12 @@ public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
     {
         if (super.interact(entityPlayer)) { return false; }
 
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        ItemStack itemStack = entityPlayer.getHeldItem();
         
-        if ((itemstack != null) && getIsTamed() && !getIsRideable() && getMoCAge() > 90 &&
-                (itemstack.getItem() == Items.saddle || itemstack.getItem() == MoCreatures.craftedSaddle))
+        if ((itemStack != null) && getIsTamed() && !getIsRideable() && getMoCAge() > 90 &&
+                (itemStack.getItem() == Items.saddle || itemStack.getItem() == MoCreatures.craftedSaddle))
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -285,7 +285,7 @@ public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
             		MoCreatures.isServer()
             		&&
             			(
-            				(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+            				(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
             				|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
             			)
             		&& !(entityPlayer.isSneaking()) && (riddenByEntity == null)
@@ -462,20 +462,20 @@ public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack itemstack)
+    public boolean isMyHealFood(ItemStack itemStack)
     {
-        if (itemstack != null)
+        if (itemStack != null)
         {
-        	Item item = itemstack.getItem();
+        	Item item = itemStack.getItem();
         	
-        	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemstack);
+        	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
         	
         	return 
 	        	(
 	        		item == Items.porkchop
 	    			|| item == Items.beef 
 	    			|| item == Items.chicken
-	    			|| (item == Items.fish && itemstack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
+	    			|| (item == Items.fish && itemStack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
 	        		|| item == Items.rotten_flesh
 	    			|| item == MoCreatures.ratRaw
 	        		|| item == MoCreatures.turkeyRaw

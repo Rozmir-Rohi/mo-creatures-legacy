@@ -86,10 +86,10 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     public boolean interact(EntityPlayer entityPlayer)
     {
         if (super.interact(entityPlayer)) { return false; }
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-        if ((itemstack != null) && isItemEdible(itemstack.getItem()))
+        ItemStack itemStack = entityPlayer.getHeldItem();
+        if ((itemStack != null) && isItemEdible(itemStack.getItem()))
         {
-            if (--itemstack.stackSize == 0)
+            if (--itemStack.stackSize == 0)
             {
                 entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             }
@@ -140,9 +140,9 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     }
     
     @Override
-    public boolean isMyHealFood(ItemStack itemstack)
+    public boolean isMyHealFood(ItemStack itemStack)
     {
-    	return itemstack != null && isItemEdible(itemstack.getItem());
+    	return itemStack != null && isItemEdible(itemStack.getItem());
     }
 
     @Override

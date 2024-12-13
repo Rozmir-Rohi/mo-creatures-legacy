@@ -31,7 +31,6 @@ public class MoCEntityOgre extends MoCEntityMob{
     {
         super(world);
         setSize(1.9F, 3F);
-        isImmuneToFire = false;
         attackFrequency = 30;
     }
 
@@ -57,7 +56,8 @@ public class MoCEntityOgre extends MoCEntityMob{
             setHealth(getMaxHealth());
             isImmuneToFire = true;
 
-        }else
+        }
+        else
         {
             if (getType() == 0)
             {
@@ -67,7 +67,7 @@ public class MoCEntityOgre extends MoCEntityMob{
                 int typeChance = rand.nextInt(100);
                 
                 if (canCaveOgreSpawn() && (typeChance >= (100 - caveOgreChance)))
-                {    //System.out.println("can spawn cave o");
+                {
                     setType(rand.nextInt(2)+5);
                 }
                 else if (typeChance >= (100 - fireOgreChance))
@@ -133,10 +133,10 @@ public class MoCEntityOgre extends MoCEntityMob{
         }
     }
 
-    public void DestroyingOgre()
+    public void destroyBlocksNearby()
     {
         if (deathTime > 0) { return; }
-        MoCTools.destroyBlast(this, posX, posY + 1.0D, posZ, getDestroyForce(), getOgreFire());
+        MoCTools.destroyBlast(this, posX, posY + 1.0D, posZ, getDestroyForce(), isFireOgre());
     }
 
     @Override
@@ -164,10 +164,10 @@ public class MoCEntityOgre extends MoCEntityMob{
         {
         return Item.getItemFromBlock(Blocks.obsidian);
         }
-        else if (getType() < 5)
+        else if (isFireOgre())
         {
-            boolean flag = (rand.nextInt(100) < MoCreatures.proxy.rareItemDropChance);
-             if (!flag) 
+            boolean shouldDroupRareItem = (rand.nextInt(100) < MoCreatures.proxy.rareItemDropChance);
+             if (!shouldDroupRareItem) 
              {
                     return Item.getItemFromBlock(Blocks.fire);
              }
@@ -188,23 +188,19 @@ public class MoCEntityOgre extends MoCEntityMob{
         return "mocreatures:ogre";
     }
 
-    public boolean getOgreFire()
+    public boolean isFireOgre()
     {
-        if(getType() == 3 || getType() == 4)
-        {
-            isImmuneToFire = true;
-            return true;
-        }
-        return false;
+    	return (getType() == 3 || getType() == 4);
     }
 
     public float getDestroyForce()
     {
-        int t = getType();
-        if (t < 3) //green
+        int type = getType();
+        if (type < 3) //green
         {
             return MoCreatures.proxy.ogreStrength;
-        }else if (t < 5) //red
+        }
+        else if (type < 5) //red
         {
             return MoCreatures.proxy.fireOgreStrength;
         }
@@ -219,6 +215,11 @@ public class MoCEntityOgre extends MoCEntityMob{
     @Override
     public void onLivingUpdate()
     {
+    	if (isFireOgre() && !isImmuneToFire)
+        { //sets immunity to fire for fire ogres in-case they get reset, which does sometimes happen when worlds are reloaded
+        	isImmuneToFire = true;
+        }
+    	
         if (MoCreatures.isServer())
         {
             
@@ -230,21 +231,19 @@ public class MoCEntityOgre extends MoCEntityMob{
             if ((attackTime <= 0) && isPendingSmashAttack)
             {
                 isPendingSmashAttack = false;
-                DestroyingOgre();
+                destroyBlocksNearby();
                 MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageExplode(getEntityId()), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
             }
 
-            if (getType() > 2)
+            if (!isFireOgre() && worldObj.isDaytime())
             {
-                
-            
-                if (worldObj.isDaytime())
+            	float brightness = getBrightness(1.0F);
+                if (
+                		brightness > 0.5F
+                		&& worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && ((rand.nextFloat() * 30F) < ((brightness - 0.4F) * 2.0F))
+                	)
                 {
-                    float brightness = getBrightness(1.0F);
-                    if ((brightness > 0.5F) && worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)) && ((rand.nextFloat() * 30F) < ((brightness - 0.4F) * 2.0F)))
-                    {
-                        setHealth(getHealth() - 5);
-                    }
+                	attackEntityFrom(DamageSource.onFire, 5);
                 }
             }
         }

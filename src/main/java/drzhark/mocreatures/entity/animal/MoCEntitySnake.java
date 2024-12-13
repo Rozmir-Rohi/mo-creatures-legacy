@@ -172,9 +172,9 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         if (super.interact(entityPlayer)) { return false; }
         if (!getIsTamed()) { return false; }
 
-        ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
+        ItemStack itemStack = entityPlayer.getHeldItem();
         
-        if (itemstack == null)
+        if (itemStack == null)
         {
 	        rotationYaw = entityPlayer.rotationYaw;
 	        if (ridingEntity == null)
@@ -183,7 +183,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 	            		MoCreatures.isServer()
 	            		&&
 	            		(
-	                		(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemstack == null)
+	                		(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
 	                		|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
 	                	)
 	                	&& !(entityPlayer.isSneaking()) && (entityPlayer.ridingEntity == null)
@@ -841,14 +841,14 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean isMyHealFood(ItemStack itemstack)
+    public boolean isMyHealFood(ItemStack itemStack)
     {
-        return itemstack != null && 
+        return itemStack != null && 
         	(
-        		itemstack.getItem() == MoCreatures.ratRaw
+        		itemStack.getItem() == MoCreatures.ratRaw
         		|| MoCreatures.isGregTech6Loaded &&
                 	(	
-                		OreDictionary.getOreName(OreDictionary.getOreID(itemstack)) == "foodScrapmeat"
+                		OreDictionary.getOreName(OreDictionary.getOreID(itemStack)) == "foodScrapmeat"
                 	)
         	);
     }

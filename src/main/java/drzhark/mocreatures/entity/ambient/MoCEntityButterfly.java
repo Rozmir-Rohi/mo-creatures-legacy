@@ -109,9 +109,9 @@ public class MoCEntityButterfly extends MoCEntityInsect
     }
 
     @Override
-    public boolean isMyFollowFood(ItemStack itemstack)
+    public boolean isMyFollowFood(ItemStack itemStack)
     {
-        return itemstack != null && (itemstack.getItem() == Item.getItemFromBlock(Blocks.red_flower) || itemstack.getItem() == Item.getItemFromBlock(Blocks.yellow_flower));
+        return itemStack != null && (itemStack.getItem() == Item.getItemFromBlock(Blocks.red_flower) || itemStack.getItem() == Item.getItemFromBlock(Blocks.yellow_flower));
     }
     
     @Override

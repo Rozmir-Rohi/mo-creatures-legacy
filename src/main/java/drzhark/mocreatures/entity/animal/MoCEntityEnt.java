@@ -76,7 +76,7 @@ public class MoCEntityEnt extends MoCEntityAnimal{
         if (damageSource.getEntity() != null && damageSource.getEntity() instanceof EntityPlayer)
         {
             EntityPlayer entityPlayer = (EntityPlayer)damageSource.getEntity();
-            ItemStack currentItem = entityPlayer.inventory.getCurrentItem();
+            ItemStack currentItem = entityPlayer.getHeldItem();
             if (currentItem != null)
             {
                 Item itemHeldByPlayer = currentItem.getItem();
