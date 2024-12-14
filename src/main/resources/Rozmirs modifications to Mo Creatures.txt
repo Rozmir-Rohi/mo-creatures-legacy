@@ -1331,3 +1331,6 @@ Fixed Fish Net not saving the entity data of aquatic pet which used to prompt th
 
 
 Non-Flying Mo'Creatures Horses now display and use the vanilla horse jump bar.
+
+
+Fixed Jellyfish trying to poison Boats and Players on Boats. This also includes Boats from Et Futurum Requiem.

@@ -5,8 +5,10 @@ import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAquatic;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.potion.Potion;
@@ -169,13 +171,32 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     					entityThatThisEntityHasCollidedWith instanceof MoCEntityJellyFish
     					|| entityThatThisEntityHasCollidedWith instanceof MoCEntityShark
     					|| entityThatThisEntityHasCollidedWith instanceof MoCEntityRay
+    					|| (
+    							entityThatThisEntityHasCollidedWith instanceof EntityPlayer
+    							&& entityThatThisEntityHasCollidedWith.ridingEntity != null
+    							&& (	//don't try to poison players that are riding boats
+    									entityThatThisEntityHasCollidedWith.ridingEntity instanceof EntityBoat
+    									|| (
+    											MoCreatures.isEtFuturumRequiemLoaded
+    							    			&&
+    							    				(
+    							    					EntityList.getEntityString(entityThatThisEntityHasCollidedWith.ridingEntity).equals("etfuturum.new_boat")
+    							    					|| EntityList.getEntityString(entityThatThisEntityHasCollidedWith.ridingEntity).equals("etfuturum.chest_boat")
+    							    				)
+    										)
+    								)
+    						)
     			 	)
     		)
     	{
     		int secondsToApplyPoison = worldObj.difficultySetting.getDifficultyId() * 3;
     		
     		//posion entities that collide with this entity
-    		((EntityLivingBase) entityThatThisEntityHasCollidedWith).addPotionEffect(new PotionEffect(Potion.poison.id, (secondsToApplyPoison)* 20, 0));
+    		
+    		if (entityThatThisEntityHasCollidedWith instanceof EntityLivingBase)
+    		{
+    			((EntityLivingBase) entityThatThisEntityHasCollidedWith).addPotionEffect(new PotionEffect(Potion.poison.id, (secondsToApplyPoison)* 20, 0));
+    		}
     	}
     	
         super.collideWithEntity(entityThatThisEntityHasCollidedWith);
