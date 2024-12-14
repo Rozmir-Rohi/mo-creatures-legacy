@@ -7,6 +7,8 @@ import drzhark.mocreatures.network.message.MoCMessageAnimation;
 import drzhark.mocreatures.network.message.MoCMessageAppear;
 import drzhark.mocreatures.network.message.MoCMessageAttachedEntity;
 import drzhark.mocreatures.network.message.MoCMessageEntityDive;
+import drzhark.mocreatures.network.message.MoCMessageEntityHorseJumpKeyDown;
+import drzhark.mocreatures.network.message.MoCMessageEntityHorseJumpKeyUp;
 import drzhark.mocreatures.network.message.MoCMessageEntityJump;
 import drzhark.mocreatures.network.message.MoCMessageExplode;
 import drzhark.mocreatures.network.message.MoCMessageHealth;
@@ -34,5 +36,7 @@ public class MoCMessageHandler
         INSTANCE.registerMessage(MoCMessageUpdatePetName.class, MoCMessageUpdatePetName.class, 10, Side.SERVER);
         INSTANCE.registerMessage(MoCMessageTwoBytes.class, MoCMessageTwoBytes.class, 12, Side.CLIENT);
         INSTANCE.registerMessage(MoCMessageVanish.class, MoCMessageVanish.class, 13, Side.CLIENT);
+        INSTANCE.registerMessage(MoCMessageEntityHorseJumpKeyDown.class, MoCMessageEntityHorseJumpKeyDown.class, 14, Side.SERVER);
+        INSTANCE.registerMessage(MoCMessageEntityHorseJumpKeyUp.class, MoCMessageEntityHorseJumpKeyUp.class, 15, Side.SERVER);
     }
 }

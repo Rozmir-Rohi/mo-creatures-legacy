@@ -73,6 +73,12 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     public int transformCounter;
     
     private int forwardMovementCounterForWalkingSoundEffect;
+    
+    public boolean isJumpKeyDown;
+	private int horseJumpPowerCounter;
+	private float horseJumpPower;
+	
+	static final int JUMP_COUNTER_MARKER_INDICATING_THAT_JUMP_HAS_BEEN_EXECUTED = -100;
 
     public MoCEntityHorse(World world)
     {
@@ -2039,18 +2045,6 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         || getType() == 22;
     }
     
-    @Override    
-    public void setIsJumping(boolean flag)
-    {
-        isEntityJumping = flag;
-        
-        if (!isFlyer()&& flag)
-        {
-        	stand(); //use vanilla horse jump animation
-        	playSound("mob.horse.jump", 0.4F, 1.0F);
-        }
-    }
-    
     @Override
     protected void func_145780_a(int xCoord, int yCoord_, int zCoord, Block blockThatThisEntityIsWalkingOn)
     {
@@ -2627,6 +2621,86 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         super.onUpdate();
         
         if (
+        		riddenByEntity == null
+        		&& (
+        				horseJumpPowerCounter != 0
+        				|| horseJumpPower != 0
+        			)
+        	)
+        {
+        	horseJumpPower = 0;
+    		horseJumpPowerCounter = 0;
+        }
+        
+        if(!isFlyer())
+        {
+	        if (
+	        		isJumpKeyDown
+	        		&& onGround
+	        		&& horseJumpPowerCounter != JUMP_COUNTER_MARKER_INDICATING_THAT_JUMP_HAS_BEEN_EXECUTED
+	        	)
+	        {
+	        	++horseJumpPowerCounter;
+	
+	            if (horseJumpPowerCounter < 10)
+	            {
+	                horseJumpPower = (float) horseJumpPowerCounter * 0.1F;
+	            }
+	            else
+	            {
+	                horseJumpPower = 0.8F + 2.0F / (float)(horseJumpPowerCounter - 9) * 0.1F;
+	            }
+	        }
+	        
+	        else if (
+	        			!isJumpKeyDown
+	        			&& horseJumpPower > 0
+	        		)
+	        {
+	        	if (horseJumpPowerCounter != JUMP_COUNTER_MARKER_INDICATING_THAT_JUMP_HAS_BEEN_EXECUTED)
+	        	{
+	        		standCounter = 1; //use vanilla horse jump animation, need to do it this way rather than use stand(), to force use the animation
+	        	
+		        	if (MoCreatures.isServer())
+		        	{
+		        		double adjustedJumpStrength = getCustomJump() * horseJumpPower;
+		        		
+		        		
+		        		//need to do this manually rather than calling the parent function because of the jump strength adjustment
+		        		if (handleLavaMovement())
+		        		{
+		        			motionY =  adjustedJumpStrength;
+		        		}
+		        		else
+		        		{
+		        			motionY =  adjustedJumpStrength * 2; 
+		        		}
+		        		
+		        		 
+	                    setIsJumping(true);
+	                    jumpPending = false;
+		        		
+		        		
+		                playSound("mob.horse.jump", 0.4F, 1.0F);
+		        	}
+		        	
+		        	horseJumpPowerCounter = JUMP_COUNTER_MARKER_INDICATING_THAT_JUMP_HAS_BEEN_EXECUTED;
+	        	}
+	        	
+	        	else if (
+	        				horseJumpPowerCounter == JUMP_COUNTER_MARKER_INDICATING_THAT_JUMP_HAS_BEEN_EXECUTED
+	        				&& standCounter == 0
+	        			) 
+	        	{	//freezes the jumpBar until the horse has landed
+	        		horseJumpPower = 0;
+	        		horseJumpPowerCounter = 0;
+	        	}
+	        }
+        }
+        
+        
+        
+        if (
         		(
         				getType() == 38 //nightmare horse
         				|| getType() == 40 //dark pegasus
@@ -3150,4 +3224,19 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     {
         return 4;
     }
+
+	public void setJumpKeyDown(boolean flag)
+	{
+		isJumpKeyDown = flag;
+	}
+	
+	public boolean getIsJumpKeyDown()
+	{
+		return isJumpKeyDown;
+	}
+
+	public float getHorseJumpPower()
+	{
+		return horseJumpPower;
+	}
 }

@@ -37,7 +37,6 @@ public class MoCRenderHorseJumpBarEvent extends Gui {
 			event.setCanceled(true);
 			
 			res = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-			//eventParent = new RenderGameOverlayEvent(partialTicks, res, mouseX, mouseY);
 			if (res != null)
 			{
 					int width = res.getScaledWidth();
@@ -56,7 +55,7 @@ public class MoCRenderHorseJumpBarEvent extends Gui {
 
         mc.mcProfiler.startSection("jumpBar");
         
-        float charge = mc.thePlayer.getHorseJumpPower();
+        float charge = ((MoCEntityHorse)  mc.getMinecraft().thePlayer.ridingEntity).getHorseJumpPower();
         
         final int barWidth = 182;
         int x = (width / 2) - (barWidth / 2);

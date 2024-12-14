@@ -169,6 +169,7 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
 	        	return false;
 	        }
         	
+            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
             if (MoCreatures.isServer())
             {
                 MoCPetData petData = MoCreatures.instance.mapData.getPetData(getOwnerName());
@@ -176,10 +177,7 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
                 {
                     petData.setInAmulet(getOwnerPetId(), true);
                 }
-            }
-            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
-            if (MoCreatures.isServer())
-            {
+                dropMyStuff();
                 MoCTools.dropAmuletWithNewPetInformation(this, 1);
                 isDead = true;
             }

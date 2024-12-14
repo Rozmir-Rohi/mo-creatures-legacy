@@ -1325,3 +1325,9 @@ Slightly increased flying speed of Wyvern.
 
 
 Converted the "instant kill if entity spawned in wrong biome" events to overrides of the canSpawnHere() function for the affected entities.
+
+
+Fixed Fish Net not saving the entity data of aquatic pet which used to prompt the player to rename an already named pet.
+
+
+Non-Flying Mo'Creatures Horses now display and use the vanilla horse jump bar.
