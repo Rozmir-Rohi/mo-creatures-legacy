@@ -1196,11 +1196,20 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
     @Override
     public boolean getCanSpawnHere()
     {
-        return (
-        			MoCreatures.entityMap.get(getClass()).getFrequency() > 0
-        			&& getCanSpawnHereCreature()
-        			&& getCanSpawnHereLiving()
-        		);
+        if (	
+        		!MoCreatures.isBiomesOPlentyLoaded
+        		|| (MoCreatures.isBiomesOPlentyLoaded && checkSpawningBiome())
+        		&& (
+        				MoCreatures.entityMap.get(getClass()).getFrequency() > 0
+            			&& getCanSpawnHereCreature()
+            			&& getCanSpawnHereLiving()
+        			)
+        	)
+        {
+        	return super.getCanSpawnHere();  //don't let Elephants spawn in biomes that they are not supposed to spawn in
+        }
+       
+        else {return false;}
     }
     
     @Override

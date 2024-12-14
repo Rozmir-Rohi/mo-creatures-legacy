@@ -1,4 +1,4 @@
-package drzhark.mocreatures.client;
+package drzhark.mocreatures.client.events;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import drzhark.mocreatures.MoCTools;

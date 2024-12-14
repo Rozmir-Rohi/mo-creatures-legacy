@@ -1322,3 +1322,6 @@ Added Dolphin to /mocspawn command.
 
 
 Slightly increased flying speed of Wyvern. 
+
+
+Converted the "instant kill if entity spawned in wrong biome" events to overrides of the canSpawnHere() function for the affected entities.

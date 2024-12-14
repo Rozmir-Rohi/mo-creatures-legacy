@@ -31,17 +31,23 @@ public class MoCKeyHandler {
     {
         Keyboard.enableRepeatEvents(true); // allow holding down key. Fixes flying
         EntityPlayer entityPlayer = MoCClientProxy.mc.thePlayer;
-        if (entityPlayer == null || entityPlayer.ridingEntity == null) return;
-        if (FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().getChatOpen()) return; // if chatting return
-        boolean kbJump = Keyboard.isKeyDown(MoCClientProxy.mc.gameSettings.keyBindJump.getKeyCode());
-        boolean kbDive = Keyboard.isKeyDown(diveBinding.getKeyCode());
+        
+        if (entityPlayer == null || entityPlayer.ridingEntity == null) {return;}
+        
+        if (FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().getChatOpen()) {return;} // if chatting return
+        
         boolean isJumpKeyDown = Keyboard.isKeyDown(MoCClientProxy.mc.gameSettings.keyBindJump.getKeyCode());
-        //boolean kbDismount = kb.keyDescription.equals("MoCreatures Dismount");
+        boolean isDiveKeyDown = Keyboard.isKeyDown(diveBinding.getKeyCode());
 
         /**
          * this avoids double jumping
          */
-        if (kbJump && entityPlayer != null && entityPlayer.ridingEntity != null && entityPlayer.ridingEntity instanceof IMoCEntity)
+        if (
+        		isJumpKeyDown
+        		&& entityPlayer != null
+        		&& entityPlayer.ridingEntity != null
+        		&& entityPlayer.ridingEntity instanceof IMoCEntity
+        	)
         {
             // keyCount = 0;
             // jump code needs to be executed client/server simultaneously to take
@@ -49,7 +55,12 @@ public class MoCKeyHandler {
             MoCMessageHandler.INSTANCE.sendToServer(new MoCMessageEntityJump());
         }
 
-        if (kbDive && entityPlayer != null && entityPlayer.ridingEntity != null && entityPlayer.ridingEntity instanceof IMoCEntity)
+        if (
+        		isDiveKeyDown
+        		&& entityPlayer != null
+        		&& entityPlayer.ridingEntity != null
+        		&& entityPlayer.ridingEntity instanceof IMoCEntity
+        	)
         {
           //  keyCount = 0;
             // jump code needs to be executed client/server simultaneously to take

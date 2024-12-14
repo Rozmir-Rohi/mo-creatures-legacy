@@ -40,8 +40,9 @@ import drzhark.mocreatures.block.MoCBlockPlanks;
 import drzhark.mocreatures.block.MoCBlockStone;
 import drzhark.mocreatures.block.MoCBlockTallGrass;
 import drzhark.mocreatures.client.MoCClientTickHandler;
-import drzhark.mocreatures.client.MoCClientWitcheryPlayerWolfAndWerewolfReplacement;
 import drzhark.mocreatures.client.MoCCreativeTabs;
+import drzhark.mocreatures.client.events.MoCClientWitcheryPlayerWolfAndWerewolfReplacement;
+import drzhark.mocreatures.client.events.MoCRenderHorseJumpBarEvent;
 import drzhark.mocreatures.client.handlers.MoCKeyHandler;
 import drzhark.mocreatures.command.CommandMoCPets;
 import drzhark.mocreatures.command.CommandMoCSpawn;
@@ -136,10 +137,10 @@ import drzhark.mocreatures.item.MoCItemWhip;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.utils.MoCLog;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityList.EntityEggInfo;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
@@ -455,6 +456,8 @@ public class MoCreatures {
             FMLCommonHandler.instance().bus().register(new MoCClientTickHandler());
             FMLCommonHandler.instance().bus().register(new MoCKeyHandler());
             MinecraftForge.EVENT_BUS.register(new MoCClientWitcheryPlayerWolfAndWerewolfReplacement());
+            //TODO Add Horse Jump Bar
+            //MinecraftForge.EVENT_BUS.register(new MoCRenderHorseJumpBarEvent(Minecraft.getMinecraft()));
         }
         FMLCommonHandler.instance().bus().register(new MoCPlayerTracker());
         

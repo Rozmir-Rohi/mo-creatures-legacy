@@ -471,7 +471,14 @@ public class MoCEntityScorpion extends MoCEntityMob {
     @Override
     public boolean getCanSpawnHere()
     {
-        return (isValidLightLevel() && MoCreatures.entityMap.get(getClass()).getFrequency() > 0) && getCanSpawnHereLiving() && getCanSpawnHereCreature();
+        return
+        	(
+        			isValidLightLevel()
+        			&& MoCreatures.entityMap.get(getClass()).getFrequency() > 0
+        			&& checkSpawningBiome() //don't let Scorpions spawn in biomes that they are not supposed to spawn in (mainly beaches)
+        			&& getCanSpawnHereLiving()
+        			&& getCanSpawnHereCreature()
+        	);
     }
 
     @Override

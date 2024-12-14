@@ -73,27 +73,7 @@ public class MoCEventHooks {
     public void livingUpdate(LivingEvent.LivingUpdateEvent event)
 	{
         if (!event.entityLiving.worldObj.isRemote)
-        { 
-        	if (event.entityLiving instanceof MoCEntityTurkey) //remove newly spawned Turkeys from biomes that they are not supposed to spawn in (mainly savannas)
-        	{
-        		MoCEntityTurkey turkey = (MoCEntityTurkey) event.entityLiving;
-        		
-        		if (!turkey.getIsTamed() && turkey.ticksExisted < 3 && !turkey.checkSpawningBiome())
-        		{
-        			event.entityLiving.setDead();
-        		}
-        	}
-        	
-        	if (event.entityLiving instanceof MoCEntityScorpion) //remove newly spawned Scorpions from biomes that they are not supposed to spawn in (mainly beaches)
-        	{
-        		MoCEntityScorpion scorpion = (MoCEntityScorpion) event.entityLiving;
-        		
-        		if (scorpion.getType() == 0 && !scorpion.checkSpawningBiome())
-        		{
-        			event.entityLiving.setDead();
-        		}
-        	}
-        	
+        {	
         	if (MoCreatures.isWitcheryLoaded)
         	{
         		if (MoCreatures.proxy.replaceWitcheryWerewolfEntities)
@@ -164,39 +144,6 @@ public class MoCEventHooks {
         				entityPlayer.setInvisible(false); //Makes the player model visible again
         			}
         		}
-        	}
-        	
-        	if (MoCreatures.isBiomesOPlentyLoaded)
-        	{
-	        	if (event.entityLiving instanceof MoCEntityBigCat) //remove newly spawned Big Cats from biomes that they are not supposed to spawn in
-	        	{
-	        		MoCEntityBigCat bigCat = (MoCEntityBigCat) event.entityLiving;
-	        		
-	        		if (bigCat.getType() == 0 && !bigCat.checkSpawningBiome() && !bigCat.getIsTamed())
-	        		{
-	        			event.entityLiving.setDead();
-	        		}
-	        	}
-	        	
-	        	if (event.entityLiving instanceof MoCEntityElephant) //remove newly spawned Elephants from biomes that they are not supposed to spawn in
-	        	{
-	        		MoCEntityElephant elephant = (MoCEntityElephant) event.entityLiving;
-	        		
-	        		if (elephant.getType() == 0 && !elephant.checkSpawningBiome() && !elephant.getIsTamed())
-	        		{
-	        			event.entityLiving.setDead();
-	        		}
-	        	}
-	        	
-	        	if (event.entityLiving instanceof MoCEntityOstrich) //remove newly spawned Ostriches from biomes that they are not supposed to spawn in
-	        	{
-	        		MoCEntityOstrich ostrich = (MoCEntityOstrich) event.entityLiving;
-	        		
-	        		if (ostrich.getType() == 0 && !ostrich.checkSpawningBiome())
-	        		{
-	        			event.entityLiving.setDead();
-	        		}
-	        	}
         	}
         }
     }

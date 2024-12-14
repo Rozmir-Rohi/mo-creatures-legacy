@@ -1041,13 +1041,22 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             nbtTagCompound.setTag("Items", nbtTagList);
         }
     }
-
+   
     @Override
     public boolean getCanSpawnHere()
     {
-        //spawns in deserts and plains
-        return getCanSpawnHereCreature() && getCanSpawnHereLiving();
+        if (	
+        		!MoCreatures.isBiomesOPlentyLoaded
+        		|| (MoCreatures.isBiomesOPlentyLoaded && checkSpawningBiome())
+        		&& (getCanSpawnHereCreature() && getCanSpawnHereLiving())
+        	)
+        {
+        	return super.getCanSpawnHere();  //don't let BigCats spawn in biomes that they are not supposed to spawn in
+        }
+       
+        else {return false;}
     }
+    
 
     @Override
     public int nameYOffset()

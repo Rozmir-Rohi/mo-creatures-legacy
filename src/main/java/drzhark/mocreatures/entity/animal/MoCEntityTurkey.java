@@ -7,6 +7,7 @@ import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSeeds;
@@ -123,6 +124,17 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
 	    		);
 	    }
 	    else {return false;}
+    }
+   
+    @Override
+    public boolean getCanSpawnHere()
+    {
+        if (checkSpawningBiome()) //don't let Turkeys spawn in biomes that they are not supposed to spawn in (mainly savannas)
+        {
+        	return super.getCanSpawnHere();
+        }
+       
+        else {return false;}
     }
     
 

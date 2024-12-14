@@ -831,6 +831,20 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     	}
     	else {return false;}
     }
+    
+    @Override
+    public boolean getCanSpawnHere()
+    {
+        if (	
+        		!MoCreatures.isBiomesOPlentyLoaded
+        		|| (MoCreatures.isBiomesOPlentyLoaded && checkSpawningBiome())
+        	)
+        {
+        	return super.getCanSpawnHere();  //don't let BigCats spawn in biomes that they are not supposed to spawn in
+        }
+       
+        else {return false;}
+    }
 
     @Override
     public boolean isNotScared()
