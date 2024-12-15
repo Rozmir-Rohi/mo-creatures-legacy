@@ -3,7 +3,6 @@ package drzhark.mocreatures.network.message;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import drzhark.mocreatures.entity.IMoCEntity;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;

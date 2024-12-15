@@ -456,7 +456,6 @@ public class MoCreatures {
             FMLCommonHandler.instance().bus().register(new MoCClientTickHandler());
             FMLCommonHandler.instance().bus().register(new MoCKeyHandler());
             MinecraftForge.EVENT_BUS.register(new MoCClientWitcheryPlayerWolfAndWerewolfReplacement());
-            //TODO Add Horse Jump Bar
             MinecraftForge.EVENT_BUS.register(new MoCRenderHorseJumpBarEvent(Minecraft.getMinecraft()));
         }
         FMLCommonHandler.instance().bus().register(new MoCPlayerTracker());

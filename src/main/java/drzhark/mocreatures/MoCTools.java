@@ -659,7 +659,7 @@ public class MoCTools {
         }
     }
 
-    public static float distanceToSurface(Entity entity)
+    public static float distanceToWaterSurface(Entity entity)
     {
         int x = MathHelper.floor_double(entity.posX);
         int y = MathHelper.floor_double(entity.posY);
@@ -682,7 +682,7 @@ public class MoCTools {
         return 0F;
     }
 
-    public static int distanceToFloor(Entity entity)
+    public static int distanceToWaterFloor(Entity entity)
     {
         int x = MathHelper.floor_double(entity.posX);
         int y = MathHelper.floor_double(entity.posY);

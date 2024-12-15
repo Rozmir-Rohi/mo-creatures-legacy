@@ -417,7 +417,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             movementSideways = ((EntityLivingBase)riddenByEntity).moveStrafing * 0.5F;
             movementForward = ((EntityLivingBase)riddenByEntity).moveForward;
 
-            if (jumpPending)
+            if (jumpPending && isSwimming())
             {
                 motionY += getCustomJump();
                 jumpPending = false;
@@ -429,7 +429,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
                 motionY -= 0.3D;
             }
 
-            if (motionY > 0.01D && !isSwimming())
+            if (motionY > 0.01D && !isSwimming() && !getIsJumping())
             {
                 motionY = -0.01D;
             }
@@ -551,16 +551,13 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     
     public void moveVerticallyInWater()
     {
-        float yDistanceToSurfaceOfWater = MoCTools.distanceToSurface(this);
+        float yDistanceToSurfaceOfWater = MoCTools.distanceToWaterSurface(this);
 
         if (riddenByEntity != null)
         {
             EntityPlayer playerThatIsRidingThisCreature = (EntityPlayer) riddenByEntity;
-            if (playerThatIsRidingThisCreature.isAirBorne) // TODO TEST
-            {
-                motionY += 0.09D;
-            }
-            else if (divePending)
+
+            if (divePending)
             {
             	motionY = -0.008D;
             }

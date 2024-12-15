@@ -206,7 +206,7 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     @Override
     public void moveVerticallyInWater()
     {
-        float yDistanceToSurfaceOfWater = MoCTools.distanceToSurface(this);
+        float yDistanceToSurfaceOfWater = MoCTools.distanceToWaterSurface(this);
 
         if (motionY < -0.004)
         {

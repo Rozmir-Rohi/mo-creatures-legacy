@@ -585,7 +585,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         }
         motionY += 0.001D;// 0.001
 
-        int yDistanceToSurfaceOfWater = (int) MoCTools.distanceToSurface(this);
+        int yDistanceToSurfaceOfWater = (int) MoCTools.distanceToWaterSurface(this);
         if (yDistanceToSurfaceOfWater > 1)
         {
             motionY += (yDistanceToSurfaceOfWater * 0.07);
@@ -1217,7 +1217,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
             }
             if (isFlyingAlone())
             {
-                int yDistanceFromGround = MoCTools.distanceToFloor(this);
+                int yDistanceFromGround = MoCTools.distanceToWaterFloor(this);
                 if (yDistanceFromGround <= flyingHeight())
                 {
                     motionY *= 0.3 + (acceleration);

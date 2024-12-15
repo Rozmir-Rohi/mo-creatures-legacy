@@ -1334,3 +1334,6 @@ Non-Flying Mo'Creatures Horses now display and use the vanilla horse jump bar.
 
 
 Fixed Jellyfish trying to poison Boats and Players on Boats. This also includes Boats from Et Futurum Requiem.
+
+
+Added Dolphin jump and jump animation.

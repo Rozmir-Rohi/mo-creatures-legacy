@@ -8,6 +8,7 @@ import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAquatic;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageHeart;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -23,6 +24,8 @@ import net.minecraft.world.World;
 public class MoCEntityDolphin extends MoCEntityTameableAquatic {
 
     public int gestationTime;
+    
+    private boolean hasExecutedOneJump;
 
     public MoCEntityDolphin(World world)
     {
@@ -167,6 +170,33 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
 			    return 1.2D;
         }
     }
+    
+    public double getCustomDolphinJump()
+    {
+        switch (getType())
+        {
+			case 1: //blue
+			    return 1.0D;
+			    
+			case 2: //light blue
+			    return 1.1D;
+			    
+			case 3: //pinkish blue
+			    return 1.2D;
+			    
+			case 4: //black
+			    return 1.3D;
+			    
+			case 5: //pink
+			    return 1.4D;
+			    
+			case 6: //white
+			    return 1.5D;
+			    
+			default:
+			    return 1.0D;
+        }
+    }
 
     @Override
     protected void entityInit()
@@ -211,7 +241,6 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         double newPosZ = posZ - (distance * Math.sin((MoCTools.realAngle(renderYawOffset - 90F)) / 57.29578F));
         
         riddenByEntity.setPosition(newPosX, posY + getMountedYOffset() + riddenByEntity.getYOffset(), newPosZ);
-
     }
 
     @Override
@@ -427,6 +456,42 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
             return false;
         }
     }
+    
+    @Override
+    public void onUpdate()
+    {
+    	super.onUpdate();
+    	
+    	if
+    	(
+    		riddenByEntity != null
+    		&& !onGround
+    		&& MoCTools.distanceToWaterSurface(this) == 1 //yDistance to surface of water
+    		&& motionY > 0
+    		&& Math.abs(motionY) < getCustomDolphinJump()
+    	) 
+    	{
+    		if (MoCreatures.isServer())
+        	{    		
+	    		//jump out of water
+	    		setIsJumping(true);
+	    		motionY =  getCustomDolphinJump(); 
+	            jumpPending = false;
+	            hasExecutedOneJump = true;
+        	}
+		}
+    	
+    	if (
+    			hasExecutedOneJump
+    			&& MoCTools.distanceToWaterSurface(this) == 1
+    			&& motionY < 0
+    		)
+    	{
+    		playSound("game.neutral.swim.splash", 0.25F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.4F);
+    		
+    		hasExecutedOneJump = false;
+    	}
+    }
 
     @Override
     public void onLivingUpdate()
@@ -435,6 +500,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
 
         if (MoCreatures.isServer())
         {
+        	
             if (!getIsAdult() && (rand.nextInt(50) == 0))
             {
                 setMoCAge(getMoCAge() + 1);
@@ -578,4 +644,30 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     {
         return 1;
     }
+
+	public float getRotationAmount()
+	{
+		float rotationAmount = 0; 
+		
+		if (
+				!isInsideOfMaterial(Material.water)
+				&& motionY > -0.2
+			)
+		{
+			rotationAmount = 20; //for up
+		}
+		else
+		{
+			rotationAmount = ((float) motionY) * 100; //for down
+		}
+		
+		final int maxRotationAmountInDegrees = 60;
+		
+		if(Math.abs(rotationAmount) > maxRotationAmountInDegrees)
+		{
+			rotationAmount = maxRotationAmountInDegrees * Math.signum(rotationAmount);  //makes sure that the dolphin doesn't fall straight down and not over itself
+		}
+		
+		return rotationAmount;
+	}
 }

@@ -108,18 +108,18 @@ public class MoCRenderDolphin extends RenderLiving {
 
     public void doRender2(EntityLiving entityLiving, double d, double d1, double d2, float f, float f1)
     {
-        MoCEntityDolphin entitydolphin = (MoCEntityDolphin) entityLiving;
-        super.doRender(entitydolphin, d, d1, d2, f, f1);
-        if (entitydolphin.shouldRenderName())
+        MoCEntityDolphin entityDolphin = (MoCEntityDolphin) entityLiving;
+        super.doRender(entityDolphin, d, d1, d2, f, f1);
+        if (entityDolphin.shouldRenderName())
         {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
-            float f4 = entityLiving.getDistanceToEntity(renderManager.livingPlayer);
-            String s = "";
-            s = (new StringBuilder()).append(s).append(entitydolphin.getName()).toString();
-            if ((f4 < 12F) && (s.length() > 0))
+            float distanceToEntityPlayer = entityLiving.getDistanceToEntity(renderManager.livingPlayer);
+            String petName = "";
+            petName = (new StringBuilder()).append(petName).append(entityDolphin.getName()).toString();
+            if ((distanceToEntityPlayer < 12F) && (petName.length() > 0))
             {
-                FontRenderer fontrenderer = getFontRendererFromRenderManager();
+                FontRenderer fontRenderer = getFontRendererFromRenderManager();
                 GL11.glPushMatrix();
                 GL11.glTranslatef((float) d + 0.0F, (float) d1 + 0.3F, (float) d2);
                 GL11.glNormal3f(0.0F, 1.0F, 0.0F);
@@ -134,16 +134,16 @@ public class MoCRenderDolphin extends RenderLiving {
                 byte byte0 = -50;
                 GL11.glDisable(3553 /* GL_TEXTURE_2D */);
                 tessellator.startDrawingQuads();
-                int i = fontrenderer.getStringWidth(s) / 2;
+                int stringWidthHalf = fontRenderer.getStringWidth(petName) / 2;
                 tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
-                tessellator.addVertex(-i - 1, -1 + byte0, 0.0D);
-                tessellator.addVertex(-i - 1, 8 + byte0, 0.0D);
-                tessellator.addVertex(i + 1, 8 + byte0, 0.0D);
-                tessellator.addVertex(i + 1, -1 + byte0, 0.0D);
+                tessellator.addVertex(-stringWidthHalf - 1, -1 + byte0, 0.0D);
+                tessellator.addVertex(-stringWidthHalf - 1, 8 + byte0, 0.0D);
+                tessellator.addVertex(stringWidthHalf + 1, 8 + byte0, 0.0D);
+                tessellator.addVertex(stringWidthHalf + 1, -1 + byte0, 0.0D);
                 if (MoCreatures.proxy.getDisplayPetHealthMode(entityLiving))
                 {
-                    float f5 = entitydolphin.getHealth();
-                    float f6 = entitydolphin.getMaxHealth();
+                    float f5 = entityDolphin.getHealth();
+                    float f6 = entityDolphin.getMaxHealth();
                     float f7 = f5 / f6;
                     float f8 = 40F * f7;
                     tessellator.setColorRGBA_F(0.7F, 0.0F, 0.0F, 1.0F);
@@ -159,16 +159,23 @@ public class MoCRenderDolphin extends RenderLiving {
                 }
                 tessellator.draw();
                 GL11.glEnable(3553 /* GL_TEXTURE_2D */);
-                fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, byte0, 0x20ffffff);
+                fontRenderer.drawString(petName, -fontRenderer.getStringWidth(petName) / 2, byte0, 0x20ffffff);
                 GL11.glEnable(2929 /* GL_DEPTH_TEST */);
                 GL11.glDepthMask(true);
-                fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, byte0, -1);
+                fontRenderer.drawString(petName, -fontRenderer.getStringWidth(petName) / 2, byte0, -1);
                 GL11.glEnable(2896 /* GL_LIGHTING */);
                 GL11.glDisable(3042 /* GL_BLEND */);
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 GL11.glPopMatrix();
             }
         }
+    }
+    
+    @Override
+    protected void preRenderCallback(EntityLivingBase entityLivingBase, float par1)
+    {
+    	super.preRenderCallback(entityLivingBase, par1);
+    	checkIfIsInAirAndApplyRotation((MoCEntityDolphin) entityLivingBase);
     }
 
     @Override
@@ -178,14 +185,22 @@ public class MoCRenderDolphin extends RenderLiving {
         return entityLiving.ticksExisted + f;
     }
 
-    protected void stretch(MoCEntityDolphin entitydolphin)
+    protected void stretch(MoCEntityDolphin entityDolphin)
     {
-        GL11.glScalef(entitydolphin.getMoCAge() * 0.01F, entitydolphin.getMoCAge() * 0.01F, entitydolphin.getMoCAge() * 0.01F);
+        GL11.glScalef(entityDolphin.getMoCAge() * 0.01F, entityDolphin.getMoCAge() * 0.01F, entityDolphin.getMoCAge() * 0.01F);
+    }
+    
+    protected void checkIfIsInAirAndApplyRotation(MoCEntityDolphin entityDolphin)
+    {
+    	if(!entityDolphin.onGround && entityDolphin.riddenByEntity != null)
+    	{
+			GL11.glRotatef((float) entityDolphin.getRotationAmount(), -1, 0, 0);
+    	}
     }
 
-
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityDolphin)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity)
+    {
+        return ((MoCEntityDolphin)entity).getTexture();
     }
 }
