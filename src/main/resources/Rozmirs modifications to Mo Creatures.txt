@@ -1337,3 +1337,9 @@ Fixed Jellyfish trying to poison Boats and Players on Boats. This also includes 
 
 
 Added Dolphin jump and jump animation.
+
+
+Fixed modEntityID not being applied to spawn eggs.
+
+
+Slightly improved dolphin landing into water after jump.

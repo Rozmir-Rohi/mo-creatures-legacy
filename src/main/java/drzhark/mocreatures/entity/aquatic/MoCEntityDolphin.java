@@ -475,7 +475,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         	{    		
 	    		//jump out of water
 	    		setIsJumping(true);
-	    		motionY =  getCustomDolphinJump(); 
+	    		motionY = getCustomDolphinJump(); 
 	            jumpPending = false;
 	            hasExecutedOneJump = true;
         	}
@@ -486,9 +486,13 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     			&& MoCTools.distanceToWaterSurface(this) == 1
     			&& motionY < 0
     		)
-    	{
+    	{	//finished falling back into water
     		playSound("game.neutral.swim.splash", 0.25F, 1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.4F);
     		
+    		if (MoCreatures.isServer() && getIsJumping())
+        	{   
+    			motionY =  -3; //tries to make dolphin go below the water when it hits it 
+        	}
     		hasExecutedOneJump = false;
     	}
     }
@@ -622,7 +626,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     @Override
     public boolean shouldRenderName()
     {
-        return getDisplayName() && (riddenByEntity == null);
+        return getShouldDisplayName() && (riddenByEntity == null);
     }
 
     @Override
@@ -636,7 +640,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
         super.writeEntityToNBT(nbtTagCompound);
-        nbtTagCompound.setBoolean("DisplayName", getDisplayName());
+        nbtTagCompound.setBoolean("DisplayName", getShouldDisplayName());
     }
 
     @Override

@@ -327,7 +327,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         return isEntityJumping;
     }
 
-    public boolean getDisplayName()
+    public boolean getShouldDisplayName()
     {
         return (getName() != null && !getName().equals(""));
     }

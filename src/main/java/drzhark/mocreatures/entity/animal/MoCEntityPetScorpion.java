@@ -740,7 +740,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     @Override
     public boolean shouldRenderName()
     {
-        return getDisplayName() && (riddenByEntity == null) && (ridingEntity == null);
+        return getShouldDisplayName() && (riddenByEntity == null) && (ridingEntity == null);
     }
 
     @Override

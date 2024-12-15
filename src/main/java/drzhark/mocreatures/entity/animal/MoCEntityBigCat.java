@@ -855,7 +855,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     @Override
     public boolean shouldRenderName()
     {
-        return !getName().isEmpty() && getDisplayName() && MoCreatures.proxy.getDisplayPetName();
+        return !getName().isEmpty() && getShouldDisplayName() && MoCreatures.proxy.getDisplayPetName();
     }
 
     @Override
@@ -871,7 +871,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     {
         super.writeEntityToNBT(nbtTagCompound);
         nbtTagCompound.setBoolean("Sitting", getIsSitting());
-        nbtTagCompound.setBoolean("DisplayName", getDisplayName());
+        nbtTagCompound.setBoolean("DisplayName", getShouldDisplayName());
     }
     
     @Override

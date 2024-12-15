@@ -288,7 +288,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     @Override
     public boolean shouldRenderName()
     {
-        return getDisplayName();
+        return getShouldDisplayName();
     }
 
     @Override

@@ -598,7 +598,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean getDisplayName()
+    public boolean getShouldDisplayName()
     {
         if (isGhost() && getMoCAge() < 10) { return false; }
 
@@ -2846,7 +2846,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     @Override
     public boolean shouldRenderName()
     {
-        return getDisplayName() && (riddenByEntity == null);
+        return getShouldDisplayName() && (riddenByEntity == null);
     }
 
     @Override
@@ -3130,7 +3130,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         nbtTagCompound.setBoolean("ChestedHorse", getIsChestedHorse());
         nbtTagCompound.setBoolean("HasReproduced", getHasReproduced());
         nbtTagCompound.setBoolean("Bred", getHasBred());
-        nbtTagCompound.setBoolean("DisplayName", getDisplayName());
+        nbtTagCompound.setBoolean("DisplayName", getShouldDisplayName());
         nbtTagCompound.setInteger("ArmorType", getArmorType());
 
         if (getIsChestedHorse() && localHorseChest != null)

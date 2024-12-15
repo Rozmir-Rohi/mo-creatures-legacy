@@ -111,7 +111,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         return dataWatcher.getWatchableObjectInt(19);
     }
 
-    public boolean getDisplayName()
+    public boolean getShouldDisplayName()
     {
         return (getName() != null && !getName().equals(""));
     }
@@ -660,7 +660,7 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     @Override
     public boolean shouldRenderName()
     {
-        return getDisplayName() && (riddenByEntity == null);
+        return getShouldDisplayName() && (riddenByEntity == null);
     }
 
     @Override

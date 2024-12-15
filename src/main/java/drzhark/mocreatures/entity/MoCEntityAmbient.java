@@ -975,10 +975,10 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
     @Override
     public boolean shouldRenderName()
     {
-        return getDisplayName() && (riddenByEntity == null);
+        return getShouldDisplayName() && (riddenByEntity == null);
     }
 
-    public boolean getDisplayName()
+    public boolean getShouldDisplayName()
     {
         return (getName() != null && !getName().equals(""));
     }

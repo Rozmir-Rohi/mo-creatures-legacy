@@ -662,7 +662,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
     @Override
     public boolean shouldRenderName()
     {
-        return getDisplayName();
+        return getShouldDisplayName();
     }
 
     @Override
@@ -715,6 +715,6 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
     public void writeEntityToNBT(NBTTagCompound nbtTagCompound)
     {
         super.writeEntityToNBT(nbtTagCompound);
-        nbtTagCompound.setBoolean("DisplayName", getDisplayName());
+        nbtTagCompound.setBoolean("DisplayName", getShouldDisplayName());
     }
 }

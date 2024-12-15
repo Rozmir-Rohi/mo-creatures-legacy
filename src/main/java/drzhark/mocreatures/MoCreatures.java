@@ -428,7 +428,7 @@ public class MoCreatures {
     
     public static Item spawnEgg;
 	
-	static int entitySpawnEggSubId = 0;
+	static int entitySpawnEggSubId = mocEntityID;
 	
 	public static HashMap entityEggs = new LinkedHashMap();
     

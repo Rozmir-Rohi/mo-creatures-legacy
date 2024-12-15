@@ -281,7 +281,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     @Override
     public boolean shouldRenderName()
     {
-        return getDisplayName() && (riddenByEntity == null);
+        return getShouldDisplayName() && (riddenByEntity == null);
     }
     
     @Override

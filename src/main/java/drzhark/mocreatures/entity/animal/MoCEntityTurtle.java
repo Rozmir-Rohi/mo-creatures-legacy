@@ -385,7 +385,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     @Override
     public boolean shouldRenderName()
     {
-        return getDisplayName() && (ridingEntity == null);
+        return getShouldDisplayName() && (ridingEntity == null);
     }
 
     public int getFlipDirection()
@@ -407,7 +407,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     {
         super.writeEntityToNBT(nbtTagCompound);
         nbtTagCompound.setBoolean("UpsideDown", getIsUpsideDown());
-        nbtTagCompound.setBoolean("DisplayName", getDisplayName());
+        nbtTagCompound.setBoolean("DisplayName", getShouldDisplayName());
     }
 
     @Override
