@@ -486,7 +486,6 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         {
             horseJump = 0.55D;
         }
-
         else if (horseType > 20 && horseType < 26) // ghost and undead
         {
             horseJump = 0.45D;
@@ -507,6 +506,13 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         {
             horseJump = 0.45D;
         }
+        
+        if (isUnicorned()) //unicorns
+        {
+        	horseJump = 2.5D; //unicorns need a higher jump strength to bypass the constant deceleration from it's slow fall mechanism
+        }
+        
+        
         return horseJump;
     }
 
@@ -546,12 +552,10 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         {
             horseSpeed = 1.2D;
         }
-        
         else if (horseType == 40) //dark pegasus
         {
         	horseSpeed = 1.25;
         }
-        
         else if (horseType > 40 && horseType < 60) // fairies
         {
             horseSpeed = 1.3D;
@@ -574,11 +578,13 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         {
 	        if (sprintCounter > 0 && sprintCounter < 150)
 	        {
-	        	horseSpeed *= 1.5D;
+	        	horseSpeed *= 1.3D; //this is the vanilla sprint multiplier value
+	        	return horseSpeed;
 	        }
-        	else if (sprintCounter > 150) //horse becomes tired from sprinting
+        	else if (doesHaveChargeAbility() && sprintCounter > 150) //horses with special charge abilities become tired from sprinting
         	{
-        		horseSpeed *= 0.5D;
+        		horseSpeed *= 0.9D;
+        		return horseSpeed;
         	}
         }
         
@@ -2154,6 +2160,20 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
         return getType() == 36 || (getType() >= 45 && getType() < 60) || getType() == 27 || getType() == 24;
     }
+    
+    
+    /**
+     * Has an unicorn? to render it and buckle entities!
+     * 
+     * @return
+     */
+    public boolean doesHaveChargeAbility()
+    {
+        return (
+        			getType() == 38 //nightmare horse
+        			|| isUnicorned() //unicorns and fairies
+        		);
+    }
 
     public boolean isZebraRunningAwayFromPlayer()
     {
@@ -2670,10 +2690,12 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		        		if (handleLavaMovement())
 		        		{
 		        			motionY =  adjustedJumpStrength;
+		        			fallDistance = -25;
 		        		}
 		        		else
 		        		{
-		        			motionY =  adjustedJumpStrength * 2; 
+		        			motionY =  adjustedJumpStrength * 2;
+		        			fallDistance = -25;
 		        		}
 		        		
 		        		 
@@ -2919,7 +2941,6 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         }
         
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(calculateMaxHealth()); //set max health according to the type
-        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(getCustomSpeed()); //set speed according to type
     }
     
     @Override

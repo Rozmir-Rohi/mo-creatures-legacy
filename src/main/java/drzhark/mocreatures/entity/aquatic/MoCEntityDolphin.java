@@ -8,11 +8,13 @@ import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAquatic;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageHeart;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -440,6 +442,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         			|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
         		)
         		&& !(entityPlayer.isSneaking()) && riddenByEntity == null
+        		&& getIsAdult()
         	)
         {
             entityPlayer.rotationYaw = rotationYaw;
@@ -653,23 +656,45 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
 	{
 		float rotationAmount = 0; 
 		
-		if (
-				!isInsideOfMaterial(Material.water)
-				&& motionY > -0.2
-			)
-		{
-			rotationAmount = 20; //for up
-		}
-		else
-		{
-			rotationAmount = ((float) motionY) * 100; //for down
-		}
+		Block blockUnderneath = worldObj.getBlock(Math.round((float) posX), Math.round((float) posY - 1), Math.round((float) posZ));
 		
-		final int maxRotationAmountInDegrees = 60;
-		
-		if(Math.abs(rotationAmount) > maxRotationAmountInDegrees)
+		if
+		(	//need to use this because the "inGround" field doesn't seem to work here
+			blockUnderneath == Blocks.water
+			|| blockUnderneath == Blocks.air
+			|| blockUnderneath == Blocks.flowing_water 
+		)
 		{
-			rotationAmount = maxRotationAmountInDegrees * Math.signum(rotationAmount);  //makes sure that the dolphin doesn't fall straight down and not over itself
+			final int maxUpwardRotationAmountInDegrees = 20;
+			
+			if (
+					isInsideOfMaterial(Material.air)
+					&& motionY > -0.2 //gives a buffer so that part of decelerating part of the jump is included for an upward rotation
+				)
+			{
+				rotationAmount = maxUpwardRotationAmountInDegrees; //for upward motions
+			}
+			else
+			{
+				rotationAmount = ((float) motionY) * 100; //for other motions, but mainly for downward motions
+			}
+			
+			final int maxOverallRotationAmountInDegrees = 60;
+			
+			
+			if(
+					Math.signum(rotationAmount) > 0
+					&& rotationAmount > maxUpwardRotationAmountInDegrees
+				)
+			{
+				rotationAmount = maxUpwardRotationAmountInDegrees;
+			}
+			
+			
+			if(Math.abs(rotationAmount) > maxOverallRotationAmountInDegrees)
+			{
+				rotationAmount = maxOverallRotationAmountInDegrees * Math.signum(rotationAmount);  //makes sure that the dolphin doesn't fall straight down and not over itself
+			}
 		}
 		
 		return rotationAmount;

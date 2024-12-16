@@ -1343,3 +1343,27 @@ Fixed modEntityID not being applied to spawn eggs.
 
 
 Slightly improved dolphin landing into water after jump.
+
+
+Underwater players can no loger reel in fish.
+
+
+Players can no longer ride dolphins that aren't adults.
+
+
+Fixed unicorn jump strength.
+
+
+Fixed horses taking fall damage from jumping.
+
+
+Removed slowness after horse sprint for all horses except nightmare horse, unicorns, and fairies.
+
+
+Reduced slowness after horse sprint for affected horses.
+
+
+Fixed fire immunity for ostriches, scorpions, and pet scorpions resetting with word reloads.
+
+
+Pet scorpions no longer use their sting to targets specified by riders. Instead they now have a chance of dealing extra damage each time the rider attacks that target.

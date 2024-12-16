@@ -191,6 +191,10 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     @Override
     public void onLivingUpdate()
     {
+    	if (getType() == 3 && !isImmuneToFire)
+    	{
+			isImmuneToFire = true;  //sets fire immunity true for fire scorpions if it becomes false, which does sometimes happen with world reloads.
+		}
     	tryToSetEffectOnMobThatTheOwnerAttacked();
     	
     	if (entityToAttack != null && entityToAttack == riddenByEntity)
@@ -314,15 +318,15 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     				&& rand.nextInt(100) < 30
     			)
     		{
-    			Entity entityToSetEffectOn = ownerOfEntityThatIsOnline.getLastAttacker();
+    			Entity entityToAttack = ownerOfEntityThatIsOnline.getLastAttacker();
     			
     			
-    			double distanceToTargetEntity = MoCTools.getSqDistanceTo(this, entityToSetEffectOn.posX, entityToSetEffectOn.posY, entityToSetEffectOn.posZ);
+    			double distanceToTargetEntity = MoCTools.getSqDistanceTo(this, entityToAttack.posX, entityToAttack.posY, entityToAttack.posZ);
     			
     			
     			if (distanceToTargetEntity < 5.0D)
-    			{
-    				stingAndApplyEffectOnEntity(entityToSetEffectOn);
+    			{	
+    				attackEntityFrom(DamageSource.causePlayerDamage(ownerOfEntityThatIsOnline), 3);
     			}
     			
     		}

@@ -1274,7 +1274,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
             	}
 
 
-                if (isOnAir() || !(this instanceof MoCEntityWyvern))  //controls the land and flying speed for horses and Wyverns. Also makes every flyer except wyverns be as fast on the ground as they are in the air
+                if (isOnAir() || !(this instanceof MoCEntityWyvern))  //controls the land and flying speed for horses, and fly speeds for Wyverns. Also makes every flyer except wyverns be as fast on the ground as they are in the air
                 {
                 	acceleration = ((float) getCustomSpeed())*0.77F;
                 }

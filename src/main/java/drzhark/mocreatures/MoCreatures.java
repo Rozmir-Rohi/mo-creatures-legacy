@@ -505,8 +505,7 @@ public class MoCreatures {
         	
         	String targetAbsolutePathForCopiedFile = modsFolderDirectory + modName;
         	
-        	copy(originalFileInputStream, targetAbsolutePathForCopiedFile);
-        	
+        	copyFile(originalFileInputStream, targetAbsolutePathForCopiedFile);
         	
         	proxy.mocSettingsConfig.get(proxy.CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "generateWolfAltarReplacementMod").set(false);
         	
@@ -522,7 +521,7 @@ public class MoCreatures {
         MoCAchievements.initilization();     
     }
     
-    public static boolean copy(InputStream source , String destination) {
+    public static boolean copyFile(InputStream source , String destination) {
         boolean succeess = true;
 
         System.out.println("Copying ->" + source + "\n\tto ->" + destination);

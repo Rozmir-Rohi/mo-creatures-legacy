@@ -1122,7 +1122,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 	                {
 	                    MoCTools.getPathToEntity(this, closestFishHook, distanceToHook);
 	                }
-	                else
+	                else if(!closestEntityPlayer.isInsideOfMaterial(Material.water)) //makes sure that underwater players can't reel in fish
 	                {
 	                    closestFishHook.field_146043_c = this;
 	                    isCaughtOnHook = true;

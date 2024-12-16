@@ -377,6 +377,11 @@ public class MoCEntityScorpion extends MoCEntityMob {
     public void onUpdate()
     {
         super.onUpdate();
+        
+        if (getType() == 3 && !isImmuneToFire)
+    	{
+			isImmuneToFire = true;  //sets fire immunity true for fire scorpions if it becomes false, which does sometimes happen with world reloads.
+		}
     }
 
     public boolean swingingTail()

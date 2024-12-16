@@ -416,6 +416,11 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     public void onUpdate()
     {
         super.onUpdate();
+        
+        if (getType() == 5 && !isImmuneToFire)
+        {
+        	isImmuneToFire = true; //sets fire immunity true for fire ostriches if it becomes false, which does sometimes happen with world reloads.
+        }
 
         if (getHiding())
         {
