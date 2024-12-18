@@ -215,7 +215,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     /**
      * returns one of the RGB color codes
      * 
-     * @param sparkleColour
+     * @param particleColour
      *            : 1 will return the Red component, 2 will return the Green and
      *            3 the blue
      * @param typeInt
@@ -223,109 +223,109 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
      *            horse types.
      * @return
      */
-    public float colorFX(int sparkleColour, int typeInt)
+    public float getColourForFX(int particleColour, int typeInt)
     {
         if (typeInt == 48) // yellow
         {
-            if (sparkleColour == 1) { return (float) 179 / 256; }
-            if (sparkleColour == 2) { return (float) 160 / 256; }
+            if (particleColour == 1) { return (float) 179 / 256; }
+            if (particleColour == 2) { return (float) 160 / 256; }
             return (float) 22 / 256;
         }
         
         if (typeInt == 49) // purple
         {
-            if (sparkleColour == 1) { return (float) 147 / 256; }
-            if (sparkleColour == 2) { return (float) 90 / 256; }
+            if (particleColour == 1) { return (float) 147 / 256; }
+            if (particleColour == 2) { return (float) 90 / 256; }
             return (float) 195 / 256;
         }
 
         if (typeInt == 51) // blue
         {
-            if (sparkleColour == 1) { return (float) 30 / 256; }
-            if (sparkleColour == 2) { return (float) 144 / 256; }
+            if (particleColour == 1) { return (float) 30 / 256; }
+            if (particleColour == 2) { return (float) 144 / 256; }
             return (float) 255 / 256;
         }
         if (typeInt == 52) // pink
         {
-            if (sparkleColour == 1) { return (float) 255 / 256; }
-            if (sparkleColour == 2) { return (float) 105 / 256; }
+            if (particleColour == 1) { return (float) 255 / 256; }
+            if (particleColour == 2) { return (float) 105 / 256; }
             return (float) 180 / 256;
         }
 
         if (typeInt == 53) // lightgreen
         {
-            if (sparkleColour == 1) { return (float) 188 / 256; }
-            if (sparkleColour == 2) { return (float) 238 / 256; }
+            if (particleColour == 1) { return (float) 188 / 256; }
+            if (particleColour == 2) { return (float) 238 / 256; }
             return (float) 104 / 256;
         }
         
         if (typeInt == 54) // black fairy
         {
-            if (sparkleColour == 1) { return (float) 110 / 256; }
-            if (sparkleColour == 2) { return (float) 123 / 256; }
+            if (particleColour == 1) { return (float) 110 / 256; }
+            if (particleColour == 2) { return (float) 123 / 256; }
             return (float) 139 / 256;
         }
         
         if (typeInt == 55) // red fairy
         {
-            if (sparkleColour == 1) { return (float) 194 / 256; }
-            if (sparkleColour == 2) { return (float) 29 / 256; }
+            if (particleColour == 1) { return (float) 194 / 256; }
+            if (particleColour == 2) { return (float) 29 / 256; }
             return (float) 34 / 256;
         }
         
         if (typeInt == 56) // dark blue fairy
         {
-            if (sparkleColour == 1) { return (float) 63 / 256; }
-            if (sparkleColour == 2) { return (float) 45 / 256; }
+            if (particleColour == 1) { return (float) 63 / 256; }
+            if (particleColour == 2) { return (float) 45 / 256; }
             return (float) 255 / 256;
         }
         
         if (typeInt == 57) // cyan
         {
-            if (sparkleColour == 1) { return (float) 69 / 256; }
-            if (sparkleColour == 2) { return (float) 146 / 256; }
+            if (particleColour == 1) { return (float) 69 / 256; }
+            if (particleColour == 2) { return (float) 146 / 256; }
             return (float) 145 / 256;
         }
 
         if (typeInt == 58) // green
         {
-            if (sparkleColour == 1) { return (float) 90 / 256; }
-            if (sparkleColour == 2) { return (float) 136 / 256; }
+            if (particleColour == 1) { return (float) 90 / 256; }
+            if (particleColour == 2) { return (float) 136 / 256; }
             return (float) 43 / 256;
         }
         
         if (typeInt == 59) // orange
         {
-            if (sparkleColour == 1) { return (float) 218 / 256; }
-            if (sparkleColour == 2) { return (float) 40 / 256; }
+            if (particleColour == 1) { return (float) 218 / 256; }
+            if (particleColour == 2) { return (float) 40 / 256; }
             return (float) 0 / 256;
         }
         
         if (typeInt > 22 && typeInt < 26) // green for undeads
         {
-            if (sparkleColour == 1) { return (float) 60 / 256; }
-            if (sparkleColour == 2) { return (float) 179 / 256; }
+            if (particleColour == 1) { return (float) 60 / 256; }
+            if (particleColour == 2) { return (float) 179 / 256; }
             return (float) 112 / 256;
 
         }
         if (typeInt == 40) // dark red for black pegasus
         {
-            if (sparkleColour == 1) { return (float) 139 / 256; }
-            if (sparkleColour == 2) { return 0F; }
+            if (particleColour == 1) { return (float) 139 / 256; }
+            if (particleColour == 2) { return 0F; }
             return 0F;
 
         }
 
         // by default will return clear gold
-        if (sparkleColour == 1) { return (float) 255 / 256; }
-        if (sparkleColour == 2) { return (float) 236 / 256; }
+        if (particleColour == 1) { return (float) 255 / 256; }
+        if (particleColour == 2) { return (float) 236 / 256; }
         return (float) 139 / 256;
     }
 
     /**
      * Called to vanish a Horse without FX
      */
-    public void dissapearHorse()
+    public void disappearHorse()
     {
         isDead = true;
     }
@@ -2578,9 +2578,9 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                     
                     if (!flag) 
                         {
-                        ((MoCEntityHorse)horsemate).dissapearHorse();
+                        ((MoCEntityHorse)horsemate).disappearHorse();
                         }
-                    dissapearHorse();
+                    disappearHorse();
                 }
                 
                 else if ((type == 61) && owner != null) //zorse
@@ -2656,7 +2656,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         {
 	        if (
 	        		isJumpKeyDown
-	        		&& onGround
+	        		&& getCustomIsOnGround() //need to use this custom method because onGround field bugs out when player disconnects and reconnects while riding horse
 	        		&& horseJumpPowerCounter != JUMP_COUNTER_MARKER_INDICATING_THAT_JUMP_HAS_BEEN_EXECUTED
 	        	)
 	        {
@@ -2686,19 +2686,17 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		        		double adjustedJumpStrength = getCustomJump() * horseJumpPower;
 		        		
 		        		
-		        		//need to do this manually rather than calling the parent function because of the jump strength adjustment
+		        		//need to do this manually rather than calling the parent function to apply the jump strength adjustment
 		        		if (handleLavaMovement())
 		        		{
 		        			motionY =  adjustedJumpStrength;
-		        			fallDistance = -25;
 		        		}
 		        		else
 		        		{
 		        			motionY =  adjustedJumpStrength * 2;
-		        			fallDistance = -25;
 		        		}
 		        		
-		        		 
+		        		fallDistance = -25; 
 	                    setIsJumping(true);
 	                    jumpPending = false;
 		        		
@@ -2711,9 +2709,9 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	        	
 	        	else if (
 	        				horseJumpPowerCounter == JUMP_COUNTER_MARKER_INDICATING_THAT_JUMP_HAS_BEEN_EXECUTED
-	        				&& standCounter == 0
+	        				&& standCounter == 0 //freezes the jumpBar until the standCounter is 0 again
 	        			) 
-	        	{	//freezes the jumpBar until the horse has landed
+	        	{
 	        		horseJumpPower = 0;
 	        		horseJumpPowerCounter = 0;
 	        	}
@@ -2780,7 +2778,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
             {
                 setVanishC((byte) 101);
                 MoCTools.dropHorseAmuletWithNewPetInformation(this);
-                dissapearHorse();
+                disappearHorse();
             }
 
             if (getVanishC() == 1)
@@ -3259,5 +3257,10 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	public float getHorseJumpPower()
 	{
 		return horseJumpPower;
+	}
+	
+	private boolean getCustomIsOnGround()
+	{
+		return !worldObj.isAirBlock((int) Math.round(posX), (int) Math.round(posY - 1), (int) Math.round(posZ));	
 	}
 }

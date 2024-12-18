@@ -160,6 +160,8 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 @Mod(modid = "MoCreatures", name = "Mo' Creatures Legacy", version = "1.1")
 public class MoCreatures {
@@ -206,6 +208,8 @@ public class MoCreatures {
     public static boolean isTwilightForestLoaded;
     
     public static boolean isWitcheryLoaded;
+    
+    public static boolean isBalkansWeaponsModLoaded;
 
     
     
@@ -442,25 +446,7 @@ public class MoCreatures {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
-    {
-        MoCMessageHandler.init();
-        MinecraftForge.EVENT_BUS.register(new MoCEventHooks());
-        proxy.ConfigInit(event);
-        proxy.initTextures();
-        InitItems();
-        AddRecipes();
-        proxy.registerRenderers();
-        proxy.registerRenderInformation();
-        if (!isServer())
-        {
-            FMLCommonHandler.instance().bus().register(new MoCClientTickHandler());
-            FMLCommonHandler.instance().bus().register(new MoCKeyHandler());
-            MinecraftForge.EVENT_BUS.register(new MoCClientWitcheryPlayerWolfAndWerewolfReplacement());
-            MinecraftForge.EVENT_BUS.register(new MoCRenderHorseJumpBarEvent(Minecraft.getMinecraft()));
-        }
-        FMLCommonHandler.instance().bus().register(new MoCPlayerTracker());
-        
-        
+    {   
         isBiomesOPlentyLoaded = Loader.isModLoaded("BiomesOPlenty");
         
         isEtFuturumRequiemLoaded = Loader.isModLoaded("etfuturum");
@@ -511,6 +497,28 @@ public class MoCreatures {
         	
         	proxy.mocSettingsConfig.save();
         }
+        
+        isBalkansWeaponsModLoaded = Loader.isModLoaded("weaponmod");
+        
+        
+        
+        
+        MoCMessageHandler.init();
+        MinecraftForge.EVENT_BUS.register(new MoCEventHooks());
+        proxy.ConfigInit(event);
+        proxy.initTextures();
+        InitItems();
+        AddRecipes();
+        proxy.registerRenderers();
+        proxy.registerRenderInformation();
+        if (!isServer())
+        {
+            FMLCommonHandler.instance().bus().register(new MoCClientTickHandler());
+            FMLCommonHandler.instance().bus().register(new MoCKeyHandler());
+            MinecraftForge.EVENT_BUS.register(new MoCClientWitcheryPlayerWolfAndWerewolfReplacement());
+            MinecraftForge.EVENT_BUS.register(new MoCRenderHorseJumpBarEvent(Minecraft.getMinecraft()));
+        }
+        FMLCommonHandler.instance().bus().register(new MoCPlayerTracker());
     }
 
     @EventHandler
@@ -1270,8 +1278,21 @@ public class MoCreatures {
 
         GameRegistry.addRecipe(new ItemStack(fishbowlEmpty, 1), new Object[] { "# #", "# #", "###", Character.valueOf('#'), Blocks.glass, });
 
-        GameRegistry.addShapelessRecipe(new ItemStack(petFood, 4), new Object[] { new ItemStack(Items.fish, 1), new ItemStack(Items.porkchop, 1) });
-
+        if (isGregTech6Loaded)
+        {
+        	GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(petFood, 4), new Object[] {"listAllfishraw", "listAllmeatraw"}));
+        }
+        else if (isPalmsHarvestLoaded)
+        {
+        	GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(petFood, 4), new Object[] {"listAllfishraw", Items.porkchop}));
+        }
+        else
+        {
+        	GameRegistry.addShapelessRecipe(new ItemStack(petFood, 4), new Object[] { new ItemStack(Items.fish, 1), new ItemStack(Items.porkchop, 1) });
+        }
+        
+        
+        
         GameRegistry.addRecipe(new ItemStack(woolball, 1), new Object[] { " # ", "# #", " # ", Character.valueOf('#'), Items.string, });
 
         GameRegistry.addRecipe(new ItemStack(litterbox, 1), new Object[] { "###", "#X#", "###", Character.valueOf('#'), Blocks.planks, Character.valueOf('X'), Blocks.sand, });

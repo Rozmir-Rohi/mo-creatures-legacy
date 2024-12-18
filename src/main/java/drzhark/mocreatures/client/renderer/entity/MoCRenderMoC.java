@@ -70,10 +70,10 @@ public class MoCRenderMoC extends RenderLiving {
                     }
                     tessellator1.startDrawingQuads();
                     // might break SSP
-                    float f8 = ((EntityLiving)entityMoC).getHealth();
-                    float f9 = ((EntityLiving)entityMoC).getMaxHealth();
-                    float f10 = f8 / f9;
-                    float f11 = 40F * f10;
+                    float health = ((EntityLiving)entityMoC).getHealth();
+                    float maxHealth = ((EntityLiving)entityMoC).getMaxHealth();
+                    float ratioOfHealthToMaxHealth = health / maxHealth;
+                    float f11 = 40F * ratioOfHealthToMaxHealth;
                     tessellator1.setColorRGBA_F(0.7F, 0.0F, 0.0F, 1.0F);
                     tessellator1.addVertex(-20F + f11, -10 + yOffset, 0.0D);
                     tessellator1.addVertex(-20F + f11, -6 + yOffset, 0.0D);
@@ -167,10 +167,6 @@ public class MoCRenderMoC extends RenderLiving {
     protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
         IMoCEntity mocreature = (IMoCEntity) entityLiving;
-        /*if (mocreature.getSizeFactor() != 1.0F)
-        {
-            stretch(mocreature);
-        }*/
         stretch(mocreature);
         adjustOffsets(mocreature.getAdjustedXOffset(), mocreature.getAdjustedYOffset(), mocreature.getAdjustedZOffset());
         

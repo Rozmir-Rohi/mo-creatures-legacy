@@ -252,14 +252,19 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     			|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemStack.getItemDamage() == 11 //BOP kelp
     			|| (Item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
     			|| isItemPlantMegaPackFishEdibleSaltWaterPlant(item)
-    			|| (oreDictionaryNameArray.size() > 0 && oreDictionaryNameArray.contains("cropKelp"))
     			|| (
-    					MoCreatures.isGregTech6Loaded
-    					&& oreDictionaryNameArray.size() > 0
+    					oreDictionaryNameArray.size() > 0
     					&& (
-    							oreDictionaryNameArray.contains("listAllseed")
-    							|| oreDictionaryNameArray.contains("foodRaisins")
-    						)
+    							oreDictionaryNameArray.contains("cropKelp")
+    							|| oreDictionaryNameArray.contains("cropSeaweed")
+				    			|| (
+				    					MoCreatures.isGregTech6Loaded
+				    					&& (
+				    							oreDictionaryNameArray.contains("listAllseed")
+				    							|| oreDictionaryNameArray.contains("foodRaisins")
+				    						)
+				    				)
+				    		)
     				)
 	    
     		) {return true;}

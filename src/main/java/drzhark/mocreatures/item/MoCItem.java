@@ -25,12 +25,6 @@ public class MoCItem extends Item
     	}
     }
     
-    @Override
-    public boolean isBookEnchantable(ItemStack stack, ItemStack book) //only the unbreaking enchantment can be applied to whips
-    {	
-    	return false;
-    }
-    
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List loreList, boolean flag)

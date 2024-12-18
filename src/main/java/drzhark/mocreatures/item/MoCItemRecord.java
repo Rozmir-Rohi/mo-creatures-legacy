@@ -15,6 +15,7 @@ import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCItemRecord extends ItemRecord
 {
@@ -26,6 +27,7 @@ public class MoCItemRecord extends ItemRecord
         setCreativeTab(MoCreatures.MOC_CREATIVE_TAB);
         setUnlocalizedName(string);
         GameRegistry.registerItem(this, string);
+        OreDictionary.registerOre("record", this);
     }
     
     @Override

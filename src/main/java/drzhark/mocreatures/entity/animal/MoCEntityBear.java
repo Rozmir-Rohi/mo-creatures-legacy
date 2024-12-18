@@ -635,10 +635,10 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
             	|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooTropicalBlue")
             	|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooMoso")
             	|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:bambooGiantTimber")
-            	|| (Item.itemRegistry).getNameForObject(item).equals("BambooMod:itembamboo") //Universal Bamboo Mod
+            	|| (Item.itemRegistry).getNameForObject(item).equals("BambooMod:itembamboo") //From Universal Bamboo Mod  - https://web.archive.org/web/20181208064420/http://forum.minecraftuser.jp/viewtopic.php?f=13&t=172
             	
             	|| oreDictionaryNameArray.size() > 0 &&
-            		(
+            		(		// these also account for bamboo (the "take" and "takenoko" items) from the "Wa (Japanese Style Mod)" - https://web.archive.org/web/20181116004922/http://forum.minecraftuser.jp/viewtopic.php?t=13857
             				oreDictionaryNameArray.contains("bamboo")
             				|| oreDictionaryNameArray.contains("cropBamboo")
             				|| oreDictionaryNameArray.contains("cropBambooshoot")

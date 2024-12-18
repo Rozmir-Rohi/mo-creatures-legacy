@@ -69,8 +69,17 @@ public class MoCEntityTameableAmbient extends MoCEntityAmbient implements IMoCTa
             }
             return true;
         }
+        
         //if the player interacting is not the owner, do nothing!
-        if (MoCreatures.proxy.enableStrictOwnership && getOwnerName() != null && !getOwnerName().equals("") && !entityPlayer.getCommandSenderName().equals(getOwnerName()) && !MoCTools.isThisPlayerAnOP(entityPlayer)) 
+        if (
+        		MoCreatures.proxy.enableStrictOwnership
+        		&& getOwnerName() != null
+        		&& !(
+        				getOwnerName().equals("")
+        			)
+        		&& !entityPlayer.getCommandSenderName().equals(getOwnerName())
+        		&& !MoCTools.isThisPlayerAnOP((entityPlayer))
+        	) 
         {
             return true; 
         }

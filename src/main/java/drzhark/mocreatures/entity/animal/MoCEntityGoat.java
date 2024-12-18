@@ -660,12 +660,6 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public boolean shouldRenderName()
-    {
-        return getShouldDisplayName();
-    }
-
-    @Override
     protected String getHurtSound()
     {
         return "mocreatures:goathurt";

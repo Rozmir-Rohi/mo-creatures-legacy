@@ -385,7 +385,9 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
     @Override
     public boolean shouldRenderName()
     {
-        return getShouldDisplayName() && (ridingEntity == null);
+        return (
+        			getShouldDisplayName() && (ridingEntity == null)
+        		);
     }
 
     public int getFlipDirection()

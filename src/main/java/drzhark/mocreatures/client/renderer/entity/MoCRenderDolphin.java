@@ -192,7 +192,7 @@ public class MoCRenderDolphin extends RenderLiving {
     
     protected void checkIfIsInAirAndApplyRotation(MoCEntityDolphin entityDolphin)
     {
-    	if(!entityDolphin.onGround && entityDolphin.riddenByEntity != null)
+    	if(entityDolphin.riddenByEntity != null && !entityDolphin.onGround)
     	{
 			GL11.glRotatef((float) entityDolphin.getRotationAmount(), -1, 0, 0);
     	}

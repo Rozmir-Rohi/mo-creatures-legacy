@@ -392,6 +392,10 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
 				dropItem(GameRegistry.findItem("etfuturum", "rabbit_foot"), 1);
 			}
 		}
+		else
+		{
+			dropItem(MoCreatures.fur, randomAmount);
+		}
     }
 
     @Override

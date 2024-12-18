@@ -1367,3 +1367,43 @@ Fixed fire immunity for ostriches, scorpions, and pet scorpions resetting with w
 
 
 Pet scorpions no longer use their sting to targets specified by riders. Instead they now have a chance of dealing extra damage each time the rider attacks that target.
+
+
+Fixed horse jump bar not updating when player disconnect and reconnect while riding horse. Also, fixed players able to make horses jump in mid-air.
+
+
+Added more weakness items for Werewolf:
+	Balkan's Weapons Mod:
+		Gold Spear
+		Gold Halberd
+		Gold Battleaxe
+		Gold Warhammer
+		Gold Knife
+		Gold Musketbayonet (Melee Damage only)
+		Gold Katana
+		Gold Flail
+	
+	Thermal Foundation: <-- made this in a previous edit but, saying again here to summarize
+		Gold Sickle
+
+		Silver Sickle
+		Silver Hoe
+		Silver Shovel
+		Silver Pickaxe
+		Silver Axe
+		Silver Sword		
+
+		Electrum Sickle
+		Electrum Hoe
+		Electrum Shovel
+		Electrum Pickaxe
+		Electrum Axe
+		Electrum Sword
+
+Added ore dictionary crafting recipe for Pet Food if GregTech 6 or Palm's Harvest is loaded
+
+
+Bunny now drops fur on death. If Et Futurum Requiem it will instead drop rabbit hide and other rabbit items.
+
+
+Removed unneeded enchantment book checks previously added for items.

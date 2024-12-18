@@ -37,35 +37,6 @@ public class MoCItemWhip extends MoCItem {
         return true;
     }
     
-    @Override
-    public boolean isBookEnchantable(ItemStack stack, ItemStack book) //only the unbreaking enchantment can be applied to whips
-    {	
-    	NBTTagList bookEnchantmentNbtTagList = (NBTTagList) book.getTagCompound().getTag("StoredEnchantments");
-    	
-    	List<Short> bookEnchantmentIdList = new ArrayList<>();
-    	
-    	if (bookEnchantmentNbtTagList != null)
-        {
-            for (int index = 0; index < bookEnchantmentNbtTagList.tagCount(); ++index)
-            {
-            	
-            	short enchantmentId = bookEnchantmentNbtTagList.getCompoundTagAt(index).getShort("id");
-            	
-                bookEnchantmentIdList.add(enchantmentId);
-                
-            }
-            
-            
-            if (bookEnchantmentIdList.size() == 1 && bookEnchantmentIdList.get(0) == (short) 34) //34 is the id for the unbreaking enchantment
-            {
-            	return true;
-            }
-        }
-    	
-        return false;
-    }
-
-    
     
     public ItemStack onItemRightClick2(ItemStack itemStack, World world, EntityPlayer entityPlayer)
     {

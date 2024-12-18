@@ -190,7 +190,13 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
     						|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemStack.getItemDamage() == 11 //BOP kelp
     						|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:kelp")
     						|| (Item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
-	    					|| (oreDictionaryNameArray.size() > 0 && oreDictionaryNameArray.contains("cropKelp"))
+	    					|| (
+	    							oreDictionaryNameArray.size() > 0
+	    							&& (
+	    									oreDictionaryNameArray.contains("cropKelp")
+	    									|| oreDictionaryNameArray.contains("cropSeaweed")
+	    								)
+	    						)
     					)
     				)
     			|| (

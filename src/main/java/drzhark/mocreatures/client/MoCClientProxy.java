@@ -337,9 +337,9 @@ public class MoCClientProxy extends MoCProxy {
         if ((entity.getType() >= 50 && entity.getType() < 60) || entity.getType() == 36)
         {
 
-            float fRed = entity.colorFX(1, entity.getType());
-            float fGreen = entity.colorFX(2, entity.getType());
-            float fBlue = entity.colorFX(3, entity.getType());
+            float fRed = entity.getColourForFX(1, entity.getType());
+            float fGreen = entity.getColourForFX(2, entity.getType());
+            float fBlue = entity.getColourForFX(3, entity.getType());
 
             int i = densityInt * entity.worldObj.rand.nextInt(2);// + 2;
             for (int x = 0; x < i; x++)
@@ -381,7 +381,7 @@ public class MoCClientProxy extends MoCProxy {
             double speedX = entity.worldObj.rand.nextFloat() * 2.0F * var19;
             double speedZ = entity.worldObj.rand.nextFloat() * 2.0F * var19;
 
-            MoCEntityFXVanish FXVanish = new MoCEntityFXVanish(entity.worldObj, newPosX, newPosY, newPosZ, speedX, speedY, speedZ, entity.colorFX(1, entity.getType()), entity.colorFX(2, entity.getType()), entity.colorFX(3, entity.getType()), false);
+            MoCEntityFXVanish FXVanish = new MoCEntityFXVanish(entity.worldObj, newPosX, newPosY, newPosZ, speedX, speedY, speedZ, entity.getColourForFX(1, entity.getType()), entity.getColourForFX(2, entity.getType()), entity.getColourForFX(3, entity.getType()), false);
             mc.effectRenderer.addEffect(FXVanish);
         }
     }
@@ -402,7 +402,7 @@ public class MoCClientProxy extends MoCProxy {
             double speedX = entity.worldObj.rand.nextFloat() * 2.0F * var19;
             double speedZ = entity.worldObj.rand.nextFloat() * 2.0F * var19;
 
-            MoCEntityFXVanish FXVanish = new MoCEntityFXVanish(mc.theWorld, newPosX, newPosY, newPosZ, speedX, speedY, speedZ, entity.colorFX(1, entity.getType()), entity.colorFX(2, entity.getType()), entity.colorFX(3, entity.getType()), true);
+            MoCEntityFXVanish FXVanish = new MoCEntityFXVanish(mc.theWorld, newPosX, newPosY, newPosZ, speedX, speedY, speedZ, entity.getColourForFX(1, entity.getType()), entity.getColourForFX(2, entity.getType()), entity.getColourForFX(3, entity.getType()), true);
             mc.effectRenderer.addEffect(FXVanish);
         }
         
