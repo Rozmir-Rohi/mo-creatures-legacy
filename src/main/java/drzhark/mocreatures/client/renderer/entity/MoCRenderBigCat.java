@@ -49,8 +49,8 @@ public class MoCRenderBigCat extends RenderLiving {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityBigCat)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityBigCat)entity).getTexture();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class MoCRenderBigCat extends RenderLiving {
         MoCEntityBigCat entitybigcat = (MoCEntityBigCat) entityLiving;
 
         super.doRender(entitybigcat, x, y, z, rotationYaw, rotationPitch);
-        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entitybigcat.getName()).isEmpty();
+        boolean flag = MoCreatures.proxy.getDisplayPetName() && entitybigcat.getName().length() > 0;
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         boolean flag2 = MoCreatures.proxy.getDisplayPetIcons();
         if (entitybigcat.shouldRenderName())

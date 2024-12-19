@@ -78,7 +78,7 @@ public class MoCRenderKittyBed extends RenderLiving {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityKittyBed)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityKittyBed)entity).getTexture();
     }
 }

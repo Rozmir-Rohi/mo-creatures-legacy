@@ -28,7 +28,7 @@ public class MoCRenderShark extends RenderLiving {
     {
         MoCEntityShark entityShark = (MoCEntityShark) entityLiving;
         super.doRender(entityShark, x, y, z, rotationYaw, rotationPitch);
-        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityShark.getName()).isEmpty();
+        boolean flag = MoCreatures.proxy.getDisplayPetName() && entityShark.getName().length() > 0;
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         boolean flag2 = MoCreatures.proxy.getDisplayPetIcons();
         if (entityShark.shouldRenderName())
@@ -183,7 +183,7 @@ public class MoCRenderShark extends RenderLiving {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityShark)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityShark)entity).getTexture();
     }
 }

@@ -67,7 +67,7 @@ public class MoCRenderMouse extends MoCRenderMoC {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityMouse)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityMouse)entity).getTexture();
     }
 }

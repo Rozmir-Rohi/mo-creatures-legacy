@@ -22,8 +22,8 @@ public class MoCRenderSnake extends MoCRenderMoC {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntitySnake)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntitySnake)entity).getTexture();
     }
 
     protected void adjustHeight(EntityLiving entityLiving, float FHeight)

@@ -637,7 +637,11 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     @Override
     protected boolean isMovementCeased()
     {
-        return ((!isSwimming() && riddenByEntity == null) || riddenByEntity != null);
+        return
+	    		(
+	    			(!isSwimming() && riddenByEntity == null)
+	    			|| riddenByEntity != null
+	    		);
     }
 
     @Override

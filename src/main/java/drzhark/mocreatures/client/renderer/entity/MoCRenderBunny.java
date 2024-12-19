@@ -15,8 +15,8 @@ import net.minecraft.util.ResourceLocation;
 public class MoCRenderBunny extends MoCRenderMoC {
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityBunny)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityBunny)entity).getTexture();
     }
 
     public MoCRenderBunny(ModelBase modelBase, float f)
@@ -34,10 +34,10 @@ public class MoCRenderBunny extends MoCRenderMoC {
     @Override
     protected float handleRotationFloat(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityBunny entitybunny = (MoCEntityBunny) entityLiving;
-        if (!entitybunny.getIsAdult())
+        MoCEntityBunny entityBunny = (MoCEntityBunny) entityLiving;
+        if (!entityBunny.getIsAdult())
         {
-            stretch(entitybunny);
+            stretch(entityBunny);
         }
         return entityLiving.ticksExisted + f;
     }
@@ -45,7 +45,7 @@ public class MoCRenderBunny extends MoCRenderMoC {
     @Override
     protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        rotBunny((MoCEntityBunny) entityLiving);
+        rotateBunny((MoCEntityBunny) entityLiving);
         if (entityLiving.ridingEntity != null)
         {
             //GL11.glTranslatef(0.0F, 1.3F, 0.0F);
@@ -56,28 +56,28 @@ public class MoCRenderBunny extends MoCRenderMoC {
         }
     }
 
-    protected void rotBunny(MoCEntityBunny entitybunny)
+    protected void rotateBunny(MoCEntityBunny entityBunny)
     {
-        if (!entitybunny.onGround && (entitybunny.ridingEntity == null))
+        if (!entityBunny.onGround && (entityBunny.ridingEntity == null))
         {
-            if (entitybunny.motionY > 0.5D)
+            if (entityBunny.motionY > 0.5D)
             {
                 GL11.glRotatef(35F, -1F, 0.0F, 0.0F);
             }
-            else if (entitybunny.motionY < -0.5D)
+            else if (entityBunny.motionY < -0.5D)
             {
                 GL11.glRotatef(-35F, -1F, 0.0F, 0.0F);
             }
             else
             {
-                GL11.glRotatef((float) (entitybunny.motionY * 70D), -1F, 0.0F, 0.0F);
+                GL11.glRotatef((float) (entityBunny.motionY * 70D), -1F, 0.0F, 0.0F);
             }
         }
     }
 
-    protected void stretch(MoCEntityBunny entitybunny)
+    protected void stretch(MoCEntityBunny entityBunny)
     {
-        float f = entitybunny.getMoCAge() * 0.01F;
+        float f = entityBunny.getMoCAge() * 0.01F;
         GL11.glScalef(f, f, f);
     }
 }

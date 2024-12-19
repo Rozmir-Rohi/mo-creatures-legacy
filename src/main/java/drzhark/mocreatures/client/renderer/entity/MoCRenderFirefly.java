@@ -79,7 +79,7 @@ public class MoCRenderFirefly extends MoCRenderInsect {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityFirefly)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityFirefly)entity).getTexture();
     }
 }

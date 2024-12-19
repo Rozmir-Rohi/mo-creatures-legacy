@@ -33,9 +33,9 @@ public class MoCRenderThrowableBlockForGolem extends Render {
     }
 
     @Override
-    public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
+    public void doRender(Entity entity, double par2, double par4, double par6, float par8, float par9)
     {
-        renderMyRock((MoCEntityThrowableBlockForGolem) par1Entity, par2, par4, par6, par8, par9);
+        renderMyRock((MoCEntityThrowableBlockForGolem) entity, par2, par4, par6, par8, par9);
     }
 
     protected ResourceLocation func_110808_a(MoCEntityThrowableBlockForGolem throwable_block)
@@ -44,8 +44,8 @@ public class MoCRenderThrowableBlockForGolem extends Render {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity)
+	protected ResourceLocation getEntityTexture(Entity entity)
     {
-        return func_110808_a((MoCEntityThrowableBlockForGolem)par1Entity);
+        return func_110808_a((MoCEntityThrowableBlockForGolem)entity);
     }
 }

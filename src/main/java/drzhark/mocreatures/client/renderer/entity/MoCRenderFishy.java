@@ -54,7 +54,7 @@ public class MoCRenderFishy extends RenderLiving {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityFishy)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityFishy)entity).getTexture();
     }
 }

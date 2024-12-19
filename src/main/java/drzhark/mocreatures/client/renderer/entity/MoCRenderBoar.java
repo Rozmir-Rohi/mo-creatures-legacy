@@ -14,8 +14,8 @@ import net.minecraft.util.ResourceLocation;
 public class MoCRenderBoar extends MoCRenderMoC {
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityBoar)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityBoar)entity).getTexture();
     }
 
     public MoCRenderBoar(MoCModelBoar modelBase, float f)

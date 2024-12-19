@@ -74,7 +74,7 @@ public class MoCRenderWerewolf extends RenderLiving {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityWerewolf)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityWerewolf)entity).getTexture();
     }
 }

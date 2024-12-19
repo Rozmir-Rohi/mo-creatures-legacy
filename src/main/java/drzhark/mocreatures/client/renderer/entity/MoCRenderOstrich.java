@@ -20,8 +20,8 @@ public class MoCRenderOstrich extends MoCRenderMoC {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityOstrich)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityOstrich)entity).getTexture();
     }
 
     protected void adjustHeight(EntityLiving entityLiving, float FHeight)

@@ -37,7 +37,7 @@ public class MoCRenderEgg extends RenderLiving {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityEgg)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityEgg)entity).getTexture();
     }
 }

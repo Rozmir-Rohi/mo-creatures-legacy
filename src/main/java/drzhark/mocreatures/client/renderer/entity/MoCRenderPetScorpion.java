@@ -90,7 +90,7 @@ public class MoCRenderPetScorpion extends MoCRenderMoC {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityPetScorpion)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityPetScorpion)entity).getTexture();
     }
 }

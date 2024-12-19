@@ -1374,17 +1374,20 @@ Fixed horse jump bar not updating when player disconnect and reconnect while rid
 
 Added more weakness items for Werewolf:
 	Balkan's Weapons Mod:
-		Gold Spear
-		Gold Halberd
-		Gold Battleaxe
-		Gold Warhammer
-		Gold Knife
-		Gold Musketbayonet (Melee Damage only)
-		Gold Katana
-		Gold Flail
+		Golden Spear  (Melee Damage only)
+		Golden Halberd
+		Golden Battleaxe
+		Golden Warhammer
+		Golden Knife  (Melee Damage only)
+		Golden Musketbayonet (Melee Damage only)
+		Golden Katana
+		Golden Flail 
+		
+		For items with the "Melee Damage only" tag, I couldn't add support for the projectile entity versions of these items because I would need permission from the author of the Balkan's Weapons mod to use their mod as a library in the Mo' Creatures Legacy source code to properly detect the Golden versions of those entities.
+
 	
 	Thermal Foundation: <-- made this in a previous edit but, saying again here to summarize
-		Gold Sickle
+		Golden Sickle
 
 		Silver Sickle
 		Silver Hoe
@@ -1407,3 +1410,6 @@ Bunny now drops fur on death. If Et Futurum Requiem it will instead drop rabbit 
 
 
 Removed unneeded enchantment book checks previously added for items.
+
+
+Dolphin rider position now updates with Dolphin rotation.

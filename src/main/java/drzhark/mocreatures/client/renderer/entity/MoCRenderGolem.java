@@ -24,11 +24,11 @@ public class MoCRenderGolem extends MoCRenderMoC {
     /**
      * A method used to render a creeper's powered form as a pass model.
      */
-    protected int renderGPassModel(MoCEntityBigGolem par1Entity, int par2, float par3)
+    protected int renderGPassModel(MoCEntityBigGolem entity, int par2, float par3)
     {
         boolean depth = true;
 
-        ResourceLocation effectTexture = par1Entity.getEffectTexture();
+        ResourceLocation effectTexture = entity.getEffectTexture();
         if (effectTexture != null)
         {
             if (depth)
@@ -42,7 +42,7 @@ public class MoCRenderGolem extends MoCRenderMoC {
 
             if (par2 == 1)
             {
-                float var4 = par1Entity.ticksExisted + par3;
+                float var4 = entity.ticksExisted + par3;
                 bindTexture(effectTexture);
                 GL11.glMatrixMode(GL11.GL_TEXTURE);
                 GL11.glLoadIdentity();
@@ -82,7 +82,7 @@ public class MoCRenderGolem extends MoCRenderMoC {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityBigGolem)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityBigGolem)entity).getTexture();
     }
 }

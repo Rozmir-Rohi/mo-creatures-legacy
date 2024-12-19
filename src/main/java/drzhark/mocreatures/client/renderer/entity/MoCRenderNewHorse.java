@@ -21,8 +21,8 @@ public class MoCRenderNewHorse extends MoCRenderMoC {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityHorse)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityHorse)entity).getTexture();
     }
 
     protected void adjustHeight(EntityLiving entityLiving, float FHeight)

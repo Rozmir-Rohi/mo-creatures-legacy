@@ -77,7 +77,7 @@ public class MoCRenderTurtle extends MoCRenderMoC {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityTurtle)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityTurtle)entity).getTexture();
     }
 }

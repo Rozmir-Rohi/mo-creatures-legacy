@@ -28,7 +28,7 @@ public class MoCRenderDolphin extends RenderLiving {
     {
         MoCEntityDolphin entityDolphin = (MoCEntityDolphin) entityLiving;
         super.doRender(entityDolphin, x, y, z, rotationYaw, rotationPitch);
-        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityDolphin.getName()).isEmpty();
+        boolean flag = MoCreatures.proxy.getDisplayPetName() && entityDolphin.getName().length() > 0;
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         //boolean flag2 = MoCreatures.proxy.getdisplayPetIcons();
         if (entityDolphin.shouldRenderName())

@@ -21,8 +21,8 @@ import net.minecraft.util.ResourceLocation;
 public class MoCRenderGoat extends RenderLiving {
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityGoat)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityGoat)entity).getTexture();
     }
 
     public MoCRenderGoat(ModelBase modelBase, float f)
@@ -53,7 +53,7 @@ public class MoCRenderGoat extends RenderLiving {
         tempGoat.eatMov = entityGoat.mouthMovement();
 
         super.doRender(entityGoat, x, y, z, rotationYaw, rotationPitch);
-        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityGoat.getName()).isEmpty();
+        boolean flag = MoCreatures.proxy.getDisplayPetName() && entityGoat.getName().length() > 0;
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         //boolean flag2 = MoCreatures.proxy.getdisplayPetIcons();
         if (entityGoat.shouldRenderName())

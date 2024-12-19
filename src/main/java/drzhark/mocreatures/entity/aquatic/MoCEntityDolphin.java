@@ -239,10 +239,28 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         
         double distance = sizeFactor / 4.0D;
         
-        double newPosX = posX - (distance * Math.cos((MoCTools.realAngle(renderYawOffset - 90F)) / 57.29578F));
-        double newPosZ = posZ - (distance * Math.sin((MoCTools.realAngle(renderYawOffset - 90F)) / 57.29578F));
+        double xAdjustment = Math.cos((MoCTools.realAngle(renderYawOffset - 90F)) / 57.29578F);
+        double zAdjustment = Math.sin((MoCTools.realAngle(renderYawOffset - 90F)) / 57.29578F);
         
-        riddenByEntity.setPosition(newPosX, posY + getMountedYOffset() + riddenByEntity.getYOffset(), newPosZ);
+		double newPosX = posX - distance * xAdjustment;
+		double newPosZ = posZ - distance * zAdjustment;
+        
+        double newPosY = posY + getMountedYOffset() + riddenByEntity.getYOffset();
+        
+        
+        if (getRotationAmount() != 0 )
+        {
+        	float rotationAdjustmentFactor = Math.abs(getRotationAmount())/24;
+        	
+        	newPosX += rotationAdjustmentFactor * Math.signum(getRotationAmount()) * ((distance * Math.cos(getRotationAmount() * Math.PI/180)) * xAdjustment);
+        	
+    		newPosZ += rotationAdjustmentFactor * Math.signum(getRotationAmount()) * ((distance * Math.cos(getRotationAmount() * Math.PI/180)) * zAdjustment);
+    		
+    		newPosY += rotationAdjustmentFactor * ((getMountedYOffset()) * Math.sin(getRotationAmount() * Math.PI/180));
+        	
+        }
+        
+        riddenByEntity.setPosition(newPosX, newPosY, newPosZ);
     }
 
     @Override
@@ -676,7 +694,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
 			}
 			else
 			{
-				rotationAmount = ((float) motionY) * 100; //for other motions, but mainly for downward motions
+				rotationAmount = ((float) motionY) * 90; //for other motions, but mainly for downward motions
 			}
 			
 			final int maxOverallRotationAmountInDegrees = 60;

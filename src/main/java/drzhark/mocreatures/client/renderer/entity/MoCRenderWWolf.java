@@ -17,7 +17,7 @@ public class MoCRenderWWolf extends RenderLiving {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityWWolf)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityWWolf)entity).getTexture();
     }
 }

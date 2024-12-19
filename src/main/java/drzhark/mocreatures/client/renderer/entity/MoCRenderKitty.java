@@ -21,8 +21,8 @@ public class MoCRenderKitty extends RenderBiped {
     public MoCModelKitty kitty1;
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityKitty)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityKitty)entity).getTexture();
     }
 
     public MoCRenderKitty(MoCModelKitty modelkitty, float f)
@@ -36,7 +36,7 @@ public class MoCRenderKitty extends RenderBiped {
     {
         MoCEntityKitty entityKitty = (MoCEntityKitty) entityLiving;
         super.doRender(entityKitty, x, y, z, rotationYaw, rotationPitch);
-        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entityKitty.getName()).isEmpty();
+        boolean flag = MoCreatures.proxy.getDisplayPetName() && entityKitty.getName().length() > 0;
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealthMode(entityLiving);
         boolean flag2 = MoCreatures.proxy.getDisplayPetIcons();
         if (entityKitty.shouldRenderName())

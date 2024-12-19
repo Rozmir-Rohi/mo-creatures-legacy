@@ -47,7 +47,7 @@ public class MoCRenderWraith extends RenderLiving {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityWraith)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityWraith)entity).getTexture();
     }
 }

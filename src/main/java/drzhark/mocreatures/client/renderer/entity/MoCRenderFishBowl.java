@@ -37,7 +37,7 @@ public class MoCRenderFishBowl extends RenderLiving {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityFishBowl)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityFishBowl)entity).getTexture();
     }
 }

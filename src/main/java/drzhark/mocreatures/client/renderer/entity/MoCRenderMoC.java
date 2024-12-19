@@ -37,7 +37,7 @@ public class MoCRenderMoC extends RenderLiving {
 
         IMoCEntity entityMoC = (IMoCEntity) entity;
 
-        boolean shouldDisplayPetName = MoCreatures.proxy.getDisplayPetName() && !(entityMoC.getName()).isEmpty();
+        boolean shouldDisplayPetName = MoCreatures.proxy.getDisplayPetName() && entityMoC.getName().length() > 0;
         boolean shouldDisplayPetHealth = MoCreatures.proxy.getDisplayPetHealthMode((EntityLiving) entity);
         boolean shouldDisplayPetIcons = MoCreatures.proxy.getDisplayPetIcons();
         if (entityMoC.shouldRenderName())
@@ -156,10 +156,10 @@ public class MoCRenderMoC extends RenderLiving {
 
     protected void stretch(IMoCEntity mocreature)
     {
-        float f = mocreature.getSizeFactor();
-        if (f != 0)
+        float sizeFactor = mocreature.getSizeFactor();
+        if (sizeFactor != 0)
         {
-            GL11.glScalef(f, f, f);
+            GL11.glScalef(sizeFactor, sizeFactor, sizeFactor);
         }
     }
 
@@ -185,10 +185,10 @@ public class MoCRenderMoC extends RenderLiving {
      */
     protected void adjustYOffset(IMoCEntity mocreature)
     {
-        float f = mocreature.getAdjustedYOffset();
-        if (f != 0)
+        float adjustedOffsetY = mocreature.getAdjustedYOffset();
+        if (adjustedOffsetY != 0)
         {
-            GL11.glTranslatef(0.0F, f, 0.0F);
+            GL11.glTranslatef(0.0F, adjustedOffsetY, 0.0F);
         }
     }
     

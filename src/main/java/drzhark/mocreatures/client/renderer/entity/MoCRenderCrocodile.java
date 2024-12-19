@@ -25,8 +25,8 @@ public class MoCRenderCrocodile extends RenderLiving {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityCrocodile)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityCrocodile)entity).getTexture();
     }
 
     @Override

@@ -42,7 +42,7 @@ public class MoCRenderButterfly extends MoCRenderInsect {
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        return ((MoCEntityButterfly)par1Entity).getTexture();
+	protected ResourceLocation getEntityTexture(Entity entity) {
+        return ((MoCEntityButterfly)entity).getTexture();
     }
 }
