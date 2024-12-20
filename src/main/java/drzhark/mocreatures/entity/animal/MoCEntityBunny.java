@@ -53,12 +53,12 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         dataWatcher.addObject(22, Byte.valueOf((byte) 0)); // hasEaten - 0 false 1 true
     }
 
-    public boolean getHasEaten()
+    public boolean getHasEatenBreedingItem()
     {
         return (dataWatcher.getWatchableObjectByte(22) == 1);
     }
 
-    public void setHasEaten(boolean flag)
+    public void setHasEatenBreedingItem(boolean flag)
     {
         byte input = (byte) (flag ? 1 : 0);
         dataWatcher.updateObject(22, Byte.valueOf(input));
@@ -186,9 +186,9 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
                 	MoCTools.tameWithName(entityPlayer, this);
             	}
             
-            	if (getIsTamed() && !getHasEaten())
+            	if (getIsTamed() && !getHasEatenBreedingItem())
             	{
-            		setHasEaten(true);
+            		setHasEatenBreedingItem(true);
             	}
             
             	MoCTools.playCustomSound(this, "eating", worldObj);
@@ -260,7 +260,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         if (MoCreatures.isServer())
         {
 
-            if (!getIsTamed() || !getIsAdult() || !getHasEaten() || (ridingEntity != null)) { return; }
+            if (!getIsTamed() || !getIsAdult() || !getHasEatenBreedingItem() || (ridingEntity != null)) { return; }
             if (bunnyReproduceTickerA < 1023)
             {
                 bunnyReproduceTickerA++;
@@ -271,54 +271,52 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
             }
             else
             {
-                /*int k = worldObj.countEntities(getClass());
-                if (k > MoCreatures.proxy.bunnyBreedThreshold)
-                {
-                    proceed();
-                    return;
-                }*/
-
-                List listOfEntitiesNearby = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4.0D, 4.0D, 4.0D));
-                boolean flag = false;
-                for (int index = 0; index < listOfEntitiesNearby.size(); index++)
-                {
-                    Entity entityNearby = (Entity) listOfEntitiesNearby.get(index);
-                    if (!(entityNearby instanceof MoCEntityBunny) || (entityNearby == this))
-                    {
-                        continue;
-                    }
-                    MoCEntityBunny entityBunnyNearby = (MoCEntityBunny) entityNearby;
-                    if (
-                    		(entityBunnyNearby.ridingEntity != null)
-                    		|| (entityBunnyNearby.bunnyReproduceTickerA < 1023)
-                    		|| !entityBunnyNearby.getIsAdult()
-                    		|| !entityBunnyNearby.getHasEaten()
-                    	)
-                    {
-                        continue;
-                    }
-                    MoCEntityBunny entityBunnyBaby = new MoCEntityBunny(worldObj);
-                    entityBunnyBaby.setPosition(posX, posY, posZ);
-                    entityBunnyBaby.setAdult(false);
-                    int babytype = getType();
-                    if (rand.nextInt(2) == 0)
-                    {
-                        babytype = entityBunnyNearby.getType();
-                    }
-                    entityBunnyBaby.setType(babytype);
-                    worldObj.spawnEntityInWorld(entityBunnyBaby);
-                    proceed();
-                    entityBunnyNearby.proceed();
-                    flag = true;
-                    break;
-                }
+                tryToFindAdultBunnyNearByAndReproduce();
             }
         }
     }
 
+	private void tryToFindAdultBunnyNearByAndReproduce()
+	{
+		List listOfEntitiesNearby = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4.0D, 4.0D, 4.0D));
+		boolean flag = false;
+		for (int index = 0; index < listOfEntitiesNearby.size(); index++)
+		{
+		    Entity entityNearby = (Entity) listOfEntitiesNearby.get(index);
+		    if (!(entityNearby instanceof MoCEntityBunny) || (entityNearby == this))
+		    {
+		        continue;
+		    }
+		    MoCEntityBunny entityBunnyNearby = (MoCEntityBunny) entityNearby;
+		    if (
+		    		(entityBunnyNearby.ridingEntity != null)
+		    		|| (entityBunnyNearby.bunnyReproduceTickerA < 1023)
+		    		|| !entityBunnyNearby.getIsAdult()
+		    		|| !entityBunnyNearby.getHasEatenBreedingItem()
+		    	)
+		    {
+		        continue;
+		    }
+		    MoCEntityBunny entityBunnyBaby = new MoCEntityBunny(worldObj);
+		    entityBunnyBaby.setPosition(posX, posY, posZ);
+		    entityBunnyBaby.setAdult(false);
+		    int babyType = getType();
+		    if (rand.nextInt(2) == 0)
+		    {
+		        babyType = entityBunnyNearby.getType();
+		    }
+		    entityBunnyBaby.setType(babyType);
+		    worldObj.spawnEntityInWorld(entityBunnyBaby);
+		    proceed();
+		    entityBunnyNearby.proceed();
+		    flag = true;
+		    break;
+		}
+	}
+
     public void proceed()
     {
-        setHasEaten(false);
+        setHasEatenBreedingItem(false);
         bunnyReproduceTickerB = 0;
         bunnyReproduceTickerA = rand.nextInt(64);
     }

@@ -722,7 +722,16 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     @Override
     protected boolean isMovementCeased()
     {
-        return getIsSitting() || (getKittyState() == KITTY_STATE_USING_LITTER_BOX ) || ((getKittyState() == KITTY_STATE_TREE) && getOnTree()) || (getKittyState() == KITTY_STATE_SLEEPING) || (getKittyState() == KITTY_STATE_GOING_INTO_LABOUR ) || (getKittyState() == KITTY_STATE_HELD_ON_PLAYERS_HAND_USING_ROPE) || (getKittyState() == KITTY_STATE_GIVING_BIRTH_STAGE_TWO) || (getKittyState() == 23);
+        return (
+        			getIsSitting()
+        			|| (getKittyState() == KITTY_STATE_USING_LITTER_BOX )
+        			|| ((getKittyState() == KITTY_STATE_TREE) && getOnTree())
+        			|| (getKittyState() == KITTY_STATE_SLEEPING)
+        			|| (getKittyState() == KITTY_STATE_GOING_INTO_LABOUR )
+        			|| (getKittyState() == KITTY_STATE_HELD_ON_PLAYERS_HAND_USING_ROPE)
+        			|| (getKittyState() == KITTY_STATE_GIVING_BIRTH_STAGE_TWO)
+        			|| (getKittyState() == 23)
+        		);
     }
 
     @Override
@@ -761,6 +770,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                 if (getMoCAge() >= 100)
                 {
                     setAdult(true);
+                    setKittyState(KITTY_STATE_NORMAL_HAPPY);
                 }
             }
             
@@ -789,9 +799,9 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                 }
             }
             
-            if (getIsTamed() && !isNight() && (getKittyState() == KITTY_STATE_SLEEPING))
+            if (getIsTamed() && !isNight() && (getKittyState() == KITTY_STATE_SLEEPING)) //kitty wakes up
             {
-            	changeKittyStateTo(KITTY_STATE_KITTEN);
+            	changeKittyStateTo(KITTY_STATE_NORMAL_HAPPY);
             }
             
             
@@ -1004,12 +1014,6 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                    }
 	                }
 	                
-	                if (inWater && (rand.nextInt(500) == 0))
-	                {
-	                    changeKittyStateTo(KITTY_STATE_ANGRY);
-	                    break;
-	                }
-	                
 	                if ((rand.nextInt(500) == 0) && !worldObj.isDaytime())
 	                {
 	                    changeKittyStateTo(KITTY_STATE_SLEEPING);
@@ -1031,12 +1035,6 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                
 	                
 	            case KITTY_STATE_PLAYING_WITH_WOOLBALL:
-	                if (inWater && rand.nextInt(200) == 0)
-	                {
-	                    changeKittyStateTo(KITTY_STATE_ANGRY);
-	                    break;
-	                }
-	                
 	                if ((entityToAttack != null) && (entityToAttack instanceof EntityItem))
 	                {
 	                    float distanceToEntityItem = getDistanceToEntity(entityToAttack);
@@ -1143,7 +1141,6 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                        if (rand.nextInt(10) == 0)
 	                        {
 	                            MoCTools.pushEntityBack(this, entityToAttack, 0.2F);
-	                            //kittySmack(this, entityToAttack);
 	                        }
 	                    }
 	                }

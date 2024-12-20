@@ -72,6 +72,7 @@ public class MoCEntityTameableAnimal extends MoCEntityAnimal implements IMoCTame
         		&& getOwnerName() != null
         		&& !(
         				getOwnerName().equals("")
+        				|| getOwnerName().equals("NoOwner")  //allows creatures spawned with /mocspawn command to be tamed by any player
         			)
         		&& !entityPlayer.getCommandSenderName().equals(getOwnerName())
         		&& !MoCTools.isThisPlayerAnOP((entityPlayer))

@@ -1351,18 +1351,24 @@ public class MoCTools {
      * player.getCommandSenderName() as the owner of the entity, and name the entity.
      * 
      * @param entityPlayer
-     * @param creature
+     * @param mocreature
      * @return
      */
-    public static boolean tameWithName(EntityPlayer entityPlayer, IMoCTameable creature) 
+    public static boolean tameWithName(EntityPlayer entityPlayer, IMoCTameable mocreature) 
     {
-        if (entityPlayer == null || creature == null)
+        if (entityPlayer == null || mocreature == null)
         {
             return false;
         }
         
         //if the player interacting with creature is not the owner of the pet
-        if (creature.getOwnerName().length() > 0 && !(creature.getOwnerName().equals(entityPlayer.getCommandSenderName())) && MoCreatures.instance.mapData != null)
+        if (
+        		mocreature.getOwnerName().length() > 0
+        		&& !(mocreature.getOwnerName().equals(entityPlayer.getCommandSenderName()))
+        		&& !(
+        				mocreature.getOwnerName().equals("NoOwner") //allows creatures spawned with /mocspawn command to be tamed by any player
+        			)
+        		&& MoCreatures.instance.mapData != null)
         {
         	return false;
         }
@@ -1372,7 +1378,7 @@ public class MoCTools {
             int maxNumberOfPetsAllowed = 0;
             maxNumberOfPetsAllowed = MoCreatures.proxy.maxTamed;
             // only check count for new pets as owners may be changing the name
-            if (!MoCreatures.instance.mapData.isExistingPet(entityPlayer.getCommandSenderName(), creature))
+            if (!MoCreatures.instance.mapData.isExistingPet(entityPlayer.getCommandSenderName(), mocreature))
             {
                 int petCount = MoCTools.numberTamedByPlayer(entityPlayer);
                 if (isThisPlayerAnOP(entityPlayer)) 
@@ -1392,9 +1398,9 @@ public class MoCTools {
             }
         }
 
-        creature.setOwner(entityPlayer.getCommandSenderName()); // ALWAYS SET OWNER. Required for our new pet save system.
-        MoCMessageHandler.INSTANCE.sendTo(new MoCMessageNameGUI(((Entity) creature).getEntityId()), (EntityPlayerMP)entityPlayer);
-        creature.setTamed(true);
+        mocreature.setOwner(entityPlayer.getCommandSenderName()); // ALWAYS SET OWNER. Required for our new pet save system.
+        MoCMessageHandler.INSTANCE.sendTo(new MoCMessageNameGUI(((Entity) mocreature).getEntityId()), (EntityPlayerMP)entityPlayer);
+        mocreature.setTamed(true);
         return true;
     }
 

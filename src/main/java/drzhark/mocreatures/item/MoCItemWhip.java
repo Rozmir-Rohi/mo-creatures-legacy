@@ -181,7 +181,7 @@ public class MoCItemWhip extends MoCItem {
 		                
 		                if (entityHorse.isUndead()) {world.playSoundAtEntity(entityAnimal, "mocreatures:horsemadundead", 1.0F, 1.0F + 0.2F);}
 		                
-		                else if (entityHorse.isGhost()) {world.playSoundAtEntity(entityAnimal, "mocreatures:horsemadghost", 1.0F, 1.0F + 0.2F);}
+		                else if (entityHorse.isGhostHorse()) {world.playSoundAtEntity(entityAnimal, "mocreatures:horsemadghost", 1.0F, 1.0F + 0.2F);}
 		                
 		                else {world.playSoundAtEntity(entityAnimal, "mocreatures:horsemad", 1.0F, 1.0F + 0.2F);}
 		                

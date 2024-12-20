@@ -194,7 +194,7 @@ public class CommandMoCSpawn extends CommandBase {
             		|| (entityType.equalsIgnoreCase("wyvern") && (type < 1 || type > 12))
             	)
             {
-                iCommandSender.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED + "ERROR:" + EnumChatFormatting.WHITE + "The spawn type " + type + " is not a valid type."));
+                iCommandSender.addChatMessage(new ChatComponentTranslation(EnumChatFormatting.RED + "ERROR:" + EnumChatFormatting.WHITE + "The spawn type " + type + " for " + entityType + " is not a valid type."));
                 return;
             }
             

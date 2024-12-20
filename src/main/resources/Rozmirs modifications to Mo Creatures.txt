@@ -1413,3 +1413,23 @@ Removed unneeded enchantment book checks previously added for items.
 
 
 Dolphin rider position now updates with Dolphin rotation.
+
+
+Fixed Kitty lifecycle. Kittens that grow up now use the adult Kitty behaviour.
+
+
+Kitty no longer becomes angry from going into water.
+
+
+Fixed rotation for prey inside Crocodile's mouth while it is doing it's spin attack, this also resulted in the spin attack being faster than before.
+
+Cleaned up some of the Crocodile render code.
+
+
+Retweaked horse speeds so that no horse is slower than the slowest possible vanilla Minecraft horse.
+
+
+/mocspawn error messages for invalid entity type now indicate that that type is specifically invalid for that entity
+
+
+Improve accuracy of fire placement for Nightmare horse fire trail.

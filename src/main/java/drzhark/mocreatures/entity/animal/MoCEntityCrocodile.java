@@ -301,11 +301,11 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
             	else {spinAttackStrength = 7;} //adult spin attack strength
             	
                 spinInt += 3;
-                if ((spinInt % 20) == 0)
+                if ((spinInt % 10) == 0)
                 {
                     playSound("mocreatures:crocroll", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
                 }
-                if (spinInt > 80)
+                if (spinInt > 40)
                 {
                     spinInt = 0;
                     riddenByEntity.attackEntityFrom(DamageSource.causeMobDamage(this), spinAttackStrength);
@@ -501,6 +501,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
             direction = 1;
         }
 
+        //these rotate the head/camera only of the prey only
         ((EntityLivingBase) riddenByEntity).renderYawOffset = rotationYaw * direction;
         ((EntityLivingBase) riddenByEntity).prevRenderYawOffset = rotationYaw * direction;
     }

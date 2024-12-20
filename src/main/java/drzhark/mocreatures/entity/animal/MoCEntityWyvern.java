@@ -928,6 +928,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
              {
                  return 1.46D;
              }
+             
              return 1.5D;
          }
         return 0.8D;

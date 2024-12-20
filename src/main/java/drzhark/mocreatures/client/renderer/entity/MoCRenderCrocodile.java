@@ -21,7 +21,7 @@ public class MoCRenderCrocodile extends RenderLiving {
     public MoCRenderCrocodile(MoCModelCrocodile modelBase, float f)
     {
         super(modelBase, f);
-        croc = modelBase;
+        modelCrocodile = modelBase;
     }
 
     @Override
@@ -40,47 +40,29 @@ public class MoCRenderCrocodile extends RenderLiving {
     @Override
     protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityCrocodile entitycrocodile = (MoCEntityCrocodile) entityLiving;
-        croc.biteProgress = entitycrocodile.biteProgress;
-        croc.swimming = entitycrocodile.isSwimming();
-        croc.resting = entitycrocodile.getIsResting();
-        if (entitycrocodile.isSpinning() && entitycrocodile.riddenByEntity instanceof EntityPlayer)
+        MoCEntityCrocodile entityCrocodile = (MoCEntityCrocodile) entityLiving;
+        modelCrocodile.biteProgress = entityCrocodile.biteProgress;
+        modelCrocodile.swimming = entityCrocodile.isSwimming();
+        modelCrocodile.resting = entityCrocodile.getIsResting();
+       
+        if (entityCrocodile.isSpinning() && entityCrocodile.riddenByEntity instanceof EntityLivingBase)
         {
-            spinCrocWithPlayer(entitycrocodile, (EntityPlayer) entitycrocodile.riddenByEntity);
+            spinCrocodileAndTheEntityInsideItsMouth(entityCrocodile, (EntityLivingBase) entityCrocodile.riddenByEntity);
         }
         
-        if (entitycrocodile.isSpinning() && !(entitycrocodile.riddenByEntity instanceof EntityPlayer))
+        stretch(entityCrocodile);
+        if (entityCrocodile.getIsResting())
         {
-            spinCrocWithCreature(entitycrocodile, (EntityLiving) entitycrocodile.riddenByEntity);
-        }
-        
-        stretch(entitycrocodile);
-        if (entitycrocodile.getIsResting())
-        {
-            if (!entitycrocodile.isInsideOfMaterial(Material.water))
+            if (!entityCrocodile.isInsideOfMaterial(Material.water))
             {
-                adjustHeight(entitycrocodile, 0.2F);
+                adjustHeight(entityCrocodile, 0.2F);
             }
             else
             {
-                //adjustHeight(entitycrocodile, 0.1F);
+                //adjustHeight(entityCrocodile, 0.1F);
             }
 
         }
-        /*        if(!entitycrocodile.getIsAdult())
-                {
-                    
-                }
-        */
-    }
-
-    protected void rotateAnimal(MoCEntityCrocodile entitycrocodile)
-    {
-
-        //float f = entitycrocodile.swingProgress *10F *entitycrocodile.getFlipDirection();
-        //float f2 = entitycrocodile.swingProgress /30 *entitycrocodile.getFlipDirection();
-        //GL11.glRotatef(180F + f, 0.0F, 0.0F, -1.0F); 
-        //GL11.glTranslatef(0.0F-f2, 0.5F, 0.0F);
     }
 
     protected void adjustHeight(EntityLiving entityLiving, float FHeight)
@@ -88,16 +70,10 @@ public class MoCRenderCrocodile extends RenderLiving {
         GL11.glTranslatef(0.0F, FHeight, 0.0F);
     }
 
-    protected void spinCrocWithCreature(MoCEntityCrocodile croc, EntityLiving prey)
+    protected void spinCrocodileAndTheEntityInsideItsMouth(MoCEntityCrocodile entityCrocodile, EntityLivingBase entityLivingBasePreyInsideMouth)
     {
-        int intSpin = croc.spinInt;
+        int intSpin = entityCrocodile.spinInt;
 
-        int direction = 1;
-        if (intSpin > 40)
-        {
-            intSpin -= 40;
-            direction = -1;
-        }
         int intEndSpin = intSpin;
         if (intSpin >= 20)
         {
@@ -107,62 +83,29 @@ public class MoCRenderCrocodile extends RenderLiving {
         {
             intEndSpin = 1;
         }
-        float f3 = (((intEndSpin) - 1.0F) / 20F) * 1.6F;
-        f3 = MathHelper.sqrt_float(f3);
-        if (f3 > 1.0F)
+        
+        float rotationFactor = (((intEndSpin) - 1.0F) / 20F) * 1.6F;
+        rotationFactor = MathHelper.sqrt_float(rotationFactor);
+        
+        if (rotationFactor > 1.0F)
         {
-            f3 = 1.0F;
+            rotationFactor = 1.0F;
         }
-        f3 *= direction;
-        GL11.glRotatef(f3 * 90F, 0.0F, 0.0F, 1.0F);
+        GL11.glRotatef(rotationFactor * 90F, 0.0F, 0.0F, 1.0F);
 
-        if (prey != null)
+        if (entityLivingBasePreyInsideMouth != null)
         {
-            prey.deathTime = intEndSpin;
-        }
-    }
-    
-    protected void spinCrocWithPlayer(MoCEntityCrocodile croc, EntityPlayer prey)
-    {
-        int intSpin = croc.spinInt;
-
-        int direction = 1;
-        if (intSpin > 40)
-        {
-            intSpin -= 40;
-            direction = -1;
-        }
-        int intEndSpin = intSpin;
-        if (intSpin >= 20)
-        {
-            intEndSpin = (20 - (intSpin - 20));
-        }
-        if (intEndSpin == 0)
-        {
-            intEndSpin = 1;
-        }
-        float f3 = (((intEndSpin) - 1.0F) / 20F) * 1.6F;
-        f3 = MathHelper.sqrt_float(f3);
-        if (f3 > 1.0F)
-        {
-            f3 = 1.0F;
-        }
-        f3 *= direction;
-        GL11.glRotatef(f3 * 90F, 0.0F, 0.0F, 1.0F);
-
-        if (prey != null)
-        {
-            prey.deathTime = intEndSpin;
+            entityLivingBasePreyInsideMouth.deathTime = intEndSpin;  //this rotates the whole model of the prey by using deathTime
         }
     }
     
 
-    protected void stretch(MoCEntityCrocodile entitycrocodile)
+    protected void stretch(MoCEntityCrocodile entityCrocodile)
     {
-        float f = entitycrocodile.getMoCAge() * 0.01F;
+        float f = entityCrocodile.getMoCAge() * 0.01F;
         GL11.glScalef(f, f, f);
     }
 
-    public MoCModelCrocodile croc;
+    public MoCModelCrocodile modelCrocodile;
 
 }

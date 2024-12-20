@@ -38,7 +38,7 @@ public class MoCRenderNewHorse extends MoCRenderMoC {
         {
             stretch(entityhorse);
         }
-        if (entityhorse.isGhost())
+        if (entityhorse.isGhostHorse())
         {
             adjustHeight(entityhorse, -0.3F + (entityhorse.ghostHorseTransparencyFloat() / 5F));
         }

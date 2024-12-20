@@ -366,10 +366,10 @@ public class MoCModelNewHorse extends ModelBase {
         boolean flapwings = (entityhorse.wingFlapCounter != 0);
         boolean isShuffling = (entityhorse.shuffleCounter > 0);
         boolean saddled = entityhorse.getIsRideable();
-        boolean wings = (entityhorse.isFlyer() && !entityhorse.isGhost() && type < 45);
+        boolean wings = (entityhorse.isFlyer() && !entityhorse.isGhostHorse() && type < 45);
         //boolean chested = entityhorse.getChestedHorse();
         boolean eating = entityhorse.getEating();
-        boolean ramming = ((entityhorse.sprintCounter > 0 && entityhorse.sprintCounter < 150) && entityhorse.isUnicorned() && (entityhorse.riddenByEntity != null));
+        boolean ramming = ((entityhorse.sprintCounter > 0 && entityhorse.sprintCounter < 150) && entityhorse.doesHaveHorn() && (entityhorse.riddenByEntity != null));
         //boolean flyer = entityhorse.isFlyer();
         boolean standing = (entityhorse.standCounter != 0);
         boolean openMouth = (entityhorse.mouthCounter != 0);
@@ -378,13 +378,13 @@ public class MoCModelNewHorse extends ModelBase {
         
 
         boolean rider = (entityhorse.riddenByEntity != null);
-        boolean floating = (entityhorse.isGhost() || (entityhorse.isFlyer() && entityhorse.isOnAir()));
+        boolean floating = (entityhorse.isGhostHorse() || (entityhorse.isFlyer() && entityhorse.isOnAir()));
         //                || (entityhorse.riddenByEntity == null && !entityhorse.onGround)
         //                || (entityhorse.riddenByEntity != null && !entityhorse.riddenByEntity.onGround));
         
         setRotationAngles(f, f1, f2, f3, f4, f5, eating, ramming, rider, floating, standing, saddled, moveTail, wings, flapwings, isShuffling, type);
 
-        if (!entityhorse.isGhost() && vanishingInt == 0)
+        if (!entityhorse.isGhostHorse() && vanishingInt == 0)
         {
             if (saddled)
             {
@@ -451,7 +451,7 @@ public class MoCModelNewHorse extends ModelBase {
             Leg4B.render(f5);
             Leg4C.render(f5);
 
-            if (entityhorse.isUnicorned())
+            if (entityhorse.doesHaveHorn())
             {
                 Unicorn.render(f5);
             }

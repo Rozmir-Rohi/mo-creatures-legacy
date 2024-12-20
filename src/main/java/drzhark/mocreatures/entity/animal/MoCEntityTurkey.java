@@ -19,6 +19,8 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class MoCEntityTurkey extends MoCEntityTameableAnimal {
 
+	public boolean hasEatenBreedingItem;
+	
     public MoCEntityTurkey(World world)
     {
         super(world);
@@ -100,7 +102,7 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
 
         return true;
     }
-
+    
     @Override
     public boolean isMyHealFood(ItemStack itemStack)
     {
