@@ -186,22 +186,22 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         switch (getType())
         {
 	        case 1:
-	        	speed = 0.6D;
+	        	speed = 0.8D;
 	        	break;
 	        case 2:
-	        	speed = 0.7D;
+	        	speed = 0.9D;
 	        	break;
 	        case 3:
-	        	speed = 0.5D;
-	        	break;
-	        case 4:
-	        	speed = 0.5D;
-	        	break;
-	        case 5:
 	        	speed = 0.7D;
 	        	break;
+	        case 4:
+	        	speed = 0.7D;
+	        	break;
+	        case 5:
+	        	speed = 0.9D;
+	        	break;
 	        default:
-	        	speed = 0.5D;
+	        	speed = 0.6D;
 	        	break;
         }
 
@@ -209,10 +209,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
         {
             speed *= 1.5D;
         }
-        if (sprintCounter > 150 && riddenByEntity != null)
-        {
-            speed *= 0.5D;
-        }
+
         
         return speed;
     }

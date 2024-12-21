@@ -5,13 +5,19 @@ import java.util.List;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.entity.ambient.MoCEntityFly;
+import drzhark.mocreatures.entity.ambient.MoCEntityRoach;
+import drzhark.mocreatures.entity.animal.MoCEntityBigCat;
+import drzhark.mocreatures.entity.animal.MoCEntityBird;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageAnimation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.world.World;
 
@@ -125,7 +131,54 @@ public class MoCEntityInsect extends MoCEntityAmbient {
             {
                 updateWanderPath();
             }
+            
+            
+            if (
+            		doesForageForFood()
+            		&& !isMovementCeased()
+            		&& (getHealth() < getMaxHealth() || rand.nextInt(100) ==0 )
+            	)
+            {
+            	EntityItem closestEntityItem = getClosestEntityItem(this, 8D);
 
+                if (closestEntityItem != null)
+                {
+                	ItemStack itemStack = closestEntityItem.getEntityItem();
+
+                	if (isMyFollowFood(itemStack))
+                	{
+                		
+                		float distanceToEntityItem = closestEntityItem.getDistanceToEntity(this);
+                		
+                		if(isFlyer())
+                		{
+	            			MoCTools.flyToNextEntity(this, closestEntityItem);
+	
+	            			if ((distanceToEntityItem < 2.0F) && (closestEntityItem != null))
+	                		{
+	                			if (rand.nextInt(50) == 0) //take some time to eat the item
+	                			{
+	                				closestEntityItem.setDead();
+		                			heal(5);
+	                			}
+	                		}
+                		}
+            			else
+                		{
+	                		if (distanceToEntityItem > 2.0F)
+	                		{
+	                			getMyOwnPath(closestEntityItem, distanceToEntityItem);
+	                		}
+
+	                		if ((distanceToEntityItem < 2.0F) && (closestEntityItem != null))
+	                		{
+	                			closestEntityItem.setDead();
+	                			heal(5);
+	                		}
+                		}
+                	}
+                }
+            }
         }
         else // client stuff
         {
@@ -136,7 +189,12 @@ public class MoCEntityInsect extends MoCEntityAmbient {
         }
     }
 
-    /**
+    public boolean doesForageForFood()
+    {
+		return false;
+	}
+
+	/**
      * Is this insect attracted to light?
      * @return
      */

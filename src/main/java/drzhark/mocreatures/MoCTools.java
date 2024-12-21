@@ -174,6 +174,109 @@ public class MoCTools {
 		}
 		return false;
     }
+    
+    public static boolean flyToNextEntity(Entity entityThatIsFlying, Entity entityToFlyNextTo)
+    {
+        if (entityToFlyNextTo != null)
+        {
+            int entityPosX = MathHelper.floor_double(entityToFlyNextTo.posX);
+            int entityPosY = MathHelper.floor_double(entityToFlyNextTo.posY);
+            int entityPosZ = MathHelper.floor_double(entityToFlyNextTo.posZ);
+            
+            faceLocation(entityThatIsFlying, entityPosX, entityPosY, entityPosZ, 30F);
+            
+            if (MathHelper.floor_double(entityThatIsFlying.posY) < entityPosY)
+            {
+            	entityThatIsFlying.motionY += 0.14999999999999999D;
+            }
+            if (entityThatIsFlying.posX < entityToFlyNextTo.posX)
+            {
+                double xDistance = entityToFlyNextTo.posX - entityThatIsFlying.posX;
+                if (xDistance > 0.5D)
+                {
+                	entityThatIsFlying.motionX += 0.050000000000000003D;
+                }
+            }
+            else
+            {
+                double xDistance = entityThatIsFlying.posX - entityToFlyNextTo.posX;
+                if (xDistance > 0.5D)
+                {
+                	entityThatIsFlying.motionX -= 0.050000000000000003D;
+                }
+            }
+            if (entityThatIsFlying.posZ < entityToFlyNextTo.posZ)
+            {
+                double zDistance = entityToFlyNextTo.posZ - entityThatIsFlying.posZ;
+                if (zDistance > 0.5D)
+                {
+                	entityThatIsFlying.motionZ += 0.050000000000000003D;
+                }
+            }
+            else
+            {
+                double zDistance = entityThatIsFlying.posZ - entityToFlyNextTo.posZ;
+                if (zDistance > 0.5D)
+                {
+                	entityThatIsFlying.motionZ -= 0.050000000000000003D;
+                }
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public static void faceLocation(Entity entity, int x, int y, int z, float f)
+    {
+        double xDistanceToNewFacingLocation = x + 0.5D - entity.posX;
+        double yDistanceToNewFacingLocation = y + 0.5D - entity.posY;
+        double zDistanceToNewFacingLocation = z + 0.5D - entity.posZ;
+
+        double overallDistanceToNewFacingLocationSquared = MathHelper.sqrt_double(xDistanceToNewFacingLocation * xDistanceToNewFacingLocation + zDistanceToNewFacingLocation * zDistanceToNewFacingLocation);
+        
+        float xzAngleInDegreesToNewFacingLocation = (float) (Math.atan2(zDistanceToNewFacingLocation, xDistanceToNewFacingLocation) * 180.0D / Math.PI) - 90.0F;
+        float yAngleInDegreesToNewFacingLocation = (float) (-(Math.atan2(yDistanceToNewFacingLocation, overallDistanceToNewFacingLocationSquared) * 180.0D / Math.PI));
+        
+        entity.rotationPitch = -updateRotation(entity.rotationPitch, yAngleInDegreesToNewFacingLocation, f);
+        entity.rotationYaw = updateRotation(entity.rotationYaw, xzAngleInDegreesToNewFacingLocation, f);
+    }
+    
+    /**
+    *
+    * @param currentRotation
+    * @param intendedRotation
+    * @param maxIncrement
+    * @return
+    */
+   private static float updateRotation(float currentRotation, float intendedRotation, float maxIncrement)
+   {
+       float amountToChangeRotationBy;
+
+       for (amountToChangeRotationBy = intendedRotation - currentRotation; amountToChangeRotationBy < -180.0F; amountToChangeRotationBy += 360.0F)
+       {
+           ;
+       }
+
+       while (amountToChangeRotationBy >= 180.0F)
+       {
+           amountToChangeRotationBy -= 360.0F;
+       }
+
+       if (amountToChangeRotationBy > maxIncrement)
+       {
+           amountToChangeRotationBy = maxIncrement;
+       }
+
+       if (amountToChangeRotationBy < -maxIncrement)
+       {
+           amountToChangeRotationBy = -maxIncrement;
+       }
+
+       return currentRotation + amountToChangeRotationBy;
+   }
 
     
     /**

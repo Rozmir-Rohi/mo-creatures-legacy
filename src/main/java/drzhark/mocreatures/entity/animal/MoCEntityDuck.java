@@ -1,13 +1,16 @@
 package drzhark.mocreatures.entity.animal;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityAnimal;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Items;
 import net.minecraft.world.World;
 
-public class MoCEntityDuck extends MoCEntityAnimal//EntityChicken
+public class MoCEntityDuck extends MoCEntityAnimal
 {
 	
     public MoCEntityDuck(World world)
@@ -56,6 +59,16 @@ public class MoCEntityDuck extends MoCEntityAnimal//EntityChicken
         if (isOnAir() && motionY < 0.0D) //slows falling 
         {
             motionY *= 0.6D;
+        }
+        
+        if (
+        		getAITarget() != null
+        		&& getAITarget() instanceof EntityLivingBase //entity that attacked this entity
+        		&& MoCreatures.isServer()
+    			&& !inWater
+        	)
+        {
+        	MoCTools.moveToWater(this); //run to nearest water
         }
     }
 

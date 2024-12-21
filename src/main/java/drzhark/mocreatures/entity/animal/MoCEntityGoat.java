@@ -313,7 +313,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
                         int entityItemPosY = MathHelper.floor_double(entityItem.posY);
                         int entityItemPosZ = MathHelper.floor_double(entityItem.posZ);
                         
-                        faceLocation(entityItemPosX, entityItemPosY, entityItemPosZ, 30F);
+                        MoCTools.faceLocation(this, entityItemPosX, entityItemPosY, entityItemPosZ, 30F);
 
                         getMyOwnPath(entityItem, distanceToEntityItem);
                         return;

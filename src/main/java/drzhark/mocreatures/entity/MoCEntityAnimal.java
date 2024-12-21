@@ -501,7 +501,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
 
                 			if (bird.isFleeing) {return;}
 
-                			bird.flyToNextEntity(closestEntityItem);
+                			MoCTools.flyToNextEntity(bird, closestEntityItem);
 
                 			if ((distanceToEntityItem < 2.0F) && (closestEntityItem != null))
 	                		{
@@ -761,55 +761,6 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         }
 
         return entityItem;
-    }
-
-    public void faceLocation(int x, int y, int z, float f)
-    {
-        double xDistanceToNewFacingLocation = x + 0.5D - posX;
-        double yDistanceToNewFacingLocation = y + 0.5D - posY;
-        double zDistanceToNewFacingLocation = z + 0.5D - posZ;
-
-        double overallDistanceToNewFacingLocationSquared = MathHelper.sqrt_double(xDistanceToNewFacingLocation * xDistanceToNewFacingLocation + zDistanceToNewFacingLocation * zDistanceToNewFacingLocation);
-        
-        float xzAngleInDegreesToNewFacingLocation = (float) (Math.atan2(zDistanceToNewFacingLocation, xDistanceToNewFacingLocation) * 180.0D / Math.PI) - 90.0F;
-        float yAngleInDegreesToNewFacingLocation = (float) (-(Math.atan2(yDistanceToNewFacingLocation, overallDistanceToNewFacingLocationSquared) * 180.0D / Math.PI));
-        
-        rotationPitch = -updateRotation(rotationPitch, yAngleInDegreesToNewFacingLocation, f);
-        rotationYaw = updateRotation(rotationYaw, xzAngleInDegreesToNewFacingLocation, f);
-    }
-
-    /**
-     *
-     * @param currentRotation
-     * @param intendedRotation
-     * @param maxIncrement
-     * @return
-     */
-    private float updateRotation(float currentRotation, float intendedRotation, float maxIncrement)
-    {
-        float amountToChangeRotationBy;
-
-        for (amountToChangeRotationBy = intendedRotation - currentRotation; amountToChangeRotationBy < -180.0F; amountToChangeRotationBy += 360.0F)
-        {
-            ;
-        }
-
-        while (amountToChangeRotationBy >= 180.0F)
-        {
-            amountToChangeRotationBy -= 360.0F;
-        }
-
-        if (amountToChangeRotationBy > maxIncrement)
-        {
-            amountToChangeRotationBy = maxIncrement;
-        }
-
-        if (amountToChangeRotationBy < -maxIncrement)
-        {
-            amountToChangeRotationBy = -maxIncrement;
-        }
-
-        return currentRotation + amountToChangeRotationBy;
     }
 
     public void getMyOwnPath(Entity entity, float f)
@@ -1260,10 +1211,11 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         	}
 
             if (
-            		riddenByEntity != null //isFlyer()
+            		riddenByEntity != null
             		&& getIsTamed()
             		&& (
-            				this instanceof MoCEntityHorse || this instanceof MoCEntityWyvern
+            				getCustomSpeed() > 0
+            				&& getCustomSpeed() != 0.80000001D //detects overrides from child classes
             			)
             	)
             {
@@ -1397,7 +1349,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
      */
     public double getCustomSpeed()
     {
-        return 0.8D;
+        return 0.80000001D; //made this number longer than it needs to be to detect overrides from other classes
     }
 
     /**

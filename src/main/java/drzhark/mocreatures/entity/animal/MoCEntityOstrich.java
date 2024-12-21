@@ -367,35 +367,56 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         
         switch (getType())
         {
-	        case 1:
-	        	ostrichSpeed = 0.8;
+	        case 1: //baby ostrich
+	        	ostrichSpeed = 0.9;
 	        	break;
-	        case 2:
+	        	
+	        case 2: //female ostrich
 	        	ostrichSpeed = 0.8D;
 	        	break;
-	        case 3:
+	        	
+	        case 3: //male ostrich
+	        	ostrichSpeed = 0.9D;
+	        	break;
+	        	
+	        case 4: //albino ostrich
+	        	ostrichSpeed = 1D;
+	        	break;
+	        	
+	        case 5: //fire ostrich
 	        	ostrichSpeed = 1.1D;
-	        	break;
-	        case 4:
-	        	ostrichSpeed = 1.3D;
-	        	break;
-	        case 5:
-	        	ostrichSpeed = 1.4D;
+	            isImmuneToFire = true;
+	            break;
+	            
+	        case 6: //dark ostrich
+	        	ostrichSpeed = 1.12D;
+	            break;
+	            
+	        case 7: //zombie ostrich
+	        	ostrichSpeed = 1.2D;
+	            isImmuneToFire = true;
+	            break;
+	            
+	        case 8: //unicorn ostrich
+	        	ostrichSpeed = 1.25D;
 	            isImmuneToFire = true;
 	            break;
 	            
 	        default:
-	            return 20;
+	            return 0.8;
         }
         
         
         if (sprintCounter > 0 && sprintCounter < 200)
         {
-            ostrichSpeed *= 1.5D;
+            ostrichSpeed *= 1.2D;
         }
-        if (sprintCounter > 200)
+        if (
+        		sprintCounter > 200 
+        		&& getType() == 8 //unicorn
+        	)
         {
-            ostrichSpeed *= 0.5D;
+            ostrichSpeed *= 0.7D;
         }
         
         return ostrichSpeed;
@@ -461,13 +482,13 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         }
     }
 
-    public void transform(int tType)
+    public void transform(int typeToTransformInto)
     {
         if (MoCreatures.isServer())
         {
-            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), tType), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
+            MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(getEntityId(), typeToTransformInto), new TargetPoint(worldObj.provider.dimensionId, posX, posY, posZ, 64));
         }
-        transformType = tType;
+        transformType = typeToTransformInto;
         if (riddenByEntity == null && transformType != 0)
         {
             dropArmor();
@@ -490,8 +511,6 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     public void onLivingUpdate()
     {
         super.onLivingUpdate();
-
-        
 
         if (getIsTamed() && MoCreatures.isServer() && (rand.nextInt(300) == 0) && (getHealth() <= getMaxHealth()) && (deathTime == 0))
         {
@@ -565,10 +584,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
                                 openMouth();
                             }
         
-                            //TODO change sound
                             playSound("mob.chicken.plop", 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
-                            //finds a male and makes it eggWatch as well
-                            //MoCEntityOstrich entityOstrich = (MoCEntityOstrich) getClosestSpecificEntity(this, MoCEntityOstrich.class, 12D);
                             eggCounter = rand.nextInt(2000) + 2000;
                             canLayEggs = false;
                         }
@@ -977,7 +993,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         { return MoCreatures.unicornHorn; }
         if (getType() == 5 && flag) 
         { return MoCreatures.heartFire; }
-        if (getType() == 6 && flag) // bat horse
+        if (getType() == 6 && flag) // bat ostrich
         { return MoCreatures.heartDarkness; }
         if (getType() == 7 )
         {
@@ -1189,6 +1205,11 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     @Override
     protected double myFallSpeed()
     {
+    	if (getType() == 6) //bat ostrich
+    	{
+    		return 0.90;
+    	}
+    	
         return 0.99D;
     }
 
@@ -1202,12 +1223,6 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     protected float flyerFriction()
     {
         return 0.96F;
-    }
-
-    @Override
-    protected boolean selfPropelledFlyer()
-    {
-        return getType() == 6;
     }
 
     @Override

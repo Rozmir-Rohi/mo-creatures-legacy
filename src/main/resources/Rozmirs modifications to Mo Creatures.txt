@@ -1433,3 +1433,21 @@ Retweaked horse speeds so that no horse is slower than the slowest possible vani
 
 
 Improve accuracy of fire placement for Nightmare horse fire trail.
+
+
+Ducks will now run to the nearest water if attacked by an entity on land.
+
+
+Fly and Roach now forage for dropped rotten flesh items.
+
+
+Removed slowness after Elephant charge as Elephants are already slow.
+
+
+Fixed Elephant speed not working. Also re-tweaked Elephant Speeds
+
+
+Fixed Ostrich Speed and Jump not working. Also re-tweaked Ostrich Speeds
+
+
+Bat Ostrich now has a very slight slow fall.

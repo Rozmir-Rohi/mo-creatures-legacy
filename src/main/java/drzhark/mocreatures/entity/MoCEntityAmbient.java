@@ -407,55 +407,6 @@ public abstract class MoCEntityAmbient extends EntityAnimal  implements IMoCEnti
         return entityItem;
     }
 
-    public void faceLocation(int x, int y, int z, float f)
-    {
-        double xDistanceToNewFacingLocation = x + 0.5D - posX;
-        double yDistanceToNewFacingLocation = y + 0.5D - posY;
-        double zDistanceToNewFacingLocation = z + 0.5D - posZ;
-        
-        double overallDistanceToNewFacingLocationSquared = MathHelper.sqrt_double(xDistanceToNewFacingLocation * xDistanceToNewFacingLocation + zDistanceToNewFacingLocation * zDistanceToNewFacingLocation);
-        
-        float xzAngleInDegreesToNewFacingLocation = (float) (Math.atan2(zDistanceToNewFacingLocation, xDistanceToNewFacingLocation) * 180.0D / Math.PI) - 90.0F;
-        float yAngleInDegreesToNewFacingLocation = (float) (-(Math.atan2(yDistanceToNewFacingLocation, overallDistanceToNewFacingLocationSquared) * 180.0D / Math.PI));
-        
-        rotationPitch = -updateRotation(rotationPitch, yAngleInDegreesToNewFacingLocation, f);
-        rotationYaw = updateRotation(rotationYaw, xzAngleInDegreesToNewFacingLocation, f);
-    }
-
-    /**
-     * 
-     * @param currentRotation
-     * @param intendedRotation
-     * @param maxIncrement
-     * @return
-     */
-    private float updateRotation(float currentRotation, float intendedRotation, float maxIncrement)
-    {
-        float amountToChangeRotationBy;
-
-        for (amountToChangeRotationBy = intendedRotation - currentRotation; amountToChangeRotationBy < -180.0F; amountToChangeRotationBy += 360.0F)
-        {
-            ;
-        }
-
-        while (amountToChangeRotationBy >= 180.0F)
-        {
-            amountToChangeRotationBy -= 360.0F;
-        }
-
-        if (amountToChangeRotationBy > maxIncrement)
-        {
-            amountToChangeRotationBy = maxIncrement;
-        }
-
-        if (amountToChangeRotationBy < -maxIncrement)
-        {
-            amountToChangeRotationBy = -maxIncrement;
-        }
-
-        return currentRotation + amountToChangeRotationBy;
-    }
-
     public void getMyOwnPath(Entity entity, float f)
     {
         PathEntity pathEntity = worldObj.getPathEntityToEntity(this, entity, 16F, true, false, false, true);

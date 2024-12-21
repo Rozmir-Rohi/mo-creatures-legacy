@@ -1,5 +1,6 @@
 package drzhark.mocreatures.entity.ambient;
 
+import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityInsect;
 import net.minecraft.entity.item.EntityItem;
@@ -52,7 +53,7 @@ public class MoCEntityAnt extends MoCEntityInsect{
                         int entityItemPosX = MathHelper.floor_double(entityItem.posX);
                         int entityItemPosY = MathHelper.floor_double(entityItem.posY);
                         int entityItemPosZ = MathHelper.floor_double(entityItem.posZ);
-                        faceLocation(entityItemPosX, entityItemPosY, entityItemPosZ, 30F);
+                        MoCTools.faceLocation(this, entityItemPosX, entityItemPosY, entityItemPosZ, 30F);
 
                         getMyOwnPath(entityItem, distanceToEntityItem);
                         return;

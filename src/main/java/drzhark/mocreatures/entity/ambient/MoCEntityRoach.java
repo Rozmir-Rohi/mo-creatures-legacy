@@ -64,6 +64,12 @@ public class MoCEntityRoach extends MoCEntityInsect
     {
         return itemStack != null && itemStack.getItem() == Items.rotten_flesh;
     }
+    
+    @Override
+    public boolean doesForageForFood()
+    {
+		return true;
+	}
 
     @Override
     public boolean getIsFlying()

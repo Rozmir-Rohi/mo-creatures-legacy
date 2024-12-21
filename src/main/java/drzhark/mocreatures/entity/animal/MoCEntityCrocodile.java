@@ -36,7 +36,6 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     // implement taming? (obtain croc eggs and hatch them to tame baby crocs)?
 
     public float biteProgress;
-    public float spin;
     public int spinInt;
     private float myMoveSpeed;
     private boolean waterbound;

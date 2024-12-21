@@ -152,60 +152,6 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         return (new int[] { 0, 0, 0 });
     }
 
-    public boolean flyToNextEntity(Entity entity)
-    {
-        if (entity != null)
-        {
-            int entityPosX = MathHelper.floor_double(entity.posX);
-            int entityPosY = MathHelper.floor_double(entity.posY);
-            int entityPosZ = MathHelper.floor_double(entity.posZ);
-            
-            faceLocation(entityPosX, entityPosY, entityPosZ, 30F);
-            
-            if (MathHelper.floor_double(posY) < entityPosY)
-            {
-                motionY += 0.14999999999999999D;
-            }
-            if (posX < entity.posX)
-            {
-                double xDistance = entity.posX - posX;
-                if (xDistance > 0.5D)
-                {
-                    motionX += 0.050000000000000003D;
-                }
-            }
-            else
-            {
-                double xDistance = posX - entity.posX;
-                if (xDistance > 0.5D)
-                {
-                    motionX -= 0.050000000000000003D;
-                }
-            }
-            if (posZ < entity.posZ)
-            {
-                double zDistance = entity.posZ - posZ;
-                if (zDistance > 0.5D)
-                {
-                    motionZ += 0.050000000000000003D;
-                }
-            }
-            else
-            {
-                double zDistance = posZ - entity.posZ;
-                if (zDistance > 0.5D)
-                {
-                    motionZ -= 0.050000000000000003D;
-                }
-            }
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     private boolean FlyToNextTree()
     {
         int coordinatesOfLeaves[] = ReturnNearestMaterialCoord(this, Material.leaves, Double.valueOf(20D));
@@ -215,7 +161,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
             int xCoordinate = coordinatesOfTreeTop[0];
             int yCoordinate = coordinatesOfTreeTop[1];
             int zCoordinate = coordinatesOfTreeTop[2];
-            faceLocation(xCoordinate, yCoordinate, zCoordinate, 30F);
+            MoCTools.faceLocation(this, xCoordinate, yCoordinate, zCoordinate, 30F);
             if ((yCoordinate - MathHelper.floor_double(posY)) > 2)
             {
                 motionY += 0.14999999999999999D;
