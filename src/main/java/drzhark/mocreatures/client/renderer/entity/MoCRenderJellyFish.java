@@ -27,16 +27,16 @@ public class MoCRenderJellyFish extends RenderLiving {
     protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
         GL11.glTranslatef(0.0F, depth, 0.0F);
-        MoCEntityJellyFish jelly = (MoCEntityJellyFish) entityLiving;
-        if (!jelly.isSwimming() && jelly.onGround)
+        MoCEntityJellyFish jellyfish = (MoCEntityJellyFish) entityLiving;
+        if (!jellyfish.isSwimming() && jellyfish.onGround)
         {
 
-            adjustHeight(jelly);
-            rotateAnimal(jelly);
+            adjustHeight(jellyfish);
+            rotateAnimal(jellyfish);
         }
         else
         {
-            pulse(jelly);
+            pulse(jellyfish);
         }
 
     }
@@ -98,8 +98,8 @@ public class MoCRenderJellyFish extends RenderLiving {
             pulseSize = 0.2F - (pulseSize - 0.2F);
         }
         float scale = entityJellyfish.getMoCAge() * 0.01F + (pulseSize/4);
-        float scale2 = entityJellyfish.getMoCAge() * 0.01F + (pulseSize / 4);
-        GL11.glScalef(scale, scale2, scale);
+        float verticalScale = entityJellyfish.getMoCAge() * 0.01F + (pulseSize/4);
+        GL11.glScalef(scale, verticalScale, scale);
     }
 
     @Override

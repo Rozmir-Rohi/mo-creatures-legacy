@@ -13,9 +13,9 @@ public class MoCDirectTeleporter extends Teleporter
 {
     private boolean portalDone;
     
-    public MoCDirectTeleporter(WorldServer par1WorldServer) 
+    public MoCDirectTeleporter(WorldServer worldServer) 
     {
-        super(par1WorldServer);
+        super(worldServer);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class MoCDirectTeleporter extends Teleporter
         entity.motionX = entity.motionY = entity.motionZ = 0.0D;
     }
     
-    public void createPortal(World par1World, Random par2Random)
+    public void createPortal(World world, Random par2Random)
     {
         MoCWorldGenPortal myPortal = new MoCWorldGenPortal(Blocks.quartz_block, 2, Blocks.quartz_stairs, 0, Blocks.quartz_block, 1, Blocks.quartz_block, 0);
         for (int i = 0; i< 14; i++)
@@ -36,7 +36,7 @@ public class MoCDirectTeleporter extends Teleporter
             if (!portalDone)
             {
                 int randPosY = 58 + i;//par2Random.nextInt(8);
-                portalDone = myPortal.generate(par1World, par2Random, 0, randPosY, 0);
+                portalDone = myPortal.generate(world, par2Random, 0, randPosY, 0);
             }
         }
     }

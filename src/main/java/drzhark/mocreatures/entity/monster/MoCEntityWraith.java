@@ -1,8 +1,11 @@
 package drzhark.mocreatures.entity.monster;
 
+import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.MoCEntityMob;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
@@ -106,6 +109,22 @@ public class MoCEntityWraith extends MoCEntityMob
         super.onLivingUpdate();
     }
     
+    @Override
+    protected Entity findPlayerToAttack()
+    {
+        EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
+        
+        if (
+	        	entityPlayer != null
+	        	&& MoCTools.isEntityRidingUndeadMoCreature(this, entityPlayer)
+        	)
+        {
+        	return null;
+        }
+        	
+        else {return entityPlayer;}
+    }
+    
     public boolean isOnAir()
     {
         return worldObj.isAirBlock(MathHelper.floor_double(posX), MathHelper.floor_double(posY - 0.2D), MathHelper.floor_double(posZ));
@@ -153,4 +172,10 @@ public class MoCEntityWraith extends MoCEntityMob
     {
         return EnumCreatureAttribute.UNDEAD;
     }
+
+	@Override
+	public boolean entitiesThatAreScary(Entity entityNearby)
+	{
+		return false;
+	}
 }

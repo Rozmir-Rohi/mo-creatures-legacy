@@ -28,9 +28,6 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
     public MoCWorldGenBigTree(boolean par1, Block logblock, int logmetadata, Block leafblock, int leafmetadata, int trunksize, int heightlimit, int leafdist)
     {
         super(par1);
-        BlockLog = logblock;
-        BlockLeaf = leafblock;
-        
         trunkSize = trunksize;
         heightLimitLimit= heightlimit;
         leafDistanceLimit = leafdist;
@@ -57,8 +54,6 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
     double branchSlope = 0.381D;
     double scaleWidth = 1.0D;
     double leafDensity = 1.0D;
-    private Block BlockLog;
-    private Block BlockLeaf;
     private int MetadataLog;
     private int MetadataLeaf;
     
@@ -305,7 +300,6 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
                 var14[var6] = MathHelper.floor_double(par1ArrayOfInteger[var6] + var15 + 0.5D);
                 var14[var7] = MathHelper.floor_double(par1ArrayOfInteger[var7] + var15 * var10 + 0.5D);
                 var14[var8] = MathHelper.floor_double(par1ArrayOfInteger[var8] + var15 * var12 + 0.5D);
-                byte var17 = 0;
                 int var18 = Math.abs(var14[0] - par1ArrayOfInteger[0]);
                 int var19 = Math.abs(var14[2] - par1ArrayOfInteger[2]);
                 int var20 = Math.max(var18, var19);
@@ -314,11 +308,9 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
                 {
                     if (var18 == var20)
                     {
-                        var17 = 4;
                     }
                     else if (var19 == var20)
                     {
-                        var17 = 8;
                     }
                 }
 
@@ -516,9 +508,9 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree
     }
 
     @Override
-	public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5)
+	public boolean generate(World world, Random par2Random, int par3, int par4, int par5)
     {
-        worldObj = par1World;
+        worldObj = world;
         long var6 = par2Random.nextLong();
         rand.setSeed(var6);
         basePos[0] = par3;

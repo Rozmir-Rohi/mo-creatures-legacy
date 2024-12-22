@@ -167,4 +167,10 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob
     {
         playSound("mob.skeleton.step", 0.15F, 1.0F);
     }
+
+	@Override
+	public boolean entitiesThatAreScary(Entity entityNearby)
+	{
+		return false;
+	}
 }

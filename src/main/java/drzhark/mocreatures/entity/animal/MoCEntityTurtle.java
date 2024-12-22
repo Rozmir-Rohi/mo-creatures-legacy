@@ -202,7 +202,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
         {
             if (!getIsUpsideDown() && !getIsTamed())
             {
-                EntityLivingBase entityLiving = getScaryEntity(4D);
+                EntityLivingBase entityLiving = MoCTools.getScaryEntity(this, 4D);
                 if ((entityLiving != null) && canEntityBeSeen(entityLiving))
                 {
 
@@ -220,7 +220,7 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
                     setIsHiding(false);
                     if (!hasPath() && rand.nextInt(50) == 0)
                     {
-                        EntityItem entityItem = getClosestItem(this, 10D, Items.melon, Items.reeds);
+                        EntityItem entityItem = MoCTools.getClosestSpecificEntityItemItemNearby(this, 10D, Items.melon, Items.reeds);
                         
                         if (entityItem != null)
                         {

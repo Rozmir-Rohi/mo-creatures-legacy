@@ -70,7 +70,6 @@ public abstract class MoCEntityFlyerMob extends MoCEntityMob {
     {
         if (handleWaterMovement())
         {
-            double yCoordinate = posY;
             moveFlying(strafeMovement, forwardMovement, 0.02F);
             moveEntity(motionX, motionY, motionZ);
             motionX *= 0.80000001192092896D;
@@ -79,7 +78,6 @@ public abstract class MoCEntityFlyerMob extends MoCEntityMob {
         }
         else if (handleLavaMovement())
         {
-            double yCoordinate1 = posY;
             moveFlying(strafeMovement, forwardMovement, 0.02F);
             moveEntity(motionX, motionY, motionZ);
             motionX *= 0.5D;

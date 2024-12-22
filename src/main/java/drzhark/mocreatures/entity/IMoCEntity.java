@@ -93,4 +93,22 @@ public interface IMoCEntity {
     public float getAdjustedXOffset();
 
     public ResourceLocation getTexture();
+    
+    /**
+     * Tells the creature not to hunt any of the entities that are returned with this function.
+     * This is used within the findPlayerToAttack function
+     *
+     * @param entity
+     * @return
+     */
+    public boolean shouldEntityBeIgnored(Entity entityNearby);
+
+    
+    /**
+     * Used in MoCTools.getScaryEntity to specify what kind of entity to look for
+     *
+     * @param entity
+     * @return
+     */
+	public boolean entitiesThatAreScary(Entity entityNearby);
 }

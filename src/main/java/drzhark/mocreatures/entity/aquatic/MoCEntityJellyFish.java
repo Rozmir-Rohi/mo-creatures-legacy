@@ -18,8 +18,6 @@ import net.minecraft.world.World;
 
 public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     public float pulsingSize;
-    private int poisonCounter;
-
     public MoCEntityJellyFish(World world)
     {
         super(world);

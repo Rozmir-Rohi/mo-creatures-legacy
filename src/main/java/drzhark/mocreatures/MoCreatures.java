@@ -160,7 +160,6 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 @Mod(modid = "MoCreatures", name = "Mo' Creatures Legacy", version = "1.17")
@@ -493,7 +492,7 @@ public class MoCreatures {
         	
         	copyFile(originalFileInputStream, targetAbsolutePathForCopiedFile);
         	
-        	proxy.mocSettingsConfig.get(proxy.CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "generateWolfAltarReplacementMod").set(false);
+        	proxy.mocSettingsConfig.get(MoCProxy.CATEGORY_MOC_MOD_INTEGRATION_SETTINGS, "generateWolfAltarReplacementMod").set(false);
         	
         	proxy.mocSettingsConfig.save();
         }
@@ -913,11 +912,6 @@ public class MoCreatures {
         int subId = getSpawnEggItemSubId();
         EntityList.IDtoClassMapping.put(subId, entityClass);
 		entityEggs.put(subId, new EntityList.EntityEggInfo(subId, eggColor, eggDotsColor));
-    }
-
-    private int getItemId(String name, int defaultId)
-    {
-        return proxy.mocSettingsConfig.get(CATEGORY_ITEM_IDS, "item_" + name, defaultId).getInt();
     }
 
     protected void InitItems()

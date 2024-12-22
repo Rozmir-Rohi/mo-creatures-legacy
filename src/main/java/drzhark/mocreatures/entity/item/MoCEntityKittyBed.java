@@ -1,6 +1,7 @@
 package drzhark.mocreatures.entity.item;
 
 import drzhark.mocreatures.MoCProxy;
+import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.MoCEntityItemPlaceable;
@@ -9,7 +10,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -266,19 +266,17 @@ public class MoCEntityKittyBed extends MoCEntityItemPlaceable {
         
         if (MoCreatures.isServer() && (!getHasFood() || !getHasMilk()))
         {
-            EntityItem entityItem = getClosestEntityItem(this, 1D);
+            EntityItem entityItem = MoCTools.getClosestSpecificEntityItemItemNearby(this, 1D, MoCreatures.petFood, MoCreatures.petFood);
             
-            if (entityItem != null)
+            if (
+            		!getHasFood()
+            		&& entityItem != null
+            	)
             {
-            	Item item = entityItem.getEntityItem().getItem();
-            
-            	if (!getHasFood() && (item == MoCreatures.petFood))
-            	{
-            		entityItem.setDead();
-            		playSound("mocreatures:pouringfood", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
-            		setHasMilk(false);
-            		setHasFood(true);
-            	}
+        		entityItem.setDead();
+        		playSound("mocreatures:pouringfood", 1.0F, 1.0F + ((rand.nextFloat() - rand.nextFloat()) * 0.2F));
+        		setHasMilk(false);
+        		setHasFood(true);
             } 
         }
     }

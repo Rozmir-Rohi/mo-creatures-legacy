@@ -52,10 +52,6 @@ public class MoCWorldGenPortal extends WorldGenerator
             return false;
         }
 
-        int origX = x;
-        int origY = y;
-        int origZ = z;
-
         stairMetadata = 2;
         for (int nZ = z-3; nZ < z+3; nZ = nZ+5)
         {

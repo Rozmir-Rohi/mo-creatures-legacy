@@ -69,18 +69,18 @@ public class MoCBlockTallGrass extends BlockBush implements IShearable
      * block and l is the block's subtype/damage.
      */
     @Override
-	public void harvestBlock(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
+	public void harvestBlock(World world, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
     {
-        super.harvestBlock(par1World, par2EntityPlayer, par3, par4, par5, par6);
+        super.harvestBlock(world, par2EntityPlayer, par3, par4, par5, par6);
     }
 
     /**
      * Get the block's damage value (for use with pick block).
      */
     @Override
-	public int getDamageValue(World par1World, int par2, int par3, int par4)
+	public int getDamageValue(World world, int par2, int par3, int par4)
     {
-        return par1World.getBlockMetadata(par2, par3, par4);
+        return world.getBlockMetadata(par2, par3, par4);
     }
 
     @Override
@@ -127,7 +127,7 @@ public class MoCBlockTallGrass extends BlockBush implements IShearable
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubBlocks(Item par1, CreativeTabs tab, List subItems) 
+    public void getSubBlocks(Item item, CreativeTabs tab, List subItems) 
     {
         for (int ix = 0; ix < MoCreatures.multiBlockNames.size(); ix++) 
         {
@@ -138,6 +138,20 @@ public class MoCBlockTallGrass extends BlockBush implements IShearable
     @Override
     protected boolean canPlaceBlockOn(Block block)
     {
-        return block == Blocks.grass || block == Blocks.dirt || block == Blocks.farmland || block instanceof MoCBlockDirt || block instanceof MoCBlockGrass;
+        return (
+        			block == Blocks.grass
+        			|| block == Blocks.dirt
+        			|| block == Blocks.farmland
+        			|| block instanceof MoCBlockDirt
+        			|| block instanceof MoCBlockGrass
+        		);
+    }
+    
+    @Override
+    public boolean canBlockStay(World world, int x, int y, int z)
+    {
+    	Block blockUnderneath = world.getBlock(x, y -1, z);
+    	
+        return (blockUnderneath instanceof MoCBlockGrass);
     }
 }

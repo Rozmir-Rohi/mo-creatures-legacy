@@ -289,7 +289,7 @@ public class MoCEntityScorpion extends MoCEntityMob {
             {
                 if ((rand.nextInt(80) == 0))
                 {
-                    EntityLivingBase entityLiving = getClosestEntityLiving(this, 10D);
+                    EntityLivingBase entityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 10D);
                 if (entityLiving != null && !(entityLiving instanceof EntityPlayer) && canEntityBeSeen(entityLiving)) // blood - add LoS requirement
                     return entityLiving;
                 }
@@ -562,4 +562,10 @@ public class MoCEntityScorpion extends MoCEntityMob {
     {
         return 30F;
     }
+
+	@Override
+	public boolean entitiesThatAreScary(Entity entityNearby)
+	{
+		return false;
+	}
 }

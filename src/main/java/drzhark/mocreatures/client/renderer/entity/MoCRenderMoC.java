@@ -39,7 +39,7 @@ public class MoCRenderMoC extends RenderLiving {
 
         boolean shouldDisplayPetName = MoCreatures.proxy.getDisplayPetName() && entityMoC.getName().length() > 0;
         boolean shouldDisplayPetHealth = MoCreatures.proxy.getDisplayPetHealthMode((EntityLiving) entity);
-        boolean shouldDisplayPetIcons = MoCreatures.proxy.getDisplayPetIcons();
+        MoCreatures.proxy.getDisplayPetIcons();
         if (entityMoC.shouldRenderName())
         {
             float f2 = 1.6F;

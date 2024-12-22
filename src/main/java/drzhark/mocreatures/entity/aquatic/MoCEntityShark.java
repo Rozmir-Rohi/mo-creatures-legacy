@@ -75,28 +75,30 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
                     return; //don't attack players who are riding a dolphin
                 }
                 
-                if (checkPlayerIsRidingBoat((EntityPlayer) entity) && (worldObj.difficultySetting.getDifficultyId() > 2)) //if player is riding boat and is on hard difficulty 
+                if (isPlayerRidingBoat((EntityPlayer) entity)) //if player is riding boat
                 {
-                	if (distanceToEntity < 2D && rand.nextInt(100) < 10) //10% chance to hit player's boat
-                	{ 
-                		if (rand.nextInt(100) < 10) //10% chance to break players boat each hit
-                		{
-	                        for (int index = 0; index < 2; ++index)
-	                        {
-	                        	entityThatPlayerIsRiding.func_145778_a(Items.stick, 1, 0.0F);
-	                        }
-	                        
-							worldObj.playSoundAtEntity(entityThatPlayerIsRiding, "mob.zombie.woodbreak", 1, 1);  //play door break sound
-	                        
-	                        entityThatPlayerIsRiding.setDead();
-                		}
-                		else
-                		{
-                			worldObj.playSoundAtEntity(entityThatPlayerIsRiding, "mob.zombie.wood", 1, 1); //play door hit sound
-                			return;
-                		};
-                        
-                        
+                	if(worldObj.difficultySetting.getDifficultyId() > 2) //check if on hard difficulty
+                	{
+	                	if (distanceToEntity < 2D && rand.nextInt(100) < 10) //10% chance to hit player's boat
+	                	{ 
+	                		if (rand.nextInt(100) < 10) //10% chance to break players boat each hit
+	                		{
+		                        for (int index = 0; index < 2; ++index)
+		                        {
+		                        	entityThatPlayerIsRiding.func_145778_a(Items.stick, 1, 0.0F);
+		                        }
+		                        
+								worldObj.playSoundAtEntity(entityThatPlayerIsRiding, "mob.zombie.woodbreak", 1, 1);  //play door break sound
+		                        
+		                        entityThatPlayerIsRiding.setDead();
+	                		}
+	                		else
+	                		{
+	                			worldObj.playSoundAtEntity(entityThatPlayerIsRiding, "mob.zombie.wood", 1, 1); //play door hit sound
+	                			return;
+	                		};
+	                	}
+	                	else {return;}
                 	}
                 	else {return;}
                 }
@@ -167,7 +169,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
             		&& closestEntityPlayer.isInWater()
             		&& !getIsTamed()
             		&& !(closestEntityPlayer.ridingEntity instanceof MoCEntityDolphin)
-            		&& !(checkPlayerIsRidingBoat(closestEntityPlayer) && (worldObj.difficultySetting.getDifficultyId() < 3) && (rand.nextInt(100) > 40)) //40% chance to target players in boat if world difficulty is below hard
+            		&& !(isPlayerRidingBoat(closestEntityPlayer) && (worldObj.difficultySetting.getDifficultyId() < 3) && (rand.nextInt(100) > 40)) //40% chance to target players in boat if world difficulty is below hard
             )
             {
             	return closestEntityPlayer;
@@ -175,7 +177,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
             
             if (rand.nextInt(200) == 0)  // hunting cooldown between each prey
             {
-                EntityLivingBase entityLiving = getClosestEntityLivingThatCanBeHunted(this, 16D);
+                EntityLivingBase entityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 16D);
                 if ((entityLiving != null) && !(entityLiving instanceof EntityPlayer)) { return entityLiving; }
             }
         }
@@ -205,67 +207,28 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
         return null;
     }
     
-    private boolean checkPlayerIsRidingBoat(EntityPlayer player)
+    private boolean isPlayerRidingBoat(EntityPlayer player)
     {
     	Entity entityThatPlayerIsRiding = player.ridingEntity;
     	
     	if (
-    			entityThatPlayerIsRiding instanceof EntityBoat
-    			|| (
-    					MoCreatures.isEtFuturumRequiemLoaded
-		    			&&
-		    				(
-		    					EntityList.getEntityString(entityThatPlayerIsRiding).equals("etfuturum.new_boat")
-		    					|| EntityList.getEntityString(entityThatPlayerIsRiding).equals("etfuturum.chest_boat")
+    			entityThatPlayerIsRiding != null
+    			&& (
+    					entityThatPlayerIsRiding instanceof EntityBoat
+		    			|| (
+		    					MoCreatures.isEtFuturumRequiemLoaded
+				    			&&(
+				    					EntityList.getEntityString(entityThatPlayerIsRiding).equals("etfuturum.new_boat")
+				    					|| EntityList.getEntityString(entityThatPlayerIsRiding).equals("etfuturum.chest_boat")
+				    			  )
 		    				)
-    				)
+		    		)
     		)
     	{
     		return true;
     	}
     	
     	return false;
-    }
-
-    public EntityLivingBase getClosestEntityLivingThatCanBeHunted(Entity entity, double distance)
-    {
-        double currentMinimumDistance = -1D;
-        EntityLivingBase entityLiving = null;
-        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
-        
-        int iterationLength = entitiesNearbyList.size();
-        
-        if (iterationLength > 0)
-        {
-	        for (int index = 0; index < iterationLength; index++)
-	        {
-	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-	            
-	            if (!(entityNearby instanceof EntityLivingBase)
-	            		|| (!((entityNearby instanceof MoCEntityAquatic) || (entityNearby instanceof MoCEntityTameableAquatic)) && !(entityNearby.isInWater()) // don't attack if mob is not aquatic and not in water
-	                    || (entityNearby instanceof MoCEntityShark) // don't attack mobs below as well
-	                    || (entityNearby == entity.riddenByEntity) 
-	                    || (entityNearby == entity.ridingEntity)
-	                    || (entityNearby instanceof IMob || entityNearby instanceof EntityMob || entityNearby instanceof MoCEntityMob) // don't attack if creature is a mob (eg: slime)
-	                    || (entityNearby instanceof MoCEntityDolphin || entityNearby instanceof MoCEntityJellyFish)
-	                    || (getIsTamed() && (entityNearby instanceof IMoCEntity) && ((IMoCEntity)entityNearby).getIsTamed() ) 
-	                    || ((entityNearby instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)) 
-	                    || ((entityNearby instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)))
-	            	)
-	            	
-	            	{ continue;}
-	            
-	            double overallDistanceSquared = entityNearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-	            
-	            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)) && ((EntityLivingBase) entityNearby).canEntityBeSeen(entity))
-	            {
-	                currentMinimumDistance = overallDistanceSquared;
-	                entityLiving = (EntityLivingBase) entityNearby;
-	            }
-	        }
-        }
-        
-        return entityLiving;
     }
 
     @Override
@@ -289,6 +252,23 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     public boolean shouldRenderName()
     {
         return getShouldDisplayName();
+    }
+    
+    @Override
+    public boolean shouldEntityBeIgnored(Entity entity)
+    {
+        return (
+				    !(entity instanceof EntityLivingBase)
+					|| (!((entity instanceof MoCEntityAquatic) || (entity instanceof MoCEntityTameableAquatic)) && !(entity.isInWater()) // don't attack if mob is not aquatic and not in water
+				    || (entity instanceof MoCEntityShark) // don't attack mobs below as well
+				    || (entity == entity.riddenByEntity) 
+				    || (entity == entity.ridingEntity)
+				    || (entity instanceof IMob || entity instanceof EntityMob || entity instanceof MoCEntityMob) // don't attack if creature is a mob (eg: slime)
+				    || (entity instanceof MoCEntityDolphin || entity instanceof MoCEntityJellyFish)
+				    || (getIsTamed() && (entity instanceof IMoCEntity) && ((IMoCEntity)entity).getIsTamed() ) 
+				    || ((entity instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)) 
+				    || ((entity instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)))
+				);
     }
 
     @Override

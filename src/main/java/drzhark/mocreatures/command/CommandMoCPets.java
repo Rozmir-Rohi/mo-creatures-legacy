@@ -63,14 +63,11 @@ public class CommandMoCPets extends CommandBase {
     @Override
 	public void processCommand(ICommandSender par1ICommandSender, String[] paramArray)
     {
-        String command = "";
-        if (paramArray.length == 0)
-            command = "help";
-        else command = paramArray[0];
-        String page = "";
-
-        if (paramArray.length == 1)
-            page = paramArray[0];
+        if (paramArray.length == 0) {
+		} else {
+		}
+        if (paramArray.length == 1) {
+		}
 
         int unloadedCount = 0;
         int loadedCount = 0;
@@ -199,7 +196,6 @@ public class CommandMoCPets extends CommandBase {
     public void sendPageHelp(ICommandSender sender, byte pagelimit, ArrayList<String> list, String[] par2ArrayOfStr)
     {
         int x = (list.size() - 1) / pagelimit;
-        boolean flag = false;
         int j = 0;
         String par1 = "";
         if (par2ArrayOfStr.length > 1)

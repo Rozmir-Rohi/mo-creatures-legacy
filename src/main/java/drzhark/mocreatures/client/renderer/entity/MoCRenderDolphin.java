@@ -194,7 +194,7 @@ public class MoCRenderDolphin extends RenderLiving {
     {
     	if(entityDolphin.riddenByEntity != null && !entityDolphin.onGround)
     	{
-			GL11.glRotatef((float) entityDolphin.getRotationAmount(), -1, 0, 0);
+			GL11.glRotatef(entityDolphin.getRotationAmount(), -1, 0, 0);
     	}
     }
 

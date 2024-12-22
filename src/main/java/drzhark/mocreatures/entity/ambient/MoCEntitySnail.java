@@ -1,5 +1,6 @@
 package drzhark.mocreatures.entity.ambient;
 
+import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityAmbient;
 import net.minecraft.entity.EntityLivingBase;
@@ -93,7 +94,7 @@ public class MoCEntitySnail extends MoCEntityAmbient
 
         if (!worldObj.isRemote)
         {
-            EntityLivingBase entityLiving = getScaryEntity(3D);
+            EntityLivingBase entityLiving = MoCTools.getScaryEntity(this, 3D);
             if ((entityLiving != null) && entityLiving.height > 0.5F && entityLiving.width > 0.5F && canEntityBeSeen(entityLiving))
             {
                 if (!getIsHiding())

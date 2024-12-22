@@ -160,13 +160,7 @@ public class MoCEventHooks {
     	if (	//makes undead mobs below 50 HP ignore the player if they are riding an undead horse
     			event.entityLiving.isEntityUndead()
     			&& event.entityLiving.getMaxHealth() < 50
-    			&& event.target instanceof EntityPlayer
-    			&& (
-    					(event.target.ridingEntity instanceof MoCEntityHorse && ((MoCEntityHorse) event.target.ridingEntity).isUndead())
-    					|| (event.target.ridingEntity instanceof MoCEntityOstrich && ((MoCEntityOstrich) event.target.ridingEntity).isUndead())
-    					|| (event.target.ridingEntity instanceof MoCEntityPetScorpion && ((MoCEntityPetScorpion) event.target.ridingEntity).isUndead())
-    				)
-    			&& (event.target.getLastAttacker() != event.entityLiving) //don't be passive to the player if the undead mob has been hit by them
+    			&& MoCTools.isEntityRidingUndeadMoCreature(event.entityLiving, event.target)
     		)
     	{
     		((EntityLiving) event.entityLiving).setAttackTarget(null); //don't attack that player

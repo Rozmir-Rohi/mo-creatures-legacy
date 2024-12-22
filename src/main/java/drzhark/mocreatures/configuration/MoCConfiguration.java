@@ -27,10 +27,6 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.FMLInjectionData;
 
 public class MoCConfiguration {
-  private static final int ITEM_SHIFT = 256;
-  
-  private static final int MAX_BLOCKS = 4096;
-  
   public static final String CATEGORY_GENERAL = "general";
   
   public static final String CATEGORY_BLOCK = "block";
@@ -290,7 +286,6 @@ public class MoCConfiguration {
           int nameStart = -1, nameEnd = -1;
           boolean skip = false;
           boolean quoted = false;
-          boolean newline = true;
           for (int i = 0; i < line.length() && !skip; i++) {
             if (Character.isLetterOrDigit(line.charAt(i)) || "._-".indexOf(line.charAt(i)) != -1 || (quoted && line.charAt(i) != '"')) {
               if (nameStart == -1)
@@ -501,10 +496,7 @@ public class MoCConfiguration {
   public static class UnicodeInputStreamReader extends Reader {
     private final InputStreamReader input;
     
-    private final String defaultEnc;
-    
     public UnicodeInputStreamReader(InputStream source, String encoding) throws IOException {
-      defaultEnc = encoding;
       String enc = encoding;
       byte[] data = new byte[4];
       PushbackInputStream pbStream = new PushbackInputStream(source, data.length);

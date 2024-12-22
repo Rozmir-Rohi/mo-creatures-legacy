@@ -104,7 +104,7 @@ public boolean equals(Object obj) {
   public void write(BufferedWriter out, int indent) throws IOException {
     String pad0 = getIndent(indent);
     String pad1 = getIndent(indent + 1);
-    String pad2 = getIndent(indent + 2);
+    getIndent(indent + 2);
     write(out, new String[] { pad0, "####################" });
     write(out, new String[] { pad0, "# ", name });
     if (comment != null) {

@@ -23,8 +23,6 @@ import net.minecraft.world.World;
 public class MoCEntityFishy extends MoCEntityTameableAquatic {
 
     public int gestationTime;
-    private boolean hasEaten;
-
     public static final String fishNames[] = { "Blue", "Orange", "Cyan", "Greeny", "Green", "Purple", "Yellow", "Striped", "Yellowy", "Red" };
 
     public MoCEntityFishy(World world)
@@ -142,7 +140,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
 
             if (rand.nextInt(5) == 0 && !getIsTamed())
             {
-                EntityLivingBase entityLiving = getScaryEntity(8D);
+                EntityLivingBase entityLiving = MoCTools.getScaryEntity(this, 8D);
                 if (entityLiving != null && entityLiving.isInsideOfMaterial(Material.water))
                 {
                    MoCTools.runAway(this, entityLiving);

@@ -23,7 +23,6 @@ import net.minecraft.util.StatCollector;
 public class MoCGUIEntityNamer extends GuiScreen {
     protected String screenTitle;
     private final IMoCEntity NamedEntity;
-    private int updateCounter;
     private String nameToSet;
     protected int xSize;
     protected int ySize;
@@ -140,6 +139,5 @@ public class MoCGUIEntityNamer extends GuiScreen {
     @Override
     public void updateScreen()
     {
-        updateCounter++;
     }
 }

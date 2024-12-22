@@ -125,8 +125,6 @@ public class MoCProxy implements IGuiHandler {
     protected static final String CATEGORY_MOC_WATER_CREATURE_GENERAL_SETTINGS = "water-mob-general-settings";
     protected static final String CATEGORY_MOC_AMBIENT_GENERAL_SETTINGS = "ambient-general-settings";
     protected static final String CATEGORY_MOC_ID_SETTINGS = "custom-id-settings";
-    private static final String CATEGORY_VANILLA_CREATURE_FREQUENCIES = "vanilla-creature-frequencies";
-    private static final String CATEGORY_CREATURES = "Creatures";
     private static final String CATEGORY_OWNERSHIP_SETTINGS = "ownership-settings";
 
     public void resetAllData()

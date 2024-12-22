@@ -331,7 +331,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
                 // find another goat nearby to play fight!
                 if (getType() > 4 && rand.nextInt(200) == 0)
                 {
-                    MoCEntityGoat entityTarget = (MoCEntityGoat) getClosestEntityLiving(this, 14D);
+                    MoCEntityGoat entityTarget = (MoCEntityGoat) MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 14D);
                     
                     if (entityTarget != null)
                     {

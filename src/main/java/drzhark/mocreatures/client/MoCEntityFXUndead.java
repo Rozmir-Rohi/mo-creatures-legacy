@@ -12,9 +12,9 @@ import net.minecraft.world.World;
 @SideOnly(Side.CLIENT)
 public class MoCEntityFXUndead extends EntityFX {
 
-    public MoCEntityFXUndead(World par1World, double par2, double par4, double par6)
+    public MoCEntityFXUndead(World world, double par2, double par4, double par6)
     {
-        super(par1World, par2, par4, par6, 0.0D, 0.0D, 0.0D);
+        super(world, par2, par4, par6, 0.0D, 0.0D, 0.0D);
         motionX *= 0.8D;
         motionY *= 0.8D;
         motionZ *= 0.8D;

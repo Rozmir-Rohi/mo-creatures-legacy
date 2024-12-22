@@ -33,8 +33,6 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     private int poisontimer;
     public int mouthCounter;
     public int armCounter;
-    private int hideCounter;
-
     public MoCEntityPetScorpion(World world)
     {
         super(world);
@@ -348,7 +346,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
             {
                 if ((rand.nextInt(80) == 0))
                 {
-                    EntityLivingBase entityLiving = getClosestEntityLiving(this, 10D);
+                    EntityLivingBase entityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 10D);
                     return entityLiving;
                 }
 
@@ -716,7 +714,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     }
 
     @Override
-    protected boolean isMyHealFood(ItemStack itemStack)
+    public boolean isMyHealFood(ItemStack itemStack)
     {
         return
         		(

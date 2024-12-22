@@ -27,7 +27,6 @@ import net.minecraft.world.World;
 
 public class MoCEntityWerewolf extends MoCEntityMob {
     private boolean isTransforming;
-    private boolean isHunched;
     private int transformCounter;
     private int textureCounter;
     
@@ -489,7 +488,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         
         EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
         
-        EntityLivingBase entityLiving = getClosestEntityLiving(this, 16D);
+        EntityLivingBase entityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 16D);
         
         if ((entityPlayer != null) && canEntityBeSeen(entityPlayer))
         {
@@ -798,7 +797,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
                 }
                 if (transformCounter > 30)
                 {
-                    Transform();
+                    transform();
                     transformCounter = 0;
                     isTransforming = false;
                 }
@@ -818,7 +817,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         }
     }
 
-    private void Transform()
+    private void transform()
     {
         if (deathTime > 0) { return; }
 
@@ -833,6 +832,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             
             setHealth(getMaxHealth());
             isTransforming = false;
+            MoCTools.playCustomSound(this, "werewolfhowl", worldObj);
         }
         else
         {
@@ -883,4 +883,10 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         if (getIsHunched()) { return 0.9F; }
         return 0.7F;
     }
+
+	@Override
+	public boolean entitiesThatAreScary(Entity entityNearby)
+	{
+		return false;
+	}
 }

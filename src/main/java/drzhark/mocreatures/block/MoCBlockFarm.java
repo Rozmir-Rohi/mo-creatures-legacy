@@ -9,8 +9,6 @@ import net.minecraft.world.World;
 
 public class MoCBlockFarm extends BlockContainer
 {
-    private int farmRange = 10;
-    
     public MoCBlockFarm(String name)
     {
         super(Material.wood);

@@ -379,7 +379,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         //check added to avoid duplicating behavior on client / server
         if (MoCreatures.isServer())
         {
-            EntityLivingBase entityLiving = getScaryEntity(5D);
+            EntityLivingBase entityLiving = MoCTools.getScaryEntity(this, 5D);
             if (rand.nextInt(10) == 0 && (entityLiving != null) && !getIsTamed() && !getPreTamed() && canEntityBeSeen(entityLiving))
             {
                 isFleeing = true;

@@ -50,7 +50,6 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     private PathEntity entitypath;
     // used by MoCPlayerTracker to prevent dupes when a player disconnects on animal from server
     protected boolean riderIsDisconnecting;
-    private int petDataId = -1;
     public float moveSpeed;
     protected String texture;
     private boolean hasKilledPrey = false;
@@ -230,116 +229,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         return true;
     }
 
-    protected EntityLivingBase getClosestEntityLiving(Entity entity, double distance)
-    {
-        double currentMinimumDistance = -1D;
-
-        EntityLivingBase entityLiving = null;
-
-        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
-
-        int iterationLength = entitiesNearbyList.size();
-
-        if (iterationLength > 0)
-        {
-	        for (int index = 0; index < iterationLength; index++)
-	        {
-	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-
-	            if (shouldEntityBeIgnored(entityNearby))
-	            {
-	                continue;
-	            }
-
-	            double overallDistanceSquared = entityNearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-
-	            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)) && ((EntityLivingBase) entityNearby).canEntityBeSeen(entity))
-	            {
-	                currentMinimumDistance = overallDistanceSquared;
-	                entityLiving = (EntityLivingBase) entityNearby;
-	            }
-	        }
-        }
-
-        return entityLiving;
-    }
-
-    public EntityLivingBase getClosestTarget(Entity entity, double distance)
-    {
-        double currentMinimumDistance = -1D;
-
-        EntityLivingBase entityLiving = null;
-
-        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
-
-        int iterationLength = entitiesNearbyList.size();
-
-        if (iterationLength > 0)
-        {
-	        for (int index = 0; index < iterationLength; index++)
-	        {
-	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-
-	            if (!(entityNearby instanceof EntityLivingBase) || (entityNearby == entity) || (entityNearby == entity.riddenByEntity) || (entityNearby == entity.ridingEntity) || (entityNearby instanceof EntityPlayer) || (entityNearby instanceof EntityMob) || (height <= entityNearby.height) || (width <= entityNearby.width))
-	            {
-	                continue;
-	            }
-
-	            double overallDistanceSquared = entityNearby.getDistanceSq(entity.posY, entity.posZ, entity.motionX);
-
-	            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)) && ((EntityLivingBase) entityNearby).canEntityBeSeen(entity))
-	            {
-	                currentMinimumDistance = overallDistanceSquared;
-	                entityLiving = (EntityLivingBase) entityNearby;
-	            }
-	        }
-        }
-
-        return entityLiving;
-    }
-
-
-    protected EntityLivingBase getClosestSpecificEntity(Entity entity, Class myClass, double distance)
-    {
-        double currentMinimumDistance = -1D;
-
-        EntityLivingBase entityLiving = null;
-
-        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(entity, entity.boundingBox.expand(distance, distance, distance));
-
-        int iterationLength = entitiesNearbyList.size();
-
-        if (iterationLength > 0)
-        {
-	        for (int index = 0; index < iterationLength; index++)
-	        {
-	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-
-	            if (!myClass.isAssignableFrom(entityNearby.getClass()))
-	            {
-	                continue;
-	            }
-
-	            double overallDistanceSquared = entityNearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-
-	            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)))// && ((EntityLiving) entity1).canEntityBeSeen(entity))
-	            {
-	                currentMinimumDistance = overallDistanceSquared;
-	                entityLiving = (EntityLivingBase) entityNearby;
-	            }
-	        }
-        }
-
-        return entityLiving;
-    }
-
-    /**
-     * Tells the creature not to hunt any of the entities that are returned with this function.
-     * This is used within the findPlayerToAttack function
-     *
-     * @param entity
-     * @return
-     */
+    @Override
     public boolean shouldEntityBeIgnored(Entity entity)
     {
         return
@@ -356,45 +246,9 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         	);
     }
 
-    /**
-     * Finds an entity described in entitiesThatAreScary within the given distance
-     *
-     * @param distance
-     * @return
-     */
-    protected EntityLivingBase getScaryEntity(double distance)
-    {
-        double currentMinimumDistance = -1D;
-
-        EntityLivingBase entityLiving = null;
-
-        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, 4D, distance));
-
-        int iterationLength = entitiesNearbyList.size();
-
-        if (iterationLength > 0)
-        {
-	        for (int index = 0; index < iterationLength; index++)
-	        {
-	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-
-	            if (entitiesThatAreScary(entityNearby))
-	            {
-	                entityLiving = (EntityLivingBase) entityNearby;
-	            }
-	        }
-        }
-
-        return entityLiving;
-    }
-
-    /**
-     * Used in getScaryEntity to specify what kind of entity to look for
-     *
-     * @param entity
-     * @return
-     */
-    public boolean entitiesThatAreScary(Entity entity)
+    
+    @Override
+	public boolean entitiesThatAreScary(Entity entity)
     {
         return
         	(
@@ -484,62 +338,55 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
             		&& ridingEntity == null
             	)
             {
-            	EntityItem closestEntityItem = getClosestEntityItem(this, 12D);
+            	EntityItem closestEntityFoodItem = getClosestFoodEntityItem(this, 12D);
 
-                if (closestEntityItem != null)
+                if (closestEntityFoodItem != null)
                 {
-                	ItemStack itemStack = closestEntityItem.getEntityItem();
+            		float distanceToEntityItem = closestEntityFoodItem.getDistanceToEntity(this);
 
-                	if (isMyHealFood(itemStack))
-                	{
+            		if (this instanceof MoCEntityBird)
+            		{
+            			MoCEntityBird bird = (MoCEntityBird) this;
 
-                		float distanceToEntityItem = closestEntityItem.getDistanceToEntity(this);
+            			if (bird.isFleeing) {return;}
 
-                		if (this instanceof MoCEntityBird)
+            			MoCTools.flyToNextEntity(bird, closestEntityFoodItem);
+
+            			if ((distanceToEntityItem < 2.0F) && (closestEntityFoodItem != null))
                 		{
-                			MoCEntityBird bird = (MoCEntityBird) this;
-
-                			if (bird.isFleeing) {return;}
-
-                			MoCTools.flyToNextEntity(bird, closestEntityItem);
-
-                			if ((distanceToEntityItem < 2.0F) && (closestEntityItem != null))
-	                		{
-	                			if (rand.nextInt(50) == 0) //birds take some time to eat the item
-	                			{
-	                				closestEntityItem.setDead();
-		                			heal(5);
-
-		                			if (!getIsTamed() && rand.nextInt(3) == 0) {bird.setPreTamed(true);}
-	                			}
-	                		}
-                		}
-
-
-                		else
-                		{
-	                		if (distanceToEntityItem > 2.0F)
-	                		{
-	                			getMyOwnPath(closestEntityItem, distanceToEntityItem);
-	                		}
-
-	                		if ((distanceToEntityItem < 2.0F) && (closestEntityItem != null))
-	                		{
-	                			closestEntityItem.setDead();
-
+                			if (rand.nextInt(50) == 0) //birds take some time to eat the item
+                			{
+                				closestEntityFoodItem.setDead();
 	                			heal(5);
 
-	                			MoCTools.playCustomSound(this, "eating", worldObj);
-	                		}
-	                		if ((this instanceof MoCEntityBigCat) && !getIsAdult() && !getIsTamed() && (getMoCAge() < 80))
-	            			{
-	                			if (rand.nextInt(10) == 0) //1 out of 10 chance
-	                			{
-	                				((MoCEntityBigCat) this).setPreTamed(true); //sets the baby big cat as ready for taming with a medallion
-	                			}
-	            			}
+	                			if (!getIsTamed() && rand.nextInt(3) == 0) {bird.setPreTamed(true);}
+                			}
                 		}
-                	}
+            		}
+
+            		else
+            		{
+                		if (distanceToEntityItem > 2.0F)
+                		{
+                			getMyOwnPath(closestEntityFoodItem, distanceToEntityItem);
+                		}
+
+                		if ((distanceToEntityItem < 2.0F) && (closestEntityFoodItem != null))
+                		{
+                			closestEntityFoodItem.setDead();
+
+                			heal(5);
+
+                			MoCTools.playCustomSound(this, "eating", worldObj);
+                		}
+                		if ((this instanceof MoCEntityBigCat) && !getIsAdult() && !getIsTamed() && (getMoCAge() < 80))
+            			{
+                			if (rand.nextInt(10) == 0) //1 out of 10 chance
+                			{
+                				((MoCEntityBigCat) this).setPreTamed(true); //sets the baby big cat as ready for taming with a medallion
+                			}
+            			}
+            		}
                 }
             }
         }
@@ -636,7 +483,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
      * @param itemStack
      * @return
      */
-    protected boolean isMyHealFood(ItemStack itemStack)
+    public boolean isMyHealFood(ItemStack itemStack)
     {
         return false;
     }
@@ -652,41 +499,6 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     public boolean canBreatheUnderwater()
     {
         return isSwimmerEntity();
-    }
-
-    public EntityItem getClosestItem(Entity entity, double distance, Item item, Item item1)
-    {
-        double currentMinimumDistance = -1D;
-        EntityItem entityItem = null;
-
-        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
-
-        int iterationLength = entitiesNearbyList.size();
-
-        if (iterationLength > 0)
-        {
-	        for (int index = 0; index < iterationLength; index++)
-	        {
-	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-	            if (!(entityNearby instanceof EntityItem))
-	            {
-	                continue;
-	            }
-	            EntityItem entityItemNearby = (EntityItem) entityNearby;
-	            if ((entityItemNearby.getEntityItem().getItem() != item) && (entityItemNearby.getEntityItem().getItem() != item1))
-	            {
-	                continue;
-	            }
-	            double overallDistanceSquared = entityItemNearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-	            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)))
-	            {
-	                currentMinimumDistance = overallDistanceSquared;
-	                entityItem = entityItemNearby;
-	            }
-	        }
-        }
-
-        return entityItem;
     }
 
     public EntityItem getClosestEntityItem(Entity entity, double distance)
@@ -724,7 +536,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         return entityItem;
     }
 
-    public EntityItem getClosestFood(Entity entity, double distance)
+    public EntityItem getClosestFoodEntityItem(Entity entity, double distance)
     {
         double currentMinimumDistance = -1D;
         EntityItem entityItem = null;
@@ -745,7 +557,11 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
 
 	            EntityItem entityItemNearby = (EntityItem) entityNearby;
 
-	            if (!isItemEdible(entityItemNearby.getEntityItem().getItem()))
+	            if (
+	            		entityItemNearby.getEntityItem() == null //need to check this otherwise may crash when trying getItem()
+	            		&& !isItemEdible(entityItemNearby.getEntityItem().getItem())
+	            		&& !isMyHealFood(entityItemNearby.getEntityItem())
+	            	)
 	            {
 	                continue;
 	            }
@@ -816,16 +632,6 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     public boolean getCanSpawnHereLiving()
     {
         return worldObj.checkNoEntityCollision(boundingBox) && worldObj.getCollidingBoundingBoxes(this, boundingBox).isEmpty() && !worldObj.isAnyLiquid(boundingBox);
-    }
-
-    public boolean getCanSpawnHereAquatic()
-    {
-        return worldObj.checkNoEntityCollision(boundingBox);
-    }
-
-    public boolean getCanSpawnHere2()
-    {
-        return getCanSpawnHereCreature() && getCanSpawnHereLiving();
     }
 
     @Override
@@ -1107,7 +913,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
             if ((riddenByEntity != null) && getIsTamed())
             {
                 boundingBox.maxY = riddenByEntity.boundingBox.maxY;
-                if (!selfPropelledFlyer() || (selfPropelledFlyer() && !isOnAir()))
+                if (!isSelfPropelledFlyer() || (isSelfPropelledFlyer() && !isOnAir()))
                 {
                     movementSideways = (float) (((EntityLivingBase)riddenByEntity).moveStrafing * 0.5F * getCustomSpeed());
                     movementForward = (float) (((EntityLivingBase)riddenByEntity).moveForward * getCustomSpeed());
@@ -1118,7 +924,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
                     motionY += flyerThrust();//0.3D;
                     jumpPending = false;
 
-                    if (selfPropelledFlyer() && isOnAir() && MoCreatures.isServer())
+                    if (isSelfPropelledFlyer() && isOnAir() && MoCreatures.isServer())
                     {
                         float velX = (float) (0.5F * Math.cos((MoCTools.realAngle(rotationYaw - 90F)) / 57.29578F));
                         float velZ = (float) (0.5F * Math.sin((MoCTools.realAngle(rotationYaw - 90F)) / 57.29578F));
@@ -1303,7 +1109,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
      * Alternative flyer mount movement, when true, the player only controls frequency of wing flaps
      * @return
      */
-    protected boolean selfPropelledFlyer()
+    protected boolean isSelfPropelledFlyer()
     {
         return false;
     }
@@ -1578,48 +1384,6 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     protected Entity findPlayerToAttack()
     {
         return null;
-    }
-
-    public void faceItem(int xCoordinate, int yCoordinate, int zCoordinate, float f)
-    {
-        double xDistance = xCoordinate - posX;
-        double yDistance = yCoordinate - posY;
-        double zDistance = zCoordinate - posZ;
-
-        double overallDistanceSquared = MathHelper.sqrt_double((xDistance * xDistance) + (zDistance * zDistance));
-
-        float xzAngleInDegreesToNewLocation = (float) ((Math.atan2(zDistance, xDistance) * 180D) / Math.PI) - 90F;
-        float yAngleInDegreesToNewLocation = (float) ((Math.atan2(yDistance, overallDistanceSquared) * 180D) / Math.PI);
-
-        rotationPitch = -adjustRotation(rotationPitch, yAngleInDegreesToNewLocation, f);
-        rotationYaw = adjustRotation(rotationYaw, xzAngleInDegreesToNewLocation, f);
-    }
-
-    /**
-     * 
-     * @param currentRotation
-     * @param rotationAdjustment
-     * @param rotationLimit
-     * @return
-     */
-    public float adjustRotation(float currentRotation, float rotationAdjustment, float rotationLimit)
-    {
-        float amountToChangeRotationBy = rotationAdjustment;
-        for (amountToChangeRotationBy = rotationAdjustment - currentRotation; amountToChangeRotationBy < -180F; amountToChangeRotationBy += 360F)
-        {
-        }
-        for (; amountToChangeRotationBy >= 180F; amountToChangeRotationBy -= 360F)
-        {
-        }
-        if (amountToChangeRotationBy > rotationLimit)
-        {
-            amountToChangeRotationBy = rotationLimit;
-        }
-        if (amountToChangeRotationBy < -rotationLimit)
-        {
-            amountToChangeRotationBy = -rotationLimit;
-        }
-        return currentRotation + amountToChangeRotationBy;
     }
 
     public boolean isFlyingAlone()

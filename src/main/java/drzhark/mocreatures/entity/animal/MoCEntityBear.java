@@ -373,7 +373,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
            
            	else if (rand.nextInt(80) == 0 && getType() != 3)
             {
-                EntityLivingBase closestEntityLiving = getClosestEntityLiving(this, 10D);
+                EntityLivingBase closestEntityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 10D);
                 
                 
                 if (closestEntityLiving != null && !MoCTools.isEntityAFishThatIsInTheOcean(closestEntityLiving))

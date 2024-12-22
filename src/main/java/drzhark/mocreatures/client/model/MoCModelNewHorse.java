@@ -356,35 +356,35 @@ public class MoCModelNewHorse extends ModelBase {
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
     {
-        MoCEntityHorse entityhorse = (MoCEntityHorse) entity;
+        MoCEntityHorse entityHorse = (MoCEntityHorse) entity;
         //super.render(entity, f, f1, f2, f3, f4, f5);
 
-        int type = entityhorse.getType();
-        int vanishingInt = entityhorse.getVanishC();
-        int wingflapInt = entityhorse.wingFlapCounter;
+        int type = entityHorse.getType();
+        int vanishingInt = entityHorse.getVanishC();
+        int wingflapInt = entityHorse.wingFlapCounter;
         
-        boolean flapwings = (entityhorse.wingFlapCounter != 0);
-        boolean isShuffling = (entityhorse.shuffleCounter > 0);
-        boolean saddled = entityhorse.getIsRideable();
-        boolean wings = (entityhorse.isFlyer() && !entityhorse.isGhostHorse() && type < 45);
+        boolean flapwings = (entityHorse.wingFlapCounter != 0);
+        boolean isShuffling = (entityHorse.shuffleCounter > 0);
+        boolean saddled = entityHorse.getIsRideable();
+        boolean wings = (entityHorse.isFlyer() && !entityHorse.isGhostHorse() && type < 45);
         //boolean chested = entityhorse.getChestedHorse();
-        boolean eating = entityhorse.getEating();
-        boolean ramming = ((entityhorse.sprintCounter > 0 && entityhorse.sprintCounter < 150) && entityhorse.doesHaveHorn() && (entityhorse.riddenByEntity != null));
+        boolean eating = entityHorse.getEating();
+        boolean ramming = ((entityHorse.sprintCounter > 0 && entityHorse.sprintCounter < 150) && entityHorse.doesHaveHorn() && (entityHorse.riddenByEntity != null));
         //boolean flyer = entityhorse.isFlyer();
-        boolean standing = (entityhorse.standCounter != 0);
-        boolean openMouth = (entityhorse.mouthCounter != 0);
-        boolean moveTail = (entityhorse.tailCounter != 0);
+        boolean standing = (entityHorse.standCounter != 0);
+        boolean openMouth = (entityHorse.mouthCounter != 0);
+        boolean moveTail = (entityHorse.tailCounter != 0);
        
         
 
-        boolean rider = (entityhorse.riddenByEntity != null);
-        boolean floating = (entityhorse.isGhostHorse() || (entityhorse.isFlyer() && entityhorse.isOnAir()));
+        boolean rider = (entityHorse.riddenByEntity != null);
+        boolean floating = (entityHorse.isGhostHorse() || (entityHorse.isFlyer() && entityHorse.isOnAir()));
         //                || (entityhorse.riddenByEntity == null && !entityhorse.onGround)
         //                || (entityhorse.riddenByEntity != null && !entityhorse.riddenByEntity.onGround));
         
         setRotationAngles(f, f1, f2, f3, f4, f5, eating, ramming, rider, floating, standing, saddled, moveTail, wings, flapwings, isShuffling, type);
 
-        if (!entityhorse.isGhostHorse() && vanishingInt == 0)
+        if (!entityHorse.isGhostHorse() && vanishingInt == 0)
         {
             if (saddled)
             {
@@ -451,18 +451,18 @@ public class MoCModelNewHorse extends ModelBase {
             Leg4B.render(f5);
             Leg4C.render(f5);
 
-            if (entityhorse.doesHaveHorn())
+            if (entityHorse.doesHaveHorn())
             {
                 Unicorn.render(f5);
             }
 
-            if (entityhorse.getIsChestedHorse())
+            if (entityHorse.getIsChestedHorse())
             {
                 Bag1.render(f5);
                 Bag2.render(f5);
             }
 
-            if (entityhorse.isFlyer() && type < 45)//pegasus
+            if (entityHorse.isFlyer() && type < 45)//pegasus
             {
                 MidWing.render(f5);
                 InnerWing.render(f5);
@@ -501,7 +501,7 @@ public class MoCModelNewHorse extends ModelBase {
             }
             else
             {
-                transparency = entityhorse.ghostHorseTransparencyFloat();
+                transparency = entityHorse.ghostHorseTransparencyFloat();
             }
 
             GL11.glPushMatrix();
@@ -839,24 +839,6 @@ public class MoCModelNewHorse extends ModelBase {
             MidWingR.rotateAngleZ = -WingRot;
             OuterWingR.rotateAngleZ = -WingRot;
 
-            //45deg = 0.7854F
-            //1.396 (80degrees folded)
-            /*//rear left.  -4X(ignored), 9Y, 11Z  the distance is 7Y
-              Leg1B.rotationPointY = 9F + (MathHelper.sin((90/ 57.29578F) + LLegXRot )*7F);
-              Leg1B.rotationPointZ = 11F + (MathHelper.cos((270/ 57.29578F) + LLegXRot )*7F);
-              
-              //rear right
-              Leg2B.rotationPointY = 9F + (MathHelper.sin((90/ 57.29578F) + RLegXRot )*7F);
-              Leg2B.rotationPointZ = 11F + (MathHelper.cos((270/ 57.29578F) + RLegXRot )*7F);
-              
-              //front left 4X(ign), 9Y, -8Z, the distance is again 7Y
-              Leg3B.rotationPointY = 9F + (MathHelper.sin((90/ 57.29578F) + RLegXRot )*7F);
-              Leg3B.rotationPointZ = -8F + (MathHelper.cos((270/ 57.29578F) + RLegXRot )*7F);
-              
-              //front right -4X(ign), 9Y, -8Z, the distance is again 7Y
-              Leg4B.rotationPointY = 9F + (MathHelper.sin((90/ 57.29578F) + LLegXRot )*7F);
-              Leg4B.rotationPointZ = -8F + (MathHelper.cos((270/ 57.29578F) + LLegXRot )*7F);*/
-
         }
 
         if (type > 44 && type < 60 || type == 21) //butterfly horses or ghost horse
@@ -906,16 +888,6 @@ public class MoCModelNewHorse extends ModelBase {
             {
                 WingRot = MathHelper.cos((f2 * 0.1F));//* 0.2F;
             }
-
-            //from regular horse
-            /*if (flapwings)
-            {
-              WingRot = MathHelper.cos((f2 * 0.3F) + (float) Math.PI) * 1.2F;// * f1;
-            }else //cruising
-            {
-              //WingRot = MathHelper.cos((f * 0.6662F) + (float) Math.PI) * 1.2F * f1;
-              WingRot = MathHelper.cos((f * 0.5F)) *0.1F ;//* 1.2F * f1;
-            }*/
 
             /**
              * this part is needed for position and angle of the butterfly wings

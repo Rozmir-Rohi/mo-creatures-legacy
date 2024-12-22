@@ -19,9 +19,7 @@ public class MoCEntityThrowableBlockForGolem extends Entity {
 
     
     public int timeOutCounterToTransformToSolidBlock;
-    private int masterId;
     public int acceleration = 100;
-    private int blockMetadata;
     private double oldPosX;
     private double oldPosY;
     private double oldPosZ;

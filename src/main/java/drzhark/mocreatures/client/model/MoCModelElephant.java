@@ -1222,38 +1222,6 @@ public class MoCModelElephant extends ModelBase {
 
     }
 
-    /**
-     * Used for trunk adjustment - lateral movement
-     * 
-     * @param target
-     *            : target model
-     * @param origin
-     *            : origin model
-     */
-    private void adjustYRotationPoints(ModelRenderer target, ModelRenderer origin)
-    {
-        //rotation point Z and X adjusted for head =
-        //Z rotation point = attached rotation point Z - cos(attached.rotateangleX) * distance 
-        //Y rotation point = attached rotation point Y - sin(attached.rotateangleX) * distance 
-        float distanceZ = 0F;
-        if (target.rotationPointZ > origin.rotationPointZ)
-        {
-            distanceZ = target.rotationPointZ - origin.rotationPointZ;
-        }
-        else
-        {
-            distanceZ = origin.rotationPointZ - target.rotationPointZ;
-        }
-        /*float distanceZ = target.rotationPointZ - origin.rotationPointZ;
-        if (distanceZ < 0F)
-        {
-            distanceZ *= -1F;
-        }*/
-        target.rotationPointZ = origin.rotationPointZ - (MathHelper.cos(origin.rotateAngleY) * distanceZ);
-        target.rotationPointX = origin.rotationPointX - (MathHelper.sin(origin.rotateAngleY) * distanceZ);
-
-    }
-
     private void adjustAllRotationPoints(ModelRenderer target, ModelRenderer origin)
     {
 
@@ -1267,14 +1235,11 @@ public class MoCModelElephant extends ModelBase {
             distanceY = origin.rotationPointY - target.rotationPointY;
         }
 
-        float distanceZ = 0F;
         if (target.rotationPointZ > origin.rotationPointZ)
         {
-            distanceZ = target.rotationPointZ - origin.rotationPointZ;
         }
         else
         {
-            distanceZ = origin.rotationPointZ - target.rotationPointZ;
         }
 
         target.rotationPointY = origin.rotationPointY + MathHelper.sin(origin.rotateAngleX) * distanceY;

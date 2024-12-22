@@ -19,21 +19,17 @@ import net.minecraft.world.World;
 public class MoCItemFishBowl extends MoCItem {
 
     private int fishBowlType;
-    private int ageCounter;
-
     public MoCItemFishBowl(String name)
     {
         super(name);
         maxStackSize = 16;
         setHasSubtypes(true);
-        ageCounter = 0;
     }
 
     public MoCItemFishBowl(String name, int j)
     {
         this(name);
         fishBowlType = j;
-        ageCounter = 0;
     }
 
     public EntityLiving getClosestFish(World worldObj, Entity entity, double d)
@@ -64,10 +60,6 @@ public class MoCItemFishBowl extends MoCItem {
     public ItemStack onItemRightClick(ItemStack itemStack, World worldObj, EntityPlayer entityPlayer)
     {
         float var4 = 1.0F;
-        double var5 = entityPlayer.prevPosX + (entityPlayer.posX - entityPlayer.prevPosX) * var4;
-        double var7 = entityPlayer.prevPosY + (entityPlayer.posY - entityPlayer.prevPosY) * var4 + 1.62D - entityPlayer.yOffset;
-        double var9 = entityPlayer.prevPosZ + (entityPlayer.posZ - entityPlayer.prevPosZ) * var4;
-
         MovingObjectPosition movingObjectPos = getMovingObjectPositionFromPlayer(worldObj, entityPlayer, true);//fishBowlType == 0);
 
         if (movingObjectPos == null)

@@ -27,29 +27,29 @@ public class MoCBlockGrass extends MoCBlock
     }
 
     @Override
-	public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
+	public void updateTick(World world, int par2, int par3, int par4, Random par5Random)
     {
         if (!MoCreatures.isServer())
         {
             return;
         }
 
-        if (par1World.getBlockLightValue(par2, par3 + 1, par4) < 4 && par1World.getBlock(par2, par3 + 1, par4).getLightOpacity() > 2)
+        if (world.getBlockLightValue(par2, par3 + 1, par4) < 4 && world.getBlock(par2, par3 + 1, par4).getLightOpacity() > 2)
         {
-            par1World.setBlock(par2, par3, par4, MoCreatures.mocDirt, getDamageValue(par1World, par2, par3, par4), 3);
+            world.setBlock(par2, par3, par4, MoCreatures.mocDirt, getDamageValue(world, par2, par3, par4), 3);
         }
-        else if (par1World.getBlockLightValue(par2, par3 + 1, par4) >= 9)
+        else if (world.getBlockLightValue(par2, par3 + 1, par4) >= 9)
         {
             for (int i = 0; i < 45; i++)
             {
                 int j = (par2 + par5Random.nextInt(3)) - 1;
                 int k = (par3 + par5Random.nextInt(5)) - 3;
                 int l = (par4 + par5Random.nextInt(3)) - 1;
-                Block block = par1World.getBlock(j, k + 1, l);
+                Block block = world.getBlock(j, k + 1, l);
 
-                if (par1World.getBlock(j, k, l) == MoCreatures.mocDirt && par1World.getBlockLightValue(j, k + 1, l) >= 4 && block.getLightOpacity() <= 2)
+                if (world.getBlock(j, k, l) == MoCreatures.mocDirt && world.getBlockLightValue(j, k + 1, l) >= 4 && block.getLightOpacity() <= 2)
                 {
-                    par1World.setBlock(j, k, l, MoCreatures.mocGrass, getDamageValue(par1World, j, k, l), 3);
+                    world.setBlock(j, k, l, MoCreatures.mocGrass, getDamageValue(world, j, k, l), 3);
                 }
             }
         }

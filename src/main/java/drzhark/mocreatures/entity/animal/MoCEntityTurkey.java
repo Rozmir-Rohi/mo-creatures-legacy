@@ -44,7 +44,7 @@ public class MoCEntityTurkey extends MoCEntityTameableAnimal {
         int zCoordinate = MathHelper.floor_double(posZ);
 
         BiomeGenBase currentBiome = MoCTools.biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
-        String biomeName = MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
         if (
         		BiomeDictionary.isBiomeOfType(currentBiome, Type.SAVANNA)

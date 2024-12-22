@@ -1450,4 +1450,28 @@ Fixed Elephant speed not working. Also re-tweaked Elephant Speeds
 Fixed Ostrich Speed and Jump not working. Also re-tweaked Ostrich Speeds
 
 
-Bat Ostrich now has a very slight slow fall.
+Wyvern Ostrich now has a very slight slow fall.
+
+
+Returned Wyvern Ostrich flying mechanism to original state.
+
+
+Replaced Fire Ogres dropping Heart of Fire with Gold Ingots.
+
+
+Werewolves now howl when they transform into wolf form.
+
+
+Cleaned up code by removing duplicate functions and unused code.
+
+
+Fixed shark attacking players on boats when difficulty is below hard.
+
+
+Fixed Wyvern Lair Tall Grass not spawning in Wyvern Lair.
+
+
+Wraiths no longer attack players who are riding undead mounts unless they are attacked.
+
+
+Ghost Horses no longer make horse gallop sounds.

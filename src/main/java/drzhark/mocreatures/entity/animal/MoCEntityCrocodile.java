@@ -37,7 +37,6 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
 
     public float biteProgress;
     public int spinInt;
-    private float myMoveSpeed;
     private boolean waterbound;
     private int hunting;
     private float spinAttackStrength;
@@ -48,7 +47,6 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
         super(world);
         texture = "crocodile.png";
         setSize(2F, 0.6F);
-        myMoveSpeed = 0.5F;
         setMoCAge(50 + rand.nextInt(50));
         setTamed(false);
     }
@@ -198,11 +196,9 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
 
         if (isInsideOfMaterial(Material.water))
         {
-            myMoveSpeed = 0.8F;
         }
         else
         {
-            myMoveSpeed = 0.4F;
 
         }
         if (hunting > 0)
@@ -211,17 +207,14 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
             if (hunting > 120)
             {
                 hunting = 0;
-                myMoveSpeed = 0.5F;
             }
             else
             {
-                myMoveSpeed = 1.0F;
             }
 
             if (entityToAttack == null)
             {
                 hunting = 0;
-                myMoveSpeed = 0.5F;
             }
 
         }
@@ -448,7 +441,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
                  return closestEntityPlayer; 
             }
             
-            EntityLivingBase closestEntityLiving = getClosestEntityLiving(this, attackDistance);
+            EntityLivingBase closestEntityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, attackDistance);
             
             if (closestEntityLiving != null && !MoCTools.isEntityAFishThatIsInTheOcean(closestEntityLiving))
             {
@@ -484,25 +477,15 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
     public void updateRiderPosition()
     {
         if (riddenByEntity == null) { return; }
-        int direction = 1;
 
         double dist = getMoCAge() * 0.01F + riddenByEntity.width - 0.4D;
         double newPosX = posX - (dist * Math.cos((MoCTools.realAngle(rotationYaw - 90F)) / 57.29578F));
         double newPosZ = posZ - (dist * Math.sin((MoCTools.realAngle(rotationYaw - 90F)) / 57.29578F));
         riddenByEntity.setPosition(newPosX, posY + getMountedYOffset() + riddenByEntity.getYOffset(), newPosZ);
 
-        if (spinInt > 40)
-        {
-            direction = -1;
-        }
-        else
-        {
-            direction = 1;
-        }
-
         //these rotate the head/camera only of the prey only
-        ((EntityLivingBase) riddenByEntity).renderYawOffset = rotationYaw * direction;
-        ((EntityLivingBase) riddenByEntity).prevRenderYawOffset = rotationYaw * direction;
+        ((EntityLivingBase) riddenByEntity).renderYawOffset = rotationYaw;
+        ((EntityLivingBase) riddenByEntity).prevRenderYawOffset = rotationYaw;
     }
 
     @Override

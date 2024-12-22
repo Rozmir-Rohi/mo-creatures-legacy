@@ -17,8 +17,6 @@ import net.minecraft.world.World;
 public class MoCEntityFlameWraith extends MoCEntityWraith implements IMob {
 
     protected int burningTime;
-    private float moveSpeed;
-
     public MoCEntityFlameWraith(World world)
     {
         super(world);

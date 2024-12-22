@@ -14,36 +14,35 @@ public class WorldGenWyvernGrass extends WorldGenerator
     private Block tallGrass;
     private int tallGrassMetadata;
 
-    public WorldGenWyvernGrass(Block block, int par2)
+    public WorldGenWyvernGrass(Block block, int metaData)
     {
         tallGrass = block;
-        tallGrassMetadata = par2;
+        tallGrassMetadata = metaData;
     }
 
-    @Override
-	public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5)
+    public boolean generate(World world, Random rand, int x, int y, int z)
     {
-        int var11;
+        Block block;
 
-        Block block = null;
-        do 
+        do
         {
-            block = par1World.getBlock(par3,  par4, par5);
-            if (block != null && !block.isLeaves(par1World, par3, par4, par5))
+            block = world.getBlock(x, y, z);
+            if (!(block.isLeaves(world, x, y, z) || block.isAir(world, x, y, z)))
             {
                 break;
             }
-            par4--;
-        } while (par4 > 0);
+            --y;
+        } while (y > 0);
 
-        for (int var7 = 0; var7 < 128; ++var7)
+        for (int l = 0; l < 128; ++l)
         {
-            int var8 = par3 + par2Random.nextInt(8) - par2Random.nextInt(8);
-            int var9 = par4 + par2Random.nextInt(4) - par2Random.nextInt(4);
-            int var10 = par5 + par2Random.nextInt(8) - par2Random.nextInt(8);
-            if (par1World.isAirBlock(var8, var9, var10) && tallGrass.canBlockStay(par1World, var8, var9, var10))
+            int i1 = x + rand.nextInt(8) - rand.nextInt(8);
+            int j1 = y + rand.nextInt(4) - rand.nextInt(4);
+            int k1 = z + rand.nextInt(8) - rand.nextInt(8);
+
+            if (world.isAirBlock(i1, j1, k1) && tallGrass.canBlockStay(world, i1, j1, k1))
             {
-                par1World.setBlock(var8, var9, var10, tallGrass, tallGrassMetadata, 3);
+                world.setBlock(i1, j1, k1, tallGrass, tallGrassMetadata, 3);
             }
         }
 

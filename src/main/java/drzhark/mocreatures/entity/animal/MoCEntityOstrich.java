@@ -113,9 +113,9 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         int zCoordinate = MathHelper.floor_double(posZ);
 
         BiomeGenBase currentBiome = MoCTools.biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
-        String biomeName = MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
-        int typeChance = rand.nextInt(100);
+        rand.nextInt(100);
 
         if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SAVANNA))
         {
@@ -383,12 +383,12 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 	        	ostrichSpeed = 1D;
 	        	break;
 	        	
-	        case 5: //fire ostrich
+	        case 5: //nether ostrich
 	        	ostrichSpeed = 1.1D;
 	            isImmuneToFire = true;
 	            break;
 	            
-	        case 6: //dark ostrich
+	        case 6: //wyvern ostrich
 	        	ostrichSpeed = 1.12D;
 	            break;
 	            
@@ -397,7 +397,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 	            isImmuneToFire = true;
 	            break;
 	            
-	        case 8: //unicorn ostrich
+	        case 8: //unihorn ostrich
 	        	ostrichSpeed = 1.25D;
 	            isImmuneToFire = true;
 	            break;
@@ -427,6 +427,12 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     {
         return true;
     }
+    
+    @Override
+    public boolean isSelfPropelledFlyer()
+    {
+    	return getType() == 6; //wyvern ostrich
+    }
 
     @Override
     public void onUpdate()
@@ -435,7 +441,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         
         if (getType() == 5 && !isImmuneToFire)
         {
-        	isImmuneToFire = true; //sets fire immunity true for fire ostriches if it becomes false, which does sometimes happen with world reloads.
+        	isImmuneToFire = true; //sets fire immunity true for nether ostriches if it becomes false, which does sometimes happen with world reloads.
         }
 
         if (getHiding())
@@ -519,7 +525,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 
         if (MoCreatures.isServer())
         {
-            //unicorn ostrich ramming!
+            //unihorn ostrich ramming!
             if (getType() == 8 && (sprintCounter > 0 && sprintCounter < 150) && (riddenByEntity != null))
             {
                 MoCTools.buckleMobs(this, 2, 2D, worldObj);
@@ -596,7 +602,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
             if (getEggWatching())
             {
                 //look for and protect eggs and move close
-                MoCEntityEgg myEgg = (MoCEntityEgg) getScaryEntity(8D);
+                MoCEntityEgg myEgg = (MoCEntityEgg) MoCTools.getScaryEntity(this, 8D);
                 if ((myEgg != null) && (MoCTools.getSqDistanceTo(myEgg, posX, posY, posZ) > 4D))
                 {
                     PathEntity pathEntity = worldObj.getPathEntityToEntity(this, myEgg, 16F, true, false, false, true);
@@ -757,7 +763,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 		                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
 		            }
 		            
-		            if (getType() == 8) //unicorn ostrich
+		            if (getType() == 8) //unihorn ostrich
 		            {
 		                setHealth(getMaxHealth());
 		            }
@@ -993,7 +999,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         { return MoCreatures.unicornHorn; }
         if (getType() == 5 && flag) 
         { return MoCreatures.heartFire; }
-        if (getType() == 6 && flag) // bat ostrich
+        if (getType() == 6 && flag) // wyvern ostrich
         { return MoCreatures.heartDarkness; }
         if (getType() == 7 )
         {
@@ -1205,7 +1211,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     @Override
     protected double myFallSpeed()
     {
-    	if (getType() == 6) //bat ostrich
+    	if (getType() == 6) //wyvern ostrich
     	{
     		return 0.90;
     	}

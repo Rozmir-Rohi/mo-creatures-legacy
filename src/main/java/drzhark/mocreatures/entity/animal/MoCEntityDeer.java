@@ -1,6 +1,7 @@
 package drzhark.mocreatures.entity.animal;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
 import net.minecraft.entity.Entity;
@@ -169,7 +170,7 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
             }
             if (rand.nextInt(5) == 0)
             {
-                EntityLivingBase scaryEntityNearby = getScaryEntity(10D);
+                EntityLivingBase scaryEntityNearby = MoCTools.getScaryEntity(this, 10D);
                 
                 if (scaryEntityNearby instanceof EntityPlayer)
                 {

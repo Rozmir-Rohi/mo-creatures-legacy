@@ -279,7 +279,6 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
 	private void tryToFindAdultBunnyNearByAndReproduce()
 	{
 		List listOfEntitiesNearby = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(4.0D, 4.0D, 4.0D));
-		boolean flag = false;
 		for (int index = 0; index < listOfEntitiesNearby.size(); index++)
 		{
 		    Entity entityNearby = (Entity) listOfEntitiesNearby.get(index);
@@ -309,7 +308,6 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
 		    worldObj.spawnEntityInWorld(entityBunnyBaby);
 		    proceed();
 		    entityBunnyNearby.proceed();
-		    flag = true;
 		    break;
 		}
 	}

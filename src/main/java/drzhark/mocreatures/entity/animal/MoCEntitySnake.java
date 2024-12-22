@@ -671,7 +671,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             }
             if ((rand.nextInt(100) == 0))
             {
-                EntityLivingBase entityLiving = getClosestEntityLiving(this, 8D);
+                EntityLivingBase entityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 8D);
                 return entityLiving;
             }
         }
@@ -755,7 +755,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         int yCoordinate = MathHelper.floor_double(boundingBox.minY);
         int zCoordinate = MathHelper.floor_double(posZ);
 
-        String biomeName = MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
         BiomeGenBase currentBiome = MoCTools.biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
         int typeChance = rand.nextInt(10);

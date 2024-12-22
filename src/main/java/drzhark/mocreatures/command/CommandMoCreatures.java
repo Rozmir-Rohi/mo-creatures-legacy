@@ -223,8 +223,8 @@ public class CommandMoCreatures extends CommandBase {
             }
             else if (command.equalsIgnoreCase("tamed") || command.equalsIgnoreCase("tame") && !par2.equals(""))
             {
-                String playername = par1ICommandSender.getCommandSenderName();
-                List players = FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().playerEntityList;
+                par1ICommandSender.getCommandSenderName();
+                FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager();
                 int unloadedCount = 0;
                 int loadedCount = 0;
                 ArrayList foundIds = new ArrayList();
@@ -302,7 +302,7 @@ public class CommandMoCreatures extends CommandBase {
                             par1ICommandSender.addChatMessage(new ChatComponentTranslation("Found unloaded pet " + EnumChatFormatting.GREEN + nbt.getString("id") + EnumChatFormatting.WHITE + " with name " + EnumChatFormatting.AQUA + nbt.getString("Name") + EnumChatFormatting.WHITE + " at location " + EnumChatFormatting.LIGHT_PURPLE + Math.round(posX) + EnumChatFormatting.WHITE + ", " + EnumChatFormatting.LIGHT_PURPLE + Math.round(posY) + EnumChatFormatting.WHITE + ", " + EnumChatFormatting.LIGHT_PURPLE + Math.round(posZ) + EnumChatFormatting.WHITE + " with Pet ID " + EnumChatFormatting.BLUE + nbt.getInteger("PetId")));
                             int x = MathHelper.floor_double( posX );
                             int z = MathHelper.floor_double( posZ );
-                            Chunk chunk = world.getChunkFromChunkCoords(x >> 4, z >> 4);
+                            world.getChunkFromChunkCoords(x >> 4, z >> 4);
                             boolean result = teleportLoadedPet(world, player, petId, petName, par1ICommandSender); // attempt to TP again
                             if (!result)
                             {
@@ -461,7 +461,7 @@ public class CommandMoCreatures extends CommandBase {
                 {
                     if (propEntry.getValue() == null || !propEntry.getKey().equalsIgnoreCase(command))
                         continue;
-                    MoCProperty property = propEntry.getValue();
+                    propEntry.getValue();
                     List<String> propList = propEntry.getValue().valueList;
                     String propValue = propEntry.getValue().value;
                     if (propList == null && propValue == null)
@@ -480,7 +480,7 @@ public class CommandMoCreatures extends CommandBase {
         {
             for (Map.Entry<String, MoCConfigCategory> catEntry : config.categories.entrySet())
             {
-                String catName = catEntry.getValue().getQualifiedName();
+                catEntry.getValue().getQualifiedName();
 
                 for (Map.Entry<String, MoCProperty> propEntry : catEntry.getValue().entrySet())
                 {
@@ -539,8 +539,6 @@ public class CommandMoCreatures extends CommandBase {
             List<String> list = getSortedPossibleCommands(par1ICommandSender);
             byte b0 = 10;
             int i = (list.size() - 1) / b0;
-            boolean flag = false;
-            ICommand icommand;
             int j = 0;
 
             if (charArray.length > 1)
@@ -648,11 +646,9 @@ public class CommandMoCreatures extends CommandBase {
     public void sendPageHelp(ICommandSender sender, byte pagelimit, ArrayList<String> list, String[] par2ArrayOfStr, String title)
     {
         int x = (list.size() - 1) / pagelimit;
-        boolean flag = false;
         int j = 0;
-        String par1 = "";
-        if (par2ArrayOfStr.length > 1)
-            par1 = par2ArrayOfStr[0];
+        if (par2ArrayOfStr.length > 1) {
+		}
         String par2 = "";
         if (par2ArrayOfStr.length > 1)
             par2 = par2ArrayOfStr[1];

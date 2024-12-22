@@ -484,20 +484,6 @@ public class MoCClientProxy extends MoCProxy {
     }
 
 
-    private static final String BUTTON_GENERAL_SETTINGS = "General Settings";
-    private static final String BUTTON_ID_SETTINGS = "ID Settings";
-    private static final String BUTTON_CREATURES = "Creatures";
-    private static final String BUTTON_CREATURE_GENERAL_SETTINGS = "Creature General Settings";
-    private static final String BUTTON_CREATURE_SPAWN_SETTINGS = "Creature Spawn Settings";
-    private static final String BUTTON_MONSTER_GENERAL_SETTINGS = "Monster General Settings";
-    private static final String BUTTON_MONSTER_SPAWN_SETTINGS = "Monster Spawn Settings";
-    private static final String BUTTON_WATERMOB_GENERAL_SETTINGS = "Water Mob General Settings";
-    private static final String BUTTON_WATERMOB_SPAWN_SETTINGS = "Water Mob Spawn Settings";
-    private static final String BUTTON_AMBIENT_SPAWN_SETTINGS = "Ambient Spawn Settings";
-    private static final String BUTTON_OWNERSHIP_SETTINGS = "Ownership Settings";
-    private static final String BUTTON_DEFAULTS = "Reset to Defaults";
-    private static final String MOC_SCREEN_TITLE = "DrZhark's Mo'Creatures" ;
-
     public static final List<String> entityTypes = Arrays.asList("CREATURE", "MONSTER", "WATERCREATURE", "AMBIENT");
 
     public MoCEntityData currentSelectedEntity;

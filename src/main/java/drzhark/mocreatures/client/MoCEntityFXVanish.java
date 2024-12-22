@@ -17,11 +17,9 @@ public class MoCEntityFXVanish extends EntityFX {
     private final double portalPosY;
     private final double portalPosZ;
     private final boolean implode;
-    private final float textureBrightness = 1.0F;
-
-    public MoCEntityFXVanish(World par1World, double par2, double par4, double par6, double par8, double par10, double par12, float red, float green, float blue, boolean flag)
+    public MoCEntityFXVanish(World world, double par2, double par4, double par6, double par8, double par10, double par12, float red, float green, float blue, boolean flag)
     {
-        super(par1World, par2, par4, par6, 0.0D, 0.0D, 0.0D);
+        super(world, par2, par4, par6, 0.0D, 0.0D, 0.0D);
 
         particleRed = red;
         particleGreen = green;

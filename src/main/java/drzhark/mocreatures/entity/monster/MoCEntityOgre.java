@@ -19,7 +19,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-public class MoCEntityOgre extends MoCEntityMob{
+public class MoCEntityOgre extends MoCEntityMob {
 
     public int attackFrequency;
     public int attackCounterLeftArm;
@@ -160,20 +160,23 @@ public class MoCEntityOgre extends MoCEntityMob{
     @Override
     protected Item getDropItem()
     {
-        if (getType() < 3)
+        if (getType() < 3) //green ogres
         {
-        return Item.getItemFromBlock(Blocks.obsidian);
+        	return Item.getItemFromBlock(Blocks.obsidian);
         }
+        
         else if (isFireOgre())
         {
             boolean shouldDroupRareItem = (rand.nextInt(100) < MoCreatures.proxy.rareItemDropChance);
              if (!shouldDroupRareItem) 
              {
-                    return Item.getItemFromBlock(Blocks.fire);
+            	 return Item.getItemFromBlock(Blocks.fire);  
              }
-             return MoCreatures.heartFire;
+             return Items.gold_ingot; 
+             
         }
-        return Items.diamond;
+        
+        return Items.diamond; //cave ogre drop
     }
 
     @Override
@@ -326,4 +329,10 @@ public class MoCEntityOgre extends MoCEntityMob{
     {
         return (!worldObj.canBlockSeeTheSky(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ))) && (posY < 50D);
     }
+
+	@Override
+	public boolean entitiesThatAreScary(Entity entityNearby)
+	{
+		return false;
+	}
 }

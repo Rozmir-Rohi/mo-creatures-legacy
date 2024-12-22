@@ -32,9 +32,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     protected boolean divePending;
     protected boolean jumpPending;
     protected boolean isEntityJumping;
-    private PathEntity pathEntity;
     private int outOfWater;
-    private int maxHealth;
     private boolean diving;
     private int divingCount;
     private int mountCount;
@@ -214,21 +212,6 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             amountToChangeRotationBy = -maxIncrement;
         }
         return currentRotation + amountToChangeRotationBy;
-    }
-
-    public void faceItem(int xCoordinate, int yCoordinate, int zCoordinate, float f)
-    {
-        double xDistance = xCoordinate - posX;
-        double yDistance = yCoordinate - posY;
-        double zDistance = zCoordinate - posZ;
-        
-        double overallDistanceSquared = MathHelper.sqrt_double((xDistance * xDistance) + (zDistance * zDistance));
-        
-        float xzAngleInDegreesToNewLocation = (float) ((Math.atan2(zDistance, xDistance) * 180D) / Math.PI) - 90F;
-        float yAngleInDegreesToNewLocation = (float) ((Math.atan2(yDistance, overallDistanceSquared) * 180D) / Math.PI);
-        
-        rotationPitch = -updateRotation(rotationPitch, yAngleInDegreesToNewLocation, f);
-        rotationYaw = updateRotation(rotationYaw, xzAngleInDegreesToNewLocation, f);
     }
 
     @Override
@@ -475,7 +458,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             int entityPosX = MathHelper.floor_double(entity.posX);
             int entityPosY = MathHelper.floor_double(entity.posY);
             int entityPosZ = MathHelper.floor_double(entity.posZ);
-            faceItem(entityPosX, entityPosY, entityPosZ, 30F);
+            MoCTools.faceItem(this, entityPosX, entityPosY, entityPosZ, 30F);
             if (posX < entityPosX)
             {
                 double distance = entity.posX - posX;
@@ -555,8 +538,6 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
 
         if (riddenByEntity != null)
         {
-            EntityPlayer playerThatIsRidingThisCreature = (EntityPlayer) riddenByEntity;
-
             if (divePending)
             {
             	motionY = -0.008D;
@@ -717,35 +698,18 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             		isHookNearby = false;
                 }
                 
-                if (!(isHookNearby) && playerThatHookedThisFish != null && hookThatThisFishIsHookedTo != null)
+                if (
+                		!(isHookNearby)
+                		&& playerThatHookedThisFish != null
+                		&& hookThatThisFishIsHookedTo != null
+                	)
                 {
-                	if (playerThatHookedThisFish.getHeldItem() != null)  //must check if itemStack isn't null before getItem() else game will crash
+                	if (
+                			playerThatHookedThisFish.getHeldItem() != null  //must check if itemStack isn't null before getItem() else game will crash
+                			&& playerThatHookedThisFish.getHeldItem().getItem() == Items.fishing_rod
+                		)
                 	{
-	                	if (playerThatHookedThisFish.getHeldItem().getItem() == Items.fishing_rod)
-	                	{
-		                	
-		                	ItemStack itemstackToBeFished = new ItemStack(Items.fish, 1, 0);
-		                	
-		                	
-		                	EntityItem entityItem = new EntityItem(worldObj, posX, posY, posZ, itemstackToBeFished);
-		                    double xDistance = playerThatHookedThisFish.posX - hookThatThisFishIsHookedTo.posX;
-		                    double yDistance = playerThatHookedThisFish.posY - hookThatThisFishIsHookedTo.posY;
-		                    double zDistance = playerThatHookedThisFish.posZ - hookThatThisFishIsHookedTo.posZ;
-		                    
-		                    setDead();
-		                    
-		                    double overallDistanceSquared = MathHelper.sqrt_double(xDistance * xDistance + yDistance * yDistance + zDistance * zDistance);
-		                    double distanceOffset = 0.1D;
-		                    
-		                    entityItem.motionX = xDistance * distanceOffset;
-		                    entityItem.motionY = yDistance * distanceOffset + MathHelper.sqrt_double(overallDistanceSquared) * 0.08D;
-		                    entityItem.motionZ = zDistance * distanceOffset;
-		                    
-		                    worldObj.spawnEntityInWorld(entityItem);
-		                    
-		                    playerThatHookedThisFish.worldObj.spawnEntityInWorld(new EntityXPOrb(playerThatHookedThisFish.worldObj, playerThatHookedThisFish.posX, playerThatHookedThisFish.posY + 0.5D, playerThatHookedThisFish.posZ + 0.5D, rand.nextInt(6) + 1));
-		                	
-	                	}
+                		exectuteReelInByFishinRodAction();
                 	}
                 	
                 	else
@@ -842,6 +806,30 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
         }
         super.onLivingUpdate();
     }
+
+	private void exectuteReelInByFishinRodAction()
+	{
+		ItemStack itemstackToBeFished = new ItemStack(Items.fish, 1, 0);
+		
+		
+		EntityItem entityItem = new EntityItem(worldObj, posX, posY, posZ, itemstackToBeFished);
+		double xDistance = playerThatHookedThisFish.posX - hookThatThisFishIsHookedTo.posX;
+		double yDistance = playerThatHookedThisFish.posY - hookThatThisFishIsHookedTo.posY;
+		double zDistance = playerThatHookedThisFish.posZ - hookThatThisFishIsHookedTo.posZ;
+		
+		setDead();
+		
+		double overallDistanceSquared = MathHelper.sqrt_double(xDistance * xDistance + yDistance * yDistance + zDistance * zDistance);
+		double distanceOffset = 0.1D;
+		
+		entityItem.motionX = xDistance * distanceOffset;
+		entityItem.motionY = yDistance * distanceOffset + MathHelper.sqrt_double(overallDistanceSquared) * 0.08D;
+		entityItem.motionZ = zDistance * distanceOffset;
+		
+		worldObj.spawnEntityInWorld(entityItem);
+		
+		playerThatHookedThisFish.worldObj.spawnEntityInWorld(new EntityXPOrb(playerThatHookedThisFish.worldObj, playerThatHookedThisFish.posX, playerThatHookedThisFish.posY + 0.5D, playerThatHookedThisFish.posZ + 0.5D, rand.nextInt(6) + 1));
+	}
 
     public boolean isSwimming()
     {
@@ -1175,44 +1163,18 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
     }
 
     /**
-     * Finds and entity described in entitiesThatAreScary at d distance
-     * 
-     * @param d
-     * @return
-     */
-    protected EntityLivingBase getScaryEntity(double d)
-    {
-        double currentMinimumDistance = -1D;
-        
-        EntityLivingBase entityLiving = null;
-        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, 4D, d));
-        
-        int iterationLength = entitiesNearbyList.size();
-        
-        if (iterationLength > 0)
-        {
-	        for (int index = 0; index < iterationLength; index++)
-	        {
-	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-	            
-	            if (entitiesThatAreScary(entityNearby))
-	            {
-	                entityLiving = (EntityLivingBase) entityNearby;
-	            }
-	        }
-        }
-        return entityLiving;
-    }
-
-    /**
-     * Used in getScaryEntity to specify what kind of entity to look for
+     * Used in MoCTools.getScaryEntity to specify what kind of entity to look for
      * 
      * @param entity
      * @return
      */
-    public boolean entitiesThatAreScary(Entity entity)
+    @Override
+	public boolean entitiesThatAreScary(Entity entity)
     {
-        return ( (entity.getClass() != getClass()) && (entity instanceof EntityLivingBase) && ((entity.width >= 0.5D) || (entity.height >= 0.5D)));
+        return 
+        		((entity.getClass() != getClass())
+        		&& (entity instanceof EntityLivingBase)
+        		&& ((entity.width >= 0.5D) || (entity.height >= 0.5D)));
     }
 
     public boolean isNotScared()

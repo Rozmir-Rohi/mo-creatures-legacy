@@ -386,7 +386,6 @@ public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
         if (attackTime <= 0 && (distanceToEntity < 3.0D))
         {
             attackTime = 20;
-            boolean isEntityToAttackInstanceOfPlayer = (entity instanceof EntityPlayer);
             ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 150, 0));
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
         }
@@ -430,7 +429,7 @@ public class MoCEntityKomodoDragon extends MoCEntityTameableAnimal
             }
             if ((rand.nextInt(80) == 0))
             {
-                EntityLivingBase entityLiving = getClosestEntityLiving(this, 8D);
+                EntityLivingBase entityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 8D);
                 return entityLiving;
             }
         }

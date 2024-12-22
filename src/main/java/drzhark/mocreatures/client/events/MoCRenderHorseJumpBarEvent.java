@@ -26,7 +26,7 @@ public class MoCRenderHorseJumpBarEvent extends Gui {
 	@SubscribeEvent
 	public void RenderGameOverlayEvent(RenderGameOverlayEvent event)
     {
-		EntityPlayer entityPlayer = mc.getMinecraft().thePlayer;
+		EntityPlayer entityPlayer = Minecraft.getMinecraft().thePlayer;
 		
 		if (
 				entityPlayer.ridingEntity != null
@@ -55,11 +55,11 @@ public class MoCRenderHorseJumpBarEvent extends Gui {
 
         mc.mcProfiler.startSection("jumpBar");
         
-        float charge = ((MoCEntityHorse)  mc.getMinecraft().thePlayer.ridingEntity).getHorseJumpPower();
+        float charge = ((MoCEntityHorse)  Minecraft.getMinecraft().thePlayer.ridingEntity).getHorseJumpPower();
         
         final int barWidth = 182;
         int x = (width / 2) - (barWidth / 2);
-        int filled = (int)(charge * (float)(barWidth + 1));
+        int filled = (int)(charge * (barWidth + 1));
         int top = height - 32 + 3;
 
         drawTexturedModalRect(x, top, 0, 84, barWidth, 5);

@@ -99,7 +99,7 @@ public class CommandMoCTP extends CommandBase {
                         int y = MathHelper.floor_double( posY );
                         int z = MathHelper.floor_double( posZ );
                         par1ICommandSender.addChatMessage(new ChatComponentTranslation("Found unloaded pet " + EnumChatFormatting.GREEN + nbt.getString("id") + EnumChatFormatting.WHITE + " with name " + EnumChatFormatting.AQUA + nbt.getString("Name") + EnumChatFormatting.WHITE + " at location " + EnumChatFormatting.LIGHT_PURPLE + x + EnumChatFormatting.WHITE + ", " + EnumChatFormatting.LIGHT_PURPLE + y + EnumChatFormatting.WHITE + ", " + EnumChatFormatting.LIGHT_PURPLE + z + EnumChatFormatting.WHITE + " with Pet ID " + EnumChatFormatting.BLUE + nbt.getInteger("PetId")));
-                        Chunk chunk = world.getChunkFromChunkCoords(x >> 4, z >> 4);
+                        world.getChunkFromChunkCoords(x >> 4, z >> 4);
                         boolean result = teleportLoadedPet(world, player, petId, petName, par1ICommandSender); // attempt to TP again
                         if (!result)
                         {

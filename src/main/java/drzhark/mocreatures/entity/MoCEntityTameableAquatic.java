@@ -325,4 +325,10 @@ public class MoCEntityTameableAquatic extends MoCEntityAquatic implements IMoCTa
     public boolean isRiderDisconnecting() {
         return riderIsDisconnecting;
     }
+
+	@Override
+	public boolean shouldEntityBeIgnored(Entity entityNearby) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

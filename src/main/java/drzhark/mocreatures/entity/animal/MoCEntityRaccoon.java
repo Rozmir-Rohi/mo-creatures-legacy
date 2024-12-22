@@ -130,7 +130,7 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal{
     {
         if ((rand.nextInt(80) == 0) && (worldObj.difficultySetting.getDifficultyId() > 0))
         {
-            EntityLivingBase entityLiving = getClosestEntityLiving(this, 8D);
+            EntityLivingBase entityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 8D);
             return entityLiving;
         }
         else

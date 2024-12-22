@@ -193,4 +193,10 @@ public class MoCEntityRat extends MoCEntityMob {
     {
         super.writeEntityToNBT(nbtTagCompound);
     }
+
+	@Override
+	public boolean entitiesThatAreScary(Entity entityNearby)
+	{
+		return false;
+	}
 }

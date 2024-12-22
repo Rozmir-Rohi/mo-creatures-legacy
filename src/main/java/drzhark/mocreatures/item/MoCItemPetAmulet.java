@@ -29,7 +29,6 @@ import net.minecraft.world.World;
 public class MoCItemPetAmulet extends MoCItem
 {
     private IIcon[] icons;
-    private int ageCounter;
     private String name;
     private float maxHealth;
     private float health;

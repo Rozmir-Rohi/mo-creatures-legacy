@@ -166,11 +166,11 @@ public class MoCModelSnake extends ModelBase {
         float f6 = entitysnake.bodyswing;
         boolean nearplayer = entitysnake.getNearPlayer();
         boolean picked = entitysnake.pickedUp();
-        float fsize = entitysnake.getSizeF();
+        entitysnake.getSizeF();
         setRotationAngles(f3, f4, tongueOff, mouthOff, rattleOff, nearplayer, typeI);
 
         float sidef = 0.0F;
-        float anglef = 10F;
+        
 
         //y = A * sin(w * t - k *x)
         /*
@@ -185,7 +185,6 @@ public class MoCModelSnake extends ModelBase {
         *w -3.5
          */
 
-        float A = 0.4F;//0.8F;
         float w = 1.5F;
         float t = f / 2;
 
@@ -402,13 +401,6 @@ public class MoCModelSnake extends ModelBase {
       return A * MathHelper.sin(w* t - k * x);
     }
     */
-
-    private void setRotation(ModelRenderer model, float x, float y, float z)
-    {
-        model.rotateAngleX = x;
-        model.rotateAngleY = y;
-        model.rotateAngleZ = z;
-    }
 
     public void setRotationAngles(float f3, float f4, float f6, float f7, float frattle, boolean nearP, int type)
     {

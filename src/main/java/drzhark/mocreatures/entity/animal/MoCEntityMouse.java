@@ -71,7 +71,7 @@ public class MoCEntityMouse extends MoCEntityAnimal
         int zCoordinate = MathHelper.floor_double(posZ);
         BiomeGenBase currentBiome = MoCTools.biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
-        String biomeName = MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
         if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SNOWY))
         {
             setType(3); //white mice!
@@ -101,16 +101,6 @@ public class MoCEntityMouse extends MoCEntityAnimal
     {
         byte input = (byte) (flag ? 1 : 0);
         dataWatcher.updateObject(22, Byte.valueOf(input));
-    }
-
-    private boolean checkNearCats()
-    {
-        return true;
-    }
-
-    private boolean checkNearRock()
-    {
-        return true;
     }
 
     public boolean climbing()
@@ -240,7 +230,7 @@ public class MoCEntityMouse extends MoCEntityAnimal
         {
             if(rand.nextInt(15) == 0)
             {
-                EntityLivingBase entityLiving = getScaryEntity(6D);
+                EntityLivingBase entityLiving = MoCTools.getScaryEntity(this, 6D);
                 if(entityLiving != null)
                 {
                     MoCTools.runAway(this, entityLiving);
@@ -276,10 +266,6 @@ public class MoCEntityMouse extends MoCEntityAnimal
         }
         
         return super.attackEntityFrom(damageSource, damageTaken);
-    }
-
-    private void reproduce()
-    {
     }
 
     public boolean upsideDown()

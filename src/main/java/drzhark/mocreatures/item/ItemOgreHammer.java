@@ -59,8 +59,6 @@ public class ItemOgreHammer extends MoCItem
         double coordY = entityPlayer.posY + entityPlayer.getEyeHeight();
         double coordZ = entityPlayer.posZ;
         double coordX = entityPlayer.posX;
-        int newWallBlockID = 0;
-        
         for (int x = 3; x < 128; x++)
         {
             double newPosY = coordY - Math.cos( (entityPlayer.rotationPitch- 90F) / 57.29578F) * x;

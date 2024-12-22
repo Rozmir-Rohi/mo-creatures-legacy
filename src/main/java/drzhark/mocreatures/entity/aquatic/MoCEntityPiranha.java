@@ -60,43 +60,6 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
        return MoCreatures.proxy.getTexture("smallfish_piranha.png");
     }
     
-    protected EntityLivingBase getClosestEntityLiving(Entity entity, double d)
-    {
-        double d1 = -1D;
-        EntityLivingBase entityLiving = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
-        for (int i = 0; i < list.size(); i++)
-        {
-            Entity entity1 = (Entity) list.get(i);
-
-            if ( (!(entity1.isInWater()) // do not hunt if entity is not in water
-            		|| !(entity1 instanceof EntityLivingBase) // do not hunt the following mobs below
-                    || (entity1 == entity) 
-                    || (entity1 == entity.riddenByEntity) 
-                    || (entity1 == entity.ridingEntity) 
-                    || (entity1 instanceof MoCEntityAmbient)
-                    || (entity1 instanceof MoCEntityKittyBed || entity1 instanceof MoCEntityLitterBox)
-                    || (entity1 instanceof IMob || entity1 instanceof MoCEntityMob) 
-                    || (entity1 instanceof EntityPlayer)
-                    || (getIsTamed() && (entity1 instanceof IMoCEntity) && ((IMoCEntity)entity1).getIsTamed() ) // do not hunt if this is tamed and the target is a tamed MOC mob
-                    || ((entity1 instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)) 
-                    || ((entity1 instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves))
-            		)
-            	)
-            {
-                continue;
-            }
-            double d2 = entity1.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-            if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLivingBase) entity1).canEntityBeSeen(entity))
-            {
-                d1 = d2;
-                entityLiving = (EntityLivingBase) entity1;
-            }
-        }
-
-        return entityLiving;
-    }
-    
     @Override
     protected Entity findPlayerToAttack()
     {
@@ -107,7 +70,7 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
             
             if (rand.nextInt(80) == 0)
             {
-            	EntityLivingBase entityLiving = getClosestEntityLiving(this, 4D);
+            	EntityLivingBase entityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 4D);
                 return entityLiving;
             }
         }
@@ -173,6 +136,25 @@ public class MoCEntityPiranha extends MoCEntitySmallFish{
                 entityDropItem(new ItemStack(MoCreatures.mocegg, 1, 90), 0.0F); 
             }
         }
+    }
+    
+    @Override
+    public boolean shouldEntityBeIgnored(Entity entity)
+    {
+        return (
+        			!(entity.isInWater()) // do not hunt if entity is not in water
+                    || !(entity instanceof EntityLivingBase) // do not hunt the following mobs below
+                    || (entity instanceof MoCEntityPiranha) 
+                    || (entity == entity.riddenByEntity) 
+                    || (entity == entity.ridingEntity) 
+                    || (entity instanceof MoCEntityAmbient)
+                    || (entity instanceof MoCEntityKittyBed || entity instanceof MoCEntityLitterBox)
+                    || (entity instanceof IMob || entity instanceof MoCEntityMob) 
+                    || (entity instanceof EntityPlayer)
+                    || (getIsTamed() && (entity instanceof IMoCEntity) && ((IMoCEntity)entity).getIsTamed() ) // do not hunt if this is tamed and the target is a tamed MOC mob
+                    || ((entity instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses)) 
+                    || ((entity instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves))
+                );
     }
     
     @Override

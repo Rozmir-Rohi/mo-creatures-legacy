@@ -11,26 +11,18 @@ public class WorldGenTower extends WorldGenerator
 {
     private Block MainBlock;
     private Block brickBlock;
-    private Block decoBlock;
     private int MainMetadata;
-    private int brickMetadata;
-    private int decoMetadata;
-    
     public WorldGenTower(Block Main, Block Brick, Block Deco)
     {        
         MainBlock = Main;
         brickBlock = Brick;
-        decoBlock = Deco;
     }
     
     public WorldGenTower(Block Main, int MainMeta, Block Brick, int BrickMeta, Block Deco, int DecoMeta)
     {        
         MainBlock = Main;
         brickBlock = Brick;
-        decoBlock = Deco;
         MainMetadata = MainMeta;
-        brickMetadata = BrickMeta;
-        decoMetadata = DecoMeta;
     }
     
     @Override

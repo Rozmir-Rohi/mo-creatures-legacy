@@ -153,12 +153,12 @@ public class MoCBlockLeaves extends BlockLeavesBase
      * ejects contained items into the world, and notifies neighbours of an update, as appropriate
      */
     @Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6)
+	public void breakBlock(World world, int par2, int par3, int par4, Block par5, int par6)
     {
         byte b0 = 1;
         int j1 = b0 + 1;
 
-        if (par1World.checkChunksExist(par2 - j1, par3 - j1, par4 - j1, par2 + j1, par3 + j1, par4 + j1))
+        if (world.checkChunksExist(par2 - j1, par3 - j1, par4 - j1, par2 + j1, par3 + j1, par4 + j1))
         {
             for (int k1 = -b0; k1 <= b0; ++k1)
             {
@@ -166,11 +166,11 @@ public class MoCBlockLeaves extends BlockLeavesBase
                 {
                     for (int i2 = -b0; i2 <= b0; ++i2)
                     {
-                        Block block = par1World.getBlock(par2 + k1, par3 + l1, par4 + i2);
+                        Block block = world.getBlock(par2 + k1, par3 + l1, par4 + i2);
 
                         if (block != null)
                         {
-                            block.beginLeavesDecay(par1World, par2 + k1, par3 + l1, par4 + i2);
+                            block.beginLeavesDecay(world, par2 + k1, par3 + l1, par4 + i2);
                         }
                     }
                 }
@@ -178,10 +178,10 @@ public class MoCBlockLeaves extends BlockLeavesBase
         }
     }
 
-    private void removeLeaves(World par1World, int par2, int par3, int par4)
+    private void removeLeaves(World world, int par2, int par3, int par4)
     {
-        dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
-        par1World.setBlockToAir(par2, par3, par4);
+        dropBlockAsItem(world, par2, par3, par4, world.getBlockMetadata(par2, par3, par4), 0);
+        world.setBlockToAir(par2, par3, par4);
     }
 
     @Override

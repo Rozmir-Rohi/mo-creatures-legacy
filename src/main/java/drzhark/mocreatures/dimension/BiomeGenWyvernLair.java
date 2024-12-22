@@ -65,9 +65,9 @@ public class BiomeGenWyvernLair extends BiomeGenBase
     }
 
     @Override
-    public void decorate(World par1World, Random par2Random, int par3, int par4)
+    public void decorate(World world, Random par2Random, int par3, int par4)
     {
-        super.decorate(par1World, par2Random, par3, par4);
+        super.decorate(world, par2Random, par3, par4);
 
         WorldGenVines var5 = new WorldGenVines();
 
@@ -76,7 +76,7 @@ public class BiomeGenWyvernLair extends BiomeGenBase
             int var7 = par3 + par2Random.nextInt(16) + 8;
             byte var8 = 64;
             int var9 = par4 + par2Random.nextInt(16) + 8;
-            var5.generate(par1World, par2Random, var7, var8, var9);
+            var5.generate(world, par2Random, var7, var8, var9);
         }
     }
 }

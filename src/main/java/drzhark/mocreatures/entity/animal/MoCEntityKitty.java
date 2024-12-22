@@ -41,8 +41,6 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     private int madTimer;
     private boolean hasFoundTree;
     private final int treeCoord[] = { -1, -1, -1 };
-    private int displayCount;
-
     private boolean isSwingingArm;
     private boolean isOnTree;
     
@@ -306,7 +304,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     {
         if ((worldObj.difficultySetting.getDifficultyId() > 0) && (getKittyState() != KITTY_STATE_PLAYING_WITH_WOOLBALL) && (getKittyState() != KITTY_STATE_KITTEN) && (getKittyState() != KITTY_STATE_ON_PLAYERS_BACK) && (getKittyState() != KITTY_STATE_IN_LOVE_STAGE_TWO) && (getKittyState() != KITTY_STATE_GIVING_BIRTH_STAGE_ONE) && !isMovementCeased())
         {
-            EntityLivingBase entityLiving = getClosestEntityLiving(this, 10D);
+            EntityLivingBase entityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 10D);
             return entityLiving;
         }
         else
@@ -328,57 +326,6 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         			&& (getKittyState() == KITTY_STATE_UNTAMED || !(entity instanceof EntityPlayer))
         			
         		);
-    }
-    
-
-    //TODO use MoCAnimal instead
-    @Override
-	public EntityLiving getClosestEntityLiving(Entity entity, double distance)
-    {
-        double currentMinimumDistance = -1D;
-        EntityLiving closestEntityLiving = null;
-        
-        List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(distance, distance, distance));
-        
-        int iterationLength = entitiesNearbyList.size();
-        
-        if (iterationLength > 0)
-        {
-	        for (int index = 0; index < iterationLength; index++)
-	        {
-	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
-	            
-	            //do not hunt the following mobs below
-	            if (
-		            	!(entityNearby instanceof EntityLiving)
-		            	|| entityNearby instanceof MoCEntityKitty
-		            	|| entityNearby instanceof EntityPlayer
-		            	|| (entityNearby instanceof IMob || entityNearby instanceof MoCEntityMob)
-		            	|| entityNearby instanceof MoCEntityKittyBed
-		            	|| entityNearby instanceof MoCEntityLitterBox
-		            	|| entityNearby instanceof MoCEntityJellyFish
-		            	|| entityNearby instanceof MoCEntityRay
-		            	|| ((entityNearby.width > 0.5D) && (entityNearby.height > 0.5D))
-	            	)            	
-	            {
-	                continue;
-	            }
-	            
-	            if (entityNearby == null || MoCTools.isEntityAFishThatIsInTheOcean(entityNearby))
-	            {
-	            	continue;
-	            }
-	            
-	            double overallDistanceSquared = entityNearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-	            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)) && ((EntityLiving) entityNearby).canEntityBeSeen(entity))
-	            {
-	                currentMinimumDistance = overallDistanceSquared;
-	                closestEntityLiving = (EntityLiving) entityNearby;
-	            }
-	        }
-        }
-
-        return closestEntityLiving;
     }
 
     @Override
@@ -702,7 +649,8 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         				(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
         				|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
         		)
-        		&& !(entityPlayer.isSneaking()) && (getKittyState() == KITTY_STATE_ON_PLAYERS_BACK)
+        		&& !(entityPlayer.isSneaking())
+        		&& (getKittyState() == KITTY_STATE_ON_PLAYERS_BACK)
         	)
         {
             changeKittyStateTo(KITTY_STATE_NORMAL_HAPPY);
@@ -820,7 +768,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	            case KITTY_STATE_UNTAMED: // '\001'
 	                if (rand.nextInt(10) == 0)
 	                {
-	                    EntityLivingBase scaryEntityNearby = getScaryEntity(6D);
+	                    EntityLivingBase scaryEntityNearby = MoCTools.getScaryEntity(this, 6D);
 	                    if (scaryEntityNearby != null)
 	                    {
 	                        MoCTools.runAway(this, scaryEntityNearby);
@@ -833,7 +781,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                    break;
 	                }
 	                
-	                EntityItem closestEntityItemForTaming = getClosestItem(this, 10D, Items.cooked_fished, Items.cooked_fished);
+	                EntityItem closestEntityItemForTaming = MoCTools.getClosestSpecificEntityItemItemNearby(this, 10D, Items.cooked_fished, Items.cooked_fished);
 	               
 	                if (closestEntityItemForTaming == null)
 	                {
@@ -859,7 +807,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                
 	                
 	            case KITTY_STATE_PRETAMED: // '\002'
-	                EntityLivingBase scaryEntityNearby = getScaryEntity(6D);
+	                EntityLivingBase scaryEntityNearby = MoCTools.getScaryEntity(this, 6D);
 	                
 	                if (scaryEntityNearby != null)
 	                {
@@ -1119,7 +1067,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                {
 	                    if (rand.nextInt(10) < 7) //70% chance
 	                    {
-	                        entityToAttack = getClosestItem(this, 10D, null, null);
+	                        entityToAttack = MoCTools.getClosestSpecificEntityItemItemNearby(this, 10D, null, null);
 	                    }
 	                    else
 	                    {
@@ -1364,34 +1312,31 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                int treeCoordX = treeCoord[0];
 	                int treeCoordY = treeCoord[1];
 	                int treeCoordZ = treeCoord[2];
-	                faceItem(treeCoordX, treeCoordY, treeCoordZ, 30F);
+	                MoCTools.faceItem(this, treeCoordX, treeCoordY, treeCoordZ, 30F);
 	                
 	                if ((treeCoordY - MathHelper.floor_double(posY)) > 2)
 	                {
 	                    motionY += 0.029999999999999999D;
 	                }
 	                
-	                boolean flag = false;
-	                boolean flag1 = false;
-	                
-	                if (posX < treeCoordX)
+				if (posX < treeCoordX)
 	                {
-	                    int j2 = treeCoordX - MathHelper.floor_double(posX);
+	                    MathHelper.floor_double(posX);
 	                    motionX += 0.01D;
 	                }
 	                else
 	                {
-	                    int k2 = MathHelper.floor_double(posX) - treeCoordX;
+	                    MathHelper.floor_double(posX);
 	                    motionX -= 0.01D;
 	                }
 	                if (posZ < treeCoordZ)
 	                {
-	                    int j3 = treeCoordZ - MathHelper.floor_double(posZ);
+	                    MathHelper.floor_double(posZ);
 	                    motionZ += 0.01D;
 	                }
 	                else
 	                {
-	                    int k3 = MathHelper.floor_double(posX) - treeCoordZ;
+	                    MathHelper.floor_double(posX);
 	                    motionZ -= 0.01D;
 	                }
 	                if (onGround || !isCollidedHorizontally || !isCollidedVertically)
@@ -1615,7 +1560,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
     {
     	if (itemStack != null)
     	{
-	    	Item item = itemStack.getItem();
+	    	itemStack.getItem();
 	    	
 	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
 	    	
@@ -1660,6 +1605,24 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
             setSwinging(true);
             swingProgress = 0.0F;
         }
+    }
+    
+    @Override
+    public boolean shouldEntityBeIgnored(Entity entity)
+    {
+        return (
+        			super.shouldEntityBeIgnored(entity) //including the mobs specified in parent file
+        			|| !(entity instanceof EntityLiving)
+	            	|| entity instanceof MoCEntityKitty
+	            	|| entity instanceof EntityPlayer
+	            	|| (entity instanceof IMob || entity instanceof MoCEntityMob)
+	            	|| entity instanceof MoCEntityKittyBed
+	            	|| entity instanceof MoCEntityLitterBox
+	            	|| entity instanceof MoCEntityJellyFish
+	            	|| entity instanceof MoCEntityRay
+	            	|| ((entity.width > 0.5D) && (entity.height > 0.5D))
+	            	|| MoCTools.isEntityAFishThatIsInTheOcean(entity)
+                );
     }
 
     @Override

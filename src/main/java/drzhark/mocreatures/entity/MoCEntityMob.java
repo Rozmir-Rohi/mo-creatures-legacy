@@ -38,7 +38,6 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     protected int maxHealth;
     private PathEntity entitypath;
     public EntityLiving roper;
-    private boolean riderIsDisconnecting;
     protected float moveSpeed;
     protected String texture;
     private boolean hasKilledPrey = false;
@@ -47,7 +46,6 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     {
         super(world);
         setTamed(false);
-        riderIsDisconnecting = false;
         texture = "blank.jpg";
     }
 
@@ -202,33 +200,8 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         return l <= rand.nextInt(8);
     }
 
-    // TODO move this to a class accessible by MocEntityMob and MoCentityAnimals
-    // ?? implements?
-    protected EntityLivingBase getClosestEntityLiving(Entity entity, double d)
-    {
-        double d1 = -1D;
-        EntityLivingBase entityLiving = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
-        for (int i = 0; i < list.size(); i++)
-        {
-            Entity entity1 = (Entity) list.get(i);
-
-            if (shouldEntityBeIgnored(entity1))
-            {
-                continue;
-            }
-            double d2 = entity1.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-            if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLivingBase) entity1).canEntityBeSeen(entity))
-            {
-                d1 = d2;
-                entityLiving = (EntityLivingBase) entity1;
-            }
-        }
-
-        return entityLiving;
-    }
-
-    public boolean shouldEntityBeIgnored(Entity entity)
+    @Override
+	public boolean shouldEntityBeIgnored(Entity entity)
     {
         return 
         	(
@@ -416,7 +389,6 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
 
         if (handleWaterMovement())
         {
-            double d = posY;
             moveFlying(f, f1, 0.02F);
             moveEntity(motionX, motionY, motionZ);
             motionX *= 0.80000001192092896D;
@@ -425,7 +397,6 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
         }
         else if (handleLavaMovement())
         {
-            double d1 = posY;
             moveFlying(f, f1, 0.02F);
             moveEntity(motionX, motionY, motionZ);
             motionX *= 0.5D;
@@ -820,6 +791,5 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
     @Override
     public void riderIsDisconnecting(boolean flag)
     {
-        riderIsDisconnecting = true;
     }
 }

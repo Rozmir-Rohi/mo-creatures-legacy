@@ -61,10 +61,8 @@ public class MoCItemCreaturePedia extends MoCItem {
         if (!worldObj.isRemote)
         {
             double dist = 5D;
-            double newPosX = entityPlayer.posX - (dist * Math.cos((MoCTools.realAngle(entityPlayer.rotationYaw - 90F)) / 57.29578F));
-            double newPosZ = entityPlayer.posZ - (dist * Math.sin((MoCTools.realAngle(entityPlayer.rotationYaw - 90F)) / 57.29578F));
-            double newPosY = entityPlayer.posY - 1D;
-
+            Math.cos((MoCTools.realAngle(entityPlayer.rotationYaw - 90F)) / 57.29578F);
+            Math.sin((MoCTools.realAngle(entityPlayer.rotationYaw - 90F)) / 57.29578F);
             double d1 = -1D;
             EntityLivingBase entityLiving = null;
             List list = worldObj.getEntitiesWithinAABBExcludingEntity(entityPlayer, entityPlayer.boundingBox.expand(dist, dist, dist));
@@ -120,6 +118,4 @@ public class MoCItemCreaturePedia extends MoCItem {
 
         return itemStack;
     }
-
-    private int ageCounter;
 }

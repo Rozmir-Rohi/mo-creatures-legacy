@@ -148,7 +148,7 @@ public class MoCEntityMediumFish extends MoCEntityTameableAquatic{
             
             if (rand.nextInt(5) == 0 && !getIsTamed())
             {
-                EntityLivingBase entityLiving = getScaryEntity(8D);
+                EntityLivingBase entityLiving = MoCTools.getScaryEntity(this, 8D);
                 if (entityLiving != null && entityLiving.isInsideOfMaterial(Material.water))
                 {
                    MoCTools.runAway(this, entityLiving);

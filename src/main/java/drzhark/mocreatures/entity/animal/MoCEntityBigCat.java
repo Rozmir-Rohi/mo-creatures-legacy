@@ -424,7 +424,6 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 
     public int checkForOtherBigCatsNearbyAndTheirType(double d)
     {
-        boolean flag = false;
         List entitiesNearbyList = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(d, d, d));
         for (int index = 0; index < entitiesNearbyList.size(); index++)
         {
@@ -462,7 +461,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
             }
             if ((rand.nextInt(80) == 0) && getIsHungry())
             {
-                EntityLivingBase entityLiving = getClosestEntityLiving(this, getAttackRange());
+                EntityLivingBase entityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, getAttackRange());
                 setHungry(false);
                 return entityLiving;
             }
@@ -502,7 +501,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
         int zCoordinate = MathHelper.floor_double(posZ);
 
         BiomeGenBase currentBiome = MoCTools.biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
-        String biomeName = MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
         int typeChance = rand.nextInt(100);
 
@@ -601,7 +600,8 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     @Override
     public boolean shouldEntityBeIgnored(Entity entity)
     {
-        return (super.shouldEntityBeIgnored(entity) //including the mobs specified in parent file
+        return (
+        			super.shouldEntityBeIgnored(entity) //including the mobs specified in parent file
                     || (entity instanceof MoCEntityBigCat)
                     || (getIsAdult() && (entity.width > 1.3D && entity.height > 1.3D)) // don't try to hunt creature larger than a deer when adult
                     || (!getIsAdult() && (entity.width > 0.5D && entity.height > 0.5D)) // don't try to hunt creature larger than a chicken when child
@@ -612,7 +612,7 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
                     || (entity instanceof MoCEntityAquatic || entity instanceof MoCEntityTameableAquatic || entity instanceof EntitySquid)
                     || (entity instanceof MoCEntityElephant)
                     || ((entity instanceof EntityMob) && (!getIsTamed() || !getIsAdult()))
-                    );
+                );
     }
 
     @Override
@@ -662,7 +662,6 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 
     public EntityCreature getMastersEnemy(EntityPlayer entityPlayer, double d)
     {
-        double d1 = -1D;
         EntityCreature entitycreature = null;
         List list = worldObj.getEntitiesWithinAABBExcludingEntity(entityPlayer, boundingBox.expand(d, 4D, d));
         for (int i = 0; i < list.size(); i++)

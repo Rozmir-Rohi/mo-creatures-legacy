@@ -25,7 +25,6 @@ public class MoCRenderFishBowl extends RenderLiving {
     @Override
     protected void preRenderCallback(EntityLivingBase entityLiving, float f)
     {
-        MoCEntityFishBowl entityfishbowl = (MoCEntityFishBowl) entityLiving;
         //mycolor = entitykittybed.getSheetColor();
         //fishbowl.pickedUp = entityfishbowl.getPickedUp();
         if (MoCreatures.isServer() && (entityLiving.ridingEntity == MoCClientProxy.mc.thePlayer))

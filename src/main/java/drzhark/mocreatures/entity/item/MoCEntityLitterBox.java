@@ -2,6 +2,7 @@ package drzhark.mocreatures.entity.item;
 
 import java.util.List;
 
+import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.MoCEntityItemPlaceable;
@@ -219,7 +220,7 @@ public class MoCEntityLitterBox extends MoCEntityItemPlaceable {
         
         if (MoCreatures.isServer() && getUsedLitter())
         {
-            EntityItem entityItem = getClosestEntityItem(this, 1D);
+        	EntityItem entityItem = MoCTools.getClosestSpecificEntityItemItemNearby(this, 1D, Item.getItemFromBlock(Blocks.sand), Item.getItemFromBlock(Blocks.sand));
             
             if (entityItem != null)	
             {

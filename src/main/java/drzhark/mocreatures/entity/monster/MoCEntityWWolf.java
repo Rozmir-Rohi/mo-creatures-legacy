@@ -185,7 +185,7 @@ public class MoCEntityWWolf extends MoCEntityMob {
         
         else if (rand.nextInt(80) == 0)
         {
-            EntityLivingBase entityLiving = getClosestEntityLiving(this, 10D);
+            EntityLivingBase entityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 10D);
             if (entityLiving != null && !(entityLiving instanceof EntityPlayer) && canEntityBeSeen(entityLiving))
             {
             	return entityLiving;
@@ -263,4 +263,10 @@ public class MoCEntityWWolf extends MoCEntityMob {
         openMouth();
         return "mocreatures:wolfgrunt";
     }
+
+	@Override
+	public boolean entitiesThatAreScary(Entity entityNearby)
+	{
+		return false;
+	}
 }

@@ -1005,7 +1005,7 @@ public void setRotationAngles(float f, float f1, float f2, float f3, float f4, f
             neck1.rotateAngleX = 30F/radianF + (RLegXRot * 2/60F);
         }
     }
-    float TailXRot = MathHelper.cos(f * 0.4F) * 0.2F * f1;
+    MathHelper.cos(f * 0.4F);
     tail1.rotateAngleX = (-19F /radianF);// - TailXRot;
     
     tail2.rotateAngleX = (-16F /radianF);// + TailXRot;

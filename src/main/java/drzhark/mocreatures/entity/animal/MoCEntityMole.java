@@ -49,25 +49,6 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
     
     
     /**
-     * Moves entity forward underground
-     */
-    private void digForward()
-    {
-        double coordY = posY;
-        double coordZ = posZ;
-        double coordX = posX;
-        int x = 1;
-        double newPosY = coordY - Math.cos( (rotationPitch- 90F) / 57.29578F) * x;
-        double newPosX = coordX + Math.cos((MoCTools.realAngle(rotationYaw- 90F) / 57.29578F)) * (Math.sin( (rotationPitch- 90F) / 57.29578F) * x );
-        double newPosZ = coordZ + Math.sin((MoCTools.realAngle(rotationYaw- 90F) / 57.29578F)) * (Math.sin( (rotationPitch- 90F) / 57.29578F) * x );
-        Block block = worldObj.getBlock( MathHelper.floor_double(newPosX),  MathHelper.floor_double(newPosY),  MathHelper.floor_double(newPosZ)); 
-        if (isDiggableBlock(Block.getIdFromBlock(block)))
-        {
-            setPosition(newPosX, newPosY, newPosZ);   
-        }
-    }
-
-    /**
      * obtains State
      * @return 0 outside / 1 digging / 2 underground / 3 pick-a-boo
      */
@@ -141,7 +122,7 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
 
             if (getState() != 2 && getState() != 1 && isOnDirt())
             {
-                EntityLivingBase entityLiving = getScaryEntity(4D);
+                EntityLivingBase entityLiving = MoCTools.getScaryEntity(this, 4D);
                 if ((entityLiving != null) && canEntityBeSeen(entityLiving))
                 {
                     setState((byte)1);
@@ -150,7 +131,7 @@ public class MoCEntityMole extends MoCEntityTameableAnimal {
             }
 
             //if underground and no enemies: pick a scary entity
-            if (rand.nextInt(20) == 0 && getState() == 2 && (getScaryEntity(4D) == null))
+            if (rand.nextInt(20) == 0 && getState() == 2 && (MoCTools.getScaryEntity(this, 4D) == null))
             {
                 setState((byte)3);
                 setPathToEntity(null);

@@ -46,9 +46,9 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
     //int[][] field_73203_h = new int[32][32];
     byte[] metadat = new byte[32768];
 
-    public MoCChunkProviderWyvernLair(World par1World, long par2)
+    public MoCChunkProviderWyvernLair(World world, long par2)
     {
-        worldObj = par1World;
+        worldObj = world;
         RNGa = new Random(par2);
         noiseGen1 = new NoiseGeneratorOctaves(RNGa, 16);
         noiseGen2 = new NoiseGeneratorOctaves(RNGa, 16);
@@ -57,7 +57,7 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
         noiseGen5 = new NoiseGeneratorOctaves(RNGa, 16);
 
         NoiseGenerator[] noiseGens = {noiseGen1, noiseGen2, noiseGen3, noiseGen4, noiseGen5};
-        noiseGens = TerrainGen.getModdedNoiseGenerators(par1World, RNGa, noiseGens);
+        noiseGens = TerrainGen.getModdedNoiseGenerators(world, RNGa, noiseGens);
         noiseGen1 = (NoiseGeneratorOctaves)noiseGens[0];
         noiseGen2 = (NoiseGeneratorOctaves)noiseGens[1];
         noiseGen3 = (NoiseGeneratorOctaves)noiseGens[2];
@@ -67,13 +67,13 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
 
     /**
      * Calls ChunkProvider constructor, adding metadata that will be saved to every terrain block generated.
-     * @param par1World
+     * @param world
      * @param par2
      * @param metadata
      */
-    public MoCChunkProviderWyvernLair(World par1World, long par2, int metadata)
+    public MoCChunkProviderWyvernLair(World world, long par2, int metadata)
     {
-        this(par1World, par2);
+        this(world, par2);
 
         for (int i = 0; i<32768; i++)
         {
@@ -411,8 +411,8 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
         int var5 = par3 * 16;
         BiomeGenBase var6 = worldObj.getBiomeGenForCoords(var4 + 16, var5 + 16);
 
-        long var7 = RNGa.nextLong() / 2L * 2L + 1L;
-        long var9 = RNGa.nextLong() / 2L * 2L + 1L;
+        RNGa.nextLong();
+        RNGa.nextLong();
         boolean var11 = false;
 
         int var12;
@@ -453,18 +453,18 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
     private boolean towerDone = false;
     private boolean portalDone = false;
     
-    public void generateTower(World par1World, Random par2Random, int par3, int par4)
+    public void generateTower(World world, Random par2Random, int par3, int par4)
     {
         WorldGenTower myTower = new WorldGenTower(Blocks.grass, Blocks.double_stone_slab, Blocks.lapis_ore);
         if (!towerDone)
         {
             int randPosX = par3 + par2Random.nextInt(16) + 8;
             int randPosZ = par4 + par2Random.nextInt(16) + 8;
-            towerDone = myTower.generate(par1World, par2Random, randPosX, 61, randPosZ);
+            towerDone = myTower.generate(world, par2Random, randPosX, 61, randPosZ);
         }
     }
 
-    public void createPortal(World par1World, Random par2Random)
+    public void createPortal(World world, Random par2Random)
     {
         MoCWorldGenPortal myPortal = new MoCWorldGenPortal(Blocks.quartz_block, 2, Blocks.quartz_stairs, 0, Blocks.quartz_block, 1, Blocks.quartz_block, 0);
         for (int i = 0; i< 16; i++)
@@ -472,7 +472,7 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
             if (!portalDone)
             {
                 int randPosY = 56 + i;
-                portalDone = myPortal.generate(par1World, par2Random, 0, randPosY, 0);
+                portalDone = myPortal.generate(world, par2Random, 0, randPosY, 0);
             }
         }
     }
@@ -519,7 +519,7 @@ public class MoCChunkProviderWyvernLair implements IChunkProvider
      * Returns the location of the closest structure of the specified type. If not found returns null.
      */
     @Override
-	public ChunkPosition func_147416_a(World par1World, String par2Str, int par3, int par4, int par5)
+	public ChunkPosition func_147416_a(World world, String par2Str, int par3, int par4, int par5)
     {
         return null;
     }

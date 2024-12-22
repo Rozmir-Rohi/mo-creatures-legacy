@@ -13,9 +13,9 @@ public class MoCEntityFXVacuum extends EntityFX {
     private final double portalPosY;
     private final double portalPosZ;
 
-    public MoCEntityFXVacuum(World par1World, double par2, double par4, double par6, double par8, double par10, double par12, float red, float green, float blue, int partTexture)
+    public MoCEntityFXVacuum(World world, double par2, double par4, double par6, double par8, double par10, double par12, float red, float green, float blue, int partTexture)
     {
-        super(par1World, par2, par4, par6, par8, par10, par12);
+        super(world, par2, par4, par6, par8, par10, par12);
 
         particleRed = red;
         particleGreen = green;
@@ -28,7 +28,7 @@ public class MoCEntityFXVacuum extends EntityFX {
         portalPosY = posY = par4;// + 0.7D;
         portalPosZ = posZ = par6;
         noClip = true;
-        float var14 = rand.nextFloat() * 0.6F + 0.4F;
+        rand.nextFloat();
         portalParticleScale = particleScale = rand.nextFloat() * 0.2F + 0.5F;
         setParticleTextureIndex(partTexture);
         particleMaxAge = (int) (Math.random() * 10.0D) + 30;

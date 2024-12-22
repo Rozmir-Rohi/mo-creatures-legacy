@@ -57,21 +57,21 @@ public class MoCBlockLog extends MoCBlock
      * block and l is the block's subtype/damage.
      */
     @Override
-	public void harvestBlock(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
+	public void harvestBlock(World world, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
     {
-        super.harvestBlock(par1World, par2EntityPlayer, par3, par4, par5, par6);
+        super.harvestBlock(world, par2EntityPlayer, par3, par4, par5, par6);
     }
 
     /**
      * ejects contained items into the world, and notifies neighbours of an update, as appropriate
      */
     @Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6)
+	public void breakBlock(World world, int par2, int par3, int par4, Block par5, int par6)
     {
         byte var7 = 4;
         int var8 = var7 + 1;
 
-        if (par1World.checkChunksExist(par2 - var8, par3 - var8, par4 - var8, par2 + var8, par3 + var8, par4 + var8))
+        if (world.checkChunksExist(par2 - var8, par3 - var8, par4 - var8, par2 + var8, par3 + var8, par4 + var8))
         {
             for (int var9 = -var7; var9 <= var7; ++var9)
             {
@@ -79,11 +79,11 @@ public class MoCBlockLog extends MoCBlock
                 {
                     for (int var11 = -var7; var11 <= var7; ++var11)
                     {
-                        Block block = par1World.getBlock(par2 + var9, par3 + var10, par4 + var11);
+                        Block block = world.getBlock(par2 + var9, par3 + var10, par4 + var11);
 
                         if (block != null)
                         {
-                            block.beginLeavesDecay(par1World, par2 + var9, par3 + var10, par4 + var11);
+                            block.beginLeavesDecay(world, par2 + var9, par3 + var10, par4 + var11);
                         }
                     }
                 }

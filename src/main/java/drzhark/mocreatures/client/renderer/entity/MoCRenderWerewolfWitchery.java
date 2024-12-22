@@ -37,7 +37,7 @@ public class MoCRenderWerewolfWitchery extends RenderLiving {
 
     protected int shouldRenderPass(MoCEntityWerewolfWitchery entityWerewolf, int i)
     {
-        int myType = entityWerewolf.getType();
+        entityWerewolf.getType();
 
         bindTexture(MoCreatures.proxy.getTexture("wereblank.png"));
         

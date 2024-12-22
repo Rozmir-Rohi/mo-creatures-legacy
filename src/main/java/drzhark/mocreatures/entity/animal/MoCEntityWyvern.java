@@ -705,7 +705,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             }
             if ((rand.nextInt(500) == 0))
             {
-                EntityLivingBase entityLiving = getClosestEntityLiving(this, 8D);
+                EntityLivingBase entityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 8D);
                 return entityLiving;
             }
         }
@@ -884,7 +884,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             eggDropChance = MoCreatures.proxy.motherWyvernEggDropChance;
         }
         
-        String biomeName = MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
         
         if (rand.nextInt(100) < eggDropChance)
         {

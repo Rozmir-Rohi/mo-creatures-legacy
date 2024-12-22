@@ -187,7 +187,7 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
     {
         if ((rand.nextInt(80) == 0) && (worldObj.difficultySetting.getDifficultyId() > 0))
         {
-            EntityLivingBase closestEntityLiving = getClosestEntityLiving(this, 8D);
+            EntityLivingBase closestEntityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 8D);
             
             if (shouldEntityBeIgnored(closestEntityLiving))
             {

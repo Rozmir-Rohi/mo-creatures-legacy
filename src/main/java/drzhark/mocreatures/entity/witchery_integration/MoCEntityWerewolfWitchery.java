@@ -25,7 +25,6 @@ import net.minecraft.world.World;
 
 public class MoCEntityWerewolfWitchery extends MoCEntityMob {
     private boolean isTransforming;
-    private boolean isHunched;
     private int transformCounter;
     private int villagerProfession = 0;
     private int skinID;
@@ -288,7 +287,7 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
         
         EntityPlayer entityPlayer = worldObj.getClosestVulnerablePlayerToEntity(this, 16D);
         
-        EntityLivingBase entityLiving = getClosestEntityLiving(this, 16D);
+        EntityLivingBase entityLiving = MoCTools.getClosestEntityLivingThatCanBeTargetted(this, 16D);
         
         if ((entityPlayer != null) && canEntityBeSeen(entityPlayer))
         {
@@ -604,4 +603,10 @@ public class MoCEntityWerewolfWitchery extends MoCEntityMob {
         if (getIsHunched()) { return 0.9F; }
         return 0.7F;
     }
+
+	@Override
+	public boolean entitiesThatAreScary(Entity entityNearby)
+	{
+		return false;
+	}
 }

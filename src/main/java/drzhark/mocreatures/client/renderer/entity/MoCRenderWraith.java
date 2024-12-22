@@ -24,7 +24,6 @@ public class MoCRenderWraith extends RenderLiving {
     @Override
     public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
-        MoCEntityWraith wraith = (MoCEntityWraith) entityLiving;
         //boolean flag = wraith.isGlowing();
         boolean flag = false;
 

@@ -515,4 +515,10 @@ public class MoCEntityHorseMob extends MoCEntityMob
         }
         return super.getCreatureAttribute();
     }
+
+	@Override
+	public boolean entitiesThatAreScary(Entity entityNearby)
+	{
+		return false;
+	}
 }

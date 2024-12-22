@@ -241,4 +241,10 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
     {
         return null;
     }
+
+	@Override
+	public boolean entitiesThatAreScary(Entity entityNearby)
+	{
+		return false;
+	}
 }

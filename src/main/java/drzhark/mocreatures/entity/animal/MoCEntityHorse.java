@@ -202,7 +202,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         int zCoordinate = MathHelper.floor_double(posZ);
 
         BiomeGenBase currentBiome = MoCTools.biomekind(worldObj, xCoordinate, yCoordinate, zCoordinate);
-        String biomeName = MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
+        MoCTools.biomeName(worldObj, xCoordinate, yCoordinate, zCoordinate);
 
         if (BiomeDictionary.isBiomeOfType(currentBiome, Type.SAVANNA) && !(currentBiome.biomeName.toLowerCase().contains("outback")))
         {
@@ -2114,45 +2114,49 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     @Override
     protected void func_145780_a(int xCoord, int yCoord_, int zCoord, Block blockThatThisEntityIsWalkingOn)
     {
-        Block.SoundType soundType = blockThatThisEntityIsWalkingOn.stepSound;
-
-        if (worldObj.getBlock(xCoord, yCoord_ + 1, zCoord) == Blocks.snow_layer)
-        {
-            soundType = Blocks.snow_layer.stepSound;
-        }
-
-        if (!blockThatThisEntityIsWalkingOn.getMaterial().isLiquid())
-        {
-            if (riddenByEntity != null)
-            {
-                ++forwardMovementCounterForWalkingSoundEffect;
-
-                if (forwardMovementCounterForWalkingSoundEffect > 5 && forwardMovementCounterForWalkingSoundEffect % 3 == 0)
-                {
-                    playSound("mob.horse.gallop", soundType.getVolume() * 0.15F, soundType.getPitch());
-
-                    if (!isUndead() && rand.nextInt(10) == 0)
-                    {
-                        playSound("mob.horse.breathe", soundType.getVolume() * 0.6F, soundType.getPitch());
-                    }
-                }
-                else if (forwardMovementCounterForWalkingSoundEffect <= 5)
-                {
-                    playSound("mob.horse.wood", soundType.getVolume() * 0.15F, soundType.getPitch());
-                }
-            }
-            else if (soundType == Block.soundTypeWood)
-            {
-                playSound("mob.horse.wood", soundType.getVolume() * 0.15F, soundType.getPitch());
-            }
-            else
-            {
-                playSound("mob.horse.soft", soundType.getVolume() * 0.15F, soundType.getPitch());
-            }
-        }
+    	if(!isGhostHorse())
+    	{
+	        Block.SoundType soundType = blockThatThisEntityIsWalkingOn.stepSound;
+	
+	        if (worldObj.getBlock(xCoord, yCoord_ + 1, zCoord) == Blocks.snow_layer)
+	        {
+	            soundType = Blocks.snow_layer.stepSound;
+	        }
+	
+	        if (!blockThatThisEntityIsWalkingOn.getMaterial().isLiquid())
+	        {
+	            if (riddenByEntity != null)
+	            {
+	                ++forwardMovementCounterForWalkingSoundEffect;
+	
+	                if (forwardMovementCounterForWalkingSoundEffect > 5 && forwardMovementCounterForWalkingSoundEffect % 3 == 0)
+	                {
+	                    playSound("mob.horse.gallop", soundType.getVolume() * 0.15F, soundType.getPitch());
+	
+	                    if (!isUndead() && rand.nextInt(10) == 0)
+	                    {
+	                        playSound("mob.horse.breathe", soundType.getVolume() * 0.6F, soundType.getPitch());
+	                    }
+	                }
+	                else if (forwardMovementCounterForWalkingSoundEffect <= 5)
+	                {
+	                    playSound("mob.horse.wood", soundType.getVolume() * 0.15F, soundType.getPitch());
+	                }
+	            }
+	            else if (soundType == Block.soundTypeWood)
+	            {
+	                playSound("mob.horse.wood", soundType.getVolume() * 0.15F, soundType.getPitch());
+	            }
+	            else
+	            {
+	                playSound("mob.horse.soft", soundType.getVolume() * 0.15F, soundType.getPitch());
+	            }
+	        }
+    	}
     }
     
-    public void moveEntityWithHeading(float strafeMovement, float forwardMovement)
+    @Override
+	public void moveEntityWithHeading(float strafeMovement, float forwardMovement)
     {
         if (riddenByEntity != null && riddenByEntity instanceof EntityLivingBase)
         {
@@ -2198,16 +2202,20 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     }
 
     /**
-     * Mobs don't attack you if you're riding one of these they won't reproduce
+     * Mobs don't attack you if you're riding one of these. They won't reproduce
      * either
      * 
      * @return
      */
     public boolean isUndead()
     {
-        return (getType() == 23) || (getType() == 24) || (getType() == 25) || (getType() == 26) // skeleton
+        return 
+        	(
+        		isGhostHorse()
+        		|| (getType() == 23) || (getType() == 24) || (getType() == 25) || (getType() == 26) // skeleton
                 || (getType() == 27) // skeleton unicorn
-                || (getType() == 28); // skeleton pegasus
+                || (getType() == 28) // skeleton pegasus
+        	);
     }
 
     /**
@@ -2492,7 +2500,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
              */
             if (getType() == 60 && !getIsTamed())
             {
-                boolean flag = isZebraRunningAwayFromPlayer();
+                isZebraRunningAwayFromPlayer();
 
             }
 
@@ -2729,11 +2737,11 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	
 	            if (horseJumpPowerCounter < 10)
 	            {
-	                horseJumpPower = (float) horseJumpPowerCounter * 0.1F;
+	                horseJumpPower = horseJumpPowerCounter * 0.1F;
 	            }
 	            else
 	            {
-	                horseJumpPower = 0.8F + 2.0F / (float)(horseJumpPowerCounter - 9) * 0.1F;
+	                horseJumpPower = 0.8F + 2.0F / (horseJumpPowerCounter - 9) * 0.1F;
 	            }
 	        }
 	        

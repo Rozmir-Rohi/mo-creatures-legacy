@@ -3,7 +3,6 @@ package drzhark.mocreatures;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
@@ -16,6 +15,7 @@ import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
 import drzhark.mocreatures.entity.MoCEntityTameableAquatic;
 import drzhark.mocreatures.entity.ambient.MoCEntityMaggot;
 import drzhark.mocreatures.entity.animal.MoCEntityHorse;
+import drzhark.mocreatures.entity.animal.MoCEntityOstrich;
 import drzhark.mocreatures.entity.animal.MoCEntityPetScorpion;
 import drzhark.mocreatures.entity.monster.MoCEntityOgre;
 import drzhark.mocreatures.inventory.MoCAnimalChest;
@@ -277,6 +277,113 @@ public class MoCTools {
 
        return currentRotation + amountToChangeRotationBy;
    }
+   
+   public static EntityItem getClosestSpecificEntityItemItemNearby(Entity entity, double distance, Item item, Item item1)
+   {
+       double currentMinimumDistance = -1D;
+       EntityItem entityItem = null;
+
+       List entitiesNearbyList = entity.worldObj.getEntitiesWithinAABBExcludingEntity(entity, entity.boundingBox.expand(distance, distance, distance));
+
+       int iterationLength = entitiesNearbyList.size();
+
+       if (iterationLength > 0)
+       {
+	        for (int index = 0; index < iterationLength; index++)
+	        {
+	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
+	            if (!(entityNearby instanceof EntityItem))
+	            {
+	                continue;
+	            }
+	            EntityItem entityItemNearby = (EntityItem) entityNearby;
+	            if ((entityItemNearby.getEntityItem().getItem() != item) && (entityItemNearby.getEntityItem().getItem() != item1))
+	            {
+	                continue;
+	            }
+	            double overallDistanceSquared = entityItemNearby.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+	            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)))
+	            {
+	                currentMinimumDistance = overallDistanceSquared;
+	                entityItem = entityItemNearby;
+	            }
+	        }
+       }
+
+       return entityItem;
+   }
+   
+   public static EntityLivingBase getClosestEntityLivingThatCanBeTargetted(Entity thisEntity, double distance)
+   {
+       double currentMinimumDistance = -1D;
+
+       EntityLivingBase entityLiving = null;
+
+       List entitiesNearbyList = thisEntity.worldObj.getEntitiesWithinAABBExcludingEntity(thisEntity, thisEntity.boundingBox.expand(distance, distance, distance));
+
+       int iterationLength = entitiesNearbyList.size();
+
+       if (iterationLength > 0)
+       {
+	        for (int index = 0; index < iterationLength; index++)
+	        {
+	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
+
+	            if (	
+	            		thisEntity instanceof IMoCEntity
+	            		&& ((IMoCEntity) thisEntity).shouldEntityBeIgnored(entityNearby)
+	            	)
+	            {
+	                continue;
+	            }
+
+	            double overallDistanceSquared = entityNearby.getDistanceSq(thisEntity.posX, thisEntity.posY, thisEntity.posZ);
+
+	            if (((distance < 0.0D) || (overallDistanceSquared < (distance * distance))) && ((currentMinimumDistance == -1D) || (overallDistanceSquared < currentMinimumDistance)) && ((EntityLivingBase) entityNearby).canEntityBeSeen(thisEntity))
+	            {
+	                currentMinimumDistance = overallDistanceSquared;
+	                entityLiving = (EntityLivingBase) entityNearby;
+	            }
+	        }
+       }
+
+       return entityLiving;
+   }
+   
+   
+   /**
+    * Finds an entity described in entitiesThatAreScary within the given distance
+    *
+    * @param distance
+    * @return
+    */
+   public static EntityLivingBase getScaryEntity(Entity entity, double distance)
+   {
+       EntityLivingBase entityLiving = null;
+
+       List entitiesNearbyList = entity.worldObj.getEntitiesWithinAABBExcludingEntity(entity, entity.boundingBox.expand(distance, 4D, distance));
+
+       int iterationLength = entitiesNearbyList.size();
+
+       if (iterationLength > 0)
+       {
+	        for (int index = 0; index < iterationLength; index++)
+	        {
+	            Entity entityNearby = (Entity) entitiesNearbyList.get(index);
+
+	            if (	
+	            		(entity instanceof IMoCEntity)
+	            		&& ((IMoCEntity) entity).entitiesThatAreScary(entityNearby)
+	            	)
+	            {
+	                entityLiving = (EntityLivingBase) entityNearby;
+	            }
+	        }
+       }
+
+       return entityLiving;
+   }
+   
 
     
     /**
@@ -539,7 +646,6 @@ public class MoCTools {
 
     public static void checkForTwistedEntities(World world)
     {
-        int k = 0;
         for (int l = 0; l < world.loadedEntityList.size(); l++)
         {
             Entity entity = (Entity) world.loadedEntityList.get(l);
@@ -1817,6 +1923,50 @@ public class MoCTools {
              }
          }
     }
+    
+    public static void faceItem(Entity entity, int xCoordinate, int yCoordinate, int zCoordinate, float f)
+    {
+        double xDistance = xCoordinate - entity.posX;
+        double yDistance = yCoordinate - entity.posY;
+        double zDistance = zCoordinate - entity.posZ;
+
+        double overallDistanceSquared = MathHelper.sqrt_double((xDistance * xDistance) + (zDistance * zDistance));
+
+        float xzAngleInDegreesToNewLocation = (float) ((Math.atan2(zDistance, xDistance) * 180D) / Math.PI) - 90F;
+        float yAngleInDegreesToNewLocation = (float) ((Math.atan2(yDistance, overallDistanceSquared) * 180D) / Math.PI);
+
+        entity.rotationPitch = -MoCTools.adjustRotation(entity.rotationPitch, yAngleInDegreesToNewLocation, f);
+        entity.rotationYaw = MoCTools.adjustRotation(entity.rotationYaw, xzAngleInDegreesToNewLocation, f);
+    }
+    
+    /**
+     * 
+     * @param currentRotation
+     * @param rotationAdjustment
+     * @param rotationLimit
+     * @return
+     */
+    public static float adjustRotation(float currentRotation, float rotationAdjustment, float rotationLimit)
+    {
+        float amountToChangeRotationBy = rotationAdjustment;
+        for (amountToChangeRotationBy = rotationAdjustment - currentRotation; amountToChangeRotationBy < -180F; amountToChangeRotationBy += 360F)
+        {
+        }
+        for (; amountToChangeRotationBy >= 180F; amountToChangeRotationBy -= 360F)
+        {
+        }
+        if (amountToChangeRotationBy > rotationLimit)
+        {
+            amountToChangeRotationBy = rotationLimit;
+        }
+        if (amountToChangeRotationBy < -rotationLimit)
+        {
+            amountToChangeRotationBy = -rotationLimit;
+        }
+        
+        return currentRotation + amountToChangeRotationBy;
+    }
+    
 
     public static void getPathToEntity(EntityCreature creatureToMove, Entity entityTarget, float f)
     {
@@ -1924,4 +2074,17 @@ public class MoCTools {
         }
         return false;
     }
+
+	public static boolean isEntityRidingUndeadMoCreature(EntityLivingBase entityLivingBase, EntityLivingBase entityThatIsBeingTargetted)
+	{
+		return
+		(		entityThatIsBeingTargetted instanceof EntityPlayer
+    			&& (
+    					(entityThatIsBeingTargetted.ridingEntity instanceof MoCEntityHorse && ((MoCEntityHorse) entityThatIsBeingTargetted.ridingEntity).isUndead())
+    					|| (entityThatIsBeingTargetted.ridingEntity instanceof MoCEntityOstrich && ((MoCEntityOstrich) entityThatIsBeingTargetted.ridingEntity).isUndead())
+    					|| (entityThatIsBeingTargetted.ridingEntity instanceof MoCEntityPetScorpion && ((MoCEntityPetScorpion) entityThatIsBeingTargetted.ridingEntity).isUndead())
+    				)
+    			&& (entityLivingBase.getLastAttacker() != entityThatIsBeingTargetted) //don't be passive to the player if the undead mob has been hit by them
+		);
+	}
 }
