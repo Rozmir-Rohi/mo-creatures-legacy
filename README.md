@@ -1,5 +1,5 @@
 # Mo Creatures Legacy
-<strong> Project Status:</strong> On Hold (future update(s) planned)
+<strong> Project Status:</strong> Near Completion. Final Development Deadline: 23 February 2025
 
 <br><br>
 
