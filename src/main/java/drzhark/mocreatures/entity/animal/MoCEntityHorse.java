@@ -2773,8 +2773,10 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	                    setIsJumping(true);
 	                    jumpPending = false;
 		        		
-		        		
-		                playSound("mob.horse.jump", 0.4F, 1.0F);
+		        		if (!isGhostHorse())
+		        		{
+		        			playSound("mob.horse.jump", 0.4F, 1.0F);
+		        		}
 		        	}
 		        	
 		        	horseJumpPowerCounter = JUMP_COUNTER_MARKER_INDICATING_THAT_JUMP_HAS_BEEN_EXECUTED;

@@ -425,9 +425,14 @@ public class MoCreatures {
     public static Item achievementIconFeedSnakeWithLiveMouse;
     public static Item achievementIconTamePanda;
     public static Item achievementIconTameScorpion;
+    
     public static Item achievementIconOstrichHelmet;
     public static Item achievementIconOstrichChest;
     public static Item achievementIconOstrichFlag;
+    public static Item achievementIconWyvernOstrich;
+    public static Item achievementIconNetherOstrich;
+    public static Item achievementIconUndeadOstrich;
+    public static Item achievementIconUnihornOstrich;
     
     public static Item spawnEgg;
 	
@@ -1104,9 +1109,16 @@ public class MoCreatures {
         achievementIconFeedSnakeWithLiveMouse = new MoCItem("achievement_icon_feed_snake_with_live_mouse");
         achievementIconTamePanda = new MoCItem("achievement_icon_tame_panda");
         achievementIconTameScorpion = new MoCItem("achievement_icon_tame_scorpion");
+        
         achievementIconOstrichHelmet = new MoCItem("achievement_icon_ostrich_helmet");
         achievementIconOstrichChest = new MoCItem("achievement_icon_ostrich_chest");
         achievementIconOstrichFlag = new MoCItem("achievement_icon_ostrich_flag");
+        
+        achievementIconWyvernOstrich = new MoCItem("achievement_icon_wyvern_ostrich");
+        achievementIconNetherOstrich = new MoCItem("achievement_icon_nether_ostrich");
+        achievementIconUndeadOstrich = new MoCItem("achievement_icon_undead_ostrich");
+        achievementIconUnihornOstrich = new MoCItem("achievement_icon_unihorn_ostrich");
+        
 
         //new blocks
         mocStone = new MoCBlockStone("MoCStone").setHardness(1.5F).setResistance(10.0F).setStepSound(Block.soundTypeStone);

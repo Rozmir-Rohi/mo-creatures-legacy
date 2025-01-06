@@ -689,6 +689,8 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         
         ItemStack itemStack = entityPlayer.getHeldItem();
         
+        EntityPlayer owner = worldObj.getPlayerEntityByName(getOwnerName());
+        
         if (itemStack != null)
         {
         	Item item = itemStack.getItem();
@@ -705,100 +707,14 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 		            return true;
 		        }
 		
-		        if (item == MoCreatures.essenceDarkness)
-		        {
-		            if (--itemStack.stackSize == 0)
-		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-		            }
-		            else
-		            {
-		                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-		            }
-		            
-		            if (getType() == 6) //wyvern ostrich
-		            {
-		                setHealth(getMaxHealth());
-		            }
-		            else
-		            {
-		                transform(6);
-		            }
-		            MoCTools.playCustomSound(this, "drinking", worldObj);
-		            return true;
-		        }
+		        if (interactIfItemstackisEssenceOfDarkness(entityPlayer, itemStack, owner, item)) {return true;}
 		
-		        if (item == MoCreatures.essenceUndead)
-		        {
-		            if (--itemStack.stackSize == 0)
-		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-		            }
-		            else
-		            {
-		                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-		            }
-		            
-		            if (getType() == 7) //undead ostrich
-		            {
-		                setHealth(getMaxHealth());
-		            }
-		            else
-		            {
-		                transform(7);
-		            }
-		            
-		            MoCTools.playCustomSound(this, "drinking", worldObj);
-		            return true;
-		        }
+		        if (interactIfItemstackisEssenceOfUndead(entityPlayer, itemStack, owner, item)) {return true;}
 		
-		        if (item == MoCreatures.essenceLight)
-		        {
-		            if (--itemStack.stackSize == 0)
-		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-		            }
-		            else
-		            {
-		                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-		            }
-		            
-		            if (getType() == 8) //unihorn ostrich
-		            {
-		                setHealth(getMaxHealth());
-		            }
-		            else
-		            {
-		                transform(8);
-		            }
-		            
-		            MoCTools.playCustomSound(this, "drinking", worldObj);
-		            return true;
-		        }
+		        if (interactIfItemstackisEssenceOfLight(entityPlayer, itemStack, owner, item)) {return true;}
 		
-		        if (item == MoCreatures.essenceFire)
-		        {
-		            if (--itemStack.stackSize == 0)
-		            {
-		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
-		            }
-		            else
-		            {
-		                entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-		            }
-		            
-		            if (getType() == 5) //nether ostrich
-		            {
-		                setHealth(getMaxHealth());
-		            }
-		            else
-		            {
-		                transform(5);
-		            }
-		            
-		            MoCTools.playCustomSound(this, "drinking", worldObj);
-		            return true;
-		        }
+		        if (interactIfItemstackisEssenceOfFire(entityPlayer, itemStack, owner, item)) {return true;}
+		        
 		        if (getIsChested() && item == Item.getItemFromBlock(Blocks.wool))
 		        {
 		            int colorInt = (itemStack.getItemDamage());
@@ -877,6 +793,121 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         }
         return false;
     }
+
+	private boolean interactIfItemstackisEssenceOfDarkness(EntityPlayer entityPlayer, ItemStack itemStack, EntityPlayer owner, Item item)
+	{
+		if (item == MoCreatures.essenceDarkness)
+		{
+		    if (--itemStack.stackSize == 0)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+		    }
+		    else
+		    {
+		        entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+		    }
+		    
+		    if (getType() == 6) //wyvern ostrich
+		    {
+		        setHealth(getMaxHealth());
+		    }
+		    else
+		    {
+		        transform(6);
+		        if (owner != null) {owner.addStat(MoCAchievements.wyvern_ostrich, 1);};
+		    }
+		    MoCTools.playCustomSound(this, "drinking", worldObj);
+		    return true;
+		}
+		return false;
+	}
+
+	private boolean interactIfItemstackisEssenceOfUndead(EntityPlayer entityPlayer, ItemStack itemStack, EntityPlayer owner, Item item)
+	{
+		if (item == MoCreatures.essenceUndead)
+		{
+		    if (--itemStack.stackSize == 0)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+		    }
+		    else
+		    {
+		        entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+		    }
+		    
+		    if (getType() == 7) //undead ostrich
+		    {
+		        setHealth(getMaxHealth());
+		    }
+		    else
+		    {
+		        transform(7);
+		        if (owner != null) {owner.addStat(MoCAchievements.undead_ostrich, 1);};
+		    }
+		    
+		    MoCTools.playCustomSound(this, "drinking", worldObj);
+		    return true;
+		}
+		return false;
+	}
+
+	private boolean interactIfItemstackisEssenceOfLight(EntityPlayer entityPlayer, ItemStack itemStack, EntityPlayer owner, Item item)
+	{
+		if (item == MoCreatures.essenceLight)
+		{
+		    if (--itemStack.stackSize == 0)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+		    }
+		    else
+		    {
+		        entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+		    }
+		    
+		    if (getType() == 8) //unihorn ostrich
+		    {
+		        setHealth(getMaxHealth());
+		    }
+		    else
+		    {
+		        transform(8);
+		        if (owner != null) {owner.addStat(MoCAchievements.unihorn_ostrich, 1);};
+		    }
+		    
+		    MoCTools.playCustomSound(this, "drinking", worldObj);
+		    return true;
+		}
+		return false;
+	}
+
+	private boolean interactIfItemstackisEssenceOfFire(EntityPlayer entityPlayer, ItemStack itemStack, EntityPlayer owner, Item item)
+	{
+		if (item == MoCreatures.essenceFire)
+		{
+		    if (--itemStack.stackSize == 0)
+		    {
+		        entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
+		    }
+		    else
+		    {
+		        entityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+		    }
+		    
+		    if (getType() == 5) //nether ostrich
+		    {
+		        setHealth(getMaxHealth());
+		    }
+		    else
+		    {
+		        transform(5);
+		        if (owner != null) {owner.addStat(MoCAchievements.nether_ostrich, 1);};
+		    }
+		    
+		    MoCTools.playCustomSound(this, "drinking", worldObj);
+		    return true;
+		}
+		return false;
+	}
 
 	private boolean interactIfPlayerIsHoldingWearableHelmet(EntityPlayer entityPlayer, Item item)
 	{
@@ -1241,7 +1272,10 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         }
         if (jumpCounter == 0)
         {
-            MoCTools.playCustomSound(this, "wingflap", worldObj);
+        	if (isFlyer())
+            {
+        		MoCTools.playCustomSound(this, "wingflap", worldObj);
+            }
             jumpPending = true;
             jumpCounter = 1;
         }

@@ -1475,3 +1475,15 @@ Wraiths no longer attack players who are riding undead mounts unless they are at
 
 
 Ghost Horses no longer make horse gallop sounds.
+
+
+Added Ostrich Variant achievements.
+
+
+Updated undead and ghost horse achievement description.
+
+
+Fixed non-flyer ostriches making wing flap sounds when jumping.
+
+
+Ghost horses now no longer make jump sounds when jumping.

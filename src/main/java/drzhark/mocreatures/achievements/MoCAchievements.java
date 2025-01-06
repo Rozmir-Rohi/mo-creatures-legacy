@@ -2,6 +2,7 @@ package drzhark.mocreatures.achievements;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.item.MoCItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
@@ -98,10 +99,17 @@ public static Achievement tame_bird;
 public static Achievement feed_snake_with_live_mouse;
 public static Achievement tame_panda;
 public static Achievement tame_scorpion;
+
 public static Achievement ostrich_egg;
 public static Achievement ostrich_helmet;
 public static Achievement ostrich_chest;
 public static Achievement ostrich_flag;
+
+public static Achievement wyvern_ostrich;
+public static Achievement nether_ostrich;
+public static Achievement undead_ostrich;
+public static Achievement unihorn_ostrich;
+
 
 public static Achievement pet_amulet;
 
@@ -242,9 +250,14 @@ public static void initilization()
 	tame_scorpion = new Achievement("achievement.tame_scorpion", "tame_scorpion", -13, 2,  new ItemStack(MoCreatures.achievementIconTameScorpion), (Achievement)null).initIndependentStat().registerStat();
 	
 	ostrich_egg = new Achievement("achievement.ostrich_egg", "ostrich_egg", -15, 2, new ItemStack(MoCreatures.mocegg), (Achievement)null).initIndependentStat().registerStat();
-	ostrich_helmet = new Achievement("achievement.ostrich_helmet", "ostrich_helmet", -15, 5, new ItemStack(MoCreatures.achievementIconOstrichHelmet), ostrich_egg).registerStat();
-	ostrich_chest = new Achievement("achievement.ostrich_chest", "ostrich_chest", -14, 4, new ItemStack(MoCreatures.achievementIconOstrichChest), ostrich_egg).registerStat();
-	ostrich_flag = new Achievement("achievement.ostrich_flag", "ostrich_flag", -12, 4, new ItemStack(MoCreatures.achievementIconOstrichFlag), ostrich_chest).registerStat();
+	ostrich_helmet = new Achievement("achievement.ostrich_helmet", "ostrich_helmet", -17, 4, new ItemStack(MoCreatures.achievementIconOstrichHelmet), ostrich_egg).registerStat();
+	ostrich_chest = new Achievement("achievement.ostrich_chest", "ostrich_chest", -13, 4, new ItemStack(MoCreatures.achievementIconOstrichChest), ostrich_egg).registerStat();
+	ostrich_flag = new Achievement("achievement.ostrich_flag", "ostrich_flag", -11, 4, new ItemStack(MoCreatures.achievementIconOstrichFlag), ostrich_chest).registerStat();
+	
+	wyvern_ostrich = new Achievement("achievement.wyvern_ostrich", "wyvern_ostrich", -14, 6, new ItemStack(MoCreatures.achievementIconWyvernOstrich), ostrich_egg).registerStat();
+	undead_ostrich = new Achievement("achievement.undead_ostrich", "undead_ostrich", -14, 7, new ItemStack(MoCreatures.achievementIconUndeadOstrich), ostrich_egg).registerStat();
+	unihorn_ostrich = new Achievement("achievement.unihorn_ostrich", "unihorn_ostrich", -16, 7, new ItemStack(MoCreatures.achievementIconUnihornOstrich), ostrich_egg).registerStat();
+	nether_ostrich = new Achievement("achievement.nether_ostrich", "nether_ostrich", -16, 6, new ItemStack(MoCreatures.achievementIconNetherOstrich), ostrich_egg).registerStat();
 	
 	cook_omelette = new Achievement("achievement.cook_omelette", "cook_omelette", -7, -1, new ItemStack(MoCreatures.omelet), AchievementList.buildFurnace).registerStat();
 	cook_turkey = new Achievement("achievement.cook_turkey", "cook_turkey", -7, 0, new ItemStack(MoCreatures.turkeyCooked), AchievementList.buildFurnace).registerStat();
@@ -361,6 +374,11 @@ public static void initilization()
 					ostrich_helmet,
 					ostrich_chest,
 					ostrich_flag,
+					
+					wyvern_ostrich,
+					undead_ostrich,
+					unihorn_ostrich,
+					nether_ostrich,
 					
 					pet_amulet,
 					
