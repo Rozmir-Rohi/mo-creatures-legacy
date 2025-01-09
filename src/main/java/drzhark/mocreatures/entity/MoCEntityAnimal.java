@@ -291,7 +291,11 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
                 MoCTools.forceDataSync(this);
             }
 
-            if (isPredator() && hasKilledPrey)
+            if (
+            		isPredator()
+            		&& hasKilledPrey
+            		&& getHealth() > 0 //fixes predators destroying own drops when they are killed
+            	)
             {
             	if (MoCreatures.proxy.destroyDrops) //destroy the drops of the prey
             	{
@@ -332,6 +336,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
 
             if (
             		doesForageForFood()
+            		&& getHealth() > 0 //fixes predators making eating sound they are killed
             		&& !isMovementCeased()
             		&& (getHealth() < getMaxHealth() || !isPredator() || !getIsAdult())
             		&& riddenByEntity == null

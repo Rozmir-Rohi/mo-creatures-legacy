@@ -419,6 +419,7 @@ public class MoCreatures {
     public static Item achievementIconTameBigCat;
     public static Item achievementIconTameKitty;
     public static Item achievementIconKittyBed;
+    public static Item achievementIconBreedKitty;
     
     
     public static Item achievementIconTameBird;
@@ -433,6 +434,8 @@ public class MoCreatures {
     public static Item achievementIconNetherOstrich;
     public static Item achievementIconUndeadOstrich;
     public static Item achievementIconUnihornOstrich;
+    
+    public static Item achievementIconTameDolphin;
     
     public static Item spawnEgg;
 	
@@ -1105,6 +1108,7 @@ public class MoCreatures {
         achievementIconTameBigCat = new MoCItem("achievement_icon_tame_big_cat");
         achievementIconTameKitty = new MoCItem("achievement_icon_tame_kitty");
         achievementIconKittyBed = new MoCItem("achievement_icon_kitty_bed");
+        achievementIconBreedKitty = new MoCItem("achievement_icon_breed_kitty");
         achievementIconTameBird = new MoCItem("achievement_icon_tame_bird");
         achievementIconFeedSnakeWithLiveMouse = new MoCItem("achievement_icon_feed_snake_with_live_mouse");
         achievementIconTamePanda = new MoCItem("achievement_icon_tame_panda");
@@ -1119,7 +1123,9 @@ public class MoCreatures {
         achievementIconUndeadOstrich = new MoCItem("achievement_icon_undead_ostrich");
         achievementIconUnihornOstrich = new MoCItem("achievement_icon_unihorn_ostrich");
         
+        achievementIconTameDolphin = new MoCItem("achievement_icon_tame_dolphin");
 
+        
         //new blocks
         mocStone = new MoCBlockStone("MoCStone").setHardness(1.5F).setResistance(10.0F).setStepSound(Block.soundTypeStone);
         mocGrass = new MoCBlockGrass("MoCGrass").setHardness(0.5F).setStepSound(Block.soundTypeGrass);

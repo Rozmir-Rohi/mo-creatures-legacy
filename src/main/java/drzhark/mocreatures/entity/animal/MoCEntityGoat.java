@@ -3,6 +3,7 @@ package drzhark.mocreatures.entity.animal;
 import cpw.mods.fml.common.registry.GameRegistry;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.MoCEntityTameableAnimal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -610,6 +611,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
             if (getType() == 1) { return false; }
 
             entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.milk_bucket));
+            entityPlayer.addStat(MoCAchievements.milk_goat, 1);
             return true;
         }
 

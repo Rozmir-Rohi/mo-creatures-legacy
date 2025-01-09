@@ -17,7 +17,6 @@ import drzhark.mocreatures.configuration.MoCProperty;
 import drzhark.mocreatures.entity.IMoCTameable;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandNotFoundException;
-import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.NumberInvalidException;
 import net.minecraft.command.WrongUsageException;
@@ -30,7 +29,6 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.WorldServer;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.DimensionManager;
 
 public class CommandMoCreatures extends CommandBase {

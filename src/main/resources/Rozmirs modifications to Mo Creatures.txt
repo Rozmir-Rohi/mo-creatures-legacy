@@ -1487,3 +1487,18 @@ Fixed non-flyer ostriches making wing flap sounds when jumping.
 
 
 Ghost horses now no longer make jump sounds when jumping.
+
+
+Fixed Wyvern Ostrich and Nether Ostrich feet in 16x texture.
+
+
+Fixed predators making eating sounds and destroying own drops when killed.
+
+
+Added kitty breeder, dolphin tamer, and goat milker achievements.
+
+
+Changed icon of ostrich helmet achievement.
+
+
+Horses that are purely made from essences of light (pegasus, unicorn, and fairy horse) now have slow passive regeneration to make up for them only able to be healed using essences of light which is expensive.

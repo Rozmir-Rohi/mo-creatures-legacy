@@ -4,6 +4,7 @@ import java.util.List;
 
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.achievements.MoCAchievements;
 import drzhark.mocreatures.entity.aquatic.MoCEntityDolphin;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -21,7 +22,6 @@ import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -379,7 +379,7 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             {
                 setIsJumping(false);
             }
-            if (MoCreatures.isServer() && this instanceof IMoCTameable)
+            if (MoCreatures.isServer() && this instanceof IMoCTameable) 
             {
                 int tameChance = (getMaxTemper() - getTemper());
                 if (tameChance <= 0)
@@ -387,8 +387,13 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
                     tameChance = 1;
                 }
                 if (rand.nextInt(tameChance * 8) == 0)
-                {
+                {	
                     MoCTools.tameWithName((EntityPlayer) riddenByEntity, (IMoCTameable) this);
+                    
+                    if (this instanceof MoCEntityDolphin)
+                    {
+                    	((EntityPlayer) riddenByEntity).addStat(MoCAchievements.tame_dolphin, 1);
+                    }
                 }
 
             }

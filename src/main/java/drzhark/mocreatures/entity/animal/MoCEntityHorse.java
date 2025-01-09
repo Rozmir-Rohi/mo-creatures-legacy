@@ -2400,6 +2400,15 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     @Override
     public void onLivingUpdate()
     {
+    	if (
+    			isHorsePurelyMadeFromEssenseOfLight()
+    			&& (getHealth() < getMaxHealth())
+    			&& rand.nextInt(100) == 0
+    		)
+    	{
+    		heal(1);
+    	}
+    	
     	if (entityToAttack != null && entityToAttack == riddenByEntity)
     	{
     		if (!(riddenByEntity instanceof EntityPlayer && riddenByEntity.getCommandSenderName().equals(getOwnerName()))) //if not the owner of this entity
@@ -2672,7 +2681,19 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
     }
 
-    /**
+    private boolean isHorsePurelyMadeFromEssenseOfLight()
+    {
+    	int horseType = getType();
+    	
+		return
+			(
+				horseType == 36  //pure unicorn 
+				|| horseType == 39 //pure pegasus
+				|| isFairyHorse() //fairy horse
+			);
+	}
+
+	/**
      * Obtains the 'Type' of vanilla horse for inbreeding with MoC Horses
      * @param horse
      * @return

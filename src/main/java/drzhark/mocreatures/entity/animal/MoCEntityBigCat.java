@@ -681,7 +681,6 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
     @Override
     public boolean interact(EntityPlayer entityPlayer)
     {
-
         if (super.interact(entityPlayer)) { return false; }
         
         ItemStack itemStack = entityPlayer.getHeldItem();

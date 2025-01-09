@@ -436,14 +436,17 @@ achievement.kitty_litter_box.desc=Craft a kitty litter box.
 achievement.kitty_litter=Kitty Business
 achievement.kitty_litter.desc=Clean a used kitty litter box by yourself using sand. You can automate this process later using a dispenser.
 
+achievement.wool_ball=Kitty Play Time
+achievement.wool_ball.desc=Craft a wool ball. Give this to a curious kitty to let them play with it.
+
 achievement.kitty_bed=Kitty Bed
 achievement.kitty_bed.desc=Craft any kitty bed.
 
 achievement.pet_food=Feeding the Cat
 achievement.pet_food.desc=Fill a kitty bed by yourself with some milk or cat food. You can automate this process later using a dispenser.
 
-achievement.wool_ball=Kitty Play Time
-achievement.wool_ball.desc=Craft a wool ball. Give this to a curious kitty to let them play with it.
+achievement.breed_kitty=Kitty Breeder
+achievement.breed_kitty.desc=Breed kittys while they are both happy using cake or fish while being next to a kitty bed.
 
 achievement.tame_big_cat=Big Cat Tamer
 achievement.tame_big_cat.desc=Tame a baby big cat by dropping some raw meat near it and putting a medallion on it after it eats a good amount of the meat.
@@ -505,8 +508,14 @@ achievement.unihorn_ostrich.desc=Obtain a unicorn by feeding an adult pet ostric
 achievement.nether_ostrich=Nether Ostrich
 achievement.nether_ostrich.desc=Obtain a nether ostrich by feeding an adult pet ostrich with an essence of fire. This ostrich can fly hop. This ostrich can only be healed using essences of fire.
 
+achievement.tame_dolphin=Dolphin Tamer
+achievement.tame_dolphin.desc=Tame an adult dolphin by riding them. Dolphins protect riders from sharks and can jump near the water surface. Dolphin breeds vary in speed and jump power, and adults can be bred using fish.
+
 achievement.pet_amulet=Pet Storage
 achievement.pet_amulet.desc=Craft a pet amulet. Use this to store almost any tamed creature.
+
+achievement.milk_goat=Goat Milker
+achievement.milk_goat.desc=Milk an adult female goat using a bucket. If you would like, goats can be tamed using any food item.
 
 achievement.cook_omelette=Sunny Side Up
 achievement.cook_omelette.desc=Cook any egg.

@@ -1023,6 +1023,10 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 	                            entityToAttack = entityNearby;
 	                            ((MoCEntityKitty) entityNearby).changeKittyStateTo(KITTY_STATE_IN_LOVE_STAGE_TWO);
 	                            ((MoCEntityKitty) entityNearby).entityToAttack = this;
+	                            
+	                            EntityPlayer player = worldObj.getClosestPlayerToEntity(this, 8D);
+		                        if (player != null) {player.addStat(MoCAchievements.breed_kitty, 1);}
+	                            
 	                            break;
 	                        }
 	                        minimumListSize++;

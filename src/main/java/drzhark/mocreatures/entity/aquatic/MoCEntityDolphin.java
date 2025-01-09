@@ -153,10 +153,10 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
 			case 1: //blue
 			    return 1.2D;
 			    
-			case 2: //light blue
+			case 2: //teal
 			    return 1.4D;
 			    
-			case 3: //pinkish blue
+			case 3: //purple
 			    return 1.8D;
 			    
 			case 4: //black
@@ -180,10 +180,10 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
 			case 1: //blue
 			    return 1.0D;
 			    
-			case 2: //light blue
+			case 2: //teal
 			    return 1.1D;
 			    
-			case 3: //pinkish blue
+			case 3: //purple
 			    return 1.2D;
 			    
 			case 4: //black
@@ -524,8 +524,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
         super.onLivingUpdate();
 
         if (MoCreatures.isServer())
-        {
-        	
+        {	
             if (!getIsAdult() && (rand.nextInt(50) == 0))
             {
                 setMoCAge(getMoCAge() + 1);
@@ -539,7 +538,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
                 setIsHungry(true);
             }
             
-            if (!ReadyforParenting(this)) { return; }
+            if (!isReadyforParenting(this)) { return; }
             
             int amountOfOtherDolphinsNearby = 0;
             
@@ -570,7 +569,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
                 
                 MoCEntityDolphin entityDolphinNearby = (MoCEntityDolphin) entityNearby1;
                 
-                if (!ReadyforParenting(this) || !ReadyforParenting(entityDolphinNearby))
+                if (!isReadyforParenting(this) || !isReadyforParenting(entityDolphinNearby))
                 {
                     continue;
                 }
@@ -639,9 +638,15 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     	return false;
     }
 
-    public boolean ReadyforParenting(MoCEntityDolphin entitydolphin)
+    public boolean isReadyforParenting(MoCEntityDolphin entityDolphin)
     {
-        return (entitydolphin.riddenByEntity == null) && (entitydolphin.ridingEntity == null) && entitydolphin.getIsTamed() && entitydolphin.getHasEaten() && entitydolphin.getIsAdult();
+        return (
+	        		entityDolphin.riddenByEntity == null
+	        		&& entityDolphin.ridingEntity == null
+	        		&& entityDolphin.getIsTamed()
+	        		&& entityDolphin.getHasEaten()
+	        		&& entityDolphin.getIsAdult()
+        		);
     }
 
     @Override
