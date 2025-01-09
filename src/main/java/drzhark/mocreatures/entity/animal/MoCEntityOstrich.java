@@ -518,6 +518,15 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
     {
         super.onLivingUpdate();
 
+        if (
+        		getType() == 8 //unihorn ostrich
+    			&& (getHealth() < getMaxHealth())
+    			&& rand.nextInt(100) == 0
+    		)
+    	{
+    		heal(1);
+    	}
+        
         if (getIsTamed() && MoCreatures.isServer() && (rand.nextInt(300) == 0) && (getHealth() <= getMaxHealth()) && (deathTime == 0))
         {
             setHealth(getHealth() + 1);
@@ -736,24 +745,8 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		            }
 		
-		            entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.key));
 		            setIsChested(true);
 		            entityPlayer.addStat(MoCAchievements.ostrich_chest, 1);
-		            return true;
-		        }
-		        
-		        if ((item == MoCreatures.key) && getIsChested())
-		        {
-		            // if first time opening horse chest, we must initialize it
-		            if (localChest == null)
-		            {
-		                localChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.OstrichChest"), 9);
-		            }
-		            // only open this chest on server side
-		            if (MoCreatures.isServer())
-		            {
-		                entityPlayer.displayGUIChest(localChest);
-		            }
 		            return true;
 		        }
 		
@@ -778,18 +771,41 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
     				|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
         		)
-        		&& !(entityPlayer.isSneaking()) && getIsRideable() && getIsAdult() && (riddenByEntity == null)
         	)
         {
-            entityPlayer.rotationYaw = rotationYaw;
-            entityPlayer.rotationPitch = rotationPitch;
-            setHiding(false);
-            
-            if (!worldObj.isRemote && (riddenByEntity == null || riddenByEntity == entityPlayer))
-            {
-                entityPlayer.mountEntity(this);
-            }
-            return true;
+	        	if (entityPlayer.isSneaking() && getIsChested())
+		        {
+		            // if first time opening horse chest, we must initialize it
+		            if (localChest == null)
+		            {
+		                localChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.OstrichChest"), 9);
+		            }
+		            // only open this chest on server side
+		            if (MoCreatures.isServer())
+		            {
+		                entityPlayer.displayGUIChest(localChest);
+		            }
+		            return true;
+		        }
+        	
+	        	else if
+	        		(
+	        			!(entityPlayer.isSneaking())
+	        			&& getIsRideable()
+	        			&& getIsAdult()
+	        			&& (riddenByEntity == null)
+	        		)
+	        	{
+		            entityPlayer.rotationYaw = rotationYaw;
+		            entityPlayer.rotationPitch = rotationPitch;
+		            setHiding(false);
+		            
+		            if (!worldObj.isRemote && (riddenByEntity == null || riddenByEntity == entityPlayer))
+		            {
+		                entityPlayer.mountEntity(this);
+		            }
+		            return true;
+	        	}
         }
         return false;
     }

@@ -516,7 +516,6 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 	                    if (getStorage() == 0 )
 	                    {
 	                    	setStorage((byte) 1);
-	                    	entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.key));
 	                    	entityPlayer.addStat(MoCAchievements.elephant_chest, 1);
 	                    	return true;
 	                    }
@@ -615,13 +614,6 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
                 }
         	}
             
-            
-
-            if (item == MoCreatures.key && getStorage() > 0)
-            {
-                if (tryToOpenElephantChest(entityPlayer)) {return true;};
-
-            }
             if (getTusks() > 0 && (item == Items.shears)) 
             { 
                 MoCTools.playCustomSound(this, "armoroff", worldObj);
@@ -635,21 +627,28 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
     			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
         	)
         {
-        	if (
+        	if (entityPlayer.isSneaking() && getStorage() > 0)
+            {
+                if (tryToOpenElephantChest(entityPlayer)) {return true;};
+
+            }
+        	
+        	else if 
+        		(
         			sitCounter != 0
         			&& getIsTamed()
         			&& getIsAdult()
         			&& riddenByEntity == null
         			&& getArmorType() >= 1 //wearing elephant harness
 	        	)
-					{
-			            entityPlayer.rotationYaw = rotationYaw;
-			            entityPlayer.rotationPitch = rotationPitch;
-			            sitCounter = 0;
-			            entityPlayer.mountEntity(this);
-			            entityPlayer.addStat(MoCAchievements.mount_elephant, 1);
-			            return true;
-					}
+			{
+	            entityPlayer.rotationYaw = rotationYaw;
+	            entityPlayer.rotationPitch = rotationPitch;
+	            sitCounter = 0;
+	            entityPlayer.mountEntity(this);
+	            entityPlayer.addStat(MoCAchievements.mount_elephant, 1);
+	            return true;
+			}
         }
         
         return false;

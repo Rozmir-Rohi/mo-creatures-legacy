@@ -1421,22 +1421,6 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	        {
 	        	if (interactIfItemstackIsAmulet(entityPlayer, horseType, item)) {return true;};
 	        	
-	        	if ((item == MoCreatures.key) && getIsChestedHorse())
-		        {
-		            // if first time opening horse chest, we must initialize it
-		            if (localHorseChest == null)
-		            {
-		                localHorseChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.HorseChest"), getInventorySize());// , new
-		            }
-		            // only open this chest on server side
-		            if (!worldObj.isRemote)
-		            {
-		                entityPlayer.displayGUIChest(localHorseChest);
-		            }
-		            return true;
-		
-		        }
-	        	
 		        if (interactIfItemstackIsHorseArmor(entityPlayer, itemStack, item)) {return true;};
 		
 		        if (interactIfItemstackIsEssenceOfDarkness(entityPlayer, horseType, itemStack, owner, item)) {return true;};
@@ -1455,7 +1439,6 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 		                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 		            }
 		
-		            entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.key));
 		            setChestedHorse(true);
 		            return true;
 		        }
@@ -1471,16 +1454,35 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	    			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
 	    			|| !(MoCreatures.proxy.emptyHandMountAndPickUpOnly)
 	    		)
-	        	&& !(entityPlayer.isSneaking()) && getIsRideable() && getIsAdult() && (riddenByEntity == null)
-	        	&& !(isFlyer() && entityPlayer.riddenByEntity != null) //stops players from riding a flying horse with a creature picked up or on their head. This fixes the flying speed glitch.
-        	) 
+        	)
         {
-            entityPlayer.rotationYaw = rotationYaw;
-            entityPlayer.rotationPitch = rotationPitch;
-            setEating(false);
-            if (MoCreatures.isServer()) {entityPlayer.mountEntity(this);}
-            gestationTime = 0;
-            return true;
+    		if (entityPlayer.isSneaking() && getIsChestedHorse())
+	        {
+	            // if first time opening horse chest, we must initialize it
+	            if (localHorseChest == null)
+	            {
+	                localHorseChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.HorseChest"), getInventorySize());// , new
+	            }
+	            // only open this chest on server side
+	            if (!worldObj.isRemote)
+	            {
+	                entityPlayer.displayGUIChest(localHorseChest);
+	            }
+	            return true;
+	        }
+        	else if
+        		(
+        				!(entityPlayer.isSneaking()) && getIsRideable() && getIsAdult() && (riddenByEntity == null)
+    	        	&& !(isFlyer() && entityPlayer.riddenByEntity != null) //stops players from riding a flying horse with a creature picked up or on their head. This fixes the flying speed glitch.
+    	        )
+	        {
+	            entityPlayer.rotationYaw = rotationYaw;
+	            entityPlayer.rotationPitch = rotationPitch;
+	            setEating(false);
+	            if (MoCreatures.isServer()) {entityPlayer.mountEntity(this);}
+	            gestationTime = 0;
+	            return true;
+	        }
         }
         
         return false;

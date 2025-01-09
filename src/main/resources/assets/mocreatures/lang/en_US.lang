@@ -343,14 +343,14 @@ achievement.essence_undead=Essence of Undead
 achievement.essence_undead.desc=Craft an essence of undead.
 
 achievement.undead_horse=Undead Horse
-achievement.undead_horse.desc=Obtain an undead horse by feeding a pet zorse or special horse with an essence of undead. Riders of this horse will be ignored by undead mobs under 50 HP. This horse can only be healed using essences of undead.
+achievement.undead_horse.desc=Obtain an undead horse by feeding a pet zorse or special horse with an essence of undead. Riders of this horse will be ignored by undead mobs under 50 HP. This horse can be healed using essences of undead.
 
 achievement.amulet_bone=Skeleton Horse Storage
 achievement.amulet_bone.desc=Craft a bone amulet.
 
 
 achievement.ghost_horse=Ghost Horse
-achievement.ghost_horse.desc=Obtain a pet ghost horse. Sometimes when a tier 3+ horse dies, it might become a ghost horse. Riders of this horse will be ignored by undead mobs under 50 HP. This horse can only be healed using essences of undead.
+achievement.ghost_horse.desc=Obtain a pet ghost horse. Sometimes when a tier 3+ horse dies, it might become a ghost horse. Riders of this horse will be ignored by undead mobs under 50 HP. This horse can be healed using essences of undead.
 
 achievement.amulet_ghost=Ghost Horse Storage
 achievement.amulet_ghost.desc=Craft a ghost amulet.
@@ -362,7 +362,7 @@ achievement.essence_fire=Essence of Fire
 achievement.essence_fire.desc=Craft an essence of fire.
 
 achievement.nightmare_horse=Nightmare Horse
-achievement.nightmare_horse.desc=Obtain a nightmare horse by feeding a pet zorse with an essence of fire. This horse is fire-proof. This horse can only be healed using essences of fire.
+achievement.nightmare_horse.desc=Obtain a nightmare horse by feeding a pet zorse with an essence of fire. This horse is fire-proof. This horse can be healed using essences of fire.
 
 achievement.heart_darkness=Heart of Darkness
 achievement.heart_darkness.desc=Obtain a heart of darkness from a bat horse mob.
@@ -371,7 +371,7 @@ achievement.essence_darkness=Essence of Darkness
 achievement.essence_darkness.desc=Craft an essence of darkness.
 
 achievement.bat_horse=Bat Horse
-achievement.bat_horse.desc=Obtain a bat horse by feeding a pet zorse with an essence of darkness. This horse can fly. This horse can only be healed using essences of darkness.
+achievement.bat_horse.desc=Obtain a bat horse by feeding a pet zorse with an essence of darkness. This horse can fly. This horse can be healed using essences of darkness.
 
 achievement.crystal_horse_armor=Crystal Horse Armor
 achievement.crystal_horse_armor.desc=Craft crystal horse armor. This is the strongest horse armor, and it can only be worn by special horses.
@@ -380,19 +380,19 @@ achievement.essence_light=Essence of Light
 achievement.essence_light.desc=Craft an essence of light by combining the three base essences.
 
 achievement.pegasus=Pegasus
-achievement.pegasus.desc=Obtain a pegasus by feeding a pet bat horse with an essence of light while it is above y level 150. This horse can fly and can carry a chest. This horse can only be healed using essences of light.
+achievement.pegasus.desc=Obtain a pegasus by feeding a pet bat horse with an essence of light while it is above y level 150. This horse can fly, regenerate and can carry a chest. This horse can be healed using essences of light.
 
 achievement.unicorn=Unicorn
-achievement.unicorn.desc=Obtain a unicorn by feeding a pet nightmare horse with an essence of light. This horse can ram, and glide. This horse can only be healed using essences of light.
+achievement.unicorn.desc=Obtain a unicorn by feeding a pet nightmare horse with an essence of light. This horse can regenerate, ram, and glide. This horse can be healed using essences of light.
 
 achievement.amulet_sky=Pegasus Storage
 achievement.amulet_sky.desc=Craft a sky amulet. The fire for the amulet's crafting recipie can be obtained from hell rats.
 
 achievement.dark_pegasus=Dark Pegasus
-achievement.dark_pegasus.desc=Obtain a dark pegasus by feeding a pet pegasus with an essence of darkness. This is the strongest horse, it also fire-proof, can fly, and can carry a chest. This horse can only be healed using essences of light.
+achievement.dark_pegasus.desc=Obtain a dark pegasus by feeding a pet pegasus with an essence of darkness. This is the strongest horse, it also fire-proof, can fly, and can carry a chest. This horse can be healed using essences of light.
 
 achievement.fairy_horse=Fairy Horse!
-achievement.fairy_horse.desc=Obtain a fairy horse by breeding a pegasus with a unicorn using essences of light. This is the fastest flying horse, it can also carry a chest, and it can ram when on the ground. Feed this horse a dye to permanently change it's fairy type. This horse can only be healed using essences of light.
+achievement.fairy_horse.desc=Obtain a fairy horse by breeding a pegasus with a unicorn using essences of light. This is the fastest flying horse, it can also regenerate, carry a chest, and ram when on the ground. Feed this horse a dye to permanently change it's fairy type. This horse can be healed using essences of light.
 
 achievement.amulet_fairy=Fairy Horse Storage
 achievement.amulet_fairy.desc=Craft a fairy amulet. The fire for the amulet's crafting recipie can be obtained from hell rats.
@@ -497,16 +497,16 @@ achievement.ostrich_flag=Flag Bearer
 achievement.ostrich_flag.desc=Put any wool block on an ostrich that is carrying a chest.
 
 achievement.wyvern_ostrich=Wyvern Ostrich
-achievement.wyvern_ostrich.desc=Obtain an wyvern ostrich by feeding an adult pet ostrich with an essence of darkness. This ostrich can fly thrust. This ostrich can only be healed using essences of darkness.
+achievement.wyvern_ostrich.desc=Obtain an wyvern ostrich by feeding an adult pet ostrich with an essence of darkness. This ostrich can fly thrust. This ostrich can be healed using essences of darkness.
 
 achievement.undead_ostrich=Undead Ostrich
-achievement.undead_ostrich.desc=Obtain an undead ostrich by feeding an adult pet ostrich with an essence of undead. Riders of this ostrich will be ignored by undead mobs under 50 HP. This ostrich can only be healed using essences of undead.
+achievement.undead_ostrich.desc=Obtain an undead ostrich by feeding an adult pet ostrich with an essence of undead. Riders of this ostrich will be ignored by undead mobs under 50 HP. This ostrich can be healed using essences of undead.
 
-achievement.unihorn_ostrich=Unihorn Ostrich
-achievement.unihorn_ostrich.desc=Obtain a unicorn by feeding an adult pet ostrich with an essence of light. This ostrich can ram. This ostrich can only be healed using essences of light.
+achievement.unihorn_ostrich=Unihorned Ostrich
+achievement.unihorn_ostrich.desc=Obtain a unihorned ostrich by feeding an adult pet ostrich with an essence of light. This ostrich can regenerate and ram. This ostrich can be healed using essences of light.
 
 achievement.nether_ostrich=Nether Ostrich
-achievement.nether_ostrich.desc=Obtain a nether ostrich by feeding an adult pet ostrich with an essence of fire. This ostrich can fly hop. This ostrich can only be healed using essences of fire.
+achievement.nether_ostrich.desc=Obtain a nether ostrich by feeding an adult pet ostrich with an essence of fire. This ostrich can fly hop. This ostrich can be healed using essences of fire.
 
 achievement.tame_dolphin=Dolphin Tamer
 achievement.tame_dolphin.desc=Tame an adult dolphin by riding them. Dolphins protect riders from sharks and can jump near the water surface. Dolphin breeds vary in speed and jump power, and adults can be bred using fish.

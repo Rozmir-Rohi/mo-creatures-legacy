@@ -1502,3 +1502,15 @@ Changed icon of ostrich helmet achievement.
 
 
 Horses that are purely made from essences of light (pegasus, unicorn, and fairy horse) now have slow passive regeneration to make up for them only able to be healed using essences of light which is expensive.
+
+
+Removed the requirement of needing to use a key to open chests on elephants, horses, ostrich, and wyverns. Now players only need to right click while sneaking to open the chest. This is also now affected by the emptyHandPickUpAndMount config setting.
+
+
+Unihorn ostriches also now have passive regeneration like light essence horses.
+
+
+Fixed title of Unihorned Ostrich achievement.
+
+
+Updated various achievement descriptions.

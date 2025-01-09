@@ -405,24 +405,8 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
                     entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
                 }
 
-                entityPlayer.inventory.addItemStackToInventory(new ItemStack(MoCreatures.key));
                 setIsChested(true);
                 playSound("mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
-                return true;
-            }
-
-            if ((item == MoCreatures.key) && getIsChested())
-            {
-                // if first time opening horse chest, we must initialize it
-                if (localchest == null)
-                {
-                    localchest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.WyvernChest"), 14);// 
-                }
-                // only open this chest on server side
-                if (MoCreatures.isServer())
-                {
-                    entityPlayer.displayGUIChest(localchest);
-                }
                 return true;
             }
 
@@ -516,11 +500,32 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         			(MoCreatures.proxy.emptyHandMountAndPickUpOnly && itemStack == null)
         			|| (!(MoCreatures.proxy.emptyHandMountAndPickUpOnly))
         		)
-        		&& !(entityPlayer.isSneaking()) && getIsRideable() && getMoCAge() > 90 && (riddenByEntity == null)
-        		&& entityPlayer.riddenByEntity == null //stops players from riding a wyvern with a creature picked up or on their head. This fixes the flying speed glitch.
         	)
         {
-            if (MoCreatures.isServer())
+        	if (entityPlayer.isSneaking() && getIsChested())
+            {
+                // if first time opening horse chest, we must initialize it
+                if (localchest == null)
+                {
+                    localchest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.WyvernChest"), 14);// 
+                }
+                // only open this chest on server side
+                if (MoCreatures.isServer())
+                {
+                    entityPlayer.displayGUIChest(localchest);
+                }
+                return true;
+            }
+        	
+        	else if
+        		(
+        			!(entityPlayer.isSneaking())
+        			&& getIsRideable()
+        			&& getMoCAge() > 90
+        			&& (riddenByEntity == null)
+                	&& entityPlayer.riddenByEntity == null //stops players from riding a wyvern with a creature picked up or on their head. This fixes the flying speed glitch.
+                	&& MoCreatures.isServer()
+        		)
             {
             	entityPlayer.rotationYaw = rotationYaw;
                 entityPlayer.rotationPitch = rotationPitch;
