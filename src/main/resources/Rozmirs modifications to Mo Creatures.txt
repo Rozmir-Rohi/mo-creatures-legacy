@@ -1514,3 +1514,24 @@ Fixed title of Unihorned Ostrich achievement.
 
 
 Updated various achievement descriptions.
+
+
+Fixed items in horse chests disappearing on world reload.
+
+
+Fixed ostrich chest slot size increasing on world reload.
+
+
+Increased tamed elephant ram damage.
+
+
+Removed plop sound effect when putting chest on wyvern.
+
+
+Removed unused entries in all lang files.
+
+
+Fixed english achievement descriptions being too long and causing crashes.
+
+
+Added passive regen to dark pegasus.

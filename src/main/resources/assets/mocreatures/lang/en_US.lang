@@ -205,8 +205,6 @@ item.whip.name=Whip
 item.woolball.name=Wool Ball
 
 
-entity.MoCreatures.CreeperExtension.name=Creeper
-entity.CreeperExtension.name=Creeper
 entity.MoCreatures.WerewolfVillagerWitchery.name=Villager
 entity.WerewolfVillagerWitchery.name=Villager
 entity.MoCreatures.WerewolfWitchery.name=Werewolf
@@ -343,14 +341,14 @@ achievement.essence_undead=Essence of Undead
 achievement.essence_undead.desc=Craft an essence of undead.
 
 achievement.undead_horse=Undead Horse
-achievement.undead_horse.desc=Obtain an undead horse by feeding a pet zorse or special horse with an essence of undead. Riders of this horse will be ignored by undead mobs under 50 HP. This horse can be healed using essences of undead.
+achievement.undead_horse.desc=Obtain an undead horse by feeding a pet zorse or special horse with an essence of undead. Riders of this horse will be ignored by undead mobs up to 50 HP. This horse can be healed using essences of undead.
 
 achievement.amulet_bone=Skeleton Horse Storage
 achievement.amulet_bone.desc=Craft a bone amulet.
 
 
 achievement.ghost_horse=Ghost Horse
-achievement.ghost_horse.desc=Obtain a pet ghost horse. Sometimes when a tier 3+ horse dies, it might become a ghost horse. Riders of this horse will be ignored by undead mobs under 50 HP. This horse can be healed using essences of undead.
+achievement.ghost_horse.desc=Obtain a pet ghost horse. Sometimes when a tier 3+ horse dies, it might become a ghost horse. Riders of this horse will be ignored by undead mobs up to 50 HP. This horse can be healed using essences of undead.
 
 achievement.amulet_ghost=Ghost Horse Storage
 achievement.amulet_ghost.desc=Craft a ghost amulet.
@@ -380,7 +378,7 @@ achievement.essence_light=Essence of Light
 achievement.essence_light.desc=Craft an essence of light by combining the three base essences.
 
 achievement.pegasus=Pegasus
-achievement.pegasus.desc=Obtain a pegasus by feeding a pet bat horse with an essence of light while it is above y level 150. This horse can fly, regenerate and can carry a chest. This horse can be healed using essences of light.
+achievement.pegasus.desc=Obtain a pegasus by feeding a pet bat horse with an essence of light while they are above y level 150. This horse can fly, regenerate and can carry a chest. This horse can be healed using essences of light.
 
 achievement.unicorn=Unicorn
 achievement.unicorn.desc=Obtain a unicorn by feeding a pet nightmare horse with an essence of light. This horse can regenerate, ram, and glide. This horse can be healed using essences of light.
@@ -389,19 +387,19 @@ achievement.amulet_sky=Pegasus Storage
 achievement.amulet_sky.desc=Craft a sky amulet. The fire for the amulet's crafting recipie can be obtained from hell rats.
 
 achievement.dark_pegasus=Dark Pegasus
-achievement.dark_pegasus.desc=Obtain a dark pegasus by feeding a pet pegasus with an essence of darkness. This is the strongest horse, it also fire-proof, can fly, and can carry a chest. This horse can be healed using essences of light.
+achievement.dark_pegasus.desc=Obtain a dark pegasus by feeding a pet pegasus with an essence of darkness. This is the strongest horse, it also fire-proof, can fly, regenerate, and can carry a chest. This horse can be healed using essences of light.
 
 achievement.fairy_horse=Fairy Horse!
-achievement.fairy_horse.desc=Obtain a fairy horse by breeding a pegasus with a unicorn using essences of light. This is the fastest flying horse, it can also regenerate, carry a chest, and ram when on the ground. Feed this horse a dye to permanently change it's fairy type. This horse can be healed using essences of light.
+achievement.fairy_horse.desc=Obtain a fairy horse by breeding a pegasus and a unicorn using essences of light. This is the the fastest flying horse, it can regenerate, carry a chest, and ram. Feed them dye to change their fairy type. Heal them with essences of light.
 
 achievement.amulet_fairy=Fairy Horse Storage
 achievement.amulet_fairy.desc=Craft a fairy amulet. The fire for the amulet's crafting recipie can be obtained from hell rats.
 
 achievement.wyvern_portal_staff=Where the Wyverns Live
-achievement.wyvern_portal_staff.desc=Craft a wyvern portal staff and travel to the wyvern lair.
+achievement.wyvern_portal_staff.desc=Craft a wyvern portal staff and travel to the wyvern lair. You can return to the overworld by using the wyvern portal staff on the center blocks of the quartz portal.
 
 achievement.wyvern_egg=The Fastest of Them All
-achievement.wyvern_egg.desc=Obtain a wyvern egg from a mother wyvern. Pet wyverns like to eat raw rat and raw rabbit. Adult pet wyverns can be ridden, equipped with vanilla minecraft horse armor, and can carry a chest. Jungle, swamp, savanna, sand, and mother wyvern types also have reactions when fed with certain essences.
+achievement.wyvern_egg.desc=Obtain a wyvern egg from a mother wyvern. Pet wyverns eat raw rat and raw rabbit. Adult pet wyverns can be ridden, equipped with minecraft horse armor, and carry a chest. Jungle, swamp, savanna, sand, and mother wyverns react to certain essences when fed.
 
 achievement.tame_elephant=Elephant Tamer
 achievement.tame_elephant.desc=Tame a baby elephant or mammoth using many sugar lumps.
@@ -410,7 +408,7 @@ achievement.mount_elephant=Elephant Rider
 achievement.mount_elephant.desc=Ride a tamed adult elephant or mammoth using an elephant harness. You need to make it sit first to climb on. You can make an elephant sit by sneaking near it.
 
 achievement.mammoth_platform=A Platform for Two
-achievement.mammoth_platform.desc=Put a mammoth platform on a songhua river mammoth that is wearing an elephant harness. Two players can ride a songhua river mammoth when it has a mammoth platform. The second player can climb on to the platform by jumping near the mammoth while it is sitting and ridden by another player.
+achievement.mammoth_platform.desc=Attach a mammoth platform to a Songhua River mammoth with an elephant harness. Two players can ride it when it has the platform. The second player can climb onto the platform by jumping near the mammoth while it is sitting and ridden by another player.
 
 achievement.elephant_garment=Asian Elephant Fashion
 achievement.elephant_garment.desc=Put an elephant garment on an asian elephant.
@@ -419,7 +417,7 @@ achievement.elephant_tusks=Battle Ready
 achievement.elephant_tusks.desc=Equip an elephant or mammoth with any tusks. When equipped with tusks they be whipped to ram and destroy blocks in front. The effectiveness of block breaking depends on the type of elephant and the tusks it's wearing.
 
 achievement.elephant_chest=Elephant Luggage
-achievement.elephant_chest.desc=Put an elephant chest on an elephant or mammoth that is wearing an elephant harness. Elephants and mammoths can hold two elephant chests. When carrying two elephant chests, mammoths can also be equiped with an extra of two minecraft chest blocks. You can open the chests using a key.
+achievement.elephant_chest.desc=Attach an elephant chest to an elephant or mammoth with an elephant harness. They can hold two elephant chests. Mammoths with two elephant chests can also equip two extra Minecraft chest blocks. Right click while sneaking to open the chest.
 
 achievement.elephant_howdah=Your Highness
 achievement.elephant_howdah.desc=Put an elephant howdah on an asian elephant that is wearing an elephant garment.
@@ -428,7 +426,7 @@ achievement.craft_medallion=Universal Re-Naming
 achievement.craft_medallion.desc=Craft a medallion. You can use this to rename tamed creatures.
 
 achievement.tame_kitty=Kitty Tamer
-achievement.tame_kitty.desc=Tame a kitty by dropping some cooked fish near it and putting a medallion on it after it eats some of the fish.
+achievement.tame_kitty.desc=Tame a kitty by dropping some cooked fish near them and putting a medallion on them after they eat some of the fish.
 
 achievement.kitty_litter_box=Kitty Litter Box
 achievement.kitty_litter_box.desc=Craft a kitty litter box.
@@ -446,16 +444,16 @@ achievement.pet_food=Feeding the Cat
 achievement.pet_food.desc=Fill a kitty bed by yourself with some milk or cat food. You can automate this process later using a dispenser.
 
 achievement.breed_kitty=Kitty Breeder
-achievement.breed_kitty.desc=Breed kittys while they are both happy using cake or fish while being next to a kitty bed.
+achievement.breed_kitty.desc=Breed two kittys while they are both happy using cake or fish while being next to a kitty bed.
 
 achievement.tame_big_cat=Big Cat Tamer
-achievement.tame_big_cat.desc=Tame a baby big cat by dropping some raw meat near it and putting a medallion on it after it eats a good amount of the meat.
+achievement.tame_big_cat.desc=Tame a baby big cat by dropping some raw meat near them and putting a medallion on them after they eat a good amount of the meat.
 
 achievement.big_cat_claw=Big Cat Hunter
 achievement.big_cat_claw.desc=Obtain a big cat claw.
 
 achievement.craft_whip=Time to Crack the Whip!
-achievement.craft_whip.desc=Craft a whip. Use this to make any tamed creature sit. Use this while riding any creature to make it sprint. Use for special effects while riding a nightmare horse, unicorn, unicorn ostrich, or elephant.
+achievement.craft_whip.desc=Craft a whip. Use this to make any tamed creature sit. Use this while riding any creature to make them sprint. Use to activate special creature abilities while riding a nightmare horse, unicorn, unihored ostrich, or elephant.
 
 achievement.indiana=Just like Indiana Jones
 achievement.indiana.desc=Use a whip on a tamed big cat more than six times.
@@ -473,34 +471,34 @@ achievement.catch_fish_in_fish_bowl=Fishy in a Bowl
 achievement.catch_fish_in_fish_bowl.desc=Catch a fishy in a fish bowl.
 
 achievement.tame_bird=Bird Tamer
-achievement.tame_bird.desc=Tame a bird by dropping any seeds near it and feed it seeds by yourself after it eats some of the seeds on the ground. If you place a pet bird on your head they will slow down your fall from tall places.
+achievement.tame_bird.desc=Tame a bird by dropping any seeds near them and feed them seeds by yourself after they eat some of the seeds on the ground. If you place a pet bird on your head they will slow down your fall from tall places.
 
 achievement.feed_snake_with_live_mouse=Live Feeding
-achievement.feed_snake_with_live_mouse.desc=Feed a live mouse to an adult pet snake. Shift and right click an adult pet snake with a live mouse in your hand.
+achievement.feed_snake_with_live_mouse.desc=Feed a live mouse to an adult pet snake. Sneak and right click an adult pet snake with a live mouse in your hand.
 
 achievement.tame_panda=Panda Tamer
 achievement.tame_panda.desc=Tame a baby panda using sugar cane or bamboo.
 
 achievement.tame_scorpion=Scorpion Tamer
-achievement.tame_scorpion.desc=Tame a baby scorpion by petting it with an empty hand. Pet scorpions like to eat rotten flesh and rat meat. Once fully grown, you can ride them up walls. Adult pet scorpions will lay an egg if given an essence of darkness.
+achievement.tame_scorpion.desc=Tame a baby scorpion by petting them with an empty hand. Pet scorpions like to eat rotten flesh and rat meat. Once fully grown, you can ride them up walls. Adult pet scorpions will lay an egg if given an essence of darkness.
 
 achievement.ostrich_egg=Egg Thief
-achievement.ostrich_egg.desc=Breed a wild ostrich couple using melon seeds and steal their egg. Pet ostriches can be ridden when they become adults. Pet ostriches can also be transformed with essences.
+achievement.ostrich_egg.desc=Breed a wild black ostrich and a wild brown ostrich using melon seeds and steal their egg. Pet ostriches can be ridden when they become adults.
 
 achievement.ostrich_helmet=Protective Gear
 achievement.ostrich_helmet.desc=Put any vanilla or mo' creatures helmet on a pet adult ostrich.
 
 achievement.ostrich_chest=Ostrich Luggage
-achievement.ostrich_chest.desc=Put a chest on a pet adult ostrich. You can open the chest using a key.
+achievement.ostrich_chest.desc=Put a chest on a pet adult ostrich. Right click while sneaking to open the chest.
 
 achievement.ostrich_flag=Flag Bearer
 achievement.ostrich_flag.desc=Put any wool block on an ostrich that is carrying a chest.
 
 achievement.wyvern_ostrich=Wyvern Ostrich
-achievement.wyvern_ostrich.desc=Obtain an wyvern ostrich by feeding an adult pet ostrich with an essence of darkness. This ostrich can fly thrust. This ostrich can be healed using essences of darkness.
+achievement.wyvern_ostrich.desc=Obtain a wyvern ostrich by feeding an adult pet ostrich with an essence of darkness. This ostrich can fly thrust. This ostrich can be healed using essences of darkness.
 
 achievement.undead_ostrich=Undead Ostrich
-achievement.undead_ostrich.desc=Obtain an undead ostrich by feeding an adult pet ostrich with an essence of undead. Riders of this ostrich will be ignored by undead mobs under 50 HP. This ostrich can be healed using essences of undead.
+achievement.undead_ostrich.desc=Obtain an undead ostrich by feeding an adult pet ostrich with an essence of undead. Riders of this ostrich will be ignored by undead mobs up to 50 HP. This ostrich can be healed using essences of undead.
 
 achievement.unihorn_ostrich=Unihorned Ostrich
 achievement.unihorn_ostrich.desc=Obtain a unihorned ostrich by feeding an adult pet ostrich with an essence of light. This ostrich can regenerate and ram. This ostrich can be healed using essences of light.
@@ -547,7 +545,7 @@ achievement.kill_ogre.desc=Kill an ogre.
 achievement.kill_werewolf=Werewolf Slayer
 achievement.kill_werewolf.desc=Kill a werewolf in it's wolf form.
 
-achievement.kill_big_golem=Golem Slayer
+achievement.kill_big_golem=Golem Dismantler
 achievement.kill_big_golem.desc=Kill a big golem and get it's centre block.
 
 achievement.leonardo=Leonardo
@@ -590,4 +588,4 @@ achievement.scorpion_sword=Scorpion Bladesman
 achievement.scorpion_sword.desc=Craft any scorpion sword. Scorpion swords can be repaired at an anvil using diamonds.
 
 achievement.scorpion_armor=Scorpion Warrior
-achievement.scorpion_armor.desc=Craft any piece of scorpion armor. Wear a full set of the same type for a set bonus. Scorpion armor can be repaired at an anvil using the same type of scorpion chitin.
+achievement.scorpion_armor.desc=Craft any piece of scorpion armor. Each full armor set provides a unique set bonus when worn. Scorpion armor can be repaired at an anvil using the same type of scorpion chitin.

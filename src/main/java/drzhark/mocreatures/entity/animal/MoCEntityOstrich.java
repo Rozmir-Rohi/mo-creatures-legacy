@@ -775,7 +775,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         {
 	        	if (entityPlayer.isSneaking() && getIsChested())
 		        {
-		            // if first time opening horse chest, we must initialize it
+		            // if first time opening chest, we must initialize it
 		            if (localChest == null)
 		            {
 		                localChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.OstrichChest"), 9);
@@ -1069,7 +1069,7 @@ public class MoCEntityOstrich extends MoCEntityTameableAnimal {
         if (getIsChested())
         {
             NBTTagList nbtTagList = nbtTagCompound.getTagList("Items", 10);
-            localChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.OstrichChest"), 18);
+            localChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.OstrichChest"), 9);
             for (int i = 0; i < nbtTagList.tagCount(); i++)
             {
                 NBTTagCompound nbtTagCompound1 = nbtTagList.getCompoundTagAt(i);

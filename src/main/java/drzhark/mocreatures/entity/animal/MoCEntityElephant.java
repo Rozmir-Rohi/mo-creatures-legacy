@@ -1360,7 +1360,7 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
     private float calculateAttackDamage()
     {
     	if (getIsAdult() && !(getIsTamed())) {return 8;}
-    	else if (getIsAdult() && getIsTamed()) {return (6 + getTusks());}
+    	else if (getIsAdult() && getIsTamed()) {return (8 + getTusks());}
     	else {return 4;} //child attack damage
     }
     

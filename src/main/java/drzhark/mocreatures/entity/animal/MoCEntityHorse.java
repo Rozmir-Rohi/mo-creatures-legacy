@@ -427,12 +427,20 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
     public int getInventorySize()
     {
-        if (getType() == 40)
+        if (getType() == 40) //dark pegasus
         {
             return 18;
         }
-        else if (getType() > 64) { return 27; }
-        return 9;
+        
+        else if (getType() > 64) //donkeys, mules, and zonkeys
+        {
+        	return 27;
+        }
+        
+        else //other horses
+        {
+        	return 9;
+        }
     }
 
     public boolean getIsChestedHorse()
@@ -1464,7 +1472,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 	                localHorseChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.HorseChest"), getInventorySize());// , new
 	            }
 	            // only open this chest on server side
-	            if (!worldObj.isRemote)
+	            if (MoCreatures.isServer())
 	            {
 	                entityPlayer.displayGUIChest(localHorseChest);
 	            }
@@ -2403,7 +2411,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
     public void onLivingUpdate()
     {
     	if (
-    			isHorsePurelyMadeFromEssenseOfLight()
+    			isHorseMadeFromEssenseOfLight()
     			&& (getHealth() < getMaxHealth())
     			&& rand.nextInt(100) == 0
     		)
@@ -2683,7 +2691,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
     }
 
-    private boolean isHorsePurelyMadeFromEssenseOfLight()
+    private boolean isHorseMadeFromEssenseOfLight()
     {
     	int horseType = getType();
     	
@@ -2691,6 +2699,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 			(
 				horseType == 36  //pure unicorn 
 				|| horseType == 39 //pure pegasus
+				|| horseType == 40 //dark pegasus
 				|| isFairyHorse() //fairy horse
 			);
 	}
@@ -3282,16 +3291,15 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
         setArmorType((byte) nbtTagCompound.getInteger("ArmorType"));
         if (getIsChestedHorse())
         {
-            NBTTagList nbttaglist = nbtTagCompound.getTagList("Items", 10);
+            NBTTagList nbtTagList = nbtTagCompound.getTagList("Items", 10);
             localHorseChest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.HorseChest"), getInventorySize());
-
-            for (int index = 0; index < nbttaglist.tagCount(); index++)
+            for (int i = 0; i < nbtTagList.tagCount(); i++)
             {
-                ItemStack itemStack = localHorseChest.getStackInSlot(index);
-
-                if (itemStack != null)
+                NBTTagCompound nbtTagCompound1 = nbtTagList.getCompoundTagAt(i);
+                int j = nbtTagCompound1.getByte("Slot") & 0xff;
+                if ((j >= 0) && j < localHorseChest.getSizeInventory())
                 {
-                    localHorseChest.setInventorySlotContents(index, itemStack.copy());
+                	localHorseChest.setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(nbtTagCompound1));
                 }
             }
         }

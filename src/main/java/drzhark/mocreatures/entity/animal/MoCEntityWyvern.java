@@ -406,7 +406,6 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
                 }
 
                 setIsChested(true);
-                playSound("mob.chicken.plop", 1.0F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F) + 1.0F);
                 return true;
             }
 
@@ -504,7 +503,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
         {
         	if (entityPlayer.isSneaking() && getIsChested())
             {
-                // if first time opening horse chest, we must initialize it
+                // if first time opening chest, we must initialize it
                 if (localchest == null)
                 {
                     localchest = new MoCAnimalChest(StatCollector.translateToLocal("container.MoCreatures.WyvernChest"), 14);// 
