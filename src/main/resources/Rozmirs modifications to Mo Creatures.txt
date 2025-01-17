@@ -1552,3 +1552,6 @@ Increased land creature spawn weights to be closer to how it was in the original
 Reduced aquatic creature spawns with a focus on lowering spawn rates for aquatic creatures with complex models to improve performance in oceans.
 
 
+Fixed wraiths and bat horse flying on top of player and sinking down to attack.
+
+

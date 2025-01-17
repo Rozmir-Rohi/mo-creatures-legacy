@@ -90,9 +90,9 @@ public class MoCEntityWraith extends MoCEntityMob
 	            double flySpeed = getMoveSpeed();
 	            
 	            
-	            if (yDistance > 0) //fly up to player
+	            if (yDistance != 0) //fly to player's height
 	        	{
-	        		 motionY += (yDistance / overallDistanceSquared) * 0.3D;
+	        		 motionY += (yDistance / overallDistanceSquared) * 0.3D * -(Math.signum(yDistance));
 	        	}
 		            
 	        	if (isOnAir() && overallDistanceSquared > 8) //chase player through air
