@@ -55,7 +55,6 @@ public class MoCRenderJellyFish extends RenderLiving {
     public void doRender(EntityLiving entityLiving, double x, double y, double z, float rotationYaw, float rotationPitch)
     {
         MoCEntityJellyFish entityJellyfish = (MoCEntityJellyFish) entityLiving;
-        boolean isGlowing = entityJellyfish.isGlowing();
         
         if (!entityJellyfish.isSwimming())
         {
@@ -67,15 +66,6 @@ public class MoCRenderJellyFish extends RenderLiving {
         }
         GL11.glPushMatrix();
         GL11.glEnable(3042 /*GL_BLEND*/);
-        
-        if (isGlowing)
-        {
-        	char c0 = 61680;
-            int j = c0 % 65536;
-            int k = c0 / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0F, k / 1.0F);
-            GL11.glDepthMask(false);
-        }
         
         super.doRender(entityLiving, x, y, z, rotationYaw, rotationPitch);
         GL11.glDisable(3042/*GL_BLEND*/);

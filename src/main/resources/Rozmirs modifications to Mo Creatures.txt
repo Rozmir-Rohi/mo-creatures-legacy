@@ -1535,3 +1535,20 @@ Fixed english achievement descriptions being too long and causing crashes.
 
 
 Added passive regen to dark pegasus.
+
+
+Removed moc config commands. Now configs can only be modified using the config files.
+
+
+Removed special rendering for Jellyfish as it didn't do much.
+
+
+Returned aquatic creature's water vertical movements to how it was in the original mod.
+
+
+Increased land creature spawn weights to be closer to how it was in the original mod.
+
+
+Reduced aquatic creature spawns with a focus on lowering spawn rates for aquatic creatures with complex models to improve performance in oceans.
+
+

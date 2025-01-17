@@ -60,29 +60,6 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
             }
         }
     }
-    
-    @Override
-    protected void entityInit()
-    {
-        super.entityInit();
-        dataWatcher.addObject(22, Byte.valueOf((byte) 0)); // glow: 0 no; 1 yes
-    }
-    
-    public void setGlowing(boolean flag)
-    {
-        byte input = (byte) (flag ? 1 : 0);
-        dataWatcher.updateObject(22, Byte.valueOf(input));
-    }
-
-    public boolean isGlowing()
-    {
-        if (dataWatcher.getWatchableObjectByte(22) == 1)
-        {
-            EntityPlayer entityPlayer = worldObj.getClosestPlayer(posX, posY, posZ, 12D);
-            return (entityPlayer != null);
-        }
-        return false;
-    }
 
     @Override
     public float getMoveSpeed()
@@ -140,14 +117,7 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
         }
         super.onLivingUpdate();
         if (MoCreatures.isServer())
-        {
-            
-            if(rand.nextInt(200) == 0)
-            {
-                setGlowing(!worldObj.isDaytime());
-            }
-            
-            
+        {   
             if (!getIsAdult() && (rand.nextInt(200) == 0))
             {
                 setMoCAge(getMoCAge() + 1);

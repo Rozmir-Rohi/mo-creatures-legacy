@@ -30,7 +30,6 @@ public class CommandMoCPets extends CommandBase {
     static {
         commands.add("/mocpets");
         aliases.add("mocpets");
-       //tabCompletionStrings.add("moctp");
     }
 
     @Override

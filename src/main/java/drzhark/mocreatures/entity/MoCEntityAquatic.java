@@ -586,36 +586,16 @@ public abstract class MoCEntityAquatic extends EntityWaterMob implements IMoCEnt
             }
             
 
-            else if
-            	( 	//if the fish is fishable and there is a fish hook nearby, move up to that fish hook
-        			isFisheable()
-        			&& closestFishHook != null
-        			&& closestFishHook.field_146043_c == null //tests that nothing is hooked to that fish hook
-                	&& distanceToHook > 1
-        		)
-	        { 
 	        	
-	            motionY += 0.001D;// 0.001
+	        motionY += 0.001D;// 0.001
 	
-	            if (yDistanceToSurfaceOfWater > 1)
-	            {
-	                motionY += (yDistanceToSurfaceOfWater * 0.02);
-	                if (motionY > 0.2D)
-	                {
-	                    motionY = 0.2D;
-	                }
-	            }
-	        }
-                
-            
-        	else if
-        		(
-            		!isDiving()
-            		&& yDistanceToSurfaceOfWater > 1
-            		&& rand.nextInt(5) == 0
-            	)
+            if (yDistanceToSurfaceOfWater > 1)
             {
-            	motionY = 0.05D; //move up in water
+                motionY += (yDistanceToSurfaceOfWater * 0.02);
+                if (motionY > 0.2D)
+                {
+                    motionY = 0.2D;
+                }
             }
         }
     }
