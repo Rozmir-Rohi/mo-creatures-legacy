@@ -525,7 +525,12 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
         //if (MoCreatures.proxy.enableStrictOwnership && getOwnerName() != null && !getOwnerName().equals("") && !entityPlayer.getCommandSenderName().equals(getOwnerName())) { return true; }
 
         ItemStack itemStack = entityPlayer.getHeldItem();
-        if ((getKittyState() == KITTY_STATE_PRETAMED) && (itemStack != null) && (itemStack.getItem() == MoCreatures.medallion))
+        if (
+        		getKittyState() == KITTY_STATE_PRETAMED
+        		&& itemStack != null
+        		&& itemStack.getItem() == MoCreatures.medallion
+        		&& getAttackTarget() != entityPlayer //don't try to tame this kitty if it is angry with the player
+        	)
         {
             if (MoCreatures.isServer())
             {

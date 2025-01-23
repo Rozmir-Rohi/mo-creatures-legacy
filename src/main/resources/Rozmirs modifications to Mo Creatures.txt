@@ -1555,3 +1555,10 @@ Reduced aquatic creature spawns with a focus on lowering spawn rates for aquatic
 Fixed wraiths and bat horse flying on top of player and sinking down to attack.
 
 
+Fixed wraiths and bat horse vertical path finding.
+
+
+Added zonkey achievement.
+
+
+Added a fail-safe for werewolf gold and silver weapon detection. Now werewolves will detect gold and silver swords from any mod.

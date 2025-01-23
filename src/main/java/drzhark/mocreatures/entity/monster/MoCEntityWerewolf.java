@@ -17,6 +17,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.server.MinecraftServer;
@@ -366,7 +367,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		        damageTaken = 3;
 		    }	
 		    	
-		    if (
+		    else if (
 		    		itemHeldByPlayer == Items.golden_hoe
 		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("BiomesOPlenty:scytheGold")))
 		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:dagger.gold")))
@@ -382,7 +383,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		        damageTaken = 6;
 		    }
 		    
-		    if (
+		    else if (
 		    		itemHeldByPlayer == Items.golden_pickaxe
 		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.pickaxeSilver")))
 		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.hoeElectrum")))
@@ -392,7 +393,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    	damageTaken = 7;
 		    }
 		    
-		    if (
+		    else if (
 		    		itemHeldByPlayer == Items.golden_axe
 		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:mace.gold")))
 		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("battlegear2:spear.gold")))
@@ -407,7 +408,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		        damageTaken = 8;
 		    }
 		    
-		    if (
+		    else if (
 		    		itemHeldByPlayer == Items.golden_sword
 		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.axeElectrum")))
 		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("weaponmod:katana.gold")))
@@ -418,12 +419,28 @@ public class MoCEntityWerewolf extends MoCEntityMob {
 		    	damageTaken = 9;
 		    }
 		    
-		    if (
+		    else if (
 		    		itemHeldByPlayer == MoCreatures.silverSword
 		    		|| (((Item.itemRegistry).getNameForObject(itemHeldByPlayer).equals("ThermalFoundation:tool.swordElectrum")))
 		    	)
 		    {
 		    	damageTaken = 10;
+		    }
+		    
+		    else if (	//this is a fail-safe in the case that the item is a silver or gold weapon from another mod that wasn't added for support
+		    			damageTaken == 1 
+		    			&& itemHeldByPlayer instanceof ItemSword
+		    		)
+		    {
+		    	if ((((Item.itemRegistry).getNameForObject(itemHeldByPlayer).contains("gold"))))
+		    	{
+		    		damageTaken = (float) (((ItemSword) itemHeldByPlayer).func_150931_i() * 1.1) * 2;  //the "func_150931_i()" function gets half of the sword's base damage
+		    	}
+		    	
+		    	if ((((Item.itemRegistry).getNameForObject(itemHeldByPlayer).contains("silver"))))
+		    	{
+		    		damageTaken = (float) (((ItemSword) itemHeldByPlayer).func_150931_i() * 1.3) * 2;  //the "func_150931_i()" function gets half of the sword's base damage
+		    	}
 		    }
 		    
 		}

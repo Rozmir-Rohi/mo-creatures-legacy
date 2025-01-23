@@ -2661,6 +2661,11 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                 	owner.addStat(MoCAchievements.tier4_horse, 1);
                 }
                 
+                else if ((type == 67) && owner != null) //zonkey
+                {
+                	owner.addStat(MoCAchievements.zonkey, 1);
+                }
+                
                 
                 else if (type == 50) // fairy horse!
                 {

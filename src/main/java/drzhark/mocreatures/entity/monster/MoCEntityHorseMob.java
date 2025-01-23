@@ -301,10 +301,10 @@ public class MoCEntityHorseMob extends MoCEntityMob
 	            
 	            if (yDistance != 0) //fly to player's height
 	        	{
-	        		 motionY += (yDistance / overallDistanceSquared) * 0.3D * -(Math.signum(yDistance));
+	            	motionY += (yDistance / overallDistanceSquared) * 0.3D;
 	        	}
 	        	
-	        	if (isOnAir() && overallDistanceSquared > 3) //continue chasing player through air in x and z directions
+	        	if (isOnAir() && overallDistanceSquared > 3)  //dash ability and find player when hit from far away
 	        	{
 			        faceEntity(getEntityToAttack(), 10F, 10F);
 

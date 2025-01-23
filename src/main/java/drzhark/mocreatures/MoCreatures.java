@@ -413,6 +413,7 @@ public class MoCreatures {
     public static Item achievementIconUnicorn;
     public static Item achievementIconZebra;
     public static Item achievementIconZorse;
+    public static Item achievementIconZonkey;
     
     public static Item achievementIconIndiana;
     public static Item achievementIconTameBigCat;
@@ -1106,6 +1107,7 @@ public class MoCreatures {
         achievementIconUnicorn = new MoCItem("achievement_icon_unicorn");
         achievementIconZebra = new MoCItem("achievement_icon_zebra");
         achievementIconZorse = new MoCItem("achievement_icon_zorse");
+        achievementIconZonkey = new MoCItem("achievement_icon_zonkey");
         
         achievementIconIndiana = new MoCItem("achievement_icon_indiana");
         achievementIconTameBigCat = new MoCItem("achievement_icon_tame_big_cat");

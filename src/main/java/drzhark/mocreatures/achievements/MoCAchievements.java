@@ -34,6 +34,7 @@ public static Achievement tier4_horse;
 public static Achievement zebra;
 public static Achievement zebra_record;
 public static Achievement zorse;
+public static Achievement zonkey;
 
 public static Achievement heart_undead;
 public static Achievement essence_undead;
@@ -160,7 +161,8 @@ public static void initilization()
 	tier3_horse = new Achievement("achievement.tier3_horse", "tier3_horse", 9, 0, MoCreatures.achievementIconTier3Horse, tier2_horse).registerStat();
 	tier4_horse = new Achievement("achievement.tier4_horse", "tier4_horse", 11, 0, MoCreatures.achievementIconTier4Horse, tier3_horse).registerStat();
 	zebra = new Achievement("achievement.zebra", "zebra", 13, 0, MoCreatures.achievementIconZebra, tier4_horse).registerStat();
-	zebra_record = new Achievement("achievement.zebra_record", "zebra_record", 13, -2, new ItemStack(MoCreatures.recordShuffle), zebra).registerStat();
+	zebra_record = new Achievement("achievement.zebra_record", "zebra_record", 13, -3, new ItemStack(MoCreatures.recordShuffle), zebra).registerStat();
+	zonkey = new Achievement("achievement.zonkey", "zonkey", 12, -2, new ItemStack(MoCreatures.achievementIconZonkey), zebra).registerStat();
 	zorse = new Achievement("achievement.zorse", "zorse", 15, 0, MoCreatures.achievementIconZorse, zebra).registerStat();
 	
 	heart_undead = new Achievement("achievement.heart_undead", "heart_undead", 15, 6, new ItemStack(MoCreatures.heartundead), AchievementList.buildSword).registerStat();
@@ -315,6 +317,7 @@ public static void initilization()
 					tier4_horse,
 					zebra,
 					zebra_record,
+					zonkey,
 					zorse,
 					
 					heart_undead,

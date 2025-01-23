@@ -92,10 +92,10 @@ public class MoCEntityWraith extends MoCEntityMob
 	            
 	            if (yDistance != 0) //fly to player's height
 	        	{
-	        		 motionY += (yDistance / overallDistanceSquared) * 0.3D * -(Math.signum(yDistance));
+	        		 motionY += (yDistance / overallDistanceSquared) * 0.3D;
 	        	}
 		            
-	        	if (isOnAir() && overallDistanceSquared > 8) //chase player through air
+	        	if (isOnAir() && overallDistanceSquared > 8) //dash ability and find player when hit from far away
 	        	{
 			        faceEntity(getEntityToAttack(), 10F, 10F);
 
