@@ -417,7 +417,7 @@ achievement.elephant_garment=Asian Elephant Fashion
 achievement.elephant_garment.desc=Put an elephant garment on an asian elephant.
 
 achievement.elephant_tusks=Battle Ready
-achievement.elephant_tusks.desc=Equip an elephant or mammoth with any tusks. When equipped with tusks they be whipped to ram and destroy blocks in front. The effectiveness of block breaking depends on the type of elephant and the tusks it's wearing.
+achievement.elephant_tusks.desc=Equip an elephant or mammoth with any tusks. When equipped with tusks they can be whipped to ram and destroy blocks in front. The effectiveness of block breaking depends on the type of elephant and the tusks it's wearing.
 
 achievement.elephant_chest=Elephant Luggage
 achievement.elephant_chest.desc=Attach an elephant chest to an elephant or mammoth with an elephant harness. They can hold two elephant chests. Mammoths with two elephant chests can also equip two extra Minecraft chest blocks. Right click while sneaking to open the chest.
@@ -447,7 +447,7 @@ achievement.pet_food=Feeding the Cat
 achievement.pet_food.desc=Fill a kitty bed by yourself with some milk or cat food. You can automate this process later using a dispenser.
 
 achievement.breed_kitty=Kitty Breeder
-achievement.breed_kitty.desc=Breed two kittys while they are both happy using cake or fish while being next to a kitty bed.
+achievement.breed_kitty.desc=Breed two kittys next to a kitty bed while they are both happy using cake or fish.
 
 achievement.tame_big_cat=Big Cat Tamer
 achievement.tame_big_cat.desc=Tame a baby big cat by dropping some raw meat near them and putting a medallion on them after they eat a good amount of the meat.
@@ -467,7 +467,7 @@ achievement.shark_tooth.desc=Obtain a shark tooth.
 achievement.fish_net=Time to Catch More Fish
 achievement.fish_net.desc=Craft a fish net. Use this to catch and tame most aquatic creatures. You can also use it to store any aquatic pet.
 
-achievement.shark_sword=A very Toothy Sword
+achievement.shark_sword=A Very Toothy Sword
 achievement.shark_sword.desc=Craft a shark sword. Shark swords can be repaired at an anvil using shark teeth.
 
 achievement.catch_fish_in_fish_bowl=Fishy in a Bowl

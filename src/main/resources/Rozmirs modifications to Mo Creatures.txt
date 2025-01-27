@@ -1574,3 +1574,6 @@ Update credits.
 
 
 Fixed fox not making eating sound when fed.
+
+
+Fixes some mistakes in the English language file.
