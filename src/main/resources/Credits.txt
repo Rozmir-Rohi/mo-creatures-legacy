@@ -99,14 +99,16 @@ Language File Translations:
 
 
 
-Mod Testers Who Helped Solve Major Bugs:
-	Omgise
+People who Significantly Contributed to the Development of this Project by Suggesting Ideas or by Helping Solve Major Bugs:
+	Omgise - For identifying the multilingual pet name bug.
 
-	quentin452
+	quentin452 - For identifying the language file crash on servers.
 
-	brandyyn
+	brandyyn - For suggesting features to return to the original Mo' Creatures style and identifying the entity ID conflict crash.
 
-	yoruki_167
+	yoruki_167 - For identifying the entity duplication glitch with the Mob Confinement mod and for identifying the turtle crash.
+
+	xronin01 - For suggesting the replacement of Witchery werewolves and the Witchery wolf altar.
 
 
 

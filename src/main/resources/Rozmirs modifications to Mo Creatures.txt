@@ -1568,3 +1568,9 @@ Added raw fish as healing item for jellyfish.
 
 
 Added seeds as healing item for crab. Crabs also now accept seaweed from other mods as healing items.
+
+
+Update credits.
+
+
+Fixed fox not making eating sound when fed.

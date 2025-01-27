@@ -498,7 +498,7 @@ achievement.ostrich_flag=Flag Bearer
 achievement.ostrich_flag.desc=Put any wool block on an ostrich that is carrying a chest.
 
 achievement.wyvern_ostrich=Wyvern Ostrich
-achievement.wyvern_ostrich.desc=Obtain a wyvern ostrich by feeding an adult pet ostrich with an essence of darkness. This ostrich can fly thrust. This ostrich can be healed using essences of darkness.
+achievement.wyvern_ostrich.desc=Obtain a wyvern ostrich by feeding an adult pet ostrich with an essence of darkness. This ostrich can fly-thrust. This ostrich can be healed using essences of darkness.
 
 achievement.undead_ostrich=Undead Ostrich
 achievement.undead_ostrich.desc=Obtain an undead ostrich by feeding an adult pet ostrich with an essence of undead. Riders of this ostrich will be ignored by undead mobs up to 50 HP. This ostrich can be healed using essences of undead.
@@ -507,7 +507,7 @@ achievement.unihorn_ostrich=Unihorned Ostrich
 achievement.unihorn_ostrich.desc=Obtain a unihorned ostrich by feeding an adult pet ostrich with an essence of light. This ostrich can regenerate and ram. This ostrich can be healed using essences of light.
 
 achievement.nether_ostrich=Nether Ostrich
-achievement.nether_ostrich.desc=Obtain a nether ostrich by feeding an adult pet ostrich with an essence of fire. This ostrich can fly hop. This ostrich can be healed using essences of fire.
+achievement.nether_ostrich.desc=Obtain a nether ostrich by feeding an adult pet ostrich with an essence of fire. This ostrich can fly-hop. This ostrich can be healed using essences of fire.
 
 achievement.tame_dolphin=Dolphin Tamer
 achievement.tame_dolphin.desc=Tame an adult dolphin by riding them. Dolphins protect riders from sharks and can jump near the water surface. Dolphin breeds vary in speed and jump power, and adults can be bred using fish.

@@ -155,7 +155,8 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
             {
                 setMoCAge(getMoCAge() + 1);
             }
-
+            
+            MoCTools.playCustomSound(this, "eating", worldObj);
             return true;
         }
         return false;
