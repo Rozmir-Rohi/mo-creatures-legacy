@@ -186,7 +186,7 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic{
     			|| (
     					getType() == 5 &&  //Mandarin fish can eat saltwater plants
     					(
-    						MoCEntityFishy.isItemPlantMegaPackFishEdibleSaltWaterPlant(item)
+    						MoCTools.isItemPlantMegaPackEdibleSaltWaterPlant(item)
     						|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemStack.getItemDamage() == 11 //BOP kelp
     						|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:kelp")
     						|| (Item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")

@@ -1,5 +1,7 @@
 package drzhark.mocreatures.entity.aquatic;
 
+import java.util.List;
+
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAquatic;
@@ -11,10 +13,13 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     public float pulsingSize;
@@ -65,6 +70,36 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     public float getMoveSpeed()
     {
         return 0.1F;
+    }
+    
+    @Override
+    public boolean interact(EntityPlayer entityPlayer)
+    {
+        ItemStack itemStack = entityPlayer.getHeldItem();
+        
+        if (itemStack != null)
+    	{
+	    	Item item = itemStack.getItem();
+	    	
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
+	    	
+	    	if  (
+        			(item == Items.fish && itemStack.getItemDamage() != 3) //any vanilla mc raw fish except a pufferfish
+        			|| oreDictionaryNameArray.contains("listAllfishraw")
+        		)
+	    	{
+	    		if (--itemStack.stackSize == 0)
+	            {
+	                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+	            }
+	            
+	            heal(5);
+
+	            return true;
+	    	}
+        }
+        
+        return super.interact(entityPlayer);
     }
 
     @Override

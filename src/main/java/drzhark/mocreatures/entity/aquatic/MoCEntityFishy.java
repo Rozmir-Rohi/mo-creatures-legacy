@@ -219,20 +219,6 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
 
     }
     
-
-    public static boolean isItemPlantMegaPackFishEdibleSaltWaterPlant(Item item)
-    {
-    	return (
-    				(Item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanCommonEelgrass")
-    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:waterKelpGiantGRN")
-    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:waterKelpGiantYEL")
-    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanMozuku")
-    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanSeaGrapes")
-    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanSeaLettuce")
-    			);
-    }
-    
-    
     @Override
     protected boolean isMyHealFood(ItemStack itemStack)
     {
@@ -249,7 +235,7 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     			|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
     			|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemStack.getItemDamage() == 11 //BOP kelp
     			|| (Item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
-    			|| isItemPlantMegaPackFishEdibleSaltWaterPlant(item)
+    			|| MoCTools.isItemPlantMegaPackEdibleSaltWaterPlant(item)
     			|| (
     					oreDictionaryNameArray.size() > 0
     					&& (

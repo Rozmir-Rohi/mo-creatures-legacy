@@ -1,14 +1,21 @@
 package drzhark.mocreatures.entity.ambient;
 
 
+import java.util.List;
+
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityTameableAmbient;
 import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageAnimation;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemSeeds;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -43,6 +50,55 @@ public class MoCEntityCrab extends MoCEntityTameableAmbient
             setType(rand.nextInt(2) + 1);
         }
 
+    }
+    
+    @Override
+    public boolean interact(EntityPlayer entityPlayer)
+    {
+        ItemStack itemStack = entityPlayer.getHeldItem();
+        
+        if (itemStack != null)
+    	{
+	    	Item item = itemStack.getItem();
+	    	
+	    	List<String> oreDictionaryNameArray = MoCTools.getOreDictionaryEntries(itemStack);
+	    	
+	    	if  (
+        			(item instanceof ItemSeeds) //any vanilla mc raw fish except a pufferfish
+        			|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:beetroot_seeds")
+        			|| (Item.itemRegistry).getNameForObject(item).equals("etfuturum:kelp")
+        			|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:turnipSeeds")
+        			|| (Item.itemRegistry).getNameForObject(item).equals("BiomesOPlenty:coral1") && itemStack.getItemDamage() == 11 //BOP kelp
+        			|| (Item.itemRegistry).getNameForObject(item).equals("harvestcraft:seaweedItem")
+        			|| MoCTools.isItemPlantMegaPackEdibleSaltWaterPlant(item)
+        			|| (
+        					oreDictionaryNameArray.size() > 0
+        					&& (
+        							oreDictionaryNameArray.contains("cropKelp")
+        							|| oreDictionaryNameArray.contains("cropSeaweed")
+    				    			|| (
+    				    					MoCreatures.isGregTech6Loaded
+    				    					&& (
+    				    							oreDictionaryNameArray.contains("listAllseed")
+    				    							|| oreDictionaryNameArray.contains("foodRaisins")
+    				    						)
+    				    				)
+    				    		)
+        				)
+        		)
+	    	{
+	    		if (--itemStack.stackSize == 0)
+	            {
+	                entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
+	            }
+	            
+	            heal(5);
+
+	            return true;
+	    	}
+        }
+        
+        return super.interact(entityPlayer);
     }
 
     @Override

@@ -1562,3 +1562,9 @@ Added zonkey achievement.
 
 
 Added a fail-safe for werewolf gold and silver weapon detection. Now werewolves will detect gold and silver swords from any mod.
+
+
+Added raw fish as healing item for jellyfish.
+
+
+Added seeds as healing item for crab. Crabs also now accept seaweed from other mods as healing items.

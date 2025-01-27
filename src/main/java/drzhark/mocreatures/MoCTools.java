@@ -2087,4 +2087,16 @@ public class MoCTools {
     			&& (entityLivingBase.getLastAttacker() != entityThatIsBeingTargetted) //don't be passive to the player if the undead mob has been hit by them
 		);
 	}
+	
+	public static boolean isItemPlantMegaPackEdibleSaltWaterPlant(Item item)
+    {
+    	return (
+    				(Item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanCommonEelgrass")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:waterKelpGiantGRN")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:waterKelpGiantYEL")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanMozuku")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanSeaGrapes")
+    				|| (Item.itemRegistry).getNameForObject(item).equals("plantmegapack:oceanSeaLettuce")
+    			);
+    }
 }
