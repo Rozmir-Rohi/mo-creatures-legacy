@@ -1,5 +1,6 @@
 itemGroup.MoCreaturesTab=MoCreatures
 
+
 tile.MoCGrass.WyvernLair.name=翼龙巢穴草地
 tile.MoCGrass.OgreLair.name=食人魔巢穴草地
 tile.MoCStone.WyvernLair.name=翼龙巢穴石块
@@ -203,8 +204,7 @@ item.unicornhorn.name=独角兽角
 item.whip.name=鞭子
 item.woolball.name=羊毛球
 
-entity.MoCreatures.CreeperExtension.name=苦力怕
-entity.CreeperExtension.name=苦力怕
+
 entity.MoCreatures.WerewolfVillagerWitchery.name=村民
 entity.WerewolfVillagerWitchery.name=村民
 entity.MoCreatures.WerewolfWitchery.name=狼人
@@ -275,7 +275,7 @@ entity.MoCreatures.Wyvern.name=翼龙
 
 
 
-keyBind.MoCreatures.dive=MoCreatures Dive/Fly Down
+keyBind.MoCreatures.dive=Mo'Creatures：潜水/向下飞行
 
 
 amulet_and_fishnet_desc.MoCreatures.ownedBy=%1$s的所有物品
@@ -291,8 +291,10 @@ item.scrollofsale.desc.line3=仅供宠物主人和管理员使用。
 item.scrollofowner.desc.line1=取消对宠物的所有权。
 item.scrollofowner.desc.line2=仅限被授权的玩家使用。
 
+
 gui_namer.MoCreatures.chooseName=选择你的宠物的名字：
 gui_namer.MoCreatures.done=完成
+
 
 container.MoCreatures.HorseChest=马储物箱
 container.MoCreatures.ElephantChest=大象储物箱
@@ -302,6 +304,7 @@ container.MoCreatures.WyvernChest=翼龙储物箱
 notify.MoCreatures.egg_hatching=蛋即将孵化！请保持观察！如果您离开该区域，位于%1$s， %2$s， %3$s的孵化生物如果离开该区域将会消失。
 
 notify.MoCreatures.max_pet_count_reached=无法驯服更多生物。您已达到服务器设定的%1$s个宠物的上限。
+
 
 death.MoCreatures.attack.dehydration=%1$s死于脱水
 
@@ -328,6 +331,9 @@ achievement.zebra.desc=使用四级马匹接近一只斑马，然后用苹果喂
 achievement.zebra_record=Shuffling
 achievement.zebra_record.desc=通过用驯服的斑马喂养任何Minecraft原版音乐唱片来获取一张斑马记录。这是斑马们最喜欢的歌曲。
 
+achievement.zonkey=斑驴
+achievement.zonkey.desc=使用南瓜、蛋糕或蘑菇煲喂养驯服的斑马和原版Minecraft的驴，使其繁殖。这种马可以携带一个箱子。
+
 achievement.zorse=杂交马
 achievement.zorse.desc=使用南瓜、蛋糕或蘑菇炖菜等食物，将已被驯服的斑马与其他任何马匹繁殖。
 
@@ -342,6 +348,7 @@ achievement.undead_horse.desc=通过用亡灵精华喂养宠物杂交马或特�
 
 achievement.amulet_bone=骷髅马存储
 achievement.amulet_bone.desc=合成一枚骨头护身符。
+
 
 achievement.ghost_horse=幽灵马
 achievement.ghost_horse.desc=获得一匹宠物幽灵马。有时候，当一匹三级以上的马死亡时，它可能会变成一匹幽灵马。这匹马只能通过亡灵精华进行治疗。
@@ -415,8 +422,6 @@ achievement.elephant_tusks.desc=当你给大象或猛犸象装备上任何一对
 achievement.elephant_chest=大象行李箱
 achievement.elephant_chest.desc=在穿戴大象挽具的大象或猛犸象身上放置一个大象行李箱。大象和猛犸象可以携带两个大象行李箱。当携带两个大象行李箱时，猛犸象还可以额外装备两个Minecraft原版箱子。您可以使用钥匙打开这些箱子。
 
-恭喜您创造了这一独特而奇幻的景象！享受大象或猛犸象身着精美胸甲配饰的实用性和美学魅力吧。
-
 achievement.elephant_howdah=殿下
 achievement.elephant_howdah.desc=在穿着象服的亚洲象上放置一个象座。
 
@@ -432,14 +437,17 @@ achievement.kitty_litter_box.desc=合成一个猫砂盆。
 achievement.kitty_litter=猫的事务
 achievement.kitty_litter.desc=使用沙子亲自清洁一个已使用过的猫砂盆。以后你可以使用发射器自动化这个过程。
 
+achievement.wool_ball=猫咪玩耍时间
+achievement.wool_ball.desc=合成一个羊毛球，然后给好奇的猫咪玩耍。
+
 achievement.kitty_bed=猫窝
 achievement.kitty_bed.desc=合成任意一款猫窝。
 
 achievement.pet_food=喂猫
 achievement.pet_food.desc=使用牛奶或猫粮亲自填充猫窝。以后你可以使用发射器自动化这个过程。
 
-achievement.wool_ball=猫咪玩耍时间
-achievement.wool_ball.desc=合成一个羊毛球，然后给好奇的猫咪玩耍。
+achievement.breed_kitty=猫咪繁育者
+achievement.breed_kitty.desc=使用蛋糕或鱼，在两只猫咪都开心的时候，在猫咪床旁边让它们繁殖。
 
 achievement.tame_big_cat=大型猫科动物驯服师
 achievement.tame_big_cat.desc=通过在大型猫科动物附近放置一些生肉，在大型猫科动物吃了一些肉后给它戴上勋章来驯服大型猫科动物。
@@ -489,8 +497,26 @@ achievement.ostrich_chest.desc=在成年宠物鸵鸟上放置一个箱子。你�
 achievement.ostrich_flag=旗帜扛手
 achievement.ostrich_flag.desc=在携带箱子的鸵鸟身上放置任何羊毛块。
 
+achievement.wyvern_ostrich=飞龙鸵鸟
+achievement.wyvern_ostrich.desc=用黑暗精华喂养一只成年宠物鸵鸟获得飞龙鸵鸟。这种鸵鸟可以飞行冲刺。可以用黑暗精华治疗这种鸵鸟。
+
+achievement.undead_ostrich=亡灵鸵鸟
+achievement.undead_ostrich.desc=用亡灵精华喂养一只成年宠物鸵鸟获得亡灵鸵鸟。这种鸵鸟的骑手会被最多50点生命值的亡灵生物忽略。可以用亡灵精华治疗这种鸵鸟。
+
+achievement.unihorn_ostrich=独角鸵鸟
+achievement.unihorn_ostrich.desc=用光明精华喂养一只成年宠物鸵鸟获得独角鸵鸟。这种鸵鸟可以再生和冲撞。可以用光明精华治疗这种鸵鸟。
+
+achievement.nether_ostrich=下界鸵鸟
+achievement.nether_ostrich.desc=用火焰精华喂养一只成年宠物鸵鸟获得下界鸵鸟。这种鸵鸟可以飞行跳跃。可以用火焰精华治疗这种鸵鸟。
+
+achievement.tame_dolphin=海豚驯服者
+achievement.tame_dolphin.desc=骑乘成年海豚来驯服它们。海豚保护骑手免受鲨鱼攻击，并且可以在靠近水面时跳跃。不同品种的海豚速度和跳跃能力各不相同，成年海豚可以使用鱼进行繁殖。
+
 achievement.pet_amulet=宠物储存
 achievement.pet_amulet.desc=合成一枚宠物护符。用它来储存几乎所有驯服的生物。
+
+achievement.milk_goat=山羊挤奶员
+achievement.milk_goat.desc=使用桶从成年母山羊身上挤奶。如果你愿意，可以使用任何食物驯服山羊。
 
 achievement.cook_omelette=阳光面朝上
 achievement.cook_omelette.desc=煮熟任何鸡蛋。
