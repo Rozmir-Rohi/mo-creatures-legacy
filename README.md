@@ -101,7 +101,7 @@ The following assets were used under the Unlicense license:
  <h3> Language File Translations: </h3>
 	Omgise - Chinese (Simplified) (zh_CN.lang)
 	<br><br>
- 	Hudhand - Russian (ru_RU.lang)
+ 	Hudhand & RushanM - Russian (ru_RU.lang)
   
 <br><br><br>
 
