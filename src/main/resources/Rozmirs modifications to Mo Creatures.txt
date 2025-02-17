@@ -1577,3 +1577,6 @@ Fixed fox not making eating sound when fed.
 
 
 Fixes some mistakes in the English language file.
+
+
+Added biome spawning integration for Realistic World Gen (GregTech New Horizons Fork).

@@ -566,9 +566,10 @@ public class MoCreatures {
         listOfModsSupportedForBiomeSpawningIntegration.add("biomesop");
         listOfModsSupportedForBiomeSpawningIntegration.add("extrabiomes");
         listOfModsSupportedForBiomeSpawningIntegration.add("highlands");
-        listOfModsSupportedForBiomeSpawningIntegration.add("ted80");
+        listOfModsSupportedForBiomeSpawningIntegration.add("ted80"); //Realistic World Gen (Original - ted80 fork)
         listOfModsSupportedForBiomeSpawningIntegration.add("etfuturum");
         listOfModsSupportedForBiomeSpawningIntegration.add("Netherlicious");
+        listOfModsSupportedForBiomeSpawningIntegration.add("rwg.biomes"); //Realistic World Gen (GregTech New Horizons Fork)
         
         registerEntities();
     }
