@@ -1580,3 +1580,9 @@ Fixes some mistakes in the English language file.
 
 
 Added biome spawning integration for Realistic World Gen (GregTech New Horizons Fork).
+
+
+Made achievement language key's unique.
+
+
+Fixed unknown character in Russian translation.

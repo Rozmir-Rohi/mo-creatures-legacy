@@ -313,282 +313,282 @@ death.MoCreatures.attack.dehydration=%1$s died from dehydration
 
 achievements.MoCreaturesTab=Mo' Creatures
 
-achievement.craft_saddle=Saddle Maker
-achievement.craft_saddle.desc=Make a crafted saddle. Equip this on ridable pets to ride them. You can also use shears on any pet that's wearing a saddle or other equipment to take them off.
+achievement.MoCreatures.craft_saddle=Saddle Maker
+achievement.MoCreatures.craft_saddle.desc=Make a crafted saddle. Equip this on ridable pets to ride them. You can also use shears on any pet that's wearing a saddle or other equipment to take them off.
 
-achievement.tier2_horse=Tier 2 Horse
-achievement.tier2_horse.desc=Tame any normal Mo' Creatures horse using an apple.
+achievement.MoCreatures.tier2_horse=Tier 2 Horse
+achievement.MoCreatures.tier2_horse.desc=Tame any normal Mo' Creatures horse using an apple.
 
-achievement.tier3_horse=Tier 3 Horse
-achievement.tier3_horse.desc=Breed the correct tier 2 horse with the correct vanilla minecraft horse using pumpkins, cake or mushroom stew.
+achievement.MoCreatures.tier3_horse=Tier 3 Horse
+achievement.MoCreatures.tier3_horse.desc=Breed the correct tier 2 horse with the correct vanilla minecraft horse using pumpkins, cake or mushroom stew.
 
-achievement.tier4_horse=Tier 4 Horse
-achievement.tier4_horse.desc=Breed the correct tier 3 horse with the correct vanilla minecraft horse using pumpkins, cake or mushroom stew.
+achievement.MoCreatures.tier4_horse=Tier 4 Horse
+achievement.MoCreatures.tier4_horse.desc=Breed the correct tier 3 horse with the correct vanilla minecraft horse using pumpkins, cake or mushroom stew.
 
-achievement.zebra=Zebra Tamer
-achievement.zebra.desc=Tame a zebra by approaching it with a tier 4 horse and then feeding it with an apple. Zebras are found in savanna type biomes.
+achievement.MoCreatures.zebra=Zebra Tamer
+achievement.MoCreatures.zebra.desc=Tame a zebra by approaching it with a tier 4 horse and then feeding it with an apple. Zebras are found in savanna type biomes.
 
-achievement.zebra_record=Shuffling
-achievement.zebra_record.desc=Obtain a zebra record by feeding a tamed zebra with any vanilla minecraft music disc. This is the favourite song of zebras.
+achievement.MoCreatures.zebra_record=Shuffling
+achievement.MoCreatures.zebra_record.desc=Obtain a zebra record by feeding a tamed zebra with any vanilla minecraft music disc. This is the favourite song of zebras.
 
-achievement.zonkey=Zonkey
-achievement.zonkey.desc=Breed a tamed zebra with a vanilla minecraft donkey using pumpkins, cake or mushroom stew. This horse can carry a chest.
+achievement.MoCreatures.zonkey=Zonkey
+achievement.MoCreatures.zonkey.desc=Breed a tamed zebra with a vanilla minecraft donkey using pumpkins, cake or mushroom stew. This horse can carry a chest.
 
-achievement.zorse=Zorse
-achievement.zorse.desc=Breed a tamed zebra with any other horse using pumpkins, cake or mushroom stew.
+achievement.MoCreatures.zorse=Zorse
+achievement.MoCreatures.zorse.desc=Breed a tamed zebra with any other horse using pumpkins, cake or mushroom stew.
 
-achievement.heart_undead=Heart of Undead
-achievement.heart_undead.desc=Obtain a heart of undead from an undead horse mob.
+achievement.MoCreatures.heart_undead=Heart of Undead
+achievement.MoCreatures.heart_undead.desc=Obtain a heart of undead from an undead horse mob.
 
-achievement.essence_undead=Essence of Undead
-achievement.essence_undead.desc=Craft an essence of undead.
+achievement.MoCreatures.essence_undead=Essence of Undead
+achievement.MoCreatures.essence_undead.desc=Craft an essence of undead.
 
-achievement.undead_horse=Undead Horse
-achievement.undead_horse.desc=Obtain an undead horse by feeding a pet zorse or special horse with an essence of undead. Riders of this horse will be ignored by undead mobs up to 50 HP. This horse can be healed using essences of undead.
+achievement.MoCreatures.undead_horse=Undead Horse
+achievement.MoCreatures.undead_horse.desc=Obtain an undead horse by feeding a pet zorse or special horse with an essence of undead. Riders of this horse will be ignored by undead mobs up to 50 HP. This horse can be healed using essences of undead.
 
-achievement.amulet_bone=Skeleton Horse Storage
-achievement.amulet_bone.desc=Craft a bone amulet.
+achievement.MoCreatures.amulet_bone=Skeleton Horse Storage
+achievement.MoCreatures.amulet_bone.desc=Craft a bone amulet.
 
 
-achievement.ghost_horse=Ghost Horse
-achievement.ghost_horse.desc=Obtain a pet ghost horse. Sometimes when a tier 3+ horse dies, it might become a ghost horse. Riders of this horse will be ignored by undead mobs up to 50 HP. This horse can be healed using essences of undead.
+achievement.MoCreatures.ghost_horse=Ghost Horse
+achievement.MoCreatures.ghost_horse.desc=Obtain a pet ghost horse. Sometimes when a tier 3+ horse dies, it might become a ghost horse. Riders of this horse will be ignored by undead mobs up to 50 HP. This horse can be healed using essences of undead.
 
-achievement.amulet_ghost=Ghost Horse Storage
-achievement.amulet_ghost.desc=Craft a ghost amulet.
+achievement.MoCreatures.amulet_ghost=Ghost Horse Storage
+achievement.MoCreatures.amulet_ghost.desc=Craft a ghost amulet.
 
-achievement.heart_fire=Heart of Fire
-achievement.heart_fire.desc=Obtain a heart of fire from a nightmare horse mob.
+achievement.MoCreatures.heart_fire=Heart of Fire
+achievement.MoCreatures.heart_fire.desc=Obtain a heart of fire from a nightmare horse mob.
 
-achievement.essence_fire=Essence of Fire
-achievement.essence_fire.desc=Craft an essence of fire.
+achievement.MoCreatures.essence_fire=Essence of Fire
+achievement.MoCreatures.essence_fire.desc=Craft an essence of fire.
 
-achievement.nightmare_horse=Nightmare Horse
-achievement.nightmare_horse.desc=Obtain a nightmare horse by feeding a pet zorse with an essence of fire. This horse is fire-proof. This horse can be healed using essences of fire.
+achievement.MoCreatures.nightmare_horse=Nightmare Horse
+achievement.MoCreatures.nightmare_horse.desc=Obtain a nightmare horse by feeding a pet zorse with an essence of fire. This horse is fire-proof. This horse can be healed using essences of fire.
 
-achievement.heart_darkness=Heart of Darkness
-achievement.heart_darkness.desc=Obtain a heart of darkness from a bat horse mob.
+achievement.MoCreatures.heart_darkness=Heart of Darkness
+achievement.MoCreatures.heart_darkness.desc=Obtain a heart of darkness from a bat horse mob.
 
-achievement.essence_darkness=Essence of Darkness
-achievement.essence_darkness.desc=Craft an essence of darkness.
+achievement.MoCreatures.essence_darkness=Essence of Darkness
+achievement.MoCreatures.essence_darkness.desc=Craft an essence of darkness.
 
-achievement.bat_horse=Bat Horse
-achievement.bat_horse.desc=Obtain a bat horse by feeding a pet zorse with an essence of darkness. This horse can fly. This horse can be healed using essences of darkness.
+achievement.MoCreatures.bat_horse=Bat Horse
+achievement.MoCreatures.bat_horse.desc=Obtain a bat horse by feeding a pet zorse with an essence of darkness. This horse can fly. This horse can be healed using essences of darkness.
 
-achievement.crystal_horse_armor=Crystal Horse Armor
-achievement.crystal_horse_armor.desc=Craft crystal horse armor. This is the strongest horse armor, and it can only be worn by special horses.
+achievement.MoCreatures.crystal_horse_armor=Crystal Horse Armor
+achievement.MoCreatures.crystal_horse_armor.desc=Craft crystal horse armor. This is the strongest horse armor, and it can only be worn by special horses.
 
-achievement.essence_light=Essence of Light
-achievement.essence_light.desc=Craft an essence of light by combining the three base essences.
+achievement.MoCreatures.essence_light=Essence of Light
+achievement.MoCreatures.essence_light.desc=Craft an essence of light by combining the three base essences.
 
-achievement.pegasus=Pegasus
-achievement.pegasus.desc=Obtain a pegasus by feeding a pet bat horse with an essence of light while they are above y level 150. This horse can fly, regenerate and can carry a chest. This horse can be healed using essences of light.
+achievement.MoCreatures.pegasus=Pegasus
+achievement.MoCreatures.pegasus.desc=Obtain a pegasus by feeding a pet bat horse with an essence of light while they are above y level 150. This horse can fly, regenerate and can carry a chest. This horse can be healed using essences of light.
 
-achievement.unicorn=Unicorn
-achievement.unicorn.desc=Obtain a unicorn by feeding a pet nightmare horse with an essence of light. This horse can regenerate, ram, and glide. This horse can be healed using essences of light.
+achievement.MoCreatures.unicorn=Unicorn
+achievement.MoCreatures.unicorn.desc=Obtain a unicorn by feeding a pet nightmare horse with an essence of light. This horse can regenerate, ram, and glide. This horse can be healed using essences of light.
 
-achievement.amulet_sky=Pegasus Storage
-achievement.amulet_sky.desc=Craft a sky amulet. The fire for the amulet's crafting recipie can be obtained from hell rats.
+achievement.MoCreatures.amulet_sky=Pegasus Storage
+achievement.MoCreatures.amulet_sky.desc=Craft a sky amulet. The fire for the amulet's crafting recipie can be obtained from hell rats.
 
-achievement.dark_pegasus=Dark Pegasus
-achievement.dark_pegasus.desc=Obtain a dark pegasus by feeding a pet pegasus with an essence of darkness. This is the strongest horse, it also fire-proof, can fly, regenerate, and can carry a chest. This horse can be healed using essences of light.
+achievement.MoCreatures.dark_pegasus=Dark Pegasus
+achievement.MoCreatures.dark_pegasus.desc=Obtain a dark pegasus by feeding a pet pegasus with an essence of darkness. This is the strongest horse, it also fire-proof, can fly, regenerate, and can carry a chest. This horse can be healed using essences of light.
 
-achievement.fairy_horse=Fairy Horse!
-achievement.fairy_horse.desc=Obtain a fairy horse by breeding a pegasus and a unicorn using essences of light. This is the the fastest flying horse, it can regenerate, carry a chest, and ram. Feed them dye to change their fairy type. Heal them with essences of light.
+achievement.MoCreatures.fairy_horse=Fairy Horse!
+achievement.MoCreatures.fairy_horse.desc=Obtain a fairy horse by breeding a pegasus and a unicorn using essences of light. This is the the fastest flying horse, it can regenerate, carry a chest, and ram. Feed them dye to change their fairy type. Heal them with essences of light.
 
-achievement.amulet_fairy=Fairy Horse Storage
-achievement.amulet_fairy.desc=Craft a fairy amulet. The fire for the amulet's crafting recipie can be obtained from hell rats.
+achievement.MoCreatures.amulet_fairy=Fairy Horse Storage
+achievement.MoCreatures.amulet_fairy.desc=Craft a fairy amulet. The fire for the amulet's crafting recipie can be obtained from hell rats.
 
-achievement.wyvern_portal_staff=Where the Wyverns Live
-achievement.wyvern_portal_staff.desc=Craft a wyvern portal staff and travel to the wyvern lair. You can return to the overworld by using the wyvern portal staff on the center blocks of the quartz portal.
+achievement.MoCreatures.wyvern_portal_staff=Where the Wyverns Live
+achievement.MoCreatures.wyvern_portal_staff.desc=Craft a wyvern portal staff and travel to the wyvern lair. You can return to the overworld by using the wyvern portal staff on the center blocks of the quartz portal.
 
-achievement.wyvern_egg=The Fastest of Them All
-achievement.wyvern_egg.desc=Obtain a wyvern egg from a mother wyvern. Pet wyverns eat raw rat and raw rabbit. Adult pet wyverns can be ridden, equipped with minecraft horse armor, and carry a chest. Jungle, swamp, savanna, sand, and mother wyverns react to certain essences when fed.
+achievement.MoCreatures.wyvern_egg=The Fastest of Them All
+achievement.MoCreatures.wyvern_egg.desc=Obtain a wyvern egg from a mother wyvern. Pet wyverns eat raw rat and raw rabbit. Adult pet wyverns can be ridden, equipped with minecraft horse armor, and carry a chest. Jungle, swamp, savanna, sand, and mother wyverns react to certain essences when fed.
 
-achievement.tame_elephant=Elephant Tamer
-achievement.tame_elephant.desc=Tame a baby elephant or mammoth using many sugar lumps.
+achievement.MoCreatures.tame_elephant=Elephant Tamer
+achievement.MoCreatures.tame_elephant.desc=Tame a baby elephant or mammoth using many sugar lumps.
 
-achievement.mount_elephant=Elephant Rider
-achievement.mount_elephant.desc=Ride a tamed adult elephant or mammoth using an elephant harness. You need to make it sit first to climb on. You can make an elephant sit by sneaking near it.
+achievement.MoCreatures.mount_elephant=Elephant Rider
+achievement.MoCreatures.mount_elephant.desc=Ride a tamed adult elephant or mammoth using an elephant harness. You need to make it sit first to climb on. You can make an elephant sit by sneaking near it.
 
-achievement.mammoth_platform=A Platform for Two
-achievement.mammoth_platform.desc=Attach a mammoth platform to a Songhua River mammoth with an elephant harness. Two players can ride it when it has the platform. The second player can climb onto the platform by jumping near the mammoth while it is sitting and ridden by another player.
+achievement.MoCreatures.mammoth_platform=A Platform for Two
+achievement.MoCreatures.mammoth_platform.desc=Attach a mammoth platform to a Songhua River mammoth with an elephant harness. Two players can ride it when it has the platform. The second player can climb onto the platform by jumping near the mammoth while it is sitting and ridden by another player.
 
-achievement.elephant_garment=Asian Elephant Fashion
-achievement.elephant_garment.desc=Put an elephant garment on an asian elephant.
+achievement.MoCreatures.elephant_garment=Asian Elephant Fashion
+achievement.MoCreatures.elephant_garment.desc=Put an elephant garment on an asian elephant.
 
-achievement.elephant_tusks=Battle Ready
-achievement.elephant_tusks.desc=Equip an elephant or mammoth with any tusks. When equipped with tusks they can be whipped to ram and destroy blocks in front. The effectiveness of block breaking depends on the type of elephant and the tusks it's wearing.
+achievement.MoCreatures.elephant_tusks=Battle Ready
+achievement.MoCreatures.elephant_tusks.desc=Equip an elephant or mammoth with any tusks. When equipped with tusks they can be whipped to ram and destroy blocks in front. The effectiveness of block breaking depends on the type of elephant and the tusks it's wearing.
 
-achievement.elephant_chest=Elephant Luggage
-achievement.elephant_chest.desc=Attach an elephant chest to an elephant or mammoth with an elephant harness. They can hold two elephant chests. Mammoths with two elephant chests can also equip two extra Minecraft chest blocks. Right click while sneaking to open the chest.
+achievement.MoCreatures.elephant_chest=Elephant Luggage
+achievement.MoCreatures.elephant_chest.desc=Attach an elephant chest to an elephant or mammoth with an elephant harness. They can hold two elephant chests. Mammoths with two elephant chests can also equip two extra Minecraft chest blocks. Right click while sneaking to open the chest.
 
-achievement.elephant_howdah=Your Highness
-achievement.elephant_howdah.desc=Put an elephant howdah on an asian elephant that is wearing an elephant garment.
+achievement.MoCreatures.elephant_howdah=Your Highness
+achievement.MoCreatures.elephant_howdah.desc=Put an elephant howdah on an asian elephant that is wearing an elephant garment.
 
-achievement.craft_medallion=Universal Re-Naming
-achievement.craft_medallion.desc=Craft a medallion. You can use this to rename tamed creatures.
+achievement.MoCreatures.craft_medallion=Universal Re-Naming
+achievement.MoCreatures.craft_medallion.desc=Craft a medallion. You can use this to rename tamed creatures.
 
-achievement.tame_kitty=Kitty Tamer
-achievement.tame_kitty.desc=Tame a kitty by dropping some cooked fish near them and putting a medallion on them after they eat some of the fish.
+achievement.MoCreatures.tame_kitty=Kitty Tamer
+achievement.MoCreatures.tame_kitty.desc=Tame a kitty by dropping some cooked fish near them and putting a medallion on them after they eat some of the fish.
 
-achievement.kitty_litter_box=Kitty Litter Box
-achievement.kitty_litter_box.desc=Craft a kitty litter box.
+achievement.MoCreatures.kitty_litter_box=Kitty Litter Box
+achievement.MoCreatures.kitty_litter_box.desc=Craft a kitty litter box.
 
-achievement.kitty_litter=Kitty Business
-achievement.kitty_litter.desc=Clean a used kitty litter box by yourself using sand. You can automate this process later using a dispenser.
+achievement.MoCreatures.kitty_litter=Kitty Business
+achievement.MoCreatures.kitty_litter.desc=Clean a used kitty litter box by yourself using sand. You can automate this process later using a dispenser.
 
-achievement.wool_ball=Kitty Play Time
-achievement.wool_ball.desc=Craft a wool ball. Give this to a curious kitty to let them play with it.
+achievement.MoCreatures.wool_ball=Kitty Play Time
+achievement.MoCreatures.wool_ball.desc=Craft a wool ball. Give this to a curious kitty to let them play with it.
 
-achievement.kitty_bed=Kitty Bed
-achievement.kitty_bed.desc=Craft any kitty bed.
+achievement.MoCreatures.kitty_bed=Kitty Bed
+achievement.MoCreatures.kitty_bed.desc=Craft any kitty bed.
 
-achievement.pet_food=Feeding the Cat
-achievement.pet_food.desc=Fill a kitty bed by yourself with some milk or cat food. You can automate this process later using a dispenser.
+achievement.MoCreatures.pet_food=Feeding the Cat
+achievement.MoCreatures.pet_food.desc=Fill a kitty bed by yourself with some milk or cat food. You can automate this process later using a dispenser.
 
-achievement.breed_kitty=Kitty Breeder
-achievement.breed_kitty.desc=Breed two kittys next to a kitty bed while they are both happy using cake or fish.
+achievement.MoCreatures.breed_kitty=Kitty Breeder
+achievement.MoCreatures.breed_kitty.desc=Breed two kittys next to a kitty bed while they are both happy using cake or fish.
 
-achievement.tame_big_cat=Big Cat Tamer
-achievement.tame_big_cat.desc=Tame a baby big cat by dropping some raw meat near them and putting a medallion on them after they eat a good amount of the meat.
+achievement.MoCreatures.tame_big_cat=Big Cat Tamer
+achievement.MoCreatures.tame_big_cat.desc=Tame a baby big cat by dropping some raw meat near them and putting a medallion on them after they eat a good amount of the meat.
 
-achievement.big_cat_claw=Big Cat Hunter
-achievement.big_cat_claw.desc=Obtain a big cat claw.
+achievement.MoCreatures.big_cat_claw=Big Cat Hunter
+achievement.MoCreatures.big_cat_claw.desc=Obtain a big cat claw.
 
-achievement.craft_whip=Time to Crack the Whip!
-achievement.craft_whip.desc=Craft a whip. Use this to make any tamed creature sit. Use this while riding any creature to make them sprint. Use to activate special creature abilities while riding a nightmare horse, unicorn, unihored ostrich, or elephant.
+achievement.MoCreatures.craft_whip=Time to Crack the Whip!
+achievement.MoCreatures.craft_whip.desc=Craft a whip. Use this to make any tamed creature sit. Use this while riding any creature to make them sprint. Use to activate special creature abilities while riding a nightmare horse, unicorn, unihored ostrich, or elephant.
 
-achievement.indiana=Just like Indiana Jones
-achievement.indiana.desc=Use a whip on a tamed big cat more than six times.
+achievement.MoCreatures.indiana=Just like Indiana Jones
+achievement.MoCreatures.indiana.desc=Use a whip on a tamed big cat more than six times.
 
-achievement.shark_tooth=Shark Boxer
-achievement.shark_tooth.desc=Obtain a shark tooth.
+achievement.MoCreatures.shark_tooth=Shark Boxer
+achievement.MoCreatures.shark_tooth.desc=Obtain a shark tooth.
 
-achievement.fish_net=Time to Catch More Fish
-achievement.fish_net.desc=Craft a fish net. Use this to catch and tame most aquatic creatures. You can also use it to store any aquatic pet.
+achievement.MoCreatures.fish_net=Time to Catch More Fish
+achievement.MoCreatures.fish_net.desc=Craft a fish net. Use this to catch and tame most aquatic creatures. You can also use it to store any aquatic pet.
 
-achievement.shark_sword=A Very Toothy Sword
-achievement.shark_sword.desc=Craft a shark sword. Shark swords can be repaired at an anvil using shark teeth.
+achievement.MoCreatures.shark_sword=A Very Toothy Sword
+achievement.MoCreatures.shark_sword.desc=Craft a shark sword. Shark swords can be repaired at an anvil using shark teeth.
 
-achievement.catch_fish_in_fish_bowl=Fishy in a Bowl
-achievement.catch_fish_in_fish_bowl.desc=Catch a fishy in a fish bowl.
+achievement.MoCreatures.catch_fish_in_fish_bowl=Fishy in a Bowl
+achievement.MoCreatures.catch_fish_in_fish_bowl.desc=Catch a fishy in a fish bowl.
 
-achievement.tame_bird=Bird Tamer
-achievement.tame_bird.desc=Tame a bird by dropping any seeds near them and feed them seeds by yourself after they eat some of the seeds on the ground. If you place a pet bird on your head they will slow down your fall from tall places.
+achievement.MoCreatures.tame_bird=Bird Tamer
+achievement.MoCreatures.tame_bird.desc=Tame a bird by dropping any seeds near them and feed them seeds by yourself after they eat some of the seeds on the ground. If you place a pet bird on your head they will slow down your fall from tall places.
 
-achievement.feed_snake_with_live_mouse=Live Feeding
-achievement.feed_snake_with_live_mouse.desc=Feed a live mouse to an adult pet snake. Sneak and right click an adult pet snake with a live mouse in your hand.
+achievement.MoCreatures.feed_snake_with_live_mouse=Live Feeding
+achievement.MoCreatures.feed_snake_with_live_mouse.desc=Feed a live mouse to an adult pet snake. Sneak and right click an adult pet snake with a live mouse in your hand.
 
-achievement.tame_panda=Panda Tamer
-achievement.tame_panda.desc=Tame a baby panda using sugar cane or bamboo.
+achievement.MoCreatures.tame_panda=Panda Tamer
+achievement.MoCreatures.tame_panda.desc=Tame a baby panda using sugar cane or bamboo.
 
-achievement.tame_scorpion=Scorpion Tamer
-achievement.tame_scorpion.desc=Tame a baby scorpion by petting them with an empty hand. Pet scorpions like to eat rotten flesh and rat meat. Once fully grown, you can ride them up walls. Adult pet scorpions will lay an egg if given an essence of darkness.
+achievement.MoCreatures.tame_scorpion=Scorpion Tamer
+achievement.MoCreatures.tame_scorpion.desc=Tame a baby scorpion by petting them with an empty hand. Pet scorpions like to eat rotten flesh and rat meat. Once fully grown, you can ride them up walls. Adult pet scorpions will lay an egg if given an essence of darkness.
 
-achievement.ostrich_egg=Egg Thief
-achievement.ostrich_egg.desc=Breed a wild black ostrich and a wild brown ostrich using melon seeds and steal their egg. Pet ostriches can be ridden when they become adults.
+achievement.MoCreatures.ostrich_egg=Egg Thief
+achievement.MoCreatures.ostrich_egg.desc=Breed a wild black ostrich and a wild brown ostrich using melon seeds and steal their egg. Pet ostriches can be ridden when they become adults.
 
-achievement.ostrich_helmet=Protective Gear
-achievement.ostrich_helmet.desc=Put any vanilla or mo' creatures helmet on a pet adult ostrich.
+achievement.MoCreatures.ostrich_helmet=Protective Gear
+achievement.MoCreatures.ostrich_helmet.desc=Put any vanilla or mo' creatures helmet on a pet adult ostrich.
 
-achievement.ostrich_chest=Ostrich Luggage
-achievement.ostrich_chest.desc=Put a chest on a pet adult ostrich. Right click while sneaking to open the chest.
+achievement.MoCreatures.ostrich_chest=Ostrich Luggage
+achievement.MoCreatures.ostrich_chest.desc=Put a chest on a pet adult ostrich. Right click while sneaking to open the chest.
 
-achievement.ostrich_flag=Flag Bearer
-achievement.ostrich_flag.desc=Put any wool block on an ostrich that is carrying a chest.
+achievement.MoCreatures.ostrich_flag=Flag Bearer
+achievement.MoCreatures.ostrich_flag.desc=Put any wool block on an ostrich that is carrying a chest.
 
-achievement.wyvern_ostrich=Wyvern Ostrich
-achievement.wyvern_ostrich.desc=Obtain a wyvern ostrich by feeding an adult pet ostrich with an essence of darkness. This ostrich can fly-thrust. This ostrich can be healed using essences of darkness.
+achievement.MoCreatures.wyvern_ostrich=Wyvern Ostrich
+achievement.MoCreatures.wyvern_ostrich.desc=Obtain a wyvern ostrich by feeding an adult pet ostrich with an essence of darkness. This ostrich can fly-thrust. This ostrich can be healed using essences of darkness.
 
-achievement.undead_ostrich=Undead Ostrich
-achievement.undead_ostrich.desc=Obtain an undead ostrich by feeding an adult pet ostrich with an essence of undead. Riders of this ostrich will be ignored by undead mobs up to 50 HP. This ostrich can be healed using essences of undead.
+achievement.MoCreatures.undead_ostrich=Undead Ostrich
+achievement.MoCreatures.undead_ostrich.desc=Obtain an undead ostrich by feeding an adult pet ostrich with an essence of undead. Riders of this ostrich will be ignored by undead mobs up to 50 HP. This ostrich can be healed using essences of undead.
 
-achievement.unihorn_ostrich=Unihorned Ostrich
-achievement.unihorn_ostrich.desc=Obtain a unihorned ostrich by feeding an adult pet ostrich with an essence of light. This ostrich can regenerate and ram. This ostrich can be healed using essences of light.
+achievement.MoCreatures.unihorn_ostrich=Unihorned Ostrich
+achievement.MoCreatures.unihorn_ostrich.desc=Obtain a unihorned ostrich by feeding an adult pet ostrich with an essence of light. This ostrich can regenerate and ram. This ostrich can be healed using essences of light.
 
-achievement.nether_ostrich=Nether Ostrich
-achievement.nether_ostrich.desc=Obtain a nether ostrich by feeding an adult pet ostrich with an essence of fire. This ostrich can fly-hop. This ostrich can be healed using essences of fire.
+achievement.MoCreatures.nether_ostrich=Nether Ostrich
+achievement.MoCreatures.nether_ostrich.desc=Obtain a nether ostrich by feeding an adult pet ostrich with an essence of fire. This ostrich can fly-hop. This ostrich can be healed using essences of fire.
 
-achievement.tame_dolphin=Dolphin Tamer
-achievement.tame_dolphin.desc=Tame an adult dolphin by riding them. Dolphins protect riders from sharks and can jump near the water surface. Dolphin breeds vary in speed and jump power, and adults can be bred using fish.
+achievement.MoCreatures.tame_dolphin=Dolphin Tamer
+achievement.MoCreatures.tame_dolphin.desc=Tame an adult dolphin by riding them. Dolphins protect riders from sharks and can jump near the water surface. Dolphin breeds vary in speed and jump power, and adults can be bred using fish.
 
-achievement.pet_amulet=Pet Storage
-achievement.pet_amulet.desc=Craft a pet amulet. Use this to store almost any tamed creature.
+achievement.MoCreatures.pet_amulet=Pet Storage
+achievement.MoCreatures.pet_amulet.desc=Craft a pet amulet. Use this to store almost any tamed creature.
 
-achievement.milk_goat=Goat Milker
-achievement.milk_goat.desc=Milk an adult female goat using a bucket. If you would like, goats can be tamed using any food item.
+achievement.MoCreatures.milk_goat=Goat Milker
+achievement.MoCreatures.milk_goat.desc=Milk an adult female goat using a bucket. If you would like, goats can be tamed using any food item.
 
-achievement.cook_omelette=Sunny Side Up
-achievement.cook_omelette.desc=Cook any egg.
+achievement.MoCreatures.cook_omelette=Sunny Side Up
+achievement.MoCreatures.cook_omelette.desc=Cook any egg.
 
-achievement.cook_turkey=More Filling than Chicken
-achievement.cook_turkey.desc=Cook raw turkey.
+achievement.MoCreatures.cook_turkey=More Filling than Chicken
+achievement.MoCreatures.cook_turkey.desc=Cook raw turkey.
 
-achievement.cook_ostrich=Tastes more like Beef
-achievement.cook_ostrich.desc=Cook raw ostrich.
+achievement.MoCreatures.cook_ostrich=Tastes more like Beef
+achievement.MoCreatures.cook_ostrich.desc=Cook raw ostrich.
 
-achievement.cook_rat=Tastes like Chicken
-achievement.cook_rat.desc=Cook raw rat.
+achievement.MoCreatures.cook_rat=Tastes like Chicken
+achievement.MoCreatures.cook_rat.desc=Cook raw rat.
 
-achievement.rat_burger=Gourmet Rat
-achievement.rat_burger.desc=Make a rat burger.
+achievement.MoCreatures.rat_burger=Gourmet Rat
+achievement.MoCreatures.rat_burger.desc=Make a rat burger.
 
-achievement.cook_crab=Seafood Classic
-achievement.cook_crab.desc=Cook raw crab.
+achievement.MoCreatures.cook_crab=Seafood Classic
+achievement.MoCreatures.cook_crab.desc=Cook raw crab.
 
-achievement.cook_turtle=Questionable Delicacy
-achievement.cook_turtle.desc=Make turtle soup.
+achievement.MoCreatures.cook_turtle=Questionable Delicacy
+achievement.MoCreatures.cook_turtle.desc=Make turtle soup.
 
-achievement.kill_wraith=Ghost Buster
-achievement.kill_wraith.desc=Kill a wraith.
+achievement.MoCreatures.kill_wraith=Ghost Buster
+achievement.MoCreatures.kill_wraith.desc=Kill a wraith.
 
-achievement.kill_ogre=Ogre Slayer
-achievement.kill_ogre.desc=Kill an ogre.
+achievement.MoCreatures.kill_ogre=Ogre Slayer
+achievement.MoCreatures.kill_ogre.desc=Kill an ogre.
 
-achievement.kill_werewolf=Werewolf Slayer
-achievement.kill_werewolf.desc=Kill a werewolf in it's wolf form.
+achievement.MoCreatures.kill_werewolf=Werewolf Slayer
+achievement.MoCreatures.kill_werewolf.desc=Kill a werewolf in it's wolf form.
 
-achievement.kill_big_golem=Golem Dismantler
-achievement.kill_big_golem.desc=Kill a big golem and get it's centre block.
+achievement.MoCreatures.kill_big_golem=Golem Dismantler
+achievement.MoCreatures.kill_big_golem.desc=Kill a big golem and get it's centre block.
 
-achievement.leonardo=Leonardo
-achievement.leonardo.desc=Obtain a katana from a leonardo turtle. Turtles can be tamed by dropping sugar cane or melon slices near them. Katanas can be repaired at an anvil using iron ingots.
+achievement.MoCreatures.leonardo=Leonardo
+achievement.MoCreatures.leonardo.desc=Obtain a katana from a leonardo turtle. Turtles can be tamed by dropping sugar cane or melon slices near them. Katanas can be repaired at an anvil using iron ingots.
 
-achievement.raphael=Raphael
-achievement.raphael.desc=Obtain a sai from a raphael turtle. Turtles can be tamed by dropping sugar cane or melon slices near them. Sai can be repaired at an anvil using iron ingots.
+achievement.MoCreatures.raphael=Raphael
+achievement.MoCreatures.raphael.desc=Obtain a sai from a raphael turtle. Turtles can be tamed by dropping sugar cane or melon slices near them. Sai can be repaired at an anvil using iron ingots.
 
-achievement.donatello=Donatello
-achievement.donatello.desc=Obtain a bo from a donatello turtle. Turtles can be tamed by dropping sugar cane or melon slices near them.
+achievement.MoCreatures.donatello=Donatello
+achievement.MoCreatures.donatello.desc=Obtain a bo from a donatello turtle. Turtles can be tamed by dropping sugar cane or melon slices near them.
 
-achievement.michelangelo=Michelangelo
-achievement.michelangelo.desc=Obtain a nunchaku from a michelangelo turtle. Turtles can be tamed by dropping sugar cane or melon slices near them. Nunchakus can be repaired at an anvil using iron ingots.
+achievement.MoCreatures.michelangelo=Michelangelo
+achievement.MoCreatures.michelangelo.desc=Obtain a nunchaku from a michelangelo turtle. Turtles can be tamed by dropping sugar cane or melon slices near them. Nunchakus can be repaired at an anvil using iron ingots.
 
-achievement.silver_sword=Werewolves' Bane
-achievement.silver_sword.desc=Obtain a silver sword from a silver skeleton.
+achievement.MoCreatures.silver_sword=Werewolves' Bane
+achievement.MoCreatures.silver_sword.desc=Obtain a silver sword from a silver skeleton.
 
-achievement.get_fur=Critter Killer
-achievement.get_fur.desc=Obtain fur.
+achievement.MoCreatures.get_fur=Critter Killer
+achievement.MoCreatures.get_fur.desc=Obtain fur.
 
-achievement.fur_armor=Eskimo Clothes
-achievement.fur_armor.desc=Craft any piece of fur armor. Fur armor can be repaired at an anvil using fur.
+achievement.MoCreatures.fur_armor=Eskimo Clothes
+achievement.MoCreatures.fur_armor.desc=Craft any piece of fur armor. Fur armor can be repaired at an anvil using fur.
 
-achievement.get_hide=Hunter
-achievement.get_hide.desc=Obtain hide.
+achievement.MoCreatures.get_hide=Hunter
+achievement.MoCreatures.get_hide.desc=Obtain hide.
 
-achievement.hide_armor=Huntsman's Choice
-achievement.hide_armor.desc=Craft any piece of hide armor. Hide armor can be repaired at an anvil using hide.
+achievement.MoCreatures.hide_armor=Huntsman's Choice
+achievement.MoCreatures.hide_armor.desc=Craft any piece of hide armor. Hide armor can be repaired at an anvil using hide.
 
-achievement.get_reptile_hide=Reptile Hunter
-achievement.get_reptile_hide.desc=Obtain reptile hide.
+achievement.MoCreatures.get_reptile_hide=Reptile Hunter
+achievement.MoCreatures.get_reptile_hide.desc=Obtain reptile hide.
 
-achievement.reptile_armor=Strong as Iron
-achievement.reptile_armor.desc=Craft any piece of reptile armor. Reptile armor can be repaired at an anvil using reptile hide.
+achievement.MoCreatures.reptile_armor=Strong as Iron
+achievement.MoCreatures.reptile_armor.desc=Craft any piece of reptile armor. Reptile armor can be repaired at an anvil using reptile hide.
 
-achievement.get_scorpion_material=Scorpion Hunter
-achievement.get_scorpion_material.desc=Obtain any scorpion chitin or scorpion sting.
+achievement.MoCreatures.get_scorpion_material=Scorpion Hunter
+achievement.MoCreatures.get_scorpion_material.desc=Obtain any scorpion chitin or scorpion sting.
 
-achievement.scorpion_sword=Scorpion Bladesman
-achievement.scorpion_sword.desc=Craft any scorpion sword. Scorpion swords can be repaired at an anvil using diamonds.
+achievement.MoCreatures.scorpion_sword=Scorpion Bladesman
+achievement.MoCreatures.scorpion_sword.desc=Craft any scorpion sword. Scorpion swords can be repaired at an anvil using diamonds.
 
-achievement.scorpion_armor=Scorpion Warrior
-achievement.scorpion_armor.desc=Craft any piece of scorpion armor. Each full armor set provides a unique set bonus when worn. Scorpion armor can be repaired at an anvil using the same type of scorpion chitin.
+achievement.MoCreatures.scorpion_armor=Scorpion Warrior
+achievement.MoCreatures.scorpion_armor.desc=Craft any piece of scorpion armor. Each full armor set provides a unique set bonus when worn. Scorpion armor can be repaired at an anvil using the same type of scorpion chitin.
