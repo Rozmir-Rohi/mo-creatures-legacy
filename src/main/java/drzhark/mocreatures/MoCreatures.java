@@ -161,7 +161,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-@Mod(modid = "MoCreatures", name = "Mo' Creatures Legacy", version = "1.19")
+@Mod(modid = "MoCreatures", name = "Mo' Creatures Legacy", version = "1.2")
 public class MoCreatures {
 
     @Instance("MoCreatures")
