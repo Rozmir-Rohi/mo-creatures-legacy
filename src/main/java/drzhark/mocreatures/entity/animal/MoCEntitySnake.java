@@ -631,6 +631,11 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
          	   return false;
             }
         	
+        	else if (isThisADesertSnake() && damageSource.damageType == "cactus")
+        	{
+        		return false; //ignore damage from cactus if it is a desert snake
+        	}
+        	
         	else if (getType() < 3) { return super.attackEntityFrom(damageSource, damageTaken); }
 
         	else if (super.attackEntityFrom(damageSource, damageTaken))
@@ -820,6 +825,16 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
         }
 
         return true;
+    }
+    
+
+    private boolean isThisADesertSnake()
+    {
+        return
+        		(
+        			getType() == 7 //rattle snake
+        			|| getType() == 2 //dark green/brown snake
+        		);
     }
 
     @Override

@@ -1,0 +1,645 @@
+<p><strong>Project Status:</strong> Near Completion. Final Development Deadline: 23 February 2025</p>
+
+
+<p>The final version of Mo' Creatures for 1.7.10 was unfinished and was riddled with bugs. This project fixes that.</p>
+<p>The main aim of Mo' Creatures Legacy is to provide a fully working legacy version of Mo' Creatures for 1.7.10.</p>
+
+<p><strong>DISCLAIMER:</strong></p>
+<ul>
+	<li><p>This project is not endorsed by Dr Zhark or anyone from the original Mo' Creatures team.</p></li>
+	<li><p>This project does not backport features from newer versions of Mo' Creatures.</p></li>
+</ul>
+
+<br>
+
+
+
+<h4><strong>🌐 Language Support:</strong></h4>
+<ul>
+<li><p>English (US)</p></li>
+<li><p>Chinese (Simplified) - 简体中文（中国大陆）</p></li>
+<li><p>Russian - Русский (Russkiy)</p></li>
+</ul>
+
+<br>
+
+<h4><strong>How to Install:</strong></h4>
+<p>Mo' Creatures Legacy is a stand-alone mod and does NOT require any other mods as dependencies.</p>
+<p>Assuming you have Java 8 installed on your computer and Forge installed for 1.7.10, just download the mod and put it into the mods folder.</p>
+<br>
+<p>Do NOT try to use this mod with the Custom Mob Spawner mod. If you need to adjust entity spawns, use the "MoC_Spawn_List" config file. Alternatively, if you want advanced control over entity spawns use the Just Another Mob Spawner mod instead.</p>
+<p>Do NOT try to load this mod into a world that previously had the original Mo' Creatures mod.</p>
+
+<br>
+<br>
+
+<h4><strong>Note about Performance:</strong></h4>
+<p>Due to my limited ability in Java coding, I have not been able to significantly improve the performance of the Mo' Creatures mod.</p>
+
+<p>To play Minecraft smoothly with this mod I highly recommend that you do some of the following:</p>
+<br>
+<p>General Performance Recommendations:</p>
+<ul>
+	<li><p>Allocate more than 4GB of memory for Minecraft.</p> </li>
+	<li><p>Make Minecraft use the GPU of your computer instead of the CPU.</p></li>
+	<li>
+		<p>Read the "Rendering overhaul recommendations" section of the following page and apply the performance mod combination best suited for you:</p>
+		<a href="https://gist.github.com/makamys/7cb74cd71d93a4332d2891db2624e17c#optimizationfix-mods"> https://gist.github.com/makamys/7cb74cd71d93a4332d2891db2624e17c#optimizationfix-mods</a>
+	</li>
+</ul>
+<br>
+<ul>
+    <li><p>Use the Entity Culling mod:</p> 
+      <a href="https://www.curseforge.com/minecraft/mc-mods/entityculling/files/5351930"> https://www.curseforge.com/minecraft/mc-mods/entityculling/files/5351930</a>
+    </li>
+</ul>
+
+<br>
+<br>
+<p>For Performance in Oceans:</p>
+<ul>
+	<li><p>Reduce render distance.</p> </li>
+	<li><p>If needed, reduce the spawns for aquatic creatures using the "MoC_Spawn_List" config file.</p></li>
+</ul>
+<br>
+<br>
+
+
+<h4><strong>Summary of Changes to Mo' Creatures:</strong></h4>
+	<ul>
+        <li><p>Fixed 98% of all bugs</p></li>
+        <li><p>Finished implementing various unfinished features</p></li>
+        <li><p>Added multilingual support</p></li>
+        <li><p>Added integration with various mods</p></li>
+        <li><p>Improved and built on some existing features</p></li>
+        <li><p>Added Achievements</p></li>
+	</ul>
+<p>For a comprehensive list of all modifications to Mo' Creatures see the "Rozmirs modifications to Mo Creatures" text file inside the jar archive of the mod file.</p>
+
+<br>
+<br>
+
+<details>
+	<summary><strong>Spawn Table:</strong></summary>  
+	<p><strong>Notes:</strong></p>
+	<ul>
+		<li><p>All entries in the "Spawning Biomes" column (except "Wyvern Dimension") refer to biome groups that Minecraft uses to categorize biomes. These biome group entries are also used for spawning entities in biomes from the mods listed in "Biome Spawning Integration".</p></li>
+		<li><p>"Desert" means the "Sandy" biome group</p></li>
+		<li><p>"Taiga" means the "Coniferous" biome group</p></li>
+		<li><p>"Anywhere in Overworld" means: Sandy, Forest, Snowy, Jungle, Hills, Mountain, Plains, Swamp, Wasteland</p></li>
+	</ul>
+	<table>
+		<thead>
+			<tr>
+			<th colspan="2"><u><strong>Spawn Table</strong></u></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+			<td><strong>Entity</strong></td>
+			<td><strong>Spawning Biomes</strong></td>
+			</tr>
+			<tr>
+			<th colspan="2"><strong>Insects</strong></th>
+			</tr>
+				<tr>
+				<td>Ant</td>
+				<td>Forest, Jungle, Plains, Swamp</td>
+				</tr>
+				<tr>
+				<td>Bee</td>
+				<td>Forest, Jungle</td>
+				</tr>
+				<tr>
+				<td>Crab</td>
+				<td>Beach</td>
+				</tr>
+				<tr>
+				<td>Cricket</td>
+				<td>Forest, Hills, Plains</td>
+				</tr>
+				<tr>
+				<td>Dragonfly</td>
+				<td>River, Swamp</td>
+				</tr>
+				<tr>
+				<td>Firefly</td>
+				<td>Forest, Swamp</td>
+				</tr>
+				<tr>
+				<td>Fly</td>
+				<td>Forest, Jungle, Swamp</td>
+				</tr>
+				<tr>
+				<td>Maggot</td>
+				<td>Forest, Jungle, Swamp</td>
+				</tr>
+				<tr>
+				<td>Snail</td>
+				<td>Forest, Jungle, Swamp</td>
+				</tr>
+				<tr>
+				<td>Roach</td>
+				<td>
+				<p>Forest, Jungle, Swamp</p>
+				</td>
+				</tr>
+			<tr>
+			<th colspan="2"><strong>Creatures</strong></th>
+			</tr>
+				<tr>
+				<td>
+				<p>Bear</p>
+				</td>
+				<td>
+				<p>Forest, Hills, Mountain<br><br>Pandas: Jungle (and Bamboo Forests if you use a mod that adds it in)<br><br>Polar Bear: Snowy</p>
+				</td>
+				</tr>
+				<tr>
+				<td>
+				<p>Big Cat</p>
+				</td>
+				<td>
+				<p>Cheetahs &amp; Lions: Savanna<br><br>Panthers &amp; Tigers: Jungle<br><br>Snow Leopard: Snowy</p>
+				</td>
+				</tr>
+				<tr>
+				<td>Bird</td>
+				<td>
+				<p>Forest, Hills, Jungle, Mountain, Plains</p>
+				</td>
+				</tr>
+				<tr>
+				<td>Boar</td>
+				<td>
+				<p>Forest, Jungle, Plains</p>
+				</td>
+				</tr>
+				<tr>
+				<td>Bunny</td>
+				<td>Forest</td>
+				</tr>
+				<tr>
+				<td>Crocodile</td>
+				<td>Swamp</td>
+				</tr>
+				<tr>
+				<td>Deer</td>
+				<td>Forest, Plains</td>
+				</tr>
+				<tr>
+				<td>Duck</td>
+				<td>
+				<p>River</p>
+				</td>
+				</tr>
+				<tr>
+				<td>
+				<p>Elephant</p>
+				</td>
+				<td>
+				<p>African Elephants: Savanna<br><br>Asian Elephants: Jungle<br><br>Mammoths: Snowy</p>
+				</td>
+				</tr>
+				<tr>
+				<td>Fox</td>
+				<td>Forest, Snowy</td>
+				</tr>
+				<tr>
+				<td>Goat</td>
+				<td>Mountain</td>
+				</tr>
+				<tr>
+				<td>Kitty</td>
+				<td>Forest</td>
+				</tr>
+				<tr>
+				<td>Komodo Dragon</td>
+				<td>Swamp</td>
+				</tr>
+				<tr>
+				<td>Mole</td>
+				<td>Forest, Plains</td>
+				</tr>
+				<tr>
+				<td>Mouse</td>
+				<td>Forest, Hills, Plains</td>
+				</tr>
+				<tr>
+				<td>Ostrich</td>
+				<td>Savannah</td>
+				</tr>
+				<tr>
+				<td>Raccoon</td>
+				<td>
+				<p>Forest</p>
+				</td>
+				</tr>
+				<tr>
+				<td>
+				<p>Snake</p>
+				</td>
+				<td>
+				<p>Rattlesnake &amp; Dark Brown Snake: Desert<br><br>Cobra, Bright Green Snake, &amp; Bright Orange Snake: Jungle<br><br>Black Snake &amp; Bright Green Snake: Forest<br><br>Python, Black Snake, &amp; Bright Green Snake: Swamp</p>
+				</td>
+				</tr>
+				<tr>
+				<td>Turkey</td>
+				<td>
+				<p>Plains</p>
+				</td>
+				</tr>
+				<tr>
+				<td>Turtle</td>
+				<td>
+				<p>Swamp</p>
+				</td>
+				</tr>
+				<tr>
+				<td>
+				<p>Horse</p>
+				</td>
+				<td>
+				<p>Normal Horse: Plains<br><br>Zebra: Savannah</p>
+				</td>
+				</tr>
+				<tr>
+				<td>Wyvern</td>
+				<td>
+				<p>Wyvern Dimension</p>
+				</td>
+				</tr>
+			<tr>
+			<th colspan="2"><strong>Water Creatures</strong></th>
+			</tr>
+				<tr>
+				<td>Dolphin</td>
+				<td>Beach, Ocean, Swamp</td>
+				</tr>
+				<tr>
+				<td>Fishy</td>
+				<td>Beach, Ocean</td>
+				</tr>
+				<tr>
+				<td>Jellyfish</td>
+				<td>Ocean</td>
+				</tr>
+				<tr>
+				<td>Ray</td>
+				<td>Swamp, Ocean</td>
+				</tr>
+				<tr>
+				<td>Shark</td>
+				<td>Ocean</td>
+				</tr>
+				<tr>
+				<td>Medium Fish</td>
+				<td><p>Salmon: River, Ocean<br><br>Bass: River, Swamp<br><br>Cod: Ocean</p></td>
+				</tr>
+				<tr>
+				<td>Piranha</td>
+				<td>Jungle</td>
+				</tr>
+				<tr>
+				<td>Small Fish</td>
+				<td><p>Anchovies, Goldfish, &amp; Angelfish: River, Swamp<br><br>Anglerfish, &amp; Mandarinfish: Ocean</p></td>
+				</tr>
+			<tr>
+			<th colspan="2"><strong>Monsters</strong></th>
+			</tr>
+				<tr>
+				<td>Big Golem</td>
+				<td>Anywhere in Overworld</td>
+				</tr>
+				<tr>
+				<td>Flame Wraith</td>
+				<td>Nether &amp; anywhere in Overworld</td>
+				</tr>
+				<tr>
+				<td>Hell Rat</td>
+				<td>
+				<p>Nether</p>
+				</td>
+				</tr>
+				<tr>
+				<td>
+				<p>Horse Mob</p>
+				</td>
+				<td>
+				<p>Bat Horse Mob, Skeleton Horse Mob, &amp; Zombie Horse Mob: Plains, Savannah<br><br>Nightmare Horse Mob: Nether</p>
+				</td>
+				</tr>
+				<tr>
+				<td>Mini Golem</td>
+				<td>Anywhere in Overworld</td>
+				</tr>
+				<tr>
+				<td>Ogre</td>
+				<td>Nether &amp; anywhere in Overworld</td>
+				</tr>
+				<tr>
+				<td>Rat</td>
+				<td>
+				<p>Anywhere in Overworld</p>
+				</td>
+				</tr>
+				<tr>
+				<td>
+				<p>Scorpion</p>
+				</td>
+				<td>
+				<p>Cave Scorpion: Desert (underground only)<br><br>Dirt Scorpion: Desert (surface only)<br><br>Frost Scorpion: Snowy<br><br>Nether Scorpion: Nether</p>
+				</td>
+				</tr>
+				<tr>
+				<td>Silver Skeleton</td>
+				<td>Anywhere in Overworld</td>
+				</tr>
+				<tr>
+				<td>Werewolf</td>
+				<td>Taiga</td>
+				</tr>
+				<tr>
+				<td>Wraith</td>
+				<td>Anywhere in Overworld</td>
+				</tr>
+				<tr>
+				<td>Dire Wolf</td>
+				<td>Taiga</td>
+				</tr>
+		</tbody>
+	</table>
+</details>
+
+
+
+<br>
+<br>
+
+
+
+<details>
+<summary><strong>Tame and Feeding Table:</strong></summary>
+<table style="border-collapse:collapse;border-spacing:0" class="tg"><thead><tr><th style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal"><span style="font-weight:bold">Tame and Feeding Table</span></th><th style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal"></th><th style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal"></th></tr></thead>
+<tbody><tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Entity</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Tame Method</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Feeding Item</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Insects</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal"></td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal"></td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Ant</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Bee</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Crab</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Fish Net</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Seeds</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Cricket</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Dragonfly</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Fly</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Maggot</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Rotten Flesh</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Snail</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Roach</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Rotten Flesh</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Creatures</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal"></td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal"></td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Bear</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Big Cat</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Raw Meat + Medallion as child</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Raw Meat</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Bird</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Seeds</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Seeds</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Boar</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Bunny</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Carrot</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Carrot</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Crocodile</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Deer</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Duck</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Elephant</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Sugar Lumps as child</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Any wheat, vegetable or fruit</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Fox</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Goat</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Any food</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Any food</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Kitty</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Cooked Fish + Medallion</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Pet Food &amp; Milk using Kitty Bed</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Komodo Dragon</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Egg Hatching</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Raw Rat &amp; Rotten Flesh</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Mole</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Mouse</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Ostrich</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Egg Hatching</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Seeds</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Raccoon</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Any Food</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Any Food</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Scorpion</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Pet as child</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Rotten Flesh</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Snake</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Egg Hatching</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Raw Rat + Live Mouse</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Turkey</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">N/A</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Turtle</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Melon</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Melon</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Horse</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Apple</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Wheat &amp; Hay Stack</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Wyvern</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Egg Hatching</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Raw Rat</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal"><span style="font-weight:bold">Water Creatures</span></td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal"></td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal"></td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Dolphin</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Ride as Adult</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Raw Fish</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Fishy</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Fish Net</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Seeds</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Jellyfish</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Fish Net</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Raw Fish</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Ray</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Ride as Adult</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Raw Fish</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Shark</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Egg Hatching</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Raw Fish</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Medium Fish</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Fish Net or Egg Hatching</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Raw Fish</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Piranah</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Fish Net or Egg Hatching</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Raw Fish</td></tr>
+<tr><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Small Fish</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Fish Net or Egg Hatching</td><td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;text-align:left;vertical-align:top;word-break:normal">Seeds</td></tr></tbody></table>
+</details>   
+
+
+
+<br>
+<br>
+
+
+
+<details>
+	<summary><strong>Integration with Other Mods:</strong></summary>
+	<p><strong>Thaumcraft 4: </strong>Includes built-in aspects for all entities, blocks, and obtainable items</p>
+	<p><strong>Biome Spawning Integration:</strong></p>
+	<ul>
+		<li><p>Biomes O' Plenty</p></li>
+		<li><p>Et Futurum Requiem</p></li>
+        <li><p>Netherlicious</p></li>
+		<li><p>Highlands</p></li>
+		<li><p>Realistic Terrain Generation (Original - by ted80)</p></li>
+        <li><p>Realistic Terrain Generation (GregTech New Horizons fork)</p></li>
+		<li><p>Extra Biomes</p></li>
+	</ul>
+	<p><strong>Item Integration for Taming and Feeding Creatures:</strong></p>
+	<ul>
+		<li><p>Biomes O' Plenty</p></li>
+        <li><p>Palm's Harvestcraft</p></li>
+        <li><p>Gregtech 6</p></li>
+		<li><p>Et Futurum Requiem</p></li>
+		<li><p>Tropicraft</p></li>
+        <li><p>Growthcraft: Bamboo (for panda only)</p></li>
+        <li><p>Mega Plant Pack: Bamboo (for panda only)</p></li>
+        <li><p>Universal Bamboo: bamboo for panda only</p></li>
+        <li><p>Wa (Japanese Style Mod): bamboo for panda only</p></li>
+	</ul>
+    <p><strong>Entity Item Drop Integration:</strong></p>
+	<ul>
+		<li><p>GregTech 6: GregTech 6 provides entity item drop integration for Mo' Creatures Legacy by default</p></li>
+        <li><p>Twilight Forest: Vension for deer</p></li>
+		<li><p>Food Expansion: Horse meat for horses</p></li>
+        <li><p>Improving Minecraft: Horse meat for horses</p></li>
+        <li><p>Lots Of Food: Horse meat for horses, and Chevron for goats</p></li>
+        <li><p>Novacraft: Chevron for goats</p></li>
+        <li><p>Et Futurum Requiem: Rabbit meat, rabbit hide, and rabbit foot for bunnies</p></li>
+	</ul>
+	<p><strong>Werewolf Weakness Item Integration:</strong></p>
+	<ul>
+		<li><p>Witchery: Silver Sword, and Silver Bolts (silver bolts only work if the player has no other types of bolts in their inventory)</p></li>
+		<li><p>Mine &amp; Blade: Battlegear 2: All golden weapons</p></li>
+		<li><p>Biomes O' Plenty: Golden Scythe</p></li>
+        <li><p>Balkan's Weapons Mod: All golden weapons</p></li>
+        <li><p>Thermal Foundation: All gold, silver, and electrum weapons</p></li>
+        <li><p>Silver and gold weapon items from other mods may also work.</p></li>
+	</ul>
+    <p><strong>Witchery:</strong></p>
+	<ul>
+		<li>Provides replacement of Witchery werewolves (this is configurable through the config files). Replacement of Witchery werewolf entities work both in single-player and on server; however, the player wolf and player werewolf form replacements only work in single-player.</li>
+	</ul>
+</details>
+
+<br>
+<br>
+
+<details>
+<summary><strong>Credits &amp; Assets Used:</strong></summary>
+
+<p><strong>DrZhark, Bloodshot, BlockDaddy and remaining Original Mo' Creatures contributers</strong> - This project is a modified version of DrZhark's Mo' Creatures Mod v6.3.1 for Minecraft 1.7.10 and is licensed through the "GNU General Public License v3.0 and Further Conditions" custom license which satisfies the GNU General Public License v3.0 as per the conditions of the original project's license. DrZhark's Mo' Creatures Mod Original Forum Post: <a href="http://www.minecraftforum.net/viewtopic.php?f=25&amp;t=86929">http://www.minecraftforum.net/viewtopic.php?f=25&amp;t=86929</a>
+
+<p><strong>crazyspacekid</strong> - Entity textures were overhauled with the application of modified textures from the Mo' Creatures 16x texture pack. This asset was used with permission from the owner and proof of permission can be found inside the assets folder of the mod jar archive as an image file. All changes to original 16x textures have been documented in the "Rozmirs modifications to Mo Creature 16x Textures" text file inside the assets folder of the jar archive. Mo' Creatures 16x Curseforge Project Link: <a href="https://www.curseforge.com/minecraft/texture-packs/mo-creatures-16x"> https://www.curseforge.com/minecraft/texture-packs/mo-creatures-16x</a></p>
+    
+<p><strong>Azanor</strong> - Thaumcraft 4.2.2 API was used as a library under the MIT License to add Thaumcraft aspects to mod content.</p>
+    
+<p><strong>WildBamaBoy</strong> - Horse achievement icon textures were directly based of the Cooconed Horse item texture from the Spider Queen mod. The code for creepers being scared of kitties, and entities ignoring players on undead mounts was also sourced from the Spider Queen mod. These assets were used under the Public Domain license through the condition of section 8 of the MCA Minecraft Mod License v1.1.1 ("In the event that no public declaration of the mod's end-of-life is made within 1 year after the previous update, announcement regarding status, or official statement from an author, the mod is released into the public domain."). Additionally, all the skins for the Minecraft Comes Alive Witchery werewolf villager forms were sourced from the Minecraft Comes Alive mod, the use of these assets are satisfied through the application of the "GNU General Public License v3.0 and Further Conditions" custom license which satisfies the GNU General Public License Version 3 of the Minecraft Comes Alive mod.</p>
+    
+<p><strong>Thornack</strong> - Provided the code for replacing the Witchery player wolf and player werewolf models with the Mo Creatures dire wolf and werewolf models (<a href="https://forums.minecraftforge.net/topic/28566-1710-how-to-change-player-model-and-texture/">  https://forums.minecraftforge.net/topic/28566-1710-how-to-change-player-model-and-texture/</a>).</p>
+    
+<p><strong>ganymedes01</strong> - Code for proper damaging and item dropping for kitty litter box, kitty bed, and fish bowl was sourced from EntityArmourStand.class from the etfuturum mod. This asset was used under the Public Domain license.</p>
+  
+<p><strong>TheAetherTeam</strong> - The AchievementsAether.class and Aether.class code from the 1.7.10 Aether Mod helped me understand how to add an achievements class that is separate to the main mod class file. This asset was used under the GNU Lesser General Public License v3.0 through the custom license condition of The Aether mod "The source code of The Aether mod for Minecraft 1.7+ is under the LGPL v3.0 license".TheAetherTeam - The AchievementsAether.class and Aether.class code from the 1.7.10 Aether Mod helped me understand how to add an achievements class that is separate to the main mod class file. This asset was used under the GNU Lesser General Public License v3.0 through the custom license condition of The Aether mod "The source code of The Aether mod for Minecraft 1.7+ is under the LGPL v3.0 license". The different custom license of this project is permitted under the GNU Lesser General Public License v3.0 from the following sections:</p>
+	<p><br> GNU Lesser General Public License v3.0 - Section 0:</p>
+	<p>"..."The Library" refers to a covered work governed by this License",</p>
+	<p>"A &ldquo;Combined Work&rdquo; is a work produced by combining or linking an Application with the Library"</p>
+	<p><br> GNU Lesser General Public License v3.0 - Section 4:</p>
+	<p>"You may convey a Combined Work under terms of your choice" provided that:</p>
+	<ul>
+		<li>Private modifications are allowed.</li>
+		<li>Notice is given that the Library is used</li>
+		<li>A copy of the GNU Lesser Public License is provided along with a copy of the GNU General Public License.</li>
+		<li>Access is provided to the source code of the Library.</li>
+	</ul>
+	<p>A copy of the GNU Lesser General Public License (1.7.10 Aether Source Code License) can be found in the "Negligible Licenses" folder inside the assets folder of the mod jar archive.<br>A copy of the GNU General Public License can be found inside the assets folder of the mod jar archive.<br>The source code for the 1.7.10 Aether mod can be found here: <a href="https://github.com/The-Aether-Team/The-Aether-Archived/tree/1.7.10">https://github.com/The-Aether-Team/The-Aether-Archived/tree/1.7.10</a></p>
+
+
+<br>
+<br>
+
+
+<h4><strong>Code for Multilingual Pet Naming:</strong></h4>
+<p><strong>Andy Turner</strong> - Their answer in StackOverflow helped me understand that Chinese, Japanese, and Korean characters each require three bytes instead of one (<a href="https://stackoverflow.com/questions/59039660/how-many-bytes-of-english-and-chinese-characters-take-in-java">https://stackoverflow.com/questions/59039660/how-many-bytes-of-english-and-chinese-characters-take-in-java</a>).</p>
+ 
+<p><strong>Joop Eggen</strong> - Their answer in StackOverflow taught me how to categorize characters from a string in Java 8 based on which language they are from (<a href="https://stackoverflow.com/questions/26357938/detect-chinese-character-in-java">https://stackoverflow.com/questions/26357938/detect-chinese-character-in-java</a>).</p>
+ 
+<p><strong>Tino Didriksen</strong> - Their answer in StackOverflow taught me how many bytes a character requires based on the language that it is from (<a href="https://stackoverflow.com/questions/14485589/utf-8-how-many-bytes-are-used-by-languages-to-represent-a-visible-character">https://stackoverflow.com/questions/14485589/utf-8-how-many-bytes-are-used-by-languages-to-represent-a-visible-character</a>).</p>
+
+<p><strong>Joshua Engel</strong> - Their post taught me how to encode a string of non-ASCII characters to UTF-8 so that they can be properly processed in the code (<a href="https://www.quora.com/How-do-I-convert-a-string-to-UTF-8-in-Java">https://www.quora.com/How-do-I-convert-a-string-to-UTF-8-in-Java</a>).</p>
+
+
+<br> 
+<br>
+
+ 
+<h4><strong>Code for Wolf Altar Replacement Mod Generation:</strong></h4>
+<p><strong>GOXR3PLUS</strong> - Their answer in StackOverflow taught me how to copy a file inside a jar archive to outside the archive (<a href="https://stackoverflow.com/a/44077426/865910">https://stackoverflow.com/a/44077426/865910</a>).</p>
+ 
+<p><strong>UpcraftLP</strong> - Their answer in Minecraft Forums taught me how to get the directory of the mods folder (<a href="https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/modification-development/2700976-how-to-get-the-location-of-the-mods-directory">https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/modification-development/2700976-how-to-get-the-location-of-the-mods-directory</a>).</p>
+
+<br>
+<br>
+
+<h4><strong>Sounds Files:</strong></h4>
+<p><strong>Mike Koenig</strong> - Kitty using Litter box sound was sourced from: <a href="https://soundbible.com/313-Dig-In-A-Cat-Litter-Box.html">https://soundbible.com/313-Dig-In-A-Cat-Litter-Box.html</a>. This was used under the CC BY 3.0 DEED Attribution 3.0 Unported license. A different license for this project as a whole is acceptable under section 4a "this does not require the Collection apart from the Work itself to be made subject to the terms of this License".</p>
+
+<p><strong>Fesliyan Studios</strong> - Rattle Snake Rattle sound effects were sourced from: <a href="https://www.fesliyanstudios.com/royalty-free-sound-effects-download/rattlesnake-281">https://www.fesliyanstudios.com/royalty-free-sound-effects-download/rattlesnake-281</a> This was used under the Fesliyan Studios Sound Effects Policy license (see "Negligable Licenses" folder inside the assets folder of the mod jar archive ).</p>
+<p>The following assets were used under the Unlicense license:</p>
+<p>Panda Cub Grunt:</p>
+<ul>
+	<li><a href="https://quicksounds.com/sound/2742/panda-bear-bark-1">https://quicksounds.com/sound/2742/panda-bear-bark-1</a></li>
+	<li><a href="https://quicksounds.com/sound/2743/panda-bear-bark-2">https://quicksounds.com/sound/2743/panda-bear-bark-2</a></li>
+</ul>
+<p>Panda Cub Hurt &amp; Death: <a href="https://www.youtube.com/watch?v=YRmGZIENeq4&amp;ab_channel=audiofreeHD">https://www.youtube.com/watch?v=YRmGZIENeq4&amp;ab_channel=audiofreeHD</a></p>
+<br>
+<p>Panda Cub Hurt: <a href="https://www.youtube.com/watch?v=AyY70jPsZcc&amp;ab_channel=nosoundeffects">https://www.youtube.com/watch?v=AyY70jPsZcc&amp;ab_channel=nosoundeffects</a></p>
+<br>
+<p>Panda Adult Grunt: <a href="https://www.youtube.com/watch?v=4TANecQTYPY&amp;ab_channel=SFX-SoundEffectsForContentCreators">https://www.youtube.com/watch?v=4TANecQTYPY&amp;ab_channel=SFX-SoundEffectsForContentCreators</a></p>
+<br>
+<p>Panda Adult Hurt and Death: <a href="https://www.youtube.com/watch?v=i5Y_8s6qDdk&amp;ab_channel=FreeSoundEffect">https://www.youtube.com/watch?v=i5Y_8s6qDdk&amp;ab_channel=FreeSoundEffect</a></p>
+<br>
+<br>
+<h4><strong>Language File Translations:</strong></h4>
+<p><strong>Omgise</strong> - for the Chinese (Simplified) (zh_CN.lang) language file.</p>
+<p><strong>Hudhand & RushanM</strong> - for the Russian (ru_RU.lang) language file.</p>
+<p><strong>huihiuhuai</strong> - for the minor correction of the name for turtles in the Chinese (Simplified) (zh_CN.lang) language file.</p>
+<br>
+<br>
+<h4><strong>People who Significantly Contributed to the Development of this Project by Suggesting Ideas or by Helping Solve Major Bugs:</strong></h4>
+<p><strong>Omgise</strong> - For identifying the multilingual pet name bug.</p>
+<p><strong>quentin452</strong> - For identifying the language file crash on servers.</p>
+<p><strong>brandyyn</strong> - For suggesting features to return to the original Mo' Creatures style and identifying the entity ID conflict crash.</p>
+<p><strong>yoruki_167</strong> - For identifying the entity duplication glitch with the Mob Confinement mod and for identifying the turtle crash.</p>
+<p><strong>xronin01</strong> - For suggesting the replacement of Witchery werewolves and the Witchery wolf altar.</p>
+<br>
+<br>
+<p>===========================================================================</p>
+<p><strong>Original Mo'Creatures Contributor Credits</strong></p>
+<ul>
+	<li><p><strong>Kent C Jensen</strong> (BlockDaddy) for his amazing Ogres and fish textures. And for his incredible help with ostriches and fish bowls. He is the main force behind the horse overhaul and did all of the textures and art, as well as many of the ideas for the new horses. He has also been helping with the remodelling and retexturing. Most models and textures on this mod have been done by Kent.</p></li>
+	<li><p><strong>blood</strong> (Bloodshot AKA bloodmc) for his invaluable help with updating to 1.8.1 and Mo'Creatures SMP, and maintaning the SMP code on MoCreatures 4.2.0.</p></li>
+	<li><p><strong>ScottKillen</strong> for his help with the Extrabiomes XL.</p></li>
+	<li><p><strong>AtomicStryker</strong> for the SMP port for Minecraft 1.2.5.</p></li>
+	<li><p><strong>Cojomax</strong> for his help with adding the sounds without audiomod.</p></li>
+	<li><p><strong>Freakstricth</strong> for his help with the Forge sprites.</p></li>
+	<li><p><strong>Resuke</strong> for his sprites.</p></li>
+	<li><p><strong>Vaprtek</strong>, for his awesome Horse Model.</p></li>
+	<li><p><strong>Dorino1</strong> quack sounds plus painterly pack's duck texture.</p></li>
+	<li><p><strong>Macaque</strong> for his boar textures.</p></li>
+	<li><p><strong>KodaichiZero</strong> for his Bunnies!</p></li>
+	<li><p><strong>Rondaround</strong>: fox idea, AI, sounds and texture.</p></li>
+	<li><p><strong>_303</strong> and <strong>Risugami</strong> for their help with ModLoader and AudioMod.</p></li>
+	<li><p><strong>Corosus</strong> for pointing some optimization changes in the code.</p></li>
+	<li><p><strong>charle88</strong> for shark's model inspiration.</p></li>
+	<li><p><strong>cdrumer11</strong> for his help with the pink and white dolphin skins.</p></li>
+</ul>
+<p>===========================================================================</p>
+<br>
+  
+<p><strong>Special Thanks:</strong></p>
+<ul>
+    <li><p><strong>The Camping Rusher</strong> - If I hadn't watched his Mo' Creatures let's play as a kid, I never would have gotten into the Mo' Creatures mod, and I never would have known all the problems with the original Mo' Creatures mod for 1.7.10. Link to the playlist of his let's play: <a href="https://www.youtube.com/playlist?list=PLDzzbNR8UfN0cWzzCLucxJSII_86G9BuE"> https://www.youtube.com/playlist?list=PLDzzbNR8UfN0cWzzCLucxJSII_86G9BuE</a>.</p></li>
+</ul>
+<br>
+<br>
+  
+<p><strong>Use of anatawa12's Fork of Forge Gradle 1.2 within Project:</strong></p>
+<p>The source code of this project uses anatawa12's fork of ForgeGradle 1.2 as a library under the <a href="https://choosealicense.com/licenses/lgpl-2.1/">GNU Lesser General Public License v2.1</a>.</p>
+<p>Compiled versions of this mod are permitted under section 5 of the original license, "A program that contains no derivative of any portion of the Library, but is designed to work with the Library by being compiled or linked with it, is called a "work that uses the Library". Such a work...is not a derivative work of the Library"; consequently the conditions of the original license do not apply to the work.</p>
+	<br>
+	<p>The source code of this mod is permitted under section 6 of the original license, "you may also combine or link a "work that uses the Library" with the Library to produce a work containing portions of the Library, and distribute that work under terms of your choice" provided that:</p>
+	<ul>
+		<li><p>Private modifications are allowed.</p></li>
+		<li><p>Notice is given that the Library is used and acopy of it's original license is provided.</p></li>
+		<li><p>Access is provided to the source code of the Library.</p></li>
+	</ul>
+	<p>The source code foranatawa12's fork of ForgeGradle 1.2 can be found here: <a href="https://github.com/anatawa12/ForgeGradle-1.2">https://github.com/anatawa12/ForgeGradle-1.2</a></p>
+</details>
+
+<br>
+<br>
+
+<h4><strong>Modpack Use:</strong></h4>
+<p>Use in modpacks, no permission is required, although credit is appreciated.</p>
+
+<br>
+<br>
+
+
+<details>
+<summary><strong>Developer's Note:</strong></summary>
+<p><strong>Prologue:</strong></p>
+<p>This project first started in October 2022, which was also the time that I had started my first attempt to complete a playthrough for my modpack. But one-quarter the way into the playthrough, I realized that the content of the Mo'Creatures mod had very limited Thaumcraft aspects support. Soon I also found that the original entity textures were too detailed for vanilla Minecraft, none of the weapons had any attack damage, and that Kitty Beds weren't rendering properly. This led me to use the CraftTweaker mod to add aspects for Mo'Creatures through a script (which resulted in the <a href="https://www.curseforge.com/minecraft/customization/mo-creatures-aspects">Mo' Creatures Aspects</a> project), to backport crazyspacekid's 16x Mo'Creatures resource pack and use it for private use, and to use a Java byte code editor on the Mo' Creatures Mod to solve the weapon and Kitty Bed problem. Later I realized that the Mo' Creatures mod had become open source and everything took off from there.</p>
+<br>
+<br>
+<p><strong>Epilogue:</strong></p>
+<p>To best describe it, this development process felt like converting a machine gun into a laser cannon.</p>
+<p>It has certainly pushed my skills as a developer as I originally knew very little Java when first took on this project but the journey itself taught me a lot along the way.</p>
+<p>Nevertheless, I need to be practical and I know that I can't sustain this project forever. I feel that I've achieved everything I set out to do, and it's time to bring it to a close.</p>
+<p>A huge thank you to everyone who supported me throughout this development, whether through downloads, staring the repository, helping solve bugs, suggesting features, or through private messages. Your support made me feel that my work was truly meaningful.</p>
+</details>
+<br>
+<br>

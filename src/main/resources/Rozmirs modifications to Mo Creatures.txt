@@ -1586,3 +1586,9 @@ Made achievement language key's unique.
 
 
 Fixed unknown character in Russian translation.
+
+
+Desert snakes are now immune to cactus damage.
+
+
+Added mod page text as a html file inside the mod archive. 
