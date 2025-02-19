@@ -1592,3 +1592,6 @@ Desert snakes are now immune to cactus damage.
 
 
 Added mod page text as a html file inside the mod archive. 
+
+
+Removed "attackDolphins" config setting because it was redundant.

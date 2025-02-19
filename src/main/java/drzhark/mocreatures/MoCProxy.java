@@ -122,7 +122,6 @@ public class MoCProxy implements IGuiHandler {
     protected static final String CATEGORY_MOC_MOD_INTEGRATION_SETTINGS = "mod-integration-settings";
     protected static final String CATEGORY_MOC_CREATURE_GENERAL_SETTINGS = "creature-general-settings";
     protected static final String CATEGORY_MOC_MONSTER_GENERAL_SETTINGS = "monster-general-settings";
-    protected static final String CATEGORY_MOC_WATER_CREATURE_GENERAL_SETTINGS = "water-mob-general-settings";
     protected static final String CATEGORY_MOC_AMBIENT_GENERAL_SETTINGS = "ambient-general-settings";
     protected static final String CATEGORY_MOC_ID_SETTINGS = "custom-id-settings";
     private static final String CATEGORY_OWNERSHIP_SETTINGS = "ownership-settings";
@@ -335,9 +334,7 @@ public class MoCProxy implements IGuiHandler {
         rareItemDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "rareItemDropChance", 25, "A value of 25 means Horses/Ostriches/Scorpions/etc. have a 25% chance to drop a rare item such as a heart of darkness, unicorn horn, ect. when killed. Raise the value if you want higher drop rates.").getInt();
         slimyInsectsAndJellyfishDropSlimeballs = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "slimyInsectsAndJellyfishDropSlimeballs", false, "If true: maggots, snails, and jellyfish will drop slimeballs on death.").getBoolean(false);
         wyvernEggDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "wyvernEggDropChance", 10, "A value of 10 means wyverns have a 10% chance to drop an egg.").getInt();
-        motherWyvernEggDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "motherWyvernEggDropChance", 33, "A value of 33 means mother wyverns have a 33% chance to drop an egg.").getInt();
-
-        attackDolphins = mocSettingsConfig.get(CATEGORY_MOC_WATER_CREATURE_GENERAL_SETTINGS, "attackDolphins", false, "Allows aquatic predator creatures to hunt dolphins.").getBoolean(false);        
+        motherWyvernEggDropChance = mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "motherWyvernEggDropChance", 33, "A value of 33 means mother wyverns have a 33% chance to drop an egg.").getInt();      
         
         
         wraithsCanGoThroughWalls = mocSettingsConfig.get(CATEGORY_MOC_MONSTER_GENERAL_SETTINGS, "wraithsCanGoThroughWalls", false, "If true: wraiths and flame wraiths will be able to go through walls.").getBoolean(false);
