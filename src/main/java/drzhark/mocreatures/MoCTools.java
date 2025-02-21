@@ -162,8 +162,6 @@ public class MoCTools {
 			
 			int potionEffectDuration = nightVisionPotionEffect.getDuration() / 20; //converts potion effect duration from ticks to seconds
 			
-			System.out.println(potionEffectDuration);
-			
 			if (	//makes sure the potion effect duration is the same as set by Witchery
 					potionEffectDuration > 15
 					&& potionEffectDuration < 21
