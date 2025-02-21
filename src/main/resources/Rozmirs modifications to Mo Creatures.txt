@@ -1595,3 +1595,6 @@ Added mod page text as a html file inside the mod archive.
 
 
 Removed "attackDolphins" config setting because it was redundant.
+
+
+Removed adult panda bleating sound.

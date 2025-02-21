@@ -55,8 +55,7 @@
 	"pandaadultgrunt" : {
 		"category" : "neutral",
 		"sounds" : [
-			"pandaadultgrunt1",
-			"pandaadultgrunt2"
+			"pandaadultgrunt"
 		]
 	},
 	"pandaadulthurt" : {
