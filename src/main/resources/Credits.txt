@@ -2,7 +2,7 @@
                    CREDITS & ASSETS USED
              -----------------------------------
 
-DrZhark, Bloodshot, BlockDaddy and remaining Original Mo' Creatures contributers - This project is a modified version of DrZhark's Mo' Creatures Mod v6.3.1 for Minecraft 1.7.10 and is licensed under the "GNU General Public License v3.0 and Further Conditions" custom license which satisfies the GNU General Public License Version 3 as per the conditions of the original project's license.
+DrZhark, Bloodshot, BlockDaddy and remaining Original Mo' Creatures contributors - This project is a modified version of DrZhark's Mo' Creatures Mod v6.3.1 for Minecraft 1.7.10 and is licensed under the "GNU General Public License v3.0 and Further Conditions" custom license which satisfies the GNU General Public License Version 3 as per the conditions of the original project's license.
 	DrZhark's Mo' Creatures Mod Original Forum Post:  http://www.minecraftforum.net/viewtopic.php?f=25&t=86929
 
 
@@ -13,7 +13,7 @@ crazyspacekid - The Mo' Creatures entity textures were overhauled with the appli
 Azanor - Thaumcraft 4.2.2 API was used as a library under the MIT License to add Thaumcraft aspects to mod content.
 
 
-WildBamaBoy - The horse achievement icon textures were directly based of the Cooconed Horse item texture from the Spider Queen mod. This asset was used under the Public Domain license through the condition of section 8 of the MCA Minecraft Mod License v1.1.1 ("In the event that no public declaration of the mod’s end-of-life is made within 1 year after the previous update, announcement regarding status, or official statement from an author, the mod is released into the public domain."). Additionally, all the skins for the Minecraft Comes Alive Witchery werewolf villager forms were sourced from the Minecraft Comes Alive mod, the use of these assets are satisfied through the application of the "GNU General Public License v3.0 and Further Conditions" custom license which satisfies the GNU General Public License Version 3 of the Minecraft Comes Alive mod.
+WildBamaBoy - Horse achievement icon textures were directly based of the Cooconed Horse item texture from the Spider Queen mod. The code for creepers being scared of kitties, and entities ignoring players on undead mounts was also sourced from the Spider Queen mod. These assets were used under the Public Domain license through the condition of section 8 of the MCA Minecraft Mod License v1.1.1 ("In the event that no public declaration of the mod’s end-of-life is made within 1 year after the previous update, announcement regarding status, or official statement from an author, the mod is released into the public domain."). Additionally, all the skins for the Minecraft Comes Alive Witchery werewolf villager forms were sourced from the Minecraft Comes Alive mod, the use of these assets is satisfied through the application of the "GNU General Public License v3.0 and Further Conditions" custom license which satisfies the GNU General Public License Version 3 of the Minecraft Comes Alive mod.
 
 
 ganymedes01 - The code for proper damaging and item dropping for kitty litter box, kitty bed, and fish bowl was sourced from EntityArmourStand.class from the etfuturum mod. This asset was used under the Public Domain license.
@@ -22,7 +22,7 @@ ganymedes01 - The code for proper damaging and item dropping for kitty litter bo
 Thornack - Provided the code for replacing the Witchery player wolf and player werewolf models with the Mo Creatures dire wolf and werewolf models (https://forums.minecraftforge.net/topic/28566-1710-how-to-change-player-model-and-texture/).
 
 
-TheAetherTeam - The code in the AchievementsAether.class and Aether.class from the 1.7.10 Aether Mod helped me understand how to add an achievements class that is seperate to the main mod class file. This asset was used under the GNU Lesser General Public License v3.0 through the custom license condition of The Aether mod "The source code of The Aether mod for Minecraft 1.7+ is under the LGPL v3.0 license".
+TheAetherTeam - The code in the AchievementsAether.class and Aether.class from the 1.7.10 Aether Mod helped me understand how to add an achievements class that is separate to the main mod class file. This asset was used under the GNU Lesser General Public License v3.0 through the custom license condition of The Aether mod "The source code of The Aether mod for Minecraft 1.7+ is under the LGPL v3.0 license".
 The different custom license of this project is permitted under the GNU Lesser General Public License v3.0 from the following sections:
 
 	GNU Lesser General Public License v3.0 - Section 0:
@@ -92,9 +92,11 @@ Sounds:
 
 
 Language File Translations:
-	Omgise - Chinese (Simplified) (zh_CN.lang)
+	Omgise - for the Chinese (Simplified) (zh_CN.lang)
 	
-	Hudhand - Russian (ru_RU.lang)
+	Hudhand & RushanM - for the Russian (ru_RU.lang)
+
+	huihiuhuai - for the minor correction of the name for turtles in the Chinese (Simplified) (zh_CN.lang) language file
 
 
 
