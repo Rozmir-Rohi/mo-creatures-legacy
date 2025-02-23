@@ -1,5 +1,7 @@
 # Mo Creatures Legacy
-<strong> Project Status:</strong> Near Completion. Final Development Deadline: 23 February 2025
+<strong> Project Status:</strong> Finished & Finalized.
+
+<p><i>The developer of this project is retired and does not respond to private messages or GitHub issues.</i></p>
 
 <br><br>
 
